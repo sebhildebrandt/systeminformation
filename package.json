@@ -1,0 +1,10 @@
+{
+  "name": "sysinfo",
+  "description": "system information library",
+  "author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com>",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "request": "*",
+  }
+}
