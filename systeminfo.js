@@ -57,6 +57,8 @@
 //
 // Version history
 // --------------------------------
+// Verion 0.0.2 - 14.03.2014 - Optimization FS-Speed & CPU current speed
+//
 // Verion 0.0.1 - 13.03.2014 - initial release
 //
 // ==================================================================================
@@ -73,6 +75,7 @@ var os = require('os')
 var tmp_cores = 0;
 var tmp_platform = os.type();
 var tmp_network = {};
+var tmp_cpu_speed = 0;
 var tmp_fs_speed = {};
 
 exports.time = function() {
@@ -193,6 +196,7 @@ exports.cpu = function(callback) {
 				var line = lines[0].split(':')[1];
 				result.brand = line.split('@')[0].trim();
 				result.speed = line.split('@')[1].trim();
+				tmp_cpu_speed = parseFloat(result.speed) * 1000000000;
     		}
 
     		callback(result);
@@ -204,7 +208,7 @@ exports.cpu = function(callback) {
 // CPU - current speed
 
 exports.cpu_speed = function(callback) {
-	var result = {current : 0};
+	var result = {current : tmp_cpu_speed};
 	if (tmp_platform == 'Darwin') {
 		exec("sysctl -n hw.cpufrequency", function(error, stdout, stderr) {
 			if (!error) {
@@ -220,8 +224,10 @@ exports.cpu_speed = function(callback) {
 		} else if (fs.existsSync("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq")) {
 			output = fs.readFileSync("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
 		}
-		var lines = output.toString().split('\n');
-		result.current = parseInt(lines[0]) * 1000;
+		if (output.trim()) {
+			var lines = output.toString().split('\n');
+			result.current = parseInt(lines[0]) * 1000;
+		}
     	callback(result);
 	}
 }
@@ -366,6 +372,10 @@ exports.fs_size = function(callback) {
 // FS - speed
 
 exports.fs_speed = function(callback) {
+	var result = {
+    	read_sec : -1,
+    	write_sec : -1
+	}
 	var bytes_read  = 0;
 	var bytes_write = 0;
 
@@ -393,25 +403,24 @@ exports.fs_speed = function(callback) {
     					bytes_write = bytes_write + parseInt(line[9]) * 512;
     				}
     			});
-				if (tmp_fs_speed) {
+				if (tmp_fs_speed && tmp_fs_speed.ms) {
     				var ms = Date.now() - tmp_fs_speed.ms;
-    				read_sec  = (bytes_read  - tmp_fs_speed.bytes_read)  / (ms / 1000);
-	    			write_sec = (bytes_write - tmp_fs_speed.bytes_write) / (ms / 1000);
+    				result.read_sec  = (bytes_read  - tmp_fs_speed.bytes_read)  / (ms / 1000);
+	    			result.write_sec = (bytes_write - tmp_fs_speed.bytes_write) / (ms / 1000);
     			} else {
-    				read_sec = 0;
-    				write_sec = 0;
+    				result.read_sec = 0;
+    				result.write_sec = 0;
 	    		}
     			tmp_fs_speed.bytes_read  = bytes_read;
     			tmp_fs_speed.bytes_write = bytes_write;
     			tmp_fs_speed.ms = Date.now();
 
-	    		callback({
-    				read_sec : read_sec,
-    				write_sec : write_sec
-    			});
+	    		callback(result);
 			})
 		})
-	}  
+	} else {
+		callback(result)
+	}
 }
 
 // ----------------------------------------------------------------------------------

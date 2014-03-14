@@ -1,6 +1,6 @@
 # systeminfo
 
-Simple system monitoring library for node.js - Version 0.0.1
+Simple system monitoring library for node.js - Version 0.0.2
 
 ## Core concept
 
@@ -49,6 +49,7 @@ systeminfo.cpu(function(data) {
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 0.0.2          | 2014-03-14     | Optimization FS-Speed & CPU current speed |
 | 0.0.1          | 2014-03-13     | initial release |
 
 ## Comments
