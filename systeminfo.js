@@ -220,9 +220,9 @@ exports.cpu_speed = function(callback) {
 	} else {
 		var output = "";
 		if (fs.existsSync("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq")) {
-			output = fs.readFileSync("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq");
+			output = fs.readFileSync("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq").toString();
 		} else if (fs.existsSync("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq")) {
-			output = fs.readFileSync("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
+			output = fs.readFileSync("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq").toString();
 		}
 		if (output.trim()) {
 			var lines = output.toString().split('\n');
