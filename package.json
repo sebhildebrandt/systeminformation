@@ -1,10 +1,36 @@
 {
-  "name": "sysinfo",
-  "description": "system information library",
-  "author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com>",
-  "version": "0.0.1",
-  "private": true,
-  "dependencies": {
-    "request": "*",
-  }
+	"name": "sysinfo",
+	"version": "1.0.0",
+	"description": "Simple system and OS information library",
+	"author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com> (https://plus-innovations.com)",
+	"homepage": "https://github.com/sebhilderandt/systeminfo",
+	"main": "./lib/index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords"    : [
+		"system information",
+		"sysinfo",
+		"os",
+		"linux",
+		"osx",
+		"cpu",
+		"memory",
+		"file system",
+		"network",
+		"processes",
+		"users",
+		"internet"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sebhilderandt/systeminfo.git"
+	},
+	"dependencies": {
+		"request": "*",
+	},
+	"engines": {
+		"node": ">=0.10"
+	},
+	"engineStrict": true
 }

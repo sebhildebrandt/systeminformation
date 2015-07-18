@@ -1,6 +1,30 @@
-# systeminfo
+# systeminformation
 
-Simple system monitoring library for node.js - Version 0.0.3
+Simple system and OS information library for node.js
+
+  [![NPM Version][npm-image]][npm-url]
+  [![NPM Downloads][downloads-image]][downloads-url]
+
+## Using systeminformation
+
+### Installation
+
+```bash
+$ npm install systeminformation
+```
+
+### Usage
+
+All functions are implemented as asynchronous functions. Here a small example how to use them:
+
+```
+var si = require('systeminformation');
+
+si.cpu(function(data) {
+	console.log('CPU-Information:');
+	console.log(data);
+})
+```
 
 ## Core concept
 
@@ -8,7 +32,9 @@ Node.JS comes with some basic OS-informations, but I always wanted a little more
 
 If you have comments, suggestions & reports, please feel free to contact me!
 
-## Sections
+## Reference
+
+### Sections
 
 This library is splitted in several sections:
 
@@ -21,34 +47,88 @@ This library is splitted in several sections:
 7. Users
 8. Internet
 
-## Using +monitor
+### Command Reference and OS Support
 
-### Installation
+| command        | Linux           | OSX  | Comments |
+| -------------- | ------ | ------ | ------- |
+| si.osinfo() | X | X | |
+| - platform   | X | X | 'Linux' or 'Darwin' |
+| - distro | X | X |  |
+| - release | X | X |  |
+| - codename | | X |  |
+| - kernel | X | X | kernel release - same as os.release()|
+| - arch | X | X | same as os.arch() |
+| - hostname | X | X | same as os.hostname() |
+| - logofile | X | X | e.g. 'apple', 'debian', 'fedora', ... |
+| si.cpu() | X | X | |
+| - brand | X | X | e.g. 'Intel' |
+| - speed | X | X | e.g. '3.40GHz' |
+| si.cpu_speed() | X | X | |
+| - current | X | X | current speed  |
+| si.cores() | X | X | # cores |
+| si.sensors() | X | | |
+| - main | X | X | main temperature |
+| - cores | X | X | array of temperatures |
+| si.mem() | X | X | |
+| - total | X | X |  |
+| - free | X | X |  |
+| - used | X | X |  |
+| - active | X | X |  |
+| - buffcache | X | X |  |
+| - swaptotal | X | |  |
+| - swapused | X | |  |
+| - swapfree | X | |  |
+| si.fs_size() | X | X | returns array of mounted file systems |
+| - [0].fs | X | X | name of file system |
+| - [0].size | X | X | sizes in Bytes |
+| - [0].used | X | X | used in Bytes |
+| - [0].use | X | X | used in % |
+| - [0].mount | X | X | mount point |
+| si.fs_speed() | X | | currend transfer speed |
+| - read_sec | X | | bytes read / second |
+| - write_sec | X | | bytes written / second |
+| si.network_interfaces() | X | X | array of network interfaces |
+| - [0].iface | X | X | interface name |
+| - [0].ip4 | X | X | ip4 address |
+| - [0].ip6 | X | X | ip6 address |
+| si.network_speed('eth1') | X | | current network speed of given interface |
+| - operstate | X | | up / down |
+| - rx_sec | X | | received bytes / second |
+| - tx_sec | X | X | transferred bytes per second |
+| si.currentload() | X | X | CPU-Load in % |
+| si.fullload() | X | X | CPU-full load since bootup in % |
+| si.services('mysql, apache2, nginx') | X | X | pass comma separated string of services |
+| - [0].service | X | X | name of service |
+| - [0].running | X | X | true / false |
+| - [0].pcpu | X | X | process % CPU |
+| - [0].pmem | X | X | process % MEM |
+| si.processes() | X | X | # running processes |
+| si.processload('apache2') | X | X | detailed information about given process |
+| - proc | X | X | process name |
+| - pid | X | X | PID |
+| - cpu | X | X | process % CPU |
+| - mem | X | X | process % MEM |
+| si.users() | X | X | array of users online |
+| si.checksite(url) | X | X | response-time (ms) to fetch given URL |
 
-At the time of writing, this library is dependent on the ```request``` module, which needs to be installed seperately. I created a npm ```package.json``` file, to be able to install it easily:
+Remenber: All functions are implemented as asynchronous functions. So another example, how to use a specific function might be:
 
 ```
-npm install
-```
+var si = require('systeminformation');
 
-### Usage
-
-All functions are implemented as asynchronous functions. Here a small example how to use them:
-
-```
-var systeminfo = require('./systeminfo.js');
-
-systeminfo.cpu(function(data) {
-	console.log('CPU-Information:');
-	console.log(data);
+si.network_speed('eth1', function(data) {
+	console.log('Network Interface Speed (eth1):');
+	console.log('- is up: ' + data.operstate);
+	console.log('- RX speed/sec: ' + data.rx_sec);
+	console.log('- TX speed/sec: ' + data.tx_sec);
 })
 ```
-
 
 ## Version history
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 1.0.0          | 2015-07-18     | bug-fixes, version bumb, published as npm component |
 | 0.0.3          | 2014-04-14     | bug-fix (cpu_speed) |
 | 0.0.2          | 2014-03-14     | Optimization FS-Speed & CPU current speed |
 | 0.0.1          | 2014-03-13     | initial release |
@@ -67,13 +147,13 @@ http://www.plus-innovations.com
 
 #### Credits
 
-Written by Sebastian Hildebrandt
+Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebrandt)
 
 #### License
 
 >The MIT License (MIT)
 >
->Copyright (c) 2014 +innovations.
+>Copyright (c) 2015 +innovations.
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy
 >of this software and associated documentation files (the "Software"), to deal
@@ -93,6 +173,10 @@ Written by Sebastian Hildebrandt
 >OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 >THE SOFTWARE.
 > 
->Further details see "LICENSE" file.
+>Further details see LICENSE(LICENSE) file.
 
 
+[npm-image]: https://img.shields.io/npm/v/systeminformation.svg
+[npm-url]: https://npmjs.org/package/systeminformation
+[downloads-image]: https://img.shields.io/npm/dm/systeminformation.svg
+[downloads-url]: https://npmjs.org/package/systeminformation

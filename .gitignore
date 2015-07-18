@@ -1,0 +1,29 @@
+# MacOS 
+.DS_Store
+.Spotlight-V100
+.Trashes
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+*~
+
+# NPM
+node_modules
+.nodemonignore
+npm-debug.log
+npm*
+*.log
+*.gz
+
+# Other
+.notes.txt
+.idea
+*.ipr
+*.iws
