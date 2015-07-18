@@ -111,7 +111,7 @@ This library is splitted in several sections:
 | si.users() | X | X | array of users online |
 | si.checksite(url) | X | X | response-time (ms) to fetch given URL |
 
-Remenber: All functions are implemented as asynchronous functions. So another example, how to use a specific function might be:
+Remember: All functions are implemented as asynchronous functions! So another example, how to use a specific function might be:
 
 ```
 var si = require('systeminformation');
