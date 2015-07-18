@@ -1,36 +1,36 @@
 {
-	"name": "systeminformation",
-	"version": "1.0.0",
-	"description": "Simple system and OS information library",
-	"author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com> (https://plus-innovations.com)",
-	"homepage": "https://github.com/sebhilderandt/systeminformation",
-	"main": "./lib/index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"keywords"    : [
-		"system information",
-		"sysinfo",
-		"os",
-		"linux",
-		"osx",
-		"cpu",
-		"memory",
-		"file system",
-		"network",
-		"processes",
-		"users",
-		"internet"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/sebhilderandt/systeminformation.git"
-	},
-	"dependencies": {
-		"request": "*"
-	},
-	"engines": {
-		"node": ">=0.10"
-	},
-	"engineStrict": true
+  "name": "systeminformation",
+  "version": "1.0.1",
+  "description": "Simple system and OS information library",
+  "author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com> (https://plus-innovations.com)",
+  "homepage": "https://github.com/sebhilderandt/systeminformation",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "system information",
+    "sysinfo",
+    "os",
+    "linux",
+    "osx",
+    "cpu",
+    "memory",
+    "file system",
+    "network",
+    "processes",
+    "users",
+    "internet"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sebhilderandt/systeminformation.git"
+  },
+  "dependencies": {
+    "request": "*"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "engineStrict": true
 }
