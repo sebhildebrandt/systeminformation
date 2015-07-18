@@ -176,9 +176,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 >OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 >THE SOFTWARE.
 > 
->Further details see LICENSE file.
-
-MIT(LICENSE)
+>Further details see [LICENSE](LICENSE) file.
 
 
 [npm-image]: https://img.shields.io/npm/v/systeminformation.svg
