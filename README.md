@@ -51,7 +51,7 @@ This library is splitted in several sections:
 
 | command        | Linux           | OSX  | Comments |
 | -------------- | ------ | ------ | ------- |
-| si.osinfo() | X | X | |
+| si.osinfo() | X | X | OS information|
 | - platform   | X | X | 'Linux' or 'Darwin' |
 | - distro | X | X |  |
 | - release | X | X |  |
@@ -60,16 +60,15 @@ This library is splitted in several sections:
 | - arch | X | X | same as os.arch() |
 | - hostname | X | X | same as os.hostname() |
 | - logofile | X | X | e.g. 'apple', 'debian', 'fedora', ... |
-| si.cpu() | X | X | |
-| - brand | X | X | e.g. 'Intel' |
+| si.cpu() | X | X | CPU information|
+| - brand | X | X | e.g. 'Intel(R)' |
 | - speed | X | X | e.g. '3.40GHz' |
-| si.cpu_speed() | X | X | |
-| - current | X | X | current speed  |
+| si.cpu_currentspeed() | X | X | current speed (GHz)|
 | si.cores() | X | X | # cores |
-| si.sensors() | X | | |
+| si.cpu_temperature() | X | | CPU temperature (if sensors is installed) |
 | - main | X | X | main temperature |
 | - cores | X | X | array of temperatures |
-| si.mem() | X | X | |
+| si.mem() | X | X | Memory information|
 | - total | X | X |  |
 | - free | X | X |  |
 | - used | X | X |  |
