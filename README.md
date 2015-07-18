@@ -63,8 +63,8 @@ This library is splitted in several sections:
 | si.cpu() | X | X | CPU information|
 | - brand | X | X | e.g. 'Intel(R)' |
 | - speed | X | X | e.g. '3.40GHz' |
+| - cores | X | X | # cores |
 | si.cpu_currentspeed() | X | X | current speed (GHz)|
-| si.cores() | X | X | # cores |
 | si.cpu_temperature() | X | | CPU temperature (if sensors is installed) |
 | - main | X | X | main temperature |
 | - cores | X | X | array of temperatures |
@@ -127,6 +127,9 @@ si.network_speed('eth1', function(data) {
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 1.0.3          | 2015-07-18     | bugfix cpu cores |
+| 1.0.2          | 2015-07-18     | bugfix cpu_currentspeed, cpu_temperature |
+| 1.0.1          | 2015-07-18     | documentation update |
 | 1.0.0          | 2015-07-18     | bug-fixes, version bumb, published as npm component |
 | 0.0.3          | 2014-04-14     | bug-fix (cpu_speed) |
 | 0.0.2          | 2014-03-14     | Optimization FS-Speed & CPU current speed |
@@ -172,7 +175,8 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 >OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 >THE SOFTWARE.
 > 
->Further details see LICENSE(LICENSE) file.
+>Further details see LICENSE file.
+MIT(LICENSE)
 
 
 [npm-image]: https://img.shields.io/npm/v/systeminformation.svg
