@@ -127,6 +127,7 @@ si.network_speed('eth1', function(data) {
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 1.0.4          | 2015-07-18     | updated docs |
 | 1.0.3          | 2015-07-18     | bugfix cpu cores |
 | 1.0.2          | 2015-07-18     | bugfix cpu_currentspeed, cpu_temperature |
 | 1.0.1          | 2015-07-18     | documentation update |
@@ -176,6 +177,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 >THE SOFTWARE.
 > 
 >Further details see LICENSE file.
+
 MIT(LICENSE)
 
 
