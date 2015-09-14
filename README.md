@@ -4,7 +4,7 @@ Simple system and OS information library for [node.js][nodejs-url]
 
   [![NPM Version][npm-image]][npm-url]
   [![NPM Downloads][downloads-image]][downloads-url]
-  [![MIT license][npmjs-license]][license-url]
+  [![MIT license][license-img]][license-url]
   [![deps status][daviddm-img]][daviddm-url]
 
 ## Quick Start
@@ -154,7 +154,7 @@ Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com)
 
 Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebrandt)
 
-#### License [![MIT license][npmjs-license]][license-url]
+#### License [![MIT license][license-img]][license-url]
 
 >The [`MIT`][license-url] License (MIT)
 >
