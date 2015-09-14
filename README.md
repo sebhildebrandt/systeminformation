@@ -154,7 +154,7 @@ Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com)
 
 Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebrandt)
 
-#### License [![MIT license][license-img]][license-url]
+## License [![MIT license][license-img]][license-url]
 
 >The [`MIT`][license-url] License (MIT)
 >
