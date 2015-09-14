@@ -150,7 +150,7 @@ Sincerely,
 
 Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com)
 
-#### Credits
+## Credits
 
 Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebrandt)
 
