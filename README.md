@@ -1,11 +1,13 @@
 # systeminformation
 
-Simple system and OS information library for node.js
+Simple system and OS information library for [node.js][nodejs-url]
 
   [![NPM Version][npm-image]][npm-url]
   [![NPM Downloads][downloads-image]][downloads-url]
+  [![MIT license][npmjs-license]][license-url]
+  [![deps status][daviddm-img]][daviddm-url]
 
-## Using systeminformation
+## Quick Start
 
 ### Installation
 
@@ -127,6 +129,7 @@ si.network_speed('eth1', function(data) {
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 1.0.5          | 2015-09-14     | updated dependencies |
 | 1.0.4          | 2015-07-18     | updated docs |
 | 1.0.3          | 2015-07-18     | bugfix cpu cores |
 | 1.0.2          | 2015-07-18     | bugfix cpu_currentspeed, cpu_temperature |
@@ -144,19 +147,18 @@ If you have ideas or comments, please do not hesitate to contact me.
 Happy monitoring!
 
 Sincerely,
-Sebastian Hildebrandt
-http://www.plus-innovations.com
 
+Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com)
 
 #### Credits
 
 Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebrandt)
 
-#### License
+#### License [![MIT license][npmjs-license]][license-url]
 
->The MIT License (MIT)
+>The [`MIT`][license-url] License (MIT)
 >
->Copyright (c) 2015 +innovations.
+>Copyright &copy; 2015 Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com).
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy
 >of this software and associated documentation files (the "Software"), to deal
@@ -179,7 +181,16 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 >Further details see [LICENSE](LICENSE) file.
 
 
-[npm-image]: https://img.shields.io/npm/v/systeminformation.svg
+[npm-image]: https://img.shields.io/npm/v/systeminformation.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/systeminformation
-[downloads-image]: https://img.shields.io/npm/dm/systeminformation.svg
+[downloads-image]: https://img.shields.io/npm/dm/systeminformation.svg?style=flat-square
 [downloads-url]: https://npmjs.org/package/systeminformation
+
+[license-url]: https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE
+[license-img]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
+[npmjs-license]: https://img.shields.io/npm/l/systeminformation.svg?style=flat-square
+
+[nodejs-url]: https://nodejs.org/en/
+
+[daviddm-url]: https://david-dm.org/sebhildebrandt/systeminformation
+[daviddm-img]: https://img.shields.io/david/sebhildebrandt/systeminformation.svg?style=flat-square
