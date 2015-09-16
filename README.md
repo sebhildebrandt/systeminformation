@@ -94,7 +94,7 @@ This library is splitted in several sections:
 | - [0].ip6 | X | X | ip6 address |
 | si.network_speed('eth1') | X | | current network speed of given interface |
 | - operstate | X | | up / down |
-| - rx_sec | X | | received bytes / second |
+| - rx_sec | X | X | received bytes / second |
 | - tx_sec | X | X | transferred bytes per second |
 | si.currentload() | X | X | CPU-Load in % |
 | si.fullload() | X | X | CPU-full load since bootup in % |
@@ -153,6 +153,10 @@ Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com)
 ## Credits
 
 Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebrandt)
+
+#### Contributers
+
+Guillaume Legrain [glegrain](https://github.com/glegrain)
 
 ## License [![MIT license][license-img]][license-url]
 
