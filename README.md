@@ -129,6 +129,7 @@ si.network_speed('eth1', function(data) {
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 1.0.6          | 2015-09-17     | fixed: si.users() |
 | 1.0.5          | 2015-09-14     | updated dependencies |
 | 1.0.4          | 2015-07-18     | updated docs |
 | 1.0.3          | 2015-07-18     | bugfix cpu cores |
