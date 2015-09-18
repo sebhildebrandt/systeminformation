@@ -7,6 +7,8 @@ Simple system and OS information library for [node.js][nodejs-url]
   [![MIT license][license-img]][license-url]
   [![deps status][daviddm-img]][daviddm-url]
 
+### --- Working already on Version 2 - stay tuned ---
+
 ## Quick Start
 
 ### Installation
