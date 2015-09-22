@@ -14,7 +14,7 @@ Simple system and OS information library for [node.js][nodejs-url]
 ### Installation
 
 ```bash
-$ npm install systeminformation
+$ npm install systeminformation --save
 ```
 
 ### Usage
