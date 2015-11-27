@@ -160,8 +160,8 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 
 #### Contributers
 
-Guillaume Legrain [glegrain](https://github.com/glegrain)
-Riccardo Novaglia [richy24](https://github.com/richy24)
+- Guillaume Legrain [glegrain](https://github.com/glegrain)
+- Riccardo Novaglia [richy24](https://github.com/richy24)
 
 ## License [![MIT license][license-img]][license-url]
 
