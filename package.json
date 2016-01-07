@@ -1,10 +1,10 @@
 {
   "name": "systeminformation",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "description": "Simple system and OS information library",
   "license": "MIT",
   "author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com> (https://plus-innovations.com)",
-  "homepage": "https://github.com/sebhilderandt/systeminformation",
+  "homepage": "https://github.com/sebhildebrandt/systeminformation",
   "main": "./lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,6 +12,8 @@
   "keywords": [
     "system information",
     "sysinfo",
+    "monitor",
+    "monitoring",
     "os",
     "linux",
     "osx",
@@ -25,13 +27,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/sebhilderandt/systeminformation.git"
+    "url": "https://github.com/sebhildebrandt/systeminformation.git"
   },
-  "dependencies": {
-    "request": "^2.61.0"
-  },
+  "os": [
+    "darwin",
+    "linux"
+  ],
   "engines": {
     "node": ">=0.10"
-  },
-  "engineStrict": true
+  }
 }
