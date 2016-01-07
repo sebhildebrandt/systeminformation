@@ -37,7 +37,7 @@ New Functions
 - `system`: hardware info (manufacturer, product/model name, version, serial, uuid)
 - `networkConnections`: number of active connections
 - `inetLatency`: latency in ms to external resource (internet)
-- `getSystemData`: returns on json object with static data at once (OS, CPU, Network Interfaces - they should not change until restarted)
+- `getStaticData`: returns on json object with static data at once (OS, CPU, Network Interfaces - they should not change until restarted)
 - `getDynamicData`: returns on json object with all dynamic data at once (e.g. for monitoring agents)
 - `getAllData`: returns on json object with all data (static and dynamic) at once
 
@@ -189,7 +189,7 @@ This library is splitted in several sections:
 | - status | X | X | status code |
 | - ms | X | X | response time in ms |
 | si.inetLatency(cb) | X | X | response-time (ms) to external ressource |
-| si.getSystemData(cb)  | X | X | all static data at once |
+| si.getStaticData(cb)  | X | X | all static data at once |
 | si.getDynamicData(cb,srv,iface) | X | X | all dynamic data at once |
 | si.getAllData(cb,srv,iface) | X | X | all data at once |
 
@@ -229,6 +229,7 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 2.0.1          | 2016-01-07     | minor patch |
 | 2.0.0          | 2016-01-07     | new major version 2.0 |
 | 1.0.7          | 2015-11-27     | fixed: si.network_speed() |
 | 1.0.6          | 2015-09-17     | fixed: si.users() |
