@@ -46,6 +46,7 @@ npm*
 *.gz
 
 # Other
+*_conflict-
 .notes.txt
 .idea
 *.ipr

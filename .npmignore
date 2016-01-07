@@ -10,3 +10,4 @@ CVS
 npm-debug.log
 *.sublime-project
 *.sublime-workspace
+*_conflict-
