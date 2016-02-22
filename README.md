@@ -229,6 +229,7 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 2.0.4          | 2016-02-22     | tiny correction - removed double quotes CPU brand, ... |
 | 2.0.3          | 2016-02-22     | optimized cpuCurrentspeed |
 | 2.0.2          | 2016-02-22     | added CoreOS identification |
 | 2.0.1          | 2016-01-07     | minor patch |
