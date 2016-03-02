@@ -229,6 +229,7 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 2.0.5          | 2016-03-02     | changed .gitignore |
 | 2.0.4          | 2016-02-22     | tiny correction - removed double quotes CPU brand, ... |
 | 2.0.3          | 2016-02-22     | optimized cpuCurrentspeed |
 | 2.0.2          | 2016-02-22     | added CoreOS identification |

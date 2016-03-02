@@ -51,3 +51,9 @@ npm*
 .idea
 *.ipr
 *.iws
+*.sublime-project
+*.sublime-workspace
+.*.swp
+.svn
+.hg
+CVS
