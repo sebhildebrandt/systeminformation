@@ -61,12 +61,12 @@ Function Changes
 - `cpu_temperature`/`cpuTemperature`: -1 is new default (and indicates that non sensors are installed)
 - `cpu_temperature`/`cpuTemperature`: new result `max` which returns max temperature of all cores
 - `cpu_currentspeed`/`cpuCurrentspeed`: now in GHz
-- `cpu`: splitted `manufacturer` (e.g. Intel) and `brand` (e.g. Core 2 Duo) 
+- `cpu`: splitted `manufacturer` (e.g. Intel) and `brand` (e.g. Core 2 Duo)
 - `network_speed`/`networkStats`: now better support for OS X (also support for `operstate`)
-- `network_speed`/`networkStats`: overall received and transferred bytes (rx, tx) 
+- `network_speed`/`networkStats`: overall received and transferred bytes (rx, tx)
 - `mem`: now better support for OS X (also support for `swaptotal`, `swapused`, `swapfree`)
 - `fs_size`/`fsSize`: use-values now in % (0 - 100% instead of 0 - 1)  
-- `fs_speed`/`fsStats`: now also full support for OS X 
+- `fs_speed`/`fsStats`: now also full support for OS X
 - `checksite`/`inetChecksite`: new result structure - see command reference
 - `checksite`/`inetChecksite`: ms (former `response_ms`): -1 if not ok
 
@@ -79,10 +79,10 @@ Other changes
 
 ## Core concept
 
-[Node.js][nodejs-url] comes with some basic OS information, but I always wanted a little more. So I came up to write this 
-little library. This library is still work in progress. In version 2 I cleaned up a lot of inconsistencies and bugs, but 
-there is for sure room for improvement. I was only able to test it on several Debian, Raspbian, Ubuntu distributions as well 
-as OS X (Mavericks, Yosemite, El Captain). Version 2 now also supports nearly all functionality on OS X/Darwin platforms. 
+[Node.js][nodejs-url] comes with some basic OS information, but I always wanted a little more. So I came up to write this
+little library. This library is still work in progress. In version 2 I cleaned up a lot of inconsistencies and bugs, but
+there is for sure room for improvement. I was only able to test it on several Debian, Raspbian, Ubuntu distributions as well
+as OS X (Mavericks, Yosemite, El Captain). Version 2 now also supports nearly all functionality on OS X/Darwin platforms.
 But be careful, this library will definitely NOT work on Windows platforms!
 
 If you have comments, suggestions & reports, please feel free to contact me!
@@ -156,8 +156,11 @@ This library is splitted in several sections:
 | si.fsStats(cb) | X | X | current transfer stats |
 | - rx | X | X | bytes read since startup |
 | - wx | X | X | bytes written since startup |
-| - rx_sec | X | X | bytes read / second (* see notes) |
-| - wx_sec | X | X | bytes written / second (* see notes) |
+| - rx_sec | X | X | bytes read / second |
+| - wx_sec | X | X | bytes written / second |
+| - rIOPS | X |  | read IOPS on all mounted drives |
+| - wIOPS | X |  | write IOPS on all mounted drives |
+| - totalIOPS | X |  | global IOPS on all mounted drives |
 | si.networkInterfaces(cb) | X | X | array of network interfaces |
 | - [0].iface | X | X | interface name |
 | - [0].ip4 | X | X | ip4 address |
@@ -195,7 +198,7 @@ This library is splitted in several sections:
 
 ### cb: Asynchronous Function Calls (callback)
 
-Remember: all functions (except `version` and `time`) are implemented as asynchronous (callback) functions! 
+Remember: all functions (except `version` and `time`) are implemented as asynchronous (callback) functions!
 So another example, how to use a specific function might be:
 
 ```
@@ -211,17 +214,11 @@ si.networkStats('eth1', function(data) {
 })
 ```
 
-### *: Additional Notes
-
-In `fsStats` and `networkStats` the results per second values (rx_sec, ...) are calculated beginning 
-with the second call of the function. It is determined by calculating the difference of transferred bytes 
-divided by the time between two calls of the function.
-
 ## Known Issues
 
 There is one major things, that I was still not able to solve:
 
-For OS X, I did not find a reliable way to get the CPU temperature. All suggestions I found did not work on current version of OS X on different machines (intel platform). So if anyone has an idea, this would be helpful. 
+For OS X, I did not find a reliable way to get the CPU temperature. All suggestions I found did not work on current version of OS X on different machines (intel platform). So if anyone has an idea, this would be helpful.
 
 I am happy to discuss any comments and suggestions. Please feel free to contact me if you see any possibility of improvement!
 
@@ -269,10 +266,10 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 
 ## Copyright Information
 
-Linux is a registered trademark of Linus Torvalds, OS X is a registered trademark of Apple Inc., 
-Windows is a registered trademark of Microsoft Corporation. Node.js is a trademark of Joyent Inc., 
-Intel is a trademark of Intel Corporation, Raspberry Pi is a trademark of the Raspberry Pi Foundation, 
-Debian is a trademark of the Debian Project, Ubuntu is a trademark of Canonical Ltd. 
+Linux is a registered trademark of Linus Torvalds, OS X is a registered trademark of Apple Inc.,
+Windows is a registered trademark of Microsoft Corporation. Node.js is a trademark of Joyent Inc.,
+Intel is a trademark of Intel Corporation, Raspberry Pi is a trademark of the Raspberry Pi Foundation,
+Debian is a trademark of the Debian Project, Ubuntu is a trademark of Canonical Ltd.
 All other trademarks are the property of their respective owners.
 
 ## License [![MIT license][license-img]][license-url]
@@ -298,7 +295,7 @@ All other trademarks are the property of their respective owners.
 >LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 >OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 >THE SOFTWARE.
-> 
+>
 >Further details see [LICENSE](LICENSE) file.
 
 
