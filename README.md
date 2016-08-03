@@ -312,7 +312,7 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 3.0.0          | 2016-08-02     | new major version 3.0 |
+| 3.0.0          | 2016-08-03     | new major version 3.0 |
 | 2.0.5          | 2016-03-02     | changed .gitignore |
 | 2.0.4          | 2016-02-22     | tiny correction - removed double quotes CPU brand, ... |
 | 2.0.3          | 2016-02-22     | optimized cpuCurrentspeed |
