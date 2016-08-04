@@ -29,7 +29,7 @@ si.cpu(function(data) {
 	console.log(data);
 })
 
-// promises style
+// promises style - new in version 3
 si.cpu()
 	.then(data => console.log(data))
 	.catch(error => console.error(error));
@@ -41,9 +41,9 @@ si.cpu()
 - works only with [node.js][nodejs-url] **v4.0.0** and above (using now internal ES6 promise function, arrow functions, ...)
 - **Promises**. As you can see above, you can now also use it in a promise oriented way. But callbacks are still supported.
 - `cpuCurrentspeed`: now returns an object with current minimal, maximal and average CPU frequencies of all cores.
-- `networkInterfaces`: now providing one more detail: internal - true if this is an internal interface like "lo"
-- `mem`: now supports also `free` (Version 3.3.10 and above); extended information `avaliable` (potentially available memory)
+- `mem`: now supports also newer versions of `free` (Version 3.3.10 and above); extended information `avaliable` (potentially available memory)
 - `fsStats`: added information sum bytes read + write (tx) and sum transfer rate/sec (tx_sec) 
+- `networkInterfaces`: now providing one more detail: internal - true if this is an internal interface like "lo"
 - `networkConnections`: instead of only counting sockets, you now get an array of objects with connection details for each socket (protocol, local and peer address, state)
 - `users`: now provides an array of objects with users online including detailed session information (login date/time, ip address, terminal, command) 
 - `inetLatency`: now you can provide a host against which you want to test latency (default is 8.8.8.8)
@@ -56,7 +56,7 @@ New Functions
 
 Bug Fixes
 
-- several bug fixes (like assess errors)
+- several bug fixes (like assess errors in `cpuCurrentspeed`, potentially incorrect results in `users`, ...)
 - testet on even more platforms and linux distributions
 
 **Be aware**, that the new version 3.x is **NOT fully backward compatible** to version 2.x ...
@@ -276,9 +276,11 @@ si.networkStats('eth1', function(data) {
 })
 ```
 
-**Promises Style** (new in version 3.0)
+### Promises
 
-When omitting callback parameter (cb), then you can use all function in a promise oriented way:
+**Promises Style** is new in version 3.0. 
+
+When omitting callback parameter (cb), then you can use all function in a promise oriented way. All functions (exept of `version` and `time`) are returning a promis, that you can consume:
 
 ```
 si.networkStats('eth1')
