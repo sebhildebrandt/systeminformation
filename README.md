@@ -168,9 +168,9 @@ This library is splitted in several sections:
 | - speed | X | X | in GHz e.g. '3.40' |
 | - cores | X | X | # cores |
 | si.cpuCurrentspeed(cb) | X | X | current CPU speed (in GHz)|
-| - avg | X | | avg CPU speed (all cores) |
-| - min | X | | min CPU speed (all cores) |
-| - max | X | | max CPU speed (all cores) |
+| - avg | X | X | avg CPU speed (all cores) |
+| - min | X | X | min CPU speed (all cores) |
+| - max | X | X | max CPU speed (all cores) |
 | si.cpuTemperature(cb) | X | | CPU temperature (if sensors is installed) |
 | - main | X | | main temperature |
 | - cores | X | | array of temperatures |
@@ -206,7 +206,7 @@ This library is splitted in several sections:
 | - rIO_sec | X | X | read IO per sec (* see notes) |
 | - wIO_sec | X | X | write IO per sec (* see notes) |
 | - tIO_sec | X | X | total IO per sec (* see notes) |
-| - ms | X |  | interval length (for per second values) |
+| - ms | X | X | interval length (for per second values) |
 | si.networkInterfaces(cb) | X | X | array of network interfaces |
 | - [0].iface | X | X | interface name |
 | - [0].ip4 | X | X | ip4 address |
@@ -227,7 +227,9 @@ This library is splitted in several sections:
 | - [0].peeraddress | X | X | peer address |
 | - [0].peerport | X | X | peer port |
 | - [0].state | X | X | like ESTABLISHED, TIME_WAIT, ... |
-| si.currentLoad(cb) | X | X | CPU-Load in % |
+| si.currentLoad(cb) | X | X | CPU-Load |
+| - avgload | X | X | average load  |
+| - currentload | X | X | CPU-Load in % |
 | si.fullLoad(cb) | X | X | CPU-full load since bootup in % |
 | si.services('mysql, apache2', cb) | X | X | pass comma separated string of services |
 | - [0].name | X | X | name of service |
@@ -235,6 +237,9 @@ This library is splitted in several sections:
 | - [0].pcpu | X | X | process % CPU |
 | - [0].pmem | X | X | process % MEM |
 | si.processes(cb) | X | X | # running processes |
+| - all | X | X | # of all processes |
+| - running | X | X | # of all processes running |
+| - blocked | X | X | # of all processes blocked |
 | si.processLoad('apache2',cb) | X | X | detailed information about given process |
 | - proc | X | X | process name |
 | - pid | X | X | PID |
@@ -314,6 +319,7 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.0.1          | 2016-08-17     | Bug-Fix disksIO, users, updated docs |
 | 3.0.0          | 2016-08-03     | new major version 3.0 |
 | 2.0.5          | 2016-03-02     | changed .gitignore |
 | 2.0.4          | 2016-02-22     | tiny correction - removed double quotes CPU brand, ... |
@@ -353,6 +359,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Guillaume Legrain [glegrain](https://github.com/glegrain)
 - Riccardo Novaglia [richy24](https://github.com/richy24)
 - Quentin Busuttil [Buzut](https://github.com/Buzut)
+- lapsio [lapsio](https://github.com/lapsio)
 
 ## Copyright Information
 
