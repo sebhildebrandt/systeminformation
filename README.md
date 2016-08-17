@@ -36,6 +36,15 @@ si.cpu()
 
 ```
 
+## News and Changes
+
+### Latest Activity
+
+- Version 3.1.0: added [Docker][docker-url] support. Now you can scan your docker containers and get their stats 
+- Version 3.0.0: added DisksIO - overall diskIO and IOPS values for all mounted volumes
+
+Here all changes more detailed:
+
 ### Major (breaking) Changes - Version 3
 
 - works only with [node.js][nodejs-url] **v4.0.0** and above (using now internal ES6 promise function, arrow functions, ...)
@@ -52,7 +61,10 @@ si.cpu()
 
 New Functions
 
-- `disksIO`: returns overall diskIO and IOPS values for all mounted volumes
+- `dockerContainers`: returns a list of all docker containers (new in version 3.1)
+- `dockerContainerStats`: returns statistics for a specific docker container (new in version 3.1)
+- `dockerAll`: returns a list of all docker containers including their stats (new in version 3.1)
+- `disksIO`: returns overall diskIO and IOPS values for all mounted volumes (new in version 3.0)
 
 Bug Fixes
 
@@ -137,7 +149,8 @@ This library is splitted in several sections:
 8. Processes
 9. Users
 10. Internet
-11. GetAll
+11. Docker
+12. GetAll
 
 ### Function Reference and OS Support
 
@@ -258,6 +271,28 @@ This library is splitted in several sections:
 | - status | X | X | status code |
 | - ms | X | X | response time in ms |
 | si.inetLatency(host, cb) | X | X | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
+| si.dockerContainers(all, cb) | X | X | returns array of active/all docker containers |
+| - [0].id | X | X | ID of container |
+| - [0].name | X | X | name of container |
+| - [0].image | X | X | name of image |
+| - [0].imageID | X | X | ID of image |
+| - [0].command | X | X | command |
+| - [0].created | X | X | creation time |
+| - [0].state | X | X | created, running, exited |
+| - [0].ports | X | X | array of ports |
+| - [0].mounts | X | X | array of mounts |
+| si.dockerContainerStats(id, cb) | X | X | statistics for a specific container |
+| - id | X | X | Container ID |
+| - mem_usage | X | X | memory usage in bytes |
+| - mem_limit | X | X | memory limit (max mem) in bytes |
+| - mem_percent | X | X | memory usage in percent |
+| - cpu_percent | X | X | cpu usage in percent |
+| - pids | X | X | number of processes |
+| - netIO.rx | X | X | received bytes via network |
+| - netIO.wx | X | X | sent bytes via network |
+| - blockIO.r | X | X | bytes read from BlockIO |
+| - blockIO.w | X | X | bytes written to BlockIO |
+| si.dockerAll(cb) | X | X | list of all containers including their stats<br>in one single array |
 | si.getStaticData(cb)  | X | X | all static data at once |
 | si.getDynamicData(srv,iface,cb) | X | X | all dynamic data at once |
 | si.getAllData(srv,iface,cb) | X | X | all data at once |
@@ -319,6 +354,7 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.1.0          | 2016-08-18     | added Docker stats |
 | 3.0.1          | 2016-08-17     | Bug-Fix disksIO, users, updated docs |
 | 3.0.0          | 2016-08-03     | new major version 3.0 |
 | 2.0.5          | 2016-03-02     | changed .gitignore |
@@ -406,6 +442,7 @@ All other trademarks are the property of their respective owners.
 [npmjs-license]: https://img.shields.io/npm/l/systeminformation.svg?style=flat-square
 
 [nodejs-url]: https://nodejs.org/en/
+[docker-url]: https://www.docker.com/
 
 [daviddm-img]: https://img.shields.io/david/sebhildebrandt/systeminformation.svg?style=flat-square
 [daviddm-url]: https://david-dm.org/sebhildebrandt/systeminformation

@@ -28,7 +28,8 @@
     "network connections",
     "processes",
     "users",
-    "internet"
+    "internet",
+    "docker"
   ],
   "repository": {
     "type": "git",
