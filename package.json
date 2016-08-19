@@ -29,6 +29,7 @@
     "processes",
     "users",
     "internet",
+    "battery",
     "docker"
   ],
   "repository": {

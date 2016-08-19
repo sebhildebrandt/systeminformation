@@ -44,6 +44,8 @@ si.cpu()
 - Version 3.1.0: added [Docker][docker-url] support. Now you can scan your docker containers and get their stats 
 - Version 3.0.0: added DisksIO - overall diskIO and IOPS values for all mounted volumes
 
+I also created a little CLI-Tool called [mmon][mmon-github-url]  (micro-monitor), also available via [github][mmon-github-url] and [npm][mmon-npm-url]
+
 Here all changes more detailed:
 
 ### Major (breaking) Changes - Version 3
@@ -363,7 +365,8 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 3.2.0          | 2016-08-20     | added battery information |
+| 3.2.1          | 2016-08-19     | updated docs, improvement system |
+| 3.2.0          | 2016-08-19     | added battery information |
 | 3.1.1          | 2016-08-18     | improved system and os detection (vm, ...), bugfix disksIO |
 | 3.1.0          | 2016-08-18     | added Docker stats |
 | 3.0.1          | 2016-08-17     | Bug-Fix disksIO, users, updated docs |
@@ -460,3 +463,6 @@ All other trademarks are the property of their respective owners.
 
 [issues-img]: https://img.shields.io/github/issues/sebhildebrandt/systeminformation.svg?style=flat-square
 [issues-url]: https://github.com/sebhildebrandt/systeminformation/issues
+
+[mmon-npm-url]: https://npmjs.org/package/mmon
+[mmon-github-url]: https://github.com/sebhildebrandt/mmon
