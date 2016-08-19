@@ -40,6 +40,7 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.2.0: added battery support. If a battery is installed, you get information about status and current capacity level  
 - Version 3.1.0: added [Docker][docker-url] support. Now you can scan your docker containers and get their stats 
 - Version 3.0.0: added DisksIO - overall diskIO and IOPS values for all mounted volumes
 
@@ -61,6 +62,7 @@ Here all changes more detailed:
 
 New Functions
 
+- `battery`: retrieves battery status and charging level (new in version 3.2)
 - `dockerContainers`: returns a list of all docker containers (new in version 3.1)
 - `dockerContainerStats`: returns statistics for a specific docker container (new in version 3.1)
 - `dockerAll`: returns a list of all docker containers including their stats (new in version 3.1)
@@ -68,6 +70,7 @@ New Functions
 
 Bug Fixes
 
+- bugfix `disksIO` - on OSX read and write got mixed up
 - several bug fixes (like assess errors in `cpuCurrentspeed`, potentially incorrect results in `users`, ...)
 - testet on even more platforms and linux distributions
 
@@ -198,6 +201,12 @@ This library is splitted in several sections:
 | - swaptotal | X | X |  |
 | - swapused | X | X |  |
 | - swapfree | X | X |  |
+| si.battery(cb) | X | X | battery information |
+| - hasbattery | X | X | indicates presence of battery |
+| - ischarging | X | X | indicates if battery is charging |
+| - maxcapacity | X | X | max capacity of battery |
+| - currentcapacity | X | X | current capacity of battery |
+| - percent | X | X | charging level in percent |
 | si.fsSize(cb) | X | X | returns array of mounted file systems |
 | - [0].fs | X | X | name of file system |
 | - [0].size | X | X | sizes in Bytes |
@@ -354,6 +363,8 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.2.0          | 2016-08-20     | added battery information |
+| 3.1.1          | 2016-08-18     | improved system and os detection (vm, ...), bugfix disksIO |
 | 3.1.0          | 2016-08-18     | added Docker stats |
 | 3.0.1          | 2016-08-17     | Bug-Fix disksIO, users, updated docs |
 | 3.0.0          | 2016-08-03     | new major version 3.0 |
