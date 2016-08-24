@@ -40,11 +40,12 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.3.0: added process list. Get full process list including details like cpu and mem usage, status, command, ...   
 - Version 3.2.0: added battery support. If a battery is installed, you get information about status and current capacity level  
 - Version 3.1.0: added [Docker][docker-url] support. Now you can scan your docker containers and get their stats 
 - Version 3.0.0: added DisksIO - overall diskIO and IOPS values for all mounted volumes
 
-I also created a little CLI-Tool called [mmon][mmon-github-url]  (micro-monitor), also available via [github][mmon-github-url] and [npm][mmon-npm-url]
+I also created a little command line tool called [mmon][mmon-github-url]  (micro-monitor), also available via [github][mmon-github-url] and [npm][mmon-npm-url]
 
 Here all changes more detailed:
 
@@ -64,6 +65,7 @@ Here all changes more detailed:
 
 New Functions
 
+- `processes`: now returns also a process list with all process details (new in version 3.3)
 - `battery`: retrieves battery status and charging level (new in version 3.2)
 - `dockerContainers`: returns a list of all docker containers (new in version 3.1)
 - `dockerContainerStats`: returns statistics for a specific docker container (new in version 3.1)
@@ -264,6 +266,8 @@ This library is splitted in several sections:
 | - all | X | X | # of all processes |
 | - running | X | X | # of all processes running |
 | - blocked | X | X | # of all processes blocked |
+| - sleeping | X | X | # of all processes sleeping |
+| - list | X | X | # list of all processes incl. details |
 | si.processLoad('apache2',cb) | X | X | detailed information about given process |
 | - proc | X | X | process name |
 | - pid | X | X | PID |
@@ -365,6 +369,7 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.3.0          | 2016-08-24     | process list added to processes |
 | 3.2.1          | 2016-08-19     | updated docs, improvement system |
 | 3.2.0          | 2016-08-19     | added battery information |
 | 3.1.1          | 2016-08-18     | improved system and os detection (vm, ...), bugfix disksIO |
@@ -416,7 +421,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 Linux is a registered trademark of Linus Torvalds, OS X is a registered trademark of Apple Inc.,
 Windows is a registered trademark of Microsoft Corporation. Node.js is a trademark of Joyent Inc.,
 Intel is a trademark of Intel Corporation, Raspberry Pi is a trademark of the Raspberry Pi Foundation,
-Debian is a trademark of the Debian Project, Ubuntu is a trademark of Canonical Ltd.
+Debian is a trademark of the Debian Project, Ubuntu is a trademark of Canonical Ltd., Docker is a trademarks of Docker, Inc.
 All other trademarks are the property of their respective owners.
 
 ## License [![MIT license][license-img]][license-url]
