@@ -256,6 +256,9 @@ This library is splitted in several sections:
 | si.currentLoad(cb) | X | X | CPU-Load |
 | - avgload | X | X | average load  |
 | - currentload | X | X | CPU-Load in % |
+| - currentload_user | X |   | CPU-Load User in % |
+| - currentload_nice | X |   | CPU-Load Nice in % |
+| - currentload_system | X |   | CPU-Load System in % |
 | si.fullLoad(cb) | X | X | CPU-full load since bootup in % |
 | si.services('mysql, apache2', cb) | X | X | pass comma separated string of services |
 | - [0].name | X | X | name of service |
@@ -369,6 +372,7 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.3.1          | 2016-08-30     | rewritten processes current cpu usage |
 | 3.3.0          | 2016-08-24     | process list added to processes |
 | 3.2.1          | 2016-08-19     | updated docs, improvement system |
 | 3.2.0          | 2016-08-19     | added battery information |
