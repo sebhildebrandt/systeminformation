@@ -40,6 +40,7 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.4.0: rewritten currentLoad and CPU load for processes (linux). This is now much more accurate.    
 - Version 3.3.0: added process list. Get full process list including details like cpu and mem usage, status, command, ...   
 - Version 3.2.0: added battery support. If a battery is installed, you get information about status and current capacity level  
 - Version 3.1.0: added [Docker][docker-url] support. Now you can scan your docker containers and get their stats 
@@ -372,7 +373,8 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 3.3.1          | 2016-08-30     | rewritten processes current cpu usage |
+| 3.4.1          | 2016-08-30     | updated docs |
+| 3.4.0          | 2016-08-30     | rewritten processes current cpu usage |
 | 3.3.0          | 2016-08-24     | process list added to processes |
 | 3.2.1          | 2016-08-19     | updated docs, improvement system |
 | 3.2.0          | 2016-08-19     | added battery information |
@@ -425,7 +427,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 Linux is a registered trademark of Linus Torvalds, OS X is a registered trademark of Apple Inc.,
 Windows is a registered trademark of Microsoft Corporation. Node.js is a trademark of Joyent Inc.,
 Intel is a trademark of Intel Corporation, Raspberry Pi is a trademark of the Raspberry Pi Foundation,
-Debian is a trademark of the Debian Project, Ubuntu is a trademark of Canonical Ltd., Docker is a trademarks of Docker, Inc.
+Debian is a trademark of the Debian Project, Ubuntu is a trademark of Canonical Ltd., Docker is a trademark of Docker, Inc.
 All other trademarks are the property of their respective owners.
 
 ## License [![MIT license][license-img]][license-url]
