@@ -66,6 +66,7 @@ Here all changes more detailed:
 
 New Functions
 
+- `networkInterfaceDefault`: returns default network interface (new in version 3.4)
 - `processes`: now returns also a process list with all process details (new in version 3.3)
 - `battery`: retrieves battery status and charging level (new in version 3.2)
 - `dockerContainers`: returns a list of all docker containers (new in version 3.1)
@@ -239,6 +240,7 @@ This library is splitted in several sections:
 | - [0].ip4 | X | X | ip4 address |
 | - [0].ip6 | X | X | ip6 address |
 | - [0].internal | X | X | true if internal interface |
+| si.networkInterfaceDefault(cb) | X | X | get name of default network interface |
 | si.networkStats(iface,cb) | X | X | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface|
 | - iface | X | X | interface |
 | - operstate | X | X | up / down |
@@ -373,6 +375,7 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.4.2          | 2016-09-01     | improved default network interface |
 | 3.4.1          | 2016-08-30     | updated docs |
 | 3.4.0          | 2016-08-30     | rewritten processes current cpu usage |
 | 3.3.0          | 2016-08-24     | process list added to processes |
