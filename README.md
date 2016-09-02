@@ -10,6 +10,8 @@ Simple system and OS information library for [node.js][nodejs-url]
 
 ## Quick Start
 
+Collection of 25+ functions to retrieve detailed hardware, system and OS information (linux and OSX only)  
+
 ### Installation
 
 ```bash
@@ -375,6 +377,7 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.4.3          | 2016-09-02     | tiny bug fix fsStats, DisksIO OSX |
 | 3.4.2          | 2016-09-01     | improved default network interface |
 | 3.4.1          | 2016-08-30     | updated docs |
 | 3.4.0          | 2016-08-30     | rewritten processes current cpu usage |
