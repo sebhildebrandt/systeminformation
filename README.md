@@ -394,6 +394,7 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.5.1          | 2016-09-14     | bugfix graphics info |
 | 3.5.0          | 2016-09-14     | added graphics info (controller, display) |
 | 3.4.4          | 2016-09-02     | tiny fixes system.model, getDefaultNetworkInterface |
 | 3.4.3          | 2016-09-02     | tiny bug fix fsStats, disksIO OSX |
