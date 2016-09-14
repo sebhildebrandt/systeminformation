@@ -42,6 +42,7 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.5.0: added graphics info (controller and display).    
 - Version 3.4.0: rewritten currentLoad and CPU load for processes (linux). This is now much more accurate.    
 - Version 3.3.0: added process list. Get full process list including details like cpu and mem usage, status, command, ...   
 - Version 3.2.0: added battery support. If a battery is installed, you get information about status and current capacity level  
@@ -68,6 +69,7 @@ Here all changes more detailed:
 
 New Functions
 
+- `graphics`: returns arrays of graphics controllers and displays (new in version 3.5)
 - `networkInterfaceDefault`: returns default network interface (new in version 3.4)
 - `processes`: now returns also a process list with all process details (new in version 3.3)
 - `battery`: retrieves battery status and charging level (new in version 3.2)
@@ -215,6 +217,21 @@ This library is splitted in several sections:
 | - maxcapacity | X | X | max capacity of battery |
 | - currentcapacity | X | X | current capacity of battery |
 | - percent | X | X | charging level in percent |
+| si.graphics(cb) | X | X | arrays of graphics controllers and displays |
+| - controllers[0].model | X | X | graphics controller model |
+| - controllers[0].vendor | X | X | e.g. ATI |
+| - controllers[0].bus | X | X | on which bus (e.g. PCIe) |
+| - controllers[0].vram | X | X | VRAM size (in MB) |
+| - controllers[0].vramDynamic | X | X | true if dynamicly allocated ram |
+| - displays[0].model | X | X | Monitor/Display Model |
+| - displays[0].main | X | X | true if main monitor |
+| - displays[0].builtin | X | X | true if built in monitor |
+| - displays[0].connection | X | X | e.g. DisplayPort or HDMI |
+| - displays[0].resolutionx | X | X | pixel horizontal |
+| - displays[0].resolutiony | X | X | pixel vertical |
+| - displays[0].depth | X | X | color depth in bits |
+| - displays[0].sizex | X | X | size in mm horizontal |
+| - displays[0].sizey | X | X | size in mm vertical |
 | si.fsSize(cb) | X | X | returns array of mounted file systems |
 | - [0].fs | X | X | name of file system |
 | - [0].size | X | X | sizes in Bytes |
@@ -377,6 +394,7 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.5.0          | 2016-09-14     | added graphics info (controller, display) |
 | 3.4.4          | 2016-09-02     | tiny fixes system.model, getDefaultNetworkInterface |
 | 3.4.3          | 2016-09-02     | tiny bug fix fsStats, disksIO OSX |
 | 3.4.2          | 2016-09-01     | improved default network interface |

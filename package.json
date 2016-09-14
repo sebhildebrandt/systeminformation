@@ -30,7 +30,11 @@
     "users",
     "internet",
     "battery",
-    "docker"
+    "docker",
+    "graphics",
+    "graphic card",
+    "graphic controller",
+    "display"
   ],
   "repository": {
     "type": "git",
