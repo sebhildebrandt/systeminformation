@@ -42,6 +42,7 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.6.0: added versions (kernel, ssl, node, npm, pm2, ...).    
 - Version 3.5.0: added graphics info (controller and display).    
 - Version 3.4.0: rewritten currentLoad and CPU load for processes (linux). This is now much more accurate.    
 - Version 3.3.0: added process list. Get full process list including details like cpu and mem usage, status, command, ...   
@@ -69,6 +70,7 @@ Here all changes more detailed:
 
 New Functions
 
+- `versions`: returns object of versions - kernel, ssl, node, npm, ...(new in version 3.6)
 - `graphics`: returns arrays of graphics controllers and displays (new in version 3.5)
 - `networkInterfaceDefault`: returns default network interface (new in version 3.4)
 - `processes`: now returns also a process list with all process details (new in version 3.3)
@@ -188,6 +190,7 @@ This library is splitted in several sections:
 | - arch | X | X | same as os.arch() |
 | - hostname | X | X | same as os.hostname() |
 | - logofile | X | X | e.g. 'apple', 'debian', 'fedora', ... |
+| si.versions(cb) | X | X | Version information (kernel, ssl, node, ...) |
 | si.cpu(cb) | X | X | CPU information|
 | - manufacturer | X | X | e.g. 'Intel(R)' |
 | - brand | X | X | e.g. 'Core(TM)2 Duo' |
@@ -394,6 +397,7 @@ I am happy to discuss any comments and suggestions. Please feel free to contact 
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.6.0          | 2016-09-14     | added versions (kernel, ssl, node, npm, pm2, ...) |
 | 3.5.1          | 2016-09-14     | bugfix graphics info |
 | 3.5.0          | 2016-09-14     | added graphics info (controller, display) |
 | 3.4.4          | 2016-09-02     | tiny fixes system.model, getDefaultNetworkInterface |
