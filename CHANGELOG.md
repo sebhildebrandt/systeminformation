@@ -87,6 +87,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.7.1          | 2016-11-03     | code refactoring |
 | 3.7.0          | 2016-11-02     | extended docker stats, and no longer relying on curl |
 | 3.6.0          | 2016-09-14     | added versions (kernel, ssl, node, npm, pm2, ...) |
 | 3.5.1          | 2016-09-14     | bugfix graphics info |
