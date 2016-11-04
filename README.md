@@ -42,7 +42,7 @@ si.cpu()
 
 ### Latest Activity
 
-- Version 3.8.0: added dockerContainerProcesses (docker process inside container).
+- Version 3.8.0: added dockerContainerProcesses (array of processes inside a docker container).
 - Version 3.7.0: extended docker stats.
 - Version 3.6.0: added versions (kernel, ssl, node, npm, pm2, ...).    
 - Version 3.5.0: added graphics info (controller and display).    
