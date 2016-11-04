@@ -42,6 +42,7 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.8.0: added dockerContainerProcesses (docker process inside container).
 - Version 3.7.0: extended docker stats.
 - Version 3.6.0: added versions (kernel, ssl, node, npm, pm2, ...).    
 - Version 3.5.0: added graphics info (controller and display).    
@@ -260,7 +261,22 @@ This library is splitted in several sections:
 | - percpu_stats | X | X | detailed per cpu stats |
 | - memory_stats | X | X | detailed memory stats |
 | - networks | X | X | detailed network stats per interface |
-| si.dockerAll(cb) | X | X | list of all containers including their stats<br>in one single array |
+| si.dockerContainerProcesses(id, cb) | X | X | array of processes inside a container |
+| - [0].pid_host | X | X | process ID (host) |
+| - [0].ppid | X | X | parent process ID |
+| - [0].pgid | X | X | process group ID |
+| - [0].user | X | X | effective user name |
+| - [0].ruser | X | X | real user name |
+| - [0].group | X | X | effective group name |
+| - [0].rgroup | X | X | real group name |
+| - [0].stat | X | X | process state |
+| - [0].time | X | X | accumulated CPU time |
+| - [0].elapsed | X | X | elapsed running time |
+| - [0].nice | X | X |  nice value |
+| - [0].rss | X | X | resident set size |
+| - [0].vsz | X | X | virtual size in Kbytes |
+| - [0].command | X | X | command and arguments |
+| si.dockerAll(cb) | X | X | list of all containers including their stats<br>and processes in one single array |
 | si.getStaticData(cb)  | X | X | all static data at once |
 | si.getDynamicData(srv,iface,cb) | X | X | all dynamic data at once |
 | si.getAllData(srv,iface,cb) | X | X | all data at once |

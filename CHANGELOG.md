@@ -16,6 +16,7 @@
 
 New Functions
 
+- `dockerContainerProcesses`: returns processes for a specific docker container (new in version 3.8)
 - `versions`: returns object of versions - kernel, ssl, node, npm, ...(new in version 3.6)
 - `graphics`: returns arrays of graphics controllers and displays (new in version 3.5)
 - `networkInterfaceDefault`: returns default network interface (new in version 3.4)
@@ -87,6 +88,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.8.0          | 2016-11-04     | added dockerContainerProcesses |
 | 3.7.1          | 2016-11-03     | code refactoring |
 | 3.7.0          | 2016-11-02     | extended docker stats, and no longer relying on curl |
 | 3.6.0          | 2016-09-14     | added versions (kernel, ssl, node, npm, pm2, ...) |
