@@ -42,6 +42,7 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.9.0: extended networkInterfaces (added MAC address).
 - Version 3.8.0: added dockerContainerProcesses (array of processes inside a docker container).
 - Version 3.7.0: extended docker stats.
 - Version 3.6.0: added versions (kernel, ssl, node, npm, pm2, ...).    
@@ -183,6 +184,7 @@ This library is splitted in several sections:
 | - [0].iface | X | X | interface name |
 | - [0].ip4 | X | X | ip4 address |
 | - [0].ip6 | X | X | ip6 address |
+| - [0].mac | X | X | MAC address |
 | - [0].internal | X | X | true if internal interface |
 | si.networkInterfaceDefault(cb) | X | X | get name of default network interface |
 | si.networkStats(iface,cb) | X | X | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface|
