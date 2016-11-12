@@ -42,6 +42,7 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.10.0: added blockDevices (list of disks, partitions, raids and roms).
 - Version 3.9.0: extended networkInterfaces (added MAC address).
 - Version 3.8.0: added dockerContainerProcesses (array of processes inside a docker container).
 - Version 3.7.0: extended docker stats.
@@ -160,10 +161,19 @@ This library is splitted in several sections:
 | - displays[0].sizey | X | X | size in mm vertical |
 | si.fsSize(cb) | X | X | returns array of mounted file systems |
 | - [0].fs | X | X | name of file system |
+| - [0].type | X | X | type of file system |
 | - [0].size | X | X | sizes in Bytes |
 | - [0].used | X | X | used in Bytes |
 | - [0].use | X | X | used in % |
 | - [0].mount | X | X | mount point |
+| si.blockDevices(cb) | X | X | returns array of disks, partitions,<br>raids and roms |
+| - [0].name | X | X | name |
+| - [0].type | X | X | type |
+| - [0].fstype | X | X | file system type (e.g. ext4) |
+| - [0].mount | X | X | mount point |
+| - [0].size | X | X | size in bytes |
+| - [0].physical | X | X | physical type (HDD, SSD, CD/DVD) |
+| - [0].uuid | X | X | UUID |
 | si.fsStats(cb) | X | X | current transfer stats |
 | - rx | X | X | bytes read since startup |
 | - wx | X | X | bytes written since startup |

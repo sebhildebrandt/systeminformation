@@ -16,6 +16,7 @@
 
 New Functions
 
+- `blockDevices`: returns array of block devices like disks, partitions, raids, roms (new in version 3.10)
 - `dockerContainerProcesses`: returns processes for a specific docker container (new in version 3.8)
 - `versions`: returns object of versions - kernel, ssl, node, npm, ...(new in version 3.6)
 - `graphics`: returns arrays of graphics controllers and displays (new in version 3.5)
@@ -88,6 +89,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.10.0         | 2016-11-12     | added blockDevices, fixed fsSize, added file system type |
 | 3.9.0          | 2016-11-11     | added MAC address to networkInterfaces, fixed currentLoad |
 | 3.8.1          | 2016-11-04     | updated docs |
 | 3.8.0          | 2016-11-04     | added dockerContainerProcesses |
