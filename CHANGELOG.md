@@ -89,6 +89,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.10.1         | 2016-11-14     | optimization fsStats, disksIO, networkStats |
 | 3.10.0         | 2016-11-12     | added blockDevices, fixed fsSize, added file system type |
 | 3.9.0          | 2016-11-11     | added MAC address to networkInterfaces, fixed currentLoad |
 | 3.8.1          | 2016-11-04     | updated docs |
