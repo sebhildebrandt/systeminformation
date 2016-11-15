@@ -10,7 +10,7 @@ Simple system and OS information library for [node.js][nodejs-url]
 
 ## Quick Start
 
-Collection of 25+ functions to retrieve detailed hardware, system and OS information (linux and OSX only)  
+Collection of 30+ functions to retrieve detailed hardware, system and OS information (linux and OSX only)
 
 ### Installation
 
@@ -42,16 +42,17 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.11.0: blockDevices now also for OSX and also extended (+ label, model, serial, protocol).
 - Version 3.10.0: added blockDevices (list of disks, partitions, raids and roms).
 - Version 3.9.0: extended networkInterfaces (added MAC address).
 - Version 3.8.0: added dockerContainerProcesses (array of processes inside a docker container).
 - Version 3.7.0: extended docker stats.
-- Version 3.6.0: added versions (kernel, ssl, node, npm, pm2, ...).    
-- Version 3.5.0: added graphics info (controller and display).    
-- Version 3.4.0: rewritten currentLoad and CPU load for processes (linux). This is now much more accurate.    
-- Version 3.3.0: added process list. Get full process list including details like cpu and mem usage, status, command, ...   
-- Version 3.2.0: added battery support. If a battery is installed, you get information about status and current capacity level  
-- Version 3.1.0: added [Docker][docker-url] support. Now you can scan your docker containers and get their stats 
+- Version 3.6.0: added versions (kernel, ssl, node, npm, pm2, ...).
+- Version 3.5.0: added graphics info (controller and display).
+- Version 3.4.0: rewritten currentLoad and CPU load for processes (linux). This is now much more accurate.
+- Version 3.3.0: added process list. Get full process list including details like cpu and mem usage, status, command, ...
+- Version 3.2.0: added battery support. If a battery is installed, you get information about status and current capacity level
+- Version 3.1.0: added [Docker][docker-url] support. Now you can scan your docker containers and get their stats
 - Version 3.0.0: added DisksIO - overall diskIO and IOPS values for all mounted volumes
 
 ### Changelog
@@ -174,6 +175,10 @@ This library is splitted in several sections:
 | - [0].size | X | X | size in bytes |
 | - [0].physical | X | X | physical type (HDD, SSD, CD/DVD) |
 | - [0].uuid | X | X | UUID |
+| - [0].label | X | X | label |
+| - [0].model | X | X | model |
+| - [0].serial | X |   | serial |
+| - [0].protocol | X | X | protocol (SATA, PCI-Express, ...) |
 | si.fsStats(cb) | X | X | current transfer stats |
 | - rx | X | X | bytes read since startup |
 | - wx | X | X | bytes written since startup |
@@ -314,7 +319,7 @@ si.networkStats('eth1', function(data) {
 
 ### Promises
 
-**Promises Style** is new in version 3.0. 
+**Promises Style** is new in version 3.0.
 
 When omitting callback parameter (cb), then you can use all function in a promise oriented way. All functions (exept of `version` and `time`) are returning a promis, that you can consume:
 

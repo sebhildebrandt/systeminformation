@@ -1,4 +1,4 @@
-# Changelog 
+# Changelog
 
 ### Major (breaking) Changes - Version 3
 
@@ -6,10 +6,10 @@
 - **Promises**. As you can see above, you can now also use it in a promise oriented way. But callbacks are still supported.
 - `cpuCurrentspeed`: now returns an object with current minimal, maximal and average CPU frequencies of all cores.
 - `mem`: now supports also newer versions of `free` (Version 3.3.10 and above); extended information `avaliable` (potentially available memory)
-- `fsStats`: added information sum bytes read + write (tx) and sum transfer rate/sec (tx_sec) 
+- `fsStats`: added information sum bytes read + write (tx) and sum transfer rate/sec (tx_sec)
 - `networkInterfaces`: now providing one more detail: internal - true if this is an internal interface like "lo"
 - `networkConnections`: instead of only counting sockets, you now get an array of objects with connection details for each socket (protocol, local and peer address, state)
-- `users`: now provides an array of objects with users online including detailed session information (login date/time, ip address, terminal, command) 
+- `users`: now provides an array of objects with users online including detailed session information (login date/time, ip address, terminal, command)
 - `inetLatency`: now you can provide a host against which you want to test latency (default is 8.8.8.8)
 - `getDynamicData`: changed order of parameters (callback - if provided - is now the last one): `getDynamicData(srv, network, callback)`
 - `getAllData`: changed order of parameters (callback - if provided - is now the last one): `getAllData(srv, network, callback)`
@@ -89,6 +89,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.11.0         | 2016-11-15     | blockDevices for OSX and extended blockDevices |
 | 3.10.2         | 2016-11-14     | bug fix fsSize on OSX |
 | 3.10.1         | 2016-11-14     | optimization fsStats, disksIO, networkStats |
 | 3.10.0         | 2016-11-12     | added blockDevices, fixed fsSize, added file system type |
