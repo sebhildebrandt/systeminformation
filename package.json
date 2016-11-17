@@ -32,6 +32,8 @@
     "internet",
     "battery",
     "docker",
+    "docker stats",
+    "docker processes",
     "graphics",
     "graphic card",
     "graphic controller",
