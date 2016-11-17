@@ -23,6 +23,7 @@
     "file system",
     "fsstats",
     "diskio",
+    "block devices",
     "netstats",
     "network",
     "network connections",

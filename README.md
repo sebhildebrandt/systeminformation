@@ -42,6 +42,7 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.12.0: refactoring and extended currentLoad (better OSX coverage and added irq load).
 - Version 3.11.0: blockDevices now also for OSX and also extended (+ label, model, serial, protocol).
 - Version 3.10.0: added blockDevices (list of disks, partitions, raids and roms).
 - Version 3.9.0: extended networkInterfaces (added MAC address).
@@ -94,7 +95,7 @@ This library is splitted in several sections:
 
 ### Function Reference and OS Support
 
-| function        | Linux           | OS X  | Comments |
+| Function        | Linux           | OS X  | Comments |
 | -------------- | ------ | ------ | ------- |
 | si.version() | X | X | library version (no callback/promise) |
 | si.time() | X | X | time information (no callback/promise) |
@@ -220,9 +221,10 @@ This library is splitted in several sections:
 | si.currentLoad(cb) | X | X | CPU-Load |
 | - avgload | X | X | average load  |
 | - currentload | X | X | CPU-Load in % |
-| - currentload_user | X |   | CPU-Load User in % |
-| - currentload_nice | X |   | CPU-Load Nice in % |
-| - currentload_system | X |   | CPU-Load System in % |
+| - currentload_user | X | X | CPU-Load User in % |
+| - currentload_nice | X | X | CPU-Load Nice in % |
+| - currentload_system | X | X | CPU-Load System in % |
+| - currentload_irq | X | X | CPU-Load System in % |
 | si.fullLoad(cb) | X | X | CPU-full load since bootup in % |
 | si.services('mysql, apache2', cb) | X | X | pass comma separated string of services |
 | - [0].name | X | X | name of service |
