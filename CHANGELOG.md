@@ -16,6 +16,7 @@
 
 New Functions
 
+- `shell`: returns standard shell e.g. /bin/bash (new in version 3.13)
 - `blockDevices`: returns array of block devices like disks, partitions, raids, roms (new in version 3.10)
 - `dockerContainerProcesses`: returns processes for a specific docker container (new in version 3.8)
 - `versions`: returns object of versions - kernel, ssl, node, npm, ...(new in version 3.6)
@@ -89,6 +90,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.13.0         | 2016-11-23     | added shell (returns standard shell) |
 | 3.12.0         | 2016-11-17     | refactoring and extended currentLoad |
 | 3.11.2         | 2016-11-16     | blockDevices: improved for older lsblk versions |
 | 3.11.1         | 2016-11-16     | fixed small bug in blockDevices |

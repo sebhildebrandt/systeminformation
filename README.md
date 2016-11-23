@@ -42,6 +42,7 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.13.0: added shell (returns standard shell)
 - Version 3.12.0: refactoring and extended currentLoad (better OSX coverage and added irq load).
 - Version 3.11.0: blockDevices now also for OSX and also extended (+ label, model, serial, protocol).
 - Version 3.10.0: added blockDevices (list of disks, partitions, raids and roms).
@@ -117,6 +118,7 @@ This library is splitted in several sections:
 | - hostname | X | X | same as os.hostname() |
 | - logofile | X | X | e.g. 'apple', 'debian', 'fedora', ... |
 | si.versions(cb) | X | X | Version information (kernel, ssl, node, ...) |
+| si.shell(cb) | X | X | standard shell |
 | si.cpu(cb) | X | X | CPU information|
 | - manufacturer | X | X | e.g. 'Intel(R)' |
 | - brand | X | X | e.g. 'Core(TM)2 Duo' |
