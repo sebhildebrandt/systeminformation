@@ -42,6 +42,7 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.14.0: added currentLoad per cpu/core, cpu cache (L1, L2, L3) and cpu flags 
 - Version 3.13.0: added shell (returns standard shell)
 - Version 3.12.0: refactoring and extended currentLoad (better OSX coverage and added irq load).
 - Version 3.11.0: blockDevices now also for OSX and also extended (+ label, model, serial, protocol).
@@ -124,6 +125,12 @@ This library is splitted in several sections:
 | - brand | X | X | e.g. 'Core(TM)2 Duo' |
 | - speed | X | X | in GHz e.g. '3.40' |
 | - cores | X | X | # cores |
+| si.cpuFlags(cb) | X | X | CPU flags|
+| si.cpuCache(cb) | X | X | CPU cache sizes |
+| - l1d | X | X | L1D size |
+| - l1i | X | X | L1I size |
+| - l2 | X | X | L2 size |
+| - l3 | X | X | L3 size |
 | si.cpuCurrentspeed(cb) | X | X | current CPU speed (in GHz)|
 | - avg | X | X | avg CPU speed (all cores) |
 | - min | X | X | min CPU speed (all cores) |
@@ -227,6 +234,7 @@ This library is splitted in several sections:
 | - currentload_nice | X | X | CPU-Load Nice in % |
 | - currentload_system | X | X | CPU-Load System in % |
 | - currentload_irq | X | X | CPU-Load System in % |
+| - cpus[] | X | X | current loads per CPU in % |
 | si.fullLoad(cb) | X | X | CPU-full load since bootup in % |
 | si.services('mysql, apache2', cb) | X | X | pass comma separated string of services |
 | - [0].name | X | X | name of service |

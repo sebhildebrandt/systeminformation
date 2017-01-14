@@ -16,6 +16,9 @@
 
 New Functions
 
+- `cpuCache`: returns CPU cache (L1, L2, L3) sizes (new in version 3.14)
+- `cpuFlags`: returns CPU flags (new in version 3.14)
+- `currentLoad.cpus`: returns current load per cpu/core in an array (new in version 3.14)
 - `shell`: returns standard shell e.g. /bin/bash (new in version 3.13)
 - `blockDevices`: returns array of block devices like disks, partitions, raids, roms (new in version 3.10)
 - `dockerContainerProcesses`: returns processes for a specific docker container (new in version 3.8)
@@ -29,8 +32,9 @@ New Functions
 - `dockerAll`: returns a list of all docker containers including their stats (new in version 3.1)
 - `disksIO`: returns overall diskIO and IOPS values for all mounted volumes (new in version 3.0)
 
-Bug Fixes
+Bug Fixes / improvements
 
+- improvement `cpuTemperature` - works now also on Raspberry Pi 
 - bugfix `disksIO` - on OSX read and write got mixed up
 - several bug fixes (like assess errors in `cpuCurrentspeed`, potentially incorrect results in `users`, ...)
 - testet on even more platforms and linux distributions
@@ -90,6 +94,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.14.0         | 2017-01-14     | added currentLoad per cpu/core, cpu cache and cpu flags |
 | 3.13.0         | 2016-11-23     | added shell (returns standard shell) |
 | 3.12.0         | 2016-11-17     | refactoring and extended currentLoad |
 | 3.11.2         | 2016-11-16     | blockDevices: improved for older lsblk versions |
