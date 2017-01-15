@@ -42,6 +42,7 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.15.0: added cpuTemperature also for OSX 
 - Version 3.14.0: added currentLoad per cpu/core, cpu cache (L1, L2, L3) and cpu flags 
 - Version 3.13.0: added shell (returns standard shell)
 - Version 3.12.0: refactoring and extended currentLoad (better OSX coverage and added irq load).
@@ -136,9 +137,9 @@ This library is splitted in several sections:
 | - min | X | X | min CPU speed (all cores) |
 | - max | X | X | max CPU speed (all cores) |
 | si.cpuTemperature(cb) | X | | CPU temperature (if sensors is installed) |
-| - main | X | | main temperature |
-| - cores | X | | array of temperatures |
-| - max | X | | max temperature |
+| - main | X | X | main temperature |
+| - cores | X | X | array of temperatures |
+| - max | X | X | max temperature |
 | si.mem(cb) | X | X | Memory information|
 | - total | X | X | total memory |
 | - free | X | X | not used |
