@@ -358,10 +358,6 @@ divided by the time between two calls of the function.
 
 ## Known Issues
 
-There is one major things, that I was still not able to solve:
-
-For OS X, I did not find a reliable way to get the CPU temperature. All suggestions I found did not work on current version of OS X on different machines (intel platform). So if anyone has an idea, this would be helpful.
-
 I am happy to discuss any comments and suggestions. Please feel free to contact me if you see any possibility of improvement!
 
 ## Comments
