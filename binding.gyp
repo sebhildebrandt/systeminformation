@@ -1,7 +1,9 @@
 {
   'targets': [
-    "target_name": "smc",
-    "sources": [],
+    {
+      "target_name": "smc",
+      "sources": [],
+    }
   ],
   'conditions': [
     ['OS=="mac"', {
