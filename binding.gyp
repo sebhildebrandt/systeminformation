@@ -1,7 +1,7 @@
 {
   'targets': [
     {
-      "target_name": "smc",
+      "target_name": "none",
       "sources": [],
     }
   ],
