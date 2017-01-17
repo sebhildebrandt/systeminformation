@@ -136,7 +136,7 @@ This library is splitted in several sections:
 | - avg | X | X | avg CPU speed (all cores) |
 | - min | X | X | min CPU speed (all cores) |
 | - max | X | X | max CPU speed (all cores) |
-| si.cpuTemperature(cb) | X | | CPU temperature (if sensors is installed) |
+| si.cpuTemperature(cb) | X | X | CPU temperature (if sensors is installed) |
 | - main | X | X | main temperature |
 | - cores | X | X | array of temperatures |
 | - max | X | X | max temperature |
