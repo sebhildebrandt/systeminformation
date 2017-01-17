@@ -382,6 +382,11 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Quentin Busuttil [Buzut](https://github.com/Buzut)
 - lapsio [lapsio](https://github.com/lapsio)
 
+OSX Temperature: Credits here are going to:
+ 
+- Massimiliano Marcon [mmarcon](https://github.com/mmarcon) - for his work on [smc-code][smc-code-url]
+- Sébastien Lavoie[lavoiesl](https://github.com/lavoiesl) for his work on [osx-cpu-temp][osx-cpu-temp-url] code. 
+
 ## Copyright Information
 
 Linux is a registered trademark of Linus Torvalds, OS X is a registered trademark of Apple Inc.,
@@ -394,7 +399,7 @@ All other trademarks are the property of their respective owners.
 
 >The [`MIT`][license-url] License (MIT)
 >
->Copyright &copy; 2014-2016 Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com).
+>Copyright &copy; 2014-2017 Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com).
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy
 >of this software and associated documentation files (the "Software"), to deal
@@ -438,3 +443,6 @@ All other trademarks are the property of their respective owners.
 
 [mmon-npm-url]: https://npmjs.org/package/mmon
 [mmon-github-url]: https://github.com/sebhildebrandt/mmon
+
+[smc-code-url]: https://github.com/mmarcon/node-smc
+[osx-cpu-temp-url]: https://github.com/lavoiesl/osx-cpu-temp

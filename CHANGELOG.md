@@ -94,6 +94,8 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.15.1         | 2017-01-17     | minor cpuTemperature fix (OSX) |
+| 3.15.0         | 2017-01-15     | added cpuTemperature also for OSX |
 | 3.14.0         | 2017-01-14     | added currentLoad per cpu/core, cpu cache and cpu flags |
 | 3.13.0         | 2016-11-23     | added shell (returns standard shell) |
 | 3.12.0         | 2016-11-17     | refactoring and extended currentLoad |
