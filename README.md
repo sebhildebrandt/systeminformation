@@ -42,22 +42,23 @@ si.cpu()
 
 ### Latest Activity
 
-- Version 3.15.0: added cpuTemperature also for OSX 
-- Version 3.14.0: added currentLoad per cpu/core, cpu cache (L1, L2, L3) and cpu flags 
-- Version 3.13.0: added shell (returns standard shell)
-- Version 3.12.0: refactoring and extended currentLoad (better OSX coverage and added irq load).
-- Version 3.11.0: blockDevices now also for OSX and also extended (+ label, model, serial, protocol).
-- Version 3.10.0: added blockDevices (list of disks, partitions, raids and roms).
-- Version 3.9.0: extended networkInterfaces (added MAC address).
-- Version 3.8.0: added dockerContainerProcesses (array of processes inside a docker container).
-- Version 3.7.0: extended docker stats.
-- Version 3.6.0: added versions (kernel, ssl, node, npm, pm2, ...).
-- Version 3.5.0: added graphics info (controller and display).
-- Version 3.4.0: rewritten currentLoad and CPU load for processes (linux). This is now much more accurate.
-- Version 3.3.0: added process list. Get full process list including details like cpu and mem usage, status, command, ...
-- Version 3.2.0: added battery support. If a battery is installed, you get information about status and current capacity level
+- Version 3.16.0: `blockDevices`: added removable attribute
+- Version 3.15.0: added `cpuTemperature` also for OSX 
+- Version 3.14.0: added `currentLoad` per cpu/core, cpu cache (L1, L2, L3) and cpu flags 
+- Version 3.13.0: added `shell` (returns standard shell)
+- Version 3.12.0: refactoring and extended `currentLoad` (better OSX coverage and added irq load).
+- Version 3.11.0: `blockDevices` now also for OSX and also extended (+ label, model, serial, protocol).
+- Version 3.10.0: added `blockDevices` (list of disks, partitions, raids and roms).
+- Version 3.9.0: extended `networkInterfaces` (added MAC address).
+- Version 3.8.0: added `dockerContainerProcesses` (array of processes inside a docker container).
+- Version 3.7.0: extended `dockerContainerStats`.
+- Version 3.6.0: added `versions` (kernel, ssl, node, npm, pm2, ...).
+- Version 3.5.0: added `graphics` info (controller and display).
+- Version 3.4.0: rewritten `currentLoad` and CPU load for processes (linux). This is now much more accurate.
+- Version 3.3.0: added `processes.list`. Get full process list including details like cpu and mem usage, status, command, ...
+- Version 3.2.0: added `battery` support. If a battery is installed, you get information about status and current capacity level
 - Version 3.1.0: added [Docker][docker-url] support. Now you can scan your docker containers and get their stats
-- Version 3.0.0: added DisksIO - overall diskIO and IOPS values for all mounted volumes
+- Version 3.0.0: added `disksIO` - overall diskIO and IOPS values for all mounted volumes
 
 ### Changelog
 
@@ -188,7 +189,8 @@ This library is splitted in several sections:
 | - [0].uuid | X | X | UUID |
 | - [0].label | X | X | label |
 | - [0].model | X | X | model |
-| - [0].serial | X |   | serial |
+| - [0].serial | X |  | serial |
+| - [0].removable | X | X | serial |
 | - [0].protocol | X | X | protocol (SATA, PCI-Express, ...) |
 | si.fsStats(cb) | X | X | current transfer stats |
 | - rx | X | X | bytes read since startup |
@@ -381,6 +383,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Riccardo Novaglia [richy24](https://github.com/richy24)
 - Quentin Busuttil [Buzut](https://github.com/Buzut)
 - lapsio [lapsio](https://github.com/lapsio)
+- csy [csy](https://github.com/csy1983)
 
 OSX Temperature: Credits here are going to:
  
