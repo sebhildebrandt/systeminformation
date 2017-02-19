@@ -17,6 +17,7 @@
     "os",
     "linux",
     "osx",
+    "windows",
     "cpu",
     "cpuload",
     "memory",
@@ -45,7 +46,8 @@
   },
   "os": [
     "darwin",
-    "linux"
+    "linux",
+    "win32"
   ],
   "engines": {
     "node": ">=4.0.0"

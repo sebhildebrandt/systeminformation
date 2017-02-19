@@ -94,6 +94,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.17.0         | 2017-02-19     | windows support for some first functions, extended process list (linux)|
 | 3.16.0         | 2017-01-19     | blockDevices: added removable attribute + fix |
 | 3.15.1         | 2017-01-17     | minor cpuTemperature fix (OSX) |
 | 3.15.0         | 2017-01-15     | added cpuTemperature also for OSX |
