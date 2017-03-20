@@ -44,8 +44,8 @@ si.cpu()
 
 - Version 3.17.0: windows support for some very first functions (work in progress)
 - Version 3.16.0: `blockDevices`: added removable attribute
-- Version 3.15.0: added `cpuTemperature` also for OSX 
-- Version 3.14.0: added `currentLoad` per cpu/core, cpu cache (L1, L2, L3) and cpu flags 
+- Version 3.15.0: added `cpuTemperature` also for OSX
+- Version 3.14.0: added `currentLoad` per cpu/core, cpu cache (L1, L2, L3) and cpu flags
 - Version 3.13.0: added `shell` (returns standard shell)
 - Version 3.12.0: refactoring and extended `currentLoad` (better OSX coverage and added irq load).
 - Version 3.11.0: `blockDevices` now also for OSX and also extended (+ label, model, serial, protocol).
@@ -72,7 +72,7 @@ little library. This library is still work in progress. Version 3 comes with fur
 requires now node.js version 4.0 and above. Another big change is, that all functions now return promises. You can use them
 like before with callbacks OR with promises (see example in this documentation). I am sure, there is for sure room for improvement.
 I was only able to test it on several Debian, Raspbian, Ubuntu distributions as well as OS X (Mavericks, Yosemite, El Captain).
-Since version 2 nearly all functionality is available on OS X/Darwin platforms. 
+Since version 2 nearly all functionality is available on OS X/Darwin platforms.
 Be careful, this library has only very limited Windows support!
 
 If you have comments, suggestions & reports, please feel free to contact me!
@@ -232,7 +232,7 @@ This library is splitted in several sections:
 | - [0].peeraddress | X | X |  | peer address |
 | - [0].peerport | X | X |  | peer port |
 | - [0].state | X | X |  | like ESTABLISHED, TIME_WAIT, ... |
-| si.currentLoad(cb) | X | X |  | CPU-Load |
+| si.currentLoad(options, cb) | X | X |  | CPU-Load {raw: true} returns raw reading. <br> false(percentage) by default. |
 | - avgload | X | X |  | average load  |
 | - currentload | X | X |  | CPU-Load in % |
 | - currentload_user | X | X |  | CPU-Load User in % |
@@ -400,9 +400,9 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - csy [csy](https://github.com/csy1983)
 
 OSX Temperature: Credits here are going to:
- 
+
 - Massimiliano Marcon [mmarcon](https://github.com/mmarcon) - for his work on [smc-code][smc-code-url]
-- Sébastien Lavoie[lavoiesl](https://github.com/lavoiesl) for his work on [osx-cpu-temp][osx-cpu-temp-url] code. 
+- Sébastien Lavoie[lavoiesl](https://github.com/lavoiesl) for his work on [osx-cpu-temp][osx-cpu-temp-url] code.
 
 ## Copyright Information
 
