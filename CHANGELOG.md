@@ -94,6 +94,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.17.2         | 2017-04-24     | minor fix (removed console.log) |
 | 3.17.1         | 2017-04-23     | fixed bugs fsSize(win), si.processes (command), si.osinfo(win) |
 | 3.17.0         | 2017-02-19     | windows support for some first functions, extended process list (linux)|
 | 3.16.0         | 2017-01-19     | blockDevices: added removable attribute + fix |
