@@ -400,6 +400,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Quentin Busuttil [Buzut](https://github.com/Buzut)
 - lapsio [lapsio](https://github.com/lapsio)
 - csy [csy](https://github.com/csy1983)
+- Tiago Roldão [tiagoroldao](https://github.com/tiagoroldao)
 
 OSX Temperature: Credits here are going to:
  
