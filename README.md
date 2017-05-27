@@ -42,10 +42,11 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.18.0: extended `cpu` info (vendor, family, model, stepping, revision, cache, speedmin, speedmax)
 - Version 3.17.0: windows support for some very first functions (work in progress)
 - Version 3.16.0: `blockDevices`: added removable attribute
 - Version 3.15.0: added `cpuTemperature` also for OSX
-- Version 3.14.0: added `currentLoad` per cpu/core, cpu cache (L1, L2, L3) and cpu flags
+- Version 3.14.0: added `currentLoad` per cpu/core, `cpuCache` (L1, L2, L3) and cpu flags
 - Version 3.13.0: added `shell` (returns standard shell)
 - Version 3.12.0: refactoring and extended `currentLoad` (better OSX coverage and added irq load).
 - Version 3.11.0: `blockDevices` now also for OSX and also extended (+ label, model, serial, protocol).
@@ -128,7 +129,19 @@ This library is splitted in several sections:
 | - manufacturer | X | X | X | e.g. 'Intel(R)' |
 | - brand | X | X | X | e.g. 'Core(TM)2 Duo' |
 | - speed | X | X | X | in GHz e.g. '3.40' |
+| - speedmin | X | X | X | in GHz e.g. '0.80' |
+| - speedmax | X | X | X | in GHz e.g. '3.90' |
 | - cores | X | X | X | # cores |
+| - vendor | X | X | | Vendow ID |
+| - family | X | X | | Processor Family |
+| - Model | X | X | | Processor Model |
+| - stepping | X | X | | Processor Stepping |
+| - revision | X | X | | Revision |
+| - cache | X | X | | cache in bytes (object) |
+| - cache.l1d | X | X |  | L1D size |
+| - cache.l1i | X | X |  | L1I size |
+| - cache.l2 | X | X |  | L2 size |
+| - cache.l3 | X | X |  | L3 size |
 | si.cpuFlags(cb) | X | X |  | CPU flags|
 | si.cpuCache(cb) | X | X |  | CPU cache sizes |
 | - l1d | X | X |  | L1D size |

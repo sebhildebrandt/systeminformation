@@ -94,6 +94,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.18.0         | 2017-05-23     | extended `cpu` info (vendor, family, model, stepping, revision, cache, speedmin/max) |
 | 3.17.3         | 2017-04-29     | minor fix (blockDevices data array, Windows) |
 | 3.17.2         | 2017-04-24     | minor fix (removed console.log) |
 | 3.17.1         | 2017-04-23     | fixed bugs fsSize(win), si.processes (command), si.osinfo(win) |
