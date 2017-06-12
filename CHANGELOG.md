@@ -87,6 +87,7 @@ Function Changes
 
 Other changes
 
+- osx-temperature-sensor: now added as an optional dependency
 - no more external dependencies: `request` is not longer needed
 - where possible results are now integer or float values (instead of strings) because it is easier to calculate with numbers ;-)
 
@@ -94,7 +95,8 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 3.18.0         | 2017-05-23     | extended `cpu` info (vendor, family, model, stepping, revision, cache, speedmin/max) |
+| 3.19.0         | 2017-06-12     | OSX temperature now an optional dependency  |
+| 3.18.0         | 2017-05-27     | extended `cpu` info (vendor, family, model, stepping, revision, cache, speedmin/max) |
 | 3.17.3         | 2017-04-29     | minor fix (blockDevices data array, Windows) |
 | 3.17.2         | 2017-04-24     | minor fix (removed console.log) |
 | 3.17.1         | 2017-04-23     | fixed bugs fsSize(win), si.processes (command), si.osinfo(win) |

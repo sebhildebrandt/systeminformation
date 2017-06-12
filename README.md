@@ -42,6 +42,7 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.19.0: OSX temperature now an optional dependency
 - Version 3.18.0: extended `cpu` info (vendor, family, model, stepping, revision, cache, speedmin, speedmax)
 - Version 3.17.0: windows support for some very first functions (work in progress)
 - Version 3.16.0: `blockDevices`: added removable attribute
