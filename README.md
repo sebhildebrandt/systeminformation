@@ -74,13 +74,12 @@ You can find all changes here: [detailed changelog][changelog-url]
 little library. This library is still work in progress. Version 3 comes with further improvements. First it
 requires now node.js version 4.0 and above. Another big change is, that all functions now return promises. You can use them
 like before with callbacks OR with promises (see example in this documentation). I am sure, there is for sure room for improvement.
-I was only able to test it on several Debian, Raspbian, Ubuntu distributions as well as OS X (Mavericks, Yosemite, El Captain).
-Since version 2 nearly all functionality is available on OS X/Darwin platforms.
-Be careful, this library has only very limited Windows support!
+I was only able to test it on several Debian, Raspbian, Ubuntu distributions as well as OS X (Mavericks, Yosemite, El Captain) and some Windows machines.
+Since version 2 nearly all functionality is available for OS X/Darwin platforms. In Version 3 I started to add (limited!) windows support.
 
 If you have comments, suggestions & reports, please feel free to contact me!
 
-I also created a little command line tool called [mmon][mmon-github-url]  (micro-monitor), also available via [github][mmon-github-url] and [npm][mmon-npm-url]
+I also created a nice little command line tool called [mmon][mmon-github-url]  (micro-monitor) for Linux and OSX, also available via [github][mmon-github-url] and [npm][mmon-npm-url]
 
 
 ## Reference
@@ -149,9 +148,9 @@ I also created a little command line tool called [mmon][mmon-github-url]  (micro
 | | active | X | X | X | used actively (excl. buffers/cache)  |
 | | buffcache | X | X |  | used by buffers+cache |
 | | available | X | X | X | potentially available (total - active) |
-| | swaptotal | X | X |  |  |
-| | swapused | X | X |  |  |
-| | swapfree | X | X |  |  |
+| | swaptotal | X | X | X |  |
+| | swapused | X | X | X |  |
+| | swapfree | X | X | X |  |
 | si.battery(cb) | {...} | X | X |  | battery information |
 | | hasbattery | X | X |  | indicates presence of battery |
 | | ischarging | X | X |  | indicates if battery is charging |
@@ -269,7 +268,7 @@ I also created a little command line tool called [mmon][mmon-github-url]  (micro
 | | ok | X | X |  | status code OK (2xx, 3xx) |
 | | status | X | X |  | status code |
 | | ms | X | X |  | response time in ms |
-| si.inetLatency(host, cb) | | X | X |  | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
+| si.inetLatency(host, cb) | : number | X | X |  | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
 
 #### 7. Current Load, Processes & Services 
 

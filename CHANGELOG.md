@@ -95,6 +95,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.20.1         | 2017-06-17     | updated docs |
 | 3.20.0         | 2017-06-16     | extend windows support (cpu, cpuCache, cpuCurrentspeed, mem, networkInterfaces, docker) |
 | 3.19.0         | 2017-06-12     | OSX temperature now an optional dependency  |
 | 3.18.0         | 2017-05-27     | extended `cpu` info (vendor, family, model, stepping, revision, cache, speedmin/max) |
