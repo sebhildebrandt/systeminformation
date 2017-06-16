@@ -23,7 +23,7 @@ $ npm install systeminformation --save
 All functions (except `version` and `time`) are implemented as asynchronous functions. Here a small example how to use them:
 
 ```
-var si = require('systeminformation');
+const si = require('systeminformation');
 
 // callback style
 si.cpu(function(data) {
@@ -42,7 +42,8 @@ si.cpu()
 
 ### Latest Activity
 
-- Version 3.19.0: OSX temperature now an optional dependency
+- Version 3.20.0: added additional windows support (cpu, cpuCache, cpuCurrentspeed, mem, networkInterfaces, docker)
+- Version 3.19.0: OSX temperature now an optional dependency (see comments below in reference!)
 - Version 3.18.0: extended `cpu` info (vendor, family, model, stepping, revision, cache, speedmin, speedmax)
 - Version 3.17.0: windows support for some very first functions (work in progress)
 - Version 3.16.0: `blockDevices`: added removable attribute
@@ -84,264 +85,289 @@ I also created a little command line tool called [mmon][mmon-github-url]  (micro
 
 ## Reference
 
-### Sections
-
-This library is splitted in several sections:
-
-1. General
-2. System (HW)
-3. Operating System
-4. CPU
-5. Memory
-6. File System
-7. Network
-8. Processes
-9. Users
-10. Internet
-11. Docker
-12. GetAll
-
 ### Function Reference and OS Support
 
-| Function        | Linux | OSX | Win | Comments |
-| --------------- | ----- | ---- | ------- | -------- |
-| si.version() | X | X | X | library version (no callback/promise) |
-| si.time() | X | X | X | time information (no callback/promise) |
-| - current | X | X | X | local time |
-| - uptime | X | X | X | uptime |
-| si.system(cb) | X | X | X | hardware information |
-| - manufacturer | X | X | X | e.g. 'MSI' |
-| - model | X | X | X | model/product e.g. 'MS-7823' |
-| - version | X | X | X | version e.g. '1.0' |
-| - serial | X | X | X | serial number |
-| - uuid | X | X | X | UUID |
-| si.osInfo(cb) | X | X | X | OS information |
-| - platform   | X | X | X | 'Linux', 'Darwin', 'Windows' |
-| - distro | X | X | X |  |
-| - release | X | X | X |  |
-| - codename | | X |  |  |
-| - kernel | X | X | X | kernel release - same as os.release() |
-| - arch | X | X | X | same as os.arch() |
-| - hostname | X | X | X | same as os.hostname() |
-| - logofile | X | X | X | e.g. 'apple', 'debian', 'fedora', ... |
-| si.versions(cb) | X | X | X | Version information (kernel, ssl, node, ...) |
-| si.shell(cb) | X | X |  | standard shell |
-| si.cpu(cb) | X | X | X | CPU information|
-| - manufacturer | X | X | X | e.g. 'Intel(R)' |
-| - brand | X | X | X | e.g. 'Core(TM)2 Duo' |
-| - speed | X | X | X | in GHz e.g. '3.40' |
-| - speedmin | X | X | X | in GHz e.g. '0.80' |
-| - speedmax | X | X | X | in GHz e.g. '3.90' |
-| - cores | X | X | X | # cores |
-| - vendor | X | X | | Vendow ID |
-| - family | X | X | | Processor Family |
-| - Model | X | X | | Processor Model |
-| - stepping | X | X | | Processor Stepping |
-| - revision | X | X | | Revision |
-| - cache | X | X | | cache in bytes (object) |
-| - cache.l1d | X | X |  | L1D size |
-| - cache.l1i | X | X |  | L1I size |
-| - cache.l2 | X | X |  | L2 size |
-| - cache.l3 | X | X |  | L3 size |
-| si.cpuFlags(cb) | X | X |  | CPU flags|
-| si.cpuCache(cb) | X | X |  | CPU cache sizes |
-| - l1d | X | X |  | L1D size |
-| - l1i | X | X |  | L1I size |
-| - l2 | X | X |  | L2 size |
-| - l3 | X | X |  | L3 size |
-| si.cpuCurrentspeed(cb) | X | X |  | current CPU speed (in GHz)|
-| - avg | X | X |  | avg CPU speed (all cores) |
-| - min | X | X |  | min CPU speed (all cores) |
-| - max | X | X |  | max CPU speed (all cores) |
-| si.cpuTemperature(cb) | X | X | X | CPU temperature (if sensors is installed) |
-| - main | X | X | X | main temperature |
-| - cores | X | X | X | array of temperatures |
-| - max | X | X | X | max temperature |
-| si.mem(cb) | X | X | X | Memory information|
-| - total | X | X | X | total memory |
-| - free | X | X | X | not used |
-| - used | X | X | X | used (incl. buffers/cache) |
-| - active | X | X | X | used actively (excl. buffers/cache)  |
-| - buffcache | X | X |  | used by buffers+cache |
-| - available | X | X | X | potentially available (total - active) |
-| - swaptotal | X | X |  |  |
-| - swapused | X | X |  |  |
-| - swapfree | X | X |  |  |
-| si.battery(cb) | X | X |  | battery information |
-| - hasbattery | X | X |  | indicates presence of battery |
-| - ischarging | X | X |  | indicates if battery is charging |
-| - maxcapacity | X | X |  | max capacity of battery |
-| - currentcapacity | X | X |  | current capacity of battery |
-| - percent | X | X |  | charging level in percent |
-| si.graphics(cb) | X | X |  | arrays of graphics controllers and displays |
-| - controllers[0].model | X | X |  | graphics controller model |
-| - controllers[0].vendor | X | X |  | e.g. ATI |
-| - controllers[0].bus | X | X |  | on which bus (e.g. PCIe) |
-| - controllers[0].vram | X | X |  | VRAM size (in MB) |
-| - controllers[0].vramDynamic | X | X |  | true if dynamicly allocated ram |
-| - displays[0].model | X | X |  | Monitor/Display Model |
-| - displays[0].main | X | X |  | true if main monitor |
-| - displays[0].builtin | X | X |  | true if built in monitor |
-| - displays[0].connection | X | X |  | e.g. DisplayPort or HDMI |
-| - displays[0].resolutionx | X | X |  | pixel horizontal |
-| - displays[0].resolutiony | X | X |  | pixel vertical |
-| - displays[0].depth | X | X |  | color depth in bits |
-| - displays[0].sizex | X | X |  | size in mm horizontal |
-| - displays[0].sizey | X | X |  | size in mm vertical |
-| si.fsSize(cb) | X | X | X | returns array of mounted file systems |
-| - [0].fs | X | X | X | name of file system |
-| - [0].type | X | X | X | type of file system |
-| - [0].size | X | X | X | sizes in Bytes |
-| - [0].used | X | X | X | used in Bytes |
-| - [0].use | X | X | X | used in % |
-| - [0].mount | X | X | X | mount point |
-| si.blockDevices(cb) | X | X | X | returns array of disks, partitions,<br>raids and roms |
-| - [0].name | X | X | X | name |
-| - [0].type | X | X | X | type |
-| - [0].fstype | X | X | X | file system type (e.g. ext4) |
-| - [0].mount | X | X | X | mount point |
-| - [0].size | X | X | X | size in bytes |
-| - [0].physical | X | X | X | physical type (HDD, SSD, CD/DVD) |
-| - [0].uuid | X | X | X | UUID |
-| - [0].label | X | X | X | label |
-| - [0].model | X | X |  | model |
-| - [0].serial | X |  | X | serial |
-| - [0].removable | X | X | X | serial |
-| - [0].protocol | X | X |  | protocol (SATA, PCI-Express, ...) |
-| si.fsStats(cb) | X | X |  | current transfer stats |
-| - rx | X | X |  | bytes read since startup |
-| - wx | X | X |  | bytes written since startup |
-| - tx | X | X |  | total bytes read + written since startup |
-| - rx_sec | X | X |  | bytes read / second (* see notes) |
-| - wx_sec | X | X |  | bytes written / second (* see notes) |
-| - tx_sec | X | X |  | total bytes reads + written / second  |
-| - ms | X | X |  | interval length (for per second values) |
-| si.disksIO(cb) | X | X |  | current transfer stats |
-| - rIO | X | X |  | read IOs on all mounted drives |
-| - wIO | X | X |  | write IOs on all mounted drives |
-| - tIO | X | X |  | write IOs on all mounted drives |
-| - rIO_sec | X | X |  | read IO per sec (* see notes) |
-| - wIO_sec | X | X |  | write IO per sec (* see notes) |
-| - tIO_sec | X | X |  | total IO per sec (* see notes) |
-| - ms | X | X |  | interval length (for per second values) |
-| si.networkInterfaces(cb) | X | X |  | array of network interfaces |
-| - [0].iface | X | X |  | interface name |
-| - [0].ip4 | X | X |  | ip4 address |
-| - [0].ip6 | X | X |  | ip6 address |
-| - [0].mac | X | X |  | MAC address |
-| - [0].internal | X | X |  | true if internal interface |
-| si.networkInterfaceDefault(cb) | X | X |  | get name of default network interface |
-| si.networkStats(iface,cb) | X | X |  | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface|
-| - iface | X | X |  | interface |
-| - operstate | X | X |  | up / down |
-| - rx | X | X |  | received bytes overall |
-| - tx | X | X |  | transferred bytes overall|
-| - rx_sec | X | X |  | received bytes / second (* see notes) |
-| - tx_sec | X | X |  | transferred bytes per second (* see notes) |
-| - ms | X | X |  | interval length (for per second values) |
-| si.networkConnections(cb) | X | X |  | current network network connections<br>returns an array of all connections|
-| - [0].protocol | X | X |  | tcp or udp |
-| - [0].localaddress | X | X |  | local address |
-| - [0].localport | X | X |  | local port |
-| - [0].peeraddress | X | X |  | peer address |
-| - [0].peerport | X | X |  | peer port |
-| - [0].state | X | X |  | like ESTABLISHED, TIME_WAIT, ... |
-| si.currentLoad(cb) | X | X |  | CPU-Load |
-| - avgload | X | X |  | average load  |
-| - currentload | X | X |  | CPU-Load in % |
-| - currentload_user | X | X |  | CPU-Load User in % |
-| - currentload_nice | X | X |  | CPU-Load Nice in % |
-| - currentload_system | X | X |  | CPU-Load System in % |
-| - currentload_irq | X | X |  | CPU-Load System in % |
-| - cpus[] | X | X |  | current loads per CPU in % |
-| si.fullLoad(cb) | X | X |  | CPU-full load since bootup in % |
-| si.services('mysql, apache2', cb) | X | X |  | pass comma separated string of services |
-| - [0].name | X | X |  | name of service |
-| - [0].running | X | X |  | true / false |
-| - [0].pcpu | X | X |  | process % CPU |
-| - [0].pmem | X | X |  | process % MEM |
-| si.processes(cb) | X | X |  | # running processes |
-| - all | X | X |  | # of all processes |
-| - running | X | X |  | # of all processes running |
-| - blocked | X | X |  | # of all processes blocked |
-| - sleeping | X | X |  | # of all processes sleeping |
-| - list[] | X | X |  | list of all processes incl. details |
-| - ...[0].pid | X | X |  | process PID |
-| - ...[0].pcpu | X | X |  | process % CPU usage |
-| - ...[0].pcpuu | X |  |  | process % CPU usage (user) |
-| - ...[0].pcpus | X |  |  | process % CPU usage (system) |
-| - ...[0].pmem | X | X |  | process memory % |
-| - ...[0].priority | X | X |  | process priotity |
-| - ...[0].mem_vsz | X | X |  | process virtual memory size |
-| - ...[0].mem_rss | X | X |  | process mem resident set size |
-| - ...[0].nice | X | X |  | process nice value |
-| - ...[0].started | X | X |  | process start time |
-| - ...[0].state | X | X |  | process state (e.g. sleeping) |
-| - ...[0].tty | X | X |  | tty from which process was started |
-| - ...[0].user | X | X |  | user who started process |
-| - ...[0].command | X | X |  | process starting command |
-| si.processLoad('apache2',cb) | X | X |  | detailed information about given process |
-| - proc | X | X |  | process name |
-| - pid | X | X |  | PID |
-| - cpu | X | X |  | process % CPU |
-| - mem | X | X |  | process % MEM |
-| si.users(cb) | X | X |  | array of users online |
-| - [0].user | X | X |  | user name |
-| - [0].tty | X | X |  | terminal |
-| - [0].date | X | X |  | login date |
-| - [0].time | X | X |  | login time |
-| - [0].ip | X | X |  | ip address (remote login) |
-| - [0].command | X | X |  | last command or shell |
-| si.inetChecksite(url, cb) | X | X |  | response-time (ms) to fetch given URL |
-| - url | X | X |  | given url |
-| - ok | X | X |  | status code OK (2xx, 3xx) |
-| - status | X | X |  | status code |
-| - ms | X | X |  | response time in ms |
-| si.inetLatency(host, cb) | X | X |  | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
-| si.dockerContainers(all, cb) | X | X |  | returns array of active/all docker containers |
-| - [0].id | X | X |  | ID of container |
-| - [0].name | X | X |  | name of container |
-| - [0].image | X | X |  | name of image |
-| - [0].imageID | X | X |  | ID of image |
-| - [0].command | X | X |  | command |
-| - [0].created | X | X |  | creation time |
-| - [0].state | X | X |  | created, running, exited |
-| - [0].ports | X | X |  | array of ports |
-| - [0].mounts | X | X |  | array of mounts |
-| si.dockerContainerStats(id, cb) | X | X |  | statistics for a specific container |
-| - id | X | X |  | Container ID |
-| - mem_usage | X | X |  | memory usage in bytes |
-| - mem_limit | X | X |  | memory limit (max mem) in bytes |
-| - mem_percent | X | X |  | memory usage in percent |
-| - cpu_percent | X | X |  | cpu usage in percent |
-| - pids | X | X |  | number of processes |
-| - netIO.rx | X | X |  | received bytes via network |
-| - netIO.wx | X | X |  | sent bytes via network |
-| - blockIO.r | X | X |  | bytes read from BlockIO |
-| - blockIO.w | X | X |  | bytes written to BlockIO |
-| - cpu_stats | X | X |  | detailed cpu stats |
-| - percpu_stats | X | X |  | detailed per cpu stats |
-| - memory_stats | X | X |  | detailed memory stats |
-| - networks | X | X |  | detailed network stats per interface |
-| si.dockerContainerProcesses(id, cb) | X | X |  | array of processes inside a container |
-| - [0].pid_host | X | X |  | process ID (host) |
-| - [0].ppid | X | X |  | parent process ID |
-| - [0].pgid | X | X |  | process group ID |
-| - [0].user | X | X |  | effective user name |
-| - [0].ruser | X | X |  | real user name |
-| - [0].group | X | X |  | effective group name |
-| - [0].rgroup | X | X |  | real group name |
-| - [0].stat | X | X |  | process state |
-| - [0].time | X | X |  | accumulated CPU time |
-| - [0].elapsed | X | X |  | elapsed running time |
-| - [0].nice | X | X |  | nice value |
-| - [0].rss | X | X |  | resident set size |
-| - [0].vsz | X | X |  | virtual size in Kbytes |
-| - [0].command | X | X |  | command and arguments |
-| si.dockerAll(cb) | X | X |  | list of all containers including their stats<br>and processes in one single array |
-| si.getStaticData(cb)  | X | X |  | all static data at once |
-| si.getDynamicData(srv,iface,cb) | X | X |  | all dynamic data at once |
-| si.getAllData(srv,iface,cb) | X | X |  | all data at once |
+#### 1. General
+
+| Function        | Result object | Linux | OSX | Win | Comments |
+| --------------- | ----- | ----- | ---- | ------- | -------- |
+| si.version() | : string | X | X | X | lib version (no callback/promise) |
+| si.time() | {...} | X | X | X | (no callback/promise) |
+| | current | X | X | X | local time |
+| | uptime | X | X | X | uptime |
+
+#### 2. System (HW)
+
+| Function        | Result object | Linux | OSX | Win | Comments |
+| --------------- | ----- | ----- | ---- | ------- | -------- |
+| si.system(cb) | {...} | X | X | X | hardware information |
+| | manufacturer | X | X | X | e.g. 'MSI' |
+| | model | X | X | X | model/product e.g. 'MS-7823' |
+| | version | X | X | X | version e.g. '1.0' |
+| | serial | X | X | X | serial number |
+| | uuid | X | X | X | UUID |
+
+#### 3. CPU, Memory, Battery, Graphics 
+
+| Function        | Result object | Linux | OSX | Win | Comments |
+| --------------- | ----- | ----- | ---- | ------- | -------- |
+| si.cpu(cb) | {...} | X | X | X | CPU information|
+| | manufacturer | X | X | X | e.g. 'Intel(R)' |
+| | brand | X | X | X | e.g. 'Core(TM)2 Duo' |
+| | speed | X | X | X | in GHz e.g. '3.40' |
+| | speedmin | X | X | X | in GHz e.g. '0.80' |
+| | speedmax | X | X | X | in GHz e.g. '3.90' |
+| | cores | X | X | X | # cores |
+| | vendor | X | X | X | Vendow ID |
+| | family | X | X | X | Processor Family |
+| | Model | X | X | X | Processor Model |
+| | stepping | X | X | X | Processor Stepping |
+| | revision | X | X | X | Revision |
+| | cache | X | X | X | cache in bytes (object) |
+| | cache.l1d | X | X |  | L1D size |
+| | cache.l1i | X | X |  | L1I size |
+| | cache.l2 | X | X | X | L2 size |
+| | cache.l3 | X | X | X | L3 size |
+| si.cpuFlags(cb) | : string | X | X |  | CPU flags|
+| si.cpuCache(cb) | {...} | X | X | X | CPU cache sizes |
+| | l1d | X | X |  | L1D size |
+| | l1i | X | X |  | L1I size |
+| | l2 | X | X | X | L2 size |
+| | l3 | X | X | X | L3 size |
+| si.cpuCurrentspeed(cb) | {...} | X | X | X | current CPU speed (in GHz)|
+| | avg | X | X | X | avg CPU speed (all cores) |
+| | min | X | X | X | min CPU speed (all cores) |
+| | max | X | X | X | max CPU speed (all cores) |
+| si.cpuTemperature(cb) | {...} | X | X* | X | CPU temperature (if supported) |
+| | main | X | X | X | main temperature |
+| | cores | X | X | X | array of temperatures |
+| | max | X | X | X | max temperature |
+| si.mem(cb) | {...} | X | X | X | Memory information|
+| | total | X | X | X | total memory |
+| | free | X | X | X | not used |
+| | used | X | X | X | used (incl. buffers/cache) |
+| | active | X | X | X | used actively (excl. buffers/cache)  |
+| | buffcache | X | X |  | used by buffers+cache |
+| | available | X | X | X | potentially available (total - active) |
+| | swaptotal | X | X |  |  |
+| | swapused | X | X |  |  |
+| | swapfree | X | X |  |  |
+| si.battery(cb) | {...} | X | X |  | battery information |
+| | hasbattery | X | X |  | indicates presence of battery |
+| | ischarging | X | X |  | indicates if battery is charging |
+| | maxcapacity | X | X |  | max capacity of battery |
+| | currentcapacity | X | X |  | current capacity of battery |
+| | percent | X | X |  | charging level in percent |
+| si.graphics(cb) | {...} | X | X |  | arrays of graphics controllers and displays |
+| | controllers[0].model | X | X | X | graphics controller model |
+| | controllers[0].vendor | X | X | X | e.g. ATI |
+| | controllers[0].bus | X | X | X| on which bus (e.g. PCIe) |
+| | controllers[0].vram | X | X | X | VRAM size (in MB) |
+| | controllers[0].vramDynamic | X | X |  | true if dynamicly allocated ram |
+| | displays[0].model | X | X |  | Monitor/Display Model |
+| | displays[0].main | X | X |  | true if main monitor |
+| | displays[0].builtin | X | X |  | true if built in monitor |
+| | displays[0].connection | X | X |  | e.g. DisplayPort or HDMI |
+| | displays[0].resolutionx | X | X | X | pixel horizontal |
+| | displays[0].resolutiony | X | X | X | pixel vertical |
+| | displays[0].depth | X | X | X | color depth in bits |
+| | displays[0].sizex | X | X |  | size in mm horizontal |
+| | displays[0].sizey | X | X |  | size in mm vertical |
+
+#### 4. Operating System
+
+| Function        | Result object | Linux | OSX | Win | Comments |
+| --------------- | ----- | ----- | ---- | ------- | -------- |
+| si.osInfo(cb) | {...} | X | X | X | OS information |
+| | platform   | X | X | X | 'Linux', 'Darwin', 'Windows' |
+| | distro | X | X | X |  |
+| | release | X | X | X |  |
+| | codename | | X |  |  |
+| | kernel | X | X | X | kernel release - same as os.release() |
+| | arch | X | X | X | same as os.arch() |
+| | hostname | X | X | X | same as os.hostname() |
+| | logofile | X | X | X | e.g. 'apple', 'debian', 'fedora', ... |
+| si.versions(cb) | {...} | X | X | X | Version information (kernel, ssl, node, ...) |
+| si.shell(cb) | : string | X | X |  | standard shell |
+| si.users(cb) | [{...}] | X | X |  | array of users online |
+| | [0].user | X | X |  | user name |
+| | [0].tty | X | X |  | terminal |
+| | [0].date | X | X |  | login date |
+| | [0].time | X | X |  | login time |
+| | [0].ip | X | X |  | ip address (remote login) |
+| | [0].command | X | X |  | last command or shell |
+
+#### 5. File System
+
+| Function        | Result object | Linux | OSX | Win | Comments |
+| --------------- | ----- | ----- | ---- | ------- | -------- |
+| si.fsSize(cb) | [{...}] | X | X | X | returns array of mounted file systems |
+| | [0].fs | X | X | X | name of file system |
+| | [0].type | X | X | X | type of file system |
+| | [0].size | X | X | X | sizes in Bytes |
+| | [0].used | X | X | X | used in Bytes |
+| | [0].use | X | X | X | used in % |
+| | [0].mount | X | X | X | mount point |
+| si.blockDevices(cb) | [{...}] | X | X | X | returns array of disks, partitions,<br>raids and roms |
+| | [0].name | X | X | X | name |
+| | [0].type | X | X | X | type |
+| | [0].fstype | X | X | X | file system type (e.g. ext4) |
+| | [0].mount | X | X | X | mount point |
+| | [0].size | X | X | X | size in bytes |
+| | [0].physical | X | X | X | physical type (HDD, SSD, CD/DVD) |
+| | [0].uuid | X | X | X | UUID |
+| | [0].label | X | X | X | label |
+| | [0].model | X | X |  | model |
+| | [0].serial | X |  | X | serial |
+| | [0].removable | X | X | X | serial |
+| | [0].protocol | X | X |  | protocol (SATA, PCI-Express, ...) |
+| si.fsStats(cb) | {...} | X | X |  | current transfer stats |
+| | rx | X | X |  | bytes read since startup |
+| | wx | X | X |  | bytes written since startup |
+| | tx | X | X |  | total bytes read + written since startup |
+| | rx_sec | X | X |  | bytes read / second (* see notes) |
+| | wx_sec | X | X |  | bytes written / second (* see notes) |
+| | tx_sec | X | X |  | total bytes reads + written / second  |
+| | ms | X | X |  | interval length (for per second values) |
+| si.disksIO(cb) | {...} | X | X |  | current transfer stats |
+| | rIO | X | X |  | read IOs on all mounted drives |
+| | wIO | X | X |  | write IOs on all mounted drives |
+| | tIO | X | X |  | write IOs on all mounted drives |
+| | rIO_sec | X | X |  | read IO per sec (* see notes) |
+| | wIO_sec | X | X |  | write IO per sec (* see notes) |
+| | tIO_sec | X | X |  | total IO per sec (* see notes) |
+| | ms | X | X |  | interval length (for per second values) |
+
+#### 6. Network related functions
+
+| Function        | Result object | Linux | OSX | Win | Comments |
+| --------------- | ----- | ----- | ---- | ------- | -------- |
+| si.networkInterfaces(cb) | [{...}] | X | X | X | array of network interfaces |
+| | [0].iface | X | X | X | interface name |
+| | [0].ip4 | X | X | X | ip4 address |
+| | [0].ip6 | X | X | X | ip6 address |
+| | [0].mac | X | X | X | MAC address |
+| | [0].internal | X | X | X | true if internal interface |
+| si.networkInterfaceDefault(cb) | : string | X | X |  | get name of default network interface |
+| si.networkStats(iface,cb) | {...} | X | X |  | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface|
+| | iface | X | X |  | interface |
+| | operstate | X | X |  | up / down |
+| | rx | X | X |  | received bytes overall |
+| | tx | X | X |  | transferred bytes overall|
+| | rx_sec | X | X |  | received bytes / second (* see notes) |
+| | tx_sec | X | X |  | transferred bytes per second (* see notes) |
+| | ms | X | X |  | interval length (for per second values) |
+| si.networkConnections(cb) | [{...}] | X | X |  | current network network connections<br>returns an array of all connections|
+| | [0].protocol | X | X |  | tcp or udp |
+| | [0].localaddress | X | X |  | local address |
+| | [0].localport | X | X |  | local port |
+| | [0].peeraddress | X | X |  | peer address |
+| | [0].peerport | X | X |  | peer port |
+| | [0].state | X | X |  | like ESTABLISHED, TIME_WAIT, ... |
+| si.inetChecksite(url, cb) | {...} | X | X |  | response-time (ms) to fetch given URL |
+| | url | X | X |  | given url |
+| | ok | X | X |  | status code OK (2xx, 3xx) |
+| | status | X | X |  | status code |
+| | ms | X | X |  | response time in ms |
+| si.inetLatency(host, cb) | | X | X |  | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
+
+#### 7. Current Load, Processes & Services 
+
+| Function        | Result object | Linux | OSX | Win | Comments |
+| --------------- | ----- | ----- | ---- | ------- | -------- |
+| si.currentLoad(cb) | {...} | X | X |  | CPU-Load |
+| | avgload | X | X |  | average load  |
+| | currentload | X | X |  | CPU-Load in % |
+| | currentload_user | X | X |  | CPU-Load User in % |
+| | currentload_nice | X | X |  | CPU-Load Nice in % |
+| | currentload_system | X | X |  | CPU-Load System in % |
+| | currentload_irq | X | X |  | CPU-Load System in % |
+| | cpus[] | X | X |  | current loads per CPU in % |
+| si.fullLoad(cb) | : integer | X | X |  | CPU-full load since bootup in % |
+| si.processes(cb) | {...} | X | X |  | # running processes |
+| | all | X | X |  | # of all processes |
+| | running | X | X |  | # of all processes running |
+| | blocked | X | X |  | # of all processes blocked |
+| | sleeping | X | X |  | # of all processes sleeping |
+| | list[] | X | X |  | list of all processes incl. details |
+| | ...[0].pid | X | X |  | process PID |
+| | ...[0].pcpu | X | X |  | process % CPU usage |
+| | ...[0].pcpuu | X |  |  | process % CPU usage (user) |
+| | ...[0].pcpus | X |  |  | process % CPU usage (system) |
+| | ...[0].pmem | X | X |  | process memory % |
+| | ...[0].priority | X | X |  | process priotity |
+| | ...[0].mem_vsz | X | X |  | process virtual memory size |
+| | ...[0].mem_rss | X | X |  | process mem resident set size |
+| | ...[0].nice | X | X |  | process nice value |
+| | ...[0].started | X | X |  | process start time |
+| | ...[0].state | X | X |  | process state (e.g. sleeping) |
+| | ...[0].tty | X | X |  | tty from which process was started |
+| | ...[0].user | X | X |  | user who started process |
+| | ...[0].command | X | X |  | process starting command |
+| si.processLoad('apache2',cb) | {...} | X | X |  | detailed information about given process |
+| | proc | X | X |  | process name |
+| | pid | X | X |  | PID |
+| | cpu | X | X |  | process % CPU |
+| | mem | X | X |  | process % MEM |
+| si.services('mysql, apache2', cb) | [{...}] | X | X |  | pass comma separated string of services |
+| | [0].name | X | X |  | name of service |
+| | [0].running | X | X |  | true / false |
+| | [0].pcpu | X | X |  | process % CPU |
+| | [0].pmem | X | X |  | process % MEM |
+
+#### 8. Docker 
+
+| Function        | Result object | Linux | OSX | Win | Comments |
+| --------------- | ----- | ----- | ---- | ------- | -------- |
+| si.dockerContainers(all, cb) | [{...}] | X | X | X | returns array of active/all docker containers |
+| | [0].id | X | X | X | ID of container |
+| | [0].name | X | X | X | name of container |
+| | [0].image | X | X | X | name of image |
+| | [0].imageID | X | X | X | ID of image |
+| | [0].command | X | X | X | command |
+| | [0].created | X | X | X | creation time |
+| | [0].state | X | X | X | created, running, exited |
+| | [0].ports | X | X | X | array of ports |
+| | [0].mounts | X | X | X | array of mounts |
+| si.dockerContainerStats(id, cb) | {...} | X | X | X | statistics for a specific container |
+| | id | X | X | X | Container ID |
+| | mem_usage | X | X | X | memory usage in bytes |
+| | mem_limit | X | X | X | memory limit (max mem) in bytes |
+| | mem_percent | X | X | X | memory usage in percent |
+| | cpu_percent | X | X | X | cpu usage in percent |
+| | pids | X | X | X | number of processes |
+| | netIO.rx | X | X | X | received bytes via network |
+| | netIO.wx | X | X | X | sent bytes via network |
+| | blockIO.r | X | X | X | bytes read from BlockIO |
+| | blockIO.w | X | X | X | bytes written to BlockIO |
+| | cpu_stats | X | X | X | detailed cpu stats |
+| | percpu_stats | X | X | X | detailed per cpu stats |
+| | memory_stats | X | X | X | detailed memory stats |
+| | networks | X | X | X | detailed network stats per interface |
+| si.dockerContainerProcesses(id, cb) | [{...}] | X | X | X | array of processes inside a container |
+| | [0].pid_host | X | X | X | process ID (host) |
+| | [0].ppid | X | X | X | parent process ID |
+| | [0].pgid | X | X | X | process group ID |
+| | [0].user | X | X | X | effective user name |
+| | [0].ruser | X | X | X | real user name |
+| | [0].group | X | X | X | effective group name |
+| | [0].rgroup | X | X | X | real group name |
+| | [0].stat | X | X | X | process state |
+| | [0].time | X | X | X | accumulated CPU time |
+| | [0].elapsed | X | X | X | elapsed running time |
+| | [0].nice | X | X | X | nice value |
+| | [0].rss | X | X | X | resident set size |
+| | [0].vsz | X | X | X | virtual size in Kbytes |
+| | [0].command | X | X | X | command and arguments |
+| si.dockerAll(cb) | {...} | X | X | X | list of all containers including their stats<br>and processes in one single array |
+
+#### 9. "Get All at once" - functions
+
+| Function        | Result object | Linux | OSX | Win | Comments |
+| --------------- | ----- | ----- | ---- | ------- | -------- |
+| si.getStaticData(cb) | {...} | X | X |  | all static data at once |
+| si.getDynamicData(srv,iface,cb) | {...} | X | X |  | all dynamic data at once |
+| si.getAllData(srv,iface,cb) | {...} | X | X |  | all data at once |
 
 ### cb: Asynchronous Function Calls (callback)
 
@@ -381,6 +407,34 @@ si.networkStats('eth1')
 	.catch(error => console.error(error));
 
 ```
+### About Temperature
+
+#### OSX
+ 
+Due to some difficulties in NPM with `optionalDependencies`  I unfortunately 
+was getting unexpected warnings on other platforms. So I decided to drop temperature 
+measurement for OSX - or more specific the automatic installation of the needed dependency. 
+
+But if you need to detect OSX temperature just run the following additional 
+installation command:
+
+```bash
+$ npm install osx-temperature-sensor --save
+```
+ 
+`systeminformation` will then detect this additional library and return the temperature when calling systeminformations standard function `cpuTemperature()`
+
+#### Windows
+
+`wmic` - which is used to determine the temperature sometimes needs to be run with admin 
+privileges. So if you do not get any temperature value, try to run it again with according 
+privileges. If you still do not get any values, your system might not support this feature. 
+In some cases we also discovered that `wmic` returned incorrect values.  
+
+#### Linux
+
+In some cases you need to install the linux `sensors` package to be able to measure temperature 
+e.g. on DEBIAN based systems by running `sudo apt-get install lm-sensors`
 
 ### *: Additional Notes
 
@@ -418,7 +472,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 
 OSX Temperature: Credits here are going to:
  
-- Massimiliano Marcon [mmarcon](https://github.com/mmarcon) - for his work on [smc-code][smc-code-url]
+- Massimiliano Marcon [mmarcon](https://github.com/mmarcon) for his work on [smc-code][smc-code-url]
 - Sébastien Lavoie [lavoiesl](https://github.com/lavoiesl) for his work on [osx-cpu-temp][osx-cpu-temp-url] code.
 
 ## Copyright Information

@@ -51,8 +51,5 @@
   ],
   "engines": {
     "node": ">=4.0.0"
-  },
-  "optionalDependencies": {
-    "osx-temperature-sensor": "^1.0.0"
   }
 }
