@@ -42,7 +42,8 @@ si.cpu()
 
 ### Latest Activity
 
-- Version 3.20.0: added additional windows support (cpu, cpuCache, cpuCurrentspeed, mem, networkInterfaces, docker)
+- Version 3.21.0: extended `time` (timezone), extended windows support (`battery`, `getAll...`)
+- Version 3.20.0: added additional windows support (`cpu`, `cpuCache`, `cpuCurrentspeed`, `mem`, `networkInterfaces`, `docker`)
 - Version 3.19.0: OSX temperature now an optional dependency (see comments below in reference!)
 - Version 3.18.0: extended `cpu` info (vendor, family, model, stepping, revision, cache, speedmin, speedmax)
 - Version 3.17.0: windows support for some very first functions (work in progress)
@@ -94,6 +95,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | si.time() | {...} | X | X | X | (no callback/promise) |
 | | current | X | X | X | local time |
 | | uptime | X | X | X | uptime |
+| | timezone | X | X | X | e.g. GMT+0200 |
+| | timezoneName | X | X | X | e.g. CEST |
 
 #### 2. System (HW)
 
@@ -151,12 +154,13 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | swaptotal | X | X | X |  |
 | | swapused | X | X | X |  |
 | | swapfree | X | X | X |  |
-| si.battery(cb) | {...} | X | X |  | battery information |
-| | hasbattery | X | X |  | indicates presence of battery |
-| | ischarging | X | X |  | indicates if battery is charging |
-| | maxcapacity | X | X |  | max capacity of battery |
-| | currentcapacity | X | X |  | current capacity of battery |
-| | percent | X | X |  | charging level in percent |
+| si.battery(cb) | {...} | X | X | X | battery information |
+| | hasbattery | X | X | X | indicates presence of battery |
+| | cyclecount | X | X | | numbers of recharges |
+| | ischarging | X | X | X | indicates if battery is charging |
+| | maxcapacity | X | X | X | max capacity of battery |
+| | currentcapacity | X | X | X | current capacity of battery |
+| | percent | X | X | X | charging level in percent |
 | si.graphics(cb) | {...} | X | X |  | arrays of graphics controllers and displays |
 | | controllers[0].model | X | X | X | graphics controller model |
 | | controllers[0].vendor | X | X | X | e.g. ATI |
@@ -364,9 +368,9 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 | Function        | Result object | Linux | OSX | Win | Comments |
 | --------------- | ----- | ----- | ---- | ------- | -------- |
-| si.getStaticData(cb) | {...} | X | X |  | all static data at once |
-| si.getDynamicData(srv,iface,cb) | {...} | X | X |  | all dynamic data at once |
-| si.getAllData(srv,iface,cb) | {...} | X | X |  | all data at once |
+| si.getStaticData(cb) | {...} | X | X | X | all static data at once |
+| si.getDynamicData(srv,iface,cb) | {...} | X | X | X | all dynamic data at once |
+| si.getAllData(srv,iface,cb) | {...} | X | X | X | all data at once |
 
 ### cb: Asynchronous Function Calls (callback)
 
