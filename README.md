@@ -42,6 +42,7 @@ si.cpu()
 
 ### Latest Activity
 
+- Version 3.22.0: extended windows support (`users`, `inetLatency`)
 - Version 3.21.0: extended `time` (timezone), extended windows support (`battery`, `getAll...`)
 - Version 3.20.0: added additional windows support (`cpu`, `cpuCache`, `cpuCurrentspeed`, `mem`, `networkInterfaces`, `docker`)
 - Version 3.19.0: OSX temperature now an optional dependency (see comments below in reference!)
@@ -192,11 +193,11 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | logofile | X | X | X | e.g. 'apple', 'debian', 'fedora', ... |
 | si.versions(cb) | {...} | X | X | X | Version information (kernel, ssl, node, ...) |
 | si.shell(cb) | : string | X | X |  | standard shell |
-| si.users(cb) | [{...}] | X | X |  | array of users online |
-| | [0].user | X | X |  | user name |
-| | [0].tty | X | X |  | terminal |
-| | [0].date | X | X |  | login date |
-| | [0].time | X | X |  | login time |
+| si.users(cb) | [{...}] | X | X | X | array of users online |
+| | [0].user | X | X | X | user name |
+| | [0].tty | X | X | X | terminal |
+| | [0].date | X | X | X | login date |
+| | [0].time | X | X | X | login time |
 | | [0].ip | X | X |  | ip address (remote login) |
 | | [0].command | X | X |  | last command or shell |
 
@@ -272,7 +273,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ok | X | X |  | status code OK (2xx, 3xx) |
 | | status | X | X |  | status code |
 | | ms | X | X |  | response time in ms |
-| si.inetLatency(host, cb) | : number | X | X |  | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
+| si.inetLatency(host, cb) | : number | X | X | X | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
 
 #### 7. Current Load, Processes & Services 
 

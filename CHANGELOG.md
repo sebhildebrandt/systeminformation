@@ -95,6 +95,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.22.0         | 2017-06-19     | extended windows support (`users`, `inetLatency`) |
 | 3.21.0         | 2017-06-18     | extended time (timezone), extended windows support (battery, getAll...) |
 | 3.20.1         | 2017-06-17     | updated docs |
 | 3.20.0         | 2017-06-16     | extend windows support (cpu, cpuCache, cpuCurrentspeed, mem, networkInterfaces, docker) |
