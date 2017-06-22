@@ -98,6 +98,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.23.1         | 2017-06-22     | updated docs |
 | 3.23.0         | 2017-06-22     | added `memLayout`, `diskLayout`, extended windows support (`inetChecksite`)|
 | 3.22.0         | 2017-06-19     | extended windows support (`users`, `inetLatency`) |
 | 3.21.0         | 2017-06-18     | extended time (timezone), extended windows support (battery, getAll...) |

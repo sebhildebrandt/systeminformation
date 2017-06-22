@@ -167,19 +167,20 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | voltageMin | X |   | X | voltage min |
 | | voltageMax | X |   | X | voltage max |
 | si.diskLayout(cb) | {...} | X | X | X | Physical Disk Layout (HD) |
+| | type | X | X | X | HD, SSD |
 | | name | X | X | X | Disk Name |
-| | vendor | X | X | X | vendor/producer |
+| | vendor | X | | X | vendor/producer |
 | | firmwareRevision | X | X | X | firmware revision |
 | | serialNum | X | X | X | serial number |
-| | interfaceType | | X | X |  |
+| | interfaceType | | | X |  |
 | | size | X | X | X | size in bytes |
-| | totalCylinders | | X | X | total cylinders |
-| | totalHeads | | X | X | total heads |
-| | totalTracks | | X | X | total tracks |
-| | tracksPerCylinder | | X | X | tracks per cylinder |
-| | sectorsPerTrack | | X | X | sectors per track |
-| | totalSectors | | X | X | total sectors |
-| | bytesPerSector | | X | X | bytes per sector |
+| | totalCylinders | | | X | total cylinders |
+| | totalHeads | | | X | total heads |
+| | totalTracks | | | X | total tracks |
+| | tracksPerCylinder | | | X | tracks per cylinder |
+| | sectorsPerTrack | | | X | sectors per track |
+| | totalSectors | | | X | total sectors |
+| | bytesPerSector | | | X | bytes per sector |
 | si.battery(cb) | {...} | X | X | X | battery information |
 | | hasbattery | X | X | X | indicates presence of battery |
 | | cyclecount | X | X | | numbers of recharges |
