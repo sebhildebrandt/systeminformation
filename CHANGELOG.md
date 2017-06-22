@@ -16,6 +16,9 @@
 
 New Functions
 
+- `diskLayout`: returns hard disk layout (new in version 3.23)
+- `memLayout`: returns memory chip layout (new in version 3.23)
+- Windows support: for some basic functions (new in version 3.17 ff)
 - `cpuCache`: returns CPU cache (L1, L2, L3) sizes (new in version 3.14)
 - `cpuFlags`: returns CPU flags (new in version 3.14)
 - `currentLoad.cpus`: returns current load per cpu/core in an array (new in version 3.14)
@@ -95,6 +98,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.23.0         | 2017-06-22     | added `memLayout`, `diskLayout`, extended windows support (`inetChecksite`)|
 | 3.22.0         | 2017-06-19     | extended windows support (`users`, `inetLatency`) |
 | 3.21.0         | 2017-06-18     | extended time (timezone), extended windows support (battery, getAll...) |
 | 3.20.1         | 2017-06-17     | updated docs |

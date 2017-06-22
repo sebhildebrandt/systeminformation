@@ -41,7 +41,7 @@ si.cpu()
 ## News and Changes
 
 ### Latest Activity
-
+- Version 3.23.0: added `memLayout`, `diskLayout`, extended windows support (`inetChecksite`)
 - Version 3.22.0: extended windows support (`users`, `inetLatency`)
 - Version 3.21.0: extended `time` (timezone), extended windows support (`battery`, `getAll...`)
 - Version 3.20.0: added additional windows support (`cpu`, `cpuCache`, `cpuCurrentspeed`, `mem`, `networkInterfaces`, `docker`)
@@ -155,6 +155,31 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | swaptotal | X | X | X |  |
 | | swapused | X | X | X |  |
 | | swapfree | X | X | X |  |
+| si.memLayout(cb) | {...} | X | X | X | Memory Layout |
+| | size | X | X | X | size in bytes |
+| | bank | X |   | X | memory bank |
+| | type | X | X | X | memory type |
+| | clockSpeed | X | X | X | clock speed |
+| | formFactor | X |   | X | form factor |
+| | partNum |   | X | X | part number |
+| | serialNum | X | X | X | serial number |
+| | voltageConfigured | X |   | X | voltage conf. |
+| | voltageMin | X |   | X | voltage min |
+| | voltageMax | X |   | X | voltage max |
+| si.diskLayout(cb) | {...} | X | X | X | Physical Disk Layout (HD) |
+| | name | X | X | X | Disk Name |
+| | vendor | X | X | X | vendor/producer |
+| | firmwareRevision | X | X | X | firmware revision |
+| | serialNum | X | X | X | serial number |
+| | interfaceType | | X | X |  |
+| | size | X | X | X | size in bytes |
+| | totalCylinders | | X | X | total cylinders |
+| | totalHeads | | X | X | total heads |
+| | totalTracks | | X | X | total tracks |
+| | tracksPerCylinder | | X | X | tracks per cylinder |
+| | sectorsPerTrack | | X | X | sectors per track |
+| | totalSectors | | X | X | total sectors |
+| | bytesPerSector | | X | X | bytes per sector |
 | si.battery(cb) | {...} | X | X | X | battery information |
 | | hasbattery | X | X | X | indicates presence of battery |
 | | cyclecount | X | X | | numbers of recharges |
@@ -268,11 +293,11 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].peeraddress | X | X |  | peer address |
 | | [0].peerport | X | X |  | peer port |
 | | [0].state | X | X |  | like ESTABLISHED, TIME_WAIT, ... |
-| si.inetChecksite(url, cb) | {...} | X | X |  | response-time (ms) to fetch given URL |
-| | url | X | X |  | given url |
-| | ok | X | X |  | status code OK (2xx, 3xx) |
-| | status | X | X |  | status code |
-| | ms | X | X |  | response time in ms |
+| si.inetChecksite(url, cb) | {...} | X | X | X | response-time (ms) to fetch given URL |
+| | url | X | X | X | given url |
+| | ok | X | X | X | status code OK (2xx, 3xx) |
+| | status | X | X | X | status code |
+| | ms | X | X | X | response time in ms |
 | si.inetLatency(host, cb) | : number | X | X | X | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
 
 #### 7. Current Load, Processes & Services 
