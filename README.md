@@ -10,7 +10,7 @@ Simple system and OS information library for [node.js][nodejs-url]
 
 ## Quick Start
 
-Collection of 30+ functions to retrieve detailed hardware, system and OS information (Linux, OSX and now partial Windows support)
+Collection of 35+ functions to retrieve detailed hardware, system and OS information (Linux, OSX and partial Windows support)
 
 ### Installation
 
@@ -110,7 +110,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | serial | X | X | X | serial number |
 | | uuid | X | X | X | UUID |
 
-#### 3. CPU, Memory, Battery, Graphics 
+#### 3. CPU, Memory, Disks, Battery, Graphics 
 
 | Function        | Result object | Linux | OSX | Win | Comments |
 | --------------- | ----- | ----- | ---- | ------- | -------- |
