@@ -437,13 +437,13 @@ si.networkStats('eth1')
 	.catch(error => console.error(error));
 
 ```
-### About Temperature
+### Known Issues
 
-#### OSX
+#### OSX - Temperature Sensor 
  
-Due to some difficulties in NPM with `optionalDependencies`  I unfortunately 
-was getting unexpected warnings on other platforms. So I decided to drop temperature 
-measurement for OSX - or more specific the automatic installation of the needed dependency. 
+To be able to measure temperature on OSX I created a litte additional package. Due to some difficulties 
+in NPM with `optionalDependencies`  I unfortunately was getting unexpected warnings on other platforms. 
+So I decided to drop this optional dependencies for OSX - so by default, you will not get correct values. 
 
 But if you need to detect OSX temperature just run the following additional 
 installation command:
@@ -454,14 +454,14 @@ $ npm install osx-temperature-sensor --save
  
 `systeminformation` will then detect this additional library and return the temperature when calling systeminformations standard function `cpuTemperature()`
 
-#### Windows
+#### Windows Temperature, Battery, ...
 
-`wmic` - which is used to determine the temperature sometimes needs to be run with admin 
-privileges. So if you do not get any temperature value, try to run it again with according 
+`wmic` - which is used to determine temperature and battery sometimes needs to be run with admin 
+privileges. So if you do not get any values, try to run it again with according 
 privileges. If you still do not get any values, your system might not support this feature. 
-In some cases we also discovered that `wmic` returned incorrect values.  
+In some cases we also discovered that `wmic` returned incorrect temperature values.  
 
-#### Linux
+#### Linux Temperature
 
 In some cases you need to install the linux `sensors` package to be able to measure temperature 
 e.g. on DEBIAN based systems by running `sudo apt-get install lm-sensors`
