@@ -437,7 +437,7 @@ si.networkStats('eth1')
 	.catch(error => console.error(error));
 
 ```
-### Known Issues
+## Known Issues
 
 #### OSX - Temperature Sensor 
  
@@ -466,15 +466,16 @@ In some cases we also discovered that `wmic` returned incorrect temperature valu
 In some cases you need to install the linux `sensors` package to be able to measure temperature 
 e.g. on DEBIAN based systems by running `sudo apt-get install lm-sensors`
 
-### *: Additional Notes
+#### *: Additional Notes
 
 In `fsStats`, `disksIO` and `networkStats` the results per second values (rx_sec, IOPS, ...) are calculated beginning
 with the second call of the function. It is determined by calculating the difference of transferred bytes / IOs
 divided by the time between two calls of the function.
 
-## Known Issues
+#### Finding new issues
 
 I am happy to discuss any comments and suggestions. Please feel free to contact me if you see any possibility of improvement!
+
 
 ## Comments
 

@@ -98,6 +98,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.23.4         | 2017-06-24     | bug fix `getDynamicData(), getAllData() - mem` |
 | 3.23.3         | 2017-06-23     | updated docs |
 | 3.23.2         | 2017-06-23     | bug fix `battery` (windows) |
 | 3.23.1         | 2017-06-22     | updated docs |
