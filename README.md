@@ -500,6 +500,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - lapsio [lapsio](https://github.com/lapsio)
 - csy [csy](https://github.com/csy1983)
 - Tiago Roldão [tiagoroldao](https://github.com/tiagoroldao)
+- dragonjet [dragonjet](https://github.com/dragonjet)
 
 OSX Temperature: Credits here are going to:
  

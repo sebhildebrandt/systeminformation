@@ -98,6 +98,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.23.6         | 2017-07-11     | added cpuFlags() to getStaticData(), bug fix `graphics()` (Win) |
 | 3.23.5         | 2017-06-29     | bug fix `inetChecksite()` |
 | 3.23.4         | 2017-06-24     | bug fix `getDynamicData(), getAllData() - mem` |
 | 3.23.3         | 2017-06-23     | updated docs |
@@ -107,7 +108,7 @@ Other changes
 | 3.22.0         | 2017-06-19     | extended windows support (`users`, `inetLatency`) |
 | 3.21.0         | 2017-06-18     | extended time (timezone), extended windows support (battery, getAll...) |
 | 3.20.1         | 2017-06-17     | updated docs |
-| 3.20.0         | 2017-06-16     | extend windows support (cpu, cpuCache, cpuCurrentspeed, mem, networkInterfaces, docker) |
+| 3.20.0         | 2017-06-16     | extend WIN support (cpu, cpuCache, cpuCurrentspeed, mem, networkInterfaces, docker) |
 | 3.19.0         | 2017-06-12     | OSX temperature now an optional dependency  |
 | 3.18.0         | 2017-05-27     | extended `cpu` info (vendor, family, model, stepping, revision, cache, speedmin/max) |
 | 3.17.3         | 2017-04-29     | minor fix (blockDevices data array, Windows) |
