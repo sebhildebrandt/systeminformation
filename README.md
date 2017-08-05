@@ -41,6 +41,7 @@ si.cpu()
 ## News and Changes
 
 ### Latest Activity
+- Version 3.24.0: extended windows support `networkStats()`, `networkConnections()`
 - Version 3.23.0: added `memLayout`, `diskLayout`, extended windows support (`inetChecksite`)
 - Version 3.22.0: extended windows support (`users`, `inetLatency`)
 - Version 3.21.0: extended `time` (timezone), extended windows support (`battery`, `getAll...`)
@@ -278,22 +279,22 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].ip6 | X | X | X | ip6 address |
 | | [0].mac | X | X | X | MAC address |
 | | [0].internal | X | X | X | true if internal interface |
-| si.networkInterfaceDefault(cb) | : string | X | X |  | get name of default network interface |
-| si.networkStats(iface,cb) | {...} | X | X |  | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface|
-| | iface | X | X |  | interface |
+| si.networkInterfaceDefault(cb) | : string | X | X | X | get name of default network interface |
+| si.networkStats(iface,cb) | {...} | X | X | X | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface<br>Windows: no iface, only overall stats!|
+| | iface | X | X |  | interface (Windows: only overall stats)|
 | | operstate | X | X |  | up / down |
-| | rx | X | X |  | received bytes overall |
-| | tx | X | X |  | transferred bytes overall|
-| | rx_sec | X | X |  | received bytes / second (* see notes) |
-| | tx_sec | X | X |  | transferred bytes per second (* see notes) |
-| | ms | X | X |  | interval length (for per second values) |
-| si.networkConnections(cb) | [{...}] | X | X |  | current network network connections<br>returns an array of all connections|
-| | [0].protocol | X | X |  | tcp or udp |
-| | [0].localaddress | X | X |  | local address |
-| | [0].localport | X | X |  | local port |
-| | [0].peeraddress | X | X |  | peer address |
-| | [0].peerport | X | X |  | peer port |
-| | [0].state | X | X |  | like ESTABLISHED, TIME_WAIT, ... |
+| | rx | X | X | X | received bytes overall |
+| | tx | X | X | X | transferred bytes overall|
+| | rx_sec | X | X | X | received bytes / second (* see notes) |
+| | tx_sec | X | X | X | transferred bytes per second (* see notes) |
+| | ms | X | X | X | interval length (for per second values) |
+| si.networkConnections(cb) | [{...}] | X | X | X | current network network connections<br>returns an array of all connections|
+| | [0].protocol | X | X | X | tcp or udp |
+| | [0].localaddress | X | X | X | local address |
+| | [0].localport | X | X | X | local port |
+| | [0].peeraddress | X | X | X | peer address |
+| | [0].peerport | X | X | X | peer port |
+| | [0].state | X | X | X | like ESTABLISHED, TIME_WAIT, ... |
 | si.inetChecksite(url, cb) | {...} | X | X | X | response-time (ms) to fetch given URL |
 | | url | X | X | X | given url |
 | | ok | X | X | X | status code OK (2xx, 3xx) |
