@@ -98,6 +98,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.25.0         | 2017-08-07     | improved windows support `networkStats()`, `cpuCache()`, bug fix `getStaticData()` |
 | 3.24.0         | 2017-08-05     | extended windows support `networkStats()`, `networkConnections()` |
 | 3.23.7         | 2017-07-11     | bug fix `diskLayout()` |
 | 3.23.6         | 2017-07-11     | added `cpuFlags()` to `getStaticData()`, bug fix `graphics()` (Win) |

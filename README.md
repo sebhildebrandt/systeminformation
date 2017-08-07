@@ -41,6 +41,7 @@ si.cpu()
 ## News and Changes
 
 ### Latest Activity
+- Version 3.25.0: improved windows support `networkStats()`, `cpuCache()`, bug fix `getStaticData()`
 - Version 3.24.0: extended windows support `networkStats()`, `networkConnections()`
 - Version 3.23.0: added `memLayout`, `diskLayout`, extended windows support (`inetChecksite`)
 - Version 3.22.0: extended windows support (`users`, `inetLatency`)
@@ -128,8 +129,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | stepping | X | X | X | Processor Stepping |
 | | revision | X | X | X | Revision |
 | | cache | X | X | X | cache in bytes (object) |
-| | cache.l1d | X | X |  | L1D size |
-| | cache.l1i | X | X |  | L1I size |
+| | cache.l1d | X | X |  | L1D (data) size |
+| | cache.l1i | X | X |  | L1I (instruction) size |
 | | cache.l2 | X | X | X | L2 size |
 | | cache.l3 | X | X | X | L3 size |
 | si.cpuFlags(cb) | : string | X | X |  | CPU flags|
@@ -146,9 +147,9 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | main | X | X | X | main temperature |
 | | cores | X | X | X | array of temperatures |
 | | max | X | X | X | max temperature |
-| si.mem(cb) | {...} | X | X | X | Memory information|
-| | total | X | X | X | total memory |
-| | free | X | X | X | not used |
+| si.mem(cb) | {...} | X | X | X | Memory information (in bytes)|
+| | total | X | X | X | total memory in bytes |
+| | free | X | X | X | not used in bytes |
 | | used | X | X | X | used (incl. buffers/cache) |
 | | active | X | X | X | used actively (excl. buffers/cache)  |
 | | buffcache | X | X |  | used by buffers+cache |
@@ -194,14 +195,14 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | controllers[0].vendor | X | X | X | e.g. ATI |
 | | controllers[0].bus | X | X | X| on which bus (e.g. PCIe) |
 | | controllers[0].vram | X | X | X | VRAM size (in MB) |
-| | controllers[0].vramDynamic | X | X |  | true if dynamicly allocated ram |
-| | displays[0].model | X | X |  | Monitor/Display Model |
+| | controllers[0].vramDynamic | X | X | X | true if dynamicly allocated ram |
+| | displays[0].model | X | X | X | Monitor/Display Model |
 | | displays[0].main | X | X |  | true if main monitor |
 | | displays[0].builtin | X | X |  | true if built in monitor |
 | | displays[0].connection | X | X |  | e.g. DisplayPort or HDMI |
 | | displays[0].resolutionx | X | X | X | pixel horizontal |
 | | displays[0].resolutiony | X | X | X | pixel vertical |
-| | displays[0].depth | X | X | X | color depth in bits |
+| | displays[0].pixeldepth | X | X | X | color depth in bits |
 | | displays[0].sizex | X | X |  | size in mm horizontal |
 | | displays[0].sizey | X | X |  | size in mm vertical |
 
@@ -280,9 +281,9 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].mac | X | X | X | MAC address |
 | | [0].internal | X | X | X | true if internal interface |
 | si.networkInterfaceDefault(cb) | : string | X | X | X | get name of default network interface |
-| si.networkStats(iface,cb) | {...} | X | X | X | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface<br>Windows: no iface, only overall stats!|
-| | iface | X | X |  | interface (Windows: only overall stats)|
-| | operstate | X | X |  | up / down |
+| si.networkStats(iface,cb) | {...} | X | X | X | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface|
+| | iface | X | X | X | interface |
+| | operstate | X | X | X | up / down |
 | | rx | X | X | X | received bytes overall |
 | | tx | X | X | X | transferred bytes overall|
 | | rx_sec | X | X | X | received bytes / second (* see notes) |
