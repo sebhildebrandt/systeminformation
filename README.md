@@ -129,14 +129,14 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | stepping | X | X | X | Processor Stepping |
 | | revision | X | X | X | Revision |
 | | cache | X | X | X | cache in bytes (object) |
-| | cache.l1d | X | X |  | L1D (data) size |
-| | cache.l1i | X | X |  | L1I (instruction) size |
+| | cache.l1d | X | X | X | L1D (data) size |
+| | cache.l1i | X | X | X | L1I (instruction) size |
 | | cache.l2 | X | X | X | L2 size |
 | | cache.l3 | X | X | X | L3 size |
 | si.cpuFlags(cb) | : string | X | X |  | CPU flags|
 | si.cpuCache(cb) | {...} | X | X | X | CPU cache sizes |
-| | l1d | X | X |  | L1D size |
-| | l1i | X | X |  | L1I size |
+| | l1d | X | X | X | L1D size |
+| | l1i | X | X | X | L1I size |
 | | l2 | X | X | X | L2 size |
 | | l3 | X | X | X | L3 size |
 | si.cpuCurrentspeed(cb) | {...} | X | X | X | current CPU speed (in GHz)|
