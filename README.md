@@ -22,11 +22,11 @@ $ npm install systeminformation --save
 
 All functions (except `version` and `time`) are implemented as asynchronous functions. Here a small example how to use them:
 
-```
+```js
 const si = require('systeminformation');
 
 // callback style
-si.cpu(function(data) {
+si.cpu((data) => {
 	console.log('CPU-Information:');
 	console.log(data);
 })
@@ -407,8 +407,8 @@ Remember: all functions (except `version` and `time`) are implemented as asynchr
 
 **Callback Style**
 
-```
-var si = require('systeminformation');
+```js
+const si = require('systeminformation');
 
 si.networkStats('eth1', function(data) {
 	console.log('Network Interface Stats (eth1):');
@@ -426,7 +426,7 @@ si.networkStats('eth1', function(data) {
 
 When omitting callback parameter (cb), then you can use all function in a promise oriented way. All functions (exept of `version` and `time`) are returning a promis, that you can consume:
 
-```
+```js
 si.networkStats('eth1')
 	.then(data => {
 		console.log('Network Interface Stats (eth1):');
@@ -437,7 +437,6 @@ si.networkStats('eth1')
 		console.log('- TX bytes/sec: ' + data.tx_sec);
 	})
 	.catch(error => console.error(error));
-
 ```
 ## Known Issues
 
