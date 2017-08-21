@@ -22,7 +22,7 @@ $ npm install systeminformation --save
 
 All functions (except `version` and `time`) are implemented as asynchronous functions. Here a small example how to use them:
 
-```
+```js
 const si = require('systeminformation');
 
 // callback style
@@ -36,11 +36,21 @@ si.cpu()
 	.then(data => console.log(data))
 	.catch(error => console.error(error));
 
+// full async / await example (node >= 7.6)
+async function cpu() {
+  try {
+    const data = await si.cpu();
+    console.log(data)
+  } catch {
+    console.log(e)
+  }
+}
 ```
 
 ## News and Changes
 
 ### Latest Activity
+- Version 3.26.0: extended `getDynamicData()` (windows), updated docs
 - Version 3.25.0: improved windows support `networkStats()`, `cpuCache()`, bug fix `getStaticData()`
 - Version 3.24.0: extended windows support `networkStats()`, `networkConnections()`
 - Version 3.23.0: added `memLayout`, `diskLayout`, extended windows support (`inetChecksite`)
@@ -407,8 +417,8 @@ Remember: all functions (except `version` and `time`) are implemented as asynchr
 
 **Callback Style**
 
-```
-var si = require('systeminformation');
+```js
+const si = require('systeminformation');
 
 si.networkStats('eth1', function(data) {
 	console.log('Network Interface Stats (eth1):');
@@ -426,7 +436,9 @@ si.networkStats('eth1', function(data) {
 
 When omitting callback parameter (cb), then you can use all function in a promise oriented way. All functions (exept of `version` and `time`) are returning a promis, that you can consume:
 
-```
+```js
+const si = require('systeminformation');
+
 si.networkStats('eth1')
 	.then(data => {
 		console.log('Network Interface Stats (eth1):');
@@ -439,6 +451,31 @@ si.networkStats('eth1')
 	.catch(error => console.error(error));
 
 ```
+
+### Async / Await
+
+**Using async / await** (available since node v7.6)
+
+Since node 7.6 you can ylso use the `async` / `await pattern. The example would then loog like this:
+
+```js
+const si = require('systeminformation');
+
+async function network() {
+    try {
+        const data = await si.networkStats('eth1')
+        console.log(`Network Interface Stats (eth1):
+        - is up: ${data.operstate}
+        - RX bytes overall: ${data.rx}
+        - TX bytes overall: ${data.tx}
+        - RX bytes/sec: ${data.rx_sec}
+        - TX bytes/sec: ${data.tx_sec}`)
+    } catch (e) {
+        console.log(e)
+    }
+}
+```
+
 ## Known Issues
 
 #### OSX - Temperature Sensor 
