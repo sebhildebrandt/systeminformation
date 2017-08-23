@@ -10,7 +10,7 @@ Simple system and OS information library for [node.js][nodejs-url]
 
 ## Quick Start
 
-Collection of 35+ functions to retrieve detailed hardware, system and OS information (Linux, OSX and partial Windows support)
+Lightweight collection of 35+ functions to retrieve detailed hardware, system and OS information (Linux, OSX and partial Windows support) - no npm dependencies.
 
 ### Installation
 
@@ -50,7 +50,7 @@ async function cpu() {
 ## News and Changes
 
 ### Latest Activity
-- Version 3.26.0: extended `getDynamicData()` (windows), updated docs
+- Version 3.26.0: improved windows support `getDynamicData()`, updated docs
 - Version 3.25.0: improved windows support `networkStats()`, `cpuCache()`, bug fix `getStaticData()`
 - Version 3.24.0: extended windows support `networkStats()`, `networkConnections()`
 - Version 3.23.0: added `memLayout`, `diskLayout`, extended windows support (`inetChecksite`)
@@ -200,7 +200,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | maxcapacity | X | X | X | max capacity of battery |
 | | currentcapacity | X | X | X | current capacity of battery |
 | | percent | X | X | X | charging level in percent |
-| si.graphics(cb) | {...} | X | X |  | arrays of graphics controllers and displays |
+| si.graphics(cb) | {...} | X | X | X | arrays of graphics controllers and displays |
 | | controllers[0].model | X | X | X | graphics controller model |
 | | controllers[0].vendor | X | X | X | e.g. ATI |
 | | controllers[0].bus | X | X | X| on which bus (e.g. PCIe) |
@@ -413,7 +413,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 ### cb: Asynchronous Function Calls (callback)
 
-Remember: all functions (except `version` and `time`) are implemented as asynchronous functions! There are now two ways to consume them:
+Remember: all functions (except `version` and `time`) are implemented as asynchronous functions! There are now three ways to consume them:
 
 **Callback Style**
 
@@ -456,7 +456,7 @@ si.networkStats('eth1')
 
 **Using async / await** (available since node v7.6)
 
-Since node 7.6 you can ylso use the `async` / `await pattern. The example would then loog like this:
+Since node v7.6 you can also use the `async` / `await` pattern. The example would then look like this:
 
 ```js
 const si = require('systeminformation');
@@ -550,7 +550,7 @@ OSX Temperature: Credits here are going to:
 
 Linux is a registered trademark of Linus Torvalds, OS X is a registered trademark of Apple Inc.,
 Windows is a registered trademark of Microsoft Corporation. Node.js is a trademark of Joyent Inc.,
-Intel is a trademark of Intel Corporation, Raspberry Pi is a trademark of the Raspberry Pi Foundation,
+Intel is a trademark of Intel Corporation, AMD is a trademark of Advanced Micro Devices Inc., Raspberry Pi is a trademark of the Raspberry Pi Foundation,
 Debian is a trademark of the Debian Project, Ubuntu is a trademark of Canonical Ltd., Docker is a trademark of Docker, Inc.
 All other trademarks are the property of their respective owners.
 

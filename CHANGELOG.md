@@ -98,6 +98,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.26.1         | 2017-08-23     | fixed `cpu().speed` windows / AMD, updated docs |
 | 3.26.0         | 2017-08-21     | extended `getDynamicData()` (windows), updated docs |
 | 3.25.1         | 2017-08-07     | updated docs  |
 | 3.25.0         | 2017-08-07     | improved windows support `networkStats()`, `cpuCache()`, bug fix `getStaticData()` |
