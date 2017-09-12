@@ -29,7 +29,7 @@ const si = require('systeminformation');
 si.cpu(function(data) {
 	console.log('CPU-Information:');
 	console.log(data);
-})
+});
 
 // promises style - new in version 3
 si.cpu()
@@ -41,7 +41,7 @@ async function cpu() {
   try {
     const data = await si.cpu();
     console.log(data)
-  } catch {
+  } catch (e) {
     console.log(e)
   }
 }
@@ -50,6 +50,7 @@ async function cpu() {
 ## News and Changes
 
 ### Latest Activity
+- Version 3.27.0: added raw data to `currentLoad()`, fixed `networkInterfaces()` MAC problem node 8.x
 - Version 3.26.0: improved windows support `getDynamicData()`, updated docs
 - Version 3.25.0: improved windows support `networkStats()`, `cpuCache()`, bug fix `getStaticData()`
 - Version 3.24.0: extended windows support `networkStats()`, `networkConnections()`
@@ -317,15 +318,17 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 | Function        | Result object | Linux | OSX | Win | Comments |
 | --------------- | ----- | ----- | ---- | ------- | -------- |
-| si.currentLoad(cb) | {...} | X | X |  | CPU-Load |
-| | avgload | X | X |  | average load  |
-| | currentload | X | X |  | CPU-Load in % |
-| | currentload_user | X | X |  | CPU-Load User in % |
-| | currentload_nice | X | X |  | CPU-Load Nice in % |
-| | currentload_system | X | X |  | CPU-Load System in % |
-| | currentload_irq | X | X |  | CPU-Load System in % |
-| | cpus[] | X | X |  | current loads per CPU in % |
-| si.fullLoad(cb) | : integer | X | X |  | CPU-full load since bootup in % |
+| si.currentLoad(cb) | {...} | X | X | X | CPU-Load |
+| | avgload | X | X | X | average load  |
+| | currentload | X | X | X | CPU-Load in % |
+| | currentload_user | X | X | X | CPU-Load User in % |
+| | currentload_system | X | X | X | CPU-Load System in % |
+| | currentload_nice | X | X | X | CPU-Load Nice in % |
+| | currentload_idle | X | X | X | CPU-Load Idle in % |
+| | currentload_irq | X | X | X | CPU-Load System in % |
+| | raw_currentload... | X | X | X | CPU-Load raw values (ticks) |
+| | cpus[] | X | X | X | current loads per CPU in % + raw ticks |
+| si.fullLoad(cb) | : integer | X | X | X | CPU-full load since bootup in % |
 | si.processes(cb) | {...} | X | X |  | # running processes |
 | | all | X | X |  | # of all processes |
 | | running | X | X |  | # of all processes running |
@@ -463,7 +466,7 @@ const si = require('systeminformation');
 
 async function network() {
     try {
-        const data = await si.networkStats('eth1')
+        const data = await si.networkStats('eth1');
         console.log(`Network Interface Stats (eth1):
         - is up: ${data.operstate}
         - RX bytes overall: ${data.rx}

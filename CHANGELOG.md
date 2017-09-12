@@ -98,6 +98,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.27.0         | 2017-09-11     | added raw data to `currentLoad()`, fixed `networkInterfaces()` MAC problem node 8.x |
 | 3.26.2         | 2017-09-01     | removed redundant code |
 | 3.26.1         | 2017-08-23     | fixed `cpu().speed` windows / AMD, updated docs |
 | 3.26.0         | 2017-08-21     | extended `getDynamicData()` (windows), updated docs |
