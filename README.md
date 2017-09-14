@@ -50,6 +50,7 @@ async function cpu() {
 ## News and Changes
 
 ### Latest Activity
+- Version 3.28.0: extended windows support `processes()`
 - Version 3.27.0: added raw data to `currentLoad()`, fixed `networkInterfaces()` MAC problem node 8.x
 - Version 3.26.0: improved windows support `getDynamicData()`, updated docs
 - Version 3.25.0: improved windows support `networkStats()`, `cpuCache()`, bug fix `getStaticData()`
@@ -329,26 +330,28 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | raw_currentload... | X | X | X | CPU-Load raw values (ticks) |
 | | cpus[] | X | X | X | current loads per CPU in % + raw ticks |
 | si.fullLoad(cb) | : integer | X | X | X | CPU-full load since bootup in % |
-| si.processes(cb) | {...} | X | X |  | # running processes |
-| | all | X | X |  | # of all processes |
-| | running | X | X |  | # of all processes running |
-| | blocked | X | X |  | # of all processes blocked |
-| | sleeping | X | X |  | # of all processes sleeping |
-| | list[] | X | X |  | list of all processes incl. details |
-| | ...[0].pid | X | X |  | process PID |
-| | ...[0].pcpu | X | X |  | process % CPU usage |
-| | ...[0].pcpuu | X |  |  | process % CPU usage (user) |
-| | ...[0].pcpus | X |  |  | process % CPU usage (system) |
-| | ...[0].pmem | X | X |  | process memory % |
-| | ...[0].priority | X | X |  | process priotity |
-| | ...[0].mem_vsz | X | X |  | process virtual memory size |
-| | ...[0].mem_rss | X | X |  | process mem resident set size |
+| si.processes(cb) | {...} | X | X | X | # running processes |
+| | all | X | X | X | # of all processes |
+| | running | X | X | X | # of all processes running |
+| | blocked | X | X | X | # of all processes blocked |
+| | sleeping | X | X | X | # of all processes sleeping |
+| | unknown |   |   | X | # of all processes unknown status |
+| | list[] | X | X | X | list of all processes incl. details |
+| | ...[0].pid | X | X | X | process PID |
+| | ...[0].name | X | X | X | process name |
+| | ...[0].pcpu | X | X | X | process % CPU usage |
+| | ...[0].pcpuu | X |  | X | process % CPU usage (user) |
+| | ...[0].pcpus | X |  | X | process % CPU usage (system) |
+| | ...[0].pmem | X | X | X | process memory % |
+| | ...[0].priority | X | X | X | process priotity |
+| | ...[0].mem_vsz | X | X | X | process virtual memory size |
+| | ...[0].mem_rss | X | X | X | process mem resident set size |
 | | ...[0].nice | X | X |  | process nice value |
-| | ...[0].started | X | X |  | process start time |
-| | ...[0].state | X | X |  | process state (e.g. sleeping) |
+| | ...[0].started | X | X | X | process start time |
+| | ...[0].state | X | X | X | process state (e.g. sleeping) |
 | | ...[0].tty | X | X |  | tty from which process was started |
 | | ...[0].user | X | X |  | user who started process |
-| | ...[0].command | X | X |  | process starting command |
+| | ...[0].command | X | X | X | process starting command |
 | si.processLoad('apache2',cb) | {...} | X | X |  | detailed information about given process |
 | | proc | X | X |  | process name |
 | | pid | X | X |  | PID |

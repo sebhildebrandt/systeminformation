@@ -98,6 +98,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.28.0         | 2017-09-14     | extended windows support `processes()` |
 | 3.27.1         | 2017-09-13     | updated Raspberry version detection `system()` (Pi 3, Zero) |
 | 3.27.0         | 2017-09-12     | added raw data to `currentLoad()`, fixed `networkInterfaces()` MAC problem node 8.x |
 | 3.26.2         | 2017-09-01     | removed redundant code |
