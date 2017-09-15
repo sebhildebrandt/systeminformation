@@ -50,6 +50,7 @@ async function cpu() {
 ## News and Changes
 
 ### Latest Activity
+- Version 3.29.0: extended windows support `services()`
 - Version 3.28.0: extended windows support `processes()`
 - Version 3.27.0: added raw data to `currentLoad()`, fixed `networkInterfaces()` MAC problem node 8.x
 - Version 3.26.0: improved windows support `getDynamicData()`, updated docs
@@ -357,9 +358,9 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | pid | X | X |  | PID |
 | | cpu | X | X |  | process % CPU |
 | | mem | X | X |  | process % MEM |
-| si.services('mysql, apache2', cb) | [{...}] | X | X |  | pass comma separated string of services |
-| | [0].name | X | X |  | name of service |
-| | [0].running | X | X |  | true / false |
+| si.services('mysql, apache2', cb) | [{...}] | X | X | X | pass comma separated string of services |
+| | [0].name | X | X | X | name of service |
+| | [0].running | X | X | X | true / false |
 | | [0].pcpu | X | X |  | process % CPU |
 | | [0].pmem | X | X |  | process % MEM |
 
