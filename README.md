@@ -50,6 +50,7 @@ async function cpu() {
 ## News and Changes
 
 ### Latest Activity
+- Version 3.30.0: extended `versions()` (added `yarn`, `gulp`, `grunt`, `tsc`, `git`)
 - Version 3.29.0: extended windows support `services()`
 - Version 3.28.0: extended windows support `processes()`
 - Version 3.27.0: added raw data to `currentLoad()`, fixed `networkInterfaces()` MAC problem node 8.x
