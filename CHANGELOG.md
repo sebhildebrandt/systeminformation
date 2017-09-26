@@ -98,6 +98,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.30.2         | 2017-09-26     | bugfix `networkInterfaces()` - optimized ip6 address selection |
 | 3.30.1         | 2017-09-21     | bugfix/typo `inetChecksite()` |
 | 3.30.0         | 2017-09-21     | extended `versions()` (added `yarn`, `gulp`, `grunt`, `tsc`, `git`) |
 | 3.29.0         | 2017-09-15     | extended windows support `services()`, optimized `diskLayout()` (OSX), bugfixes |

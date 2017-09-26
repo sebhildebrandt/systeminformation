@@ -548,6 +548,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - csy [csy](https://github.com/csy1983)
 - Tiago Roldão [tiagoroldao](https://github.com/tiagoroldao)
 - dragonjet [dragonjet](https://github.com/dragonjet)
+- Adam Reis [adamreisnz](https://github.com/adamreisnz)
 
 OSX Temperature: Credits here are going to:
  
