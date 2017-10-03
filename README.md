@@ -158,7 +158,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | min | X | X | X | min CPU speed (all cores) |
 | | max | X | X | X | max CPU speed (all cores) |
 | si.cpuTemperature(cb) | {...} | X | X* | X | CPU temperature (if supported) |
-| | main | X | X | X | main temperature |
+| | main | X | X | X | main temperature (avg) |
 | | cores | X | X | X | array of temperatures |
 | | max | X | X | X | max temperature |
 | si.mem(cb) | {...} | X | X | X | Memory information (in bytes)|

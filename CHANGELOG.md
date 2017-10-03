@@ -98,6 +98,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.30.3         | 2017-10-03     | bugfix `cpuTemperature()` - max value on windows |
 | 3.30.2         | 2017-09-26     | bugfix `networkInterfaces()` - optimized ip6 address selection |
 | 3.30.1         | 2017-09-21     | bugfix/typo `inetChecksite()` |
 | 3.30.0         | 2017-09-21     | extended `versions()` (added `yarn`, `gulp`, `grunt`, `tsc`, `git`) |
