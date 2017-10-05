@@ -205,20 +205,22 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | currentcapacity | X | X | X | current capacity of battery |
 | | percent | X | X | X | charging level in percent |
 | si.graphics(cb) | {...} | X | X | X | arrays of graphics controllers and displays |
-| | controllers[0].model | X | X | X | graphics controller model |
-| | controllers[0].vendor | X | X | X | e.g. ATI |
-| | controllers[0].bus | X | X | X| on which bus (e.g. PCIe) |
-| | controllers[0].vram | X | X | X | VRAM size (in MB) |
-| | controllers[0].vramDynamic | X | X | X | true if dynamicly allocated ram |
-| | displays[0].model | X | X | X | Monitor/Display Model |
-| | displays[0].main | X | X |  | true if main monitor |
-| | displays[0].builtin | X | X |  | true if built in monitor |
-| | displays[0].connection | X | X |  | e.g. DisplayPort or HDMI |
-| | displays[0].resolutionx | X | X | X | pixel horizontal |
-| | displays[0].resolutiony | X | X | X | pixel vertical |
-| | displays[0].pixeldepth | X | X | X | color depth in bits |
-| | displays[0].sizex | X | X |  | size in mm horizontal |
-| | displays[0].sizey | X | X |  | size in mm vertical |
+| | controllers[]| X | X | X | graphics controllers array |
+| | ...[0].model | X | X | X | graphics controller model |
+| | ...[0].vendor | X | X | X | e.g. ATI |
+| | ...[0].bus | X | X | X| on which bus (e.g. PCIe) |
+| | ...[0].vram | X | X | X | VRAM size (in MB) |
+| | ...[0].vramDynamic | X | X | X | true if dynamicly allocated ram |
+| | displays[] | X | X | X | Monitor/Display Array |
+| | ...[0].model | X | X | X | Monitor/Display Model |
+| | ...[0].main | X | X |  | true if main monitor |
+| | ...[0].builtin | X | X |  | true if built in monitor |
+| | ...[0].connection | X | X |  | e.g. DisplayPort or HDMI |
+| | ...[0].resolutionx | X | X | X | pixel horizontal |
+| | ...[0].resolutiony | X | X | X | pixel vertical |
+| | ...[0].pixeldepth | X | X | X | color depth in bits |
+| | ...[0].sizex | X | X |  | size in mm horizontal |
+| | ...[0].sizey | X | X |  | size in mm vertical |
 
 #### 4. Operating System
 

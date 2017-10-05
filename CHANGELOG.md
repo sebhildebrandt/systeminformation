@@ -98,6 +98,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.30.5         | 2017-10-05     | bugfix `users()` - parsing values on windows |
 | 3.30.4         | 2017-10-03     | bugfix `cpuTemperature()` - parsing values on windows |
 | 3.30.3         | 2017-10-03     | bugfix `cpuTemperature()` - max value on windows |
 | 3.30.2         | 2017-09-26     | bugfix `networkInterfaces()` - optimized ip6 address selection |
