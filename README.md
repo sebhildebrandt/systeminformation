@@ -6,6 +6,7 @@ Simple system and OS information library for [node.js][nodejs-url]
   [![NPM Downloads][downloads-image]][downloads-url]
   [![Git Issues][issues-img]][issues-url]
   [![deps status][daviddm-img]][daviddm-url]
+  [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
 ## Quick Start
@@ -50,6 +51,7 @@ async function cpu() {
 ## News and Changes
 
 ### Latest Activity
+- Version 3.31.0: extended windows support `cpuFlags()` (partially)
 - Version 3.30.0: extended `versions()` (added `yarn`, `gulp`, `grunt`, `tsc`, `git`)
 - Version 3.29.0: extended windows support `services()`
 - Version 3.28.0: extended windows support `processes()`
@@ -601,6 +603,8 @@ All other trademarks are the property of their respective owners.
 [license-img]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
 [npmjs-license]: https://img.shields.io/npm/l/systeminformation.svg?style=flat-square
 [changelog-url]: https://github.com/sebhildebrandt/systeminformation/blob/master/CHANGELOG.md
+[caretaker-url]: https://github.com/sebhildebrandt
+[caretaker-image]: https://img.shields.io/badge/caretaker-sebhildebrandt-blue.svg?style=flat-square
 
 [nodejs-url]: https://nodejs.org/en/
 [docker-url]: https://www.docker.com/
