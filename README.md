@@ -149,7 +149,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | cache.l1i | X | X | X | L1I (instruction) size |
 | | cache.l2 | X | X | X | L2 size |
 | | cache.l3 | X | X | X | L3 size |
-| si.cpuFlags(cb) | : string | X | X |  | CPU flags|
+| si.cpuFlags(cb) | : string | X | X | X | CPU flags|
 | si.cpuCache(cb) | {...} | X | X | X | CPU cache sizes |
 | | l1d | X | X | X | L1D size |
 | | l1i | X | X | X | L1I size |

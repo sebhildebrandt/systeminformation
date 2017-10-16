@@ -98,6 +98,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.31.1         | 2017-10-16     | bugfix `graphics()` vendor and model parsing linux |
 | 3.31.0         | 2017-10-15     | extended windows support `cpuFlags()` (partially) |
 | 3.30.6         | 2017-10-05     | updated community profile |
 | 3.30.5         | 2017-10-05     | bugfix `users()` - parsing values on windows |
