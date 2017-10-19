@@ -446,7 +446,7 @@ si.networkStats('eth1', function(data) {
 
 **Promises Style** is new in version 3.0.
 
-When omitting callback parameter (cb), then you can use all function in a promise oriented way. All functions (exept of `version` and `time`) are returning a promis, that you can consume:
+When omitting callback parameter (cb), then you can use all function in a promise oriented way. All functions (exept of `version` and `time`) are returning a promise, that you can consume:
 
 ```js
 const si = require('systeminformation');
