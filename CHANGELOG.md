@@ -98,6 +98,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.31.3         | 2017-10-21     | bugfix `graphics()`, fixed typo `README.md` |
 | 3.31.2         | 2017-10-16     | bugfix `graphics()` vendor and model parsing linux VGA/3D |
 | 3.31.1         | 2017-10-16     | bugfix `graphics()` vendor and model parsing linux |
 | 3.31.0         | 2017-10-15     | extended windows support `cpuFlags()` (partially) |
