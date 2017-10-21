@@ -51,6 +51,8 @@ async function cpu() {
 ## News and Changes
 
 ### Latest Activity
+
+(last 7 major and minor version releases) 
 - Version 3.31.0: extended windows support `cpuFlags()` (partially)
 - Version 3.30.0: extended `versions()` (added `yarn`, `gulp`, `grunt`, `tsc`, `git`)
 - Version 3.29.0: extended windows support `services()`
@@ -58,33 +60,7 @@ async function cpu() {
 - Version 3.27.0: added raw data to `currentLoad()`, fixed `networkInterfaces()` MAC problem node 8.x
 - Version 3.26.0: improved windows support `getDynamicData()`, updated docs
 - Version 3.25.0: improved windows support `networkStats()`, `cpuCache()`, bug fix `getStaticData()`
-- Version 3.24.0: extended windows support `networkStats()`, `networkConnections()`
-- Version 3.23.0: added `memLayout`, `diskLayout`, extended windows support (`inetChecksite`)
-- Version 3.22.0: extended windows support (`users`, `inetLatency`)
-- Version 3.21.0: extended `time` (timezone), extended windows support (`battery`, `getAll...`)
-- Version 3.20.0: added additional windows support (`cpu`, `cpuCache`, `cpuCurrentspeed`, `mem`, `networkInterfaces`, `docker`)
-- Version 3.19.0: OSX temperature now an optional dependency (see comments below in reference!)
-- Version 3.18.0: extended `cpu` info (vendor, family, model, stepping, revision, cache, speedmin, speedmax)
-- Version 3.17.0: windows support for some very first functions (work in progress)
-- Version 3.16.0: `blockDevices`: added removable attribute
-- Version 3.15.0: added `cpuTemperature` also for OSX
-- Version 3.14.0: added `currentLoad` per cpu/core, `cpuCache` (L1, L2, L3) and cpu flags
-- Version 3.13.0: added `shell` (returns standard shell)
-- Version 3.12.0: refactoring and extended `currentLoad` (better OSX coverage and added irq load).
-- Version 3.11.0: `blockDevices` now also for OSX and also extended (+ label, model, serial, protocol).
-- Version 3.10.0: added `blockDevices` (list of disks, partitions, raids and roms).
-- Version 3.9.0: extended `networkInterfaces` (added MAC address).
-- Version 3.8.0: added `dockerContainerProcesses` (array of processes inside a docker container).
-- Version 3.7.0: extended `dockerContainerStats`.
-- Version 3.6.0: added `versions` (kernel, ssl, node, npm, pm2, ...).
-- Version 3.5.0: added `graphics` info (controller and display).
-- Version 3.4.0: rewritten `currentLoad` and CPU load for processes (linux). This is now much more accurate.
-- Version 3.3.0: added `processes.list`. Get full process list including details like cpu and mem usage, status, command, ...
-- Version 3.2.0: added `battery` support. If a battery is installed, you get information about status and current capacity level
-- Version 3.1.0: added [Docker][docker-url] support. Now you can scan your docker containers and get their stats
-- Version 3.0.0: added `disksIO` - overall diskIO and IOPS values for all mounted volumes
-
-### Changelog
+- ...
 
 You can find all changes here: [detailed changelog][changelog-url]
 
