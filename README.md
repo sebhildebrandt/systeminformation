@@ -155,7 +155,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | type | X | X | X | memory type |
 | | clockSpeed | X | X | X | clock speed |
 | | formFactor | X |   | X | form factor |
-| | partNum |   | X | X | part number |
+| | manufacturer | X | X | X | manufacturer |
+| | partNum | X | X | X | part number |
 | | serialNum | X | X | X | serial number |
 | | voltageConfigured | X |   | X | voltage conf. |
 | | voltageMin | X |   | X | voltage min |
