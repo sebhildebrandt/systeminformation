@@ -3,7 +3,8 @@
 ### Major (breaking) Changes - Version 3
 
 - works only with [node.js][nodejs-url] **v4.0.0** and above (using now internal ES6 promise function, arrow functions, ...)
-- **Promises**. As you can see above, you can now also use it in a promise oriented way. But callbacks are still supported.
+- **Promises**. As you can see in the documentation, you can now also use it in a promise oriented way. But callbacks are still supported.
+- **Async/Await**. Due to the promises support, systeminformation also works perfectly with the `async/await` pattern (available in [node.js][nodejs-url] **v7.6.0** and above). See example in the docs.
 - `cpuCurrentspeed`: now returns an object with current minimal, maximal and average CPU frequencies of all cores.
 - `mem`: now supports also newer versions of `free` (Version 3.3.10 and above); extended information `avaliable` (potentially available memory)
 - `fsStats`: added information sum bytes read + write (tx) and sum transfer rate/sec (tx_sec)
@@ -98,6 +99,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.32.0         | 2017-10-23     | extended `memLayout()` - added manufacturer |
 | 3.31.4         | 2017-10-21     | updated `README.md` |
 | 3.31.3         | 2017-10-21     | bugfix `graphics()`, fixed typo `README.md` |
 | 3.31.2         | 2017-10-16     | bugfix `graphics()` vendor and model parsing linux VGA/3D |
@@ -187,3 +189,5 @@ Other changes
 | 0.0.3          | 2014-04-14     | bug-fix (cpu_speed) |
 | 0.0.2          | 2014-03-14     | Optimization FS-Speed & CPU current speed |
 | 0.0.1          | 2014-03-13     | initial release |
+
+[nodejs-url]: https://nodejs.org/en/

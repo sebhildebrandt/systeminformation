@@ -53,13 +53,13 @@ async function cpu() {
 ### Latest Activity
 
 (last 7 major and minor version releases) 
+- Version 3.32.0: extended `memLayout()` - added manufacturer
 - Version 3.31.0: extended windows support `cpuFlags()` (partially)
 - Version 3.30.0: extended `versions()` (added `yarn`, `gulp`, `grunt`, `tsc`, `git`)
 - Version 3.29.0: extended windows support `services()`
 - Version 3.28.0: extended windows support `processes()`
 - Version 3.27.0: added raw data to `currentLoad()`, fixed `networkInterfaces()` MAC problem node 8.x
 - Version 3.26.0: improved windows support `getDynamicData()`, updated docs
-- Version 3.25.0: improved windows support `networkStats()`, `cpuCache()`, bug fix `getStaticData()`
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
