@@ -99,6 +99,8 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.32.2         | 2017-10-23     | bugfix JSON.parse error `blockDevices()` |
+| 3.32.1         | 2017-10-23     | updated docs |
 | 3.32.0         | 2017-10-23     | extended `memLayout()` - added manufacturer |
 | 3.31.4         | 2017-10-21     | updated `README.md` |
 | 3.31.3         | 2017-10-21     | bugfix `graphics()`, fixed typo `README.md` |
