@@ -99,6 +99,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.32.4         | 2017-11-02     | AMD cpu base frequencies table also for windows |
 | 3.32.3         | 2017-11-02     | code cleanup, AMD cpu base frequencies table |
 | 3.32.2         | 2017-11-01     | bugfix JSON.parse error `blockDevices()` |
 | 3.32.1         | 2017-10-23     | updated docs |
