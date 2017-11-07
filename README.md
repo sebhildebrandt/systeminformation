@@ -506,13 +506,29 @@ In some cases we also discovered that `wmic` returned incorrect temperature valu
 In some cases you need to install the linux `sensors` package to be able to measure temperature
 e.g. on DEBIAN based systems by running `sudo apt-get install lm-sensors`
 
-#### *: Additional Notes
+## *: Additional Notes
 
 In `fsStats`, `disksIO` and `networkStats` the results per second values (rx_sec, IOPS, ...) are calculated beginning
 with the second call of the function. It is determined by calculating the difference of transferred bytes / IOs
 divided by the time between two calls of the function.
 
-#### Finding new issues
+The first time you are calling oe of this functions, you will get -1 for transfer rates. The second time, you should then get statistics based on the time between the two times …
+
+So basically, if you e.g. need a values for network stats every second, your code should look like this:
+
+```js
+const si = require('systeminformation');
+
+setInterval(function() {
+	si.networkStats().then(data => {
+	    console.log(data);
+	})
+}, 1000)
+```
+
+Beginning with the second call, you get network transfer values per second.
+
+## Finding new issues
 
 I am happy to discuss any comments and suggestions. Please feel free to contact me if you see any possibility of improvement!
 
