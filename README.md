@@ -52,14 +52,14 @@ async function cpu() {
 
 ### Latest Activity
 
-(last 7 major and minor version releases) 
+(last 7 major and minor version releases)
+- Version 3.33.0: added bios `bios()` and main board `baseboard()` information
 - Version 3.32.0: extended `memLayout()` - added manufacturer
 - Version 3.31.0: extended windows support `cpuFlags()` (partially)
 - Version 3.30.0: extended `versions()` (added `yarn`, `gulp`, `grunt`, `tsc`, `git`)
 - Version 3.29.0: extended windows support `services()`
 - Version 3.28.0: extended windows support `processes()`
 - Version 3.27.0: added raw data to `currentLoad()`, fixed `networkInterfaces()` MAC problem node 8.x
-- Version 3.26.0: improved windows support `getDynamicData()`, updated docs
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -103,8 +103,20 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | version | X | X | X | version e.g. '1.0' |
 | | serial | X | X | X | serial number |
 | | uuid | X | X | X | UUID |
+| | sku | X |  | X | SKU number |
+| si.bios(cb) | {...} | X | X | X | hardware information |
+| | vendor | X | X | X | e.g. 'AMI' |
+| | version | X |  | X | Version |
+| | releaseDate | X |  | X | Release Date |
+| | revision | X |  | X | Revision |
+| si.baseboard(cb) | {...} | X | X | X | hardware information |
+| | manufacturer | X | X | X | e.g. 'ASUS' |
+| | model | X | X | X | Model / Product Name |
+| | version | X | X | X | Version |
+| | serial | X | X | X | Serial Number |
+| | assetTag | X | X | X | Asset Tag |
 
-#### 3. CPU, Memory, Disks, Battery, Graphics 
+#### 3. CPU, Memory, Disks, Battery, Graphics
 
 | Function        | Result object | Linux | OSX | Win | Comments |
 | --------------- | ----- | ----- | ---- | ------- | -------- |
@@ -298,7 +310,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ms | X | X | X | response time in ms |
 | si.inetLatency(host, cb) | : number | X | X | X | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
 
-#### 7. Current Load, Processes & Services 
+#### 7. Current Load, Processes & Services
 
 | Function        | Result object | Linux | OSX | Win | Comments |
 | --------------- | ----- | ----- | ---- | ------- | -------- |
@@ -346,7 +358,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].pcpu | X | X |  | process % CPU |
 | | [0].pmem | X | X |  | process % MEM |
 
-#### 8. Docker 
+#### 8. Docker
 
 | Function        | Result object | Linux | OSX | Win | Comments |
 | --------------- | ----- | ----- | ---- | ------- | -------- |
@@ -467,31 +479,31 @@ async function network() {
 
 ## Known Issues
 
-#### OSX - Temperature Sensor 
- 
-To be able to measure temperature on OSX I created a litte additional package. Due to some difficulties 
-in NPM with `optionalDependencies`  I unfortunately was getting unexpected warnings on other platforms. 
-So I decided to drop this optional dependencies for OSX - so by default, you will not get correct values. 
+#### OSX - Temperature Sensor
 
-But if you need to detect OSX temperature just run the following additional 
+To be able to measure temperature on OSX I created a litte additional package. Due to some difficulties
+in NPM with `optionalDependencies`  I unfortunately was getting unexpected warnings on other platforms.
+So I decided to drop this optional dependencies for OSX - so by default, you will not get correct values.
+
+But if you need to detect OSX temperature just run the following additional
 installation command:
 
 ```bash
 $ npm install osx-temperature-sensor --save
 ```
- 
+
 `systeminformation` will then detect this additional library and return the temperature when calling systeminformations standard function `cpuTemperature()`
 
 #### Windows Temperature, Battery, ...
 
-`wmic` - which is used to determine temperature and battery sometimes needs to be run with admin 
-privileges. So if you do not get any values, try to run it again with according 
-privileges. If you still do not get any values, your system might not support this feature. 
-In some cases we also discovered that `wmic` returned incorrect temperature values.  
+`wmic` - which is used to determine temperature and battery sometimes needs to be run with admin
+privileges. So if you do not get any values, try to run it again with according
+privileges. If you still do not get any values, your system might not support this feature.
+In some cases we also discovered that `wmic` returned incorrect temperature values.
 
 #### Linux Temperature
 
-In some cases you need to install the linux `sensors` package to be able to measure temperature 
+In some cases you need to install the linux `sensors` package to be able to measure temperature
 e.g. on DEBIAN based systems by running `sudo apt-get install lm-sensors`
 
 #### *: Additional Notes
@@ -532,7 +544,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Adam Reis [adamreisnz](https://github.com/adamreisnz)
 
 OSX Temperature: Credits here are going to:
- 
+
 - Massimiliano Marcon [mmarcon](https://github.com/mmarcon) for his work on [smc-code][smc-code-url]
 - Sébastien Lavoie [lavoiesl](https://github.com/lavoiesl) for his work on [osx-cpu-temp][osx-cpu-temp-url] code.
 

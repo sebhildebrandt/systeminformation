@@ -38,7 +38,7 @@ New Functions
 
 Bug Fixes / improvements
 
-- improvement `cpuTemperature` - works now also on Raspberry Pi 
+- improvement `cpuTemperature` - works now also on Raspberry Pi
 - bugfix `disksIO` - on OSX read and write got mixed up
 - several bug fixes (like assess errors in `cpuCurrentspeed`, potentially incorrect results in `users`, ...)
 - testet on even more platforms and linux distributions
@@ -99,6 +99,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.33.0         | 2017-11-07     | added bios and main board information |
 | 3.32.4         | 2017-11-02     | AMD cpu base frequencies table also for windows |
 | 3.32.3         | 2017-11-02     | code cleanup, AMD cpu base frequencies table |
 | 3.32.2         | 2017-11-01     | bugfix JSON.parse error `blockDevices()` |

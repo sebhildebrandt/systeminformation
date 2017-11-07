@@ -1,3 +1,9 @@
+### Issue Type
+
+* [ ] Bug
+* [ ] Feature Request
+* [ ] Question
+
 ### Expected behavior 
 
 - 
