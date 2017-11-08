@@ -99,6 +99,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.33.2         | 2017-11-08     | bugfix cpu speed arm |
 | 3.33.1         | 2017-11-07     | improved bios and main board information |
 | 3.33.0         | 2017-11-07     | added bios and main board information |
 | 3.32.4         | 2017-11-02     | AMD cpu base frequencies table also for windows |
