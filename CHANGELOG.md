@@ -99,6 +99,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.33.4         | 2017-11-09     | bugfix graphics controller win (bytes) |
 | 3.33.3         | 2017-11-08     | bugfix cpu speed arm - type |
 | 3.33.2         | 2017-11-08     | bugfix cpu speed arm |
 | 3.33.1         | 2017-11-07     | improved bios and main board information |
