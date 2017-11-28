@@ -99,6 +99,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.33.7         | 2017-11-28     | bugfix diskLayout().size |
 | 3.33.6         | 2017-11-16     | bugfix diskLayout().size |
 | 3.33.5         | 2017-11-09     | code cleanup |
 | 3.33.4         | 2017-11-09     | bugfix graphics controller win (bytes) |
