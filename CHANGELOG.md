@@ -99,6 +99,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.33.9         | 2017-12-14     | bugfix WMIC not found (Windows) |
 | 3.33.8         | 2017-12-02     | bugfix diskLayout().size (OSX) |
 | 3.33.7         | 2017-11-28     | bugfix diskLayout().size |
 | 3.33.6         | 2017-11-16     | bugfix diskLayout().size |
