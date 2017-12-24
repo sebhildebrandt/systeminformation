@@ -127,7 +127,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | speedmin | X | X | X | in GHz e.g. '0.80' |
 | | speedmax | X | X | X | in GHz e.g. '3.90' |
 | | cores | X | X | X | # cores |
-| | vendor | X | X | X | Vendow ID |
+| | vendor | X | X | X | Vendor ID |
 | | family | X | X | X | Processor Family |
 | | Model | X | X | X | Processor Model |
 | | stepping | X | X | X | Processor Stepping |
