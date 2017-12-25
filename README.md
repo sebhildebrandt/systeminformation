@@ -106,15 +106,15 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | sku | X |  | X | SKU number |
 | si.bios(cb) | {...} | X | X | X | hardware information |
 | | vendor | X | X | X | e.g. 'AMI' |
-| | version | X |  | X | Version |
-| | releaseDate | X |  | X | Release Date |
-| | revision | X |  | X | Revision |
+| | version | X |  | X | version |
+| | releaseDate | X |  | X | release date |
+| | revision | X |  | X | revision |
 | si.baseboard(cb) | {...} | X | X | X | hardware information |
 | | manufacturer | X | X | X | e.g. 'ASUS' |
-| | model | X | X | X | Model / Product Name |
-| | version | X | X | X | Version |
-| | serial | X | X | X | Serial Number |
-| | assetTag | X | X | X | Asset Tag |
+| | model | X | X | X | model / product name |
+| | version | X | X | X | version |
+| | serial | X | X | X | serial number |
+| | assetTag | X | X | X | asset tag |
 
 #### 3. CPU, Memory, Disks, Battery, Graphics
 
@@ -127,11 +127,11 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | speedmin | X | X | X | in GHz e.g. '0.80' |
 | | speedmax | X | X | X | in GHz e.g. '3.90' |
 | | cores | X | X | X | # cores |
-| | vendor | X | X | X | Vendow ID |
-| | family | X | X | X | Processor Family |
-| | Model | X | X | X | Processor Model |
-| | stepping | X | X | X | Processor Stepping |
-| | revision | X | X | X | Revision |
+| | vendor | X | X | X | vendor ID |
+| | family | X | X | X | processor family |
+| | Model | X | X | X | processor model |
+| | stepping | X | X | X | processor stepping |
+| | revision | X | X | X | revision |
 | | cache | X | X | X | cache in bytes (object) |
 | | cache.l1d | X | X | X | L1D (data) size |
 | | cache.l1i | X | X | X | L1I (instruction) size |
@@ -173,9 +173,9 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | voltageConfigured | X |   | X | voltage conf. |
 | | voltageMin | X |   | X | voltage min |
 | | voltageMax | X |   | X | voltage max |
-| si.diskLayout(cb) | {...} | X | X | X | Physical Disk Layout (HD) |
+| si.diskLayout(cb) | {...} | X | X | X | physical disk layout (HD) |
 | | type | X | X | X | HD, SSD |
-| | name | X | X | X | Disk Name |
+| | name | X | X | X | disk name |
 | | vendor | X | | X | vendor/producer |
 | | firmwareRevision | X | X | X | firmware revision |
 | | serialNum | X | X | X | serial number |
@@ -202,8 +202,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ...[0].bus | X | X | X| on which bus (e.g. PCIe) |
 | | ...[0].vram | X | X | X | VRAM size (in MB) |
 | | ...[0].vramDynamic | X | X | X | true if dynamicly allocated ram |
-| | displays[] | X | X | X | Monitor/Display Array |
-| | ...[0].model | X | X | X | Monitor/Display Model |
+| | displays[] | X | X | X | monitor/display Array |
+| | ...[0].model | X | X | X | monitor/display Model |
 | | ...[0].main | X | X |  | true if main monitor |
 | | ...[0].builtin | X | X |  | true if built in monitor |
 | | ...[0].connection | X | X |  | e.g. DisplayPort or HDMI |
@@ -226,7 +226,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | arch | X | X | X | same as os.arch() |
 | | hostname | X | X | X | same as os.hostname() |
 | | logofile | X | X | X | e.g. 'apple', 'debian', 'fedora', ... |
-| si.versions(cb) | {...} | X | X | X | Version information (kernel, ssl, node, ...) |
+| si.versions(cb) | {...} | X | X | X | version information (kernel, ssl, node, ...) |
 | si.shell(cb) | : string | X | X |  | standard shell |
 | si.users(cb) | [{...}] | X | X | X | array of users online |
 | | [0].user | X | X | X | user name |
@@ -243,8 +243,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | si.fsSize(cb) | [{...}] | X | X | X | returns array of mounted file systems |
 | | [0].fs | X | X | X | name of file system |
 | | [0].type | X | X | X | type of file system |
-| | [0].size | X | X | X | sizes in Bytes |
-| | [0].used | X | X | X | used in Bytes |
+| | [0].size | X | X | X | sizes in bytes |
+| | [0].used | X | X | X | used in bytes |
 | | [0].use | X | X | X | used in % |
 | | [0].mount | X | X | X | mount point |
 | si.blockDevices(cb) | [{...}] | X | X | X | returns array of disks, partitions,<br>raids and roms |
@@ -292,7 +292,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | iface | X | X | X | interface |
 | | operstate | X | X | X | up / down |
 | | rx | X | X | X | received bytes overall |
-| | tx | X | X | X | transferred bytes overall|
+| | tx | X | X | X | transferred bytes overall |
 | | rx_sec | X | X | X | received bytes / second (* see notes) |
 | | tx_sec | X | X | X | transferred bytes per second (* see notes) |
 | | ms | X | X | X | interval length (for per second values) |
@@ -316,15 +316,15 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | --------------- | ----- | ----- | ---- | ------- | -------- |
 | si.currentLoad(cb) | {...} | X | X | X | CPU-Load |
 | | avgload | X | X | X | average load  |
-| | currentload | X | X | X | CPU-Load in % |
-| | currentload_user | X | X | X | CPU-Load User in % |
-| | currentload_system | X | X | X | CPU-Load System in % |
-| | currentload_nice | X | X | X | CPU-Load Nice in % |
-| | currentload_idle | X | X | X | CPU-Load Idle in % |
-| | currentload_irq | X | X | X | CPU-Load System in % |
-| | raw_currentload... | X | X | X | CPU-Load raw values (ticks) |
+| | currentload | X | X | X | CPU load in % |
+| | currentload_user | X | X | X | CPU load user in % |
+| | currentload_system | X | X | X | CPU load system in % |
+| | currentload_nice | X | X | X | CPU load nice in % |
+| | currentload_idle | X | X | X | CPU load idle in % |
+| | currentload_irq | X | X | X | CPU load system in % |
+| | raw_currentload... | X | X | X | CPU load raw values (ticks) |
 | | cpus[] | X | X | X | current loads per CPU in % + raw ticks |
-| si.fullLoad(cb) | : integer | X | X | X | CPU-full load since bootup in % |
+| si.fullLoad(cb) | : integer | X | X | X | CPU full load since bootup in % |
 | si.processes(cb) | {...} | X | X | X | # running processes |
 | | all | X | X | X | # of all processes |
 | | running | X | X | X | # of all processes running |
@@ -457,7 +457,7 @@ si.networkStats('eth1')
 
 **Using async / await** (available since node v7.6)
 
-Since node v7.6 you can also use the `async` / `await` pattern. The example would then look like this:
+Since node v7.6 you can also use the `async` / `await` pattern. The above example would then look like this:
 
 ```js
 const si = require('systeminformation');
@@ -559,7 +559,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - dragonjet [dragonjet](https://github.com/dragonjet)
 - Adam Reis [adamreisnz](https://github.com/adamreisnz)
 
-OSX Temperature: Credits here are going to:
+OSX Temperature: credits here are going to:
 
 - Massimiliano Marcon [mmarcon](https://github.com/mmarcon) for his work on [smc-code][smc-code-url]
 - Sébastien Lavoie [lavoiesl](https://github.com/lavoiesl) for his work on [osx-cpu-temp][osx-cpu-temp-url] code.
