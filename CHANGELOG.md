@@ -99,6 +99,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.33.13        | 2018-01-12     | bugfix `memLayout()` (Windows) |
 | 3.33.12        | 2017-12-25     | fixed typos |
 | 3.33.11        | 2017-12-17     | updated docs |
 | 3.33.10        | 2017-12-14     | bugfix WMIC blockDevice parse (Windows 7) |
