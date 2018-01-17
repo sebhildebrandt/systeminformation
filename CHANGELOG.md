@@ -99,6 +99,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.33.14        | 2018-01-17     | bugfix `diskLayout()` (Windows) |
 | 3.33.13        | 2018-01-12     | bugfix `memLayout()` (Windows) |
 | 3.33.12        | 2017-12-25     | fixed typos |
 | 3.33.11        | 2017-12-17     | updated docs |
