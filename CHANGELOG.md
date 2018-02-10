@@ -17,6 +17,7 @@
 
 New Functions
 
+- FreeBSD support: for some basic functions (new in version 3.34 ff)
 - `diskLayout`: returns hard disk layout (new in version 3.23)
 - `memLayout`: returns memory chip layout (new in version 3.23)
 - Windows support: for some basic functions (new in version 3.17 ff)
@@ -99,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.34.0         | 2018-02-10     | first partial FreeBSD support |
 | 3.33.15        | 2018-01-21     | optimized OSX battery |
 | 3.33.14        | 2018-01-17     | bugfix `diskLayout()` (Windows) |
 | 3.33.13        | 2018-01-12     | bugfix `memLayout()` (Windows) |
