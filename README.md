@@ -11,7 +11,7 @@ Simple system and OS information library for [node.js][nodejs-url]
 
 ## Quick Start
 
-Lightweight collection of 35+ functions to retrieve detailed hardware, system and OS information (Linux, OSX, partial Windows and FreeBSD support) - no npm dependencies.
+Lightweight collection of 35+ functions to retrieve detailed hardware, system and OS information (Linux, macOS, partial Windows and FreeBSD support) - no npm dependencies.
 
 ### Installation
 
@@ -70,12 +70,12 @@ You can find all changes here: [detailed changelog][changelog-url]
 little library. This library is still work in progress. Version 3 comes with further improvements. First it
 requires now node.js version 4.0 and above. Another big change is, that all functions now return promises. You can use them
 like before with callbacks OR with promises (see example in this documentation). I am sure, there is for sure room for improvement.
-I was only able to test it on several Debian, Raspbian, Ubuntu distributions as well as OS X (Mavericks, Yosemite, El Captain) and some Windows and FreeBSD machines.
+I was only able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra) and some Windows and FreeBSD machines.
 Since version 2 nearly all functionality is available for OS X/Darwin platforms. In Version 3 I started to add windows and (partial) FreeBSD support - see docs.
 
 If you have comments, suggestions & reports, please feel free to contact me!
 
-I also created a nice little command line tool called [mmon][mmon-github-url]  (micro-monitor) for Linux and OSX, also available via [github][mmon-github-url] and [npm][mmon-npm-url]
+I also created a nice little command line tool called [mmon][mmon-github-url]  (micro-monitor) for Linux and macOS, also available via [github][mmon-github-url] and [npm][mmon-npm-url]
 
 
 ## Reference
@@ -84,7 +84,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 #### 1. General
 
-| Function        | Result object | Linux | FreeBSD | OSX | Win | Comments |
+| Function        | Result object | Linux | FreeBSD | macOS | Win | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | -------- |
 | si.version() | : string | X | X | X | X | lib version (no callback/promise) |
 | si.time() | {...} | X | X | X | X | (no callback/promise) |
@@ -95,7 +95,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 #### 2. System (HW)
 
-| Function        | Result object | Linux | FreeBSD | OSX | Win | Comments |
+| Function        | Result object | Linux | FreeBSD | macOS | Win | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | -------- |
 | si.system(cb) | {...} | X | X | X | X | hardware information |
 | | manufacturer | X | X | X | X | e.g. 'MSI' |
@@ -118,7 +118,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 #### 3. CPU, Memory, Disks, Battery, Graphics
 
-| Function        | Result object | Linux | FreeBSD | OSX | Win | Comments |
+| Function        | Result object | Linux | FreeBSD | macOS | Win | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | -------- |
 | si.cpu(cb) | {...} | X | X | X | X | CPU information|
 | | manufacturer | X | X | X | X | e.g. 'Intel(R)' |
@@ -216,7 +216,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 #### 4. Operating System
 
-| Function        | Result object | Linux | FreeBSD | OSX | Win | Comments |
+| Function        | Result object | Linux | FreeBSD | macOS | Win | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | -------- |
 | si.osInfo(cb) | {...} | X | X | X | X | OS information |
 | | platform   | X | X | X | X | 'Linux', 'Darwin', 'Windows' |
@@ -239,7 +239,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 #### 5. File System
 
-| Function        | Result object | Linux | FreeBSD | OSX | Win | Comments |
+| Function        | Result object | Linux | FreeBSD | macOS | Win | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | -------- |
 | si.fsSize(cb) | [{...}] | X | X | X | X | returns array of mounted file systems |
 | | [0].fs | X | X | X | X | name of file system |
@@ -280,7 +280,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 #### 6. Network related functions
 
-| Function        | Result object | Linux | FreeBSD | OSX | Win | Comments |
+| Function        | Result object | Linux | FreeBSD | macOS | Win | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | -------- |
 | si.networkInterfaces(cb) | [{...}] | X | X | X | X | array of network interfaces |
 | | [0].iface | X | X | X | X | interface name |
@@ -313,7 +313,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 #### 7. Current Load, Processes & Services
 
-| Function        | Result object | Linux | FreeBSD | OSX | Win | Comments |
+| Function        | Result object | Linux | FreeBSD | macOS | Win | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | -------- |
 | si.currentLoad(cb) | {...} | X |  | X | X | CPU-Load |
 | | avgload | X |  | X | X | average load  |
@@ -361,7 +361,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 #### 8. Docker
 
-| Function        | Result object | Linux | FreeBSD | OSX | Win | Comments |
+| Function        | Result object | Linux | FreeBSD | macOS | Win | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | -------- |
 | si.dockerContainers(all, cb) | [{...}] | X | X | X | X | returns array of active/all docker containers |
 | | [0].id | X | X | X | X | ID of container |
@@ -407,7 +407,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 #### 9. "Get All at once" - functions
 
-| Function        | Result object | Linux | FreeBSD | OSX | Win | Comments |
+| Function        | Result object | Linux | FreeBSD | macOS | Win | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | -------- |
 | si.getStaticData(cb) | {...} | X | X | X | X | all static data at once |
 | si.getDynamicData(srv,iface,cb) | {...} | X | X | X | X | all dynamic data at once |
@@ -480,13 +480,13 @@ async function network() {
 
 ## Known Issues
 
-#### OSX - Temperature Sensor
+#### macOS - Temperature Sensor
 
-To be able to measure temperature on OSX I created a litte additional package. Due to some difficulties
+To be able to measure temperature on macOS I created a litte additional package. Due to some difficulties
 in NPM with `optionalDependencies`  I unfortunately was getting unexpected warnings on other platforms.
-So I decided to drop this optional dependencies for OSX - so by default, you will not get correct values.
+So I decided to drop this optional dependencies for macOS - so by default, you will not get correct values.
 
-But if you need to detect OSX temperature just run the following additional
+But if you need to detect macOS temperature just run the following additional
 installation command:
 
 ```bash
@@ -567,7 +567,7 @@ OSX Temperature: credits here are going to:
 
 ## Copyright Information
 
-Linux is a registered trademark of Linus Torvalds, Apple, Mac OS, OS X is a registered trademark of Apple Inc.,
+Linux is a registered trademark of Linus Torvalds. Apple, macOS, OS X are registered trademarks of Apple Inc.,
 Windows is a registered trademark of Microsoft Corporation. Node.js is a trademark of Joyent Inc.,
 Intel is a trademark of Intel Corporation, AMD is a trademark of Advanced Micro Devices Inc., 
 Raspberry Pi is a trademark of the Raspberry Pi Foundation, Debian is a trademark of the Debian Project, 
