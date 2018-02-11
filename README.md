@@ -53,13 +53,13 @@ async function cpu() {
 ### Latest Activity
 
 (last 7 major and minor version releases)
+- Version 3.36.0: extended FreeBSD support `networkConnections()`
+- Version 3.35.0: extended FreeBSD support `processLoad()`
 - Version 3.34.0: first partial FreeBSD support
 - Version 3.33.0: added bios `bios()` and main board `baseboard()` information
 - Version 3.32.0: extended `memLayout()` - added manufacturer
 - Version 3.31.0: extended windows support `cpuFlags()` (partially)
 - Version 3.30.0: extended `versions()` (added `yarn`, `gulp`, `grunt`, `tsc`, `git`)
-- Version 3.29.0: extended windows support `services()`
-- Version 3.28.0: extended windows support `processes()`
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -297,13 +297,13 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | rx_sec | X |  | X | X | received bytes / second (* see notes) |
 | | tx_sec | X |  | X | X | transferred bytes per second (* see notes) |
 | | ms | X |  | X | X | interval length (for per second values) |
-| si.networkConnections(cb) | [{...}] | X |  | X | X | current network network connections<br>returns an array of all connections|
-| | [0].protocol | X |  | X | X | tcp or udp |
-| | [0].localaddress | X |  | X | X | local address |
-| | [0].localport | X |  | X | X | local port |
-| | [0].peeraddress | X |  | X | X | peer address |
-| | [0].peerport | X |  | X | X | peer port |
-| | [0].state | X |  | X | X | like ESTABLISHED, TIME_WAIT, ... |
+| si.networkConnections(cb) | [{...}] | X | X | X | X | current network network connections<br>returns an array of all connections|
+| | [0].protocol | X | X | X | X | tcp or udp |
+| | [0].localaddress | X | X | X | X | local address |
+| | [0].localport | X | X | X | X | local port |
+| | [0].peeraddress | X | X | X | X | peer address |
+| | [0].peerport | X | X | X | X | peer port |
+| | [0].state | X | X | X | X | like ESTABLISHED, TIME_WAIT, ... |
 | si.inetChecksite(url, cb) | {...} | X | X | X | X | response-time (ms) to fetch given URL |
 | | url | X | X | X | X | given url |
 | | ok | X | X | X | X | status code OK (2xx, 3xx) |

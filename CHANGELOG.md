@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.36.0         | 2018-02-11     | extended FreeBSD support `networkConnections()` |
 | 3.35.0         | 2018-02-11     | extended FreeBSD support `processLoad()` |
 | 3.34.1         | 2018-02-11     | updated docs |
 | 3.34.0         | 2018-02-10     | first partial FreeBSD support |
