@@ -100,6 +100,8 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.35.0         | 2018-02-11     | extended FreeBSD support `processLoad()` |
+| 3.34.1         | 2018-02-11     | updated docs |
 | 3.34.0         | 2018-02-10     | first partial FreeBSD support |
 | 3.33.15        | 2018-01-21     | optimized OSX battery |
 | 3.33.14        | 2018-01-17     | bugfix `diskLayout()` (Windows) |

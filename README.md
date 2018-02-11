@@ -348,11 +348,11 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ...[0].tty | X | X | X |  | tty from which process was started |
 | | ...[0].user | X | X | X |  | user who started process |
 | | ...[0].command | X | X | X | X | process starting command |
-| si.processLoad('apache2',cb) | {...} | X |  | X |  | detailed information about given process |
-| | proc | X |  | X |  | process name |
-| | pid | X |  | X |  | PID |
-| | cpu | X |  | X |  | process % CPU |
-| | mem | X |  | X |  | process % MEM |
+| si.processLoad('apache2',cb) | {...} | X | X | X |  | detailed information about given process |
+| | proc | X | X | X |  | process name |
+| | pid | X | X | X |  | PID |
+| | cpu | X | X | X |  | process % CPU |
+| | mem | X | X | X |  | process % MEM |
 | si.services('mysql, apache2', cb) | [{...}] | X | X | X | X | pass comma separated string of services |
 | | [0].name | X | X | X | X | name of service |
 | | [0].running | X | X | X | X | true / false |
