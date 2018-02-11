@@ -53,6 +53,7 @@ async function cpu() {
 ### Latest Activity
 
 (last 7 major and minor version releases)
+- Version 3.37.0: extended FreeBSD support `networkStats()`
 - Version 3.36.0: extended FreeBSD support `networkConnections()`
 - Version 3.35.0: extended FreeBSD support `processLoad()`
 - Version 3.34.0: first partial FreeBSD support
@@ -289,14 +290,14 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].mac | X | X | X | X | MAC address |
 | | [0].internal | X | X | X | X | true if internal interface |
 | si.networkInterfaceDefault(cb) | : string | X | X | X | X | get name of default network interface |
-| si.networkStats(iface,cb) | {...} | X |  | X | X | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface|
-| | iface | X |  | X | X | interface |
-| | operstate | X |  | X | X | up / down |
-| | rx | X |  | X | X | received bytes overall |
-| | tx | X |  | X | X | transferred bytes overall |
-| | rx_sec | X |  | X | X | received bytes / second (* see notes) |
-| | tx_sec | X |  | X | X | transferred bytes per second (* see notes) |
-| | ms | X |  | X | X | interval length (for per second values) |
+| si.networkStats(iface,cb) | {...} | X | X | X | X | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface|
+| | iface | X | X | X | X | interface |
+| | operstate | X | X | X | X | up / down |
+| | rx | X | X | X | X | received bytes overall |
+| | tx | X | X | X | X | transferred bytes overall |
+| | rx_sec | X | X | X | X | received bytes / second (* see notes) |
+| | tx_sec | X | X | X | X | transferred bytes per second (* see notes) |
+| | ms | X | X | X | X | interval length (for per second values) |
 | si.networkConnections(cb) | [{...}] | X | X | X | X | current network network connections<br>returns an array of all connections|
 | | [0].protocol | X | X | X | X | tcp or udp |
 | | [0].localaddress | X | X | X | X | local address |
