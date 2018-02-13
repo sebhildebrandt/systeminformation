@@ -60,7 +60,6 @@ async function cpu() {
 - Version 3.33.0: added bios `bios()` and main board `baseboard()` information
 - Version 3.32.0: extended `memLayout()` - added manufacturer
 - Version 3.31.0: extended windows support `cpuFlags()` (partially)
-- Version 3.30.0: extended `versions()` (added `yarn`, `gulp`, `grunt`, `tsc`, `git`)
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
