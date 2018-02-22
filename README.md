@@ -559,7 +559,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Tiago Roldão [tiagoroldao](https://github.com/tiagoroldao)
 - dragonjet [dragonjet](https://github.com/dragonjet)
 - Adam Reis [adamreisnz](https://github.com/adamreisnz)
-- Jimmi M [ItsJimi](https://github.com/ItsJimi)
+- Jimi M [ItsJimi](https://github.com/ItsJimi)
 
 OSX Temperature: credits here are going to:
 
