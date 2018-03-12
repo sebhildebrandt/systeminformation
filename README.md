@@ -162,7 +162,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | swaptotal | X | X | X | X |  |
 | | swapused | X | X | X | X |  |
 | | swapfree | X | X | X | X |  |
-| si.memLayout(cb) | {...} | X | X | X | X | Memory Layout |
+| si.memLayout(cb) | [{...}] | X | X | X | X | Memory Layout |
 | | size | X | X | X | X | size in bytes |
 | | bank | X | X |   | X | memory bank |
 | | type | X | X | X | X | memory type |
