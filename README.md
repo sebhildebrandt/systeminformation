@@ -162,33 +162,33 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | swaptotal | X | X | X | X |  |
 | | swapused | X | X | X | X |  |
 | | swapfree | X | X | X | X |  |
-| si.memLayout(cb) | {...} | X | X | X | X | Memory Layout |
-| | size | X | X | X | X | size in bytes |
-| | bank | X | X |   | X | memory bank |
-| | type | X | X | X | X | memory type |
-| | clockSpeed | X | X | X | X | clock speed |
-| | formFactor | X | X |   | X | form factor |
-| | manufacturer | X | X | X | X | manufacturer |
-| | partNum | X | X | X | X | part number |
-| | serialNum | X | X | X | X | serial number |
-| | voltageConfigured | X | X |   | X | voltage conf. |
-| | voltageMin | X | X |   | X | voltage min |
-| | voltageMax | X | X |   | X | voltage max |
-| si.diskLayout(cb) | {...} | X |  | X | X | physical disk layout (HD) |
-| | type | X |  | X | X | HD, SSD |
-| | name | X |  | X | X | disk name |
-| | vendor | X |  | | X | vendor/producer |
-| | firmwareRevision | X |  | X | X | firmware revision |
-| | serialNum | X |  | X | X | serial number |
-| | interfaceType | |  | | X |  |
-| | size | X |  | X | X | size in bytes |
-| | totalCylinders | |  | | X | total cylinders |
-| | totalHeads | |  | | X | total heads |
-| | totalTracks | |  | | X | total tracks |
-| | tracksPerCylinder | |  | | X | tracks per cylinder |
-| | sectorsPerTrack | |  | | X | sectors per track |
-| | totalSectors | |  | | X | total sectors |
-| | bytesPerSector | |  | | X | bytes per sector |
+| si.memLayout(cb) | [{...}] | X | X | X | X | Memory Layout |
+| | [0].size | X | X | X | X | size in bytes |
+| | [0].bank | X | X |   | X | memory bank |
+| | [0].type | X | X | X | X | memory type |
+| | [0].clockSpeed | X | X | X | X | clock speed |
+| | [0].formFactor | X | X |   | X | form factor |
+| | [0].manufacturer | X | X | X | X | manufacturer |
+| | [0].partNum | X | X | X | X | part number |
+| | [0].serialNum | X | X | X | X | serial number |
+| | [0].voltageConfigured | X | X |   | X | voltage conf. |
+| | [0].voltageMin | X | X |   | X | voltage min |
+| | [0].voltageMax | X | X |   | X | voltage max |
+| si.diskLayout(cb) | [{...}] | X |  | X | X | physical disk layout (HD) |
+| | [0].type | X |  | X | X | HD, SSD |
+| | [0].name | X |  | X | X | disk name |
+| | [0].vendor | X |  | | X | vendor/producer |
+| | [0].firmwareRevision | X |  | X | X | firmware revision |
+| | [0].serialNum | X |  | X | X | serial number |
+| | [0].interfaceType | |  | | X |  |
+| | [0].size | X |  | X | X | size in bytes |
+| | [0].totalCylinders | |  | | X | total cylinders |
+| | [0].totalHeads | |  | | X | total heads |
+| | [0].totalTracks | |  | | X | total tracks |
+| | [0].tracksPerCylinder | |  | | X | tracks per cylinder |
+| | [0].sectorsPerTrack | |  | | X | sectors per track |
+| | [0].totalSectors | |  | | X | total sectors |
+| | [0].bytesPerSector | |  | | X | bytes per sector |
 | si.battery(cb) | {...} | X | X | X | X | battery information |
 | | hasbattery | X | X | X | X | indicates presence of battery |
 | | cyclecount | X |  | X | | numbers of recharges |
