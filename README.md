@@ -174,21 +174,21 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].voltageConfigured | X | X |   | X | voltage conf. |
 | | [0].voltageMin | X | X |   | X | voltage min |
 | | [0].voltageMax | X | X |   | X | voltage max |
-| si.diskLayout(cb) | {...} | X |  | X | X | physical disk layout (HD) |
-| | type | X |  | X | X | HD, SSD |
-| | name | X |  | X | X | disk name |
-| | vendor | X |  | | X | vendor/producer |
-| | firmwareRevision | X |  | X | X | firmware revision |
-| | serialNum | X |  | X | X | serial number |
-| | interfaceType | |  | | X |  |
-| | size | X |  | X | X | size in bytes |
-| | totalCylinders | |  | | X | total cylinders |
-| | totalHeads | |  | | X | total heads |
-| | totalTracks | |  | | X | total tracks |
-| | tracksPerCylinder | |  | | X | tracks per cylinder |
-| | sectorsPerTrack | |  | | X | sectors per track |
-| | totalSectors | |  | | X | total sectors |
-| | bytesPerSector | |  | | X | bytes per sector |
+| si.diskLayout(cb) | [{...}] | X |  | X | X | physical disk layout (HD) |
+| | [0].type | X |  | X | X | HD, SSD |
+| | [0].name | X |  | X | X | disk name |
+| | [0].vendor | X |  | | X | vendor/producer |
+| | [0].firmwareRevision | X |  | X | X | firmware revision |
+| | [0].serialNum | X |  | X | X | serial number |
+| | [0].interfaceType | |  | | X |  |
+| | [0].size | X |  | X | X | size in bytes |
+| | [0].totalCylinders | |  | | X | total cylinders |
+| | [0].totalHeads | |  | | X | total heads |
+| | [0].totalTracks | |  | | X | total tracks |
+| | [0].tracksPerCylinder | |  | | X | tracks per cylinder |
+| | [0].sectorsPerTrack | |  | | X | sectors per track |
+| | [0].totalSectors | |  | | X | total sectors |
+| | [0].bytesPerSector | |  | | X | bytes per sector |
 | si.battery(cb) | {...} | X | X | X | X | battery information |
 | | hasbattery | X | X | X | X | indicates presence of battery |
 | | cyclecount | X |  | X | | numbers of recharges |
