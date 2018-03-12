@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.37.6         | 2018-03-12     | updated docs: fixed `diskLayout`and `mamlayout` |
 | 3.37.5         | 2018-03-12     | added support for `ip` instead of `ifconfig` |
 | 3.37.4         | 2018-02-22     | bugfix windows `processes()`, `disklayout()` |
 | 3.37.3         | 2018-02-19     | added windows exec `windowsHide` option |
