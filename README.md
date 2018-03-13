@@ -9,6 +9,37 @@ Simple system and OS information library for [node.js][nodejs-url]
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
+### systeminformation is celebrating 4th birthday today!
+
+```
+              (        (
+             ( )      ( )          (
+      (       Y        Y          ( )
+     ( )     |"|      |"|          Y
+      Y      | |      | |         |"|
+     |"|     | |.-----| |---.___  | |
+     | |  .--| |,~~~~~| |~~~,,,,'-| |
+     | |-,,~~'-'___   '-'       ~~| |._
+    .| |~       // ___            '-',,'.
+   /,'-'     <_// // _  __             ~,\
+  / ;     ,-,     \\_> <<_' ____________;_)
+  | ;    {(_)} _,      ._>>`'-._          |
+  | ;     '-'\_\/>              '-._      |
+  |\ ~,,,      _\__            ,,,,,'-.   |
+  | '-._ ~~,,,            ,,,~~ __.-'~ |  |
+  |     '-.__ ~~~~~~~~~~~~ __.-'       |__|
+  |\         `'----------'`           _|
+  | '=._                         __.=' |
+  :     '=.__               __.='      |
+   \         `'==========='`          .'
+    '-._                         __.-'
+        '-.__               __.-'
+             `'-----------'`
+```
+
+Born 2014-03-13, started as a small project, now over 6000 lines of code - still no dependencies. 
+Time to say thank you to all contributers!
+
 ## Quick Start
 
 Lightweight collection of 35+ functions to retrieve detailed hardware, system and OS information (Linux, macOS, partial Windows and FreeBSD support) - no npm dependencies.
