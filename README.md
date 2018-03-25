@@ -9,37 +9,6 @@ Simple system and OS information library for [node.js][nodejs-url]
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
-### systeminformation is celebrating 4th birthday today!
-
-```
-              (        (
-             ( )      ( )          (
-      (       Y        Y          ( )
-     ( )     |"|      |"|          Y
-      Y      | |      | |         |"|
-     |"|     | |.-----| |---.___  | |
-     | |  .--| |,~~~~~| |~~~,,,,'-| |
-     | |-,,~~'-'___   '-'       ~~| |._
-    .| |~       // ___            '-',,'.
-   /,'-'     <_// // _  __             ~,\
-  / ;     ,-,     \\_> <<_' ____________;_)
-  | ;    {(_)} _,      ._>>`'-._          |
-  | ;     '-'\_\/>              '-._      |
-  |\ ~,,,      _\__            ,,,,,'-.   |
-  | '-._ ~~,,,            ,,,~~ __.-'~ |  |
-  |     '-.__ ~~~~~~~~~~~~ __.-'       |__|
-  |\         `'----------'`           _|
-  | '=._                         __.=' |
-  :     '=.__               __.='      |
-   \         `'==========='`          .'
-    '-._                         __.-'
-        '-.__               __.-'
-             `'-----------'`
-```
-
-Born 2014-03-13, started as a small project, now over 6000 lines of code - still no dependencies. 
-Time to say thank you to all contributers!
-
 ## Quick Start
 
 Lightweight collection of 35+ functions to retrieve detailed hardware, system and OS information (Linux, macOS, partial Windows and FreeBSD support) - no npm dependencies.
@@ -602,9 +571,9 @@ OSX Temperature: credits here are going to:
 
 Linux is a registered trademark of Linus Torvalds. Apple, macOS, OS X are registered trademarks of Apple Inc.,
 Windows is a registered trademark of Microsoft Corporation. Node.js is a trademark of Joyent Inc.,
-Intel is a trademark of Intel Corporation, AMD is a trademark of Advanced Micro Devices Inc., 
-Raspberry Pi is a trademark of the Raspberry Pi Foundation, Debian is a trademark of the Debian Project, 
-Ubuntu is a trademark of Canonical Ltd., FreeBSD is a registered trademark of The FreeBSD Foundation, 
+Intel is a trademark of Intel Corporation, AMD is a trademark of Advanced Micro Devices Inc.,
+Raspberry Pi is a trademark of the Raspberry Pi Foundation, Debian is a trademark of the Debian Project,
+Ubuntu is a trademark of Canonical Ltd., FreeBSD is a registered trademark of The FreeBSD Foundation,
 Docker is a trademark of Docker, Inc.
 
 All other trademarks are the property of their respective owners.
