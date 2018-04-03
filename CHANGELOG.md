@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.37.9         | 2018-04-03     | optimized `processes()`, bugfix `networkInterfaceDefault()` |
 | 3.37.8         | 2018-03-25     | optimized `networkDefaultInterface()` detection, fixed network `operstate` MacOS |
 | 3.37.7         | 2018-03-13     | celebrating 4th birthday |
 | 3.37.6         | 2018-03-12     | updated docs: fixed `diskLayout`and `mamlayout` |
