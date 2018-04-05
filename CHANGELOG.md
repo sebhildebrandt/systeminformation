@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.37.11        | 2018-04-05     | another optimization `battery().ischarging` for macOS |
 | 3.37.10        | 2018-04-05     | `battery().ischarging` optimized for macOS |
 | 3.37.9         | 2018-04-03     | optimized `processes()`, bugfix `networkInterfaceDefault()` |
 | 3.37.8         | 2018-03-25     | optimized `networkDefaultInterface()` detection, fixed network `operstate` MacOS |
