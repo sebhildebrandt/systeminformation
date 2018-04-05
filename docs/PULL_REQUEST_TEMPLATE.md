@@ -5,7 +5,7 @@ Fixes #
 #### Changes proposed:
 
 * [ ] Fix
-* [ ] Add
+* [ ] Enhancement
 * [ ] Remove
 * [ ] Update
 
