@@ -53,13 +53,13 @@ async function cpu() {
 ### Latest Activity
 
 (last 7 major and minor version releases)
+- Version 3.38.0: added `battery.acconnected`
 - Version 3.37.0: extended FreeBSD support `networkStats()`
 - Version 3.36.0: extended FreeBSD support `networkConnections()`
 - Version 3.35.0: extended FreeBSD support `processLoad()`
 - Version 3.34.0: first partial FreeBSD support
 - Version 3.33.0: added bios `bios()` and main board `baseboard()` information
 - Version 3.32.0: extended `memLayout()` - added manufacturer
-- Version 3.31.0: extended windows support `cpuFlags()` (partially)
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -196,6 +196,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | maxcapacity | X |  | X | X | max capacity of battery |
 | | currentcapacity | X |  | X | X | current capacity of battery |
 | | percent | X | X | X | X | charging level in percent |
+| | acconnected | X | X | X | X | AC connected |
 | si.graphics(cb) | {...} | X |  | X | X | arrays of graphics controllers and displays |
 | | controllers[]| X |  | X | X | graphics controllers array |
 | | ...[0].model | X |  | X | X | graphics controller model |
