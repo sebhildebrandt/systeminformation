@@ -53,13 +53,13 @@ async function cpu() {
 ### Latest Activity
 
 (last 7 major and minor version releases)
+- Version 3.39.0: added `versions().mysql` and `versions().nginx`, starting `SunOS` support
 - Version 3.38.0: added `battery.acconnected`
 - Version 3.37.0: extended FreeBSD support `networkStats()`
 - Version 3.36.0: extended FreeBSD support `networkConnections()`
 - Version 3.35.0: extended FreeBSD support `processLoad()`
 - Version 3.34.0: first partial FreeBSD support
 - Version 3.33.0: added bios `bios()` and main board `baseboard()` information
-- Version 3.32.0: extended `memLayout()` - added manufacturer
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]

@@ -51,7 +51,8 @@
     "linux",
     "win32",
     "freebsd",
-    "openbsd"
+    "openbsd",
+    "sunos"
   ],
   "engines": {
     "node": ">=4.0.0"

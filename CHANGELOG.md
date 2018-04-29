@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.39.0         | 2018-04-29     | added `versions().mysql` and `versions().nginx`, starting `SunOS` support (untested) |
 | 3.38.0         | 2018-04-06     | added `battery().acconnected` |
 | 3.37.12        | 2018-04-05     | another optimization `battery().ischarging` for macOS |
 | 3.37.11        | 2018-04-05     | another optimization `battery().ischarging` for macOS |
