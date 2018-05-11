@@ -86,7 +86,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 #### 1. General
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
-| --------------- | ------------- | ----- | ------- | --- | --- | -------- |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.version() | : string | X | X | X | X | X | lib version (no callback/promise) |
 | si.time() | {...} | X | X | X | X | X | (no callback/promise) |
 | | current | X | X | X | X | X | local time |
@@ -97,7 +97,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 #### 2. System (HW)
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
-| --------------- | ------------- | ----- | ------- | --- | --- | -------- |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.system(cb) | {...} | X | X | X | X |  | hardware information |
 | | manufacturer | X | X | X | X |  | e.g. 'MSI' |
 | | model | X | X | X | X |  | model/product e.g. 'MS-7823' |
@@ -120,7 +120,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 #### 3. CPU, Memory, Disks, Battery, Graphics
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
-| --------------- | ------------- | ----- | ------- | --- | --- | -------- |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.cpu(cb) | {...} | X | X | X | X |  | CPU information|
 | | manufacturer | X | X | X | X |  | e.g. 'Intel(R)' |
 | | brand | X | X | X | X |  | e.g. 'Core(TM)2 Duo' |
@@ -219,7 +219,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 #### 4. Operating System
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
-| --------------- | ------------- | ----- | ------- | --- | --- | -------- |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.osInfo(cb) | {...} | X | X | X | X | X | OS information |
 | | platform   | X | X | X | X | X | 'Linux', 'Darwin', 'Windows' |
 | | distro | X | X | X | X | X |  |
@@ -242,7 +242,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 #### 5. File System
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
-| --------------- | ------------- | ----- | ------- | --- | --- | -------- |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.fsSize(cb) | [{...}] | X | X | X | X |  | returns array of mounted file systems |
 | | [0].fs | X | X | X | X |  | name of file system |
 | | [0].type | X | X | X | X |  | type of file system |
@@ -283,7 +283,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 #### 6. Network related functions
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
-| --------------- | ------------- | ----- | ------- | --- | --- | -------- |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.networkInterfaces(cb) | [{...}] | X | X | X | X | X | array of network interfaces |
 | | [0].iface | X | X | X | X | X | interface name |
 | | [0].ip4 | X | X | X | X | X | ip4 address |
@@ -316,7 +316,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 #### 7. Current Load, Processes & Services
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
-| --------------- | ------------- | ----- | ------- | --- | --- | -------- |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.currentLoad(cb) | {...} | X |  | X | X | X | CPU-Load |
 | | avgload | X |  | X | X | X | average load  |
 | | currentload | X |  | X | X | X | CPU load in % |
@@ -364,7 +364,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 #### 8. Docker
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
-| --------------- | ------------- | ----- | ------- | --- | --- | -------- |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.dockerContainers(all, cb) | [{...}] | X | X | X | X | X | returns array of active/all docker containers |
 | | [0].id | X | X | X | X | X | ID of container |
 | | [0].name | X | X | X | X | X | name of container |
@@ -410,7 +410,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 #### 9. "Get All at once" - functions
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
-| --------------- | ------------- | ----- | ------- | --- | --- | -------- |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.getStaticData(cb) | {...} | X | X | X | X |  | all static data at once |
 | si.getDynamicData(srv,iface,cb) | {...} | X | X | X | X |  | all dynamic data at once |
 | si.getAllData(srv,iface,cb) | {...} | X | X | X | X |  | all data at once |
