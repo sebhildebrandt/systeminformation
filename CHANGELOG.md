@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.41.0         | 2018-05-11     | `system()` Raspberry Pi bugfix and extended detection, added partial `SunOS` support |
 | 3.40.1         | 2018-05-10     | bugfix `system().sku` (windows) |
 | 3.40.0         | 2018-04-29     | extended `versions()` (php, redis, mongodb) |
 | 3.39.0         | 2018-04-29     | added `versions().mysql` and `versions().nginx`, starting `SunOS` support (untested) |
