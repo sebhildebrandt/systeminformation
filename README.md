@@ -126,7 +126,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | brand | X | X | X | X |  | e.g. 'Core(TM)2 Duo' |
 | | speed | X | X | X | X |  | in GHz e.g. '3.40' |
 | | speedmin | X |  | X | X |  | in GHz e.g. '0.80' |
-| | speedmax | X | X | X |  | X |  | in GHz e.g. '3.90' |
+| | speedmax | X | X | X | X |  | in GHz e.g. '3.90' |
 | | cores | X | X | X | X |  | # cores |
 | | vendor | X | X | X | X |  | vendor ID |
 | | family | X | X | X | X |  | processor family |
@@ -411,9 +411,9 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
-| si.getStaticData(cb) | {...} | X | X | X | X |  | all static data at once |
-| si.getDynamicData(srv,iface,cb) | {...} | X | X | X | X |  | all dynamic data at once |
-| si.getAllData(srv,iface,cb) | {...} | X | X | X | X |  | all data at once |
+| si.getStaticData(cb) | {...} | X | X | X | X | X | all static data at once |
+| si.getDynamicData(srv,iface,cb) | {...} | X | X | X | X | X | all dynamic data at once |
+| si.getAllData(srv,iface,cb) | {...} | X | X | X | X | X | all data at once |
 
 ### cb: Asynchronous Function Calls (callback)
 

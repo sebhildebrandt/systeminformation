@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.41.3         | 2018-05-13     | improved SunOS support `getStaticData()`, `getDynamicData()` |
 | 3.41.2         | 2018-05-13     | bugfix `system()` and `flags()` Raspberry Pi |
 | 3.41.1         | 2018-05-11     | updated docs |
 | 3.41.0         | 2018-05-11     | `system()` Raspberry Pi bugfix and extended detection, added partial `SunOS` support |
