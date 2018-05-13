@@ -226,7 +226,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | release | X | X | X | X | X |  |
 | | codename | | | X |  |  |  |
 | | kernel | X | X | X | X | X | kernel release - same as os.release() |
-| | arch | X | X | X | X |  | X | same as os.arch() |
+| | arch | X | X | X | X | X | same as os.arch() |
 | | hostname | X | X | X | X | X | same as os.hostname() |
 | | logofile | X | X | X | X | X | e.g. 'apple', 'debian', 'fedora', ... |
 | si.versions(cb) | {...} | X | X | X | X | X | version information (kernel, ssl, node, ...) |
