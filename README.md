@@ -336,6 +336,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | unknown |   |   |   | X |  | # of all processes unknown status |
 | | list[] | X | X | X | X | X | list of all processes incl. details |
 | | ...[0].pid | X | X | X | X | X | process PID |
+| | ...[0].parentPid | X | X | X | X | X | parent process PID |
 | | ...[0].name | X | X | X | X | X | process name |
 | | ...[0].pcpu | X | X | X | X | X | process % CPU usage |
 | | ...[0].pcpuu | X | X |  | X |   | process % CPU usage (user) |

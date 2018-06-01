@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.42.0         | 2018-06-01     | `processes()` added parent process PID |
 | 3.41.4         | 2018-05-28     | windows exec WMIC in try catch |
 | 3.41.3         | 2018-05-13     | improved SunOS support `getStaticData()`, `getDynamicData()` |
 | 3.41.2         | 2018-05-13     | bugfix `system()` and `flags()` Raspberry Pi |
