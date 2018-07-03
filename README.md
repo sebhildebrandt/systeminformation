@@ -54,13 +54,13 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
+- Version 3.42.0: added parent process PID `processes()`
 - Version 3.41.0: first partial `SunOS` support
 - Version 3.40.0: extended `versions()` (php, redis, mongodb)
 - Version 3.39.0: added `versions().mysql` and `versions().nginx`, start implementing `SunOS` support
 - Version 3.38.0: added `battery.acconnected`
 - Version 3.37.0: extended FreeBSD support `networkStats()`
 - Version 3.36.0: extended FreeBSD support `networkConnections()`
-- Version 3.35.0: extended FreeBSD support `processLoad()`
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
