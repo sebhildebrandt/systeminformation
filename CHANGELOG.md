@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.42.4         | 2018-07-09     | `cpuTemperature()` bugfix parsing negative values |
 | 3.42.3         | 2018-07-05     | `services()` bugfix not finding services with capital letters |
 | 3.42.2         | 2018-07-03     | `users()` optimized results if lack of permissions |
 | 3.42.1         | 2018-07-03     | `versions()` bugfix git version macOS |
