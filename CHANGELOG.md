@@ -100,6 +100,9 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.42.8         | 2018-08-03     | updated docs |
+| 3.42.7         | 2018-08-03     | `processes()` optimized parsing ps name |
+| 3.42.6         | 2018-08-03     | `processes()` bugfix parsing ps linux |
 | 3.42.5         | 2018-08-03     | `processes()` bugfix parsing ps linux |
 | 3.42.4         | 2018-07-09     | `cpuTemperature()` bugfix parsing negative values |
 | 3.42.3         | 2018-07-05     | `services()` bugfix not finding services with capital letters |
