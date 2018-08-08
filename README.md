@@ -564,6 +564,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Adam Reis [adamreisnz](https://github.com/adamreisnz)
 - Jimi M [ItsJimi](https://github.com/ItsJimi)
 - Git² [GitSquared](https://github.com/GitSquared)
+- weiyin [weiyin](https://github.com/weiyin)
 
 OSX Temperature: credits here are going to:
 
