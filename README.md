@@ -54,13 +54,13 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
+- Version 3.44.0: `battery()` added type, model, manufacturer, serial, timeremaining
 - Version 3.43.0: added speed per CPU core `cpuCurrentspeed()`
 - Version 3.42.0: added parent process PID `processes()`
 - Version 3.41.0: first partial `SunOS` support
 - Version 3.40.0: extended `versions()` (php, redis, mongodb)
 - Version 3.39.0: added `versions().mysql` and `versions().nginx`, start implementing `SunOS` support
 - Version 3.38.0: added `battery.acconnected`
-- Version 3.37.0: extended FreeBSD support `networkStats()`
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -198,7 +198,12 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | maxcapacity | X |  | X | X |  | max capacity of battery |
 | | currentcapacity | X |  | X | X |  | current capacity of battery |
 | | percent | X | X | X | X |  | charging level in percent |
+| | timeremaining | X |  | X |  |  | minutes left (if discharging) |
 | | acconnected | X | X | X | X |  | AC connected |
+| | type | X |  | X |  |  | battery type |
+| | model | X |  | X |  |  | model |
+| | manufacturer | X |  | X |  |  | manufacturer |
+| | serial | X |  | X |  |  | battery serial |
 | si.graphics(cb) | {...} | X |  | X | X |  | arrays of graphics controllers and displays |
 | | controllers[]| X |  | X | X |  | graphics controllers array |
 | | ...[0].model | X |  | X | X |  | graphics controller model |
