@@ -54,13 +54,13 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
+- Version 3.43.0: added speed per CPU core `cpuCurrentspeed()`
 - Version 3.42.0: added parent process PID `processes()`
 - Version 3.41.0: first partial `SunOS` support
 - Version 3.40.0: extended `versions()` (php, redis, mongodb)
 - Version 3.39.0: added `versions().mysql` and `versions().nginx`, start implementing `SunOS` support
 - Version 3.38.0: added `battery.acconnected`
 - Version 3.37.0: extended FreeBSD support `networkStats()`
-- Version 3.36.0: extended FreeBSD support `networkConnections()`
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -149,6 +149,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | avg | X | X | X | X | X | avg CPU speed (all cores) |
 | | min | X | X | X | X | X | min CPU speed (all cores) |
 | | max | X | X | X | X | X | max CPU speed (all cores) |
+| | cores | X | X | X | X | X | CPU speed per core (array) |
 | si.cpuTemperature(cb) | {...} | X | X | X* | X |  | CPU temperature (if supported) |
 | | main | X | X | X | X |  | main temperature (avg) |
 | | cores | X | X | X | X |  | array of temperatures |
