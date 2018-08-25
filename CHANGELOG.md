@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.42.10        | 2018-08-25     | `processes()` optimized start time parsing |
 | 3.42.9         | 2018-08-08     | `cpuTemperature()` optimized parsing |
 | 3.42.8         | 2018-08-03     | updated docs |
 | 3.42.7         | 2018-08-03     | `processes()` optimized parsing ps name |
