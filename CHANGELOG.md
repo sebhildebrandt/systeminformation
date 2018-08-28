@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.44.2         | 2018-08-28     | added code quality badges |
 | 3.44.1         | 2018-08-28     | code cleanup |
 | 3.44.0         | 2018-08-25     | `battery()` bugfix & added type, model, manufacturer, serial |
 | 3.43.0         | 2018-08-25     | `cpuCurrentspeed()` added cpu speed for all cores |
