@@ -40,7 +40,9 @@
     "graphics",
     "graphic card",
     "graphic controller",
-    "display"
+    "display",
+    "smart",
+    "disk layout"
   ],
   "repository": {
     "type": "git",

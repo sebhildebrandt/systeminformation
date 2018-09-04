@@ -56,13 +56,13 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
+- Version 3.45.0: `diskLayout()` added S.M.A.R.T. status
 - Version 3.44.0: `battery()` added type, model, manufacturer, serial, timeremaining
 - Version 3.43.0: added speed per CPU core `cpuCurrentspeed()`
 - Version 3.42.0: added parent process PID `processes()`
 - Version 3.41.0: first partial `SunOS` support
 - Version 3.40.0: extended `versions()` (php, redis, mongodb)
 - Version 3.39.0: added `versions().mysql` and `versions().nginx`, start implementing `SunOS` support
-- Version 3.38.0: added `battery.acconnected`
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -193,6 +193,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].sectorsPerTrack | |  | | X |  | sectors per track |
 | | [0].totalSectors | |  | | X |  | total sectors |
 | | [0].bytesPerSector | |  | | X |  | bytes per sector |
+| | [0].smartStatus | X |  | X | X |  | S.M.A.R.T Status (see Known Issues) |
 | si.battery(cb) | {...} | X | X | X | X |  | battery information |
 | | hasbattery | X | X | X | X |  | indicates presence of battery |
 | | cyclecount | X |  | X | |  | numbers of recharges |
@@ -517,6 +518,10 @@ In some cases we also discovered that `wmic` returned incorrect temperature valu
 
 In some cases you need to install the linux `sensors` package to be able to measure temperature
 e.g. on DEBIAN based systems by running `sudo apt-get install lm-sensors`
+
+#### Linux S.M.A.R.T. Status
+
+To be able to detect S.M.A.R.T. status on Linux you need to install `smartmontools`. On DEBIAN based linux distributions you can install it by running  `sudo apt-get install smartmontools`
 
 ## *: Additional Notes
 
