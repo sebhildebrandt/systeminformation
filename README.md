@@ -5,11 +5,12 @@ Simple system and OS information library for [node.js][nodejs-url]
   [![NPM Version][npm-image]][npm-url]
   [![NPM Downloads][downloads-image]][downloads-url]
   [![Git Issues][issues-img]][issues-url]
+  [![Closed Issues][closed-issues-img]][closed-issues-url]
   [![deps status][daviddm-img]][daviddm-url]
-  [![Caretaker][caretaker-image]][caretaker-url]
-  [![MIT license][license-img]][license-url]
   [![Code Quality: Javascript][lgtm-badge]][lgtm-badge-url]
   [![Total alerts][lgtm-alerts]][lgtm-alerts-url]  
+  [![Caretaker][caretaker-image]][caretaker-url]
+  [![MIT license][license-img]][license-url]
 
 ## Quick Start
 
@@ -647,6 +648,8 @@ All other trademarks are the property of their respective owners.
 
 [issues-img]: https://img.shields.io/github/issues/sebhildebrandt/systeminformation.svg?style=flat-square
 [issues-url]: https://github.com/sebhildebrandt/systeminformation/issues
+[closed-issues-img]: (https://img.shields.io/github/issues-closed-raw/sebhildebrandt/systeminformation.svg?style=flat-square)
+[closed-issues-url]: (https://github.com/sebhildebrandt/systeminformation/issues?q=is%3Aissue+is%3Aclosed)
 
 [mmon-npm-url]: https://npmjs.org/package/mmon
 [mmon-github-url]: https://github.com/sebhildebrandt/mmon
