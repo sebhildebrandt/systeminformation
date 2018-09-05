@@ -648,8 +648,8 @@ All other trademarks are the property of their respective owners.
 
 [issues-img]: https://img.shields.io/github/issues/sebhildebrandt/systeminformation.svg?style=flat-square
 [issues-url]: https://github.com/sebhildebrandt/systeminformation/issues
-[closed-issues-img]: (https://img.shields.io/github/issues-closed-raw/sebhildebrandt/systeminformation.svg?style=flat-square)
-[closed-issues-url]: (https://github.com/sebhildebrandt/systeminformation/issues?q=is%3Aissue+is%3Aclosed)
+[closed-issues-img]: https://img.shields.io/github/issues-closed-raw/sebhildebrandt/systeminformation.svg?style=flat-square
+[closed-issues-url]: https://github.com/sebhildebrandt/systeminformation/issues?q=is%3Aissue+is%3Aclosed
 
 [mmon-npm-url]: https://npmjs.org/package/mmon
 [mmon-github-url]: https://github.com/sebhildebrandt/mmon
