@@ -8,7 +8,7 @@ Simple system and OS information library for [node.js][nodejs-url]
   [![Closed Issues][closed-issues-img]][closed-issues-url]
   [![deps status][daviddm-img]][daviddm-url]
   [![Code Quality: Javascript][lgtm-badge]][lgtm-badge-url]
-  [![Total alerts][lgtm-alerts]][lgtm-alerts-url]  
+  [![Total alerts][lgtm-alerts]][lgtm-alerts-url]
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
@@ -628,9 +628,9 @@ All other trademarks are the property of their respective owners.
 [downloads-image]: https://img.shields.io/npm/dm/systeminformation.svg?style=flat-square
 [downloads-url]: https://npmjs.org/package/systeminformation
 
-[lgtm-badge]: https://img.shields.io/lgtm/grade/javascript/g/sebhildebrandt/systeminformation.svg?logo=lgtm&logoWidth=18
+[lgtm-badge]: https://img.shields.io/lgtm/grade/javascript/g/sebhildebrandt/systeminformation.svg?style=flat-square
 [lgtm-badge-url]: https://lgtm.com/projects/g/sebhildebrandt/systeminformation/context:javascript
-[lgtm-alerts]: https://img.shields.io/lgtm/alerts/g/sebhildebrandt/systeminformation.svg?logo=lgtm&logoWidth=18
+[lgtm-alerts]: https://img.shields.io/lgtm/alerts/g/sebhildebrandt/systeminformation.svg?style=flat-square
 [lgtm-alerts-url]: https://lgtm.com/projects/g/sebhildebrandt/systeminformation/alerts
 
 [license-url]: https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE

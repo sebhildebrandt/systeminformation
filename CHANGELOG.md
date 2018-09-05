@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.45.2         | 2018-09-05     | updated imags shields icons |
 | 3.45.1         | 2018-09-05     | updated documentation |
 | 3.45.0         | 2018-09-04     | `diskLayout()` added smartStatus |
 | 3.44.2         | 2018-08-28     | added code quality badges |
