@@ -1,6 +1,6 @@
 # systeminformation
 
-![micro-monitor](https://www.plus-innovations.com/images/system-information-100.png)
+![micro-monitor](https://www.plus-innovations.com/images/system-information-full-400.png)
 
 Simple system and OS information library for [node.js][nodejs-url]
 
