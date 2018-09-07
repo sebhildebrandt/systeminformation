@@ -8,6 +8,7 @@ Simple system and OS information library for [node.js][nodejs-url]
   [![NPM Downloads][downloads-image]][downloads-url]
   [![Git Issues][issues-img]][issues-url]
   [![Closed Issues][closed-issues-img]][closed-issues-url]
+  [![Install Size][install-size-img]][install-size-url]
   [![deps status][daviddm-img]][daviddm-url]
   [![Code Quality: Javascript][lgtm-badge]][lgtm-badge-url]
   [![Total alerts][lgtm-alerts]][lgtm-alerts-url]
@@ -652,6 +653,9 @@ All other trademarks are the property of their respective owners.
 [issues-url]: https://github.com/sebhildebrandt/systeminformation/issues
 [closed-issues-img]: https://img.shields.io/github/issues-closed-raw/sebhildebrandt/systeminformation.svg?style=flat-square
 [closed-issues-url]: https://github.com/sebhildebrandt/systeminformation/issues?q=is%3Aissue+is%3Aclosed
+
+[install-size-img]: https://flat.badgen.net/packagephobia/install/systeminformation
+[install-size-url]: https://packagephobia.now.sh/result?p=systeminformation
 
 [mmon-npm-url]: https://npmjs.org/package/mmon
 [mmon-github-url]: https://github.com/sebhildebrandt/mmon
