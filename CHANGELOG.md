@@ -100,6 +100,8 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.45.5         | 2018-09-07     | `diskLayout()` tiny bug S.M.A.R.T status windows |
+| 3.45.4         | 2018-09-06     | added icon to README.md |
 | 3.45.3         | 2018-09-06     | `diskLayout()` optimized media type detection (HD, SSD) on Windows |
 | 3.45.2         | 2018-09-05     | updated imags shields icons |
 | 3.45.1         | 2018-09-05     | updated documentation |
