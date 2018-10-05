@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.45.7         | 2018-10-05     | fixed typos |
 | 3.45.6         | 2018-09-12     | `mem()` bug parsing linux in other languages |
 | 3.45.5         | 2018-09-07     | `diskLayout()` tiny bug S.M.A.R.T status windows |
 | 3.45.4         | 2018-09-06     | added icon to README.md |

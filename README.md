@@ -497,9 +497,9 @@ async function network() {
 
 #### macOS - Temperature Sensor
 
-To be able to measure temperature on macOS I created a litte additional package. Due to some difficulties
+To be able to measure temperature on macOS I created a little additional package. Due to some difficulties
 in NPM with `optionalDependencies`  I unfortunately was getting unexpected warnings on other platforms.
-So I decided to drop this optional dependencies for macOS - so by default, you will not get correct values.
+So I decided to drop this optional dependency for macOS - so by default, you will not get correct values.
 
 But if you need to detect macOS temperature just run the following additional
 installation command:
