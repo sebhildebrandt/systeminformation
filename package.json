@@ -6,6 +6,7 @@
   "author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com> (https://plus-innovations.com)",
   "homepage": "https://github.com/sebhildebrandt/systeminformation",
   "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
