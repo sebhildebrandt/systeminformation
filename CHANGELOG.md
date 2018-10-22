@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.45.9         | 2018-10-22     | fixed node 4 incompatibility |
 | 3.45.8         | 2018-10-22     | `system()` fix Raspberry Pi detection |
 | 3.45.7         | 2018-10-05     | fixed typos |
 | 3.45.6         | 2018-09-12     | `mem()` bug parsing linux in other languages |
