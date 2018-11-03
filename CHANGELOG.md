@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.45.10        | 2018-11-03     | fixed issue `battery()`, modified `package.json` - files |
 | 3.45.9         | 2018-10-22     | fixed node 4 incompatibility |
 | 3.45.8         | 2018-10-22     | `system()` fix Raspberry Pi detection |
 | 3.45.7         | 2018-10-05     | fixed typos |
