@@ -59,13 +59,13 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
-- Version 3.46.0: `version()` added system openssl version (besides the one insode node.js)
+- Version 3.47.0: `version()` added docker, postfix)
+- Version 3.46.0: `version()` added system openssl version (besides the one inside node.js)
 - Version 3.45.0: `diskLayout()` added S.M.A.R.T. status
 - Version 3.44.0: `battery()` added type, model, manufacturer, serial, timeremaining
 - Version 3.43.0: added speed per CPU core `cpuCurrentspeed()`
 - Version 3.42.0: added parent process PID `processes()`
 - Version 3.41.0: first partial `SunOS` support
-- Version 3.40.0: extended `versions()` (php, redis, mongodb)
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]

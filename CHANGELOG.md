@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.47.0         | 2018-11-06     | `versions()` added docker, postfix |
 | 3.46.0         | 2018-11-05     | fixed issue `versions()`, added system openssl version |
 | 3.45.10        | 2018-11-03     | fixed issue `battery()`, modified `package.json` - files |
 | 3.45.9         | 2018-10-22     | fixed node 4 incompatibility |
