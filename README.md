@@ -241,6 +241,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | arch | X | X | X | X | X | same as os.arch() |
 | | hostname | X | X | X | X | X | same as os.hostname() |
 | | logofile | X | X | X | X | X | e.g. 'apple', 'debian', 'fedora', ... |
+| | serial |   | X | X | X |   | OS/Host serial number |
+| | build |   |   | X | X |   | OS build version |
 | si.versions(cb) | {...} | X | X | X | X | X | version information (kernel, ssl, node, ...) |
 | si.shell(cb) | : string | X | X | X |  |  | standard shell |
 | si.users(cb) | [{...}] | X | X | X | X | X | array of users online |
