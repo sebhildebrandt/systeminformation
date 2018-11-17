@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.48.1         | 2018-11-17     | `docker...()` fixed issue parsing docker socket JSON |
 | 3.48.0         | 2018-11-17     | `diskLayout()` better interface detection (WIN), `osInfo()` added build, serial |
 | 3.47.0         | 2018-11-06     | `versions()` added docker, postfix |
 | 3.46.0         | 2018-11-05     | fixed issue `versions()`, added system openssl version |
