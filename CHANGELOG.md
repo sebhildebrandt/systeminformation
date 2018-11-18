@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.48.3         | 2018-11-18     | `dockerContainerStats()` fixed issue `cpu_percent` win |
 | 3.48.2         | 2018-11-18     | `dockerContainerStats()` fixed issue `cpu_percent`, win exec |
 | 3.48.1         | 2018-11-17     | `docker...()` fixed issue parsing docker socket JSON |
 | 3.48.0         | 2018-11-17     | `diskLayout()` better interface detection (WIN), `osInfo()` added build, serial |
