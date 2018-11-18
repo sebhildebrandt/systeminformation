@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.48.4         | 2018-11-18     | windows: garbled output because of codepage |
 | 3.48.3         | 2018-11-18     | `dockerContainerStats()` fixed issue `cpu_percent` win |
 | 3.48.2         | 2018-11-18     | `dockerContainerStats()` fixed issue `cpu_percent`, win exec |
 | 3.48.1         | 2018-11-17     | `docker...()` fixed issue parsing docker socket JSON |
