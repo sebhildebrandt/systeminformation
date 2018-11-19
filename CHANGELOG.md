@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.49.1         | 2018-11-19     | `cpu().brand` removed extra spaces, tabs |
 | 3.49.0         | 2018-11-19     | added system `uuid()` (os specific), `versions()` added postgresql |
 | 3.48.4         | 2018-11-18     | windows: garbled output because of codepage |
 | 3.48.3         | 2018-11-18     | `dockerContainerStats()` fixed issue `cpu_percent` win |
