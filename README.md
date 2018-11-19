@@ -244,7 +244,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | serial |   | X | X | X |   | OS/Host serial number |
 | | build |   |   | X | X |   | OS build version |
 | | codepage | X | X | X | X |   | OS build version |
-| si.uuid(cb) | : string | X | X | X | X|  | device ID (based on OS install) |
+| si.uuid(cb) | {...} | X | X | X | X | X | object of several UUIDs |
+| | os | X | X | X | X |  | os specific UUID |
 | si.versions(cb) | {...} | X | X | X | X | X | version information (kernel, ssl, node, ...) |
 | si.shell(cb) | : string | X | X | X |  |  | standard shell |
 | si.users(cb) | [{...}] | X | X | X | X | X | array of users online |
