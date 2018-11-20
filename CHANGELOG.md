@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.49.3         | 2018-11-20     | `memLayout()` optimized parsing (win) |
 | 3.49.2         | 2018-11-19     | code cleanup |
 | 3.49.1         | 2018-11-19     | `cpu().brand` removed extra spaces, tabs |
 | 3.49.0         | 2018-11-19     | added system `uuid()` (os specific), `versions()` added postgresql |
