@@ -16,7 +16,12 @@ Simple system and OS information library for [node.js][nodejs-url]
 
 ## Quick Start
 
-Lightweight collection of 35+ functions to retrieve detailed hardware, system and OS information (Linux, macOS, partial Windows, FreeBSD and SunOS support) - no npm dependencies.
+Lightweight collection of 35+ functions to retrieve detailed hardware, system and OS information.
+
+- simple to use
+- get detailed information about system, cpu, baseboard, battery, memory, disks/filesystem, network, docker, software, services and processes
+- supports Linux, macOS, partial Windows, FreeBSD and SunOS support
+- no npm dependencies
 
 ### Installation
 
@@ -59,13 +64,13 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
+- Version 3.50.0: `services()` added possibility to specify ALL services "*" for linux
+- Version 3.49.0: `uuid()` added - os specific uuid (per installation)
 - Version 3.48.0: `osInfo()` added build, serial (Windows/macOS)
 - Version 3.47.0: `version()` added docker, postfix
 - Version 3.46.0: `version()` added system openssl version (besides the one inside node.js)
 - Version 3.45.0: `diskLayout()` added S.M.A.R.T. status
 - Version 3.44.0: `battery()` added type, model, manufacturer, serial, timeremaining
-- Version 3.43.0: added speed per CPU core `cpuCurrentspeed()`
-- Version 3.42.0: added parent process PID `processes()`
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -373,7 +378,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | pid | X | X | X |  |  | PID |
 | | cpu | X | X | X |  |  | process % CPU |
 | | mem | X | X | X |  |  | process % MEM |
-| si.services('mysql, apache2', cb) | [{...}] | X | X | X | X |  | pass comma separated string of services |
+| si.services('mysql, apache2', cb) | [{...}] | X | X | X | X |  | pass comma separated string of services<br>pass "*" for ALL services (linux only) |
 | | [0].name | X | X | X | X |  | name of service |
 | | [0].running | X | X | X | X |  | true / false |
 | | [0].pcpu | X | X | X |  |  | process % CPU |
