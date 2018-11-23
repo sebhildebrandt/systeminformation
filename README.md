@@ -64,7 +64,7 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
-- Version 3.50.0: `services()` added possibility to specify ALL services "*" for linux
+- Version 3.50.0: `services()` added possibility to specify ALL services "*" for linux/win
 - Version 3.49.0: `uuid()` added - os specific uuid (per installation)
 - Version 3.48.0: `osInfo()` added build, serial (Windows/macOS)
 - Version 3.47.0: `version()` added docker, postfix
@@ -381,6 +381,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | si.services('mysql, apache2', cb) | [{...}] | X | X | X | X |  | pass comma separated string of services<br>pass "*" for ALL services (linux only) |
 | | [0].name | X | X | X | X |  | name of service |
 | | [0].running | X | X | X | X |  | true / false |
+| | [0].startmode |   |   |   | X |  | manual, automatic, ... |
 | | [0].pcpu | X | X | X |  |  | process % CPU |
 | | [0].pmem | X | X | X |  |  | process % MEM |
 
