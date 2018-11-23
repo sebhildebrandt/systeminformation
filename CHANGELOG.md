@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.50.2         | 2018-11-23     | network mac adresses: ip support fix |
 | 3.50.1         | 2018-11-23     | `services()` added possibility to specify ALL services "*" for win |
 | 3.50.0         | 2018-11-23     | `services()` added possibility to specify ALL services "*" for linux |
 | 3.49.4         | 2018-11-21     | `battery()` timeremaining optimization (linux) thanks to Jorai Rijsdijk |

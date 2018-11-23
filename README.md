@@ -378,7 +378,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | pid | X | X | X |  |  | PID |
 | | cpu | X | X | X |  |  | process % CPU |
 | | mem | X | X | X |  |  | process % MEM |
-| si.services('mysql, apache2', cb) | [{...}] | X | X | X | X |  | pass comma separated string of services<br>pass "*" for ALL services (linux only) |
+| si.services('mysql, apache2', cb) | [{...}] | X | X | X | X |  | pass comma separated string of services<br>pass "*" for ALL services (linux/win only) |
 | | [0].name | X | X | X | X |  | name of service |
 | | [0].running | X | X | X | X |  | true / false |
 | | [0].startmode |   |   |   | X |  | manual, automatic, ... |
