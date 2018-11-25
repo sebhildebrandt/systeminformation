@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.51.0         | 2018-11-25     | `processLoad()` added for windows |
 | 3.50.3         | 2018-11-25     | `processLoad()`, `services()` fixed cpu data (linux) |
 | 3.50.2         | 2018-11-23     | network mac adresses: ip support fix |
 | 3.50.1         | 2018-11-23     | `services()` added possibility to specify ALL services "*" for win |

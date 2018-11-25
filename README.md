@@ -64,6 +64,7 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
+- Version 3.51.0: `processLoad()` added for windows
 - Version 3.50.0: `services()` added possibility to specify ALL services "*" for linux/win
 - Version 3.49.0: `uuid()` added - os specific uuid (per installation)
 - Version 3.48.0: `osInfo()` added build, serial (Windows/macOS)
@@ -373,11 +374,11 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ...[0].tty | X | X | X |  | X | tty from which process was started |
 | | ...[0].user | X | X | X |  | X | user who started process |
 | | ...[0].command | X | X | X | X | X | process starting command |
-| si.processLoad('apache2',cb) | {...} | X | X | X |  |  | detailed information about given process |
-| | proc | X | X | X |  |  | process name |
-| | pid | X | X | X |  |  | PID |
-| | cpu | X | X | X |  |  | process % CPU |
-| | mem | X | X | X |  |  | process % MEM |
+| si.processLoad('apache2',cb) | {...} | X | X | X | X |  | detailed information about given process |
+| | proc | X | X | X | X |  | process name |
+| | pid | X | X | X | X |  | PID |
+| | cpu | X | X | X | X |  | process % CPU |
+| | mem | X | X | X | X |  | process % MEM |
 | si.services('mysql, apache2', cb) | [{...}] | X | X | X | X |  | pass comma separated string of services<br>pass "*" for ALL services (linux/win only) |
 | | [0].name | X | X | X | X |  | name of service |
 | | [0].running | X | X | X | X |  | true / false |
