@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.51.4         | 2018-12-05     | `versions()` bugfix, optimization postgres |
 | 3.51.3         | 2018-11-27     | `mem()` refactoring parsing linux, code cleanup |
 | 3.51.2         | 2018-11-26     | `mem()` bugfix parsing `free` output linux |
 | 3.51.1         | 2018-11-26     | `processLoad()` bugfix windows |
