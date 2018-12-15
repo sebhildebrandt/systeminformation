@@ -64,6 +64,7 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
+- Version 3.52.0: `cpu()` added physical cores, processors, socket type
 - Version 3.51.0: `processLoad()` added for windows
 - Version 3.50.0: `services()` added possibility to specify ALL services "*" for linux/win
 - Version 3.49.0: `uuid()` added - os specific uuid (per installation)
@@ -71,7 +72,6 @@ async function cpu() {
 - Version 3.47.0: `version()` added docker, postfix
 - Version 3.46.0: `version()` added system openssl version (besides the one inside node.js)
 - Version 3.45.0: `diskLayout()` added S.M.A.R.T. status
-- Version 3.44.0: `battery()` added type, model, manufacturer, serial, timeremaining
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -139,6 +139,9 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | speedmin | X |  | X | X |  | in GHz e.g. '0.80' |
 | | speedmax | X | X | X | X |  | in GHz e.g. '3.90' |
 | | cores | X | X | X | X |  | # cores |
+| | physicalCores | X | X | X | X |  | # physical cores |
+| | processors | X | X | X | X |  | # processors |
+| | socket | X | X |  | X |  | socket type e.g. "LGA1356" |
 | | vendor | X | X | X | X |  | vendor ID |
 | | family | X | X | X | X |  | processor family |
 | | Model | X | X | X | X |  | processor model |
