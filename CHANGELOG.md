@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.52.1         | 2018-12-17     | `inetChecksite()` bugfix windows |
 | 3.52.0         | 2018-12-15     | `cpu()` added physical cores, processors, socket type |
 | 3.51.4         | 2018-12-05     | `versions()` bugfix, optimization postgres |
 | 3.51.3         | 2018-11-27     | `mem()` refactoring parsing linux, code cleanup |
