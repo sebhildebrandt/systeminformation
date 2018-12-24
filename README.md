@@ -14,6 +14,19 @@ Simple system and OS information library for [node.js][nodejs-url]
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
+#### Happy christmas holiday
+
+```
+.      *    *           *.       *   .                      *     .
+               .   .                   __   *    .     * .     *
+    *       *         *   .     .    _|__|_        *    __   .       *
+  .  *  /\       /\          *        ('')    *       _|__|_     .
+       /  \   * /  \  *          .  <( . )> *  .       ('')   *   *
+  *    /  \     /  \   .   *       _(__.__)_  _   ,--<(  . )>  .    .
+      /    \   /    \          *   |       |  )),`   (   .  )     *
+...*   `||` ..  `||`   . *.   ... ==========='`   ... '--`-` ... * ...
+```
+
 ## Quick Start
 
 Lightweight collection of 35+ functions to retrieve detailed hardware, system and OS information.
