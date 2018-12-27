@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.52.4         | 2018-12-27     | `graphics().controllers` bugfix linux |
 | 3.52.3         | 2018-12-27     | `os().codepage` bugfix |
 | 3.52.2         | 2018-12-17     | code cleanup |
 | 3.52.1         | 2018-12-17     | `inetChecksite()` bugfix windows |
