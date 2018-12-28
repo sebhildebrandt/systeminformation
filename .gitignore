@@ -12,6 +12,7 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+.nyc_output/
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -22,7 +23,7 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-# MacOS 
+# MacOS
 .DS_Store
 .Spotlight-V100
 .Trashes
@@ -58,3 +59,11 @@ npm*
 .hg
 CVS
 .eslintrc.json
+package-lock.json
+
+test/
+dist/
+index.d.ts
+tsconfig.json
+tslint.json
+typings.d.ts

@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.52.5         | 2018-12-28     | preparing automated tests, travis-ci integration, added dev-dependencies |
 | 3.52.4         | 2018-12-27     | `graphics().controllers` bugfix linux |
 | 3.52.3         | 2018-12-27     | `os().codepage` bugfix |
 | 3.52.2         | 2018-12-17     | code cleanup |

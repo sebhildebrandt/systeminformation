@@ -34,13 +34,15 @@ Lightweight collection of 35+ functions to retrieve detailed hardware, system an
 - simple to use
 - get detailed information about system, cpu, baseboard, battery, memory, disks/filesystem, network, docker, software, services and processes
 - supports Linux, macOS, partial Windows, FreeBSD and SunOS support
-- no npm dependencies
+- no npm dependencies (for production)
 
 ### Installation
 
 ```bash
 $ npm install systeminformation --save
 ```
+
+For production builds (to prevent installing `dev-dependencies`) be sure to set `NODE_ENV` environment variable to `production` befor running `npm install`
 
 ### Usage
 
@@ -113,7 +115,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.version() | : string | X | X | X | X | X | lib version (no callback/promise) |
 | si.time() | {...} | X | X | X | X | X | (no callback/promise) |
-| | current | X | X | X | X | X | local time |
+| | current | X | X | X | X | X | local (server) time |
 | | uptime | X | X | X | X | X | uptime |
 | | timezone | X | X | X | X | X | e.g. GMT+0200 |
 | | timezoneName | X | X | X | X | X | e.g. CEST |
