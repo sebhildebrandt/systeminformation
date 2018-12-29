@@ -77,6 +77,7 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
+- Version 3.53.0: `versions()` added perl, python, gcc
 - Version 3.52.0: `cpu()` added physical cores, processors, socket type
 - Version 3.51.0: `processLoad()` added for windows
 - Version 3.50.0: `services()` added possibility to specify ALL services "*" for linux/win
