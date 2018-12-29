@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.53.0         | 2018-12-29     | `versions()` added perl, python, gcc |
 | 3.52.7         | 2018-12-29     | `versions()` bug fix macOS detection |
 | 3.52.6         | 2018-12-28     | `versions()` bug fix macOS |
 | 3.52.5         | 2018-12-28     | preparing automated tests, travis-ci integration, added dev-dependencies |
