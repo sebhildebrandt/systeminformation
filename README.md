@@ -42,8 +42,6 @@ Lightweight collection of 35+ functions to retrieve detailed hardware, system an
 $ npm install systeminformation --save
 ```
 
-For production builds (to prevent installing `dev-dependencies`) be sure to set `NODE_ENV` environment variable to `production` befor running `npm install`
-
 ### Usage
 
 All functions (except `version` and `time`) are implemented as asynchronous functions. Here a small example how to use them:
