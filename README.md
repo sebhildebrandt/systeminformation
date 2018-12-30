@@ -158,7 +158,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | socket | X | X |  | X |  | socket type e.g. "LGA1356" |
 | | vendor | X | X | X | X |  | vendor ID |
 | | family | X | X | X | X |  | processor family |
-| | Model | X | X | X | X |  | processor model |
+| | model | X | X | X | X |  | processor model |
 | | stepping | X | X | X | X |  | processor stepping |
 | | revision | X |  | X | X |  | revision |
 | | voltage |   | X |   |   |  | voltage |
@@ -245,11 +245,11 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ...[0].main | X |  | X |  |  | true if main monitor |
 | | ...[0].builtin | X |  | X |  |  | true if built in monitor |
 | | ...[0].connection | X |  | X |  |  | e.g. DisplayPort or HDMI |
-| | ...[0].resolutionx | X |  | X | X |  | pixel horizontal |
-| | ...[0].resolutiony | X |  | X | X |  | pixel vertical |
-| | ...[0].pixeldepth | X |  | X | X |  | color depth in bits |
 | | ...[0].sizex | X |  | X |  |  | size in mm horizontal |
 | | ...[0].sizey | X |  | X |  |  | size in mm vertical |
+| | ...[0].pixeldepth | X |  | X | X |  | color depth in bits |
+| | ...[0].resolutionx | X |  | X | X |  | pixel horizontal |
+| | ...[0].resolutiony | X |  | X | X |  | pixel vertical |
 
 #### 4. Operating System
 
@@ -263,10 +263,10 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | kernel | X | X | X | X | X | kernel release - same as os.release() |
 | | arch | X | X | X | X | X | same as os.arch() |
 | | hostname | X | X | X | X | X | same as os.hostname() |
+| | codepage | X | X | X | X |   | OS build version |
 | | logofile | X | X | X | X | X | e.g. 'apple', 'debian', 'fedora', ... |
 | | serial |   | X | X | X |   | OS/Host serial number |
 | | build |   |   | X | X |   | OS build version |
-| | codepage | X | X | X | X |   | OS build version |
 | si.uuid(cb) | {...} | X | X | X | X | X | object of several UUIDs |
 | | os | X | X | X | X |  | os specific UUID |
 | si.versions(cb) | {...} | X | X | X | X | X | version information (kernel, ssl, node, ...) |
@@ -394,12 +394,14 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | si.processLoad('apache2',cb) | {...} | X | X | X | X |  | detailed information about given process |
 | | proc | X | X | X | X |  | process name |
 | | pid | X | X | X | X |  | PID |
+| | pids | X | X | X | X |  | additional pids |
 | | cpu | X | X | X | X |  | process % CPU |
 | | mem | X | X | X | X |  | process % MEM |
 | si.services('mysql, apache2', cb) | [{...}] | X | X | X | X |  | pass comma separated string of services<br>pass "*" for ALL services (linux/win only) |
 | | [0].name | X | X | X | X |  | name of service |
 | | [0].running | X | X | X | X |  | true / false |
 | | [0].startmode |   |   |   | X |  | manual, automatic, ... |
+| | [0].pids | X | X | X |   |  | pids |
 | | [0].pcpu | X | X | X |  |  | process % CPU |
 | | [0].pmem | X | X | X |  |  | process % MEM |
 

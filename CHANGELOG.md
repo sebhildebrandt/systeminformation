@@ -100,6 +100,7 @@ Other changes
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 3.54.0         | 2018-12-30     | added TypeScript type definitions |
 | 3.53.1         | 2018-12-29     | `versions()` bug fix nginx version |
 | 3.53.0         | 2018-12-29     | `versions()` added perl, python, gcc |
 | 3.52.7         | 2018-12-29     | `versions()` bug fix macOS detection |

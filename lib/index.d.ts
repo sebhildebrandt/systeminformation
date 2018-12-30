@@ -1,0 +1,503 @@
+// Type definitions for systeminformation
+// Project: https://github.com/sebhildebrandt/systeminformation
+// Definitions by: sebhildebrandt <https://github.com/sebhildebrandt>
+
+export namespace Systeminformation {
+
+  // 1. General
+
+  interface TimeData {
+    current: string;
+    uptime: string;
+    timezone: string;
+    timezoneName: string;
+  }
+
+  // 2. System (HW)
+
+  interface SystemData {
+    manufacturer: string;
+    model: string;
+    version: string;
+    serial: string;
+    uuid: string;
+    sku: string;
+  }
+
+  interface BiosData {
+    vendor: string;
+    version: string;
+    releaseDate: string;
+    revision: string;
+  }
+
+  interface BaseboardData {
+    manufacturer: string;
+    model: string;
+    version: string;
+    serial: string;
+    assetTag: string;
+  }
+
+  // 3. CPU, Memory, Disks, Battery, Graphics
+
+  interface CpuData {
+    manufacturer: string;
+    brand: string;
+    vendor: string;
+    family: string;
+    model: string;
+    stepping: string;
+    revision: string;
+    voltage: string;
+    speed: string;
+    speedmin: string;
+    speedmax: string;
+    cores: number;
+    physicalCores: number;
+    processors: number;
+    socket: string;
+    cache: CpuCacheData;
+  }
+
+  interface CpuWithFlagsData extends CpuData {
+    flags: string;
+  }
+
+  interface CpuCacheData {
+    l1d: number;
+    l1i: number;
+    l2: number;
+    l3: number;
+  }
+
+  interface CpuCurrentSpeedData {
+    min: string;
+    max: string;
+    avg: string;
+    cores: number[];
+  }
+
+  interface CpuTemperatureData {
+    main: string;
+    cores: string;
+    max: string;
+  }
+
+  interface MemData {
+    total: number;
+    free: number;
+    used: number;
+    active: number;
+    available: number;
+    buffcache: number;
+    swaptotal: number;
+    swapused: number;
+    swapfree: number;
+  }
+
+  interface MemLayoutData {
+    size: number;
+    bank: string;
+    type: string;
+    clockSpeed: number;
+    formFactor: string;
+    partNum: string;
+    serialNum: string;
+    voltageConfigured: number;
+    voltageMin: number;
+    voltageMax: number;
+  }
+
+  interface DiskLayoutData {
+    type: string;
+    name: string;
+    vendor: string;
+    size: number;
+    bytesPerSector: number;
+    totalCylinders: number;
+    totalHeads: number;
+    totalSectors: number;
+    totalTracks: number;
+    tracksPerCylinder: number;
+    sectorsPerTrack: number;
+    firmwareRevision: string;
+    serialNum: string;
+    interfaceType: string;
+    smartStatus: string;
+  }
+
+  interface BatteryData {
+    hasbattery: boolean;
+    cyclecount: number;
+    ischarging: boolean;
+    maxcapacity: number;
+    currentcapacity: number;
+    percent: number;
+    timeremaining: number,
+    acconnected: boolean;
+    type: string;
+    model: string;
+    manufacturer: string;
+    serial: string;
+  }
+
+  interface GraphicsData {
+    controllers: GraphicsControllerData[];
+    displays: GraphicsDisplayData[];
+  }
+
+  interface GraphicsControllerData {
+    vendor: string;
+    model: string;
+    bus: string;
+    vram: number;
+    vramDynamic: boolean;
+  }
+
+  interface GraphicsDisplayData {
+    model: string;
+    main: boolean;
+    builtin: boolean;
+    connection: string;
+    sizex: number;
+    sizey: number;
+    pixeldepth: number;
+    resolutionx: number;
+    resolutiony: number;
+  }
+
+  // 4. Operating System
+
+  interface OsData {
+    platform: string;
+    distro: string;
+    release: string;
+    codename: string;
+    kernel: string;
+    arch: string;
+    hostname: string;
+    codepage: string;
+    logofile: string;
+    serial: string;
+    build: string;
+  }
+
+  interface UuidData {
+    os: string;
+  }
+
+  interface VersionData {
+    kernel: string;
+    openssl: string;
+    systemOpenssl: string;
+    systemOpensslLib: string;
+    node: string;
+    v8: string;
+    npm: string;
+    yarn: string;
+    pm2: string;
+    gulp: string;
+    grunt: string;
+    git: string;
+    tsc: string;
+    mysql: string;
+    redis: string;
+    mongodb: string;
+    nginx: string;
+    php: string;
+    docker: string;
+    postfix: string;
+    postgresql: string;
+    perl: string;
+    python: string;
+    gcc: string;
+  }
+
+  interface UserData {
+    user: string;
+    tty: string;
+    date: string;
+    time: string;
+    ip: string;
+    command: string;
+  }
+
+  // 5. File System
+
+  interface FsSizeData {
+    fs: string;
+    type: string;
+    size: number;
+    used: number;
+    use: number;
+    mount: string;
+  }
+
+  interface BlockDevicesData {
+    name: string;
+    identifier: string;
+    type: string;
+    fstype: string;
+    mount: string;
+    size: number;
+    physical: string;
+    uuid: string;
+    label: string;
+    model: string;
+    serial: string;
+    removable: boolean;
+    protocol: string;
+  }
+
+  interface FsStatsData {
+    rx: number;
+    wx: number;
+    tx: number;
+    rx_sec: number;
+    wx_sec: number;
+    tx_sec: number;
+    ms: number;
+  }
+
+  interface DisksIoData {
+    rIO: number;
+    wIO: number;
+    tIO: number;
+    rIO_sec: number;
+    wIO_sec: number;
+    tIO_sec: number;
+    ms: number;
+  }
+
+  // 6. Network related functions
+
+  interface NetworkInterfacesData {
+    iface: string;
+    ip4: string;
+    ip6: string;
+    mac: string;
+    internal: boolean;
+  }
+
+  interface NetworkStatsData {
+    iface: string;
+    operstate: string;
+    rx: number;
+    tx: number;
+    rx_sec: number;
+    tx_sec: number;
+    ms: number;
+  }
+
+  interface NetworkConnectionsData {
+    protocol: string;
+    localaddress: string;
+    localport: string;
+    peeraddress: string;
+    peerport: string;
+    state: string;
+  }
+
+  interface InetChecksiteData {
+    url: string;
+    ok: boolean;
+    status: number;
+    ms: number;
+  }
+
+  // 7. Current Load, Processes & Services
+
+  interface CurrentLoadData {
+    avgload: number;
+    currentload: number;
+    currentload_user: number;
+    currentload_system: number;
+    currentload_nice: number;
+    currentload_idle: number;
+    currentload_irq: number;
+    raw_currentload: number;
+    raw_currentload_user: number;
+    raw_currentload_system: number;
+    raw_currentload_nice: number;
+    raw_currentload_idle: number;
+    raw_currentload_irq: number;
+    cpus: CurrentLoadCpuData[];
+  }
+
+  interface CurrentLoadCpuData {
+    load: number;
+    load_user: number;
+    load_system: number;
+    load_nice: number;
+    load_idle: number;
+    load_irq: number;
+    raw_load: number;
+    raw_load_user: number;
+    raw_load_system: number;
+    raw_load_nice: number;
+    raw_load_idle: number;
+    raw_load_irq: number;
+  }
+
+  interface ProcessesData {
+    all: number;
+    running: number;
+    blocked: number;
+    sleeping: number;
+    unknown: number;
+    list: ProcessesProcessData[];
+  }
+
+  interface ProcessesProcessData {
+    pid: number;
+    parentPid: number;
+    name: string,
+    pcpu: number;
+    pcpuu: number;
+    pcpus: number;
+    pmem: number;
+    priority: number;
+    mem_vsz: number;
+    mem_rss: number;
+    nice: number;
+    started: string,
+    state: number;
+    tty: number;
+    user: number;
+    command: number;
+  }
+
+  interface ProcessesProcessLoadData {
+    proc: string;
+    pid: number;
+    pids: number[];
+    cpu: number;
+    mem: number;
+  }
+
+  interface ServicesData {
+    name: string;
+    running: boolean;
+    startmode: string;
+    pids: number[];
+    pcpu: number;
+    pmem: number;
+  }
+
+  // 8. Docker
+
+  interface DockerContainerData {
+    id: string;
+    name: string;
+    image: string;
+    imageID: string;
+    command: string;
+    created: number;
+    state: string;
+    ports: number[];
+    mounts: DockerContainerMountData[];
+  }
+
+  interface DockerContainerMountData {
+    Type: string;
+    Source: string;
+    Destination: string;
+    Mode: string;
+    RW: boolean;
+    Propagation: string;
+  }
+
+  interface DockerContainerStatsData {
+    id: string;
+    mem_usage: number;
+    mem_limit: number;
+    mem_percent: number;
+    cpu_percent: number;
+    netIO: {
+      rx: number;
+      wx: number;
+    };
+    blockIO: {
+      r: number;
+      w: number;
+    };
+    cpu_stats: any;
+    precpu_stats: any;
+    memory_stats: any,
+    networks: any;
+  }
+
+  // 9. "Get All at once" - functions
+
+  interface StaticData {
+    version: string;
+    system: SystemData;
+    bios: BiosData;
+    baseboard: BaseboardData;
+    os: OsData;
+    uuid: UuidData;
+    versions: VersionData;
+    cpu: CpuWithFlagsData;
+    graphics: GraphicsData;
+    net: NetworkInterfacesData[];
+    memLayout: MemLayoutData[];
+    diskLayout: DiskLayoutData[];
+  }
+
+}
+
+export function version(): string;
+export function system(cb?: (data: Systeminformation.SystemData) => any): Promise<Systeminformation.SystemData>;
+export function bios(cb?: (data: Systeminformation.BiosData) => any): Promise<Systeminformation.BiosData>;
+export function baseboard(cb?: (data: Systeminformation.BaseboardData) => any): Promise<Systeminformation.BaseboardData>;
+
+export function time(): Systeminformation.TimeData;
+export function osInfo(cb?: (data: Systeminformation.OsData) => any): Promise<Systeminformation.OsData>;
+export function versions(cb?: (data: Systeminformation.VersionData) => any): Promise<Systeminformation.VersionData>;
+export function shell(cb?: (data: string) => any): Promise<string>;
+export function uuid(cb?: (data: Systeminformation.UuidData) => any): Promise<Systeminformation.UuidData>;
+
+export function cpu(cb?: (data: Systeminformation.CpuData) => any): Promise<Systeminformation.CpuData>;
+export function cpuFlags(cb?: (data: string) => any): Promise<string>;
+export function cpuCache(cb?: (data: Systeminformation.CpuCacheData) => any): Promise<Systeminformation.CpuCacheData>;
+export function cpuCurrentspeed(cb?: (data: Systeminformation.CpuCurrentSpeedData) => any): Promise<Systeminformation.CpuCurrentSpeedData>;
+export function cpuTemperature(cb?: (data: Systeminformation.CpuTemperatureData) => any): Promise<Systeminformation.CpuTemperatureData>;
+export function currentLoad(cb?: (data: Systeminformation.CurrentLoadData) => any): Promise<Systeminformation.CurrentLoadData>;
+export function fullLoad(cb?: (data: number) => any): Promise<number>;
+
+export function mem(cb?: (data: Systeminformation.MemData) => any): Promise<Systeminformation.MemData>;
+export function memLayout(cb?: (data: Systeminformation.MemLayoutData) => any): Promise<Systeminformation.MemLayoutData>;
+
+export function battery(cb?: (data: Systeminformation.BatteryData) => any): Promise<Systeminformation.BatteryData>;
+export function graphics(cb?: (data: Systeminformation.GraphicsData) => any): Promise<Systeminformation.GraphicsData>;
+
+export function fsSize(cb?: (data: Systeminformation.FsSizeData[]) => any): Promise<Systeminformation.FsSizeData[]>;
+export function blockDevices(cb?: (data: Systeminformation.BlockDevicesData[]) => any): Promise<Systeminformation.BlockDevicesData[]>;
+export function fsStats(cb?: (data: Systeminformation.FsStatsData) => any): Promise<Systeminformation.FsStatsData>;
+export function disksIO(cb?: (data: Systeminformation.DisksIoData) => any): Promise<Systeminformation.DisksIoData>;
+export function diskLayout(cb?: (data: Systeminformation.DiskLayoutData) => any): Promise<Systeminformation.DiskLayoutData>;
+
+export function networkInterfaceDefault(cb?: (data: string) => any): Promise<string>;
+export function networkInterfaces(cb?: (data: Systeminformation.NetworkInterfacesData[]) => any): Promise<Systeminformation.NetworkInterfacesData[]>;
+
+export function networkStats(iface?: string, cb?: (data: Systeminformation.NetworkStatsData) => any): Promise<Systeminformation.NetworkStatsData>;
+export function networkConnections(cb?: (data: Systeminformation.NetworkConnectionsData[]) => any): Promise<Systeminformation.NetworkConnectionsData[]>;
+export function inetChecksite(url: string, cb?: (data: Systeminformation.InetChecksiteData) => any): Promise<Systeminformation.InetChecksiteData>;
+export function inetLatency(host?: string, cb?: (data: number) => any): Promise<number>;
+
+export function users(cb?: (data: Systeminformation.UserData[]) => any): Promise<Systeminformation.UserData[]>;
+
+export function processes(cb?: (data: Systeminformation.ProcessesData) => any): Promise<Systeminformation.ProcessesData>;
+export function processLoad(processName: string, cb?: (data: Systeminformation.ProcessesProcessLoadData) => any): Promise<Systeminformation.ProcessesProcessLoadData>;
+export function services(serviceName: string, cb?: (data: Systeminformation.ServicesData[]) => any): Promise<Systeminformation.ServicesData[]>;
+
+
+export function dockerContainers(all?: boolean, cb?: (data: Systeminformation.DockerContainerData[]) => any): Promise<Systeminformation.DockerContainerData[]>;
+export function dockerContainerStats(id?: string, cb?: (data: Systeminformation.DockerContainerStatsData[]) => any): Promise<Systeminformation.DockerContainerStatsData[]>;
+export function dockerContainerProcesses(id?: string, cb?: (data: any) => any): Promise<any>;
+export function dockerAll(cb?: (data: any) => any): Promise<any>;
+
+export function getStaticData(cb?: (data: Systeminformation.StaticData) => any): Promise<Systeminformation.StaticData>;
+export function getDynamicData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<any>;
+export function getAllData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<any>;
