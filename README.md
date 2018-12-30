@@ -77,6 +77,7 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
+- Version 3.54.0: added TypeScript type definitions
 - Version 3.53.0: `versions()` added perl, python, gcc
 - Version 3.52.0: `cpu()` added physical cores, processors, socket type
 - Version 3.51.0: `processLoad()` added for windows
@@ -84,8 +85,6 @@ async function cpu() {
 - Version 3.49.0: `uuid()` added - os specific uuid (per installation)
 - Version 3.48.0: `osInfo()` added build, serial (Windows/macOS)
 - Version 3.47.0: `version()` added docker, postfix
-- Version 3.46.0: `version()` added system openssl version (besides the one inside node.js)
-- Version 3.45.0: `diskLayout()` added S.M.A.R.T. status
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
