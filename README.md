@@ -14,19 +14,6 @@ Simple system and OS information library for [node.js][nodejs-url]
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
-#### Happy christmas holiday
-
-```
-.      *    *           *.       *   .                      *     .
-               .   .                   __   *    .     * .     *
-    *       *         *   .     .    _|__|_        *    __   .       *
-  .  *  /\       /\          *        ('')    *       _|__|_     .
-       /  \   * /  \  *          .  <( . )> *  .       ('')   *   *
-  *    /  \     /  \   .   *       _(__.__)_  _   ,--<(  . )>  .    .
-      /    \   /    \          *   |       |  )),`   (   .  )     *
-...*   `||` ..  `||`   . *.   ... ==========='`   ... '--`-` ... * ...
-```
-
 ## Quick Start
 
 Lightweight collection of 35+ functions to retrieve detailed hardware, system and OS information.
@@ -77,14 +64,13 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
+- Version 3.55.0: `networkInterfaces()` extended, `networkStats()` extended, bugfix windows
 - Version 3.54.0: added TypeScript type definitions
 - Version 3.53.0: `versions()` added perl, python, gcc
 - Version 3.52.0: `cpu()` added physical cores, processors, socket type
 - Version 3.51.0: `processLoad()` added for windows
 - Version 3.50.0: `services()` added possibility to specify ALL services "*" for linux/win
 - Version 3.49.0: `uuid()` added - os specific uuid (per installation)
-- Version 3.48.0: `osInfo()` added build, serial (Windows/macOS)
-- Version 3.47.0: `version()` added docker, postfix
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -324,17 +310,28 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.networkInterfaces(cb) | [{...}] | X | X | X | X | X | array of network interfaces |
-| | [0].iface | X | X | X | X | X | interface name |
+| | [0].iface | X | X | X | X | X | interface |
+| | [0].ifaceName | X | X | X | X | X | interface name (differs on Windows) |
 | | [0].ip4 | X | X | X | X | X | ip4 address |
 | | [0].ip6 | X | X | X | X | X | ip6 address |
 | | [0].mac | X | X | X | X | X | MAC address |
 | | [0].internal | X | X | X | X | X | true if internal interface |
+| | [0].operstate | X | | | X |  | up / down |
+| | [0].type | X | | | X | | wireless / wired |
+| | [0].duplex | X | | | | | duplex |
+| | [0].mtu | X | | | | | maximum transmission unit |
+| | [0].speed | X | | | X | | speed in MBit / s |
+| | [0].carrierChanges | X | | | | | # changes up/down |
 | si.networkInterfaceDefault(cb) | : string | X | X | X | X | X | get name of default network interface |
 | si.networkStats(iface,cb) | {...} | X | X | X | X |  | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface|
 | | iface | X | X | X | X |  | interface |
 | | operstate | X | X | X | X |  | up / down |
 | | rx | X | X | X | X |  | received bytes overall |
+| | rx_dropped | X | X | X | X |  | received dropped overall |
+| | rx_errors | X | X | X | X |  | received errors overall |
 | | tx | X | X | X | X |  | transferred bytes overall |
+| | tx_dropped | X | X | X | X |  | transferred dropped overall |
+| | tx_errors | X | X | X | X |  | transferred errors overall |
 | | rx_sec | X | X | X | X |  | received bytes / second (* see notes) |
 | | tx_sec | X | X | X | X |  | transferred bytes per second (* see notes) |
 | | ms | X | X | X | X |  | interval length (for per second values) |
@@ -633,7 +630,7 @@ All other trademarks are the property of their respective owners.
 
 >The [`MIT`][license-url] License (MIT)
 >
->Copyright &copy; 2014-2018 Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com).
+>Copyright &copy; 2014-2019 Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com).
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy
 >of this software and associated documentation files (the "Software"), to deal

@@ -43,8 +43,10 @@
     "block devices",
     "netstats",
     "network",
+    "network interfaces",
     "network connections",
     "network stats",
+    "iface",
     "processes",
     "users",
     "internet",
@@ -55,6 +57,7 @@
     "graphics",
     "graphic card",
     "graphic controller",
+    "gpu",
     "display",
     "smart",
     "disk layout"

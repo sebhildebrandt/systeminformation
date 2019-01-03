@@ -274,17 +274,28 @@ export namespace Systeminformation {
 
   interface NetworkInterfacesData {
     iface: string;
+    ifaceName: string;
     ip4: string;
     ip6: string;
     mac: string;
     internal: boolean;
+    operstate: string;
+    type: string;
+    duplex: string;
+    mtu: number;
+    speed: number;
+    carrier_changes: number;
   }
 
   interface NetworkStatsData {
     iface: string;
     operstate: string;
     rx: number;
+    rx_dropped: number;
+    rx_errors: number;
     tx: number;
+    tx_dropped: number;
+    tx_errors: number;
     rx_sec: number;
     tx_sec: number;
     ms: number;
