@@ -14,6 +14,19 @@ Simple system and OS information library for [node.js][nodejs-url]
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
+## Version 4.0 - just arround the corner
+
+I am currently working on the next major release, version 4.0. What you will see is
+
+- new systeminformation website with better documentation and examples
+- added typescript information
+- automated tests - travis-ci integration
+- reworked network section: this will now return more information and allows to get networkStats for more than one interface at once.
+- better Raspberry detection
+- lot of minor improvements
+
+But be aware: you will see some minor breaking changes. I expect to finalize the new version by end of January 2019.
+
 ## Quick Start
 
 Lightweight collection of 35+ functions to retrieve detailed hardware, system and OS information.

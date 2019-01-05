@@ -251,9 +251,9 @@ export namespace Systeminformation {
   }
 
   interface FsStatsData {
-    rx: number;
-    wx: number;
-    tx: number;
+    rx_bytes: number;
+    wx_bytes: number;
+    tx_bytes: number;
     rx_sec: number;
     wx_sec: number;
     tx_sec: number;
@@ -290,10 +290,10 @@ export namespace Systeminformation {
   interface NetworkStatsData {
     iface: string;
     operstate: string;
-    rx: number;
+    rx_bytes: number;
     rx_dropped: number;
     rx_errors: number;
-    tx: number;
+    tx_bytes: number;
     tx_dropped: number;
     tx_errors: number;
     rx_sec: number;
