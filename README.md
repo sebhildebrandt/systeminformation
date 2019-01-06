@@ -19,10 +19,13 @@ Simple system and OS information library for [node.js][nodejs-url]
 I am currently working on the next major release, version 4.0. What you will see is
 
 - new systeminformation website with better documentation and examples
-- added typescript information
+- added typescript definitions
+- added JsDoc
 - automated tests - travis-ci integration
 - reworked network section: this will now return more information and allows to get networkStats for more than one interface at once.
-- better Raspberry detection
+- dockerContainerStats for all containers at once
+- fsstats per disk (and all at once)
+- better Raspberry-PI detection
 - lot of minor improvements
 
 But be aware: you will see some minor breaking changes. I expect to finalize the new version by end of January 2019.
@@ -77,7 +80,6 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
-- Version 3.55.0: `networkInterfaces()` extended, `networkStats()` extended, bugfix windows
 - Version 3.54.0: added TypeScript type definitions
 - Version 3.53.0: `versions()` added perl, python, gcc
 - Version 3.52.0: `cpu()` added physical cores, processors, socket type
