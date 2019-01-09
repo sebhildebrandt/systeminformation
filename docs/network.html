@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>systeminformation</title>
+
+</head>
+
+<body>
+  <nav class="nav" style="background-image: url('./assets/trianglify.png');">
+    <div class="container">
+      <a href="/"><img class="logo float-left" src="assets/logo.png">
+        <div class="title float-left">systeminformation</div>
+      </a>
+      <div class="text float-right"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+      </div>
+      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+        <div class="row">
+          <div class="col-12 sectionheader">
+            <div class="title">Network</div>
+            <div class="text">
+              <p>In this section you will learn how to get detailed information about network interfaces, network connections and statistics as well as some internet related information (latency, check availability of site):</p>
+              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+              <pre><code class="js">const si = require('systeminformation');</code></pre>
+              <h2>Network Interfaces, Network Stats, Network Connections</h2>
+              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>si.networkInterfaces(cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>array of network interfaces</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].iface</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>interface name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].ip4</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>ip4 address</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].ip6</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>ip6 address</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].mac</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>MAC address</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].internal</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>true if internal interface</td>
+                  </tr>
+                  <tr>
+                    <td>si.networkInterfaceDefault(cb)</td>
+                    <td>: string</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>get name of default network interface</td>
+                  </tr>
+                  <tr>
+                    <td>si.networkStats(iface,cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>current network stats of given interface<br />iface parameter is optional<br />defaults to first external network interface</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>iface</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>interface</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>operstate</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>up / down</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>rx</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>received bytes overall</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>tx</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>transferred bytes overall</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>rx_sec</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>received bytes / second (* see notes)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>tx_sec</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>transferred bytes per second (* see notes)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>ms</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>interval length (for per second values)</td>
+                  </tr>
+                  <tr>
+                    <td>si.networkConnections(cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>current network network connections<br />returns an array of all connections</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].protocol</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>tcp or udp</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].localaddress</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>local address</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].localport</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>local port</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].peeraddress</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>peer address</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].peerport</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>peer port</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].state</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>like ESTABLISHED, TIME_WAIT, ...</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h2>Site availability, Internet Latency</h2>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>si.inetChecksite(url, cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>response-time (ms) to fetch given URL</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>url</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>given url</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>ok</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>status code OK (2xx, 3xx)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>status</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>status code</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>ms</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>response time in ms</td>
+                  </tr>
+                  <tr>
+                    <td>si.inetLatency(host, cb)</td>
+                    <td>: number</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>response-time (ms) to external resource<br />host parameter is optional (default 8.8.8.8)</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h4>Getting correct stats values</h4>
+
+              <p>In <span class="code">networkStats()</span> the
+                results / sec. values (rx_sec, tx_sec, ...) are calculated correctly beginning with the <strong>second</strong> call of the function.
+                It is determined by calculating the difference of transferred bytes / IOs divided by the time between two calls of the function.</p>
+
+              <p>The first time you are calling one of this functions, you will get <span class="code">-1</span> for transfer rates.
+                The second time, you should then get statistics based on the time between the two calls ...</p>
+
+              <p>So basically, if you e.g. need a values for filesystem stats stats every second, your code should look like this:</p>
+
+              <pre><code class="js">const si = require('systeminformation');
+
+setInterval(function() {
+    si.networkStats().then(data => {
+        console.log(data);
+    })
+}, 1000)</code></pre>
+              <p>Beginning with the second call, you get network transfer values per second.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="/">Home</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li><a href="contributors.html">Contributors</a></li>
+            <li><a href="sponsoring.html">Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+            <li><a href="history.html">Version history</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="https://www.plus-innovations.com">&copy; 2019 Sebastian Hildebrandt, +innovations</a></li>
+            <li><a href="/copyright.html">Copyright &amp; License</a></li>
+            <li><a href="/trademarks.html">Trademarks</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    window.onload = function (e) {
+      createMenu();
+    }
+  </script>
+</body>
+
+</html>

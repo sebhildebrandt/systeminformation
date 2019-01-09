@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>systeminformation</title>
+
+</head>
+
+<body>
+  <nav class="nav" style="background-image: url('./assets/trianglify.png');">
+    <div class="container">
+      <a href="/"><img class="logo float-left" src="assets/logo.png">
+        <div class="title float-left">systeminformation</div>
+      </a>
+      <div class="text float-right"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+      </div>
+      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+        <div class="row">
+          <div class="col-12 sectionheader">
+            <div class="title">CPU</div>
+            <div class="text">
+              <p>In this section you will learn how to get CPU data including current speed and temperature:</p>
+              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+              <pre><code class="js">const si = require('systeminformation');</code></pre>
+              <h2>CPU Data</h2>
+              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>si.cpu(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>CPU information object</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>manufacturer</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>e.g. 'Intel(R)'</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>brand</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>e.g. 'Core(TM)2 Duo'</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>speed</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>in GHz e.g. '3.40'</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>speedmin</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>in GHz e.g. '0.80'</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>speedmax</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>in GHz e.g. '3.90'</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>cores</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td># cores</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>physicalCores</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td># physical cores</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>processors</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td># processors</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>socket</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>socket type e.g. &quot;LGA1356&quot;</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>vendor</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>vendor ID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>family</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>processor family</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>model</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>processor model</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>stepping</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>processor stepping</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>revision</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>revision</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>voltage</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>voltage</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>cache</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>cache in bytes (object)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>cache.l1d</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>L1D (data) size</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>cache.l1i</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>L1I (instruction) size</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>cache.l2</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>L2 size</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>cache.l3</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>L3 size</td>
+                  </tr>
+                  <tr>
+                    <td>si.cpuFlags(cb)</td>
+                    <td>: string</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>CPU flags</td>
+                  </tr>
+                  <tr>
+                    <td>si.cpuCache(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>CPU cache sizes object</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>l1d</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>L1D size</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>l1i</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>L1I size</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>l2</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>L2 size</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>l3</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>L3 size</td>
+                  </tr>
+                  <tr>
+                    <td>si.cpuCurrentspeed(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>current CPU speed (GHz) object</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>avg</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>avg CPU speed (all cores)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>min</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>min CPU speed (all cores)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>max</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>max CPU speed (all cores)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>cores</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU speed per core (array)</td>
+                  </tr>
+                  <tr>
+                    <td>si.cpuTemperature(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X*</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>CPU temperature (if supported)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>main</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>main temperature (avg)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>cores</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>array of temperatures</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>max</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>max temperature</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="/">Home</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li><a href="contributors.html">Contributors</a></li>
+            <li><a href="sponsoring.html">Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+            <li><a href="history.html">Version history</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="https://www.plus-innovations.com">&copy; 2019 Sebastian Hildebrandt, +innovations</a></li>
+            <li><a href="/copyright.html">Copyright &amp; License</a></li>
+            <li><a href="/trademarks.html">Trademarks</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    window.onload = function (e) {
+      createMenu();
+    }
+  </script>
+</body>
+
+</html>

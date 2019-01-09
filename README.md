@@ -341,10 +341,10 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | si.networkStats(iface,cb) | {...} | X | X | X | X |  | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface|
 | | iface | X | X | X | X |  | interface |
 | | operstate | X | X | X | X |  | up / down |
-| | rx | X | X | X | X |  | received bytes overall |
+| | rx_bytes | X | X | X | X |  | received bytes overall |
 | | rx_dropped | X | X | X | X |  | received dropped overall |
 | | rx_errors | X | X | X | X |  | received errors overall |
-| | tx | X | X | X | X |  | transferred bytes overall |
+| | tx_bytes | X | X | X | X |  | transferred bytes overall |
 | | tx_dropped | X | X | X | X |  | transferred dropped overall |
 | | tx_errors | X | X | X | X |  | transferred errors overall |
 | | rx_sec | X | X | X | X |  | received bytes / second (* see notes) |

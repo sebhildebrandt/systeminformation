@@ -1,16 +1,194 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>systeminformation</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+
+  <title>systeminformation</title>
+  <script>
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    function getDownloads() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var downloads = JSON.parse(this.responseText);
+          document.getElementById("downloads").innerHTML = numberWithCommas(downloads.downloads);
+        }
+      };
+      xhttp.open("GET", "https://api.npmjs.org/downloads/point/last-month/systeminformation", true);
+      xhttp.send();
+    }
+    function getVersion() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var package = JSON.parse(this.responseText);
+          document.getElementById("version").innerHTML = package.version;
+        }
+      };
+      xhttp.open("GET", "https://registry.npmjs.org/systeminformation/latest", true);
+      xhttp.send();
+    }
+  </script>
+
 </head>
 
-<body>
-    <h1>systeminformation</h1>
-    <p>Simple system and OS information library for node.js</p>
+<body onload="getDownloads()">
+  <header class="bg-image-full" style="background-image: url('./assets/motherboard.jpg');">
+    <img class="logo" src="assets/logo.png">
+    <div class="title">systeminformation</div>
+    <div class="subtitle">Simple system and OS information library for node.js</div>
+    <div class="version">Current Version: <span id="version">4.0.0</span></div>
+    <div class="text"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+  </header>
+
+  <section class="container">
+    <div class="row">
+      <div class="col-12 sectionheader index">
+        <div class="title">Quick Start</div>
+        <div class="subtitle">Lightweight collection of 35+ functions to retrieve detailed hardware, system and OS information. For Linux, macOS, partial Windows, FreeBSD and SunOS support</div>
+      </div>
+    </div>
+    <div class="row justify-content-center sectionheader index">
+      <div class="col-8">
+        <hr>
+      </div>
+    </div>
+    <div class="row number-section">
+      <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+        <div class="numbers">7,676</div>
+        <div class="title">Lines of code</div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+        <div id="downloads" class="numbers">...</div>
+        <div class="title">Downloads last month</div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+        <div class="numbers">115</div>
+        <div class="title">Dependends</div>
+      </div>
+    </div>
+    <div class="row justify-content-center sectionheader index">
+      <div class="col-8">
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 sectionheader index">
+        <div class="title">Documentation</div>
+        <div class="subtitle">Detailed documentation and reference for Version 4.x.x</div>
+      </div>
+    </div>
+    <div class="row index">
+      <a href="gettingstarted.html" class="col-xl-3 col-lg-4 col-md-4 col-6 features">
+        <div class="icons"><i class="fal fa-download"></i></div>
+        <div class="icontitle">Getting Started</div>
+      </a>
+      <a href="general.html" class="col-xl-3 col-lg-4 col-md-4 col-6 features">
+        <div class="icons"><i class="fal fa-th-list"></i></div>
+        <div class="icontitle">General</div>
+      </a>
+      <a href="system.html" class="col-xl-3 col-lg-4 col-md-4 col-6 features">
+        <div class="icons"><i class="fal fa-server"></i></div>
+        <div class="icontitle">System</div>
+      </a>
+      <a href="cpu.html" class="col-xl-3 col-lg-4 col-md-4 col-6 features">
+        <div class="icons"><i class="fal fa-microchip"></i></div>
+        <div class="icontitle">CPU</div>
+      </a>
+      <a href="memory.html" class="col-xl-3 col-lg-4 col-md-4 col-6 features">
+        <div class="icons"><i class="fal fa-memory"></i></div>
+        <div class="icontitle">Memory</div>
+      </a>
+      <a href="battery.html" class="col-xl-3 col-lg-4 col-md-4 col-6 features">
+        <div class="icons"><i class="fal fa-battery-half"></i></div>
+        <div class="icontitle">Battery</div>
+      </a>
+      <a href="filesystem.html" class="col-xl-3 col-lg-4 col-md-4 col-6 features">
+        <div class="icons"><i class="fal fa-hdd"></i></div>
+        <div class="icontitle">Disks / FS</div>
+      </a>
+      <a href="graphics.html" class="col-xl-3 col-lg-4 col-md-4 col-6 features">
+        <div class="icons"><i class="fal fa-desktop"></i></div>
+        <div class="icontitle">Graphics</div>
+      </a>
+      <a href="os.html" class="col-xl-3 col-lg-4 col-md-4 col-6 features">
+        <div class="icons"><i class="fal fa-window"></i></div>
+        <div class="icontitle">OS</div>
+      </a>
+      <a href="network.html" class="col-xl-3 col-lg-4 col-md-4 col-6 features">
+        <div class="icons"><i class="fal fa-network-wired"></i></div>
+        <div class="icontitle">Network</div>
+      </a>
+      <a href="processes.html" class="col-xl-3 col-lg-4 col-md-4 col-6 features">
+        <div class="icons"><i class="fal fa-chart-line"></i></div>
+        <div class="icontitle">Processes / Load</div>
+      </a>
+      <a href="docker.html" class="col-xl-3 col-lg-4 col-md-4 col-6 features">
+        <div class="icons"><i class="fab fa-docker"></i></div>
+        <div class="icontitle">Docker</div>
+      </a>
+    </div>
+    <div class="row justify-content-center sectionheader index">
+      <div class="col-8">
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 sectionheader index">
+        <div class="title-small">Issues</div>
+        <div class="text">If you run into problems, please check out <a href="issues.html">known issues page</a> first. If you still have problems, please feel free to open an issue on our <a href="https://github.com/sebhildebrandt/systeminformation/issues">github page</a><br /><br /><br /></div>
+      </div>
+    </div>
+  </section>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="/">Home</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li><a href="contributors.html">Contributors</a></li>
+            <li><a href="sponsoring.html">Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+            <li><a href="history.html">Version history</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="https://www.plus-innovations.com">&copy; 2019 Sebastian Hildebrandt, +innovations</a></li>
+            <li><a href="/copyright.html">Copyright &amp; License</a></li>
+            <li><a href="/trademarks.html">Trademarks</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script>
+    window.onload = function (e) {
+      getDownloads();
+    }
+  </script>
 </body>
 
 </html>

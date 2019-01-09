@@ -1,0 +1,357 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "segoe ui", Roboto, Helvetica, Arial, sans-serif, "apple color emoji", "segoe ui emoji", "segoe ui symbol";
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 {
+    font-family: -apple-system, BlinkMacSystemFont, "segoe ui", Roboto, Helvetica, Arial, sans-serif, "apple color emoji", "segoe ui emoji", "segoe ui symbol";
+    font-weight: 300;
+}
+.center {
+    text-align: center;
+}
+.bg-image-full {
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    height: 280px;
+    opacity: 0.95;
+    filter: alpha(opacity=90);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    @media only screen and (min-width: 420px) {
+        height: 360px;
+    }
+    @media only screen and (min-width: 768px) {
+        height: 400px;
+    }
+    @media only screen and (min-width: 1024px) {
+        height: 450px;
+    }
+    @media only screen and (min-width: 1200px) {
+        height: 550px;
+    }
+    .title {
+        color: #fff;
+        padding-top: 10px;
+        font-size: 1.8rem;
+        @media only screen and (min-width: 420px) {
+            font-size: 2.4rem;
+        }
+        @media only screen and (min-width: 768px) {
+            font-size: 3.2rem;
+        }
+        @media only screen and (min-width: 1024px) {
+            font-size: 4rem;
+        }
+    }
+    .logo {
+        width: 100px;
+        @media only screen and (min-width: 420px) {
+            width: 120px;
+        }
+        @media only screen and (min-width: 768px) {
+            width: 160px;
+        }
+        @media only screen and (min-width: 1024px) {
+            width: 200px;
+        }
+    }
+    .subtitle {
+        text-align: center;
+        color: #bbb;
+        font-size: 0.9rem;
+        @media only screen and (min-width: 420px) {
+            font-size: 1rem;
+        }
+        @media only screen and (min-width: 768px) {
+            font-size: 1.1rem;
+        }
+        @media only screen and (min-width: 1024px) {
+            font-size: 1.3rem;
+        }
+    }
+    .text > a {
+        text-align: center;
+        color: #fff;
+        font-size: 0.9rem;
+        &:hover {
+            color: #aaa;
+            text-decoration: none;
+        }
+        @media only screen and (min-width: 420px) {
+            font-size: 1rem;
+        }
+        @media only screen and (min-width: 768px) {
+            font-size: 1rem;
+        }
+        @media only screen and (min-width: 1024px) {
+            font-size: 1.1rem;
+        }
+    }
+    .version {
+        text-align: center;
+        color: #fff;
+        font-size: .8rem;
+        @media only screen and (min-width: 420px) {
+            font-size: .9rem;
+        }
+        @media only screen and (min-width: 768px) {
+            font-size: 1rem;
+        }
+        @media only screen and (min-width: 1024px) {
+            font-size: 1.1rem;
+        }
+    }
+}
+
+.nav {
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    height: 65px;
+    position: relative;
+    .logo {
+        width: 60px;
+        margin-top: 10px;
+    }
+    .title {
+        display: none;
+        color: #fff;
+        font-size: 1.2rem;
+        margin-left: 15px;
+        margin-top: 18px;
+        @media only screen and (min-width: 768px) {
+            display: inline-block;
+        }
+        @media only screen and (min-width: 1024px) {
+            font-size: 1.2rem;
+        }
+    }
+    .text {
+        margin-top: 18px;
+
+        a {
+            color: #fff;
+            margin-top: 12px;
+            font-size: 1.0rem;
+            @media only screen and (min-width: 1023px) {
+                margin-top: 10px;
+                font-size: 1.2rem;
+            }
+            &:hover {
+                color: #aaa;
+                text-decoration: none;
+            }
+        }
+    }
+}
+.features {
+    text-align: center;
+    padding: 15px 20px;
+    color: #333;
+    &:hover {
+        color: rgb(86, 122, 223);
+    }
+}
+.sectionheader {
+    .title {
+        text-align: center;
+        padding-top: 20px;
+        font-size: 2rem;
+        @media only screen and (min-width: 420px) {
+            font-size: 2.3rem;
+        }
+        @media only screen and (min-width: 768px) {
+            text-align: left;
+            padding-top: 25px;
+            font-size: 2.6rem;
+        }
+        @media only screen and (min-width: 1024px) {
+            padding-top: 30px;
+            font-size: 3rem;
+        }
+    }
+    .title-small {
+        text-align: center;
+        font-size: 1.4rem;
+        @media only screen and (min-width: 420px) {
+            font-size: 1.6rem;
+        }
+        @media only screen and (min-width: 768px) {
+            text-align: left;
+            padding-top: 25px;
+            font-size: 1.8rem;
+        }
+        @media only screen and (min-width: 1024px) {
+            padding-top: 30px;
+            font-size: 2rem;
+        }
+    }
+    .subtitle {
+        text-align: center;
+        font-size: .9rem;
+        @media only screen and (min-width: 420px) {
+            font-size: 1rem;
+        }
+        @media only screen and (min-width: 768px) {
+            text-align: left;
+            font-size: 1.1rem;
+        }
+        @media only screen and (min-width: 1024px) {
+            font-size: 1.3rem;
+        }
+    }
+    .text {
+        text-align: center;
+        padding-top: 10px;
+        @media only screen and (min-width: 768px) {
+            text-align: left;
+        }
+    }
+    hr {
+        margin-top: 40px;
+        margin-bottom: 0px;
+        border: 1px solid #ddd;
+    }
+}
+.index {
+    .text, .subtitle, .title, .title-small {
+        text-align: center;
+    }
+    a {
+        text-decoration: none;
+        &:hover {
+            text-decoration: none;
+            color: rgb(86, 122, 223);
+        }
+    }
+}
+.left {
+    .text, .subtitle, .title, .title-small {
+        text-align: left;
+    }
+}
+.table {
+    text-align: left;
+}
+ul {
+    text-align: left;
+}
+.icons {
+    display: block;
+    font-size: 3rem;
+    color: #aaa;
+    &:hover {
+        color: rgb(86, 122, 223);
+    }
+    @media only screen and (min-width: 420px) {
+        font-size: 3.5rem;
+    }
+    @media only screen and (min-width: 768px) {
+        font-size: 4rem;
+    }
+    @media only screen and (min-width: 1024px) {
+        font-size: 5rem;
+    }
+}
+.icontitle {
+    font-size: 1.2rem;
+    // color: #000;
+}
+.number-section {
+    margin-top: 40px;
+    text-align: center;
+    .numbers {
+        font-size: 2rem;
+        @media only screen and (min-width: 420px) {
+            font-size: 2.4rem;
+        }
+        @media only screen and (min-width: 768px) {
+            font-size: 2.8rem;
+        }
+    }
+    .title {
+        color: #999;
+        font-size: 1rem;
+        @media only screen and (min-width: 420px) {
+            font-size: 1.1rem;
+        }
+        @media only screen and (min-width: 768px) {
+            font-size: 1.2rem;
+        }
+    }
+}
+.menu {
+    display: none;
+    @media only screen and (min-width: 768px) {
+        margin-top: 30px;
+        display: inline-block;
+    }
+    .title {
+        margin: 25px 0 5px 0;
+        color: #000;
+    }
+    hr {
+        margin: 5px 0;
+    }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        li {
+            padding: 2px 0;
+            a {
+                width: 100%;
+                color: #666;
+                text-decoration: none;
+                &:hover {
+                    color: rgb(86, 122, 223);
+                }
+            }
+            &.active > a {
+                color: rgb(86, 122, 223);
+            }
+        }
+    }
+}
+.code {
+    font-family: Menlo, "dejavu sans mono", "lucida console", monospace;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    display: inline-block;
+    background-color: #eee;
+    margin: 0;
+    padding: 0 5px;
+}
+pre {
+    padding: 4px 10px 4px 10px;
+    font-family: Menlo, "dejavu sans mono", "lucida console", monospace;
+    -webkit-font-smoothing: antialiased;
+    font-size: 13px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 18px;
+    background-color: #eee;
+    width: 100%;
+    text-align: left;
+}
+footer {
+    background-color: #eee;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    a {
+        color: #000;
+    }
+}

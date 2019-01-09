@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+
+  <title>systeminformation</title>
+
+</head>
+
+<body>
+  <nav class="nav" style="background-image: url('./assets/trianglify.png');">
+    <div class="container">
+      <a href="/"><img class="logo float-left" src="assets/logo.png">
+        <div class="title float-left">systeminformation</div>
+      </a>
+      <div class="text float-right"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+      </div>
+      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+        <div class="row">
+          <div class="col-12 sectionheader">
+            <div class="title">Known Issues</div>
+            <div class="text">
+              <h4>macOS - Temperature</h4>
+
+              <p>To be able to measure temperature on macOS I created a little additional package. Due to some difficulties in NPM with <span class="code">optionalDependencies</span>
+                I unfortunately was getting unexpected warnings on other platforms. So I decided to drop this optional dependency for macOS - so by default,
+                you will not get correct values.</p>
+
+              <p>But if you need to detect macOS temperature just run the following additional installation command:</p>
+
+              <pre>$ npm install osx-temperature-sensor --save</pre>
+              <p>systeminformation will then detect this additional library and return the temperature when calling systeminformations standard function <span class="code">cpuTemperature()</span></p>
+
+              <h4>Windows Temperature, Battery, ...</h4>
+
+              <p><span class="code">wmic</span> - which is used to determine temperature and battery sometimes needs to be run with admin
+                privileges. So if you do not get any values, try to run it again with according privileges. If you still do not get any
+                values, your system might not support this feature. In some cases we also discovered that wmic returned incorrect temperature values.</p>
+
+              <h4>Linux Temperature</h4>
+
+              <p>In some cases you need to install the linux <span class="code">sensors</span> package to be able to measure temperature e.g. on DEBIAN based systems by running</p>
+              <pre>$ sudo apt-get install lm-sensors</pre>
+
+              <h4>Linux S.M.A.R.T. Status</h4>
+
+              <p>To be able to detect S.M.A.R.T. status on Linux you need to install <span class="code">smartmontools</span>. On DEBIAN based linux distributions you can install it by running:</p>
+              <pre>$ sudo apt-get install smartmontools</pre>
+
+              <h4>Stats Functions</h4>
+              <p>To get correct values with <span class="code">fsStats()</span>, <span class="code">disksIO()</span> and <span class="code">networkStats()</span> please check <a href="statsfunctions.html">this guide</a></p>
+
+              <h4>Finding New Issues</h4>
+              <p>If you still have problems, please feel free to open an issue on our <a href="https://github.com/sebhildebrandt/systeminformation/issues">github page</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="/">Home</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li><a href="contributors.html">Contributors</a></li>
+            <li><a href="sponsoring.html">Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+            <li><a href="history.html">Version history</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="https://www.plus-innovations.com">&copy; 2019 Sebastian Hildebrandt, +innovations</a></li>
+            <li><a href="/copyright.html">Copyright &amp; License</a></li>
+            <li><a href="/trademarks.html">Trademarks</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    window.onload = function (e) {
+      createMenu();
+    }
+  </script>
+</body>
+
+</html>

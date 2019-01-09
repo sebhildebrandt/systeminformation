@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>systeminformation</title>
+
+</head>
+
+<body>
+  <nav class="nav" style="background-image: url('./assets/trianglify.png');">
+    <div class="container">
+      <a href="/"><img class="logo float-left" src="assets/logo.png">
+        <div class="title float-left">systeminformation</div>
+      </a>
+      <div class="text float-right"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+      </div>
+      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+        <div class="row">
+          <div class="col-12 sectionheader">
+            <div class="title">Disks and File System</div>
+            <div class="text">
+              <p>In this section you will learn how to get disks information, file system information disk I/O stats and file system stats:</p>
+              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+              <pre><code class="js">const si = require('systeminformation');</code></pre>
+              <h2>Disk Layout, Block Devices and Disks IO</h2>
+              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>si.diskLayout(cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>physical disk layout (array)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].type</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>HD, SSD</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].name</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>disk name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].vendor</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>vendor/producer</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].firmwareRevision</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>firmware revision</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].serialNum</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>serial number</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].interfaceType</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].size</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>size in bytes</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].totalCylinders</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>total cylinders</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].totalHeads</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>total heads</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].totalTracks</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>total tracks</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].tracksPerCylinder</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>tracks per cylinder</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].sectorsPerTrack</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>sectors per track</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].totalSectors</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>total sectors</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].bytesPerSector</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>bytes per sector</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].smartStatus</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>S.M.A.R.T Status (see Known Issues)</td>
+                  </tr>
+                  <tr>
+                    <td>si.blockDevices(cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>returns array of disks, partitions,<br />raids and roms</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].name</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].type</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>type</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].fstype</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>file system type (e.g. ext4)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].mount</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>mount point</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].size</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>size in bytes</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].physical</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>physical type (HDD, SSD, CD/DVD)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].uuid</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>UUID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].label</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>label</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].model</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>model</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].serial</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>serial</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].removable</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>serial</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].protocol</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>protocol (SATA, PCI-Express, ...)</td>
+                  </tr>
+                  <tr>
+                    <td>si.disksIO(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>current transfer stats</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>rIO</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>read IOs on all mounted drives</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>wIO</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>write IOs on all mounted drives</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>tIO</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>write IOs on all mounted drives</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>rIO_sec</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>read IO per sec (* see notes)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>wIO_sec</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>write IO per sec (* see notes)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>tIO_sec</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>total IO per sec (* see notes)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>ms</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>interval length (for per second values)</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h2>File System and File System Stats</h2>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>si.fsSize(cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>returns array of mounted file systems</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].fs</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>name of file system</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].type</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>type of file system</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].size</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>sizes in bytes</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].used</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>used in bytes</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].use</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>used in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].mount</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>mount point</td>
+                  </tr>
+                  <tr>
+                    <td>si.fsStats(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>current transfer stats</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>rx</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>bytes read since startup</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>wx</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>bytes written since startup</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>tx</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>total bytes read + written since startup</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>rx_sec</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>bytes read / second (* see notes)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>wx_sec</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>bytes written / second (* see notes)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>tx_sec</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>total bytes reads + written / second</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>ms</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>interval length (for per second values)</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h4>Getting correct stats values</h4>
+
+              <p>In <span class="code">disksIO()</span> and <span class="code">fsStats()</span> the
+                results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning with the <strong>second</strong> call of the function.
+                It is determined by calculating the difference of transferred bytes / IOs divided by the time between two calls of the function.</p>
+
+              <p>The first time you are calling one of this functions, you will get <span class="code">-1</span> for transfer rates.
+                The second time, you should then get statistics based on the time between the two calls ...</p>
+
+              <p>So basically, if you e.g. need a values for filesystem stats stats every second, your code should look like this:</p>
+
+              <pre><code class="js">const si = require('systeminformation');
+
+setInterval(function() {
+    si.fsStats().then(data => {
+        console.log(data);
+    })
+}, 1000)</code></pre>
+              <p>Beginning with the second call, you get network transfer values per second.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="/">Home</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li><a href="contributors.html">Contributors</a></li>
+            <li><a href="sponsoring.html">Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+            <li><a href="history.html">Version history</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="https://www.plus-innovations.com">&copy; 2019 Sebastian Hildebrandt, +innovations</a></li>
+            <li><a href="/copyright.html">Copyright &amp; License</a></li>
+            <li><a href="/trademarks.html">Trademarks</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    window.onload = function (e) {
+      createMenu();
+    }
+  </script>
+</body>
+
+</html>
