@@ -66,7 +66,7 @@
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
-                    <td>array of network interfaces</td>
+                    <td>array of network interfaces (objects)</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -76,7 +76,17 @@
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
-                    <td>interface name</td>
+                    <td>interface</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].ifaceName</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>interface name (differs on Windows)</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -117,6 +127,66 @@
                     <td>X</td>
                     <td>X</td>
                     <td>true if internal interface</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].operstate</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>up / down</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].type</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>wireless / wired</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].duplex</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>duplex (full/half)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].mtu</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>MUT maximum transmission unit</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].speed</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>Speed in Mbit / s</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].carrierChanges</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td># changes up/down</td>
                   </tr>
                   <tr>
                     <td>si.networkInterfaceDefault(cb)</td>
@@ -160,7 +230,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>rx</td>
+                    <td>rx_bytes</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -170,13 +240,53 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>tx</td>
+                    <td>rx_dropped</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>received dropped overall</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>rx_errors</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>received errors overall</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>tx_bytes</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
                     <td>transferred bytes overall</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>tx_dropped</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>transferred dropped overall</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>tx_errors</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>transferred errors overall</td>
                   </tr>
                   <tr>
                     <td></td>
