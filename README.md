@@ -265,8 +265,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | hostname | X | X | X | X | X | same as os.hostname() |
 | | codepage | X | X | X | X |   | OS build version |
 | | logofile | X | X | X | X | X | e.g. 'apple', 'debian', 'fedora', ... |
-| | serial |   | X | X | X |   | OS/Host serial number |
-| | build |   |   | X | X |   | OS build version |
+| | serial | X | X | X | X |   | OS/Host serial number |
+| | build | X |   | X | X |   | OS build version |
 | si.uuid(cb) | {...} | X | X | X | X | X | object of several UUIDs |
 | | os | X | X | X | X |  | os specific UUID |
 | si.versions(cb) | {...} | X | X | X | X | X | version information (kernel, ssl, node, ...) |
