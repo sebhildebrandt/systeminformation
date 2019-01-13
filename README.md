@@ -130,17 +130,25 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | serial | X | X | X | X |  | serial number |
 | | uuid | X | X | X | X |  | UUID |
 | | sku | X | X |  | X |  | SKU number |
-| si.bios(cb) | {...} | X | X | X | X |  | hardware information |
+| si.bios(cb) | {...} | X | X | X | X |  | bios information |
 | | vendor | X | X | X | X |  | e.g. 'AMI' |
 | | version | X | X |  | X |  | version |
 | | releaseDate | X | X |  | X |  | release date |
 | | revision | X | X |  | X |  | revision |
-| si.baseboard(cb) | {...} | X | X | X | X |  | hardware information |
+| si.baseboard(cb) | {...} | X | X | X | X |  | baseboard information |
 | | manufacturer | X | X | X | X |  | e.g. 'ASUS' |
 | | model | X | X | X | X |  | model / product name |
 | | version | X | X | X | X |  | version |
 | | serial | X | X | X | X |  | serial number |
 | | assetTag | X | X | X | X |  | asset tag |
+| si.chassis(cb) | {...} | X | X | X | X |  | chassis information |
+| | manufacturer | X | X | X | X |  | e.g. 'MSI' |
+| | model | X | X | X | X |  | model / product name |
+| | type | X | X | X | X |  | model / product name |
+| | version | X | X | X | X |  | version |
+| | serial | X | X | X | X |  | serial number |
+| | assetTag | X | X | X | X |  | asset tag |
+| | sku |  |  |  | X |  | SKU number |
 
 #### 3. CPU, Memory, Disks, Battery, Graphics
 
