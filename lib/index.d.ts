@@ -373,10 +373,10 @@ export namespace Systeminformation {
     mem_rss: number;
     nice: number;
     started: string,
-    state: number;
-    tty: number;
-    user: number;
-    command: number;
+    state: string;
+    tty: string;
+    user: string;
+    command: string;
   }
 
   interface ProcessesProcessLoadData {
