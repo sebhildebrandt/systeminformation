@@ -1,7 +1,7 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "segoe ui", Roboto, Helvetica, Arial, sans-serif, "apple color emoji", "segoe ui emoji", "segoe ui symbol";
     font-weight: 300;
-    -webkit-font-smoothing: antialiased;
+    min-height: 100%;
 }
 h1, h2, h3, h4 {
     font-family: -apple-system, BlinkMacSystemFont, "segoe ui", Roboto, Helvetica, Arial, sans-serif, "apple color emoji", "segoe ui emoji", "segoe ui symbol";
@@ -16,29 +16,28 @@ h1, h2, h3, h4 {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-    height: 280px;
+    height: calc(100vh);
     opacity: 0.95;
-    filter: alpha(opacity=90);
     display: flex;
     justify-content: center;
-    align-items: center;
+    text-align: center;
+
+    // align-items: center;
     flex-direction: column;
-    @media only screen and (min-width: 420px) {
-        height: 360px;
-    }
-    @media only screen and (min-width: 768px) {
-        height: 400px;
-    }
-    @media only screen and (min-width: 1024px) {
-        height: 450px;
-    }
-    @media only screen and (min-width: 1200px) {
-        height: 550px;
+    .container {
+      text-align: center;
+      align-self: center;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      flex-grow: 1;
     }
     .title {
         color: #fff;
         padding-top: 10px;
         font-size: 1.8rem;
+        margin-bottom: 10px;
         @media only screen and (min-width: 420px) {
             font-size: 2.4rem;
         }
@@ -64,7 +63,10 @@ h1, h2, h3, h4 {
     .subtitle {
         text-align: center;
         color: #bbb;
-        font-size: 0.9rem;
+        font-size: 0.78rem;
+        @media only screen and (min-width: 375px) {
+            font-size: 0.9rem;
+        }
         @media only screen and (min-width: 420px) {
             font-size: 1rem;
         }
@@ -83,6 +85,9 @@ h1, h2, h3, h4 {
             color: #aaa;
             text-decoration: none;
         }
+        @media only screen and (min-width: 375px) {
+            font-size: 0.9rem;
+        }
         @media only screen and (min-width: 420px) {
             font-size: 1rem;
         }
@@ -97,7 +102,7 @@ h1, h2, h3, h4 {
         text-align: center;
         margin-bottom: 10px;
         color: #fff;
-        font-size: .8rem;
+        font-size: .9rem;
         @media only screen and (min-width: 420px) {
             font-size: .9rem;
         }
@@ -108,8 +113,26 @@ h1, h2, h3, h4 {
             font-size: 1.1rem;
         }
     }
+    .down {
+      text-align: center;
+      color: #fff;
+      font-size: 1.3rem;
+      line-height: 1;
+      margin-bottom: 15px;
+      cursor: pointer;
+      .caret {
+        font-size: 3rem;
+      }
+    }
 }
 
+// a[ id="quickstart" ]:target ~ #main div.row {
+//     transform: translateY( -500px );
+// }
+
+// #quickstart {
+//   background-color: #ff3333;
+// }
 .nav {
     background: no-repeat center center scroll;
     -webkit-background-size: cover;
@@ -352,6 +375,7 @@ footer {
     margin-top: 30px;
     padding-top: 30px;
     padding-bottom: 30px;
+    position: relative;
     a {
         color: #000;
     }

@@ -15,11 +15,25 @@
 
   <title>systeminformation</title>
   <script>
+    function init() {
+      typed();
+      document.querySelector('.down').addEventListener('click', function () {
+        console.log('CLICKED')
+        scrollIt(
+          document.querySelector('.quickstart'),
+          600,
+          'easeOutQuad',
+          function () {
+            console.log('READY')
+          }
+        );
+      });
+      getDownloads();
+    }
     function numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     function getDownloads() {
-      typed();
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -51,25 +65,108 @@
       }
       console.log('asd')
       var typed = new Typed('#typed', options);
+    }
+    function scrollIt(destination, duration = 200, easing = 'linear', callback) {
 
+      const easings = {
+        linear(t) {
+          return t;
+        },
+        easeInQuad(t) {
+          return t * t;
+        },
+        easeOutQuad(t) {
+          return t * (2 - t);
+        },
+        easeInOutQuad(t) {
+          return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        },
+        easeInCubic(t) {
+          return t * t * t;
+        },
+        easeOutCubic(t) {
+          return (--t) * t * t + 1;
+        },
+        easeInOutCubic(t) {
+          return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+        },
+        easeInQuart(t) {
+          return t * t * t * t;
+        },
+        easeOutQuart(t) {
+          return 1 - (--t) * t * t * t;
+        },
+        easeInOutQuart(t) {
+          return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+        },
+        easeInQuint(t) {
+          return t * t * t * t * t;
+        },
+        easeOutQuint(t) {
+          return 1 + (--t) * t * t * t * t;
+        },
+        easeInOutQuint(t) {
+          return t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t;
+        }
+      };
+
+      const start = window.pageYOffset;
+      const startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
+
+      const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+      const destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
+      const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
+
+      if ('requestAnimationFrame' in window === false) {
+        window.scroll(0, destinationOffsetToScroll);
+        if (callback) {
+          callback();
+        }
+        return;
+      }
+
+      function scroll() {
+        const now = 'now' in window.performance ? performance.now() : new Date().getTime();
+        const time = Math.min(1, ((now - startTime) / duration));
+        const timeFunction = easings[easing](time);
+        window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
+
+        if (window.pageYOffset === destinationOffsetToScroll) {
+          if (callback) {
+            callback();
+          }
+          return;
+        }
+
+        requestAnimationFrame(scroll);
+      }
+
+      scroll();
     }
   </script>
 
 </head>
 
-<body onload="getDownloads();">
+<body>
   <header class="bg-image-full" style="background-image: url('./assets/title-empty.jpg');">
-    <img class="logo" src="assets/logo.png">
-    <div class="title">systeminformation</div>
-    <div class="subtitle"><span id="typed"></span></div>
-    <div class="version">Current Version: <span id="version">4.0.0</span></div>
-    <button class="btn btn-light" onclick="location.href='https://github.com/sebhildebrandt/systeminformation'"">View on Github <i class=" fab fa-github"></i></button>
+    <div class="container">
+      <img class="logo" src="assets/logo.png">
+      <div class="title">systeminformation</div>
+      <div class="subtitle"><span id="typed"></span></div>
+      <div class="version">Current Version: <span id="version">4.0.0</span></div>
+      <button class="btn btn-light" onclick="location.href='https://github.com/sebhildebrandt/systeminformation'"">View on Github <i class=" fab fa-github"></i></button>
+    </div>
+    <div class="down">
+      Read Documentation<br>
+      <i class="fal fa-caret-down caret"></i>
+    </div>
   </header>
 
-  <section class="container">
+  <section class="container quickstart">
     <div class="row">
       <div class="col-12 sectionheader index">
-        <div class="title">Quick Start</div>
+        <div class="title">Overview</div>
         <div class="subtitle">Lightweight collection of 35+ functions to retrieve detailed hardware, system and OS information. For Linux, macOS, partial Windows, FreeBSD and SunOS support</div>
       </div>
     </div>
@@ -80,7 +177,7 @@
     </div>
     <div class="row number-section">
       <div class="col-xl-4 col-lg-4 col-md-4 col-12">
-        <div class="numbers">7,676</div>
+        <div class="numbers">7,973</div>
         <div class="title">Lines of code</div>
       </div>
       <div class="col-xl-4 col-lg-4 col-md-4 col-12">
@@ -88,7 +185,7 @@
         <div class="title">Downloads last month</div>
       </div>
       <div class="col-xl-4 col-lg-4 col-md-4 col-12">
-        <div class="numbers">115</div>
+        <div class="numbers">122</div>
         <div class="title">Dependends</div>
       </div>
     </div>
@@ -201,7 +298,7 @@
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script>
     window.onload = function (e) {
-      getDownloads();
+      init();
     }
   </script>
 </body>

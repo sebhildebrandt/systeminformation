@@ -1,7 +1,7 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "segoe ui", Roboto, Helvetica, Arial, sans-serif, "apple color emoji", "segoe ui emoji", "segoe ui symbol";
   font-weight: 300;
-  -webkit-font-smoothing: antialiased;
+  min-height: 100%;
 }
 
 h1, h2, h3, h4 {
@@ -17,52 +17,48 @@ h1, h2, h3, h4 {
   background: no-repeat center center scroll;
   background-size: cover;
   -o-background-size: cover;
-  height: 280px;
+  height: calc(100vh);
   opacity: 0.95;
-  filter: alpha(opacity=90);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  text-align: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
 }
 
-@media only screen and (min-width: 420px) {
-  .bg-image-full {
-    height: 360px;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .bg-image-full {
-    height: 400px;
-  }
-}
-
-@media only screen and (min-width: 1024px) {
-  .bg-image-full {
-    height: 450px;
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  .bg-image-full {
-    height: 550px;
-  }
+.bg-image-full .container {
+  text-align: center;
+  -ms-flex-item-align: center;
+      align-self: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
 .bg-image-full .title {
   color: #fff;
   padding-top: 10px;
   font-size: 1.8rem;
+  margin-bottom: 10px;
 }
 
 @media only screen and (min-width: 420px) {
@@ -108,7 +104,13 @@ h1, h2, h3, h4 {
 .bg-image-full .subtitle {
   text-align: center;
   color: #bbb;
-  font-size: 0.9rem;
+  font-size: 0.78rem;
+}
+
+@media only screen and (min-width: 375px) {
+  .bg-image-full .subtitle {
+    font-size: 0.9rem;
+  }
 }
 
 @media only screen and (min-width: 420px) {
@@ -140,6 +142,12 @@ h1, h2, h3, h4 {
   text-decoration: none;
 }
 
+@media only screen and (min-width: 375px) {
+  .bg-image-full .text > a {
+    font-size: 0.9rem;
+  }
+}
+
 @media only screen and (min-width: 420px) {
   .bg-image-full .text > a {
     font-size: 1rem;
@@ -162,7 +170,7 @@ h1, h2, h3, h4 {
   text-align: center;
   margin-bottom: 10px;
   color: #fff;
-  font-size: .8rem;
+  font-size: .9rem;
 }
 
 @media only screen and (min-width: 420px) {
@@ -181,6 +189,19 @@ h1, h2, h3, h4 {
   .bg-image-full .version {
     font-size: 1.1rem;
   }
+}
+
+.bg-image-full .down {
+  text-align: center;
+  color: #fff;
+  font-size: 1.3rem;
+  line-height: 1;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.bg-image-full .down .caret {
+  font-size: 3rem;
 }
 
 .nav {
@@ -513,6 +534,7 @@ footer {
   margin-top: 30px;
   padding-top: 30px;
   padding-bottom: 30px;
+  position: relative;
 }
 
 footer a {
