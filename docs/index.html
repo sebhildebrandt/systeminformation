@@ -11,12 +11,15 @@
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
   <link rel="stylesheet" href="styles.css">
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.9/typed.min.js"></script>
+
   <title>systeminformation</title>
   <script>
     function numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     function getDownloads() {
+      typed();
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -38,15 +41,27 @@
       xhttp.open("GET", "https://registry.npmjs.org/systeminformation/latest", true);
       xhttp.send();
     }
+    function typed() {
+      var options = {
+        strings: ["System and OS information library for node.js", "Get detailed hardware, system &amp; OS information.", "For Linux, macOS, Windows, FreeBSD, SunOS"],
+        typeSpeed: 60,
+        loop: false,
+        backDelay: 1200,
+
+      }
+      console.log('asd')
+      var typed = new Typed('#typed', options);
+
+    }
   </script>
 
 </head>
 
-<body onload="getDownloads()">
-  <header class="bg-image-full" style="background-image: url('./assets/motherboard.jpg');">
+<body onload="getDownloads();">
+  <header class="bg-image-full" style="background-image: url('./assets/title-empty.jpg');">
     <img class="logo" src="assets/logo.png">
     <div class="title">systeminformation</div>
-    <div class="subtitle">Simple system and OS information library for node.js</div>
+    <div class="subtitle"><span id="typed"></span></div>
     <div class="version">Current Version: <span id="version">4.0.0</span></div>
     <button class="btn btn-light" onclick="location.href='https://github.com/sebhildebrandt/systeminformation'"">View on Github <i class=" fab fa-github"></i></button>
   </header>
