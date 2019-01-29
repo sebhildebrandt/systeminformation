@@ -15,6 +15,16 @@
 
   <title>systeminformation</title>
   <script>
+    let vh = window.innerHeight * 0.01;
+    // Then we set the value in the --vh custom property to the root of the document
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+    // We listen to the resize event
+    // window.addEventListener('resize', () => {
+    //   // We execute the same script as before
+    //   let vh = window.innerHeight * 0.01;
+    //   document.documentElement.style.setProperty('--vh', `${vh}px`);
+    // });
     function init() {
       typed();
       document.querySelector('.down').addEventListener('click', function () {
@@ -194,7 +204,7 @@
         <hr>
       </div>
     </div>
-    <div class="row">
+    <div class="row" id="docs">
       <div class="col-12 sectionheader index">
         <div class="title">Documentation</div>
         <div class="subtitle">Detailed documentation and reference for Version 4.x.x</div>

@@ -17,7 +17,8 @@ h1, h2, h3, h4 {
   background: no-repeat center center scroll;
   background-size: cover;
   -o-background-size: cover;
-  height: calc(100vh);
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   opacity: 0.95;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -257,6 +258,26 @@ h1, h2, h3, h4 {
 .nav .text a:hover {
   color: #aaa;
   text-decoration: none;
+}
+
+.nav .github {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .nav .github {
+    display: inline-block;
+  }
+}
+
+.nav .todocs {
+  display: inline-block;
+}
+
+@media only screen and (min-width: 768px) {
+  .nav .todocs {
+    display: none;
+  }
 }
 
 .features {

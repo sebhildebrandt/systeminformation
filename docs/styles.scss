@@ -16,7 +16,8 @@ h1, h2, h3, h4 {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-    height: calc(100vh);
+    height: 100vh; //calc(100vh);
+    height: calc(var(--vh, 1vh) * 100);
     opacity: 0.95;
     display: flex;
     justify-content: center;
@@ -174,6 +175,18 @@ h1, h2, h3, h4 {
                 text-decoration: none;
             }
         }
+    }
+    .github {
+      display: none;
+      @media only screen and (min-width: 768px) {
+        display: inline-block;
+      }
+    }
+    .todocs {
+      display: inline-block;
+      @media only screen and (min-width: 768px) {
+        display: none;
+      }
     }
 }
 .features {

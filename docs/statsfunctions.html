@@ -12,6 +12,10 @@
   <link rel="stylesheet" href="styles.css">
   <script src="main.js"></script>
 
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
   <title>systeminformation</title>
 
 </head>
@@ -22,7 +26,8 @@
       <a href="."><img class="logo float-left" src="assets/logo.png">
         <div class="title float-left">systeminformation</div>
       </a>
-      <div class="text float-right"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+      <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+      <div class="text float-right todocs"><a href="./#docs">Docs Overview</a></div>
     </div>
   </nav>
 
@@ -46,13 +51,13 @@
 
               <p>So basically, if you e.g. need a values for network stats every second, your code should look like this:</p>
 
-              <pre>const si = require('systeminformation');
+              <pre><code class="js">const si = require('systeminformation');
 
 setInterval(function() {
     si.networkStats().then(data => {
         console.log(data);
     })
-}, 1000)</pre>
+}, 1000)</code></pre>
               <p>Beginning with the second call, you get network transfer values per second.</p>
 
             </div>
