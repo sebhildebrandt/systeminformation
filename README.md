@@ -14,17 +14,16 @@ Simple system and OS information library for [node.js][nodejs-url]
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
-## Version 4.0 - just arround the corner
+## New Version 4.0
 
-I am currently working on the next major release, version 4.0. What you will see is
+This next major version release 4.0 comes with several optimizations and changes:
 
-- new systeminformation website with better documentation and examples
+- new systeminformation website with better documentation and examples [systeminformation.io][systeminformation-url]
 - added typescript definitions
-- added JsDoc
-- automated tests - travis-ci integration
 - reworked network section: this will now return more information and allows to get networkStats for more than one interface at once.
-- dockerContainerStats for all containers at once
-- fsstats per disk (and all at once)
+- dockerContainerStats for multiple containers or all containers at once
+- optimized graphics controller and display detection
+- added chassis information
 - better Raspberry-PI detection
 - lot of minor improvements
 
@@ -32,7 +31,7 @@ But be aware: you will see some minor breaking changes. I expect to finalize the
 
 ## Quick Start
 
-Lightweight collection of 35+ functions to retrieve detailed hardware, system and OS information.
+Lightweight collection of 40+ functions to retrieve detailed hardware, system and OS information.
 
 - simple to use
 - get detailed information about system, cpu, baseboard, battery, memory, disks/filesystem, network, docker, software, services and processes
@@ -401,18 +400,18 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].speed | X | | | X | | speed in MBit / s |
 | | [0].carrierChanges | X | | | | | # changes up/down |
 | si.networkInterfaceDefault(cb) | : string | X | X | X | X | X | get name of default network interface |
-| si.networkStats(iface,cb) | {...} | X | X | X | X |  | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface|
-| | iface | X | X | X | X |  | interface |
-| | operstate | X | X | X | X |  | up / down |
-| | rx_bytes | X | X | X | X |  | received bytes overall |
-| | rx_dropped | X | X | X | X |  | received dropped overall |
-| | rx_errors | X | X | X | X |  | received errors overall |
-| | tx_bytes | X | X | X | X |  | transferred bytes overall |
-| | tx_dropped | X | X | X | X |  | transferred dropped overall |
-| | tx_errors | X | X | X | X |  | transferred errors overall |
-| | rx_sec | X | X | X | X |  | received bytes / second (* see notes) |
-| | tx_sec | X | X | X | X |  | transferred bytes per second (* see notes) |
-| | ms | X | X | X | X |  | interval length (for per second values) |
+| si.networkStats(ifaces,cb) | [{...}] | X | X | X | X |  | current network stats of given interfaces<br>iface list: space or comma separated<br>iface parameter is optional<br>defaults to first external network interface,<br />pass '*' for all interfaces |
+| | [0].iface | X | X | X | X |  | interface |
+| | [0].operstate | X | X | X | X |  | up / down |
+| | [0].rx_bytes | X | X | X | X |  | received bytes overall |
+| | [0].rx_dropped | X | X | X | X |  | received dropped overall |
+| | [0].rx_errors | X | X | X | X |  | received errors overall |
+| | [0].tx_bytes | X | X | X | X |  | transferred bytes overall |
+| | [0].tx_dropped | X | X | X | X |  | transferred dropped overall |
+| | [0].tx_errors | X | X | X | X |  | transferred errors overall |
+| | [0].rx_sec | X | X | X | X |  | received bytes / second (* see notes) |
+| | [0].tx_sec | X | X | X | X |  | transferred bytes per second (* see notes) |
+| | [0].ms | X | X | X | X |  | interval length (for per second values) |
 | si.networkConnections(cb) | [{...}] | X | X | X | X |  | current network network connections<br>returns an array of all connections|
 | | [0].protocol | X | X | X | X |  | tcp or udp |
 | | [0].localaddress | X | X | X | X |  | local address |
@@ -441,21 +440,21 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].state | X | X | X | X | X | created, running, exited |
 | | [0].ports | X | X | X | X | X | array of ports |
 | | [0].mounts | X | X | X | X | X | array of mounts |
-| si.dockerContainerStats(id, cb) | {...} | X | X | X | X | X | statistics for a specific container |
-| | id | X | X | X | X | X | Container ID |
-| | mem_usage | X | X | X | X | X | memory usage in bytes |
-| | mem_limit | X | X | X | X | X | memory limit (max mem) in bytes |
-| | mem_percent | X | X | X | X | X | memory usage in percent |
-| | cpu_percent | X | X | X | X | X | cpu usage in percent |
-| | pids | X | X | X | X | X | number of processes |
-| | netIO.rx | X | X | X | X | X | received bytes via network |
-| | netIO.wx | X | X | X | X | X | sent bytes via network |
-| | blockIO.r | X | X | X | X | X | bytes read from BlockIO |
-| | blockIO.w | X | X | X | X | X | bytes written to BlockIO |
-| | cpu_stats | X | X | X | X | X | detailed cpu stats |
-| | percpu_stats | X | X | X | X | X | detailed per cpu stats |
-| | memory_stats | X | X | X | X | X | detailed memory stats |
-| | networks | X | X | X | X | X | detailed network stats per interface |
+| si.dockerContainerStats(ids, cb) | [{...}] | X | X | X | X | X | statistics for specific containers<br>container IDs: space or comma separated,<br>pass '*' for all containers|
+| | [0].id | X | X | X | X | X | Container ID |
+| | [0].mem_usage | X | X | X | X | X | memory usage in bytes |
+| | [0].mem_limit | X | X | X | X | X | memory limit (max mem) in bytes |
+| | [0].mem_percent | X | X | X | X | X | memory usage in percent |
+| | [0].cpu_percent | X | X | X | X | X | cpu usage in percent |
+| | [0].pids | X | X | X | X | X | number of processes |
+| | [0].netIO.rx | X | X | X | X | X | received bytes via network |
+| | [0].netIO.wx | X | X | X | X | X | sent bytes via network |
+| | [0].blockIO.r | X | X | X | X | X | bytes read from BlockIO |
+| | [0].blockIO.w | X | X | X | X | X | bytes written to BlockIO |
+| | [0].cpu_stats | X | X | X | X | X | detailed cpu stats |
+| | [0].percpu_stats | X | X | X | X | X | detailed per cpu stats |
+| | [0].memory_stats | X | X | X | X | X | detailed memory stats |
+| | [0].networks | X | X | X | X | X | detailed network stats per interface |
 | si.dockerContainerProcesses(id, cb) | [{...}] | X | X | X | X | X | array of processes inside a container |
 | | [0].pid_host | X | X | X | X | X | process ID (host) |
 | | [0].ppid | X | X | X | X | X | parent process ID |
@@ -700,6 +699,7 @@ All other trademarks are the property of their respective owners.
 
 [nodejs-url]: https://nodejs.org/en/
 [docker-url]: https://www.docker.com/
+[systeminformation-url]: https://systeminformation.io
 
 [daviddm-img]: https://img.shields.io/david/sebhildebrandt/systeminformation.svg?style=flat-square
 [daviddm-url]: https://david-dm.org/sebhildebrandt/systeminformation

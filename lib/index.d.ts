@@ -39,6 +39,16 @@ export namespace Systeminformation {
     assetTag: string;
   }
 
+  interface ChassisData {
+    manufacturer: string;
+    model: string;
+    type: string;
+    version: string;
+    serial: string;
+    assetTag: string;
+    sku: string;
+  }
+
   // 3. CPU, Memory, Disks, Battery, Graphics
 
   interface CpuData {
@@ -446,6 +456,7 @@ export namespace Systeminformation {
     system: SystemData;
     bios: BiosData;
     baseboard: BaseboardData;
+    chassis: ChassisData;
     os: OsData;
     uuid: UuidData;
     versions: VersionData;
@@ -462,6 +473,7 @@ export function version(): string;
 export function system(cb?: (data: Systeminformation.SystemData) => any): Promise<Systeminformation.SystemData>;
 export function bios(cb?: (data: Systeminformation.BiosData) => any): Promise<Systeminformation.BiosData>;
 export function baseboard(cb?: (data: Systeminformation.BaseboardData) => any): Promise<Systeminformation.BaseboardData>;
+export function chassis(cb?: (data: Systeminformation.ChassisData) => any): Promise<Systeminformation.ChassisData>;
 
 export function time(): Systeminformation.TimeData;
 export function osInfo(cb?: (data: Systeminformation.OsData) => any): Promise<Systeminformation.OsData>;
@@ -492,7 +504,7 @@ export function diskLayout(cb?: (data: Systeminformation.DiskLayoutData) => any)
 export function networkInterfaceDefault(cb?: (data: string) => any): Promise<string>;
 export function networkInterfaces(cb?: (data: Systeminformation.NetworkInterfacesData[]) => any): Promise<Systeminformation.NetworkInterfacesData[]>;
 
-export function networkStats(iface?: string, cb?: (data: Systeminformation.NetworkStatsData) => any): Promise<Systeminformation.NetworkStatsData>;
+export function networkStats(ifaces?: string, cb?: (data: Systeminformation.NetworkStatsData[]) => any): Promise<Systeminformation.NetworkStatsData[]>;
 export function networkConnections(cb?: (data: Systeminformation.NetworkConnectionsData[]) => any): Promise<Systeminformation.NetworkConnectionsData[]>;
 export function inetChecksite(url: string, cb?: (data: Systeminformation.InetChecksiteData) => any): Promise<Systeminformation.InetChecksiteData>;
 export function inetLatency(host?: string, cb?: (data: number) => any): Promise<number>;

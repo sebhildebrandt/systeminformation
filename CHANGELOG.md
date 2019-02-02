@@ -1,105 +1,36 @@
 # Changelog
 
-### Major (breaking) Changes - Version 3
-
-- works only with [node.js][nodejs-url] **v4.0.0** and above (using now internal ES6 promise function, arrow functions, ...)
-- **Promises**. As you can see in the documentation, you can now also use it in a promise oriented way. But callbacks are still supported.
-- **Async/Await**. Due to the promises support, systeminformation also works perfectly with the `async/await` pattern (available in [node.js][nodejs-url] **v7.6.0** and above). See example in the docs.
-- `cpuCurrentspeed`: now returns an object with current minimal, maximal and average CPU frequencies of all cores.
-- `mem`: now supports also newer versions of `free` (Version 3.3.10 and above); extended information `avaliable` (potentially available memory)
-- `fsStats`: added information sum bytes read + write (tx) and sum transfer rate/sec (tx_sec)
-- `networkInterfaces`: now providing one more detail: internal - true if this is an internal interface like "lo"
-- `networkConnections`: instead of only counting sockets, you now get an array of objects with connection details for each socket (protocol, local and peer address, state)
-- `users`: now provides an array of objects with users online including detailed session information (login date/time, ip address, terminal, command)
-- `inetLatency`: now you can provide a host against which you want to test latency (default is 8.8.8.8)
-- `getDynamicData`: changed order of parameters (callback - if provided - is now the last one): `getDynamicData(srv, network, callback)`
-- `getAllData`: changed order of parameters (callback - if provided - is now the last one): `getAllData(srv, network, callback)`
+### Major Changes - Version 4
 
 New Functions
 
-- FreeBSD support: for some basic functions (new in version 3.34 ff)
-- `diskLayout`: returns hard disk layout (new in version 3.23)
-- `memLayout`: returns memory chip layout (new in version 3.23)
-- Windows support: for some basic functions (new in version 3.17 ff)
-- `cpuCache`: returns CPU cache (L1, L2, L3) sizes (new in version 3.14)
-- `cpuFlags`: returns CPU flags (new in version 3.14)
-- `currentLoad.cpus`: returns current load per cpu/core in an array (new in version 3.14)
-- `shell`: returns standard shell e.g. /bin/bash (new in version 3.13)
-- `blockDevices`: returns array of block devices like disks, partitions, raids, roms (new in version 3.10)
-- `dockerContainerProcesses`: returns processes for a specific docker container (new in version 3.8)
-- `versions`: returns object of versions - kernel, ssl, node, npm, ...(new in version 3.6)
-- `graphics`: returns arrays of graphics controllers and displays (new in version 3.5)
-- `networkInterfaceDefault`: returns default network interface (new in version 3.4)
-- `processes`: now returns also a process list with all process details (new in version 3.3)
-- `battery`: retrieves battery status and charging level (new in version 3.2)
-- `dockerContainers`: returns a list of all docker containers (new in version 3.1)
-- `dockerContainerStats`: returns statistics for a specific docker container (new in version 3.1)
-- `dockerAll`: returns a list of all docker containers including their stats (new in version 3.1)
-- `disksIO`: returns overall diskIO and IOPS values for all mounted volumes (new in version 3.0)
+- `chassis()`: chassis information
 
-Bug Fixes / improvements
+Breaking Changes
 
-- improvement `cpuTemperature` - works now also on Raspberry Pi
-- bugfix `disksIO` - on OSX read and write got mixed up
-- several bug fixes (like assess errors in `cpuCurrentspeed`, potentially incorrect results in `users`, ...)
-- testet on even more platforms and linux distributions
+- `networkStats()`: will provide an **array** of stats for all given interfaces. In previous versions only one interface was provided as a parameter. Pass '*' for all interfaces
+- `networkStats()`: `rx` and `tx` changed to `rx_bytes` and `tx_bytes`
+- `dockerContainerStats()`: will provide an **array** of stats for all given docker containers. In previous versions only one interface was provided as a parameter. Pass '*' for all docker containers
 
-**Be aware**, that the new version 3.x is **NOT fully backward compatible** to version 2.x ...
+Other Changes
 
+- `system()` optimized system detection (e.g. new Raspberry Pi models, ...)
+- `system()`, `bios()`, `baseboard()` information also as non-root (linux)
+- `graphics()` bettercontroller and display detection, fixes
+- `versions()` optimization, fixes
+- `networkInterfaces()` added `operstate`, `type`, `duplex`, `mtu`, `speed`, `carrierChanges`
+- `networkStats()` added stats for `errors`, `dropped`
+- added TypeScript definitions
 
-### Major (breaking) Changes - Version 2
+**Be aware**, that the new version 4.x is **NOT fully backward compatible** to version 3.x ...
 
-There had been a lot of changes in version 2 of systeminformation! Here is a quick overview (for those who come from version 1):
-
-New Functions
-
-- `version`: returns systeminformation version (semver) of this library
-- `system`: hardware info (manufacturer, product/model name, version, serial, uuid)
-- `networkConnections`: number of active connections
-- `inetLatency`: latency in ms to external resource (internet)
-- `getStaticData`: returns on json object with static data at once (OS, CPU, Network Interfaces - they should not change until restarted)
-- `getDynamicData`: returns on json object with all dynamic data at once (e.g. for monitoring agents)
-- `getAllData`: returns on json object with all data (static and dynamic) at once
-
-Renamed Functions (now all camelCase)
-
-- `osinfo`: renamed to `osInfo`
-- `cpu_currentspeed`: renamed to `cpuCurrentspeed`
-- `cpu_temperature`: renamed to `cpuTemperature`
-- `fs_size`: renamed to `fsSize`
-- `fs_speed`: renamed to `fsStats`
-- `network_interfaces`: renamed to `networkInterfaces`
-- `network_speed`: renamed to `networkStats`
-- `network_connections`: renamed to `networkConnections`
-- `currentload`: renamed to `currentLoad`
-- `fullload`: renamed to `fullLoad`
-- `processload`: renamed to `processLoad`
-- `checksite`: renamed to `inetChecksite`
-
-Function Changes
-
-- `cpu_temperature`/`cpuTemperature`: -1 is new default (and indicates that non sensors are installed)
-- `cpu_temperature`/`cpuTemperature`: new result `max` which returns max temperature of all cores
-- `cpu_currentspeed`/`cpuCurrentspeed`: now in GHz
-- `cpu`: splitted `manufacturer` (e.g. Intel) and `brand` (e.g. Core 2 Duo)
-- `network_speed`/`networkStats`: now better support for OS X (also support for `operstate`)
-- `network_speed`/`networkStats`: overall received and transferred bytes (rx, tx)
-- `mem`: now better support for OS X (also support for `swaptotal`, `swapused`, `swapfree`)
-- `fs_size`/`fsSize`: use-values now in % (0 - 100% instead of 0 - 1)
-- `fs_speed`/`fsStats`: now also full support for OS X
-- `checksite`/`inetChecksite`: new result structure - see command reference
-- `checksite`/`inetChecksite`: ms (former `response_ms`): -1 if not ok
-
-Other changes
-
-- osx-temperature-sensor: now added as an optional dependency
-- no more external dependencies: `request` is not longer needed
-- where possible results are now integer or float values (instead of strings) because it is easier to calculate with numbers ;-)
+For major (breaking) changes - version 3 and 2 see end of page.
 
 ## Version history
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.0.0          | 2019-02-02     | new major version |
 | 3.54.0         | 2018-12-30     | added TypeScript type definitions |
 | 3.53.1         | 2018-12-29     | `versions()` bug fix nginx version |
 | 3.53.0         | 2018-12-29     | `versions()` added perl, python, gcc |
@@ -294,5 +225,100 @@ Other changes
 | 0.0.3          | 2014-04-14     | bug-fix (cpu_speed) |
 | 0.0.2          | 2014-03-14     | Optimization FS-Speed & CPU current speed |
 | 0.0.1          | 2014-03-13     | initial release |
+
+### Major (breaking) Changes - Version 3
+
+- works only with [node.js][nodejs-url] **v4.0.0** and above (using now internal ES6 promise function, arrow functions, ...)
+- **Promises**. As you can see in the documentation, you can now also use it in a promise oriented way. But callbacks are still supported.
+- **Async/Await**. Due to the promises support, systeminformation also works perfectly with the `async/await` pattern (available in [node.js][nodejs-url] **v7.6.0** and above). See example in the docs.
+- `cpuCurrentspeed`: now returns an object with current minimal, maximal and average CPU frequencies of all cores.
+- `mem`: now supports also newer versions of `free` (Version 3.3.10 and above); extended information `avaliable` (potentially available memory)
+- `fsStats`: added information sum bytes read + write (tx) and sum transfer rate/sec (tx_sec)
+- `networkInterfaces`: now providing one more detail: internal - true if this is an internal interface like "lo"
+- `networkConnections`: instead of only counting sockets, you now get an array of objects with connection details for each socket (protocol, local and peer address, state)
+- `users`: now provides an array of objects with users online including detailed session information (login date/time, ip address, terminal, command)
+- `inetLatency`: now you can provide a host against which you want to test latency (default is 8.8.8.8)
+- `getDynamicData`: changed order of parameters (callback - if provided - is now the last one): `getDynamicData(srv, network, callback)`
+- `getAllData`: changed order of parameters (callback - if provided - is now the last one): `getAllData(srv, network, callback)`
+
+New Functions
+
+- FreeBSD support: for some basic functions (new in version 3.34 ff)
+- `diskLayout`: returns hard disk layout (new in version 3.23)
+- `memLayout`: returns memory chip layout (new in version 3.23)
+- Windows support: for some basic functions (new in version 3.17 ff)
+- `cpuCache`: returns CPU cache (L1, L2, L3) sizes (new in version 3.14)
+- `cpuFlags`: returns CPU flags (new in version 3.14)
+- `currentLoad.cpus`: returns current load per cpu/core in an array (new in version 3.14)
+- `shell`: returns standard shell e.g. /bin/bash (new in version 3.13)
+- `blockDevices`: returns array of block devices like disks, partitions, raids, roms (new in version 3.10)
+- `dockerContainerProcesses`: returns processes for a specific docker container (new in version 3.8)
+- `versions`: returns object of versions - kernel, ssl, node, npm, ...(new in version 3.6)
+- `graphics`: returns arrays of graphics controllers and displays (new in version 3.5)
+- `networkInterfaceDefault`: returns default network interface (new in version 3.4)
+- `processes`: now returns also a process list with all process details (new in version 3.3)
+- `battery`: retrieves battery status and charging level (new in version 3.2)
+- `dockerContainers`: returns a list of all docker containers (new in version 3.1)
+- `dockerContainerStats`: returns statistics for a specific docker container (new in version 3.1)
+- `dockerAll`: returns a list of all docker containers including their stats (new in version 3.1)
+- `disksIO`: returns overall diskIO and IOPS values for all mounted volumes (new in version 3.0)
+
+Bug Fixes / improvements
+
+- improvement `cpuTemperature` - works now also on Raspberry Pi
+- bugfix `disksIO` - on OSX read and write got mixed up
+- several bug fixes (like assess errors in `cpuCurrentspeed`, potentially incorrect results in `users`, ...)
+- testet on even more platforms and linux distributions
+
+**Be aware**, that the new version 3.x is **NOT fully backward compatible** to version 2.x ...
+
+### Major (breaking) Changes - Version 2
+
+There had been a lot of changes in version 2 of systeminformation! Here is a quick overview (for those who come from version 1):
+
+New Functions
+
+- `version`: returns systeminformation version (semver) of this library
+- `system`: hardware info (manufacturer, product/model name, version, serial, uuid)
+- `networkConnections`: number of active connections
+- `inetLatency`: latency in ms to external resource (internet)
+- `getStaticData`: returns on json object with static data at once (OS, CPU, Network Interfaces - they should not change until restarted)
+- `getDynamicData`: returns on json object with all dynamic data at once (e.g. for monitoring agents)
+- `getAllData`: returns on json object with all data (static and dynamic) at once
+
+Renamed Functions (now all camelCase)
+
+- `osinfo`: renamed to `osInfo`
+- `cpu_currentspeed`: renamed to `cpuCurrentspeed`
+- `cpu_temperature`: renamed to `cpuTemperature`
+- `fs_size`: renamed to `fsSize`
+- `fs_speed`: renamed to `fsStats`
+- `network_interfaces`: renamed to `networkInterfaces`
+- `network_speed`: renamed to `networkStats`
+- `network_connections`: renamed to `networkConnections`
+- `currentload`: renamed to `currentLoad`
+- `fullload`: renamed to `fullLoad`
+- `processload`: renamed to `processLoad`
+- `checksite`: renamed to `inetChecksite`
+
+Function Changes
+
+- `cpu_temperature`/`cpuTemperature`: -1 is new default (and indicates that non sensors are installed)
+- `cpu_temperature`/`cpuTemperature`: new result `max` which returns max temperature of all cores
+- `cpu_currentspeed`/`cpuCurrentspeed`: now in GHz
+- `cpu`: splitted `manufacturer` (e.g. Intel) and `brand` (e.g. Core 2 Duo)
+- `network_speed`/`networkStats`: now better support for OS X (also support for `operstate`)
+- `network_speed`/`networkStats`: overall received and transferred bytes (rx, tx)
+- `mem`: now better support for OS X (also support for `swaptotal`, `swapused`, `swapfree`)
+- `fs_size`/`fsSize`: use-values now in % (0 - 100% instead of 0 - 1)
+- `fs_speed`/`fsStats`: now also full support for OS X
+- `checksite`/`inetChecksite`: new result structure - see command reference
+- `checksite`/`inetChecksite`: ms (former `response_ms`): -1 if not ok
+
+Other changes
+
+- osx-temperature-sensor: now added as an optional dependency
+- no more external dependencies: `request` is not longer needed
+- where possible results are now integer or float values (instead of strings) because it is easier to calculate with numbers ;-)
 
 [nodejs-url]: https://nodejs.org/en/
