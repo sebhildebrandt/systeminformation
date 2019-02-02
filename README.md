@@ -52,26 +52,14 @@ All functions (except `version` and `time`) are implemented as asynchronous func
 ```js
 const si = require('systeminformation');
 
-// callback style
-si.cpu(function(data) {
-	console.log('CPU-Information:');
-	console.log(data);
-});
-
-// promises style - new in version 3
+// promises style - new since version 3
 si.cpu()
-	.then(data => console.log(data))
-	.catch(error => console.error(error));
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
+```
 
-// full async / await example (node >= 7.6)
-async function cpu() {
-  try {
-    const data = await si.cpu();
-    console.log(data)
-  } catch (e) {
-    console.log(e)
-  }
-}
+**Callback, Promises, Awync Await**
+
 ```
 
 ## News and Changes
@@ -80,6 +68,7 @@ async function cpu() {
 
 (last 7 major and minor version releases)
 
+- Version 4.0.0: new version ... read the [detailed changelog][changelog-url] to see all breaking changes
 - Version 3.54.0: added TypeScript type definitions
 - Version 3.53.0: `versions()` added perl, python, gcc
 - Version 3.52.0: `cpu()` added physical cores, processors, socket type
@@ -92,12 +81,9 @@ You can find all changes here: [detailed changelog][changelog-url]
 
 ## Core concept
 
-[Node.js][nodejs-url] comes with some basic OS information, but I always wanted a little more. So I came up to write this
-little library. This library is still work in progress. Version 3 comes with further improvements. First it
-requires now node.js version 4.0 and above. Another big change is, that all functions now return promises. You can use them
-like before with callbacks OR with promises (see example in this documentation). I am sure, there is for sure room for improvement.
-I was only able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra) and some Windows, FreeBSD and SunOS machines.
-Since version 2 nearly all functionality is available for OS X/Darwin platforms. In Version 3 I started to add windows and (partial) FreeBSD support - see docs.
+[Node.js][nodejs-url] comes with some basic OS information, but I always wanted a little more. So I came up to write this little library. This library is still work in progress. It is supposed to be used as a backend/server-side library (will definilely not work within a browser). It requires node.js version 4.0 and above.
+
+I was able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra) and some Windows 7, Windows 10, FreeBSD and SunOS machines. Not all functions are supported on all operating systems. Have a look at the function reference in the docs to get further details.
 
 If you have comments, suggestions & reports, please feel free to contact me!
 
@@ -150,7 +136,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | assetTag | X | X | X | X |  | asset tag |
 | | sku |  |  |  | X |  | SKU number |
 
-#### 3. CPU, Memory, Disks, Battery, Graphics
+#### 3. CPU
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -190,6 +176,11 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | main | X | X | X | X |  | main temperature (avg) |
 | | cores | X | X | X | X |  | array of temperatures |
 | | max | X | X | X | X |  | max temperature |
+
+#### 4. Memory
+
+| Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.mem(cb) | {...} | X | X | X | X | X | Memory information (in bytes)|
 | | total | X | X | X | X | X | total memory in bytes |
 | | free | X | X | X | X | X | not used in bytes |
@@ -212,22 +203,11 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].voltageConfigured | X | X |   | X |  | voltage conf. |
 | | [0].voltageMin | X | X |   | X |  | voltage min |
 | | [0].voltageMax | X | X |   | X |  | voltage max |
-| si.diskLayout(cb) | [{...}] | X |  | X | X |  | physical disk layout (array) |
-| | [0].type | X |  | X | X |  | HD, SSD |
-| | [0].name | X |  | X | X |  | disk name |
-| | [0].vendor | X |  | | X |  | vendor/producer |
-| | [0].firmwareRevision | X |  | X | X |  | firmware revision |
-| | [0].serialNum | X |  | X | X |  | serial number |
-| | [0].interfaceType | |  | | X |  |  |
-| | [0].size | X |  | X | X |  | size in bytes |
-| | [0].totalCylinders | |  | | X |  | total cylinders |
-| | [0].totalHeads | |  | | X |  | total heads |
-| | [0].totalTracks | |  | | X |  | total tracks |
-| | [0].tracksPerCylinder | |  | | X |  | tracks per cylinder |
-| | [0].sectorsPerTrack | |  | | X |  | sectors per track |
-| | [0].totalSectors | |  | | X |  | total sectors |
-| | [0].bytesPerSector | |  | | X |  | bytes per sector |
-| | [0].smartStatus | X |  | X | X |  | S.M.A.R.T Status (see Known Issues) |
+
+#### 5. Battery
+
+| Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.battery(cb) | {...} | X | X | X | X |  | battery information |
 | | hasbattery | X | X | X | X |  | indicates presence of battery |
 | | cyclecount | X |  | X | |  | numbers of recharges |
@@ -241,6 +221,13 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | model | X |  | X |  |  | model |
 | | manufacturer | X |  | X |  |  | manufacturer |
 | | serial | X |  | X |  |  | battery serial |
+
+* See known issues if you have problem with macOS temperature or windows temperature
+
+#### 6. Graphics
+
+| Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.graphics(cb) | {...} | X |  | X | X |  | arrays of graphics controllers and displays |
 | | controllers[]| X |  | X | X |  | graphics controllers array |
 | | ...[0].model | X |  | X | X |  | graphics controller model |
@@ -259,7 +246,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ...[0].resolutionx | X |  | X | X |  | pixel horizontal |
 | | ...[0].resolutiony | X |  | X | X |  | pixel vertical |
 
-#### 4. Operating System
+#### 7. Operating System
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -287,92 +274,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].ip | X | X | X |  | X | ip address (remote login) |
 | | [0].command | X | X | X |  | X | last command or shell |
 
-#### 5. File System
-
-| Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
-| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
-| si.fsSize(cb) | [{...}] | X | X | X | X |  | returns array of mounted file systems |
-| | [0].fs | X | X | X | X |  | name of file system |
-| | [0].type | X | X | X | X |  | type of file system |
-| | [0].size | X | X | X | X |  | sizes in bytes |
-| | [0].used | X | X | X | X |  | used in bytes |
-| | [0].use | X | X | X | X |  | used in % |
-| | [0].mount | X | X | X | X |  | mount point |
-| si.blockDevices(cb) | [{...}] | X |  | X | X |  | returns array of disks, partitions,<br>raids and roms |
-| | [0].name | X |  | X | X |  | name |
-| | [0].type | X |  | X | X |  | type |
-| | [0].fstype | X |  | X | X |  | file system type (e.g. ext4) |
-| | [0].mount | X |  | X | X |  | mount point |
-| | [0].size | X |  | X | X |  | size in bytes |
-| | [0].physical | X |  | X | X |  | physical type (HDD, SSD, CD/DVD) |
-| | [0].uuid | X |  | X | X |  | UUID |
-| | [0].label | X |  | X | X |  | label |
-| | [0].model | X |  | X |  |  | model |
-| | [0].serial | X |  |  | X |  | serial |
-| | [0].removable | X |  | X | X |  | serial |
-| | [0].protocol | X |  | X |  |  | protocol (SATA, PCI-Express, ...) |
-| si.fsStats(cb) | {...} | X |  | X |  |  | current transfer stats |
-| | rx | X |  | X |  |  | bytes read since startup |
-| | wx | X |  | X |  |  | bytes written since startup |
-| | tx | X |  | X |  |  | total bytes read + written since startup |
-| | rx_sec | X |  | X |  |  | bytes read / second (* see notes) |
-| | wx_sec | X |  | X |  |  | bytes written / second (* see notes) |
-| | tx_sec | X |  | X |  |  | total bytes reads + written / second  |
-| | ms | X |  | X |  |  | interval length (for per second values) |
-| si.disksIO(cb) | {...} | X |  | X |  |  | current transfer stats |
-| | rIO | X |  | X |  |  | read IOs on all mounted drives |
-| | wIO | X |  | X |  |  | write IOs on all mounted drives |
-| | tIO | X |  | X |  |  | write IOs on all mounted drives |
-| | rIO_sec | X |  | X |  |  | read IO per sec (* see notes) |
-| | wIO_sec | X |  | X |  |  | write IO per sec (* see notes) |
-| | tIO_sec | X |  | X |  |  | total IO per sec (* see notes) |
-| | ms | X |  | X |  |  | interval length (for per second values) |
-
-#### 6. Network related functions
-
-| Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
-| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
-| si.networkInterfaces(cb) | [{...}] | X | X | X | X | X | array of network interfaces |
-| | [0].iface | X | X | X | X | X | interface |
-| | [0].ifaceName | X | X | X | X | X | interface name (differs on Windows) |
-| | [0].ip4 | X | X | X | X | X | ip4 address |
-| | [0].ip6 | X | X | X | X | X | ip6 address |
-| | [0].mac | X | X | X | X | X | MAC address |
-| | [0].internal | X | X | X | X | X | true if internal interface |
-| | [0].operstate | X | | | X |  | up / down |
-| | [0].type | X | | | X | | wireless / wired |
-| | [0].duplex | X | | | | | duplex |
-| | [0].mtu | X | | | | | maximum transmission unit |
-| | [0].speed | X | | | X | | speed in MBit / s |
-| | [0].carrierChanges | X | | | | | # changes up/down |
-| si.networkInterfaceDefault(cb) | : string | X | X | X | X | X | get name of default network interface |
-| si.networkStats(iface,cb) | {...} | X | X | X | X |  | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface|
-| | iface | X | X | X | X |  | interface |
-| | operstate | X | X | X | X |  | up / down |
-| | rx_bytes | X | X | X | X |  | received bytes overall |
-| | rx_dropped | X | X | X | X |  | received dropped overall |
-| | rx_errors | X | X | X | X |  | received errors overall |
-| | tx_bytes | X | X | X | X |  | transferred bytes overall |
-| | tx_dropped | X | X | X | X |  | transferred dropped overall |
-| | tx_errors | X | X | X | X |  | transferred errors overall |
-| | rx_sec | X | X | X | X |  | received bytes / second (* see notes) |
-| | tx_sec | X | X | X | X |  | transferred bytes per second (* see notes) |
-| | ms | X | X | X | X |  | interval length (for per second values) |
-| si.networkConnections(cb) | [{...}] | X | X | X | X |  | current network network connections<br>returns an array of all connections|
-| | [0].protocol | X | X | X | X |  | tcp or udp |
-| | [0].localaddress | X | X | X | X |  | local address |
-| | [0].localport | X | X | X | X |  | local port |
-| | [0].peeraddress | X | X | X | X |  | peer address |
-| | [0].peerport | X | X | X | X |  | peer port |
-| | [0].state | X | X | X | X |  | like ESTABLISHED, TIME_WAIT, ... |
-| si.inetChecksite(url, cb) | {...} | X | X | X | X | X | response-time (ms) to fetch given URL |
-| | url | X | X | X | X | X | given url |
-| | ok | X | X | X | X | X | status code OK (2xx, 3xx) |
-| | status | X | X | X | X | X | status code |
-| | ms | X | X | X | X | X | response time in ms |
-| si.inetLatency(host, cb) | : number | X | X | X | X | X | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
-
-#### 7. Current Load, Processes & Services
+#### 8. Current Load, Processes & Services
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -424,7 +326,108 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].pcpu | X | X | X |  |  | process % CPU |
 | | [0].pmem | X | X | X |  |  | process % MEM |
 
-#### 8. Docker
+#### 9. File System
+
+| Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
+| si.diskLayout(cb) | [{...}] | X |  | X | X |  | physical disk layout (array) |
+| | [0].type | X |  | X | X |  | HD, SSD |
+| | [0].name | X |  | X | X |  | disk name |
+| | [0].vendor | X |  | | X |  | vendor/producer |
+| | [0].firmwareRevision | X |  | X | X |  | firmware revision |
+| | [0].serialNum | X |  | X | X |  | serial number |
+| | [0].interfaceType | |  | | X |  |  |
+| | [0].size | X |  | X | X |  | size in bytes |
+| | [0].totalCylinders | |  | | X |  | total cylinders |
+| | [0].totalHeads | |  | | X |  | total heads |
+| | [0].totalTracks | |  | | X |  | total tracks |
+| | [0].tracksPerCylinder | |  | | X |  | tracks per cylinder |
+| | [0].sectorsPerTrack | |  | | X |  | sectors per track |
+| | [0].totalSectors | |  | | X |  | total sectors |
+| | [0].bytesPerSector | |  | | X |  | bytes per sector |
+| | [0].smartStatus | X |  | X | X |  | S.M.A.R.T Status (see Known Issues) |
+| si.blockDevices(cb) | [{...}] | X |  | X | X |  | returns array of disks, partitions,<br>raids and roms |
+| | [0].name | X |  | X | X |  | name |
+| | [0].type | X |  | X | X |  | type |
+| | [0].fstype | X |  | X | X |  | file system type (e.g. ext4) |
+| | [0].mount | X |  | X | X |  | mount point |
+| | [0].size | X |  | X | X |  | size in bytes |
+| | [0].physical | X |  | X | X |  | physical type (HDD, SSD, CD/DVD) |
+| | [0].uuid | X |  | X | X |  | UUID |
+| | [0].label | X |  | X | X |  | label |
+| | [0].model | X |  | X |  |  | model |
+| | [0].serial | X |  |  | X |  | serial |
+| | [0].removable | X |  | X | X |  | serial |
+| | [0].protocol | X |  | X |  |  | protocol (SATA, PCI-Express, ...) |
+| si.disksIO(cb) | {...} | X |  | X |  |  | current transfer stats |
+| | rIO | X |  | X |  |  | read IOs on all mounted drives |
+| | wIO | X |  | X |  |  | write IOs on all mounted drives |
+| | tIO | X |  | X |  |  | write IOs on all mounted drives |
+| | rIO_sec | X |  | X |  |  | read IO per sec (* see notes) |
+| | wIO_sec | X |  | X |  |  | write IO per sec (* see notes) |
+| | tIO_sec | X |  | X |  |  | total IO per sec (* see notes) |
+| | ms | X |  | X |  |  | interval length (for per second values) |
+| si.fsSize(cb) | [{...}] | X | X | X | X |  | returns array of mounted file systems |
+| | [0].fs | X | X | X | X |  | name of file system |
+| | [0].type | X | X | X | X |  | type of file system |
+| | [0].size | X | X | X | X |  | sizes in bytes |
+| | [0].used | X | X | X | X |  | used in bytes |
+| | [0].use | X | X | X | X |  | used in % |
+| | [0].mount | X | X | X | X |  | mount point |
+| si.fsStats(cb) | {...} | X |  | X |  |  | current transfer stats |
+| | rx | X |  | X |  |  | bytes read since startup |
+| | wx | X |  | X |  |  | bytes written since startup |
+| | tx | X |  | X |  |  | total bytes read + written since startup |
+| | rx_sec | X |  | X |  |  | bytes read / second (* see notes) |
+| | wx_sec | X |  | X |  |  | bytes written / second (* see notes) |
+| | tx_sec | X |  | X |  |  | total bytes reads + written / second  |
+| | ms | X |  | X |  |  | interval length (for per second values) |
+
+#### 10. Network related functions
+
+| Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
+| si.networkInterfaces(cb) | [{...}] | X | X | X | X | X | array of network interfaces |
+| | [0].iface | X | X | X | X | X | interface |
+| | [0].ifaceName | X | X | X | X | X | interface name (differs on Windows) |
+| | [0].ip4 | X | X | X | X | X | ip4 address |
+| | [0].ip6 | X | X | X | X | X | ip6 address |
+| | [0].mac | X | X | X | X | X | MAC address |
+| | [0].internal | X | X | X | X | X | true if internal interface |
+| | [0].operstate | X | | | X |  | up / down |
+| | [0].type | X | | | X | | wireless / wired |
+| | [0].duplex | X | | | | | duplex |
+| | [0].mtu | X | | | | | maximum transmission unit |
+| | [0].speed | X | | | X | | speed in MBit / s |
+| | [0].carrierChanges | X | | | | | # changes up/down |
+| si.networkInterfaceDefault(cb) | : string | X | X | X | X | X | get name of default network interface |
+| si.networkStats(iface,cb) | {...} | X | X | X | X |  | current network stats of given interface<br>iface parameter is optional<br>defaults to first external network interface|
+| | iface | X | X | X | X |  | interface |
+| | operstate | X | X | X | X |  | up / down |
+| | rx_bytes | X | X | X | X |  | received bytes overall |
+| | rx_dropped | X | X | X | X |  | received dropped overall |
+| | rx_errors | X | X | X | X |  | received errors overall |
+| | tx_bytes | X | X | X | X |  | transferred bytes overall |
+| | tx_dropped | X | X | X | X |  | transferred dropped overall |
+| | tx_errors | X | X | X | X |  | transferred errors overall |
+| | rx_sec | X | X | X | X |  | received bytes / second (* see notes) |
+| | tx_sec | X | X | X | X |  | transferred bytes per second (* see notes) |
+| | ms | X | X | X | X |  | interval length (for per second values) |
+| si.networkConnections(cb) | [{...}] | X | X | X | X |  | current network network connections<br>returns an array of all connections|
+| | [0].protocol | X | X | X | X |  | tcp or udp |
+| | [0].localaddress | X | X | X | X |  | local address |
+| | [0].localport | X | X | X | X |  | local port |
+| | [0].peeraddress | X | X | X | X |  | peer address |
+| | [0].peerport | X | X | X | X |  | peer port |
+| | [0].state | X | X | X | X |  | like ESTABLISHED, TIME_WAIT, ... |
+| si.inetChecksite(url, cb) | {...} | X | X | X | X | X | response-time (ms) to fetch given URL |
+| | url | X | X | X | X | X | given url |
+| | ok | X | X | X | X | X | status code OK (2xx, 3xx) |
+| | status | X | X | X | X | X | status code |
+| | ms | X | X | X | X | X | response time in ms |
+| si.inetLatency(host, cb) | : number | X | X | X | X | X | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
+
+#### 11. Docker
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -470,7 +473,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].command | X | X | X | X | X | command and arguments |
 | si.dockerAll(cb) | {...} | X | X | X | X | X | list of all containers including their stats<br>and processes in one single array |
 
-#### 9. "Get All at once" - functions
+#### 12. "Get All at once" - functions
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -487,13 +490,14 @@ Remember: all functions (except `version` and `time`) are implemented as asynchr
 ```js
 const si = require('systeminformation');
 
-si.networkStats('eth1', function(data) {
-	console.log('Network Interface Stats (eth1):');
-	console.log('- is up: ' + data.operstate);
-	console.log('- RX bytes overall: ' + data.rx);
-	console.log('- TX bytes overall: ' + data.tx);
-	console.log('- RX bytes/sec: ' + data.rx_sec);
-	console.log('- TX bytes/sec: ' + data.tx_sec);
+si.cpu(function(data) {
+    console.log('CPU Information:');
+    console.log('- manufucturer: ' + data.manufacturer);
+    console.log('- brand: ' + data.brand);
+    console.log('- speed: ' + data.speed);
+    console.log('- cores: ' + data.cores);
+    console.log('- physical cores: ' + data.physicalCores);
+    console.log('...');
 })
 ```
 
@@ -506,17 +510,17 @@ When omitting callback parameter (cb), then you can use all function in a promis
 ```js
 const si = require('systeminformation');
 
-si.networkStats('eth1')
-	.then(data => {
-		console.log('Network Interface Stats (eth1):');
-		console.log('- is up: ' + data.operstate);
-		console.log('- RX bytes overall: ' + data.rx);
-		console.log('- TX bytes overall: ' + data.tx);
-		console.log('- RX bytes/sec: ' + data.rx_sec);
-		console.log('- TX bytes/sec: ' + data.tx_sec);
-	})
-	.catch(error => console.error(error));
-
+si.cpu()
+    .then(data => {
+        console.log('CPU Information:');
+        console.log('- manufucturer: ' + data.manufacturer);
+        console.log('- brand: ' + data.brand);
+        console.log('- speed: ' + data.speed);
+        console.log('- cores: ' + data.cores);
+        console.log('- physical cores: ' + data.physicalCores);
+        console.log('...');
+    })
+    .catch(error => console.error(error));
 ```
 
 ### Async / Await
@@ -528,15 +532,16 @@ Since node v7.6 you can also use the `async` / `await` pattern. The above exampl
 ```js
 const si = require('systeminformation');
 
-async function network() {
+async function cpuData() {
     try {
-        const data = await si.networkStats('eth1');
-        console.log(`Network Interface Stats (eth1):
-        - is up: ${data.operstate}
-        - RX bytes overall: ${data.rx}
-        - TX bytes overall: ${data.tx}
-        - RX bytes/sec: ${data.rx_sec}
-        - TX bytes/sec: ${data.tx_sec}`)
+        const data = await si.cpu();
+        console.log('CPU Information:');
+        console.log('- manufucturer: ' + data.manufacturer);
+        console.log('- brand: ' + data.brand);
+        console.log('- speed: ' + data.speed);
+        console.log('- cores: ' + data.cores);
+        console.log('- physical cores: ' + data.physicalCores);
+        console.log('...');
     } catch (e) {
         console.log(e)
     }
@@ -578,11 +583,11 @@ To be able to detect S.M.A.R.T. status on Linux you need to install `smartmontoo
 
 ## *: Additional Notes
 
-In `fsStats`, `disksIO` and `networkStats` the `results / sec.` values (rx_sec, IOPS, ...) are calculated correctly beginning
+In `fsStats()`, `disksIO()` and `networkStats()` the results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning
 with the second call of the function. It is determined by calculating the difference of transferred bytes / IOs
 divided by the time between two calls of the function.
 
-The first time you are calling one of this functions, you will get -1 for transfer rates. The second time, you should then get statistics based on the time between the two calls …
+The first time you are calling one of this functions, you will get `-1` for transfer rates. The second time, you should then get statistics based on the time between the two calls ...
 
 So basically, if you e.g. need a values for network stats every second, your code should look like this:
 
