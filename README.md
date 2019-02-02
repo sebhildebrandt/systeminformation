@@ -59,8 +59,6 @@ si.cpu()
 
 **Callback, Promises, Awync Await**
 
-```
-
 ## News and Changes
 
 ### Latest Activity
