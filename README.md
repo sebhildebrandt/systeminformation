@@ -27,7 +27,7 @@ This next major version release 4.0 comes with several optimizations and changes
 - better Raspberry-PI detection
 - lot of minor improvements
 
-But be aware: you will see some minor breaking changes. I expect to finalize the new version by end of January 2019.
+Breaking Changes: you will see some minor breaking changes. Read the [detailed changelog][changelog-url].
 
 ## Quick Start
 
