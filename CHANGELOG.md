@@ -2,17 +2,17 @@
 
 ### Major Changes - Version 4
 
-New Functions
+**New Functions**
 
 - `chassis()`: chassis information
 
-Breaking Changes
+**Breaking Changes**
 
 - `networkStats()`: will provide an **array** of stats for all given interfaces. In previous versions only one interface was provided as a parameter. Pass '*' for all interfaces
 - `networkStats()`: `rx` and `tx` changed to `rx_bytes` and `tx_bytes`
 - `dockerContainerStats()`: will provide an **array** of stats for all given docker containers. In previous versions only one interface was provided as a parameter. Pass '*' for all docker containers
 
-Other Changes
+**Other Changes**
 
 - `system()` optimized system detection (e.g. new Raspberry Pi models, ...)
 - `system()`, `bios()`, `baseboard()` information also as non-root (linux)
