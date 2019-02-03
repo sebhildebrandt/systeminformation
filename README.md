@@ -1,3 +1,24 @@
+<p align="center">
+  <a href="https://systeminformation.io/">
+    <img src="https://systeminformation.io/assets/logo_inv.png" alt="systeminformation logo" width="72" height="72">
+  </a>
+</p>
+
+<h3 align="center">systeminformation</h3>
+
+<p align="center">
+  System and OS information library for node.js
+  <br>
+  <a href="https://systeminformation.io/"><strong>Explore Systeminformation docs »</strong></a>
+  <br>
+  <br>
+  <a href="https://github.com/sebhildebrandt/systeminformation/issues/new?template=bug_report.md.md">Report bug</a>
+  ·
+  <a href="https://github.com/sebhildebrandt/systeminformation/issues/new?template=feature_request.md&labels=feature">Request feature</a>
+  ·
+  <a href="https://github.com/sebhildebrandt/systeminformation/blob/master/CHANGELOG.md">Changelog</a>
+</p>
+
 # systeminformation
 
 ![micro-monitor](https://www.plus-innovations.com/images/system-information-full-400.png)
