@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.0.4          | 2019-02-03     | code cleanup, updated docs |
 | 4.0.3          | 2019-02-03     | `networkInterfaces(), chassis()` fixed two more issues |
 | 4.0.2          | 2019-02-03     | `networkInterfaces(), chassis()` fixed smaller issues |
 | 4.0.1          | 2019-02-02     | updated docs |
