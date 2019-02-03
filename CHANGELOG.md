@@ -30,6 +30,8 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.0.2          | 2019-02-03     | `networkInterfaces(), chassis()` fixed smaller issues |
+| 4.0.1          | 2019-02-02     | updated docs |
 | 4.0.0          | 2019-02-02     | new major version |
 | 3.54.0         | 2018-12-30     | added TypeScript type definitions |
 | 3.53.1         | 2018-12-29     | `versions()` bug fix nginx version |
