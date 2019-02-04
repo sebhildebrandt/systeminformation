@@ -11,6 +11,13 @@
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
   <link rel="stylesheet" href="styles.css">
   <script src="main.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+
   <title>systeminformation</title>
 
 </head>
@@ -35,10 +42,28 @@
           <div class="col-12 sectionheader">
             <div class="title">Version History</div>
             <div class="text">
-              <h3>Major (breaking) Changes - Version 4</h3>
+              <h3>Major Changes - Version 4</h3>
+              <h4>New Functions</h4>
               <ul>
-                <li>... will be released soon ...</li>
+                <li><span class="code">chassis()</span> chassis information</li>
               </ul>
+              <h4>Breaking Changes</h4>
+              <ul>
+                <li><span class="code">networkStats()</span>: will provide an **array** of stats for all given interfaces. In previous versions only one interface was provided as a parameter. Pass '*' for all interfaces</li>
+                <li><span class="code">networkStats()</span>: <span class="code">rx</span> and <span class="code">tx</span> changed to <span class="code">rx_bytes</span> and <span class="code">tx_bytes</span></li>
+                <li><span class="code">dockerContainerStats()</span> will provide an **array** of stats for all given docker containers. In previous versions only one interface was provided as a parameter. Pass '*' for all docker containers</li>
+              </ul>
+              <h4>Other Changes</h4>
+              <ul>
+                <li><span class="code">system()</span>: optimized system detection (e.g. new Raspberry Pi models, ...)</li>
+                <li><span class="code">system(), bios(), baseboard()</span>: information also as non-root (linux)</li>
+                <li><span class="code">versions()</span>: better controller and display detection, fixes</li>
+                <li><span class="code">networkInterfaces()</span>: optimization, fixes</li>
+                <li><span class="code">networkStats()</span> added <span class="code">operstate</span>, <span class="code">type</span>, <span class="code">duplex</span>, <span class="code">mtu</span>, <span class="code">speed</span>, <span class="code">carrierChanges</span></li>
+                <li>added TypeScript definitions </li>
+              </ul>
+              <p>Be aware**, that the new version 4.x is **NOT fully backward compatible** to version 3.x ...</p>
+
               <h3>Major (breaking) Changes - Version 3</h3>
               <ul>
                 <li>works only with <span class="code">node.js</span> v4.0.0 and above (using now internal ES6 promise function, arrow functions, ...)</li>
@@ -55,6 +80,11 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <tr>
+                    <th scope="row">4.0.5</th>
+                    <td>2019-02-03</td>
+                    <td>updated docs</td>
+                  </tr>
                   <tr>
                     <th scope="row">4.0.4</th>
                     <td>2019-02-03</td>

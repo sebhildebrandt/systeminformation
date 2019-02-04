@@ -12,16 +12,16 @@ A clear and concise description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+1. used function '...'
+2. code snippet '....'
+3. start app / code
+4. See output/error '....'
 
 **Current Output**
 If applicable, add output to help explain your problem.
+
+**Expected behavior**
+A clear and concise description of what you expected to happen.
 
 **Environment (please complete the following information):**
  - systeminformation package version:

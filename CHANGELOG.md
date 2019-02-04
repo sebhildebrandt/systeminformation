@@ -16,7 +16,7 @@
 
 - `system()` optimized system detection (e.g. new Raspberry Pi models, ...)
 - `system()`, `bios()`, `baseboard()` information also as non-root (linux)
-- `graphics()` bettercontroller and display detection, fixes
+- `graphics()` better controller and display detection, fixes
 - `versions()` optimization, fixes
 - `networkInterfaces()` added `operstate`, `type`, `duplex`, `mtu`, `speed`, `carrierChanges`
 - `networkStats()` added stats for `errors`, `dropped`
@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.0.5          | 2019-02-03     | updated docs |
 | 4.0.4          | 2019-02-03     | code cleanup, updated docs |
 | 4.0.3          | 2019-02-03     | `networkInterfaces(), chassis()` fixed two more issues |
 | 4.0.2          | 2019-02-03     | `networkInterfaces(), chassis()` fixed smaller issues |
