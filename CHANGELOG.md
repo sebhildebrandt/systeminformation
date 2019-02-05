@@ -30,7 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 4.0.7          | 2019-02-05     | `inetLatency()` latency Windows fix |
+| 4.0.7          | 2019-02-05     | `inetLatency()` Windows fix |
 | 4.0.6          | 2019-02-04     | powershell catch error |
 | 4.0.5          | 2019-02-03     | updated docs |
 | 4.0.4          | 2019-02-03     | code cleanup, updated docs |
