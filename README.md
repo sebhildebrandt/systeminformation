@@ -413,7 +413,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].speed | X | | | X | | speed in MBit / s |
 | | [0].carrierChanges | X | | | | | # changes up/down |
 | si.networkInterfaceDefault(cb) | : string | X | X | X | X | X | get name of default network interface |
-| si.networkStats(ifaces,cb) | [{...}] | X | X | X | X |  | current network stats of given interfaces<br>iface list: space or comma separated<br>iface parameter is optional<br>defaults to first external network interface,<br />pass '*' for all interfaces |
+| si.networkStats(ifaces,cb) | [{...}] | X | X | X | X |  | current network stats of given interfaces<br>iface list: space or comma separated<br>iface parameter is optional<br>defaults to first external network interface,<br />Pass '*' for all interfaces |
 | | [0].iface | X | X | X | X |  | interface |
 | | [0].operstate | X | X | X | X |  | up / down |
 | | [0].rx_bytes | X | X | X | X |  | received bytes overall |
@@ -490,8 +490,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.getStaticData(cb) | {...} | X | X | X | X | X | all static data at once |
-| si.getDynamicData(srv,iface,cb) | {...} | X | X | X | X | X | all dynamic data at once |
-| si.getAllData(srv,iface,cb) | {...} | X | X | X | X | X | all data at once |
+| si.getDynamicData(srv,iface,cb) | {...} | X | X | X | X | X | all dynamic data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "*" for ALL services (linux/win only)<br>Pass "*" for ALL network interfaces |
+| si.getAllData(srv,iface,cb) | {...} | X | X | X | X | X | all data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "*" for ALL services (linux/win only)<br>Pass "*" for ALL network interfaces |
 
 ### cb: Asynchronous Function Calls (callback)
 

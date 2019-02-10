@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.0.10         | 2019-02-10     | `networkInterfaceDefault()` fix windows  |
 | 4.0.9          | 2019-02-08     | `cpu()` fix, code cleanup  |
 | 4.0.8          | 2019-02-05     | `inetLatency()` Windows fix parse chinese output |
 | 4.0.7          | 2019-02-05     | `inetLatency()` Windows fix |
