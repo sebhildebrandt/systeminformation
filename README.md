@@ -343,7 +343,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.diskLayout(cb) | [{...}] | X |  | X | X |  | physical disk layout (array) |
-| | [0].type | X |  | X | X |  | HD, SSD |
+| | [0].type | X |  | X |  |  | e.g. /dev/sda |
+| | [0].type | X |  | X | X |  | HD, SSD, NVMe |
 | | [0].name | X |  | X | X |  | disk name |
 | | [0].vendor | X |  | | X |  | vendor/producer |
 | | [0].size | X |  | X | X |  | size in bytes |
@@ -356,7 +357,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].sectorsPerTrack | |  | | X |  | sectors per track |
 | | [0].firmwareRevision | X |  | X | X |  | firmware revision |
 | | [0].serialNum | X |  | X | X |  | serial number |
-| | [0].interfaceType | X |  | | X |  |  |
+| | [0].interfaceType | X |  | | X |  | SATA, PCIe, ... |
 | | [0].smartStatus | X |  | X | X |  | S.M.A.R.T Status (see Known Issues) |
 | si.blockDevices(cb) | [{...}] | X |  | X | X |  | returns array of disks, partitions,<br>raids and roms |
 | | [0].name | X |  | X | X |  | name |
