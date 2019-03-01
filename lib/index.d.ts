@@ -120,6 +120,7 @@ export namespace Systeminformation {
   }
 
   interface DiskLayoutData {
+    device: string;
     type: string;
     name: string;
     vendor: string;
