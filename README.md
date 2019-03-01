@@ -346,17 +346,17 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].type | X |  | X | X |  | HD, SSD |
 | | [0].name | X |  | X | X |  | disk name |
 | | [0].vendor | X |  | | X |  | vendor/producer |
-| | [0].firmwareRevision | X |  | X | X |  | firmware revision |
-| | [0].serialNum | X |  | X | X |  | serial number |
-| | [0].interfaceType | |  | | X |  |  |
 | | [0].size | X |  | X | X |  | size in bytes |
+| | [0].bytesPerSector | |  | | X |  | bytes per sector |
 | | [0].totalCylinders | |  | | X |  | total cylinders |
 | | [0].totalHeads | |  | | X |  | total heads |
+| | [0].totalSectors | |  | | X |  | total sectors |
 | | [0].totalTracks | |  | | X |  | total tracks |
 | | [0].tracksPerCylinder | |  | | X |  | tracks per cylinder |
 | | [0].sectorsPerTrack | |  | | X |  | sectors per track |
-| | [0].totalSectors | |  | | X |  | total sectors |
-| | [0].bytesPerSector | |  | | X |  | bytes per sector |
+| | [0].firmwareRevision | X |  | X | X |  | firmware revision |
+| | [0].serialNum | X |  | X | X |  | serial number |
+| | [0].interfaceType | X |  | | X |  |  |
 | | [0].smartStatus | X |  | X | X |  | S.M.A.R.T Status (see Known Issues) |
 | si.blockDevices(cb) | [{...}] | X |  | X | X |  | returns array of disks, partitions,<br>raids and roms |
 | | [0].name | X |  | X | X |  | name |

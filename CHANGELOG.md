@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.0.12         | 2019-03-01     | `diskLayout()` linux rewritten - better detection |
 | 4.0.11         | 2019-02-23     | `users()` fix windows (time), added @ts-check |
 | 4.0.10         | 2019-02-10     | `networkInterfaceDefault()` fix windows  |
 | 4.0.9          | 2019-02-08     | `cpu()` fix, code cleanup  |
