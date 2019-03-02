@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.0.15         | 2019-03-02     | `versions()` added java, python3, optimized gcc |
 | 4.0.14         | 2019-03-01     | updated typescript typings |
 | 4.0.13         | 2019-03-01     | `diskLayout()` added device (/dev/sda...) linux, mac |
 | 4.0.12         | 2019-03-01     | `diskLayout()` linux rewritten - better detection |

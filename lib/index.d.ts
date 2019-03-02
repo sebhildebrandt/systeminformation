@@ -222,6 +222,8 @@ export namespace Systeminformation {
     postgresql: string;
     perl: string;
     python: string;
+    python3: string;
+    java: string;
     gcc: string;
   }
 

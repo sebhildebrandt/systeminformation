@@ -196,10 +196,37 @@ h1, h2, h3, h4 {
 }
 .features {
     text-align: center;
-    padding: 15px 20px;
     color: #333;
-    &:hover {
-        color: rgb(86, 122, 223);
+    .inner {
+      padding: 10px 0px;
+      @media only screen and (min-width: 768px) {
+        padding: 15px 20px;
+      }
+      .icons {
+          display: block;
+          font-size: 3rem;
+          color: #bbb;
+          @media only screen and (min-width: 420px) {
+              font-size: 3.5rem;
+          }
+          @media only screen and (min-width: 768px) {
+              font-size: 4rem;
+          }
+          @media only screen and (min-width: 1024px) {
+              font-size: 5rem;
+          }
+      }
+      .icontitle {
+          font-size: 1.2rem;
+      }
+
+      &:hover {
+          background: #f4f4f4;
+          color: rgb(86, 122, 223);
+          .icons {
+            color: rgb(86, 122, 223);
+          }
+      }
     }
 }
 .sectionheader {
@@ -264,16 +291,17 @@ h1, h2, h3, h4 {
     }
 }
 .index {
-    .text, .subtitle, .title, .title-small {
-        text-align: center;
-    }
-    a {
-        text-decoration: none;
-        &:hover {
-            text-decoration: none;
-            color: rgb(86, 122, 223);
-        }
-    }
+  margin: 0 0 10px 0;
+  .text, .subtitle, .title, .title-small {
+      text-align: center;
+  }
+  a {
+      text-decoration: none;
+      &:hover {
+          text-decoration: none;
+          color: rgb(86, 122, 223);
+      }
+  }
 }
 .left {
     .text, .subtitle, .title, .title-small {
@@ -285,27 +313,6 @@ h1, h2, h3, h4 {
 }
 ul {
     text-align: left;
-}
-.icons {
-    display: block;
-    font-size: 3rem;
-    color: #aaa;
-    &:hover {
-        color: rgb(86, 122, 223);
-    }
-    @media only screen and (min-width: 420px) {
-        font-size: 3.5rem;
-    }
-    @media only screen and (min-width: 768px) {
-        font-size: 4rem;
-    }
-    @media only screen and (min-width: 1024px) {
-        font-size: 5rem;
-    }
-}
-.icontitle {
-    font-size: 1.2rem;
-    // color: #000;
 }
 .number-section {
     margin-top: 40px;

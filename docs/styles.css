@@ -290,11 +290,53 @@ h1, h2, h3, h4 {
 
 .features {
   text-align: center;
-  padding: 15px 20px;
   color: #333;
 }
 
-.features:hover {
+.features .inner {
+  padding: 10px 0px;
+}
+
+@media only screen and (min-width: 768px) {
+  .features .inner {
+    padding: 15px 20px;
+  }
+}
+
+.features .inner .icons {
+  display: block;
+  font-size: 3rem;
+  color: #bbb;
+}
+
+@media only screen and (min-width: 420px) {
+  .features .inner .icons {
+    font-size: 3.5rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .features .inner .icons {
+    font-size: 4rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .features .inner .icons {
+    font-size: 5rem;
+  }
+}
+
+.features .inner .icontitle {
+  font-size: 1.2rem;
+}
+
+.features .inner:hover {
+  background: #f4f4f4;
+  color: #567adf;
+}
+
+.features .inner:hover .icons {
   color: #567adf;
 }
 
@@ -392,6 +434,10 @@ h1, h2, h3, h4 {
   border: 1px solid #ddd;
 }
 
+.index {
+  margin: 0 0 10px 0;
+}
+
 .index .text, .index .subtitle, .index .title, .index .title-small {
   text-align: center;
 }
@@ -415,38 +461,6 @@ h1, h2, h3, h4 {
 
 ul {
   text-align: left;
-}
-
-.icons {
-  display: block;
-  font-size: 3rem;
-  color: #aaa;
-}
-
-.icons:hover {
-  color: #567adf;
-}
-
-@media only screen and (min-width: 420px) {
-  .icons {
-    font-size: 3.5rem;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .icons {
-    font-size: 4rem;
-  }
-}
-
-@media only screen and (min-width: 1024px) {
-  .icons {
-    font-size: 5rem;
-  }
-}
-
-.icontitle {
-  font-size: 1.2rem;
 }
 
 .number-section {
