@@ -45,7 +45,7 @@
          `-.__               __.-'
               ````"""""""````
 ```
-Today is the **5th birthday** of systeminformation. This is amazing. Started as a small projekt just for myself, it now has > 8,000 lines of code, > 200 versions published, up to 100,000 downloads per month, > 888,000 downloads overall. Thank you to all who contributed to this project!
+2019-03-12 - the **5th birthday** of systeminformation. This is amazing. Started as a small projekt just for myself, it now has > 8,000 lines of code, > 200 versions published, up to 100,000 downloads per month, > 888,000 downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 4.0
 
@@ -98,6 +98,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.1.0: `versions()` added python3, pip, pip3, java
 - Version 4.0.0: new version ... read the [detailed changelog][changelog-url] to see all breaking changes
 - Version 3.54.0: added TypeScript type definitions
 - Version 3.53.0: `versions()` added perl, python, gcc
