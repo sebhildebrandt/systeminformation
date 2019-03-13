@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.1.1          | 2019-03-13     | updated typescript typings |
 | 4.1.0          | 2019-03-13     | `versions()` added pip, pip3 |
 | 4.0.16         | 2019-03-12     | Happy birthday - 5th aniversary |
 | 4.0.15         | 2019-03-02     | `versions()` added java, python3, optimized gcc |

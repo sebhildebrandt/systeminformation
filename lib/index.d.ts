@@ -223,6 +223,8 @@ export namespace Systeminformation {
     perl: string;
     python: string;
     python3: string;
+    pip: string;
+    pip3: string;
     java: string;
     gcc: string;
   }
