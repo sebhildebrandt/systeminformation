@@ -146,7 +146,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | version | X | X | X | X |  | version e.g. '1.0' |
 | | serial | X | X | X | X |  | serial number |
 | | uuid | X | X | X | X |  | UUID |
-| | sku | X | X |  | X |  | SKU number |
+| | sku | X | X | X | X |  | SKU number |
 | si.bios(cb) | {...} | X | X | X | X |  | bios information |
 | | vendor | X | X | X | X |  | e.g. 'AMI' |
 | | version | X | X |  | X |  | version |
@@ -426,11 +426,11 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].ip6 | X | X | X | X | X | ip6 address |
 | | [0].mac | X | X | X | X | X | MAC address |
 | | [0].internal | X | X | X | X | X | true if internal interface |
-| | [0].operstate | X | | | X |  | up / down |
-| | [0].type | X | | | X | | wireless / wired |
-| | [0].duplex | X | | | | | duplex |
-| | [0].mtu | X | | | | | maximum transmission unit |
-| | [0].speed | X | | | X | | speed in MBit / s |
+| | [0].operstate | X | | X | X |  | up / down |
+| | [0].type | X | | X | X | | wireless / wired |
+| | [0].duplex | X | | X | | | duplex |
+| | [0].mtu | X | | X | | | maximum transmission unit |
+| | [0].speed | X | | X | X | | speed in MBit / s |
 | | [0].carrierChanges | X | | | | | # changes up/down |
 | si.networkInterfaceDefault(cb) | : string | X | X | X | X | X | get name of default network interface |
 | si.networkStats(ifaces,cb) | [{...}] | X | X | X | X |  | current network stats of given interfaces<br>iface list: space or comma separated<br>iface parameter is optional<br>defaults to first external network interface,<br />Pass '*' for all interfaces |
