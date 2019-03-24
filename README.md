@@ -105,7 +105,6 @@ si.cpu()
 - Version 3.52.0: `cpu()` added physical cores, processors, socket type
 - Version 3.51.0: `processLoad()` added for windows
 - Version 3.50.0: `services()` added possibility to specify ALL services "*" for linux/win
-- Version 3.49.0: `uuid()` added - os specific uuid (per installation)
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
