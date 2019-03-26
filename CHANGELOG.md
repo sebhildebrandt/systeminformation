@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.1.4          | 2019-03-26     | `networkInterfaces()` speed bug (windows) |
 | 4.1.3          | 2019-03-24     | wmic path detection (windows) |
 | 4.1.2          | 2019-03-23     | updated docs |
 | 4.1.1          | 2019-03-13     | updated typescript typings |
