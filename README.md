@@ -146,7 +146,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | version | X | X | X | X |  | version e.g. '1.0' |
 | | serial | X | X | X | X |  | serial number |
 | | uuid | X | X | X | X |  | UUID |
-| | sku | X | X |  | X |  | SKU number |
+| | sku | X | X | X | X |  | SKU number |
 | si.bios(cb) | {...} | X | X | X | X |  | bios information |
 | | vendor | X | X | X | X |  | e.g. 'AMI' |
 | | version | X | X |  | X |  | version |
