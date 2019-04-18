@@ -105,7 +105,6 @@ si.cpu()
 - Version 3.52.0: `cpu()` added physical cores, processors, socket type
 - Version 3.51.0: `processLoad()` added for windows
 - Version 3.50.0: `services()` added possibility to specify ALL services "*" for linux/win
-- Version 3.49.0: `uuid()` added - os specific uuid (per installation)
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -426,11 +425,11 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].ip6 | X | X | X | X | X | ip6 address |
 | | [0].mac | X | X | X | X | X | MAC address |
 | | [0].internal | X | X | X | X | X | true if internal interface |
-| | [0].operstate | X | | | X |  | up / down |
-| | [0].type | X | | | X | | wireless / wired |
-| | [0].duplex | X | | | | | duplex |
-| | [0].mtu | X | | | | | maximum transmission unit |
-| | [0].speed | X | | | X | | speed in MBit / s |
+| | [0].operstate | X | | X | X |  | up / down |
+| | [0].type | X | | X | X | | wireless / wired |
+| | [0].duplex | X | | X | | | duplex |
+| | [0].mtu | X | | X | | | maximum transmission unit |
+| | [0].speed | X | | X | X | | speed in MBit / s |
 | | [0].carrierChanges | X | | | | | # changes up/down |
 | si.networkInterfaceDefault(cb) | : string | X | X | X | X | X | get name of default network interface |
 | si.networkStats(ifaces,cb) | [{...}] | X | X | X | X |  | current network stats of given interfaces<br>iface list: space or comma separated<br>iface parameter is optional<br>defaults to first external network interface,<br />Pass '*' for all interfaces |

@@ -30,7 +30,9 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 4.1.2          | 2019-03-22     | updated docs |
+| 4.1.4          | 2019-03-26     | `networkInterfaces()` speed bug (windows) |
+| 4.1.3          | 2019-03-24     | wmic path detection (windows) |
+| 4.1.2          | 2019-03-23     | updated docs |
 | 4.1.1          | 2019-03-13     | updated typescript typings |
 | 4.1.0          | 2019-03-13     | `versions()` added pip, pip3 |
 | 4.0.16         | 2019-03-12     | Happy birthday - 5th aniversary |
@@ -108,7 +110,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 | 3.42.2         | 2018-07-03     | `users()` optimized results if lack of permissions |
 | 3.42.1         | 2018-07-03     | `versions()` bugfix git version macOS |
 | 3.42.0         | 2018-06-01     | `processes()` added parent process PID |
-| 3.41.4         | 2018-05-28     | windows exec WMIC in try catch |
+| 3.41.4         | 2018-05-28     | windows exec WMIC path detection (windows) in try catch |
 | 3.41.3         | 2018-05-13     | improved SunOS support `getStaticData()`, `getDynamicData()` |
 | 3.41.2         | 2018-05-13     | bugfix `system()` and `flags()` Raspberry Pi |
 | 3.41.1         | 2018-05-11     | updated docs |
@@ -139,8 +141,8 @@ For major (breaking) changes - version 3 and 2 see end of page.
 | 3.33.13        | 2018-01-12     | bugfix `memLayout()` (Windows) |
 | 3.33.12        | 2017-12-25     | fixed typos |
 | 3.33.11        | 2017-12-17     | updated docs |
-| 3.33.10        | 2017-12-14     | bugfix WMIC blockDevice parse (Windows 7) |
-| 3.33.9         | 2017-12-14     | bugfix WMIC not found (Windows) |
+| 3.33.10        | 2017-12-14     | bugfix WMIC path detection (windows) blockDevice parse (Windows 7) |
+| 3.33.9         | 2017-12-14     | bugfix WMIC path detection (windows) not found (Windows) |
 | 3.33.8         | 2017-12-02     | bugfix diskLayout().size (OSX) |
 | 3.33.7         | 2017-11-28     | bugfix diskLayout().size |
 | 3.33.6         | 2017-11-16     | bugfix diskLayout().size |
