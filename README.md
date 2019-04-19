@@ -668,6 +668,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Git² [GitSquared](https://github.com/GitSquared)
 - weiyin [weiyin](https://github.com/weiyin)
 - Jorai Rijsdijk [Erackron](https://github.com/Erackron)
+- Rasmus Porsager [porsager](https://github.com/porsager)
 
 OSX Temperature: credits here are going to:
 
