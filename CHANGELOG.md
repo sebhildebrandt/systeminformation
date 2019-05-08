@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.1.7          | 2019-05-08     | `users()` parsing fix (windows) |
 | 4.1.6          | 2019-04-24     | `memory()` swap used fix (linux) |
 | 4.1.5          | 2019-04-19     | refactored `wmic` calls to work also on Windows XP |
 | 4.1.4          | 2019-03-26     | `networkInterfaces()` speed bug (windows) |
