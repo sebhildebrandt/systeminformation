@@ -192,6 +192,7 @@ export namespace Systeminformation {
     logofile: string;
     serial: string;
     build: string;
+    servicepack: string;
   }
 
   interface UuidData {
@@ -421,6 +422,9 @@ export namespace Systeminformation {
     command: string;
     created: number;
     state: string;
+    restartCount: number;
+    platform: string;
+    driver: string;
     ports: number[];
     mounts: DockerContainerMountData[];
   }
@@ -448,6 +452,7 @@ export namespace Systeminformation {
       r: number;
       w: number;
     };
+    restartCount: number;
     cpu_stats: any;
     precpu_stats: any;
     memory_stats: any,
