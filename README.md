@@ -276,6 +276,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | logofile | X | X | X | X | X | e.g. 'apple', 'debian', 'fedora', ... |
 | | serial | X | X | X | X |   | OS/Host serial number |
 | | build | X |   | X | X |   | OS build version |
+| | servicepack | | | | X |   | service pack version |
 | si.uuid(cb) | {...} | X | X | X | X | X | object of several UUIDs |
 | | os | X | X | X | X |  | os specific UUID |
 | si.versions(cb) | {...} | X | X | X | X | X | version information (kernel, ssl, node, ...) |
