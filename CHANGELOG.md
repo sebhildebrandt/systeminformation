@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.2.1          | 2019-05-09     | `networkInterfaceDefault()` time delay fix (linux) |
 | 4.2.0          | 2019-05-09     | `osInfo()` extended service pack version (windows) |
 | 4.1.8          | 2019-05-09     | `graphics()` resolve on error (windows) |
 | 4.1.7          | 2019-05-09     | `users()` parsing fix (windows) |
