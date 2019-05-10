@@ -453,7 +453,12 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].image | X | X | X | X | X | name of image |
 | | [0].imageID | X | X | X | X | X | ID of image |
 | | [0].command | X | X | X | X | X | command |
-| | [0].created | X | X | X | X | X | creation time |
+| | [0].created | X | X | X | X | X | creation time (unix) |
+| | [0].started | X | X | X | X | X | creation time (unix) |
+| | [0].finished | X | X | X | X | X | creation time (unix) |
+| | [0].createdAt | X | X | X | X | X | creation date time string |
+| | [0].startedAt | X | X | X | X | X | creation date time string |
+| | [0].finishedAt | X | X | X | X | X | creation date time string |
 | | [0].state | X | X | X | X | X | created, running, exited |
 | | [0].ports | X | X | X | X | X | array of ports |
 | | [0].mounts | X | X | X | X | X | array of mounts |
