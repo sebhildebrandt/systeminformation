@@ -82,13 +82,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.4.0: `dockerContainers()` added started, finished time
 - Version 4.3.0: `dockerContainers()` `dockerStats()` added restartCount
 - Version 4.2.0: `networkInterfaceDefault()` time delay fix (linux)
 - Version 4.1.0: `versions()` added python3, pip, pip3, java
 - Version 4.0.0: new version ... read the [detailed changelog][changelog-url] to see all breaking changes
 - Version 3.54.0: added TypeScript type definitions
 - Version 3.53.0: `versions()` added perl, python, gcc
-- Version 3.52.0: `cpu()` added physical cores, processors, socket type
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]

@@ -421,6 +421,11 @@ export namespace Systeminformation {
     imageID: string;
     command: string;
     created: number;
+    started: number;
+    finished: number;
+    createdAt: string;
+    startedAt: string;
+    finishedAt: string;
     state: string;
     restartCount: number;
     platform: string;
