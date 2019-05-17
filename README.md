@@ -391,6 +391,10 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].used | X | X | X | X |  | used in bytes |
 | | [0].use | X | X | X | X |  | used in % |
 | | [0].mount | X | X | X | X |  | mount point |
+| si.fsOpenFIles(cb) | {...} | X | X | X |  |  | count max/allocated file descriptors |
+| | max | X | X | X |  |  | max file descriptors |
+| | allocated | X | X | X |  |  | current open files count |
+| | available | X | X | X |  |  | count available |
 | si.fsStats(cb) | {...} | X |  | X |  |  | current transfer stats |
 | | rx | X |  | X |  |  | bytes read since startup |
 | | wx | X |  | X |  |  | bytes written since startup |

@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.5.1          | 2019-05-17     | updated docs |
 | 4.5.0          | 2019-05-17     | `fsOpenFiles()` added open file descriptor count |
 | 4.4.1          | 2019-05-11     | updated docs |
 | 4.4.0          | 2019-05-11     | `dockerContainers()` added started, finished time |
