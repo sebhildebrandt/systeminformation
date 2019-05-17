@@ -82,6 +82,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.5.0: `fsOpenFiles()` added open file descriptor count
 - Version 4.4.0: `dockerContainers()` added started, finished time
 - Version 4.3.0: `dockerContainers()` `dockerStats()` added restartCount
 - Version 4.2.0: `networkInterfaceDefault()` time delay fix (linux)

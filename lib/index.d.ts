@@ -250,6 +250,12 @@ export namespace Systeminformation {
     mount: string;
   }
 
+  interface FsOpenFilesData {
+    max: number;
+    allocated: number;
+    available: number;
+  }
+
   interface BlockDevicesData {
     name: string;
     identifier: string;
@@ -511,6 +517,7 @@ export function battery(cb?: (data: Systeminformation.BatteryData) => any): Prom
 export function graphics(cb?: (data: Systeminformation.GraphicsData) => any): Promise<Systeminformation.GraphicsData>;
 
 export function fsSize(cb?: (data: Systeminformation.FsSizeData[]) => any): Promise<Systeminformation.FsSizeData[]>;
+export function fsOpenFiles(cb?: (data: Systeminformation.FsOpenFilesData[]) => any): Promise<Systeminformation.FsOpenFilesData[]>;
 export function blockDevices(cb?: (data: Systeminformation.BlockDevicesData[]) => any): Promise<Systeminformation.BlockDevicesData[]>;
 export function fsStats(cb?: (data: Systeminformation.FsStatsData) => any): Promise<Systeminformation.FsStatsData>;
 export function disksIO(cb?: (data: Systeminformation.DisksIoData) => any): Promise<Systeminformation.DisksIoData>;
