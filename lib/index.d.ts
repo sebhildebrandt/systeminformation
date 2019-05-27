@@ -420,6 +420,55 @@ export namespace Systeminformation {
 
   // 8. Docker
 
+  interface DockerInfoData {
+    ID: string;
+    Containers: number;
+    ContainersRunning: number;
+    ContainersPaused: number;
+    ContainersStopped: number;
+    Images: number;
+    Driver: string;
+    MemoryLimit: boolean;
+    SwapLimit: boolean;
+    KernelMemory: boolean;
+    CpuCfsPeriod: boolean;
+    CpuCfsQuota: boolean;
+    CPUShares: boolean;
+    CPUSet: boolean;
+    IPv4Forwarding: boolean;
+    BridgeNfIptables: boolean;
+    BridgeNfIp6tables: boolean;
+    Debug: boolean;
+    NFd: number;
+    OomKillDisable: boolean;
+    NGoroutines: number;
+    SystemTime: string;
+    LoggingDriver: string;
+    CgroupDriver: string;
+    NEventsListener: number;
+    KernelVersion: string;
+    OperatingSystem: string;
+    OSType: string;
+    Architecture: string;
+    NCPU: number;
+    MemTotal: number;
+    DockerRootDir: string;
+    HttpProxy: string;
+    HttpsProxy: string;
+    NoProxy: string;
+    Name: string;
+    Labels: string[];
+    ExperimentalBuild: boolean;
+    ServerVersion: string;
+    ClusterStore: string;
+    ClusterAdvertise: string;
+    DefaultRuntime: string;
+    LiveRestoreEnabled: boolean;
+    Isolation: string;
+    InitBinary: string;
+    ProductLicense: string;
+  }
+
   interface DockerContainerData {
     id: string;
     name: string;
@@ -537,7 +586,7 @@ export function processes(cb?: (data: Systeminformation.ProcessesData) => any): 
 export function processLoad(processName: string, cb?: (data: Systeminformation.ProcessesProcessLoadData) => any): Promise<Systeminformation.ProcessesProcessLoadData>;
 export function services(serviceName: string, cb?: (data: Systeminformation.ServicesData[]) => any): Promise<Systeminformation.ServicesData[]>;
 
-
+export function dockerInfo(cb?: (data: Systeminformation.DockerInfoData[]) => any): Promise<Systeminformation.DockerInfoData[]>;
 export function dockerContainers(all?: boolean, cb?: (data: Systeminformation.DockerContainerData[]) => any): Promise<Systeminformation.DockerContainerData[]>;
 export function dockerContainerStats(id?: string, cb?: (data: Systeminformation.DockerContainerStatsData[]) => any): Promise<Systeminformation.DockerContainerStatsData[]>;
 export function dockerContainerProcesses(id?: string, cb?: (data: any) => any): Promise<any>;

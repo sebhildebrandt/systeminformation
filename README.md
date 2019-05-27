@@ -82,14 +82,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.6.0: added `dockerInfo()`
 - Version 4.5.0: `fsOpenFiles()` added open file descriptor count
 - Version 4.4.0: `dockerContainers()` added started, finished time
 - Version 4.3.0: `dockerContainers()` `dockerStats()` added restartCount
 - Version 4.2.0: `networkInterfaceDefault()` time delay fix (linux)
 - Version 4.1.0: `versions()` added python3, pip, pip3, java
 - Version 4.0.0: new version ... read the [detailed changelog][changelog-url] to see all breaking changes
-- Version 3.54.0: added TypeScript type definitions
-- Version 3.53.0: `versions()` added perl, python, gcc
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -452,6 +451,53 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
+| si.dockerInfo(cb) | {...} | X | X | X | X | X | returns general docker info |
+| | ID | X | X | X | X | X | Docker ID |
+| | Containers | X | X | X | X | X | number of containers |
+| | ContainersRunning | X | X | X | X | X | number of running containers |
+| | ContainersPaused | X | X | X | X | X | number of paused containers |
+| | ContainersStopped | X | X | X | X | X | number of stopped containers |
+| | Images | X | X | X | X | X | number of images |
+| | Driver | X | X | X | X | X | driver (e.g. 'devicemapper', 'overlay2') |
+| | MemoryLimit | X | X | X | X | X | has memory limit |
+| | SwapLimit | X | X | X | X | X | has swap limit |
+| | KernelMemory | X | X | X | X | X | has kernal memory |
+| | CpuCfsPeriod | X | X | X | X | X | has CpuCfsPeriod |
+| | CpuCfsQuota | X | X | X | X | X | has CpuCfsQuota |
+| | CPUShares | X | X | X | X | X | has CPUShares |
+| | CPUSet | X | X | X | X | X | has CPUShares |
+| | IPv4Forwarding | X | X | X | X | X | has IPv4Forwarding |
+| | BridgeNfIptables | X | X | X | X | X | has BridgeNfIptables |
+| | BridgeNfIp6tables | X | X | X | X | X | has BridgeNfIp6tables |
+| | Debug | X | X | X | X | X | Debug on |
+| | NFd | X | X | X | X | X | named data networking forwarding daemon |
+| | OomKillDisable | X | X | X | X | X | out-of-memory kill disabled |
+| | NGoroutines | X | X | X | X | X | number NGoroutines |
+| | SystemTime | X | X | X | X | X | docker SystemTime |
+| | LoggingDriver | X | X | X | X | X | logging driver e.g. 'json-file' |
+| | CgroupDriver | X | X | X | X | X | cgroup driver e.g. 'cgroupfs' |
+| | NEventsListener | X | X | X | X | X | number NEventsListeners |
+| | KernelVersion | X | X | X | X | X | docker kernel version |
+| | OperatingSystem | X | X | X | X | X | docker OS e.g. 'Docker for Mac' |
+| | OSType | X | X | X | X | X | OSType e.g. 'linux' |
+| | Architecture | X | X | X | X | X | architecture e.g. x86_64 |
+| | NCPU | X | X | X | X | X | number of CPUs |
+| | MemTotal | X | X | X | X | X | memory total |
+| | DockerRootDir | X | X | X | X | X | docker root directory |
+| | HttpProxy | X | X | X | X | X | http proxy |
+| | HttpsProxy | X | X | X | X | X | https proxy |
+| | NoProxy | X | X | X | X | X | NoProxy |
+| | Name | X | X | X | X | X | Name |
+| | Labels | X | X | X | X | X | array of labels |
+| | ExperimentalBuild | X | X | X | X | X | is experimental build |
+| | ServerVersion | X | X | X | X | X | server version |
+| | ClusterStore | X | X | X | X | X | cluster store |
+| | ClusterAdvertise | X | X | X | X | X | cluster advertise |
+| | DefaultRuntime | X | X | X | X | X | default runtime e.g. 'runc' |
+| | LiveRestoreEnabled | X | X | X | X | X | live store enabled |
+| | Isolation | X | X | X | X | X | isolation |
+| | InitBinary | X | X | X | X | X | init binary |
+| | ProductLicense | X | X | X | X | X | product license |
 | si.dockerContainers(all, cb) | [{...}] | X | X | X | X | X | returns array of active/all docker containers |
 | | [0].id | X | X | X | X | X | ID of container |
 | | [0].name | X | X | X | X | X | name of container |
