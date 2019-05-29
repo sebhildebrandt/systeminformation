@@ -52,7 +52,7 @@ Lightweight collection of 40+ functions to retrieve detailed hardware, system an
 
 - simple to use
 - get detailed information about system, cpu, baseboard, battery, memory, disks/filesystem, network, docker, software, services and processes
-- supports Linux, macOS, partial Windows, FreeBSD and SunOS support
+- supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD and SunOS support
 - no npm dependencies (for production)
 
 ### Installation
@@ -82,6 +82,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.7.0: partial NetBSD support
 - Version 4.6.0: added `dockerInfo()`
 - Version 4.5.0: `fsOpenFiles()` added open file descriptor count
 - Version 4.4.0: `dockerContainers()` added started, finished time
@@ -97,7 +98,7 @@ You can find all changes here: [detailed changelog][changelog-url]
 
 [Node.js][nodejs-url] comes with some basic OS information, but I always wanted a little more. So I came up to write this little library. This library is still work in progress. It is supposed to be used as a backend/server-side library (will definilely not work within a browser). It requires node.js version 4.0 and above.
 
-I was able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra, Mojave) and some Windows 7, Windows 10, FreeBSD and SunOS machines. Not all functions are supported on all operating systems. Have a look at the function reference in the docs to get further details.
+I was able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra, Mojave) and some Windows 7, Windows 10, FreeBSD, OpenBSD, NetBSD and SunOS machines. Not all functions are supported on all operating systems. Have a look at the function reference in the docs to get further details.
 
 If you have comments, suggestions & reports, please feel free to contact me!
 
@@ -723,7 +724,8 @@ Windows is a registered trademark of Microsoft Corporation. Node.js is a tradema
 Intel is a trademark of Intel Corporation, AMD is a trademark of Advanced Micro Devices Inc.,
 Raspberry Pi is a trademark of the Raspberry Pi Foundation, Debian is a trademark of the Debian Project,
 Ubuntu is a trademark of Canonical Ltd., FreeBSD is a registered trademark of The FreeBSD Foundation,
-Docker is a trademark of Docker, Inc., Sun, Solaris, OpenSolaris and registered trademarks of Sun Microsystems.
+NetBSD is a registered trademark of The NetBSD Foundation, Docker is a trademark of Docker, Inc., Sun,
+Solaris, OpenSolaris and registered trademarks of Sun Microsystems.
 
 All other trademarks are the property of their respective owners.
 

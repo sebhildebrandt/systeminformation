@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.7.0          | 2019-05-29     | partial netBSD support  |
 | 4.6.1          | 2019-05-29     | get wmic path - fic windows  |
 | 4.6.0          | 2019-05-27     | added `dockerInfo()` |
 | 4.5.1          | 2019-05-17     | updated docs |

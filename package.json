@@ -28,6 +28,8 @@
     "osx",
     "windows",
     "freebsd",
+    "openbsd",
+    "netbsd",
     "cpu",
     "cpuload",
     "physical cores",
@@ -72,6 +74,7 @@
     "win32",
     "freebsd",
     "openbsd",
+    "netbsd",
     "sunos"
   ],
   "engines": {
