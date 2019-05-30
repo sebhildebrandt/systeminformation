@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.7.3          | 2019-05-30     | updated typescript typings |
 | 4.7.2          | 2019-05-30     | `versions()` added virtualbox, java popup fix macos |
 | 4.7.1          | 2019-05-29     | `memLayout()` fix macos mojave  |
 | 4.7.0          | 2019-05-29     | partial netBSD support  |

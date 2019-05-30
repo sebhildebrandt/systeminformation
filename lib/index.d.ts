@@ -228,6 +228,7 @@ export namespace Systeminformation {
     pip3: string;
     java: string;
     gcc: string;
+    virtualbox: string;
   }
 
   interface UserData {
