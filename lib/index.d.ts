@@ -422,52 +422,52 @@ export namespace Systeminformation {
   // 8. Docker
 
   interface DockerInfoData {
-    ID: string;
-    Containers: number;
-    ContainersRunning: number;
-    ContainersPaused: number;
-    ContainersStopped: number;
-    Images: number;
-    Driver: string;
-    MemoryLimit: boolean;
-    SwapLimit: boolean;
-    KernelMemory: boolean;
-    CpuCfsPeriod: boolean;
-    CpuCfsQuota: boolean;
-    CPUShares: boolean;
-    CPUSet: boolean;
-    IPv4Forwarding: boolean;
-    BridgeNfIptables: boolean;
-    BridgeNfIp6tables: boolean;
-    Debug: boolean;
-    NFd: number;
-    OomKillDisable: boolean;
-    NGoroutines: number;
-    SystemTime: string;
-    LoggingDriver: string;
-    CgroupDriver: string;
-    NEventsListener: number;
-    KernelVersion: string;
-    OperatingSystem: string;
-    OSType: string;
-    Architecture: string;
-    NCPU: number;
-    MemTotal: number;
-    DockerRootDir: string;
-    HttpProxy: string;
-    HttpsProxy: string;
-    NoProxy: string;
-    Name: string;
-    Labels: string[];
-    ExperimentalBuild: boolean;
-    ServerVersion: string;
-    ClusterStore: string;
-    ClusterAdvertise: string;
-    DefaultRuntime: string;
-    LiveRestoreEnabled: boolean;
-    Isolation: string;
-    InitBinary: string;
-    ProductLicense: string;
+    id: string;
+    containers: number;
+    containersRunning: number;
+    containersPaused: number;
+    containersStopped: number;
+    images: number;
+    driver: string;
+    memoryLimit: boolean;
+    swapLimit: boolean;
+    kernelMemory: boolean;
+    cpuCfsPeriod: boolean;
+    cpuCfsQuota: boolean;
+    cpuShares: boolean;
+    cpuSet: boolean;
+    ipv4Forwarding: boolean;
+    bridgeNfIptables: boolean;
+    bridgeNfIp6tables: boolean;
+    debug: boolean;
+    mfd: number;
+    oomKillDisable: boolean;
+    ngoroutines: number;
+    systemTime: string;
+    loggingDriver: string;
+    cgroupDriver: string;
+    nEventsListener: number;
+    kernelVersion: string;
+    operatingSystem: string;
+    osType: string;
+    architecture: string;
+    ncpu: number;
+    memTotal: number;
+    dockerRootDir: string;
+    httpProxy: string;
+    httpsProxy: string;
+    noProxy: string;
+    name: string;
+    labels: string[];
+    experimentalBuild: boolean;
+    serverVersion: string;
+    clusterStore: string;
+    clusterAdvertise: string;
+    defaultRuntime: string;
+    liveRestoreEnabled: boolean;
+    isolation: string;
+    initBinary: string;
+    productLicense: string;
   }
 
   interface DockerContainerData {
@@ -520,7 +520,45 @@ export namespace Systeminformation {
     networks: any;
   }
 
-  // 9. "Get All at once" - functions
+  // 9. Virtual Box
+
+  interface VboxInfoData {
+    id: string;
+    name: string;
+    running: boolean;
+    runningSince: number;
+    guestOS: string;
+    hardwareUUID: string;
+    memory: number;
+    vram: number;
+    cpus: number;
+    cpuExepCap: string;
+    cpuProfile: string;
+    chipset: string;
+    firmware: string;
+    pageFusion: boolean;
+    configFile: string;
+    snapshotFolder: string;
+    logFolder: string;
+    HPET: boolean;
+    PAE: boolean;
+    longMode: boolean;
+    tripleFaultReset: boolean;
+    APIC: boolean;
+    X2APIC: boolean;
+    ACPI: boolean;
+    IOAPIC: boolean;
+    biosAPICmode: string;
+    bootMenuMode: string;
+    bootDevice1: string;
+    bootDevice2: string;
+    bootDevice3: string;
+    bootDevice4: string;
+    timeOffset: string;
+    RTC: string;
+  }
+
+  // 10. "Get All at once" - functions
 
   interface StaticData {
     version: string;
@@ -592,6 +630,8 @@ export function dockerContainers(all?: boolean, cb?: (data: Systeminformation.Do
 export function dockerContainerStats(id?: string, cb?: (data: Systeminformation.DockerContainerStatsData[]) => any): Promise<Systeminformation.DockerContainerStatsData[]>;
 export function dockerContainerProcesses(id?: string, cb?: (data: any) => any): Promise<any>;
 export function dockerAll(cb?: (data: any) => any): Promise<any>;
+
+export function vboxInfo(cb?: (data: Systeminformation.VboxInfoData[]) => any): Promise<Systeminformation.VboxInfoData[]>;
 
 export function getStaticData(cb?: (data: Systeminformation.StaticData) => any): Promise<Systeminformation.StaticData>;
 export function getDynamicData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<any>;

@@ -454,52 +454,52 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.dockerInfo(cb) | {...} | X | X | X | X | X | returns general docker info |
-| | ID | X | X | X | X | X | Docker ID |
-| | Containers | X | X | X | X | X | number of containers |
-| | ContainersRunning | X | X | X | X | X | number of running containers |
-| | ContainersPaused | X | X | X | X | X | number of paused containers |
-| | ContainersStopped | X | X | X | X | X | number of stopped containers |
-| | Images | X | X | X | X | X | number of images |
-| | Driver | X | X | X | X | X | driver (e.g. 'devicemapper', 'overlay2') |
-| | MemoryLimit | X | X | X | X | X | has memory limit |
-| | SwapLimit | X | X | X | X | X | has swap limit |
-| | KernelMemory | X | X | X | X | X | has kernal memory |
-| | CpuCfsPeriod | X | X | X | X | X | has CpuCfsPeriod |
-| | CpuCfsQuota | X | X | X | X | X | has CpuCfsQuota |
-| | CPUShares | X | X | X | X | X | has CPUShares |
-| | CPUSet | X | X | X | X | X | has CPUShares |
-| | IPv4Forwarding | X | X | X | X | X | has IPv4Forwarding |
-| | BridgeNfIptables | X | X | X | X | X | has BridgeNfIptables |
-| | BridgeNfIp6tables | X | X | X | X | X | has BridgeNfIp6tables |
-| | Debug | X | X | X | X | X | Debug on |
-| | NFd | X | X | X | X | X | named data networking forwarding daemon |
-| | OomKillDisable | X | X | X | X | X | out-of-memory kill disabled |
-| | NGoroutines | X | X | X | X | X | number NGoroutines |
-| | SystemTime | X | X | X | X | X | docker SystemTime |
-| | LoggingDriver | X | X | X | X | X | logging driver e.g. 'json-file' |
-| | CgroupDriver | X | X | X | X | X | cgroup driver e.g. 'cgroupfs' |
-| | NEventsListener | X | X | X | X | X | number NEventsListeners |
-| | KernelVersion | X | X | X | X | X | docker kernel version |
-| | OperatingSystem | X | X | X | X | X | docker OS e.g. 'Docker for Mac' |
-| | OSType | X | X | X | X | X | OSType e.g. 'linux' |
-| | Architecture | X | X | X | X | X | architecture e.g. x86_64 |
-| | NCPU | X | X | X | X | X | number of CPUs |
-| | MemTotal | X | X | X | X | X | memory total |
-| | DockerRootDir | X | X | X | X | X | docker root directory |
-| | HttpProxy | X | X | X | X | X | http proxy |
-| | HttpsProxy | X | X | X | X | X | https proxy |
-| | NoProxy | X | X | X | X | X | NoProxy |
-| | Name | X | X | X | X | X | Name |
-| | Labels | X | X | X | X | X | array of labels |
-| | ExperimentalBuild | X | X | X | X | X | is experimental build |
-| | ServerVersion | X | X | X | X | X | server version |
-| | ClusterStore | X | X | X | X | X | cluster store |
-| | ClusterAdvertise | X | X | X | X | X | cluster advertise |
-| | DefaultRuntime | X | X | X | X | X | default runtime e.g. 'runc' |
-| | LiveRestoreEnabled | X | X | X | X | X | live store enabled |
-| | Isolation | X | X | X | X | X | isolation |
-| | InitBinary | X | X | X | X | X | init binary |
-| | ProductLicense | X | X | X | X | X | product license |
+| | id | X | X | X | X | X | Docker ID |
+| | containers | X | X | X | X | X | number of containers |
+| | containersRunning | X | X | X | X | X | number of running containers |
+| | containersPaused | X | X | X | X | X | number of paused containers |
+| | containersStopped | X | X | X | X | X | number of stopped containers |
+| | images | X | X | X | X | X | number of images |
+| | driver | X | X | X | X | X | driver (e.g. 'devicemapper', 'overlay2') |
+| | memoryLimit | X | X | X | X | X | has memory limit |
+| | swapLimit | X | X | X | X | X | has swap limit |
+| | kernelMemory | X | X | X | X | X | has kernal memory |
+| | cpuCfsPeriod | X | X | X | X | X | has CpuCfsPeriod |
+| | cpuCfsQuota | X | X | X | X | X | has CpuCfsQuota |
+| | cpuShares | X | X | X | X | X | has CPUShares |
+| | cpuSet | X | X | X | X | X | has CPUShares |
+| | ipv4Forwarding | X | X | X | X | X | has IPv4Forwarding |
+| | bridgeNfIptables | X | X | X | X | X | has BridgeNfIptables |
+| | bridgeNfIp6tables | X | X | X | X | X | has BridgeNfIp6tables |
+| | debug | X | X | X | X | X | Debug on |
+| | nfd | X | X | X | X | X | named data networking forwarding daemon |
+| | oomKillDisable | X | X | X | X | X | out-of-memory kill disabled |
+| | ngoroutines | X | X | X | X | X | number NGoroutines |
+| | systemTime | X | X | X | X | X | docker SystemTime |
+| | loggingDriver | X | X | X | X | X | logging driver e.g. 'json-file' |
+| | cgroupDriver | X | X | X | X | X | cgroup driver e.g. 'cgroupfs' |
+| | nEventsListener | X | X | X | X | X | number NEventsListeners |
+| | kernelVersion | X | X | X | X | X | docker kernel version |
+| | operatingSystem | X | X | X | X | X | docker OS e.g. 'Docker for Mac' |
+| | osType | X | X | X | X | X | OSType e.g. 'linux' |
+| | architecture | X | X | X | X | X | architecture e.g. x86_64 |
+| | ncpu | X | X | X | X | X | number of CPUs |
+| | memTotal | X | X | X | X | X | memory total |
+| | dockerRootDir | X | X | X | X | X | docker root directory |
+| | httpProxy | X | X | X | X | X | http proxy |
+| | httpsProxy | X | X | X | X | X | https proxy |
+| | noProxy | X | X | X | X | X | NoProxy |
+| | name | X | X | X | X | X | Name |
+| | labels | X | X | X | X | X | array of labels |
+| | experimentalBuild | X | X | X | X | X | is experimental build |
+| | serverVersion | X | X | X | X | X | server version |
+| | clusterStore | X | X | X | X | X | cluster store |
+| | clusterAdvertise | X | X | X | X | X | cluster advertise |
+| | defaultRuntime | X | X | X | X | X | default runtime e.g. 'runc' |
+| | liveRestoreEnabled | X | X | X | X | X | live store enabled |
+| | isolation | X | X | X | X | X | isolation |
+| | initBinary | X | X | X | X | X | init binary |
+| | productLicense | X | X | X | X | X | product license |
 | si.dockerContainers(all, cb) | [{...}] | X | X | X | X | X | returns array of active/all docker containers |
 | | [0].id | X | X | X | X | X | ID of container |
 | | [0].name | X | X | X | X | X | name of container |

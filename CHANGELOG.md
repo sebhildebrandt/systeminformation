@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.8.2          | 2019-05-31     | `dockerInfo()` changed property naming style |
 | 4.8.1          | 2019-05-31     | updated docs |
 | 4.8.0          | 2019-05-31     | added `vboxInfo()` detailed virtual box info |
 | 4.7.3          | 2019-05-30     | updated typescript typings |
