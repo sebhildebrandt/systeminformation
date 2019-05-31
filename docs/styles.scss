@@ -346,6 +346,14 @@ ul {
     .title {
         margin: 25px 0 5px 0;
         color: #000;
+        a {
+          width: 100%;
+          color: #000;
+          text-decoration: none;
+          &:hover {
+              color: rgb(86, 122, 223);
+          }
+        }
     }
     hr {
         margin: 5px 0;

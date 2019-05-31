@@ -517,6 +517,16 @@ ul {
   color: #000;
 }
 
+.menu .title a {
+  width: 100%;
+  color: #000;
+  text-decoration: none;
+}
+
+.menu .title a:hover {
+  color: #567adf;
+}
+
 .menu hr {
   margin: 5px 0;
 }

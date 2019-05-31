@@ -82,6 +82,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.8.0: added `vboxInfo()` detailed virtual box info
 - Version 4.7.0: partial NetBSD support
 - Version 4.6.0: added `dockerInfo()`
 - Version 4.5.0: `fsOpenFiles()` added open file descriptor count
@@ -546,7 +547,46 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].command | X | X | X | X | X | command and arguments |
 | si.dockerAll(cb) | {...} | X | X | X | X | X | list of all containers including their stats<br>and processes in one single array |
 
-#### 12. "Get All at once" - functions
+#### 12. Virtual Box
+
+| Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
+| si.vboxInfo(cb) | {...} | X | X | X | X | X | returns general virtual box info |
+| | id | X | X | X | X | X | virtual box ID |
+| | name | X | X | X | X | X | name |
+| | running | X | X | X | X | X | vbox is running |
+| | runningSince | X | X | X | X | X | running since (secs) |
+| | guestOS | X | X | X | X | X | Guest OK |
+| | hardwareUUID | X | X | X | X | X | Hardware UUID |
+| | memory | X | X | X | X | X | Memory in MB |
+| | vram | X | X | X | X | X | VRAM in MB |
+| | cpus | X | X | X | X | X | CPUs |
+| | cpuExepCap | X | X | X | X | X | CPU exec cap |
+| | cpuProfile | X | X | X | X | X | CPU profile |
+| | chipset | X | X | X | X | X | chipset |
+| | firmware | X | X | X | X | X | firmware |
+| | pageFusion | X | X | X | X | X | page fusion |
+| | configFile | X | X | X | X | X | config file |
+| | snapshotFolder | X | X | X | X | X | snapshot folder |
+| | logFolder | X | X | X | X | X | log folder path |
+| | HPET | X | X | X | X | X | HPET |
+| | PAE | X | X | X | X | X | PAE |
+| | longMode | X | X | X | X | X | long mode |
+| | tripleFaultReset | X | X | X | X | X | triple fault reset |
+| | APIC | X | X | X | X | X | APIC |
+| | X2APIC | X | X | X | X | X | X2APIC |
+| | ACPI | X | X | X | X | X | ACPI |
+| | IOAPIC | X | X | X | X | X | IOAPIC |
+| | biosAPICmode | X | X | X | X | X | BIOS APIC mode |
+| | bootMenuMode | X | X | X | X | X | boot menu Mode |
+| | bootDevice1 | X | X | X | X | X | bootDevice1 |
+| | bootDevice2 | X | X | X | X | X | bootDevice2 |
+| | bootDevice3 | X | X | X | X | X | bootDevice3 |
+| | bootDevice4 | X | X | X | X | X | bootDevice4 |
+| | timeOffset | X | X | X | X | X | time Offset |
+| | RTC | X | X | X | X | X | RTC |
+
+#### 13. "Get All at once" - functions
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |

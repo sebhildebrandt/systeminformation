@@ -1,6 +1,6 @@
 function createMenu() {
   var menu = [
-    [0, '', 'Documentation'],
+    [0, './#docs', 'Documentation'],
     [1, 'gettingstarted', 'Getting Started'],
     [1, 'general', 'General'],
     [1, 'system', 'System'],
@@ -13,6 +13,7 @@ function createMenu() {
     [1, 'filesystem', 'Disks / FS'],
     [1, 'network', 'Network'],
     [1, 'docker', 'Docker'],
+    [1, 'vbox', 'Virtual Box'],
     [0, '', 'More'],
     [1, 'history', 'Version history'],
     [1, 'issues', 'Known Issues'],
@@ -27,6 +28,7 @@ function createMenu() {
 
   var menuParent = document.getElementById('menu');
   var titleElement;
+  var titleLink;
   var ulElement;
   var hrElement;
   var liElement;
@@ -35,8 +37,16 @@ function createMenu() {
     if (item[0] === 0) {
       titleElement = document.createElement('div');
       titleElement.classList.add('title');
-      titleElement.innerText = item[2];
       menuParent.appendChild(titleElement);
+      if (!item[1]) {
+        titleLink = document.createElement('div');
+        titleLink.innerText = item[2];
+      } else {
+        titleLink = document.createElement('a');
+        titleLink.setAttribute('href', item[1] + (item[1].indexOf('#') >= 0 ? '' : '.html'));
+        titleLink.innerText = item[2];
+      }
+      titleElement.appendChild(titleLink);
       hrElement = document.createElement('hr');
       titleElement.appendChild(hrElement);
       ulElement = document.createElement('ul');
