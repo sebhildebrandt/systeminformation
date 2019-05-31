@@ -551,40 +551,40 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
-| si.vboxInfo(cb) | {...} | X | X | X | X | X | returns general virtual box info |
-| | id | X | X | X | X | X | virtual box ID |
-| | name | X | X | X | X | X | name |
-| | running | X | X | X | X | X | vbox is running |
-| | runningSince | X | X | X | X | X | running since (secs) |
-| | guestOS | X | X | X | X | X | Guest OK |
-| | hardwareUUID | X | X | X | X | X | Hardware UUID |
-| | memory | X | X | X | X | X | Memory in MB |
-| | vram | X | X | X | X | X | VRAM in MB |
-| | cpus | X | X | X | X | X | CPUs |
-| | cpuExepCap | X | X | X | X | X | CPU exec cap |
-| | cpuProfile | X | X | X | X | X | CPU profile |
-| | chipset | X | X | X | X | X | chipset |
-| | firmware | X | X | X | X | X | firmware |
-| | pageFusion | X | X | X | X | X | page fusion |
-| | configFile | X | X | X | X | X | config file |
-| | snapshotFolder | X | X | X | X | X | snapshot folder |
-| | logFolder | X | X | X | X | X | log folder path |
-| | HPET | X | X | X | X | X | HPET |
-| | PAE | X | X | X | X | X | PAE |
-| | longMode | X | X | X | X | X | long mode |
-| | tripleFaultReset | X | X | X | X | X | triple fault reset |
-| | APIC | X | X | X | X | X | APIC |
-| | X2APIC | X | X | X | X | X | X2APIC |
-| | ACPI | X | X | X | X | X | ACPI |
-| | IOAPIC | X | X | X | X | X | IOAPIC |
-| | biosAPICmode | X | X | X | X | X | BIOS APIC mode |
-| | bootMenuMode | X | X | X | X | X | boot menu Mode |
-| | bootDevice1 | X | X | X | X | X | bootDevice1 |
-| | bootDevice2 | X | X | X | X | X | bootDevice2 |
-| | bootDevice3 | X | X | X | X | X | bootDevice3 |
-| | bootDevice4 | X | X | X | X | X | bootDevice4 |
-| | timeOffset | X | X | X | X | X | time Offset |
-| | RTC | X | X | X | X | X | RTC |
+| si.vboxInfo(cb) | [{...}] | X | X | X | X | X | returns array general virtual box info |
+| | [0].id | X | X | X | X | X | virtual box ID |
+| | [0].name | X | X | X | X | X | name |
+| | [0].running | X | X | X | X | X | vbox is running |
+| | [0].runningSince | X | X | X | X | X | running since (secs) |
+| | [0].guestOS | X | X | X | X | X | Guest OK |
+| | [0].hardwareUUID | X | X | X | X | X | Hardware UUID |
+| | [0].memory | X | X | X | X | X | Memory in MB |
+| | [0].vram | X | X | X | X | X | VRAM in MB |
+| | [0].cpus | X | X | X | X | X | CPUs |
+| | [0].cpuExepCap | X | X | X | X | X | CPU exec cap |
+| | [0].cpuProfile | X | X | X | X | X | CPU profile |
+| | [0].chipset | X | X | X | X | X | chipset |
+| | [0].firmware | X | X | X | X | X | firmware |
+| | [0].pageFusion | X | X | X | X | X | page fusion |
+| | [0].configFile | X | X | X | X | X | config file |
+| | [0].snapshotFolder | X | X | X | X | X | snapshot folder |
+| | [0].logFolder | X | X | X | X | X | log folder path |
+| | [0].HPET | X | X | X | X | X | HPET |
+| | [0].PAE | X | X | X | X | X | PAE |
+| | [0].longMode | X | X | X | X | X | long mode |
+| | [0].tripleFaultReset | X | X | X | X | X | triple fault reset |
+| | [0].APIC | X | X | X | X | X | APIC |
+| | [0].X2APIC | X | X | X | X | X | X2APIC |
+| | [0].ACPI | X | X | X | X | X | ACPI |
+| | [0].IOAPIC | X | X | X | X | X | IOAPIC |
+| | [0].biosAPICmode | X | X | X | X | X | BIOS APIC mode |
+| | [0].bootMenuMode | X | X | X | X | X | boot menu Mode |
+| | [0].bootDevice1 | X | X | X | X | X | bootDevice1 |
+| | [0].bootDevice2 | X | X | X | X | X | bootDevice2 |
+| | [0].bootDevice3 | X | X | X | X | X | bootDevice3 |
+| | [0].bootDevice4 | X | X | X | X | X | bootDevice4 |
+| | [0].timeOffset | X | X | X | X | X | time Offset |
+| | [0].RTC | X | X | X | X | X | RTC |
 
 #### 13. "Get All at once" - functions
 
