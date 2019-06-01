@@ -526,7 +526,10 @@ export namespace Systeminformation {
     id: string;
     name: string;
     running: boolean;
+    started: string;
     runningSince: number;
+    stopped: string;
+    stoppedSince: number;
     guestOS: string;
     hardwareUUID: string;
     memory: number;

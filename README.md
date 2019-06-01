@@ -555,7 +555,10 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].id | X | X | X | X | X | virtual box ID |
 | | [0].name | X | X | X | X | X | name |
 | | [0].running | X | X | X | X | X | vbox is running |
+| | [0].started | X | X | X | X | X | started date time |
 | | [0].runningSince | X | X | X | X | X | running since (secs) |
+| | [0].stopped | X | X | X | X | X | stopped date time |
+| | [0].stoppedSince | X | X | X | X | X | stopped since (secs) |
 | | [0].guestOS | X | X | X | X | X | Guest OK |
 | | [0].hardwareUUID | X | X | X | X | X | Hardware UUID |
 | | [0].memory | X | X | X | X | X | Memory in MB |
