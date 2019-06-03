@@ -30,7 +30,8 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 4.8.4          | 2019-06-03     | `vboxInfo()` afixed call parameters |
+| 4.9.0          | 2019-06-03     | `graphics()` added vendor, refresh rate, current res |
+| 4.8.4          | 2019-06-03     | `vboxInfo()` fixed call parameters |
 | 4.8.3          | 2019-06-01     | `vboxInfo()` added stoppedSince, started, stopped |
 | 4.8.2          | 2019-05-31     | `dockerInfo()` changed property naming style |
 | 4.8.1          | 2019-05-31     | updated docs |

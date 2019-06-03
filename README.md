@@ -758,6 +758,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - weiyin [weiyin](https://github.com/weiyin)
 - Jorai Rijsdijk [Erackron](https://github.com/Erackron)
 - Rasmus Porsager [porsager](https://github.com/porsager)
+- Nathan Patten [nrpatten](https://github.com/nrpatten)
 
 OSX Temperature: credits here are going to:
 

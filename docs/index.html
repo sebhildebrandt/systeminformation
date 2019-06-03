@@ -34,7 +34,6 @@
     function init() {
       typed();
       document.querySelector('.down').addEventListener('click', function () {
-        console.log('CLICKED')
         scrollIt(
           document.querySelector('.quickstart'),
           600,
@@ -79,7 +78,6 @@
         backDelay: 1200,
 
       }
-      console.log('asd')
       var typed = new Typed('#typed', options);
     }
     function scrollIt(destination, duration = 200, easing = 'linear', callback) {
@@ -170,7 +168,7 @@
       <img class="logo" src="assets/logo.png">
       <div class="title">systeminformation</div>
       <div class="subtitle"><span id="typed"></span></div>
-      <div class="version">Current Version: <span id="version">4.8.4</span></div>
+      <div class="version">Current Version: <span id="version">4.9.0</span></div>
       <button class="btn btn-light" onclick="location.href='https://github.com/sebhildebrandt/systeminformation'">View on Github <i class=" fab fa-github"></i></button>
     </div>
     <div class="down">
@@ -193,7 +191,7 @@
     </div>
     <div class="row number-section">
       <div class="col-xl-4 col-lg-4 col-md-4 col-12">
-        <div class="numbers">8,665</div>
+        <div class="numbers">8,733</div>
         <div class="title">Lines of code</div>
       </div>
       <div class="col-xl-4 col-lg-4 col-md-4 col-12">
