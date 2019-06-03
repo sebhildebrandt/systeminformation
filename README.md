@@ -251,8 +251,9 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ...[0].bus | X |  | X | X |  | on which bus (e.g. PCIe) |
 | | ...[0].vram | X |  | X | X |  | VRAM size (in MB) |
 | | ...[0].vramDynamic | X |  | X | X |  | true if dynamicly allocated ram |
-| | displays[] | X |  | X | X |  | monitor/display Array |
-| | ...[0].model | X |  | X | X |  | monitor/display Model |
+| | displays[] | X |  | X | X |  | monitor/display array |
+| | ...[0].vendor | |  | X |  |  | monitor/display vendor |
+| | ...[0].model | X |  | X | X |  | monitor/display model |
 | | ...[0].main | X |  | X |  |  | true if main monitor |
 | | ...[0].builtin | X |  | X |  |  | true if built in monitor |
 | | ...[0].connection | X |  | X |  |  | e.g. DisplayPort or HDMI |
@@ -261,6 +262,9 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ...[0].pixeldepth | X |  | X | X |  | color depth in bits |
 | | ...[0].resolutionx | X |  | X | X |  | pixel horizontal |
 | | ...[0].resolutiony | X |  | X | X |  | pixel vertical |
+| | ...[0].currentResX | X |  | X | X |  | current pixel horizontal |
+| | ...[0].currentResY | X |  | X | X |  | current pixel vertical |
+| | ...[0].currentRefreshRate | X |  | X | X |  | current pixel vertical |
 
 #### 7. Operating System
 

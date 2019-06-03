@@ -167,6 +167,7 @@ export namespace Systeminformation {
   }
 
   interface GraphicsDisplayData {
+    vendor: string;
     model: string;
     main: boolean;
     builtin: boolean;
@@ -176,6 +177,9 @@ export namespace Systeminformation {
     pixeldepth: number;
     resolutionx: number;
     resolutiony: number;
+    currentResX: number;
+    currentResY: number;
+    currentRefreshRate: number;
   }
 
   // 4. Operating System
