@@ -559,7 +559,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].runningSince | X | X | X | X | X | running since (secs) |
 | | [0].stopped | X | X | X | X | X | stopped date time |
 | | [0].stoppedSince | X | X | X | X | X | stopped since (secs) |
-| | [0].guestOS | X | X | X | X | X | Guest OK |
+| | [0].guestOS | X | X | X | X | X | Guest OS |
 | | [0].hardwareUUID | X | X | X | X | X | Hardware UUID |
 | | [0].memory | X | X | X | X | X | Memory in MB |
 | | [0].vram | X | X | X | X | X | VRAM in MB |
