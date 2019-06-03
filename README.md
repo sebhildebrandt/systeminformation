@@ -82,6 +82,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.9.0: added `graphics()` added vendor, refresh rate, current resolution
 - Version 4.8.0: added `vboxInfo()` detailed virtual box info
 - Version 4.7.0: partial NetBSD support
 - Version 4.6.0: added `dockerInfo()`
