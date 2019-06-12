@@ -616,7 +616,7 @@ export function fsOpenFiles(cb?: (data: Systeminformation.FsOpenFilesData[]) => 
 export function blockDevices(cb?: (data: Systeminformation.BlockDevicesData[]) => any): Promise<Systeminformation.BlockDevicesData[]>;
 export function fsStats(cb?: (data: Systeminformation.FsStatsData) => any): Promise<Systeminformation.FsStatsData>;
 export function disksIO(cb?: (data: Systeminformation.DisksIoData) => any): Promise<Systeminformation.DisksIoData>;
-export function diskLayout(cb?: (data: Systeminformation.DiskLayoutData) => any): Promise<Systeminformation.DiskLayoutData>;
+export function diskLayout(cb?: (data: Systeminformation.DiskLayoutData[]) => any): Promise<Systeminformation.DiskLayoutData[]>;
 
 export function networkInterfaceDefault(cb?: (data: string) => any): Promise<string>;
 export function networkInterfaces(cb?: (data: Systeminformation.NetworkInterfacesData[]) => any): Promise<Systeminformation.NetworkInterfacesData[]>;
