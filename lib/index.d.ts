@@ -344,6 +344,19 @@ export namespace Systeminformation {
     ms: number;
   }
 
+  interface WifiNetworkData {
+    ssid: string;
+    bssid: string;
+    mode: string;
+    channel: number;
+    frequency: number;
+    signalLevel: number;
+    quality: number;
+    security: string[];
+    wpaFlags: string[];
+    rsnFlags: string[];
+  }
+
   // 7. Current Load, Processes & Services
 
   interface CurrentLoadData {
@@ -625,6 +638,8 @@ export function networkStats(ifaces?: string, cb?: (data: Systeminformation.Netw
 export function networkConnections(cb?: (data: Systeminformation.NetworkConnectionsData[]) => any): Promise<Systeminformation.NetworkConnectionsData[]>;
 export function inetChecksite(url: string, cb?: (data: Systeminformation.InetChecksiteData) => any): Promise<Systeminformation.InetChecksiteData>;
 export function inetLatency(host?: string, cb?: (data: number) => any): Promise<number>;
+
+export function wifi(cb?: (data: Systeminformation.WifiNetworkData[]) => any): Promise<Systeminformation.WifiNetworkData[]>;
 
 export function users(cb?: (data: Systeminformation.UserData[]) => any): Promise<Systeminformation.UserData[]>;
 

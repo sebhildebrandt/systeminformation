@@ -455,7 +455,22 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ms | X | X | X | X | X | response time in ms |
 | si.inetLatency(host, cb) | : number | X | X | X | X | X | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
 
-#### 11. Docker
+#### 11. Wifi networks
+| Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
+| si.wifi(cb) | [{...}] | X |  | X | X |  | array of available wifi networks |
+| | [0].ssid | X |  | X | X |   | Wifi network SSID |
+| | [0].bssid | X |  | X | X |   | BSSID (mac) |
+| | [0].mode | X |  |   |   |   | mode |
+| | [0].channel | X |  | X | X |   | channel |
+| | [0].frequency | X |  | X | X |   | frequengy in MHz |
+| | [0].signalLevel | X |  | X | X |   | signal level in dB |
+| | [0].quality | X |  | X | X |   | quaility in % |
+| | [0].security | X |  | X | X |   | array e.g. WPA, WPA-2 |
+| | [0].wpaFlags | X |  | X | X |   | array of WPA flags |
+| | [0].rsnFlags | X |  |  |   |   | array of RDN flags |
+
+#### 12. Docker
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -553,7 +568,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].command | X | X | X | X | X | command and arguments |
 | si.dockerAll(cb) | {...} | X | X | X | X | X | list of all containers including their stats<br>and processes in one single array |
 
-#### 12. Virtual Box
+#### 13. Virtual Box
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -595,7 +610,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].timeOffset | X | X | X | X | X | time Offset |
 | | [0].RTC | X | X | X | X | X | RTC |
 
-#### 13. "Get All at once" - functions
+#### 14. "Get All at once" - functions
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |

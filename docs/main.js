@@ -12,6 +12,7 @@ function createMenu() {
     [1, 'processes', 'Processes / Services'],
     [1, 'filesystem', 'Disks / FS'],
     [1, 'network', 'Network'],
+    [1, 'wifi', 'Wifi'],
     [1, 'docker', 'Docker'],
     [1, 'vbox', 'Virtual Box'],
     [0, '', 'More'],
