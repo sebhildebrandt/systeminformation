@@ -82,7 +82,8 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
-- Version 4.9.0: added `graphics()` added vendor, refresh rate, current resolution
+- Version 4.10.0: `graphics()` added windows multiple display support, added display size, connection, ...
+- Version 4.9.0: `graphics()` added vendor, refresh rate, current resolution
 - Version 4.8.0: added `vboxInfo()` detailed virtual box info
 - Version 4.7.0: partial NetBSD support
 - Version 4.6.0: added `dockerInfo()`
@@ -253,13 +254,13 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ...[0].vram | X |  | X | X |  | VRAM size (in MB) |
 | | ...[0].vramDynamic | X |  | X | X |  | true if dynamicly allocated ram |
 | | displays[] | X |  | X | X |  | monitor/display array |
-| | ...[0].vendor | |  | X |  |  | monitor/display vendor |
+| | ...[0].vendor |  |  |  | X |  | monitor/display vendor |
 | | ...[0].model | X |  | X | X |  | monitor/display model |
-| | ...[0].main | X |  | X |  |  | true if main monitor |
+| | ...[0].main | X |  | X | X|  | true if main monitor |
 | | ...[0].builtin | X |  | X |  |  | true if built in monitor |
-| | ...[0].connection | X |  | X |  |  | e.g. DisplayPort or HDMI |
-| | ...[0].sizex | X |  | X |  |  | size in mm horizontal |
-| | ...[0].sizey | X |  | X |  |  | size in mm vertical |
+| | ...[0].connection | X |  | X | X |  | e.g. DisplayPort or HDMI |
+| | ...[0].sizex | X |  | X | X |  | size in mm horizontal |
+| | ...[0].sizey | X |  | X | X |  | size in mm vertical |
 | | ...[0].pixeldepth | X |  | X | X |  | color depth in bits |
 | | ...[0].resolutionx | X |  | X | X |  | pixel horizontal |
 | | ...[0].resolutiony | X |  | X | X |  | pixel vertical |

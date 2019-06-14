@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.10.0          | 2019-06-14     | `graphics()` windows multiple display support |
 | 4.9.2          | 2019-06-12     | type definitions bug fix |
 | 4.9.1          | 2019-06-11     | `networkStats()` bug fix windows |
 | 4.9.0          | 2019-06-03     | `graphics()` added vendor, refresh rate, current res |
