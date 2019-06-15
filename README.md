@@ -82,7 +82,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
-- Version 4.11.0: `wifi()` added available wifi networks
+- Version 4.11.0: `wifiNetworks()` added available wifi networks
 - Version 4.10.0: `graphics()` added windows multiple display support, added display size, connection, ...
 - Version 4.9.0: `graphics()` added vendor, refresh rate, current resolution
 - Version 4.8.0: added `vboxInfo()` detailed virtual box info
@@ -459,7 +459,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 #### 11. Wifi networks
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
-| si.wifi(cb) | [{...}] | X |  | X | X |  | array of available wifi networks |
+| si.wifiNetworks(cb) | [{...}] | X |  | X | X |  | array of available wifi networks |
 | | [0].ssid | X |  | X | X |   | Wifi network SSID |
 | | [0].bssid | X |  | X | X |   | BSSID (mac) |
 | | [0].mode | X |  |   |   |   | mode |

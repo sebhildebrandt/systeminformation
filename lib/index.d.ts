@@ -639,7 +639,7 @@ export function networkConnections(cb?: (data: Systeminformation.NetworkConnecti
 export function inetChecksite(url: string, cb?: (data: Systeminformation.InetChecksiteData) => any): Promise<Systeminformation.InetChecksiteData>;
 export function inetLatency(host?: string, cb?: (data: number) => any): Promise<number>;
 
-export function wifi(cb?: (data: Systeminformation.WifiNetworkData[]) => any): Promise<Systeminformation.WifiNetworkData[]>;
+export function wifiNetworks(cb?: (data: Systeminformation.WifiNetworkData[]) => any): Promise<Systeminformation.WifiNetworkData[]>;
 
 export function users(cb?: (data: Systeminformation.UserData[]) => any): Promise<Systeminformation.UserData[]>;
 

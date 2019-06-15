@@ -62,7 +62,12 @@
     "gpu",
     "display",
     "smart",
-    "disk layout"
+    "disk layout",
+    "wifi",
+    "wifinetworks",
+    "virtual box",
+    "virtualbox",
+    "vm"
   ],
   "repository": {
     "type": "git",
