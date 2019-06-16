@@ -40,6 +40,8 @@ This next major version release 4.0 comes with several optimizations and changes
 - reworked network section: this will now return more information and allows to get networkStats for more than one interface at once.
 - dockerContainerStats for multiple containers or all containers at once
 - optimized graphics controller and display detection
+- added wifiNetworks to get available wifi networks
+- added vboxInfo to get detailed vm information
 - added chassis information
 - better Raspberry-PI detection
 - lot of minor improvements
