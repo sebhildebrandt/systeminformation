@@ -89,9 +89,9 @@ export namespace Systeminformation {
   }
 
   interface CpuTemperatureData {
-    main: string;
-    cores: string;
-    max: string;
+    main: number;
+    cores: number[];
+    max: number;
   }
 
   interface MemData {
