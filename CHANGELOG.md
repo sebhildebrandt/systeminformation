@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.11.6         | 2019-06-19     | `util` bug fix |
 | 4.11.5         | 2019-06-19     | `dockerAll()` bug fix |
 | 4.11.4         | 2019-06-17     | type definitions bug fix |
 | 4.11.3         | 2019-06-16     | `graphics()` optimization windows |
