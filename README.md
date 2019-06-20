@@ -357,7 +357,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.diskLayout(cb) | [{...}] | X |  | X | X |  | physical disk layout (array) |
-| | [0].type | X |  | X |  |  | e.g. /dev/sda |
+| | [0].device | X |  | X |  |  | e.g. /dev/sda |
 | | [0].type | X |  | X | X |  | HD, SSD, NVMe |
 | | [0].name | X |  | X | X |  | disk name |
 | | [0].vendor | X |  | | X |  | vendor/producer |
