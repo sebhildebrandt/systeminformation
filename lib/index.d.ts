@@ -306,6 +306,7 @@ export namespace Systeminformation {
     ip6: string;
     mac: string;
     internal: boolean;
+    virtual: boolean;
     operstate: string;
     type: string;
     duplex: string;

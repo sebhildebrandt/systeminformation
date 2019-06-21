@@ -357,7 +357,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.diskLayout(cb) | [{...}] | X |  | X | X |  | physical disk layout (array) |
-| | [0].type | X |  | X |  |  | e.g. /dev/sda |
+| | [0].device | X |  | X |  |  | e.g. /dev/sda |
 | | [0].type | X |  | X | X |  | HD, SSD, NVMe |
 | | [0].name | X |  | X | X |  | disk name |
 | | [0].vendor | X |  | | X |  | vendor/producer |
@@ -425,6 +425,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].ip6 | X | X | X | X | X | ip6 address |
 | | [0].mac | X | X | X | X | X | MAC address |
 | | [0].internal | X | X | X | X | X | true if internal interface |
+| | [0].virtual | X | X | X | X | X | true if virtual interface |
 | | [0].operstate | X | | X | X |  | up / down |
 | | [0].type | X | | X | X | | wireless / wired |
 | | [0].duplex | X | | X | | | duplex |
