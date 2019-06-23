@@ -84,6 +84,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.12.0: `networkInterfaces()` added property virtual
 - Version 4.11.0: `wifiNetworks()` added available wifi networks
 - Version 4.10.0: `graphics()` added windows multiple display support, added display size, connection, ...
 - Version 4.9.0: `graphics()` added vendor, refresh rate, current resolution
@@ -401,7 +402,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].used | X | X | X | X |  | used in bytes |
 | | [0].use | X | X | X | X |  | used in % |
 | | [0].mount | X | X | X | X |  | mount point |
-| si.fsOpenFIles(cb) | {...} | X | X | X |  |  | count max/allocated file descriptors |
+| si.fsOpenFiles(cb) | {...} | X | X | X |  |  | count max/allocated file descriptors |
 | | max | X | X | X |  |  | max file descriptors |
 | | allocated | X | X | X |  |  | current open files count |
 | | available | X | X | X |  |  | count available |
