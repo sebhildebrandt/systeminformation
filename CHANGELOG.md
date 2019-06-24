@@ -30,7 +30,8 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 4.12.0         | 2019-06-19     | `networkInterface()` added property virtual |
+| 4.12.1         | 2019-06-24     | `networkInterface()` virtual interfaces macos, `networkInterfaceDefault()` |
+| 4.12.0         | 2019-06-21     | `networkInterface()` added property virtual |
 | 4.11.6         | 2019-06-19     | `util` bug fix |
 | 4.11.5         | 2019-06-19     | `dockerAll()` bug fix |
 | 4.11.4         | 2019-06-17     | type definitions bug fix |
