@@ -336,6 +336,8 @@ export namespace Systeminformation {
     peeraddress: string;
     peerport: string;
     state: string;
+    pid: number;
+    process: string;
   }
 
   interface InetChecksiteData {
