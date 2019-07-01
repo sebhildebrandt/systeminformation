@@ -84,19 +84,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.13.0: `networkConnections()` added PID, process
 - Version 4.12.0: `networkInterfaces()` added property virtual
 - Version 4.11.0: `wifiNetworks()` added available wifi networks
 - Version 4.10.0: `graphics()` added windows multiple display support, added display size, connection, ...
 - Version 4.9.0: `graphics()` added vendor, refresh rate, current resolution
 - Version 4.8.0: added `vboxInfo()` detailed virtual box info
 - Version 4.7.0: partial NetBSD support
-- Version 4.6.0: added `dockerInfo()`
-- Version 4.5.0: `fsOpenFiles()` added open file descriptor count
-- Version 4.4.0: `dockerContainers()` added started, finished time
-- Version 4.3.0: `dockerContainers()` `dockerStats()` added restartCount
-- Version 4.2.0: `networkInterfaceDefault()` time delay fix (linux)
-- Version 4.1.0: `versions()` added python3, pip, pip3, java
-- Version 4.0.0: new version ... read the [detailed changelog][changelog-url] to see all breaking changes
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -453,6 +447,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].peeraddress | X | X | X | X |  | peer address |
 | | [0].peerport | X | X | X | X |  | peer port |
 | | [0].state | X | X | X | X |  | like ESTABLISHED, TIME_WAIT, ... |
+| | [0].pid | X | X | X | X |  | process ID |
+| | [0].process | X | X |  |  |  | process name |
 | si.inetChecksite(url, cb) | {...} | X | X | X | X | X | response-time (ms) to fetch given URL |
 | | url | X | X | X | X | X | given url |
 | | ok | X | X | X | X | X | status code OK (2xx, 3xx) |

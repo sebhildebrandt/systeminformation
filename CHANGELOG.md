@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.13.0         | 2019-07-01     | `networkConnections()` added PID and process |
 | 4.12.2         | 2019-06-24     | `system()` added Raspberry PI 4 detection |
 | 4.12.1         | 2019-06-24     | `networkInterface()` virtual interfaces macos, `networkInterfaceDefault()` |
 | 4.12.0         | 2019-06-21     | `networkInterface()` added property virtual |
