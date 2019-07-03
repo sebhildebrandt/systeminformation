@@ -336,6 +336,8 @@ export namespace Systeminformation {
     peeraddress: string;
     peerport: string;
     state: string;
+    pid: number;
+    process: string;
   }
 
   interface InetChecksiteData {
@@ -418,6 +420,8 @@ export namespace Systeminformation {
     tty: string;
     user: string;
     command: string;
+    params: string;
+    path: string;
   }
 
   interface ProcessesProcessLoadData {
