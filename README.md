@@ -84,13 +84,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.14.0: `processes()` added process path and params
 - Version 4.13.0: `networkConnections()` added PID, process
 - Version 4.12.0: `networkInterfaces()` added property virtual
 - Version 4.11.0: `wifiNetworks()` added available wifi networks
 - Version 4.10.0: `graphics()` added windows multiple display support, added display size, connection, ...
 - Version 4.9.0: `graphics()` added vendor, refresh rate, current resolution
 - Version 4.8.0: added `vboxInfo()` detailed virtual box info
-- Version 4.7.0: partial NetBSD support
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -333,7 +333,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ...[0].tty | X | X | X |  | X | tty from which process was started |
 | | ...[0].user | X | X | X |  | X | user who started process |
 | | ...[0].command | X | X | X | X | X | process starting command |
-| si.processLoad('apache2',cb) | {...} | X | X | X | X |  | detailed information about given process |
+| | ...[0].params | X | X | X |   | X | process params |
+| | ...[0].path | X | X | X | X | X | process path |
 | | proc | X | X | X | X |  | process name |
 | | pid | X | X | X | X |  | PID |
 | | pids | X | X | X | X |  | additional pids |

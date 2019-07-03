@@ -420,6 +420,8 @@ export namespace Systeminformation {
     tty: string;
     user: string;
     command: string;
+    params: string;
+    path: string;
   }
 
   interface ProcessesProcessLoadData {
