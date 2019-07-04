@@ -179,6 +179,8 @@ export namespace Systeminformation {
     resolutiony: number;
     currentResX: number;
     currentResY: number;
+    positionX: number;
+    positionY: number;
     currentRefreshRate: number;
   }
 

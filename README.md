@@ -264,6 +264,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ...[0].resolutiony | X |  | X | X |  | pixel vertical |
 | | ...[0].currentResX | X |  | X | X |  | current pixel horizontal |
 | | ...[0].currentResY | X |  | X | X |  | current pixel vertical |
+| | ...[0].positionX |  |  |  | X |  | display position X |
+| | ...[0].positionY |  |  |  | X |  | display position Y |
 | | ...[0].currentRefreshRate | X |  | X | X |  | current pixel vertical |
 
 #### 7. Operating System
