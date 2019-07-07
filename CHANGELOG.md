@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.14.2         | 2019-07-07     | `networkConnections()` pid linux fix NAN |
 | 4.14.1         | 2019-07-04     | `graphics()` added display position windows |
 | 4.14.0         | 2019-07-03     | `processes()` added process path and params |
 | 4.13.2         | 2019-07-02     | `versions()` fix getting all versions |
