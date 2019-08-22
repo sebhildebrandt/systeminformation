@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.14.5         | 2019-08-22     | `fsSize()` fix windows result as number |
 | 4.14.4         | 2019-07-20     | `verions()` fix pip, pip3 |
 | 4.14.3         | 2019-07-09     | `system()` sku fix windows |
 | 4.14.2         | 2019-07-07     | `networkConnections()` pid linux fix NAN |
