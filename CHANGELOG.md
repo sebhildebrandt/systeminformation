@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.14.8         | 2019-08-22     | `parseDateTime()` fix coding error |
 | 4.14.7         | 2019-08-22     | `battery()` windows acconnected improvement |
 | 4.14.6         | 2019-08-22     | `users()` improved date time parsing |
 | 4.14.5         | 2019-08-22     | `fsSize()` fix windows result as number |
