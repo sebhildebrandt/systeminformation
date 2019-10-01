@@ -654,7 +654,7 @@ export function processes(cb?: (data: Systeminformation.ProcessesData) => any): 
 export function processLoad(processName: string, cb?: (data: Systeminformation.ProcessesProcessLoadData) => any): Promise<Systeminformation.ProcessesProcessLoadData>;
 export function services(serviceName: string, cb?: (data: Systeminformation.ServicesData[]) => any): Promise<Systeminformation.ServicesData[]>;
 
-export function dockerInfo(cb?: (data: Systeminformation.DockerInfoData[]) => any): Promise<Systeminformation.DockerInfoData[]>;
+export function dockerInfo(cb?: (data: Systeminformation.DockerInfoData) => any): Promise<Systeminformation.DockerInfoData>;
 export function dockerContainers(all?: boolean, cb?: (data: Systeminformation.DockerContainerData[]) => any): Promise<Systeminformation.DockerContainerData[]>;
 export function dockerContainerStats(id?: string, cb?: (data: Systeminformation.DockerContainerStatsData[]) => any): Promise<Systeminformation.DockerContainerStatsData[]>;
 export function dockerContainerProcesses(id?: string, cb?: (data: any) => any): Promise<any>;
