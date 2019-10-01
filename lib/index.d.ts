@@ -626,7 +626,7 @@ export function currentLoad(cb?: (data: Systeminformation.CurrentLoadData) => an
 export function fullLoad(cb?: (data: number) => any): Promise<number>;
 
 export function mem(cb?: (data: Systeminformation.MemData) => any): Promise<Systeminformation.MemData>;
-export function memLayout(cb?: (data: Systeminformation.MemLayoutData) => any): Promise<Systeminformation.MemLayoutData>;
+export function memLayout(cb?: (data: Systeminformation.MemLayoutData[]) => any): Promise<Systeminformation.MemLayoutData[]>;
 
 export function battery(cb?: (data: Systeminformation.BatteryData) => any): Promise<Systeminformation.BatteryData>;
 export function graphics(cb?: (data: Systeminformation.GraphicsData) => any): Promise<Systeminformation.GraphicsData>;
