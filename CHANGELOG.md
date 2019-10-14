@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.14.12        | 2019-10-14     | getCpu() fixed multi socket detection (linux) |
 | 4.14.11        | 2019-10-01     | type definitions fix dockerInfo |
 | 4.14.10        | 2019-10-01     | type definitions fix memLayout |
 | 4.14.9         | 2019-10-01     | `processLoad()` fix windows |
