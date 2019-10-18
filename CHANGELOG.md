@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.14.15        | 2019-10-18     | `graphics()` fallback display detection (windows) |
 | 4.14.14        | 2019-10-18     | `powerShell()` fixed error handling (windows) |
 | 4.14.13        | 2019-10-15     | `networkConnections()` fixed parsing (linux) |
 | 4.14.12        | 2019-10-14     | `getCpu()` fixed multi socket detection (linux) |
