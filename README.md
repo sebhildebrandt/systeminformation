@@ -29,7 +29,7 @@
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
-This is amazing. Started as a small projekt just for myself, it now has > 9,000 lines of code, > 250 versions published, up to 200,000 downloads per month, > 1 Mio downloads overall. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 9,000 lines of code, > 250 versions published, up to 200,000 downloads per month, > 1 Mio downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 4.0
 
