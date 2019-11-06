@@ -6,6 +6,7 @@
   "author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com> (https://plus-innovations.com)",
   "homepage": "https://github.com/sebhildebrandt/systeminformation",
   "main": "./lib/index.js",
+  "bin": "./lib/cli.js",
   "types": "./lib/index.d.ts",
   "scripts": {
     "clean": "rimraf dist",

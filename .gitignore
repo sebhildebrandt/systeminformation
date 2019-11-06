@@ -46,6 +46,9 @@ npm-debug.log
 npm*
 *.gz
 
+# we'll ignore lock files as we are a public repo
+yarn.lock
+
 # Other
 *_conflict-
 .notes.txt
