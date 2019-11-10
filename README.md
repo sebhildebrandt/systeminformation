@@ -29,7 +29,7 @@
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
-This is amazing. Started as a small project just for myself, it now has > 9,000 lines of code, > 250 versions published, up to 400,000 downloads per month, > 1 Mio downloads overall. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 9,000 lines of code, > 250 versions published, up to 900,000 downloads per month, > 2 Mio downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 4.0
 
@@ -91,7 +91,6 @@ si.cpu()
 - Version 4.11.0: `wifiNetworks()` added available wifi networks
 - Version 4.10.0: `graphics()` added windows multiple display support, added display size, connection, ...
 - Version 4.9.0: `graphics()` added vendor, refresh rate, current resolution
-- Version 4.8.0: added `vboxInfo()` detailed virtual box info
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]

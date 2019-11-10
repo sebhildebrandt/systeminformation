@@ -30,6 +30,8 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.15.1         | 2019-11-10     | `diskLayout()` added support for older lsblk versions (linux) |
+| 4.15.0         | 2019-11-10     | `cpu()` added governor (linux) |
 | 4.14.17        | 2019-10-22     | `graphics()` improved display detection (windows) |
 | 4.14.16        | 2019-10-19     | `graphics()` improved display detection (windows) |
 | 4.14.15        | 2019-10-18     | `graphics()` fallback display detection (windows) |
