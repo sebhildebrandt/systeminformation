@@ -84,6 +84,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.15.0: `cpu()` added governor (linux)
 - Version 4.14.0: `processes()` added process path and params
 - Version 4.13.0: `networkConnections()` added PID, process
 - Version 4.12.0: `networkInterfaces()` added property virtual
@@ -162,6 +163,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | speed | X | X | X | X |  | in GHz e.g. '3.40' |
 | | speedmin | X |  | X | X |  | in GHz e.g. '0.80' |
 | | speedmax | X | X | X | X |  | in GHz e.g. '3.90' |
+| | governor | X | | | |  | e.g. 'powersave' |
 | | cores | X | X | X | X |  | # cores |
 | | physicalCores | X | X | X | X |  | # physical cores |
 | | processors | X | X | X | X |  | # processors |
@@ -302,7 +304,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.currentLoad(cb) | {...} | X |  | X | X | X | CPU-Load |
-| | avgload | X |  | X | X | X | average load  |
+| | avgload | X |  | X | | X | average load  |
 | | currentload | X |  | X | X | X | CPU load in % |
 | | currentload_user | X |  | X | X | X | CPU load user in % |
 | | currentload_system | X |  | X | X | X | CPU load system in % |
