@@ -63,6 +63,7 @@ export namespace Systeminformation {
     speed: string;
     speedmin: string;
     speedmax: string;
+    governor: string;
     cores: number;
     physicalCores: number;
     processors: number;
@@ -101,6 +102,9 @@ export namespace Systeminformation {
     active: number;
     available: number;
     buffcache: number;
+    buffers: number;
+    cached: number;
+    slab: number;
     swaptotal: number;
     swapused: number;
     swapfree: number;

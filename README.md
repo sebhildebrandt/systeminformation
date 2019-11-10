@@ -204,6 +204,9 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | used | X | X | X | X | X | used (incl. buffers/cache) |
 | | active | X | X | X | X | X | used actively (excl. buffers/cache)  |
 | | buffcache | X | X | X |  | X | used by buffers+cache |
+| | buffers | X |  |  |  |  | used by buffers |
+| | cached | X |  |  |  |  | used by cache |
+| | slab | X |  |  |  |  | used by slab |
 | | available | X | X | X | X | X | potentially available (total - active) |
 | | swaptotal | X | X | X | X | X |  |
 | | swapused | X | X | X | X | X |  |
