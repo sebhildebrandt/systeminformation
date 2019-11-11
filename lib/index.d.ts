@@ -643,6 +643,7 @@ export function disksIO(cb?: (data: Systeminformation.DisksIoData) => any): Prom
 export function diskLayout(cb?: (data: Systeminformation.DiskLayoutData[]) => any): Promise<Systeminformation.DiskLayoutData[]>;
 
 export function networkInterfaceDefault(cb?: (data: string) => any): Promise<string>;
+export function networkGatewayDefault(cb?: (data: string) => any): Promise<string>;
 export function networkInterfaces(cb?: (data: Systeminformation.NetworkInterfacesData[]) => any): Promise<Systeminformation.NetworkInterfacesData[]>;
 
 export function networkStats(ifaces?: string, cb?: (data: Systeminformation.NetworkStatsData[]) => any): Promise<Systeminformation.NetworkStatsData[]>;
