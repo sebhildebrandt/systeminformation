@@ -30,6 +30,16 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.15.2         | 2019-11-10     | type definitions and docs update |
+| 4.15.2         | 2019-11-10     | `mem()` improved calculation linux |
+| 4.15.1         | 2019-11-10     | `diskLayout()` added support for older lsblk versions (linux) |
+| 4.15.0         | 2019-11-10     | `cpu()` added governor (linux) |
+| 4.14.17        | 2019-10-22     | `graphics()` improved display detection (windows) |
+| 4.14.16        | 2019-10-19     | `graphics()` improved display detection (windows) |
+| 4.14.15        | 2019-10-18     | `graphics()` fallback display detection (windows) |
+| 4.14.14        | 2019-10-18     | `powerShell()` fixed error handling (windows) |
+| 4.14.13        | 2019-10-15     | `networkConnections()` fixed parsing (linux) |
+| 4.14.12        | 2019-10-14     | `getCpu()` fixed multi socket detection (linux) |
 | 4.14.11        | 2019-10-01     | type definitions fix dockerInfo |
 | 4.14.10        | 2019-10-01     | type definitions fix memLayout |
 | 4.14.9         | 2019-10-01     | `processLoad()` fix windows |

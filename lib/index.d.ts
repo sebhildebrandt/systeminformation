@@ -63,6 +63,7 @@ export namespace Systeminformation {
     speed: string;
     speedmin: string;
     speedmax: string;
+    governor: string;
     cores: number;
     physicalCores: number;
     processors: number;
@@ -101,6 +102,9 @@ export namespace Systeminformation {
     active: number;
     available: number;
     buffcache: number;
+    buffers: number;
+    cached: number;
+    slab: number;
     swaptotal: number;
     swapused: number;
     swapfree: number;
@@ -639,6 +643,7 @@ export function disksIO(cb?: (data: Systeminformation.DisksIoData) => any): Prom
 export function diskLayout(cb?: (data: Systeminformation.DiskLayoutData[]) => any): Promise<Systeminformation.DiskLayoutData[]>;
 
 export function networkInterfaceDefault(cb?: (data: string) => any): Promise<string>;
+export function networkGatewayDefault(cb?: (data: string) => any): Promise<string>;
 export function networkInterfaces(cb?: (data: Systeminformation.NetworkInterfacesData[]) => any): Promise<Systeminformation.NetworkInterfacesData[]>;
 
 export function networkStats(ifaces?: string, cb?: (data: Systeminformation.NetworkStatsData[]) => any): Promise<Systeminformation.NetworkStatsData[]>;

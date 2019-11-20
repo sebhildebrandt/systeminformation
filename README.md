@@ -29,7 +29,7 @@
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
-**2019-03-12** - 5th birthday of systeminformation. This is amazing. Started as a small projekt just for myself, it now has > 8,000 lines of code, > 200 versions published, up to 100,000 downloads per month, > 1 Mio downloads overall. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 9,000 lines of code, > 250 versions published, up to 900,000 downloads per month, > 2 Mio downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 4.0
 
@@ -84,13 +84,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.15.0: `cpu()` added governor (linux)
 - Version 4.14.0: `processes()` added process path and params
 - Version 4.13.0: `networkConnections()` added PID, process
 - Version 4.12.0: `networkInterfaces()` added property virtual
 - Version 4.11.0: `wifiNetworks()` added available wifi networks
 - Version 4.10.0: `graphics()` added windows multiple display support, added display size, connection, ...
 - Version 4.9.0: `graphics()` added vendor, refresh rate, current resolution
-- Version 4.8.0: added `vboxInfo()` detailed virtual box info
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -162,6 +162,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | speed | X | X | X | X |  | in GHz e.g. '3.40' |
 | | speedmin | X |  | X | X |  | in GHz e.g. '0.80' |
 | | speedmax | X | X | X | X |  | in GHz e.g. '3.90' |
+| | governor | X | | | |  | e.g. 'powersave' |
 | | cores | X | X | X | X |  | # cores |
 | | physicalCores | X | X | X | X |  | # physical cores |
 | | processors | X | X | X | X |  | # processors |
@@ -203,6 +204,9 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | used | X | X | X | X | X | used (incl. buffers/cache) |
 | | active | X | X | X | X | X | used actively (excl. buffers/cache)  |
 | | buffcache | X | X | X |  | X | used by buffers+cache |
+| | buffers | X |  |  |  |  | used by buffers |
+| | cached | X |  |  |  |  | used by cache |
+| | slab | X |  |  |  |  | used by slab |
 | | available | X | X | X | X | X | potentially available (total - active) |
 | | swaptotal | X | X | X | X | X |  |
 | | swapused | X | X | X | X | X |  |
@@ -302,7 +306,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.currentLoad(cb) | {...} | X |  | X | X | X | CPU-Load |
-| | avgload | X |  | X | X | X | average load  |
+| | avgload | X |  | X | | X | average load  |
 | | currentload | X |  | X | X | X | CPU load in % |
 | | currentload_user | X |  | X | X | X | CPU load user in % |
 | | currentload_system | X |  | X | X | X | CPU load system in % |
@@ -431,6 +435,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].speed | X | | X | X | | speed in MBit / s |
 | | [0].carrierChanges | X | | | | | # changes up/down |
 | si.networkInterfaceDefault(cb) | : string | X | X | X | X | X | get name of default network interface |
+| si.networkGatewayDefault(cb) | : string | X | X | X | X | X | get default network gateway |
 | si.networkStats(ifaces,cb) | [{...}] | X | X | X | X |  | current network stats of given interfaces<br>iface list: space or comma separated<br>iface parameter is optional<br>defaults to first external network interface,<br />Pass '*' for all interfaces |
 | | [0].iface | X | X | X | X |  | interface |
 | | [0].operstate | X | X | X | X |  | up / down |
