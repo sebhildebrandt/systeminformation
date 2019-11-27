@@ -277,7 +277,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.osInfo(cb) | {...} | X | X | X | X | X | OS information |
-| | platform   | X | X | X | X | X | 'Linux', 'Darwin', 'Windows' |
+| | platform   | X | X | X | X | X | 'linux', 'darwin', 'win32', ... |
 | | distro | X | X | X | X | X |  |
 | | release | X | X | X | X | X |  |
 | | codename | | | X |  |  |  |
