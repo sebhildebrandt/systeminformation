@@ -72,6 +72,9 @@
               <h4>Stats Functions</h4>
               <p>To get correct values with <span class="code">fsStats()</span>, <span class="code">disksIO()</span> and <span class="code">networkStats()</span> please check <a href="statsfunctions.html">this guide</a></p>
 
+              <h4>Empty / incorrect values</h4>
+              <p>If you discover empty or incorrect values, please keep in mind that some underlying commands need to be run under admin privileges. So if you run your scripts as normal users, not all system information values can be determined. For linux this is e.g. the case for `memLayout()`, advances `system()`, `bios()`, `baseboard()`, `cpu()`information, S.M.A.R.T. status and others... </p>
+
               <h4>Finding New Issues</h4>
               <p>If you still have problems, please feel free to open an issue on our <a href="https://github.com/sebhildebrandt/systeminformation/issues">github page</a></p>
             </div>

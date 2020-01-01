@@ -29,7 +29,21 @@
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
-This is amazing. Started as a small project just for myself, it now has > 9,000 lines of code, > 250 versions published, up to 900,000 downloads per month, > 2 Mio downloads overall. Thank you to all who contributed to this project!
+#### Happy new year
+
+```
+                                   .''.
+       .''.      .        *''*    :_\/_:     .
+      :_\/_:   _\(/_  .:.*_\/_*   : /\ :  .'.:.'.
+  .''.: /\ :   ./)\   ':'* /\ * :  '..'.  -=:o:=-
+ :_\/_:'.:::.    ' *''*    * '.\'/.' _\(/_'.':'.'
+ : /\ : :::::     *_\/_*     -= o =-  /)\    '  *
+  '..'  ':::'     * /\ *     .'/.\'.   '
+      *            *..*         :
+        *
+```
+
+This is amazing. Started as a small project just for myself, it now has > 9,000 lines of code, > 250 versions published, up to 1 mio downloads per month, > 4 mio downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 4.0
 
@@ -84,13 +98,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.16.0: `networkGatewayDefault()` added
 - Version 4.15.0: `cpu()` added governor (linux)
 - Version 4.14.0: `processes()` added process path and params
 - Version 4.13.0: `networkConnections()` added PID, process
 - Version 4.12.0: `networkInterfaces()` added property virtual
 - Version 4.11.0: `wifiNetworks()` added available wifi networks
 - Version 4.10.0: `graphics()` added windows multiple display support, added display size, connection, ...
-- Version 4.9.0: `graphics()` added vendor, refresh rate, current resolution
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
