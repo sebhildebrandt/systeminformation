@@ -318,6 +318,10 @@ export namespace Systeminformation {
     duplex: string;
     mtu: number;
     speed: number;
+    dhcp: boolean;
+    dnsSuffix: string;
+    ieee8021xAuth: string;
+    ieee8021xState: string;
     carrier_changes: number;
   }
 
