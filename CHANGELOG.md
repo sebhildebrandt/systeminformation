@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.17.1         | 2020-01-04     | `fsSize()` alpine linux support |
 | 4.17.0         | 2020-01-04     | `networkInterfaces()` added dhcp, dnsSuffix, ieee8021xAuth, ieee8021xState |
 | 4.16.1         | 2020-01-02     | `networkInterfaces()` bug fix (osx) |
 | 4.16.0         | 2019-11-27     | `networkGatewayDefault()` added |
