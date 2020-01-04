@@ -98,13 +98,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.17.0: `networkInterfaces()` added dhcp, dnsSuffix, ieee8021xAuth, ieee8021xState
 - Version 4.16.0: `networkGatewayDefault()` added
 - Version 4.15.0: `cpu()` added governor (linux)
 - Version 4.14.0: `processes()` added process path and params
 - Version 4.13.0: `networkConnections()` added PID, process
 - Version 4.12.0: `networkInterfaces()` added property virtual
 - Version 4.11.0: `wifiNetworks()` added available wifi networks
-- Version 4.10.0: `graphics()` added windows multiple display support, added display size, connection, ...
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -447,6 +447,14 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].duplex | X | | X | | | duplex |
 | | [0].mtu | X | | X | | | maximum transmission unit |
 | | [0].speed | X | | X | X | | speed in MBit / s |
+| | [0].dhcp | X | | | X | | DHCP address |
+| | [0].dnsSuffix | X | | | X | | DNS suffix |
+| | [0].ieee8021xAuth | X | | | X | | IEEE 802.1x auth |
+| | [0].ieee8021xState | X | | | X | | IEEE 802.1x state |
+    dhcp: boolean;
+    dnsSuffix: string;
+    ieee8021xAuth: string;
+    ieee8021xState: string;
 | | [0].carrierChanges | X | | | | | # changes up/down |
 | si.networkInterfaceDefault(cb) | : string | X | X | X | X | X | get name of default network interface |
 | si.networkGatewayDefault(cb) | : string | X | X | X | X | X | get default network gateway |
