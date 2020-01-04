@@ -807,6 +807,8 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Jorai Rijsdijk [Erackron](https://github.com/Erackron)
 - Rasmus Porsager [porsager](https://github.com/porsager)
 - Nathan Patten [nrpatten](https://github.com/nrpatten)
+- Juan Campuzano [juancampuzano](https://github.com/juancampuzano)
+- Ricardo Polo [ricardopolo](https://github.com/ricardopolo)
 
 OSX Temperature: credits here are going to:
 
