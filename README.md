@@ -451,10 +451,6 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].dnsSuffix | X | | | X | | DNS suffix |
 | | [0].ieee8021xAuth | X | | | X | | IEEE 802.1x auth |
 | | [0].ieee8021xState | X | | | X | | IEEE 802.1x state |
-    dhcp: boolean;
-    dnsSuffix: string;
-    ieee8021xAuth: string;
-    ieee8021xState: string;
 | | [0].carrierChanges | X | | | | | # changes up/down |
 | si.networkInterfaceDefault(cb) | : string | X | X | X | X | X | get name of default network interface |
 | si.networkGatewayDefault(cb) | : string | X | X | X | X | X | get default network gateway |
