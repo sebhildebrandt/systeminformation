@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.18.0         | 2020-01-07     | `networkInterfaces()` added dhcp for mac os, added dhcp linux fallback |
 | 4.17.3         | 2020-01-05     | code cleanup |
 | 4.17.2         | 2020-01-05     | `cpu().speed` AMD base frequency and fix (0.00) |
 | 4.17.1         | 2020-01-04     | `fsSize()` alpine linux support |

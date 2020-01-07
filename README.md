@@ -447,7 +447,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].duplex | X | | X | | | duplex |
 | | [0].mtu | X | | X | | | maximum transmission unit |
 | | [0].speed | X | | X | X | | speed in MBit / s |
-| | [0].dhcp | X | | | X | | DHCP address |
+| | [0].dhcp | X | | X | X | | IP address obtained by DHCP |
 | | [0].dnsSuffix | X | | | X | | DNS suffix |
 | | [0].ieee8021xAuth | X | | | X | | IEEE 802.1x auth |
 | | [0].ieee8021xState | X | | | X | | IEEE 802.1x state |
