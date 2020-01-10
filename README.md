@@ -98,13 +98,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.18.0: `networkInterfaces()` added dhcp for mac os, added dhcp linux fallback
 - Version 4.17.0: `networkInterfaces()` added dhcp, dnsSuffix, ieee8021xAuth, ieee8021xState
 - Version 4.16.0: `networkGatewayDefault()` added
 - Version 4.15.0: `cpu()` added governor (linux)
 - Version 4.14.0: `processes()` added process path and params
 - Version 4.13.0: `networkConnections()` added PID, process
 - Version 4.12.0: `networkInterfaces()` added property virtual
-- Version 4.11.0: `wifiNetworks()` added available wifi networks
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
