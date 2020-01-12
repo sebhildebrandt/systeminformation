@@ -98,13 +98,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.19.0: `osInfo()` added uefi (OS uses UEFI during startup)
 - Version 4.18.0: `networkInterfaces()` added dhcp for mac os, added dhcp linux fallback
 - Version 4.17.0: `networkInterfaces()` added dhcp, dnsSuffix, ieee8021xAuth, ieee8021xState
 - Version 4.16.0: `networkGatewayDefault()` added
 - Version 4.15.0: `cpu()` added governor (linux)
 - Version 4.14.0: `processes()` added process path and params
 - Version 4.13.0: `networkConnections()` added PID, process
-- Version 4.12.0: `networkInterfaces()` added property virtual
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -303,6 +303,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | serial | X | X | X | X |   | OS/Host serial number |
 | | build | X |   | X | X |   | OS build version |
 | | servicepack | | | | X |   | service pack version |
+| | uefi | X | X | X | X |   | OS started via UEFI |
 | si.uuid(cb) | {...} | X | X | X | X | X | object of several UUIDs |
 | | os | X | X | X | X |  | os specific UUID |
 | si.versions(cb) | {...} | X | X | X | X | X | version information (kernel, ssl, node, ...) |

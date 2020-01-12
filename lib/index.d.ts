@@ -203,6 +203,7 @@ export namespace Systeminformation {
     serial: string;
     build: string;
     servicepack: string;
+    uefi: boolean;
   }
 
   interface UuidData {
