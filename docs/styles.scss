@@ -277,6 +277,9 @@ h1, h2, h3, h4 {
             font-size: 1.3rem;
         }
     }
+    .npmicons {
+        text-align: center;
+    }
     .text {
         text-align: center;
         padding-top: 10px;
@@ -292,7 +295,7 @@ h1, h2, h3, h4 {
 }
 .index {
   margin: 0 0 10px 0;
-  .text, .subtitle, .title, .title-small {
+  .text, .subtitle, .title, .title-small, .npmicons {
       text-align: center;
   }
   a {

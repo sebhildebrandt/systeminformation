@@ -417,6 +417,10 @@ h1, h2, h3, h4 {
   }
 }
 
+.sectionheader .npmicons {
+  text-align: center;
+}
+
 .sectionheader .text {
   text-align: center;
   padding-top: 10px;
@@ -438,7 +442,7 @@ h1, h2, h3, h4 {
   margin: 0 0 10px 0;
 }
 
-.index .text, .index .subtitle, .index .title, .index .title-small {
+.index .text, .index .subtitle, .index .title, .index .title-small, .index .npmicons {
   text-align: center;
 }
 
