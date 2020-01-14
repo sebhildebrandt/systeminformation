@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.19.1         | 2020-01-14     | `osInfo()` uefi fix windows |
 | 4.19.0         | 2020-01-12     | `osInfo()` added uefi |
 | 4.18.3         | 2020-01-10     | `fsSize()` fix excluding loop/snap devices |
 | 4.18.2         | 2020-01-10     | `memLayout()` fix memsize linux (modules >= 32 GB) |
