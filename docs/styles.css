@@ -455,7 +455,7 @@ h1, h2, h3, h4 {
   color: #567adf;
 }
 
-.left .text, .left .subtitle, .left .title, .left .title-small {
+.left .text, .left .subtitle, .left .title, .left .title-small .npmicons {
   text-align: left;
 }
 
