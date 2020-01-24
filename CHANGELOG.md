@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.19.3         | 2020-01-24     | `memLayout()` bank info fix macOS |
 | 4.19.2         | 2020-01-19     | `cpu()` muli-processor fix windows |
 | 4.19.1         | 2020-01-14     | `osInfo()` uefi fix windows |
 | 4.19.0         | 2020-01-12     | `osInfo()` added uefi |
