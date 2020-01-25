@@ -146,8 +146,11 @@ export namespace Systeminformation {
     hasbattery: boolean;
     cyclecount: number;
     ischarging: boolean;
+    voltage: number;
+    designedcapacity: number;
     maxcapacity: number;
     currentcapacity: number;
+    capacityUnit: string;
     percent: number;
     timeremaining: number,
     acconnected: boolean;

@@ -29,20 +29,6 @@
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
-#### Happy new year
-
-```
-                                   .''.
-       .''.      .        *''*    :_\/_:     .
-      :_\/_:   _\(/_  .:.*_\/_*   : /\ :  .'.:.'.
-  .''.: /\ :   ./)\   ':'* /\ * :  '..'.  -=:o:=-
- :_\/_:'.:::.    ' *''*    * '.\'/.' _\(/_'.':'.'
- : /\ : :::::     *_\/_*     -= o =-  /)\    '  *
-  '..'  ':::'     * /\ *     .'/.\'.   '
-      *            *..*         :
-        *
-```
-
 This is amazing. Started as a small project just for myself, it now has > 9,000 lines of code, > 250 versions published, up to 1 mio downloads per month, > 4 mio downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 4.0
@@ -98,13 +84,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.20.0: `battery()` added designcapacity, voltage, unit
 - Version 4.19.0: `osInfo()` added uefi (OS uses UEFI during startup)
 - Version 4.18.0: `networkInterfaces()` added dhcp for mac os, added dhcp linux fallback
 - Version 4.17.0: `networkInterfaces()` added dhcp, dnsSuffix, ieee8021xAuth, ieee8021xState
 - Version 4.16.0: `networkGatewayDefault()` added
 - Version 4.15.0: `cpu()` added governor (linux)
 - Version 4.14.0: `processes()` added process path and params
-- Version 4.13.0: `networkConnections()` added PID, process
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -246,8 +232,11 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | hasbattery | X | X | X | X |  | indicates presence of battery |
 | | cyclecount | X |  | X | |  | numbers of recharges |
 | | ischarging | X | X | X | X |  | indicates if battery is charging |
-| | maxcapacity | X |  | X | X |  | max capacity of battery |
-| | currentcapacity | X |  | X | X |  | current capacity of battery |
+| | designedcapacity | X |  | X | X |  | max capacity of battery (mWh) |
+| | maxcapacity | X |  | X | X |  | max capacity of battery (mWh) |
+| | currentcapacity | X |  | X | X |  | current capacity of battery (mWh) |
+| | capacityUnit | X |  | X | X |  | capacity unit (mWh) |
+| | voltage | X |  | X | X |  | current voltage of battery (V) |
 | | percent | X | X | X | X |  | charging level in percent |
 | | timeremaining | X |  | X |  |  | minutes left (if discharging) |
 | | acconnected | X | X | X | X |  | AC connected |
