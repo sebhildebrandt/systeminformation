@@ -143,7 +143,7 @@
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>capacity unit (mWh)</td>
+                    <td>capacity unit (mWh if possible)</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -224,6 +224,32 @@
                     <td></td>
                     <td></td>
                     <td>battery serial</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.battery().then(data => console.log(data));</code></pre class="example">
+                      <pre class="example">
+{
+  hasbattery: true,
+  cyclecount: 35,
+  ischarging: false,
+  designedcapacity: 64958,
+  maxcapacity: 65865,
+  currentcapacity: 64856,
+  voltage: 12.767,
+  capacityUnit: 'mWh',
+  percent: 100,
+  timeremaining: 551,
+  acconnected: false,
+  type: 'Li-ion',
+  model: '',
+  manufacturer: 'Apple',
+  serial: 'F9Y19860Y9AH9XBAX'
+}
+              </pre>
                   </tr>
                 </tbody>
               </table>

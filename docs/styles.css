@@ -586,6 +586,10 @@ pre {
   text-align: left;
 }
 
+.example {
+  background-color: unset;
+}
+
 footer {
   background-color: #eee;
   margin-top: 30px;
