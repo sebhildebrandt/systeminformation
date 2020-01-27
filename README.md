@@ -91,7 +91,6 @@ si.cpu()
 - Version 4.17.0: `networkInterfaces()` added dhcp, dnsSuffix, ieee8021xAuth, ieee8021xState
 - Version 4.16.0: `networkGatewayDefault()` added
 - Version 4.15.0: `cpu()` added governor (linux)
-- Version 4.14.0: `processes()` added process path and params
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -867,7 +866,7 @@ All other trademarks are the property of their respective owners.
 
 [issues-img]: https://img.shields.io/github/issues/sebhildebrandt/systeminformation.svg?style=flat-square
 [issues-url]: https://github.com/sebhildebrandt/systeminformation/issues
-[closed-issues-img]: https://img.shields.io/github/issues-closed-raw/sebhildebrandt/systeminformation.svg?style=flat-square
+[closed-issues-img]: https://img.shields.io/github/issues-closed-raw/sebhildebrandt/systeminformation.svg?style=flat-square&color=brightgreen
 [closed-issues-url]: https://github.com/sebhildebrandt/systeminformation/issues?q=is%3Aissue+is%3Aclosed
 
 [mmon-npm-url]: https://npmjs.org/package/mmon
