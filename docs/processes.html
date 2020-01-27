@@ -557,6 +557,25 @@
                   </tr>
                 </tbody>
               </table>
+              <h4>Getting correct stats values</h4>
+
+              <p>In <span class="code">currentLoad()</span> the
+                results are calculated correctly beginning with the <strong>second</strong> call of the function.
+                It is determined by calculating the difference of cpu ticks between two calls of the function.</p>
+
+              <p>The first time you are calling one of this functions, you will get the load since cpu uptime.
+                The second time, you should then get statistics based cpu ticks between the two calls ...</p>
+
+              <p>So basically, your code should look like this:</p>
+
+              <pre><code class="js">const si = require('systeminformation');
+
+              setInterval(function() {
+                  si.currentLoad().then(data => {
+                      console.log(data);
+                  })
+              }, 1000)</code></pre>
+              <p>Beginning with the second call, you get precise load values between the two calls.</p>
             </div>
           </div>
         </div>
