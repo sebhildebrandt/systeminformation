@@ -84,6 +84,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.21.0: added npx copmpatibility
 - Version 4.20.0: `battery()` added designcapacity, voltage, unit
 - Version 4.19.0: `osInfo()` added uefi (OS uses UEFI during startup)
 - Version 4.18.0: `networkInterfaces()` added dhcp for mac os, added dhcp linux fallback
