@@ -30,6 +30,9 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.21.1         | 2020-01-31     | `networkGatewayDefault()` fixed windows 7 issue |
+| 4.21.0         | 2020-01-27     | `npx` compatibility |
+| 4.20.1         | 2020-01-26     | `battery()` code refactoring, cleanup, updated docs |
 | 4.20.1         | 2020-01-26     | `battery()` code refactoring, cleanup, updated docs |
 | 4.20.0         | 2020-01-25     | `battery()` added designcapacity, voltage, unit |
 | 4.19.4         | 2020-01-24     | `mem()` prevent log messages, `memgetDefaultNetworkInterface()` catch errors |
