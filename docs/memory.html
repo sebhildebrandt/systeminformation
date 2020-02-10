@@ -195,6 +195,29 @@
                     <td>X</td>
                     <td></td>
                   </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.mem().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  total: 67092135936,
+  free: 65769291776,
+  used: 1322844160,
+  active: 1032495104,
+  available: 66059640832,
+  buffers: 63213568,
+  cached: 800124928,
+  slab: 268804096,
+  buffcache: 1132142592,
+  swaptotal: 8589930496,
+  swapused: 0,
+  swapfree: 8589930496
+}
+</pre>
+                  </tr>
                   <tr>
                     <td>si.memLayout(cb)</td>
                     <td>[{...}]</td>
@@ -314,6 +337,43 @@
                     <td>X</td>
                     <td></td>
                     <td>voltage max</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.memLayout().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+[
+  {
+    size: 34359738368,
+    bank: 'BANK 0',
+    type: 'DDR4',
+    clockSpeed: 2667,
+    formFactor: 'SODIMM',
+    manufacturer: '029E',
+    partNum: 'CMSX64.....',
+    serialNum: '00000000',
+    voltageConfigured: 1.2,
+    voltageMin: 1.2,
+    voltageMax: 1.2
+  },
+  {
+    size: 34359738368,
+    bank: 'BANK 2',
+    type: 'DDR4',
+    clockSpeed: 2667,
+    formFactor: 'SODIMM',
+    manufacturer: '029E',
+    partNum: 'CMSX64.....',
+    serialNum: '00000000',
+    voltageConfigured: 1.2,
+    voltageMin: 1.2,
+    voltageMax: 1.2
+  }
+]
+</pre>
                   </tr>
                 </tbody>
               </table>
