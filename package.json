@@ -74,6 +74,10 @@
     "type": "git",
     "url": "https://github.com/sebhildebrandt/systeminformation.git"
   },
+  "funding": {
+    "type": "Buy me a coffee",
+    "url": "https://www.buymeacoffee.com/systeminfo"
+  },
   "os": [
     "darwin",
     "linux",
