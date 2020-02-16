@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.21.3         | 2020-02-16     | `versions()` fixed mysql version (macOS) |
 | 4.21.2         | 2020-02-11     | `networkConnections()` fixed linux (debian) issue |
 | 4.21.1         | 2020-01-31     | `networkGatewayDefault()` fixed windows 7 issue |
 | 4.21.0         | 2020-01-27     | `npx` compatibility |

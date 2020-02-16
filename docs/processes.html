@@ -165,6 +165,46 @@
                     <td>X</td>
                     <td>current loads per CPU in % + raw ticks</td>
                   </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.currentLoad().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  avgload: 0.23,
+  currentload: 4.326328800988875,
+  currentload_user: 2.595797280593325,
+  currentload_system: 1.73053152039555,
+  currentload_nice: 0,
+  currentload_idle: 95.67367119901112,
+  currentload_irq: 0,
+  raw_currentload: 350,
+  raw_currentload_user: 210,
+  raw_currentload_system: 140,
+  raw_currentload_nice: 0,
+  raw_currentload_idle: 7740,
+  raw_currentload_irq: 0,
+  cpus: [
+    {
+      load: 13.725490196078432,
+      load_user: 7.8431372549019605,
+      load_system: 5.88235294117647,
+      load_nice: 0,
+      load_idle: 86.27450980392157,
+      load_irq: 0,
+      raw_load: 140,
+      raw_load_user: 80,
+      raw_load_system: 60,
+      raw_load_nice: 0,
+      raw_load_idle: 880,
+      raw_load_irq: 0
+    },
+    ...
+  ]
+}</pre>
+                  </tr>
                   <tr>
                     <td>si.fullLoad(cb)</td>
                     <td>: integer</td>
@@ -425,8 +465,46 @@
                     <td>X</td>
                     <td>process path</td>
                   </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.processes().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  all: 258,
+  running: 1,
+  blocked: 0,
+  sleeping: 157,
+  unknown: 0,
+  list: [
+    {
+      pid: 1,
+      parentPid: 0,
+      name: 'init',
+      pcpu: 0.04504576931569955,
+      pcpuu: 0.04084113255431208,
+      pcpus: 0.00420463676138747,
+      pmem: 0,
+      priority: 19,
+      mem_vsz: 166144,
+      mem_rss: 10684,
+      nice: 0,
+      started: '2020-02-08 10:18:15',
+      state: 'sleeping',
+      tty: '',
+      user: 'root',
+      command: 'init',
+      params: '',
+      path: '/sbin'
+    },
+    ...
+  ]
+}</pre>
+                  </tr>
                   <tr>
-                    <td>si.processLoad('apache2',cb)</td>
+                    <td>si.processLoad('nginx',cb)</td>
                     <td>{...}</td>
                     <td>X</td>
                     <td>X</td>
@@ -484,6 +562,28 @@
                     <td>X</td>
                     <td></td>
                     <td>process % MEM</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.processLoad('nginx').then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  proc: 'nginx',
+  pid: 11267,
+  pids: [
+    11251, 11252, 11253,
+    11254, 11255, 11256,
+    11257, 11258, 11259,
+    11260, 11261, 11262,
+    11263, 11264, 11265,
+    11266, 11267
+  ],
+  cpu: 0.01,
+  mem: 0
+}</pre>
                   </tr>
                   <tr>
                     <td>si.services('mysql, apache2', cb)</td>
@@ -554,6 +654,32 @@
                     <td></td>
                     <td></td>
                     <td>process % MEM</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.services('mysql, postgres').then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+[
+  {
+    name: 'mysql',
+    running: true,
+    startmode: '',
+    pids: [ 152 ],
+    pcpu: 0.3,
+    pmem: 0
+  },
+  {
+    name: 'postgres',
+    running: true,
+    startmode: '',
+    pids: [ 1087, 1873 ],
+    pcpu: 0,
+    pmem: 0
+  },
+]</pre>
                   </tr>
                 </tbody>
               </table>
