@@ -407,7 +407,23 @@ pre {
     text-align: left;
 }
 .example {
-    background-color: unset;
+    td:first-child {
+      background-color: #fff !important;
+    }
+    td:last-child {
+      background-color: #f8faff !important;
+    }
+    h5 {
+      padding-top: 5px;
+      padding-left: 10px;
+    }
+    pre {
+      background-color: unset;
+      .js {
+        background-color: #f0f0f4;
+
+      }
+    }
 }
 footer {
     background-color: #eee;

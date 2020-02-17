@@ -27,9 +27,10 @@
   [![Code Quality: Javascript][lgtm-badge]][lgtm-badge-url]
   [![Total alerts][lgtm-alerts]][lgtm-alerts-url]
   [![Caretaker][caretaker-image]][caretaker-url]
+  [![Sponsoring][sponsor-badge]][sponsor-url]
   [![MIT license][license-img]][license-url]
 
-This is amazing. Started as a small project just for myself, it now has > 9,000 lines of code, > 250 versions published, up to 1 mio downloads per month, > 4 mio downloads overall. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 9,000 lines of code, > 250 versions published, up to 1 mio downloads per month, > 5 mio downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 4.0
 
@@ -849,6 +850,9 @@ All other trademarks are the property of their respective owners.
 [lgtm-badge-url]: https://lgtm.com/projects/g/sebhildebrandt/systeminformation/context:javascript
 [lgtm-alerts]: https://img.shields.io/lgtm/alerts/g/sebhildebrandt/systeminformation.svg?style=flat-square
 [lgtm-alerts-url]: https://lgtm.com/projects/g/sebhildebrandt/systeminformation/alerts
+
+[sponsor-badge]: https://img.shields.io/badge/-Buy%20me%20a%20coffee-blue?style=flat-square
+[sponsor-url]: https://www.buymeacoffee.com/systeminfo
 
 [license-url]: https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE
 [license-img]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square

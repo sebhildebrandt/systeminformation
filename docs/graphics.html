@@ -295,6 +295,44 @@
                     <td></td>
                     <td>current refresh rate</td>
                   </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.graphics().then(data => console.log(data));</code></pre class="example">
+                      <pre class="example">
+{
+  controllers: [
+    {
+      vendor: 'Intel',
+      model: 'Intel Iris Plus Graphics 655',
+      bus: 'Built-In',
+      vram: 1536,
+      vramDynamic: true
+    }
+  ],
+  displays: [
+    {
+      vendor: '',
+      model: 'Color LCD',
+      main: true,
+      builtin: false,
+      connection: 'Internal',
+      sizex: -1,
+      sizey: -1,
+      pixeldepth: 24,
+      resolutionx: 2560,
+      resolutiony: 1600,
+      currentResX: 2560,
+      currentResY: 1600,
+      positionX: 0,
+      positionY: 0,
+      currentRefreshRate: -1
+    }
+  ]
+}</pre>
+                  </tr>
                 </tbody>
               </table>
             </div>

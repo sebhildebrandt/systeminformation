@@ -135,6 +135,23 @@
                     <td></td>
                     <td>SKU number</td>
                   </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.system().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  manufacturer: 'Apple Inc.',
+  model: 'MacBookPro13,2',
+  version: '1.0',
+  serial: 'C01xxxxxxxx',
+  uuid: 'F87654-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  sku: 'Mac-99878xxxx...'
+}
+</pre>
+                  </tr>
                   <tr>
                     <td>si.bios(cb)</td>
                     <td>{...}</td>
@@ -184,6 +201,20 @@
                     <td>X</td>
                     <td></td>
                     <td>revision</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.bios().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  vendor: 'American Megatrends Inc.',
+  version: 'P4.20',
+  releaseDate: '2019-09-05',
+  revision: '5.13'
+}</pre>
                   </tr>
                   <tr>
                     <td>si.baseboard(cb)</td>
@@ -244,6 +275,21 @@
                     <td>X</td>
                     <td></td>
                     <td>asset tag</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.baseboard().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  manufacturer: 'ASRock',
+  model: 'H310M-STX',
+  version: '',
+  serial: 'C80-xxxxxxxxxxx',
+  assetTag: ''
+}</pre>
                   </tr>
                   <tr>
                     <td>si.chassis(cb)</td>
@@ -324,6 +370,23 @@
                     <td>X</td>
                     <td></td>
                     <td>SKU number</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.chassis().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  manufacturer: 'Apple Inc.',
+  model: 'MacBookPro13,2',
+  type: '',
+  version: '1.0',
+  serial: 'C01xxxxxxxx',
+  assetTag: 'Mac-99878xxxx...',
+  sku: ''
+}</pre>
                   </tr>
                 </tbody>
               </table>
