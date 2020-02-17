@@ -355,7 +355,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].name | X | X | X | X |  | name of service |
 | | [0].running | X | X | X | X |  | true / false |
 | | [0].startmode |   |   |   | X |  | manual, automatic, ... |
-| | [0].pids | X | X | X |   |  | pids |
+| | [0].pids | X | X | X | X |  | pids |
 | | [0].pcpu | X | X | X |  |  | process % CPU |
 | | [0].pmem | X | X | X |  |  | process % MEM |
 
