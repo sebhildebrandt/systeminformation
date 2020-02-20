@@ -30,7 +30,8 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 4.22.2         | 2020-02-20     | `memLayout()` raspberry PI mem voltage fix |
+| 4.22.3         | 2020-02-20     | `memLayout()` code cleanup |
+| 4.22.2         | 2020-02-19     | `memLayout()` raspberry PI mem voltage fix |
 | 4.22.1         | 2020-02-17     | `memLayout()` raspberry PI support |
 | 4.22.0         | 2020-02-17     | `services()` added pids (windows) |
 | 4.21.3         | 2020-02-16     | `versions()` fixed mysql version (macOS) |
