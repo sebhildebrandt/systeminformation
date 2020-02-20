@@ -85,13 +85,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.22.0: `services()` added pids (windows)
 - Version 4.21.0: added npx copmpatibility
 - Version 4.20.0: `battery()` added designcapacity, voltage, unit
 - Version 4.19.0: `osInfo()` added uefi (OS uses UEFI during startup)
 - Version 4.18.0: `networkInterfaces()` added dhcp for mac os, added dhcp linux fallback
 - Version 4.17.0: `networkInterfaces()` added dhcp, dnsSuffix, ieee8021xAuth, ieee8021xState
 - Version 4.16.0: `networkGatewayDefault()` added
-- Version 4.15.0: `cpu()` added governor (linux)
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
