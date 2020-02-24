@@ -243,6 +243,7 @@ export namespace Systeminformation {
     java: string;
     gcc: string;
     virtualbox: string;
+    dotnet: string;
   }
 
   interface UserData {
