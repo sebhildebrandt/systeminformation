@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.22.4         | 2020-03-01     | `versions()` added dotnet, typings fix |
 | 4.22.3         | 2020-02-20     | `memLayout()` code cleanup |
 | 4.22.2         | 2020-02-19     | `memLayout()` raspberry PI mem voltage fix |
 | 4.22.1         | 2020-02-17     | `memLayout()` raspberry PI support |
