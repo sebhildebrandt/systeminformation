@@ -30,7 +30,8 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 4.22.6         | 2020-03-08     | `network()` fixed DHCP linux, `diskLayout()` fixed linux |
+| 4.22.7         | 2020-03-08     | `diskLayout()` fixed linux |
+| 4.22.6         | 2020-03-08     | `network()` fixed DHCP linux|
 | 4.22.5         | 2020-03-04     | `graphics()` fixed vram macOS |
 | 4.22.4         | 2020-03-01     | `versions()` added dotnet, typings fix |
 | 4.22.3         | 2020-02-20     | `memLayout()` code cleanup |
