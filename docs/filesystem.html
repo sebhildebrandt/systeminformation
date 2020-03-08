@@ -235,6 +235,37 @@
                     <td></td>
                     <td>S.M.A.R.T Status (see Known Issues)</td>
                   </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.diskLayout().then(data => console.log(data));</code></pre class="example">
+                      <pre class="example">
+[
+  {
+    device: '/dev/nvme0n1',
+    type: 'NVMe',
+    name: 'SAMSUNG xxxxxxxxxxxx-xxxx',
+    vendor: 'Samsung',
+    size: 1024209543168,
+    bytesPerSector: -1,
+    totalCylinders: -1,
+    totalHeads: -1,
+    totalSectors: -1,
+    totalTracks: -1,
+    tracksPerCylinder: -1,
+    sectorsPerTrack: -1,
+    firmwareRevision: '',
+    serialNum: '...serial....',
+    interfaceType: 'PCIe',
+    smartStatus: 'unknown'
+  },
+  {
+    ...
+  }
+]</pre>
+                  </tr>
                   <tr>
                     <td>si.blockDevices(cb)</td>
                     <td>[{...}]</td>
@@ -365,6 +396,34 @@
                     <td></td>
                     <td>protocol (SATA, PCI-Express, ...)</td>
                   </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.blockDevices().then(data => console.log(data));</code></pre class="example">
+                      <pre class="example">
+[
+  {
+    name: 'nvme0n1',
+    type: 'disk',
+    fstype: '',
+    mount: '',
+    size: 1024209543168,
+    physical: 'SSD',
+    uuid: '',
+    label: '',
+    model: 'SAMSUNG xxxxxxxxxxxx-xxxx',
+    serial: '... serial ...',
+    removable: false,
+    protocol: 'nvme',
+    group: undefined
+  },
+  {
+    ...
+  }
+]</pre>
+                  </tr>
                   <tr>
                     <td>si.disksIO(cb)</td>
                     <td>{...}</td>
@@ -444,6 +503,36 @@
                     <td></td>
                     <td></td>
                     <td>interval length (for per second values)</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+setInterval(function() {
+  si.disksIO().then(data => {
+    console.log(data);
+  })
+}, 1000)</code></pre class="example">
+                      <pre class="example">
+{                           // first call
+  rIO: 899825,
+  wIO: 932331,
+  tIO: 1832156,
+  rIO_sec: -1,
+  wIO_sec: -1,
+  tIO_sec: -1,
+  ms: 0
+}
+{                           // second call
+  rIO: 899863,
+  wIO: 932331,
+  tIO: 1832194,
+  rIO_sec: 38.5395537525355,
+  wIO_sec: 0,
+  tIO_sec: 38.5395537525355,
+  ms: 986
+}...</pre>
                   </tr>
                 </tbody>
               </table>
@@ -532,6 +621,27 @@
                     <td></td>
                     <td>mount point</td>
                   </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.fsSize().then(data => console.log(data));</code></pre class="example">
+                      <pre class="example">
+[
+  {
+    fs: '/dev/md2',
+    type: 'ext4',
+    size: 972577361920,
+    used: 59142635520,
+    use: 6.08,
+    mount: '/'
+  },
+  {
+    ...
+  }
+]</pre>
+                  </tr>
                   <tr>
                     <td>si.fsOpenFiles(cb)</td>
                     <td>{...}</td>
@@ -571,6 +681,19 @@
                     <td></td>
                     <td></td>
                     <td>count available</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.fsOpenFiles().then(data => console.log(data));</code></pre class="example">
+                      <pre class="example">
+{
+  max: 6566555,
+  allocated: 1856,
+  available: 0
+}</pre>
                   </tr>
                   <tr>
                     <td>si.fsStats(cb)</td>
@@ -651,6 +774,36 @@
                     <td></td>
                     <td></td>
                     <td>interval length (for per second values)</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+setInterval(function() {
+  si.fsStats().then(data => {
+    console.log(data);
+  })
+}, 1000)</code></pre class="example">
+                      <pre class="example">
+{                             // first call
+  rx: 14015849472,
+  wx: 15316003328,
+  tx: 29331852800,
+  rx_sec: -1,
+  wx_sec: -1,
+  tx_sec: -1,
+  ms: 0
+}
+{                             // second call
+  rx: 14015849472,
+  wx: 15316007424,
+  tx: 29331856896,
+  rx_sec: 0,
+  wx_sec: 4083.748753738784,
+  tx_sec: 4083.748753738784,
+  ms: 1003
+}...</pre>
                   </tr>
                 </tbody>
               </table>

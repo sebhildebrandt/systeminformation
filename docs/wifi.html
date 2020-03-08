@@ -175,6 +175,41 @@
                     <td></td>
                     <td>array of RDN flags
                   </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.wifiNetworks().then(data => console.log(data));</code></pre class="example">
+                      <pre class="example">
+[
+  {
+    ssid: 'INTERNAL-WIFI',
+    bssid: 'ab:01:14:4f:d3:82',
+    mode: '',
+    channel: 44,
+    frequency: 5220,
+    signalLevel: -68,
+    quality: 64,
+    security: [ 'WPA', 'WPA2' ],
+    wpaFlags: [ 'PSK/TKIP/TKIP', 'PSK/AES/TKIP' ],
+    rsnFlags: []
+  },
+  {
+    ssid: 'FREE Wifi',
+    bssid: 'aa:14:e5:16:97:f3',
+    mode: '',
+    channel: 44,
+    frequency: 5220,
+    signalLevel: -50,
+    quality: 100,
+    security: [ 'WPA', 'WPA2' ],
+    wpaFlags: [ 'PSK/TKIP/TKIP', 'PSK/AES/TKIP' ],
+    rsnFlags: []
+  },
+  ...
+]</pre>
+                  </tr>
 
                 </tbody>
               </table>
