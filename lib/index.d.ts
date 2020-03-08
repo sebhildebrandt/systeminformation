@@ -214,36 +214,36 @@ export namespace Systeminformation {
   }
 
   interface VersionData {
-    kernel: string;
-    openssl: string;
-    systemOpenssl: string;
-    systemOpensslLib: string;
-    node: string;
-    v8: string;
-    npm: string;
-    yarn: string;
-    pm2: string;
-    gulp: string;
-    grunt: string;
-    git: string;
-    tsc: string;
-    mysql: string;
-    redis: string;
-    mongodb: string;
-    nginx: string;
-    php: string;
-    docker: string;
-    postfix: string;
-    postgresql: string;
-    perl: string;
-    python: string;
-    python3: string;
-    pip: string;
-    pip3: string;
-    java: string;
-    gcc: string;
-    virtualbox: string;
-    dotnet: string;
+    kernel?: string;
+    openssl?: string;
+    systemOpenssl?: string;
+    systemOpensslLib?: string;
+    node?: string;
+    v8?: string;
+    npm?: string;
+    yarn?: string;
+    pm2?: string;
+    gulp?: string;
+    grunt?: string;
+    git?: string;
+    tsc?: string;
+    mysql?: string;
+    redis?: string;
+    mongodb?: string;
+    nginx?: string;
+    php?: string;
+    docker?: string;
+    postfix?: string;
+    postgresql?: string;
+    perl?: string;
+    python?: string;
+    python3?: string;
+    pip?: string;
+    pip3?: string;
+    java?: string;
+    gcc?: string;
+    virtualbox?: string;
+    dotnet?: string;
   }
 
   interface UserData {
@@ -626,7 +626,7 @@ export function chassis(cb?: (data: Systeminformation.ChassisData) => any): Prom
 
 export function time(): Systeminformation.TimeData;
 export function osInfo(cb?: (data: Systeminformation.OsData) => any): Promise<Systeminformation.OsData>;
-export function versions(cb?: (data: Systeminformation.VersionData) => any): Promise<Systeminformation.VersionData>;
+export function versions(apps?: string, cb?: (data: Systeminformation.VersionData) => any): Promise<Systeminformation.VersionData>;
 export function shell(cb?: (data: string) => any): Promise<string>;
 export function uuid(cb?: (data: Systeminformation.UuidData) => any): Promise<Systeminformation.UuidData>;
 
