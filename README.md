@@ -30,7 +30,7 @@
   [![Sponsoring][sponsor-badge]][sponsor-url]
   [![MIT license][license-img]][license-url]
 
-This is amazing. Started as a small project just for myself, it now has > 9,000 lines of code, > 250 versions published, up to 1 mio downloads per month, > 5 mio downloads overall. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 9,000 lines of code, > 300 versions published, up to 1 mio downloads per month, > 6 mio downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 4.0
 
@@ -85,13 +85,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.22.0: `services()` added pids (windows)
 - Version 4.21.0: added npx copmpatibility
 - Version 4.20.0: `battery()` added designcapacity, voltage, unit
 - Version 4.19.0: `osInfo()` added uefi (OS uses UEFI during startup)
 - Version 4.18.0: `networkInterfaces()` added dhcp for mac os, added dhcp linux fallback
 - Version 4.17.0: `networkInterfaces()` added dhcp, dnsSuffix, ieee8021xAuth, ieee8021xState
 - Version 4.16.0: `networkGatewayDefault()` added
-- Version 4.15.0: `cpu()` added governor (linux)
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -355,7 +355,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].name | X | X | X | X |  | name of service |
 | | [0].running | X | X | X | X |  | true / false |
 | | [0].startmode |   |   |   | X |  | manual, automatic, ... |
-| | [0].pids | X | X | X |   |  | pids |
+| | [0].pids | X | X | X | X |  | pids |
 | | [0].pcpu | X | X | X |  |  | process % CPU |
 | | [0].pmem | X | X | X |  |  | process % MEM |
 

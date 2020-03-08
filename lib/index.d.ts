@@ -83,9 +83,9 @@ export namespace Systeminformation {
   }
 
   interface CpuCurrentSpeedData {
-    min: string;
-    max: string;
-    avg: string;
+    min: number;
+    max: number;
+    avg: number;
     cores: number[];
   }
 
@@ -243,6 +243,7 @@ export namespace Systeminformation {
     java: string;
     gcc: string;
     virtualbox: string;
+    dotnet: string;
   }
 
   interface UserData {
