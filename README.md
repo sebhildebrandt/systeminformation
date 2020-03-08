@@ -85,13 +85,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.23.0: `versions()` added param to specify which program/lib versions to detect
 - Version 4.22.0: `services()` added pids (windows)
 - Version 4.21.0: added npx copmpatibility
 - Version 4.20.0: `battery()` added designcapacity, voltage, unit
 - Version 4.19.0: `osInfo()` added uefi (OS uses UEFI during startup)
 - Version 4.18.0: `networkInterfaces()` added dhcp for mac os, added dhcp linux fallback
 - Version 4.17.0: `networkInterfaces()` added dhcp, dnsSuffix, ieee8021xAuth, ieee8021xState
-- Version 4.16.0: `networkGatewayDefault()` added
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -296,7 +296,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | uefi | X | X | X | X |   | OS started via UEFI |
 | si.uuid(cb) | {...} | X | X | X | X | X | object of several UUIDs |
 | | os | X | X | X | X |  | os specific UUID |
-| si.versions(cb) | {...} | X | X | X | X | X | version information (kernel, ssl, node, ...) |
+| si.versions(apps, cb) | {...} | X | X | X | X | X | version information (kernel, ssl, node, ...)<br />apps param is optional for detecting<br />only specific apps/libs<br />(string, comma separated) |
 | si.shell(cb) | : string | X | X | X |  |  | standard shell |
 | si.users(cb) | [{...}] | X | X | X | X | X | array of users online |
 | | [0].user | X | X | X | X | X | user name |

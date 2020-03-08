@@ -259,14 +259,14 @@ si.osInfo().then(data => console.log(data));</code></pre class="example">
                     <td>standard shell</td>
                   </tr>
                   <tr>
-                    <td>si.versions(cb)</td>
+                    <td>si.versions(apps, cb)</td>
                     <td>{...}</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
-                    <td>version information of<br>node and dev software packages</td>
+                    <td>version information of<br>node and dev software packages<br>optional apps param (string, <br>comma or space seperated)<br>only those apps are detected</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -586,6 +586,15 @@ si.versions().then(data => console.log(data));</code></pre class="example">
   java: '',
   gcc: '4.2.1',
   virtualbox: ''
+}</pre>
+                      <h5>Example 2</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+                      si.versions('npm, php, postgresql').then(data => console.log(data));</code></pre class="example">
+                      <pre class="example">
+{
+  npm: '6.13.6',
+  php: '7.3.11',
+  postgresql: '12.1'
 }</pre>
                   </tr>
                   <tr>
