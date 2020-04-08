@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.23.2         | 2020-04-08     | `cpu()` fixed getting base frequency for AMD Ryzen |
 | 4.23.1         | 2020-03-11     | `diskLayout()` optimized detection linux |
 | 4.23.0         | 2020-03-08     | `versions()` added param to specify which program/lib versions to detect |
 | 4.22.7         | 2020-03-08     | `diskLayout()` fixed linux |
