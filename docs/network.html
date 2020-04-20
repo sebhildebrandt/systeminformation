@@ -713,6 +713,11 @@ si.inetChecksite('google.com').then(data => console.log(data));</code></pre clas
 si.inetLatency().then(data => console.log(data));</code></pre class="example">
                       <pre class="example">
 13.484</pre>
+                      <pre><code class="js">// Example with given host IP address
+const si = require('systeminformation');
+si.inetLatency('216.58.207.142').then(data => console.log(data));</code></pre class="example">
+                      <pre class="example">
+11.291</pre>
                   </tr>
                 </tbody>
               </table>
