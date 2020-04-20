@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.23.5         | 2020-04-20     | updated docs |
 | 4.23.4         | 2020-04-20     | `users()` optimized parseDateTime function |
 | 4.23.3         | 2020-04-09     | recactored to avoid `cat` |
 | 4.23.2         | 2020-04-08     | `cpu()` fixed getting base frequency for AMD Ryzen |
