@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.23.6         | 2020-04-25     | `networkGatewayDefault()` bug fix no interfaces |
 | 4.23.5         | 2020-04-20     | updated docs |
 | 4.23.4         | 2020-04-20     | `users()` optimized parseDateTime function |
 | 4.23.3         | 2020-04-09     | recactored to avoid `cat` |
