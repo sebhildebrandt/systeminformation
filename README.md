@@ -58,6 +58,8 @@ Lightweight collection of 40+ functions to retrieve detailed hardware, system an
 - supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD and SunOS support
 - no npm dependencies (for production)
 
+**Attention**: this is a `node.js` library.  It is supposed to be used as a backend/server-side library and will definilely not work within a browser.
+
 ### Installation
 
 ```bash
