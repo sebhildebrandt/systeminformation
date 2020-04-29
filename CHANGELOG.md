@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.23.9         | 2020-04-29     | `currentLoad()` workarround for no os.cpus info |
 | 4.23.8         | 2020-04-26     | `getMacAddresses()` fix added try catch |
 | 4.23.7         | 2020-04-26     | `getCpuCurrentSpeedSync()` workarround fix |
 | 4.23.6         | 2020-04-25     | `networkGatewayDefault()` bug fix no interfaces |
