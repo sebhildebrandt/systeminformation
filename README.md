@@ -382,6 +382,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].serialNum | X |  | X | X |  | serial number |
 | | [0].interfaceType | X |  | | X |  | SATA, PCIe, ... |
 | | [0].smartStatus | X |  | X | X |  | S.M.A.R.T Status (see Known Issues) |
+| | [0].smartData | X |  |  |  |  | S.M.A.R.T data from smartctl - requires at least smartmontools 7.0 (see Known Issues) |
 | si.blockDevices(cb) | [{...}] | X |  | X | X |  | returns array of disks, partitions,<br>raids and roms |
 | | [0].name | X |  | X | X |  | name |
 | | [0].type | X |  | X | X |  | type |
