@@ -277,6 +277,22 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ...[0].positionX |  |  |  | X |  | display position X |
 | | ...[0].positionY |  |  |  | X |  | display position Y |
 | | ...[0].currentRefreshRate | X |  | X | X |  | current pixel vertical |
+| si.nvidiaDevices(cb) | [{...}] | X |  |  | X |  | array of nvidia gpus |
+| | ...[0].driverVersion | X |  |  | X |  | Nvidia driver version |
+| | ...[0].name | X |  |  | X |  | GPU name |
+| | ...[0].pciBus | X |  |  | X |  | GPU PCI address (domain:bus:device.function) |
+| | ...[0].fanSpeed | X |  |  | X |  | GPU fan speed [%] |
+| | ...[0].memoryTotal | X |  |  | X |  | GPU total memory [MiB] |
+| | ...[0].memoryUsed | X |  |  | X |  | GPU used memory [MiB] |
+| | ...[0].memoryFree | X |  |  | X |  | GPU free memory [MiB] |
+| | ...[0].utilizationGpu | X |  |  | X |  | GPU utilization [%] |
+| | ...[0].utilizationMemory | X |  |  | X |  | Memory utilization [%] |
+| | ...[0].temperatureGpu | X |  |  | X |  | GPU core temperature [°C] |
+| | ...[0].temperatureMemory | X |  |  | X |  | GPU memory temperature [°C] |
+| | ...[0].powerDraw | X |  |  | X |  | GPU current power draw [W] |
+| | ...[0].powerLimit | X |  |  | X |  | GPU power limit [W] |
+| | ...[0].clockCore | X |  |  | X |  | GPU core clock [MHz] |
+| | ...[0].clockMemory | X |  |  | X |  | GPU memory clock [MHz] |
 
 #### 7. Operating System
 

@@ -191,6 +191,24 @@ export namespace Systeminformation {
     currentRefreshRate: number;
   }
 
+  interface NvidiaData {
+    driverVersion?: string;
+    name?: string;
+    pciBus?: string;
+    fanSpeed?: number;
+    memoryTotal?: number;
+    memoryUsed?: number;
+    memoryFree?: number;
+    utilizationGpu?: number;
+    utilizationMemory?: number;
+    temperatureGpu?: number;
+    temperatureMemory?: number;
+    powerDraw?: number;
+    powerLimit?: number;
+    clockCore?: number;
+    clockMemory?: number;
+  }
+
   // 4. Operating System
 
   interface OsData {
@@ -643,6 +661,7 @@ export function memLayout(cb?: (data: Systeminformation.MemLayoutData[]) => any)
 
 export function battery(cb?: (data: Systeminformation.BatteryData) => any): Promise<Systeminformation.BatteryData>;
 export function graphics(cb?: (data: Systeminformation.GraphicsData) => any): Promise<Systeminformation.GraphicsData>;
+export function nvidiaDevices(cb?: (data: Systeminformation.NvidiaData[]) => any): Promise<Systeminformation.NvidiaData[]>;
 
 export function fsSize(cb?: (data: Systeminformation.FsSizeData[]) => any): Promise<Systeminformation.FsSizeData[]>;
 export function fsOpenFiles(cb?: (data: Systeminformation.FsOpenFilesData[]) => any): Promise<Systeminformation.FsOpenFilesData[]>;
