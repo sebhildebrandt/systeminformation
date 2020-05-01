@@ -4,7 +4,7 @@
   "description": "Simple system and OS information library",
   "license": "MIT",
   "author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com> (https://plus-innovations.com)",
-  "homepage": "https://github.com/sebhildebrandt/systeminformation",
+  "homepage": "https://systeminformation.io",
   "main": "./lib/index.js",
   "bin": "./lib/cli.js",
   "types": "./lib/index.d.ts",

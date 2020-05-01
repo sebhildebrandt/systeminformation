@@ -107,6 +107,16 @@
                   </tr>
                   <tr>
                     <td></td>
+                    <td>[0].ip4subnet</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>ip4 subnet mask</td>
+                  </tr>
+                  <tr>
+                    <td></td>
                     <td>[0].ip6</td>
                     <td>X</td>
                     <td>X</td>
@@ -114,6 +124,16 @@
                     <td>X</td>
                     <td>X</td>
                     <td>ip6 address</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].ip6subnet</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>ip6 subnet mask</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -257,7 +277,9 @@ si.networkInterfaces().then(data => console.log(data));</code></pre class="examp
     iface: 'lo0',
     ifaceName: 'lo0',
     ip4: '127.0.0.1',
+    ip4subnet: '255.0.0.0',
     ip6: '::1',
+    ip6subnet: 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff',
     mac: '',
     internal: true,
     virtual: false,
@@ -276,7 +298,9 @@ si.networkInterfaces().then(data => console.log(data));</code></pre class="examp
     iface: 'en0',
     ifaceName: 'en0',
     ip4: '192.168.0.27',
+    ip4subnet: '255.255.255.0',
     ip6: 'fe80::134a:1e43:abc5:d413',
+    ip6subnet: 'ffff:ffff:ffff:ffff::',
     mac: 'xx:xx:xx:xx:xx:xx',
     internal: false,
     virtual: false,

@@ -314,7 +314,9 @@ export namespace Systeminformation {
     iface: string;
     ifaceName: string;
     ip4: string;
+    ip4subnet: string;
     ip6: string;
+    ip6subnet: string;
     mac: string;
     internal: boolean;
     virtual: boolean;

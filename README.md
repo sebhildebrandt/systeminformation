@@ -87,13 +87,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.24.0: `networkInterfaces()` added subnet mask ip4 and ip6
 - Version 4.23.0: `versions()` added param to specify which program/lib versions to detect
 - Version 4.22.0: `services()` added pids (windows)
 - Version 4.21.0: added npx copmpatibility
 - Version 4.20.0: `battery()` added designcapacity, voltage, unit
 - Version 4.19.0: `osInfo()` added uefi (OS uses UEFI during startup)
 - Version 4.18.0: `networkInterfaces()` added dhcp for mac os, added dhcp linux fallback
-- Version 4.17.0: `networkInterfaces()` added dhcp, dnsSuffix, ieee8021xAuth, ieee8021xState
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -431,7 +431,9 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].iface | X | X | X | X | X | interface |
 | | [0].ifaceName | X | X | X | X | X | interface name (differs on Windows) |
 | | [0].ip4 | X | X | X | X | X | ip4 address |
+| | [0].ip4subnet | X | X | X | X | X | ip4 subnet mask |
 | | [0].ip6 | X | X | X | X | X | ip6 address |
+| | [0].ip6subnet | X | X | X | X | X | ip6 subnet mask |
 | | [0].mac | X | X | X | X | X | MAC address |
 | | [0].internal | X | X | X | X | X | true if internal interface |
 | | [0].virtual | X | X | X | X | X | true if virtual interface |
