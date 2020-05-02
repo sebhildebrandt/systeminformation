@@ -165,7 +165,7 @@ export namespace Systeminformation {
     displays: GraphicsDisplayData[];
   }
 
-  interface GraphicsControllerData {
+  interface GraphicsControllerData extends Partial<NvidiaData> {
     vendor: string;
     model: string;
     bus: string;
@@ -193,6 +193,7 @@ export namespace Systeminformation {
 
   interface NvidiaData {
     driverVersion?: string;
+    subDeviceId?: number;
     name?: string;
     pciBus?: string;
     fanSpeed?: number;

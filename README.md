@@ -261,6 +261,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ...[0].bus | X |  | X | X |  | on which bus (e.g. PCIe) |
 | | ...[0].vram | X |  | X | X |  | VRAM size (in MB) |
 | | ...[0].vramDynamic | X |  | X | X |  | true if dynamicly allocated ram |
+| | ...[0].{...} | X |  |  | X |  | data from `nvidiaDevices` if available |
 | | displays[] | X |  | X | X |  | monitor/display array |
 | | ...[0].vendor |  |  |  | X |  | monitor/display vendor |
 | | ...[0].model | X |  | X | X |  | monitor/display model |
@@ -279,6 +280,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | ...[0].currentRefreshRate | X |  | X | X |  | current pixel vertical |
 | si.nvidiaDevices(cb) | [{...}] | X |  |  | X |  | array of nvidia gpus |
 | | ...[0].driverVersion | X |  |  | X |  | Nvidia driver version |
+| | ...[0].subDeviceId | X |  |  | X |  | GPU sub device id |
 | | ...[0].name | X |  |  | X |  | GPU name |
 | | ...[0].pciBus | X |  |  | X |  | GPU PCI address (domain:bus:device.function) |
 | | ...[0].fanSpeed | X |  |  | X |  | GPU fan speed [%] |
