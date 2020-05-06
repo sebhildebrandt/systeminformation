@@ -1,0 +1,51 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "no-trailing-whitespace": false,
+    "quotemark": [
+      false
+    ],
+    "comment-format": [
+      false
+    ],
+    "member-access": false,
+    "whitespace": [
+      true
+    ],
+    "object-literal-shorthand": false,
+    "ordered-imports": [
+      false
+    ],
+    "one-line": [
+      false
+    ],
+    "max-line-length": [
+      true,
+      140
+    ],
+    "only-arrow-functions": [
+      false
+    ],
+    "object-literal-sort-keys": [
+      false
+    ],
+    "array-type": [
+      false
+    ],
+    "variable-name": [
+      false
+    ],
+    "interface-name": [
+      false
+    ],
+    "one-variable-per-declaration": [
+      false
+    ],
+    "no-console": false
+  },
+  "rulesDirectory": []
+}
