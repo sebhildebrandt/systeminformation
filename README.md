@@ -87,13 +87,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.25.0: `get()` added function to get partial system info
 - Version 4.24.0: `networkInterfaces()` added subnet mask ip4 and ip6
 - Version 4.23.0: `versions()` added param to specify which program/lib versions to detect
 - Version 4.22.0: `services()` added pids (windows)
 - Version 4.21.0: added npx copmpatibility
 - Version 4.20.0: `battery()` added designcapacity, voltage, unit
 - Version 4.19.0: `osInfo()` added uefi (OS uses UEFI during startup)
-- Version 4.18.0: `networkInterfaces()` added dhcp for mac os, added dhcp linux fallback
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -639,6 +639,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | si.getStaticData(cb) | {...} | X | X | X | X | X | all static data at once |
 | si.getDynamicData(srv,iface,cb) | {...} | X | X | X | X | X | all dynamic data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "*" for ALL services (linux/win only)<br>Pass "*" for ALL network interfaces |
 | si.getAllData(srv,iface,cb) | {...} | X | X | X | X | X | all data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "*" for ALL services (linux/win only)<br>Pass "*" for ALL network interfaces |
+| si.get(valueObject,cb) | {...} | X | X | X | X | X | get partial system info data at once<br>In valueObject you can define<br>all values, you want to get back <br>(see documentation for details) |
 
 ### cb: Asynchronous Function Calls (callback)
 

@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.25.0         | 2020-05-07     | `get()` added function to get partial system info |
 | 4.24.2         | 2020-05-06     | `cpu()` fix (BSD), `networkStats()` fix BSD |
 | 4.24.1         | 2020-05-03     | `processes()` fix parsing command and params |
 | 4.24.0         | 2020-05-01     | `networkInterfaces()` added subnet mask ip4 and ip6 |
