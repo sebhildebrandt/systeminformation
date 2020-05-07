@@ -46,7 +46,7 @@
           <div class="col-12 sectionheader">
             <div class="title">General</div>
             <div class="text">
-              <p>In this section you will learn how to get general systeminformation data. We will also cover the "get-all" functions to get all data at once.</p>
+              <p>In this section you will learn how to get general systeminformation data. We will also cover the "get" and "get-all" functions to get partial or all data with one single call.</p>
               <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
               <pre><code class="js">const si = require('systeminformation');</code></pre>
               <h2>Lib-Version and Time/Timezone</h2>
@@ -128,6 +128,81 @@
                 </tbody>
               </table>
               <p>Keep in mind, that there is another function <span class="code">si.versions()</span> that will return versions of other system libraries and software packages</p>
+              <h2>Get Defined Result Object</h2>
+              <p>Normally you would call each of the functions (where you want to have detailed system information) seperately. The docs pages contain a full reference (with examples) for each available function. But there is also another really handy way to get a self-defined information object in one single call:</p>
+              <p>The <span class="code">si.get()</span> function is an alternative, where you can obtain several system information data in one call. You can define a json object which represents the data structure you are expecting and the <span class="code">si.get()</span> call will then return all of the requested data in a single result object</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>si.get(valueObject,cb)</td>
+                  <td>{...}</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>get partial data at once<br>Specify return object for all<br>values that should be returned:</td>
+                </tr>
+                <tr class="example">
+                  <td></td>
+                  <td colspan="7">
+                    <h5>Example</h5>
+                    <pre><code class="js">const si = require('systeminformation');
+
+// define all values, you want to get back
+valueObject = {
+  cpu: '*',
+  osInfo: 'platform, release',
+  system: 'model, manufacturer'
+}
+
+si.get(valueObject).then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  cpu: {
+    manufacturer: 'Intel®',
+    brand: 'Core™ i7-8569U',
+    vendor: 'GenuineIntel',
+    family: '6',
+    model: '142',
+    stepping: '10',
+    revision: '',
+    voltage: '',
+    speed: '2.80',
+    speedmin: '2.80',
+    speedmax: '2.80',
+    governor: '',
+    cores: 8,
+    physicalCores: 4,
+    processors: 1,
+    socket: '',
+    cache: { l1d: 32768, l1i: 32768, l2: 262144, l3: 8388608 }
+  },
+  osInfo: {
+    platform: 'darwin',
+    release: '10.15.4'
+  },
+  system: {
+    model: 'MacBookPro15,2',
+    manufacturer: 'Apple Inc.'
+  }
+}
+</pre>
+                </tr>
+                </tbody>
+              </table>
+              <p>The key names of the <span class="code">valueObject</span> must be exactly the same as the representing function within systeminformation.</p>
               <h2>Get All At Once</h2>
               <p>The following three functions <span class="code">si.getStaticData()</span>, <span class="code">si.getDynamicData()</span> and <span class="code">si.getAllData()</span> will return most of the available data in a single result object:</p>
               <table class="table table-sm table-bordered table-striped">
@@ -173,62 +248,6 @@
                     <td>X</td>
                     <td>X</td>
                     <td>all data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "*" for ALL services (linux/win only)<br>Pass "*" for ALL network interfaces</td>
-                  </tr>
-                  <tr>
-                    <td>si.get(valueObject,cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>get partial data at once<br>Specify return object for all<br>values that should be returned.<br>See example:</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
-
-// define all values, you want to get back
-valueObject = {
-  cpu: '*',
-  osInfo: 'platform, release',
-  system: 'model, manufacturer'
-}
-
-si.get(valueObject).then(data => console.log(data));</code></pre class="example">
-<pre class="example">
-{
-  cpu: {
-    manufacturer: 'Intel®',
-    brand: 'Core™ i7-8569U',
-    vendor: 'GenuineIntel',
-    family: '6',
-    model: '142',
-    stepping: '10',
-    revision: '',
-    voltage: '',
-    speed: '2.80',
-    speedmin: '2.80',
-    speedmax: '2.80',
-    governor: '',
-    cores: 8,
-    physicalCores: 4,
-    processors: 1,
-    socket: '',
-    cache: { l1d: 32768, l1i: 32768, l2: 262144, l3: 8388608 }
-  },
-  osInfo: {
-    platform: 'darwin',
-    release: '10.15.4'
-  },
-  system: {
-    model: 'MacBookPro15,2',
-    manufacturer: 'Apple Inc.'
-  }
-}
-</pre>
                   </tr>
                 </tbody>
               </table>
