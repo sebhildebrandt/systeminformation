@@ -681,3 +681,4 @@ export function vboxInfo(cb?: (data: Systeminformation.VboxInfoData[]) => any): 
 export function getStaticData(cb?: (data: Systeminformation.StaticData) => any): Promise<Systeminformation.StaticData>;
 export function getDynamicData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<any>;
 export function getAllData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<any>;
+export function get(valuesObject: any, cb?: (data: any) => any): Promise<any>;

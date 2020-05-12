@@ -65,5 +65,4 @@ yarn.lock
 test/
 dist/
 tsconfig.json
-tslint.json
 typings.d.ts
