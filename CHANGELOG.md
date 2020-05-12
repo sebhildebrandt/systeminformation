@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.25.2         | 2020-05-12     | `getDynamicData()` added wifiNetworks() |
 | 4.25.1         | 2020-05-07     | `get()` minor bounds test fix, updated docs |
 | 4.25.0         | 2020-05-07     | `get()` added function to get partial system info |
 | 4.24.2         | 2020-05-06     | `cpu()` fix (BSD), `networkStats()` fix BSD |
