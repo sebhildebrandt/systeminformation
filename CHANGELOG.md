@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.26.1         | 2020-05-13     | code cleanup |
 | 4.26.0         | 2020-05-12     | `diskLayout()` added full smart data where supported |
 | 4.25.2         | 2020-05-12     | `getDynamicData()` added wifiNetworks() |
 | 4.25.1         | 2020-05-07     | `get()` minor bounds test fix, updated docs |
