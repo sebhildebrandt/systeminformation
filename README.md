@@ -87,13 +87,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.26.0: `diskLayout()` added full S.M.A.R.T data (linux)
 - Version 4.25.0: `get()` added function to get partial system info
 - Version 4.24.0: `networkInterfaces()` added subnet mask ip4 and ip6
 - Version 4.23.0: `versions()` added param to specify which program/lib versions to detect
 - Version 4.22.0: `services()` added pids (windows)
 - Version 4.21.0: added npx copmpatibility
 - Version 4.20.0: `battery()` added designcapacity, voltage, unit
-- Version 4.19.0: `osInfo()` added uefi (OS uses UEFI during startup)
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -382,6 +382,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | | [0].serialNum | X |  | X | X |  | serial number |
 | | [0].interfaceType | X |  | | X |  | SATA, PCIe, ... |
 | | [0].smartStatus | X |  | X | X |  | S.M.A.R.T Status (see Known Issues) |
+| | [0].smartData | X |  |  |  |  | full S.M.A.R.T data from smartctl<br>requires at least smartmontools 7.0 |
 | si.blockDevices(cb) | [{...}] | X |  | X | X |  | returns array of disks, partitions,<br>raids and roms |
 | | [0].name | X |  | X | X |  | name |
 | | [0].type | X |  | X | X |  | type |
@@ -801,6 +802,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Nathan Patten [nrpatten](https://github.com/nrpatten)
 - Juan Campuzano [juancampuzano](https://github.com/juancampuzano)
 - Ricardo Polo [ricardopolo](https://github.com/ricardopolo)
+- Miłosz Dźwigała [mily20001]https://github.com/mily20001
 
 OSX Temperature: credits here are going to:
 

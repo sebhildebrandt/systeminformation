@@ -123,6 +123,81 @@ export namespace Systeminformation {
     voltageMax: number;
   }
 
+  interface SmartData {
+    smartctl: {
+      version: number[];
+      platform_info: string;
+      build_info: string;
+      argv: string[];
+      exit_status: number;
+    };
+    json_format_version: number[];
+    device: {
+      name: string;
+      info_name: string;
+      type: string;
+      protocol: string;
+    }
+    smart_status: {
+      passed: boolean;
+    }
+    ata_smart_attributes: {
+      revision: number;
+      table: {
+        id: number;
+        name: string;
+        value: number;
+        worst: number;
+        thresh: number;
+        when_failed: string;
+        flags: {
+          value: number;
+          string: string;
+          prefailure: boolean;
+          updated_online: boolean;
+          performance: boolean;
+          error_rate: boolean;
+          event_count: boolean;
+          auto_keep: boolean;
+        };
+        raw: { value: number; string: string }
+      }[];
+    };
+    power_on_time: {
+      hours: number;
+    };
+    power_cycle_count: number;
+    temperature: {
+      current: number;
+    };
+    ata_smart_error_log: {
+      summary: {
+        revision: number;
+        count: number;
+      };
+    };
+    ata_smart_self_test_log: {
+      standard: {
+        revision: number;
+        table: {
+          type: {
+            value: number;
+            string: string;
+          },
+          status: {
+            value: number;
+            string: string;
+            passed: boolean;
+          },
+          lifetime_hours: number;
+        }[];
+        count: number;
+        error_count_total: number;
+        error_count_outdated: number;
+      };
+    }
+  }
+
   interface DiskLayoutData {
     device: string;
     type: string;
@@ -140,6 +215,7 @@ export namespace Systeminformation {
     serialNum: string;
     interfaceType: string;
     smartStatus: string;
+    smartData?: SmartData;
   }
 
   interface BatteryData {
