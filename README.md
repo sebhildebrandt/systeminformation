@@ -806,8 +806,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 
 OSX Temperature: credits here are going to:
 
-- Massimiliano Marcon [mmarcon](https://github.com/mmarcon) for his work on [smc-code][smc-code-url]
-- Sébastien Lavoie [lavoiesl](https://github.com/lavoiesl) for his work on [osx-cpu-temp][osx-cpu-temp-url] code.
+- Frank Stock [pcafstockf](https://github.com/pcafstockf) - for his work on [smc-code][smc-code-url]
 
 ## Copyright Information
 
@@ -883,5 +882,4 @@ All other trademarks are the property of their respective owners.
 [mmon-npm-url]: https://npmjs.org/package/mmon
 [mmon-github-url]: https://github.com/sebhildebrandt/mmon
 
-[smc-code-url]: https://github.com/mmarcon/node-smc
-[osx-cpu-temp-url]: https://github.com/lavoiesl/osx-cpu-temp
+[smc-code-url]: https://github.com/pcafstockf/osx-temperature-sensor
