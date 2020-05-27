@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.26.5         | 2020-05-27     | `cpuTemperature()` optimizes scanning AMD linux sensors |
 | 4.26.4         | 2020-05-21     | `cpuTemperature()` fix (BSD), code cleanup |
 | 4.26.3         | 2020-05-20     | updated documentation (macOS temperature) |
 | 4.26.2         | 2020-05-19     | `processes()` memory leak fix |
