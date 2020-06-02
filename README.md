@@ -120,7 +120,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url]  (
 | si.version() | : string | X | X | X | X | X | lib version (no callback/promise) |
 | si.time() | {...} | X | X | X | X | X | (no callback/promise) |
 | | current | X | X | X | X | X | local (server) time |
-| | uptime | X | X | X | X | X | uptime |
+| | uptime | X | X | X | X | X | uptime in number of seconds |
 | | timezone | X | X | X | X | X | e.g. GMT+0200 |
 | | timezoneName | X | X | X | X | X | e.g. CEST |
 
