@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.26.7         | 2020-05-06     | `cpuTemperature()` fixed raspberry pi sensors issue |
 | 4.26.6         | 2020-06-03     | `diskLayout()` fixed issue linux |
 | 4.26.5         | 2020-05-27     | `cpuTemperature()` optimizes scanning AMD linux sensors |
 | 4.26.4         | 2020-05-21     | `cpuTemperature()` fix (BSD), code cleanup |
