@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.26.10        | 2020-07-16     | `networkStats()` fixed issue blocking windows |
 | 4.26.9         | 2020-06-06     | `networkStats()` fixed comparison issue windows |
 | 4.26.8         | 2020-06-06     | `networkInterfaces()` fixed caching issue |
 | 4.26.7         | 2020-06-06     | `cpuTemperature()` fixed raspberry pi sensors issue |
