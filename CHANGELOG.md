@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.26.12        | 2020-08-21     | `versions()` fixed issue windows |
 | 4.26.11        | 2020-08-20     | `cpuTemperature()` fixed issue windows |
 | 4.26.10        | 2020-07-16     | `networkStats()` fixed issue blocking windows |
 | 4.26.9         | 2020-06-06     | `networkStats()` fixed comparison issue windows |
