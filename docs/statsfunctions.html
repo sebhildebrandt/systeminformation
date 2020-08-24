@@ -46,7 +46,7 @@
           <div class="col-12 sectionheader">
             <div class="title">Stats Functions</div>
             <div class="text">
-              <h4>Getting correct stats values</h4>
+              <h2>Getting correct stats values</h2>
 
               <p>In <span class="code">fsStats()</span>, <span class="code">disksIO()</span>, <span class="code">currentLoad()</span> and <span class="code">networkStats()</span> the
                 results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning with the <strong>second</strong> call of the function.
@@ -65,6 +65,58 @@ setInterval(function() {
     })
 }, 1000)</code></pre>
               <p>Beginning with the second call, you get network transfer values per second.</p>
+              <h2>Observe System Parameters</h2>
+              <p>systeminformation now allows you to easily observe system poarameters: First you define a result object of system parameters you want to abserve (see also secription of the <a href="general.html"><span class="code">si.get()</span> function here</a>):</p>
+              <p>Then you just call an <span class="code">si.observe()</span> function with three parameters: your result object, the polling interval (in miliseconds) and a callback function. Systeminformation will now observe the result object. Every time the result changes, this callback function is called. Your callback function also gets the current value of all observed system parameters.</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>si.observe(valueObject,interval,cb)</td>
+                  <td>-</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>Observe the defined value object<br>call callback on changes:</td>
+                </tr>
+                <tr class="example">
+                  <td></td>
+                  <td colspan="7">
+                    <h5>Example</h5>
+                    <pre><code class="js">const si = require('systeminformation');
+
+// define all values, you want to get back
+valueObject = {
+  battery: 'acconnected'
+}
+
+function usersCallback(data) {
+  console.log('Power usage now: ' + (data.battery.acconnected ? 'AC' : 'battery'));
+}
+
+// now define the observer function
+let observer = si.observe(valueObject, 1000, usersCallback);
+
+// In this example we stop our observer function after 30 seconds
+setTimeout(() => {
+  clearInterval(observer)
+}, 30000);</code></pre class="example">
+                              </tr>
+                              </tbody>
+                            </table>
+                            <p>The key names of the <span class="code">valueObject</span> must be exactly the same as the representing function within systeminformation.</p>
 
             </div>
           </div>
