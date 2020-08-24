@@ -66,8 +66,8 @@ setInterval(function() {
 }, 1000)</code></pre>
               <p>Beginning with the second call, you get network transfer values per second.</p>
               <h2>Observe System Parameters</h2>
-              <p>systeminformation now allows you to easily observe system poarameters: First you define a result object of system parameters you want to abserve (see also secription of the <a href="general.html"><span class="code">si.get()</span> function here</a>):</p>
-              <p>Then you just call an <span class="code">si.observe()</span> function with three parameters: your result object, the polling interval (in miliseconds) and a callback function. Systeminformation will now observe the result object. Every time the result changes, this callback function is called. Your callback function also gets the current value of all observed system parameters.</p>
+              <p>systeminformation now allows you to easily observe system parameters: First you define a result object of system parameters you want to observe (see also decription of the <a href="general.html"><span class="code">si.get()</span> function here</a>):</p>
+              <p>Then you just call an <span class="code">si.observe()</span> function with three parameters: your result object, the polling interval (in milliseconds) and a callback function. systeminformation will now observe the result object. Every time the result changes, your callback function is called. This callback function also gets the current value the observed system parameters object.</p>
               <table class="table table-sm table-bordered table-striped">
                 <thead>
                   <tr>
@@ -89,7 +89,7 @@ setInterval(function() {
                   <td>X</td>
                   <td>X</td>
                   <td>X</td>
-                  <td>Observe the defined value object<br>call callback on changes:</td>
+                  <td>Observe the defined value object,<br>call callback on changes:</td>
                 </tr>
                 <tr class="example">
                   <td></td>
@@ -116,7 +116,7 @@ setTimeout(() => {
                               </tr>
                               </tbody>
                             </table>
-                            <p>The key names of the <span class="code">valueObject</span> must be exactly the same as the representing function within systeminformation.</p>
+                            <p>The key names of the <span class="code">valueObject</span> must be exactly the same as the representing function in systeminformation.</p>
 
             </div>
           </div>
