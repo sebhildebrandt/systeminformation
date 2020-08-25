@@ -58,7 +58,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 | 4.23.6         | 2020-04-25     | `networkGatewayDefault()` bug fix no interfaces |
 | 4.23.5         | 2020-04-20     | updated docs |
 | 4.23.4         | 2020-04-20     | `users()` optimized parseDateTime function |
-| 4.23.3         | 2020-04-09     | recactored to avoid `cat` |
+| 4.23.3         | 2020-04-09     | refactored to avoid `cat` |
 | 4.23.2         | 2020-04-08     | `cpu()` fixed getting base frequency for AMD Ryzen |
 | 4.23.1         | 2020-03-11     | `diskLayout()` optimized detection linux |
 | 4.23.0         | 2020-03-08     | `versions()` added param to specify which program/lib versions to detect |

@@ -92,10 +92,11 @@ si.cpu(function(data) {
     console.log('...');
 })</code></pre><br>
               <p><strong>Promise Style</strong></p>
-              <p>Promises style is new since version 3.0.<p></p>
+              <p>Promises style is new since version 3.0.
+              <p></p>
 
-                <p>When omitting callback parameter (cb), then you can use all function in a promise oriented way. All functions (exept of <span class="code">version</span> and <span class="code">time</span>) are returning a promise, that you can consume:</p>
-                <pre><code class="js">const si = require('systeminformation');
+              <p>When omitting callback parameter (cb), then you can use all function in a promise oriented way. All functions (exept of <span class="code">version</span> and <span class="code">time</span>) are returning a promise, that you can consume:</p>
+              <pre><code class="js">const si = require('systeminformation');
 
 si.cpu()
     .then(data => {
@@ -108,9 +109,9 @@ si.cpu()
         console.log('...');
     })
     .catch(error => console.error(error));</code></pre><br>
-                <p><strong>Async/Await Style</strong></p>
-                <p>Since node v7.6 you can also use the async / await pattern. The above example would then look like this:</p>
-                <pre><code class="js">const si = require('systeminformation');
+              <p><strong>Async/Await Style</strong></p>
+              <p>Since node v7.6 you can also use the async / await pattern. The above example would then look like this:</p>
+              <pre><code class="js">const si = require('systeminformation');
 
 async function cpuData() {
     try {
@@ -126,8 +127,8 @@ async function cpuData() {
         console.log(e)
     }
 }</code></pre><br>
-                <p><strong>Issues</strong></p>
-                <p>If you discover some empty or incorrect values, please be sure to first have a look at the <a href="issues.html">Known issues</a> section.</p>
+              <p><strong>Issues</strong></p>
+              <p>If you discover some empty or incorrect values, please be sure to first have a look at the <a href="issues.html">Known issues</a> section.</p>
             </div>
           </div>
         </div>
