@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.27.2         | 2020-08-26     | fixed issue breaking node v4 compatibility |
 | 4.27.1         | 2020-08-25     | `networkStats()` fixed packages dropped (linux) |
 | 4.27.0         | 2020-08-24     | `observe()` added function to observe/watch system parameters |
 | 4.26.12        | 2020-08-21     | `versions()` fixed issue windows |

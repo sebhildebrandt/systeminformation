@@ -58,7 +58,7 @@ Lightweight collection of 40+ functions to retrieve detailed hardware, system an
 - supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD and SunOS support
 - no npm dependencies (for production)
 
-**Attention**: this is a `node.js` library.  It is supposed to be used as a backend/server-side library and will definilely not work within a browser.
+**Attention**: this is a `node.js` library. It is supposed to be used as a backend/server-side library and will definilely not work within a browser.
 
 ### Installation
 
@@ -75,11 +75,11 @@ const si = require('systeminformation');
 
 // promises style - new since version 3
 si.cpu()
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
 ```
 
-**Callback, Promises, Awync Await**
+**Callback, Promises, Awync / Await**
 
 ## News and Changes
 
@@ -106,7 +106,7 @@ I was able to test it on several Debian, Raspbian, Ubuntu distributions as well 
 
 If you have comments, suggestions & reports, please feel free to contact me!
 
-I also created a nice little command line tool called [mmon][mmon-github-url]  (micro-monitor) for Linux and macOS, also available via [github][mmon-github-url] and [npm][mmon-npm-url]
+I also created a nice little command line tool called [mmon][mmon-github-url] (micro-monitor) for Linux and macOS, also available via [github][mmon-github-url] and [npm][mmon-npm-url]
 
 
 ## Reference
@@ -653,13 +653,13 @@ Remember: all functions (except `version` and `time`) are implemented as asynchr
 const si = require('systeminformation');
 
 si.cpu(function(data) {
-    console.log('CPU Information:');
-    console.log('- manufucturer: ' + data.manufacturer);
-    console.log('- brand: ' + data.brand);
-    console.log('- speed: ' + data.speed);
-    console.log('- cores: ' + data.cores);
-    console.log('- physical cores: ' + data.physicalCores);
-    console.log('...');
+  console.log('CPU Information:');
+  console.log('- manufucturer: ' + data.manufacturer);
+  console.log('- brand: ' + data.brand);
+  console.log('- speed: ' + data.speed);
+  console.log('- cores: ' + data.cores);
+  console.log('- physical cores: ' + data.physicalCores);
+  console.log('...');
 })
 ```
 
@@ -673,16 +673,16 @@ When omitting callback parameter (cb), then you can use all function in a promis
 const si = require('systeminformation');
 
 si.cpu()
-    .then(data => {
-        console.log('CPU Information:');
-        console.log('- manufucturer: ' + data.manufacturer);
-        console.log('- brand: ' + data.brand);
-        console.log('- speed: ' + data.speed);
-        console.log('- cores: ' + data.cores);
-        console.log('- physical cores: ' + data.physicalCores);
-        console.log('...');
-    })
-    .catch(error => console.error(error));
+  .then(data => {
+    console.log('CPU Information:');
+    console.log('- manufucturer: ' + data.manufacturer);
+    console.log('- brand: ' + data.brand);
+    console.log('- speed: ' + data.speed);
+    console.log('- cores: ' + data.cores);
+    console.log('- physical cores: ' + data.physicalCores);
+    console.log('...');
+  })
+  .catch(error => console.error(error));
 ```
 
 ### Async / Await
@@ -695,18 +695,18 @@ Since node v7.6 you can also use the `async` / `await` pattern. The above exampl
 const si = require('systeminformation');
 
 async function cpuData() {
-    try {
-        const data = await si.cpu();
-        console.log('CPU Information:');
-        console.log('- manufucturer: ' + data.manufacturer);
-        console.log('- brand: ' + data.brand);
-        console.log('- speed: ' + data.speed);
-        console.log('- cores: ' + data.cores);
-        console.log('- physical cores: ' + data.physicalCores);
-        console.log('...');
-    } catch (e) {
-        console.log(e)
-    }
+  try {
+    const data = await si.cpu();
+    console.log('CPU Information:');
+    console.log('- manufucturer: ' + data.manufacturer);
+    console.log('- brand: ' + data.brand);
+    console.log('- speed: ' + data.speed);
+    console.log('- cores: ' + data.cores);
+    console.log('- physical cores: ' + data.physicalCores);
+    console.log('...');
+  } catch (e) {
+    console.log(e)
+  }
 }
 ```
 
@@ -715,7 +715,7 @@ async function cpuData() {
 #### macOS - Temperature Sensor
 
 To be able to measure temperature on macOS I created a little additional package. Due to some difficulties
-in NPM with `optionalDependencies`  I unfortunately was getting unexpected warnings on other platforms.
+in NPM with `optionalDependencies` I unfortunately was getting unexpected warnings on other platforms.
 So I decided to drop this optional dependency for macOS - so by default, you will not get correct values.
 
 But if you need to detect macOS temperature just run the following additional
@@ -741,7 +741,7 @@ e.g. on DEBIAN based systems by running `sudo apt-get install lm-sensors`
 
 #### Linux S.M.A.R.T. Status
 
-To be able to detect S.M.A.R.T. status on Linux you need to install `smartmontools`. On DEBIAN based linux distributions you can install it by running  `sudo apt-get install smartmontools`
+To be able to detect S.M.A.R.T. status on Linux you need to install `smartmontools`. On DEBIAN based linux distributions you can install it by running `sudo apt-get install smartmontools`
 
 ## *: Additional Notes
 
@@ -757,9 +757,9 @@ So basically, if you e.g. need a values for network stats every second, your cod
 const si = require('systeminformation');
 
 setInterval(function() {
-	si.networkStats().then(data => {
-	    console.log(data);
-	})
+  si.networkStats().then(data => {
+    console.log(data);
+  })
 }, 1000)
 ```
 
