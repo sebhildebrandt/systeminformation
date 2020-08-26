@@ -758,3 +758,4 @@ export function getStaticData(cb?: (data: Systeminformation.StaticData) => any):
 export function getDynamicData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<any>;
 export function getAllData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<any>;
 export function get(valuesObject: any, cb?: (data: any) => any): Promise<any>;
+export function observe(valuesObject: any, interval: number, cb?: (data: any) => any): number;
