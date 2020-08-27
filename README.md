@@ -38,10 +38,10 @@ This next major version release 4.0 comes with several optimizations and changes
 
 - new systeminformation website with better documentation and examples [systeminformation.io][systeminformation-url]
 - added typescript definitions
-- reworked network section: this will now return more information and allows to get networkStats for more than one interface at once.
+- reworked network section: this will now return more information and allows getting networkStats for more than one interface at once.
 - dockerContainerStats for multiple containers or all containers at once
 - optimized graphics controller and display detection
-- added wifiNetworks to get available wifi networks
+- added wifiNetworks to get available Wi-Fi networks
 - added vboxInfo to get detailed vm information
 - added chassis information
 - better Raspberry-PI detection
@@ -58,7 +58,7 @@ Lightweight collection of 40+ functions to retrieve detailed hardware, system an
 - supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD and SunOS support
 - no npm dependencies (for production)
 
-**Attention**: this is a `node.js` library. It is supposed to be used as a backend/server-side library and will definilely not work within a browser.
+**Attention**: this is a `node.js` library. It is supposed to be used as a backend/server-side library and will definitely not work within a browser.
 
 ### Installation
 
@@ -79,7 +79,7 @@ si.cpu()
   .catch(error => console.error(error));
 ```
 
-**Callback, Promises, Awync / Await**
+**Callback, Promises, Async / Await**
 
 ## News and Changes
 
@@ -100,7 +100,7 @@ You can find all changes here: [detailed changelog][changelog-url]
 
 ## Core concept
 
-[Node.js][nodejs-url] comes with some basic OS information, but I always wanted a little more. So I came up to write this little library. This library is still work in progress. It is supposed to be used as a backend/server-side library (will definilely not work within a browser). It requires node.js version 4.0 and above.
+[Node.js][nodejs-url] comes with some basic OS information, but I always wanted a little more. So I came up to write this little library. This library is still work in progress. It is supposed to be used as a backend/server-side library (will definitely not work within a browser). It requires node.js version 4.0 and above.
 
 I was able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra, Mojave) and some Windows 7, Windows 10, FreeBSD, OpenBSD, NetBSD and SunOS machines. Not all functions are supported on all operating systems. Have a look at the function reference in the docs to get further details.
 
@@ -667,7 +667,7 @@ si.cpu(function(data) {
 
 **Promises Style** is new in version 3.0.
 
-When omitting callback parameter (cb), then you can use all function in a promise oriented way. All functions (exept of `version` and `time`) are returning a promise, that you can consume:
+When omitting callback parameter (cb), then you can use all function in a promise oriented way. All functions (except of `version` and `time`) are returning a promise, that you can consume:
 
 ```js
 const si = require('systeminformation');
@@ -736,12 +736,12 @@ In some cases we also discovered that `wmic` returned incorrect temperature valu
 
 #### Linux Temperature
 
-In some cases you need to install the linux `sensors` package to be able to measure temperature
+In some cases you need to install the Linux `sensors` package to be able to measure temperature
 e.g. on DEBIAN based systems by running `sudo apt-get install lm-sensors`
 
 #### Linux S.M.A.R.T. Status
 
-To be able to detect S.M.A.R.T. status on Linux you need to install `smartmontools`. On DEBIAN based linux distributions you can install it by running `sudo apt-get install smartmontools`
+To be able to detect S.M.A.R.T. status on Linux you need to install `smartmontools`. On DEBIAN based Linux distributions you can install it by running `sudo apt-get install smartmontools`
 
 ## *: Additional Notes
 
@@ -749,9 +749,9 @@ In `fsStats()`, `disksIO()` and `networkStats()` the results / sec. values (rx_s
 with the second call of the function. It is determined by calculating the difference of transferred bytes / IOs
 divided by the time between two calls of the function.
 
-The first time you are calling one of this functions, you will get `-1` for transfer rates. The second time, you should then get statistics based on the time between the two calls ...
+The first time you are calling one of these functions, you will get `-1` for transfer rates. The second time, you should then get statistics based on the time between the two calls ...
 
-So basically, if you e.g. need a values for network stats every second, your code should look like this:
+So basically, if you e.g. need a value for network stats every second, your code should look like this:
 
 ```js
 const si = require('systeminformation');
