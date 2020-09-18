@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.27.5         | 2020-09-18     | `cpuTemperature()` fix try catch (linux) |
 | 4.27.4         | 2020-09-16     | `networkInterfaceDefault()` optimization (macOS) |
 | 4.27.3         | 2020-08-26     | updated typescript typings |
 | 4.27.2         | 2020-08-26     | fixed issue breaking node v4 compatibility |
