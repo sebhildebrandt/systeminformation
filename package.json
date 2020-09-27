@@ -118,5 +118,8 @@
       "text"
     ],
     "all": true
+  },
+  "dependencies": {
+    "osx-temperature-sensor": "^1.0.7"
   }
 }
