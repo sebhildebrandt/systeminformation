@@ -365,9 +365,9 @@ export namespace Systeminformation {
   }
 
   interface FsStatsData {
-    rx_bytes: number;
-    wx_bytes: number;
-    tx_bytes: number;
+    rx: number;
+    wx: number;
+    tx: number;
     rx_sec: number;
     wx_sec: number;
     tx_sec: number;
