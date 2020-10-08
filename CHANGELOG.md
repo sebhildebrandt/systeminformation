@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.27.8         | 2020-10-08     | windows codepages partial fix |
 | 4.27.7         | 2020-10-05     | updated typescript typings, minor fixes |
 | 4.27.6         | 2020-10-02     | `get()` fixed when results are in arrays |
 | 4.27.5         | 2020-09-18     | `cpuTemperature()` fix try catch (linux) |
