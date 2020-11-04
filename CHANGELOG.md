@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.28.0         | 2020-11-04     | `graphics()` added deviceName (windows) |
 | 4.27.11        | 2020-10-26     | `inetChecksite()` fixed vulnerability: command injection |
 | 4.27.10        | 2020-10-16     | `dockerContainers()` resolved hanging issue |
 | 4.27.9         | 2020-10-13     | `networkInterfaces()` loopback internal detection (windows) |

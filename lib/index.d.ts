@@ -252,6 +252,7 @@ export namespace Systeminformation {
   interface GraphicsDisplayData {
     vendor: string;
     model: string;
+    deviceName: string;
     main: boolean;
     builtin: boolean;
     connection: string;
