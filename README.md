@@ -259,6 +259,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | ...[0].model | X |  | X | X |  | graphics controller model |
 | | ...[0].vendor | X |  | X | X |  | e.g. ATI |
 | | ...[0].bus | X |  | X | X |  | on which bus (e.g. PCIe) |
+| | ...[0].busAddress | X | | | | | PCI bus address (e.g. 26:00.0) |
 | | ...[0].vram | X |  | X | X |  | VRAM size (in MB) |
 | | ...[0].vramDynamic | X |  | X | X |  | true if dynamicly allocated ram |
 | | displays[] | X |  | X | X |  | monitor/display array |
