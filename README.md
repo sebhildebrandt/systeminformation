@@ -30,7 +30,7 @@
   [![Sponsoring][sponsor-badge]][sponsor-url]
   [![MIT license][license-img]][license-url]
 
-This is amazing. Started as a small project just for myself, it now has > 9,000 lines of code, > 300 versions published, up to 2 mio downloads per month, > 18 mio downloads overall. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 9,000 lines of code, > 300 versions published, up to 2 mio downloads per month, > 20 mio downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 4.0
 
@@ -87,13 +87,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.29.0: `fsSize()` correct fs type detection macOS (HFS, APFS, NFS)
 - Version 4.28.0: `graphics()` added deviceName (Windows)
 - Version 4.27.0: `observe()` added observe / watch function
 - Version 4.26.0: `diskLayout()` added full S.M.A.R.T data (Linux)
 - Version 4.25.0: `get()` added function to get partial system info
 - Version 4.24.0: `networkInterfaces()` added subnet mask ip4 and ip6
 - Version 4.23.0: `versions()` added param to specify which program/lib versions to detect
-- Version 4.22.0: `services()` added pids (windows)
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
