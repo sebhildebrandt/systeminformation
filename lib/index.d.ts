@@ -15,6 +15,12 @@ export namespace Systeminformation {
 
   // 2. System (HW)
 
+  interface RaspberryRevisionData {
+    manufacturer: string;
+    processor: string;
+    type: string;
+    revision: string;
+  }
   interface SystemData {
     manufacturer: string;
     model: string;
@@ -22,6 +28,7 @@ export namespace Systeminformation {
     serial: string;
     uuid: string;
     sku: string;
+    raspberry?: RaspberryRevisionData;
   }
 
   interface BiosData {
