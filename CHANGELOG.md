@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.29.2         | 2020-11-09     | `blockdevices()` catch errors adapted for just one line |
 | 4.29.2         | 2020-11-09     | `blockdevices()` catch errors |
 | 4.29.1         | 2020-11-08     | `cpu()`, `system()` better parsing Raspberry Pi revision codes |
 | 4.29.0         | 2020-11-08     | `fsSize()` correct fs type detection macOS (HFS, APFS, NFS) |
