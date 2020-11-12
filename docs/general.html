@@ -203,6 +203,60 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
                 </tbody>
               </table>
               <p>The key names of the <span class="code">valueObject</span> must be exactly the same as the representing function within systeminformation.</p>
+              <h3>Providing parameters to the get() function</h3>
+              <p>Now you can also provide parameters to get() functions (where needed). Just pass the parameters in parentheses right after the wanted keys: have a look at the folloging example:</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>si.get(valueObject,cb)</td>
+                  <td>{...}</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>example with parameters:<br>value in paretheses goes as parameter<br>to the given function:</td>
+                </tr>
+                <tr class="example">
+                  <td></td>
+                  <td colspan="7">
+                    <h5>Example</h5>
+                    <pre><code class="js">const si = require('systeminformation');
+
+// define all values, you want to get back
+// here the value in paretheses goes as a parameter
+// to the processLoad function
+
+valueObject = {
+  processLoad: 'pids, cpu (postgres)'
+}
+si.get(valueObject).then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  processLoad: {
+  pids: [
+    640, 643, 654,
+    655, 656, 657,
+    658, 659
+  ],
+    cpu: 0.63
+  }
+}
+</pre>
+                </tr>
+                </tbody>
+              </table>
               <h2>Get All At Once</h2>
               <p>The following three functions <span class="code">si.getStaticData()</span>, <span class="code">si.getDynamicData()</span> and <span class="code">si.getAllData()</span> will return most of the available data in a single result object:</p>
               <table class="table table-sm table-bordered table-striped">

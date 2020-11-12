@@ -87,6 +87,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.30.0: `get()` added possibility to provide parameters
 - Version 4.29.0: `fsSize()` correct fs type detection macOS (HFS, APFS, NFS)
 - Version 4.28.0: `graphics()` added deviceName (Windows)
 - Version 4.27.0: `observe()` added observe / watch function
