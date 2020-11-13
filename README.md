@@ -47,7 +47,13 @@ This next major version release 4.0 comes with several optimizations and changes
 - better Raspberry-PI detection
 - lot of minor improvements
 
-Breaking Changes: you will see some minor breaking changes. Read the [detailed changelog][changelog-url].
+Breaking Changes in version 4: you will see some minor breaking changes. Read the [detailed changelog][changelog-url].
+
+## Upcoming
+
+**MacOS on ARM, Windows on ARM**: November 11th 2020 - We will have a closer look on that! As soon as we have the new hardware here, will definitely work on support for those platforms.
+
+**Version 5**: we are planning a new major version with some minor breaking changes and some additional features. Will try to make this available Q1 of 2021.
 
 ## Quick Start
 

@@ -13,6 +13,10 @@ h1, h2, h3, h4 {
   text-align: center;
 }
 
+.bold {
+  font-weight: 700;
+}
+
 .bg-image-full {
   background: no-repeat center center scroll;
   background-color: #1A1F30;
