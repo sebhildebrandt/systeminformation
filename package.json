@@ -1,12 +1,14 @@
 {
   "name": "systeminformation",
-  "version": "4.30.2",
+  "version": "4.30.3",
   "description": "Simple system and OS information library",
   "license": "MIT",
   "author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com> (https://plus-innovations.com)",
   "homepage": "https://systeminformation.io",
   "main": "./lib/index.js",
-  "bin": "./lib/cli.js",
+  "bin": {
+    "systeminformation": "lib/cli.js"
+  },
   "types": "./lib/index.d.ts",
   "scripts": {
     "clean": "rimraf dist",
