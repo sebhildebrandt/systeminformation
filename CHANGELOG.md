@@ -30,6 +30,8 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.30.2         | 2020-11-25     | security update (prototype pollution prevention) |
+| 4.30.1         | 2020-11-12     | updated docs |
 | 4.30.0         | 2020-11-12     | `get()` possibility to provide params |
 | 4.29.3         | 2020-11-09     | `blockdevices()` catch errors adapted for just one line |
 | 4.29.2         | 2020-11-09     | `blockdevices()` catch errors |
