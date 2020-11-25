@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.30.4         | 2020-11-25     | reverted Object.freeze because it broke some projects |
 | 4.30.3         | 2020-11-25     | security update (prototype pollution prevention) Object.freeze |
 | 4.30.2         | 2020-11-25     | security update (prototype pollution prevention) |
 | 4.30.1         | 2020-11-12     | updated docs |
