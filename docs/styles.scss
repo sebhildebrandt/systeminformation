@@ -40,6 +40,34 @@ h1, h2, h3, h4 {
       align-items: center;
       flex-grow: 1;
     }
+    .recommendation {
+      position: absolute;
+      top: 40px;
+      right: -95px;
+      z-index: 10;
+      display: inline-block;
+      width: 330px;
+      text-align: center;
+      padding: .25em 0;
+      color: white;
+      transform: rotate(45deg);
+      background: rgb(151, 29, 29);
+      font-size: 0.9rem;
+      @media only screen and (min-width: 420px) {
+          font-size: 1.0rem;
+      }
+      @media only screen and (min-width: 768px) {
+          font-size: 1.1rem;
+      }
+      @media only screen and (min-width: 1024px) {
+        top: 50px;
+        right: -75px;
+        font-size: 1.2rem;
+      }
+      &:hover {
+        text-decoration: none;;
+      }
+    }
     .title {
         color: #fff;
         padding-top: 10px;

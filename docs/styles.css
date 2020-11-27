@@ -63,6 +63,46 @@ h1, h2, h3, h4 {
           flex-grow: 1;
 }
 
+.bg-image-full .recommendation {
+  position: absolute;
+  top: 40px;
+  right: -95px;
+  z-index: 10;
+  display: inline-block;
+  width: 330px;
+  text-align: center;
+  padding: .25em 0;
+  color: white;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  background: #971d1d;
+  font-size: 0.9rem;
+}
+
+@media only screen and (min-width: 420px) {
+  .bg-image-full .recommendation {
+    font-size: 1.0rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .bg-image-full .recommendation {
+    font-size: 1.1rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .bg-image-full .recommendation {
+    top: 50px;
+    right: -75px;
+    font-size: 1.2rem;
+  }
+}
+
+.bg-image-full .recommendation:hover {
+  text-decoration: none;
+}
+
 .bg-image-full .title {
   color: #fff;
   padding-top: 10px;
