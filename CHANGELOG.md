@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.30.8         | 2020-11-30     | `fsSize()` catch error (mac OS) |
 | 4.30.7         | 2020-11-29     | `cpuTemperature()` rewrite hwmon parsing |
 | 4.30.6         | 2020-11-27     | wmic added default windows path (windows) |
 | 4.30.5         | 2020-11-26     | adapted security update (prototype pollution prevention) |
