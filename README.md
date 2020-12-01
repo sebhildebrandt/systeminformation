@@ -30,7 +30,13 @@
   [![Sponsoring][sponsor-badge]][sponsor-url]
   [![MIT license][license-img]][license-url]
 
-This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 350 versions published, up to 2 mio downloads per month, > 20 mio downloads overall. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 350 versions published, up to 2.5 mio downloads per month, > 20 mio downloads overall. Thank you to all who contributed to this project!
+
+## Upcoming
+
+**MacOS on ARM (Apple silicon support), Windows on ARM**: November 11th 2020 - We will have a closer look on that! As soon as we have the new hardware here, will  work on support for those platforms!
+
+**Version 5**: we are planning a new major version with some minor breaking changes and some additional features. Will try to make this available Q1 of 2021.
 
 ## New Version 4.0
 
@@ -48,12 +54,6 @@ This next major version release 4.0 comes with several optimizations and changes
 - lot of minor improvements
 
 Breaking Changes in version 4: you will see some minor breaking changes. Read the [detailed changelog][changelog-url].
-
-## Upcoming
-
-**MacOS on ARM, Windows on ARM**: November 11th 2020 - We will have a closer look on that! As soon as we have the new hardware here, will definitely work on support for those platforms.
-
-**Version 5**: we are planning a new major version with some minor breaking changes and some additional features. Will try to make this available Q1 of 2021.
 
 ## Quick Start
 
