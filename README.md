@@ -34,7 +34,7 @@ This is amazing. Started as a small project just for myself, it now has > 10,000
 
 ## Upcoming
 
-**MacOS on ARM (Apple silicon support), Windows on ARM**: November 11th 2020 - We will have a closer look on that! I just ordered new hardware (any support is highly appreciated - [Buy me a coffe][https://www.buymeacoffee.com/systeminfo]). As soon as I have the new hardware here, I work on support for those platforms!
+**MacOS on ARM (Apple silicon support), Windows on ARM**: November 11th 2020 - We will have a closer look on that! I just ordered new hardware (any support is highly appreciated - [Buy me a coffe](https://www.buymeacoffee.com/systeminfo)). As soon as I have the new hardware here, I work on support for those platforms!
 
 **Version 5**: we are planning a new major version with some minor breaking changes and some additional features. Will try to make this available Q1 of 2021.
 
