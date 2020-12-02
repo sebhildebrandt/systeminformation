@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.30.11        | 2020-12-02     | `cpu()` bug fix speed parsing |
 | 4.30.10        | 2020-12-01     | `cpu()` handled speed parsing error (Apple Silicon) |
 | 4.30.9         | 2020-12-01     | `cpu()` corrected processor names (Raspberry Pi) |
 | 4.30.8         | 2020-11-30     | `fsSize()` catch error (mac OS) |
