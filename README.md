@@ -93,6 +93,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.31.0: `osInfo()` added FQDN
 - Version 4.30.0: `get()` added possibility to provide parameters
 - Version 4.29.0: `fsSize()` correct fs type detection macOS (HFS, APFS, NFS)
 - Version 4.28.0: `graphics()` added deviceName (Windows)
@@ -100,7 +101,6 @@ si.cpu()
 - Version 4.26.0: `diskLayout()` added full S.M.A.R.T data (Linux)
 - Version 4.25.0: `get()` added function to get partial system info
 - Version 4.24.0: `networkInterfaces()` added subnet mask ip4 and ip6
-- Version 4.23.0: `versions()` added param to specify which program/lib versions to detect
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -298,6 +298,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | kernel | X | X | X | X | X | kernel release - same as os.release() |
 | | arch | X | X | X | X | X | same as os.arch() |
 | | hostname | X | X | X | X | X | same as os.hostname() |
+| | fqdn | X | X | X | X | X | FQDN fully qualified domain name |
 | | codepage | X | X | X | X |   | OS build version |
 | | logofile | X | X | X | X | X | e.g. 'apple', 'debian', 'fedora', ... |
 | | serial | X | X | X | X |   | OS/Host serial number |

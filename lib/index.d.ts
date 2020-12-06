@@ -285,6 +285,7 @@ export namespace Systeminformation {
     kernel: string;
     arch: string;
     hostname: string;
+    fqdn: string;
     codepage: string;
     logofile: string;
     serial: string;
