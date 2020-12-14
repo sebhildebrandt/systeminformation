@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.31.2         | 2020-12-14     | `graphics()` Windows 7 Graphics Fixes (Multi Monitor) |
 | 4.31.1         | 2020-12-11     | `inetLatency()` command injection vulnaribility fix |
 | 4.31.0         | 2020-12-06     | `osInfo()` added FQDN |
 | 4.30.11        | 2020-12-02     | `cpu()` bug fix speed parsing |
