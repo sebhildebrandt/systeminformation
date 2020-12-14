@@ -93,6 +93,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.32.0: `graphics()` added clinfo support (linux)
 - Version 4.31.0: `osInfo()` added FQDN
 - Version 4.30.0: `get()` added possibility to provide parameters
 - Version 4.29.0: `fsSize()` correct fs type detection macOS (HFS, APFS, NFS)
@@ -100,7 +101,6 @@ si.cpu()
 - Version 4.27.0: `observe()` added observe / watch function
 - Version 4.26.0: `diskLayout()` added full S.M.A.R.T data (Linux)
 - Version 4.25.0: `get()` added function to get partial system info
-- Version 4.24.0: `networkInterfaces()` added subnet mask ip4 and ip6
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]

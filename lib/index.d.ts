@@ -252,6 +252,7 @@ export namespace Systeminformation {
     vendor: string;
     model: string;
     bus: string;
+    busAddress?: string;
     vram: number;
     vramDynamic: boolean;
   }
