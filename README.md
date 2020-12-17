@@ -175,6 +175,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | governor | X | | | |  | e.g. 'powersave' |
 | | cores | X | X | X | X |  | # cores |
 | | physicalCores | X | X | X | X |  | # physical cores |
+| | efficiencyCores |   |   | X |  |  | # efficiancy cores (ARM only) |
+| | performanceCores |   |   | X |  |  | # performance cores (ARM only) |
 | | processors | X | X | X | X |  | # processors |
 | | socket | X | X |  | X |  | socket type e.g. "LGA1356" |
 | | vendor | X | X | X | X |  | vendor ID |

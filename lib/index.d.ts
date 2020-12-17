@@ -73,6 +73,8 @@ export namespace Systeminformation {
     governor: string;
     cores: number;
     physicalCores: number;
+    efficiencyCores?: number;
+    performanceCores?: number;
     processors: number;
     socket: string;
     cache: CpuCacheData;
