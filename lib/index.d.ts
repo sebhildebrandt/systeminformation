@@ -255,6 +255,7 @@ export namespace Systeminformation {
     busAddress?: string;
     vram: number;
     vramDynamic: boolean;
+    subDeviceId?: string;
   }
 
   interface GraphicsDisplayData {
