@@ -93,6 +93,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.33.0: `graphics()` added nvidia-smi support (linux, windows)
 - Version 4.32.0: `graphics()` added clinfo support (linux)
 - Version 4.31.0: `osInfo()` added FQDN
 - Version 4.30.0: `get()` added possibility to provide parameters
