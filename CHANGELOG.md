@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.33.3         | 2020-12-27     | `graphics()` updated docs |
 | 4.33.2         | 2020-12-27     | `graphics()` fixed issue (nvidia-smi) |
 | 4.33.1         | 2020-12-22     | `versions()` fixed issue (mac OS) |
 | 4.33.0         | 2020-12-21     | `graphics()` nvidia-smi support (linux, windows) |

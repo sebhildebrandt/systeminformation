@@ -48,7 +48,7 @@ This is amazing. Started as a small project just for myself, it now has > 10,000
 
 ## Upcoming
 
-**MacOS on ARM (Apple silicon support), Windows on ARM**: New Apple M1 silicon hardware just arrived (any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)). We already made a lot of tests and improvements to support Apple M1 silicon. Current status can be seen [seen here](https://github.com/sebhildebrandt/systeminformation/issues/453).
+**MacOS on ARM (Apple silicon support), Windows on ARM**: New Apple M1 silicon hardware just arrived (any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)). We already made a lot of tests and improvements to support Apple M1 silicon. Current status [is documented here](https://github.com/sebhildebrandt/systeminformation/issues/453).
 
 **Version 5**: we are planning a new major version with some minor breaking changes and some additional features. Will try to make this available Q1 of 2021.
 

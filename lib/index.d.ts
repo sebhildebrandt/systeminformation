@@ -258,6 +258,22 @@ export namespace Systeminformation {
     vram: number;
     vramDynamic: boolean;
     subDeviceId?: string;
+    driverVersion?: string;
+    subDeviceId?: string;
+    name?: string;
+    pciBus?: string;
+    fanSpeed?: number;
+    memoryTotal?: number;
+    memoryUsed?: number;
+    memoryFree?: number;
+    utilizationGpu?: number;
+    utilizationMemory?: number;
+    temperatureGpu?: number;
+    temperatureMemory?: number;
+    powerDraw?: number;
+    powerLimit?: number;
+    clockCore?: number;
+    clockMemory?: number;
   }
 
   interface GraphicsDisplayData {
