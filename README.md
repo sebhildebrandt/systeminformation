@@ -30,11 +30,25 @@
   [![Sponsoring][sponsor-badge]][sponsor-url]
   [![MIT license][license-img]][license-url]
 
+#### Happy new year
+
+```
+                                   .''.
+       .''.      .        *''*    :_\/_:     .
+      :_\/_:   _\(/_  .:.*_\/_*   : /\ :  .'.:.'.
+  .''.: /\ :   ./)\   ':'* /\ * :  '..'.  -=:o:=-
+ :_\/_:'.:::.    ' *''*    * '.\'/.' _\(/_'.':'.'
+ : /\ : :::::     *_\/_*     -= o =-  /)\    '  *
+  '..'  ':::'     * /\ *     .'/.\'.   '
+      *            *..*         :
+        *
+```
+
 This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 350 versions published, up to 3 mio downloads per month, > 25 mio downloads overall. Thank you to all who contributed to this project!
 
 ## Upcoming
 
-**MacOS on ARM (Apple silicon support), Windows on ARM**: November 11th 2020 - We will have a closer look on that! I just ordered new hardware (any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)). As soon as I have the new hardware here, I work very hard on it to get full native support for those platforms!
+**MacOS on ARM (Apple silicon support), Windows on ARM**: New Apple M1 silicon hardware just arrived (any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)). We already made a lot of tests and improvements to support Apple M1 silicon. Current status can be seen [seen here](https://github.com/sebhildebrandt/systeminformation/issues/453).
 
 **Version 5**: we are planning a new major version with some minor breaking changes and some additional features. Will try to make this available Q1 of 2021.
 
