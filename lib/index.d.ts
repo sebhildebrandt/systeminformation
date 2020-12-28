@@ -259,7 +259,6 @@ export namespace Systeminformation {
     vramDynamic: boolean;
     subDeviceId?: string;
     driverVersion?: string;
-    subDeviceId?: string;
     name?: string;
     pciBus?: string;
     fanSpeed?: number;
