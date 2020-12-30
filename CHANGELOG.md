@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.33.5         | 2020-12-30     | `graphics()` vram (nvidia-smi) |
 | 4.33.4         | 2020-12-28     | `typescript` typings fix |
 | 4.33.3         | 2020-12-27     | `graphics()` updated docs |
 | 4.33.2         | 2020-12-27     | `graphics()` fixed issue (nvidia-smi) |
