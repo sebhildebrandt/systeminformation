@@ -107,15 +107,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 4.34.0: `system()` added flag virtual (linux, windows)
 - Version 4.33.0: `graphics()` added nvidia-smi support (linux, windows)
 - Version 4.32.0: `graphics()` added clinfo support (linux)
 - Version 4.31.0: `osInfo()` added FQDN
 - Version 4.30.0: `get()` added possibility to provide parameters
 - Version 4.29.0: `fsSize()` correct fs type detection macOS (HFS, APFS, NFS)
 - Version 4.28.0: `graphics()` added deviceName (Windows)
-- Version 4.27.0: `observe()` added observe / watch function
-- Version 4.26.0: `diskLayout()` added full S.M.A.R.T data (Linux)
-- Version 4.25.0: `get()` added function to get partial system info
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -157,6 +155,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | serial | X | X | X | X |  | serial number |
 | | uuid | X | X | X | X |  | UUID |
 | | sku | X | X | X | X |  | SKU number |
+| | virtual | X | X |   | X |  | is virtual machine |
+| | raspberry | X |   |   |   |  | optional raspberry revision data |
 | si.bios(cb) | {...} | X | X | X | X |  | bios information |
 | | vendor | X | X | X | X |  | e.g. 'AMI' |
 | | version | X | X |  | X |  | version |
@@ -851,7 +851,7 @@ All other trademarks are the property of their respective owners.
 
 >The [`MIT`][license-url] License (MIT)
 >
->Copyright &copy; 2014-2020 Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com).
+>Copyright &copy; 2014-2021 Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com).
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy
 >of this software and associated documentation files (the "Software"), to deal

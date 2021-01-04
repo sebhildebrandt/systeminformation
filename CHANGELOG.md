@@ -30,6 +30,10 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.34.0         | 2020-01-05     | `system()` added flag virtual |
+| 4.33.8         | 2020-01-04     | `virtualBox()` fix issue windows host |
+| 4.33.7         | 2020-01-04     | `graphics()` nvidia-smi detection improved |
+| 4.33.6         | 2021-01-02     | `dockerContainerStats()` fix `tx` changed to `wx` as documented |
 | 4.33.5         | 2020-12-30     | `graphics()` vram (nvidia-smi) |
 | 4.33.4         | 2020-12-28     | `typescript` typings fix |
 | 4.33.3         | 2020-12-27     | `graphics()` updated docs |
