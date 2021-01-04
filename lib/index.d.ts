@@ -28,6 +28,7 @@ export namespace Systeminformation {
     serial: string;
     uuid: string;
     sku: string;
+    virtual: boolean;
     raspberry?: RaspberryRevisionData;
   }
 
