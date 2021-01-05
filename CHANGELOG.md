@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.34.1         | 2020-01-05     | `graphics()` nvidia-smi detection improved |
 | 4.34.0         | 2020-01-05     | `system()` added flag virtual |
 | 4.33.8         | 2020-01-04     | `virtualBox()` fix issue windows host |
 | 4.33.7         | 2020-01-04     | `graphics()` nvidia-smi detection improved |
