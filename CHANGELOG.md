@@ -14,7 +14,7 @@
 
 **Other Changes**
 
-- `system()` optimized system detection (e.g. new Raspberry Pi models, ...)
+- `system()` optimized system detection (e.g. new Raspberry Pi models, ...), additional flags
 - `system()`, `bios()`, `baseboard()` information also as non-root (linux)
 - `graphics()` better controller and display detection, fixes
 - `versions()` optimization, fixes
