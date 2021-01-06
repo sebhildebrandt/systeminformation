@@ -910,4 +910,4 @@ All other trademarks are the property of their respective owners.
 [mmon-npm-url]: https://npmjs.org/package/mmon
 [mmon-github-url]: https://github.com/sebhildebrandt/mmon
 
-[smc-code-url]: https://github.com/pcafstockf/osx-temperature-sensor
+[smc-code-url]: https://github.com/pcafstockf/smc-reader
