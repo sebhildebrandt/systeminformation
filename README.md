@@ -829,7 +829,8 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Nathan Patten [nrpatten](https://github.com/nrpatten)
 - Juan Campuzano [juancampuzano](https://github.com/juancampuzano)
 - Ricardo Polo [ricardopolo](https://github.com/ricardopolo)
-- Miłosz Dźwigała [mily20001]https://github.com/mily20001
+- Miłosz Dźwigała [mily20001](https://github.com/mily20001)
+- cconley717 [cconley717](https://github.com/cconley717)
 
 OSX Temperature: credits here are going to:
 
