@@ -29,6 +29,7 @@ export namespace Systeminformation {
     uuid: string;
     sku: string;
     virtual: boolean;
+    virtualHost?: string;
     raspberry?: RaspberryRevisionData;
   }
 
