@@ -844,7 +844,9 @@ Intel is a trademark of Intel Corporation, AMD is a trademark of Advanced Micro 
 Raspberry Pi is a trademark of the Raspberry Pi Foundation, Debian is a trademark of the Debian Project,
 Ubuntu is a trademark of Canonical Ltd., FreeBSD is a registered trademark of The FreeBSD Foundation,
 NetBSD is a registered trademark of The NetBSD Foundation, Docker is a trademark of Docker, Inc., Sun,
-Solaris, OpenSolaris and registered trademarks of Sun Microsystems.
+Solaris, OpenSolaris and registered trademarks of Sun Microsystems, VMware is a trademark of VMware Inc,
+Virtual Box is a trademark of Oracle Corporation, Xen is a registered trademark of Xen Project,
+QEMU is a trademark of Fabrice Bellard, bochs is a trademark of The Bochs Project.
 
 All other trademarks are the property of their respective owners.
 
