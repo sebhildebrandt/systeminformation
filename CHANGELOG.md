@@ -508,7 +508,7 @@ Function Changes
 - `fs_size`/`fsSize`: use-values now in % (0 - 100% instead of 0 - 1)
 - `fs_speed`/`fsStats`: now also full support for OS X
 - `checksite`/`inetChecksite`: new result structure - see command reference
-- `checksite`/`inetChecksite`: ms (former `response_ms`): -1 if not ok
+- `checksite`/`inetChecksite`: ms (former `response_ms`): null if not ok
 
 Other changes
 
