@@ -79,11 +79,9 @@ export namespace Systeminformation {
     performanceCores?: number;
     processors: number;
     socket: string;
-    cache: CpuCacheData;
-  }
-
-  interface CpuWithFlagsData extends CpuData {
     flags: string;
+    virtualization: boolean;
+    cache: CpuCacheData;
   }
 
   interface CpuCacheData {
@@ -717,7 +715,7 @@ export namespace Systeminformation {
     os: OsData;
     uuid: UuidData;
     versions: VersionData;
-    cpu: CpuWithFlagsData;
+    cpu: CpuData;
     graphics: GraphicsData;
     net: NetworkInterfacesData[];
     memLayout: MemLayoutData[];

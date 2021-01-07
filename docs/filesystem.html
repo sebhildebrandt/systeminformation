@@ -259,13 +259,13 @@ si.diskLayout().then(data => console.log(data));</code></pre class="example">
     name: 'SAMSUNG xxxxxxxxxxxx-xxxx',
     vendor: 'Samsung',
     size: 1024209543168,
-    bytesPerSector: -1,
-    totalCylinders: -1,
-    totalHeads: -1,
-    totalSectors: -1,
-    totalTracks: -1,
-    tracksPerCylinder: -1,
-    sectorsPerTrack: -1,
+    bytesPerSector: null,
+    totalCylinders: null,
+    totalHeads: null,
+    totalSectors: null,
+    totalTracks: null,
+    tracksPerCylinder: null,
+    sectorsPerTrack: null,
     firmwareRevision: '',
     serialNum: '...serial....',
     interfaceType: 'PCIe',
@@ -537,9 +537,9 @@ setInterval(function() {
   rIO: 899825,
   wIO: 932331,
   tIO: 1832156,
-  rIO_sec: -1,
-  wIO_sec: -1,
-  tIO_sec: -1,
+  rIO_sec: null,
+  wIO_sec: null,
+  tIO_sec: null,
   ms: 0
 }
 {                           // second call
@@ -808,9 +808,9 @@ setInterval(function() {
   rx: 14015849472,
   wx: 15316003328,
   tx: 29331852800,
-  rx_sec: -1,
-  wx_sec: -1,
-  tx_sec: -1,
+  rx_sec: null,
+  wx_sec: null,
+  tx_sec: null,
   ms: 0
 }
 {                             // second call
