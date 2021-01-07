@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.34.5         | 2020-01-07     | `networkInterfaceDefault()` fixed CMD popup (windows) |
 | 4.34.4         | 2020-01-06     | `system()` fixed vitrual catch error |
 | 4.34.3         | 2020-01-06     | `graphics()` fixed non nvidia-smi controllers (win) |
 | 4.34.2         | 2020-01-05     | `system()` uuid lowercase as in uuid() |
