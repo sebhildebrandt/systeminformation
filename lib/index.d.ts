@@ -69,9 +69,9 @@ export namespace Systeminformation {
     stepping: string;
     revision: string;
     voltage: string;
-    speed: string;
-    speedmin: string;
-    speedmax: string;
+    speed: number;
+    speedMin: number;
+    speedMax: number;
     governor: string;
     cores: number;
     physicalCores: number;
