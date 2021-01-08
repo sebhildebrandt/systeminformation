@@ -257,6 +257,26 @@
                   </tr>
                   <tr>
                     <td></td>
+                    <td>flags</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>CPU flags</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>virtualization</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>supports virtualization</td>
+                  </tr>
+                  <tr>
+                    <td></td>
                     <td>cache</td>
                     <td>X</td>
                     <td>X</td>
@@ -329,8 +349,9 @@ si.cpu().then(data => console.log(data));</code></pre class="example">
     physicalCores: 8,
     processors: 1,
     socket: 'LGA1151',
-    cache: { l1d: 262144, l1i: 262144, l2: 2, l3: 16 },
-    flags: 'fpu vme de pse ...'
+    flags: 'fpu vme de pse ...',
+    virtualization: true,
+    cache: { l1d: 262144, l1i: 262144, l2: 2, l3: 16 }
 }</pre>
                   </tr>
                   <tr>

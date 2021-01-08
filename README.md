@@ -200,6 +200,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | stepping | X | X | X | X |  | processor stepping |
 | | revision | X |  | X | X |  | revision |
 | | voltage |   | X |   |   |  | voltage |
+| | flags | X | X | X | X |  | CPU flags |
+| | virtualization | X | X | X | X |  | virtualization supported |
 | | cache | X | X | X | X |  | cache in bytes (object) |
 | | cache.l1d | X | X | X | X |  | L1D (data) size |
 | | cache.l1i | X | X | X | X |  | L1I (instruction) size |
@@ -324,6 +326,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | uefi | X | X | X | X |   | OS started via UEFI |
 | si.uuid(cb) | {...} | X | X | X | X | X | object of several UUIDs |
 | | os | X | X | X | X |  | os specific UUID |
+| | hardware | X | X | X | X |  | hardware specific UUID |
 | si.versions(apps, cb) | {...} | X | X | X | X | X | version information (kernel, ssl, node, ...)<br />apps param is optional for detecting<br />only specific apps/libs<br />(string, comma separated) |
 | si.shell(cb) | : string | X | X | X |  |  | standard shell |
 | si.users(cb) | [{...}] | X | X | X | X | X | array of users online |
