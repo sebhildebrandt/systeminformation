@@ -315,6 +315,7 @@ export namespace Systeminformation {
 
   interface UuidData {
     os: string;
+    hardware: string;
   }
 
   interface VersionData {
