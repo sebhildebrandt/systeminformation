@@ -705,6 +705,18 @@ export namespace Systeminformation {
     RTC: string;
   }
 
+  interface PrinterData {
+    id: number;
+    name: string;
+    model: string;
+    uri: string;
+    uuid: string;
+    local: boolean;
+    status: string;
+    default: boolean;
+    shared: boolean;
+  }
+
   // 10. "Get All at once" - functions
 
   interface StaticData {
@@ -782,6 +794,8 @@ export function dockerContainerProcesses(id?: string, cb?: (data: any) => any): 
 export function dockerAll(cb?: (data: any) => any): Promise<any>;
 
 export function vboxInfo(cb?: (data: Systeminformation.VboxInfoData[]) => any): Promise<Systeminformation.VboxInfoData[]>;
+
+export function printer(cb?: (data: Systeminformation.PrinterData[]) => any): Promise<Systeminformation.PrinterData[]>;
 
 export function getStaticData(cb?: (data: Systeminformation.StaticData) => any): Promise<Systeminformation.StaticData>;
 export function getDynamicData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<any>;
