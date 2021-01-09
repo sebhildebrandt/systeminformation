@@ -11,6 +11,7 @@ function createMenu() {
     [1, 'os', 'OS'],
     [1, 'processes', 'Processes / Services'],
     [1, 'filesystem', 'Disks / FS'],
+    [1, 'printer', 'Printer'],
     [1, 'network', 'Network'],
     [1, 'wifi', 'Wifi'],
     [1, 'docker', 'Docker'],
