@@ -11,15 +11,19 @@ function createMenu() {
     [1, 'os', 'OS'],
     [1, 'processes', 'Processes / Services'],
     [1, 'filesystem', 'Disks / FS'],
+    [1, 'usb', 'USB'],
     [1, 'printer', 'Printer'],
+    [1, 'audio', 'Audio'],
     [1, 'network', 'Network'],
     [1, 'wifi', 'Wifi'],
+    [1, 'bluetooth', 'Bluetooth'],
     [1, 'docker', 'Docker'],
     [1, 'vbox', 'Virtual Box'],
     [1, 'statsfunctions', 'Observers / Stats'],
     [0, '', 'More'],
     [1, 'security', 'Security Advisories'],
     [1, 'issues', 'Known Issues'],
+    [1, 'v5changes', 'Version 5 Changes'],
     [1, 'history', 'Version history'],
     [1, 'copyright', 'Copyright & License'],
     [1, 'contributors', 'Contributors'],
@@ -43,15 +47,19 @@ function createMenu() {
       menuParent.appendChild(titleElement);
       if (!item[1]) {
         titleLink = document.createElement('div');
+        titleLink.classList.add('medium');
+        titleLink.classList.add('navtitle');
         titleLink.innerText = item[2];
       } else {
         titleLink = document.createElement('a');
+        titleLink.classList.add('medium');
+        titleLink.classList.add('navtitle');
         titleLink.setAttribute('href', item[1] + (item[1].indexOf('#') >= 0 ? '' : '.html'));
         titleLink.innerText = item[2];
       }
       titleElement.appendChild(titleLink);
-      hrElement = document.createElement('hr');
-      titleElement.appendChild(hrElement);
+      // hrElement = document.createElement('hr');
+      // titleElement.appendChild(hrElement);
       ulElement = document.createElement('ul');
       titleElement.appendChild(ulElement);
     } else {

@@ -8,7 +8,8 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous">
+  <link rel="stylesheet" href="roboto/css/roboto.css">
   <link rel="stylesheet" href="styles.css">
 
   <!-- Favicon -->
@@ -168,9 +169,14 @@
       <a href="security.html" class="recommendation">Security advisory:<br>Update to v4.31.1</a>
       <img class="logo" src="assets/logo.png">
       <div class="title">systeminformation</div>
-      <div class="subtitle"><span id="typed"></span></div>
-      <div class="version">Current Version: <span id="version">4.34.9</span></div>
-      <button class="btn btn-light" onclick="location.href='https://github.com/sebhildebrandt/systeminformation'">View on Github <i class=" fab fa-github"></i></button>
+      <<<<<<< HEAD <div class="subtitle"><span id="typed"></span>
+    </div>
+    <div class="version">Current Version: <span id="version">4.34.9</span></div>
+    =======
+    <div class="subtitle"><span id="typed"></span>&nbsp;</div>
+    <div class="version">Current Version: <span id="version">4.34.4</span></div>
+    >>>>>>> Website new design v5
+    <button class="btn btn-light" onclick="location.href='https://github.com/sebhildebrandt/systeminformation'">View on Github <i class=" fab fa-github"></i></button>
     </div>
     <div class="down">
       <button class="btn btn-primary mb-2" onclick="location.href='https://www.buymeacoffee.com/systeminfo'">Buy me a coffee&nbsp;&nbsp;<i class="far fa-mug-hot"></i></button>
@@ -183,7 +189,7 @@
     <div class="row">
       <div class="col-12 sectionheader index">
         <div class="title">Overview</div>
-        <div class="subtitle">Lightweight collection of 40+ functions to retrieve detailed hardware, system and OS information. For Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD and SunOS support</div>
+        <div class="subtitle">Node.js system information package. Lightweight collection of 45+ functions to retrieve detailed hardware, system and OS information. For Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD and SunOS support. Dependency free.</div>
         <div class="npmicons">
           <a href="https://npmjs.org/package/systeminformation" rel="nofollow"><img src="https://camo.githubusercontent.com/df25636cbefadf18ca1532e3bdcd0d2794235e19/68747470733a2f2f696d672e736869656c64732e696f2f6e706d2f762f73797374656d696e666f726d6174696f6e2e7376673f7374796c653d666c61742d737175617265" alt="NPM Version" data-canonical-src="https://img.shields.io/npm/v/systeminformation.svg?style=flat-square" style="max-width:100%;"></a>
           <a href="https://david-dm.org/sebhildebrandt/systeminformation" rel="nofollow"><img src="https://camo.githubusercontent.com/69739c043c2be3a38545f105b89381a2a6310f59/68747470733a2f2f696d672e736869656c64732e696f2f64617669642f73656268696c64656272616e64742f73797374656d696e666f726d6174696f6e2e7376673f7374796c653d666c61742d737175617265" alt="deps status" data-canonical-src="https://img.shields.io/david/sebhildebrandt/systeminformation.svg?style=flat-square" style="max-width:100%;"></a>
@@ -220,14 +226,14 @@
     <div class="row" id="docs">
       <div class="col-12 sectionheader index">
         <div class="title">Documentation</div>
-        <div class="subtitle">Detailed documentation and reference for Version 4.x.x</div>
+        <div class="subtitle">Detailed documentation and reference for version 5.x.x</div>
       </div>
     </div>
     <div class="row index">
       <a href="gettingstarted.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
         <div class="inner">
           <div class="icons"><i class="fal fa-download"></i></div>
-          <div class="icontitle">Getting Started</div>
+          <div class="icontitle">Quick Start</div>
         </div>
       </a>
       <a href="general.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
@@ -284,10 +290,22 @@
           <div class="icontitle">Disks / FS</div>
         </div>
       </a>
+      <a href="usb.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+        <div class="inner">
+          <div class="icons"><i class="fab fa-usb"></i></div>
+          <div class="icontitle">USB</div>
+        </div>
+      </a>
       <a href="printer.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
         <div class="inner">
           <div class="icons"><i class="fal fa-print"></i></div>
           <div class="icontitle">Printer</div>
+        </div>
+      </a>
+      <a href="audio.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+        <div class="inner">
+          <div class="icons"><i class="fal fa-volume"></i></div>
+          <div class="icontitle">Audio</div>
         </div>
       </a>
       <a href="network.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
@@ -300,6 +318,12 @@
         <div class="inner">
           <div class="icons"><i class="fal fa-wifi"></i></div>
           <div class="icontitle">Wifi</div>
+        </div>
+      </a>
+      <a href="bluetooth.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+        <div class="inner">
+          <div class="icons"><i class="fab fa-bluetooth"></i></div>
+          <div class="icontitle">Bluetooth</div>
         </div>
       </a>
       <a href="docker.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
@@ -322,12 +346,11 @@
     </div>
     <div class="row">
       <div class="col-12 sectionheader index">
+        <div class="title-small">Breaking Changes - Version 5</div>
+        <div class="text">We made a lot of changes in the new version 5 - some of them are breaking changes. Please refer to the <a href="v5changes.html">Version 5 - Changes</a> page to see a full documentation on changes that you should have a look on.</div>
         <div class="title-small">Issues</div>
         <div class="text"><span class="bold">Security issues</span>: Please have a look at our <a href="security.html">security advisories</a></div>
-        <div class="text">If you run into problems, please check out <a href="issues.html">known issues page</a> first. If you still have problems, please feel free to open an issue on our <a href="https://github.com/sebhildebrandt/systeminformation/issues">github page</a></div>
-        <div class="title-small">Upcoming ...</div>
-        <div class="text"><span class="bold">MacOS on ARM</span> - new hardware already arrived and we made quite a few changes to support Apple silicon M1 chips. <a href="https://github.com/sebhildebrandt/systeminformation/issues/453">Current status is documented here.</a><br /></div>
-        <div class="text"><span class="bold">Verion 5:</span> We are planning a new major version with some minor breaking changes and some additional features. We will try to make this available Q1 of 2021.<br /><br /></div>
+        <div class="text"><span class="bold">Having an issue</span>: If you run into problems, please check out <a href="issues.html">known issues page</a> first.<br>If you still have problems, please feel free to open an issue on our <a href="https://github.com/sebhildebrandt/systeminformation/issues">github page</a></div>
       </div>
     </div>
   </section>
@@ -336,31 +359,33 @@
       <div class="row">
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
-            <li><a href=".">Home</a></li>
+            <li><a href="." class="medium home">Home</a></li>
+            <li>&nbsp;</li>
+            <li><a href="security.html">Security Advisories&nbsp;&nbsp;<i class="fas fa-shield-check"></i></a></li>
             <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
-            <li><a href="contributors.html">Contributors</a></li>
-            <li><a href="https://buymeacoff.ee/systeminfo">Buy me a coffee</a></li>
+            <li><a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a></li>
           </ul>
         </div>
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
             <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="v5changes.html">Version 5 Changes</a></li>
+            <li><a href="history.html">Full Version history</a></li>
             <li><a href="issues.html">Known Issues</a></li>
             <li><a href="statsfunctions.html">Stats Functions</a></li>
-            <li><a href="history.html">Version history</a></li>
           </ul>
         </div>
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
-            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt, +innovations</a></li>
-            <li><a href="copyright.html">Copyright &amp; License</a></li>
+            <li><a href="contributors.html">Contributors</a></li>
             <li><a href="trademarks.html">Trademarks</a></li>
-            <li><a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+            <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
           </ul>
         </div>
       </div>
     </div>
-
   </footer>
 
   <!-- Optional JavaScript -->
