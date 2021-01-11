@@ -159,7 +159,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | raspberry | X |   |   |   |  | optional raspberry revision data |
 | si.bios(cb) | {...} | X | X | X | X |  | bios information |
 | | vendor | X | X | X | X |  | e.g. 'AMI' |
-| | version | X | X |  | X |  | version |
+| | version | X | X | X | X |  | version |
 | | releaseDate | X | X |  | X |  | release date |
 | | revision | X | X |  | X |  | revision |
 | si.baseboard(cb) | {...} | X | X | X | X |  | baseboard information |

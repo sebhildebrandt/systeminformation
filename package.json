@@ -52,6 +52,7 @@
     "network connections",
     "network stats",
     "iface",
+    "printer",
     "processes",
     "users",
     "internet",
@@ -66,6 +67,9 @@
     "display",
     "smart",
     "disk layout",
+    "usb",
+    "audio",
+    "bluetooth",
     "wifi",
     "wifinetworks",
     "virtual box",
@@ -91,34 +95,5 @@
   ],
   "engines": {
     "node": ">=4.0.0"
-  },
-  "devDependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.12.18",
-    "chai": "^4.2.0",
-    "coveralls": "^3.0.2",
-    "mocha": "^5.2.0",
-    "nyc": "^13.1.0",
-    "rimraf": "^2.6.2",
-    "source-map-support": "^0.5.9",
-    "ts-node": "^7.0.1",
-    "typescript": "^3.2.2"
-  },
-  "nyc": {
-    "extension": [
-      ".js"
-    ],
-    "include": [
-      "lib/**"
-    ],
-    "exclude": [
-      "**/*.d.ts"
-    ],
-    "reporter": [
-      "html",
-      "text"
-    ],
-    "all": true
   }
 }
