@@ -14,19 +14,19 @@ function printHeader() {
 
 function printMenu() {
   console.log('');
-  console.log('┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐');
-  console.log('│  a ... Audio              g ... Graphics           p ... Processes          w ... WIFI networks      1 ... NET Iface Default       │');
-  console.log('│  b ... BIOS               h ... Bluetooth          P ... Process Load       y ... Battery            2 ... NET Gateway Default     │');
-  console.log('│  B ... Baseboard          i ... INET Latency       r ... Printer            z ... Users              3 ... NET Interfaces          │');
-  console.log('│  C ... Chassis            I ... INET Check Site    s ... Services                                    4 ... NET Stats               │');
-  console.log('│  c ... CPU                l ... CPU Load           S ... Shell                                       5 ... NET Connections         │');
-  console.log('│  d ... DiskLayout         L ... Full Load          t ... time                                        6 ... Docker Info             │');
-  console.log('│  D ... DiskIO             n ...                    T ... CPU Temperature                             7 ... Docker Container        │');
-  console.log('│  e ... Block Devices      m ... Memory             u ... USB                + ... All Static         8 ... Docker Cont Stats       │');
-  console.log('│  E ... Open Files         M ... MEM Layout         U ... UUID               - ... All Dynamic        9 ... Docker Cont Proc        │');
-  console.log('│  f ... FS Size            o ... OS Info            v ... Versions           # ... All                0 ... Docker All              │');
-  console.log('│  F ... FS Stats           O ...                    V ... VirtualBox         . ... Get Object         q >>> Quit                    │');
-  console.log('└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘');
+  console.log('┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐');
+  console.log('│  a ... Audio              g ... Graphics           r ... Printer            1 ... NET Iface Default        ? ... Get Object      │');
+  console.log('│  b ... BIOS               h ... Bluetooth          s ... Services           2 ... NET Gateway Default      , ... All Static      │');
+  console.log('│  B ... Baseboard          i ... INET Latency       S ... Shell              3 ... NET Interfaces           . ... All Dynamic     │');
+  console.log('│  C ... Chassis            I ... INET Check Site    t ... time               4 ... NET Stats                / ... All             │');
+  console.log('│  c ... CPU                l ... CPU Load           T ... CPU Temperature    5 ... NET Connections                                │');
+  console.log('│  d ... DiskLayout         L ... Full Load          u ... USB                6 ... Docker Info                                    │');
+  console.log('│  D ... DiskIO             m ... Memory             U ... UUID               7 ... Docker Container                               │');
+  console.log('│  e ... Block Devices      M ... MEM Layout         v ... Versions           8 ... Docker Cont Stats                              │');
+  console.log('│  E ... Open Files         o ... OS Info            w ... WIFI networks      9 ... Docker Cont Proc                               │');
+  console.log('│  f ... FS Size            p ... Processes          y ... Battery            0 ... Docker All                                     │');
+  console.log('│  F ... FS Stats           P ... Process Load       z ... Users              - ... Virtual Box              q >>> QUIT            │');
+  console.log('└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘');
 }
 
 function EnableUserInput() {
