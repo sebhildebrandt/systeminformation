@@ -45,12 +45,12 @@
       <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
         <div class="row">
           <div class="col-12 sectionheader">
-            <div class="title">Battery</div>
+            <div class="title">USB</div>
             <div class="text">
-              <p>In this section you will learn how to get battery information - if supported by system:</p>
+              <p>In this section you will learn how to get information about detected USB devices:</p>
               <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
               <pre><code class="js">const si = require('systeminformation');</code></pre>
-              <h2>Battery Data</h2>
+              <h2>Detected USB Devices</h2>
               <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
               <table class="table table-sm table-bordered table-striped">
                 <thead>
@@ -67,199 +67,175 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>si.battery(cb)</td>
-                    <td>{...}</td>
+                    <td>si.usb(cb)</td>
+                    <td>[{...}]</td>
                     <td>X</td>
-                    <td>X</td>
+                    <td></td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>battery information</td>
+                    <td>array detected USB devices</td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td>hasbattery</td>
+                    <td>[0].bus</td>
                     <td>X</td>
-                    <td>X</td>
+                    <td></td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>indicates presence of battery</td>
+                    <td>USB bus</td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td>cyclecount</td>
+                    <td>[0].deviceId</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
+                    <td>X</td>
                     <td></td>
-                    <td></td>
-                    <td>numbers of recharges</td>
+                    <td>Bus device ID</td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td>ischarging</td>
+                    <td>[0].id</td>
                     <td>X</td>
-                    <td>X</td>
+                    <td></td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>indicates if battery is charging</td>
+                    <td>ID e.g. 0bda:8821</td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td>designedcapacity</td>
+                    <td>[0].name</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>designed capacity of battery (mWh)</td>
+                    <td>name, e.g. root hub</td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td>maxcapacity</td>
+                    <td>[0].type</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>max capacity of battery (mWh)</td>
+                    <td>type e.g. keyboard or mouse</td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td>currentcapacity</td>
+                    <td>[0].removable</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>current capacity of battery (mWh)</td>
+                    <td>is removable</td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td>capacityUnit</td>
+                    <td>[0].vendor</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>capacity unit (mWh if possible)</td>
+                    <td>vendor e.g. Realtek</td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td>voltage</td>
+                    <td>[0].manufacturer</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>current voltage of battery (V)</td>
+                    <td>manufacturer e.g. Chicony</td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td>percent</td>
+                    <td>[0].maxPower</td>
                     <td>X</td>
-                    <td>X</td>
+                    <td></td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>charging level in percent</td>
+                    <td>max power e.g. 100mA</td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td>timeremaining</td>
+                    <td>[0].serialNumber</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>minutes left (if discharging)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>acconnected</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>AC connected</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>type</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>battery type</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>model</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>model</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>manufacturer</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>manufacturer</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>serial</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>battery serial</td>
+                    <td>serial number if available</td>
                   </tr>
                   <tr class="example">
                     <td></td>
                     <td colspan="7">
                       <h5>Example</h5>
                       <pre><code class="js">const si = require('systeminformation');
-si.battery().then(data => console.log(data));</code></pre class="example">
+si.usb().then(data => console.log(data));</code></pre class="example">
                       <pre class="example">
-{
-  hasbattery: true,
-  cyclecount: 35,
-  ischarging: false,
-  designedcapacity: 64958,
-  maxcapacity: 65865,
-  currentcapacity: 64856,
-  voltage: 12.767,
-  capacityUnit: 'mWh',
-  percent: 100,
-  timeremaining: 551,
-  acconnected: false,
-  type: 'Li-ion',
-  model: '',
-  manufacturer: 'Apple',
-  serial: 'F9Y19860Y9AH9XBAX'
-}</pre>
+[
+  {
+    bus: 1,
+    deviceId: 2,
+    id: '8087:8001',
+    name: '',
+    type: 'Hub',
+    removable: null,
+    vendor: 'Intel Corp.',
+    manufacturer: '',
+    maxPower: '0mA',
+    serialNumber: null
+  },
+  {
+    bus: 1,
+    deviceId: 1,
+    id: '1d6b:0002',
+    name: '2.0 root hub',
+    type: 'Hub',
+    removable: null,
+    vendor: 'Linux Foundation',
+    manufacturer: 'Linux 4.4.0-169-generic ehci_hcd',
+    maxPower: '0mA',
+    serialNumber: null
+  },
+  {
+    bus: 2,
+    deviceId: 4,
+    id: '04f2:0402',
+    name: 'Genius LuxeMate i200 Keyboard',
+    type: 'Keyboard',
+    removable: null,
+    vendor: 'Chicony Electronics Co., Ltd',
+    manufacturer: 'Chicony',
+    maxPower: '100mA',
+    serialNumber: null
+  },
+  {
+    bus: 2,
+    deviceId: 3,
+    id: '093a:2510',
+    name: 'Optical Mouse',
+    type: 'Mouse',
+    removable: null,
+    vendor: 'Pixart Imaging, Inc.',
+    manufacturer: 'PIXART',
+    maxPower: '100mA',
+    serialNumber: null }
+]</pre>
                   </tr>
+
                 </tbody>
               </table>
-              <h2>Known issues</h2>
-              <h4>Windows Battery</h4>
-
-              <p><span class="code">wmic</span> - which is used to determine temperature and battery sometimes needs to be run with admin
-                privileges. So if you do not get any values, try to run it again with according privileges. If you still do not get any
-                values, your system might not support this feature.</p>
-
             </div>
           </div>
         </div>

@@ -2,6 +2,9 @@ const readline = require('readline');
 const util = require('util');
 const {  exec } = require('child_process');
 
+let waiting = false;
+let timer;
+
 function printMenu() {
     console.log('');
     console.log('-----------------------------------------------------------------------------------------------------------------------------------');
@@ -29,28 +32,66 @@ function EnableUserInput() {
 // }
 function noop() { }
 
-process.stdin.on('keypress', (key, data) => {
-    // console.log(data);
-    if (data.name === 'q' && !data.shift) {
-        // shut down
-        process.exit()
-    }
+function dot() {
+  process.stdout.write('.');
+}
 
-  exec('node si.js ' + key, (error, stdout) => {
-    try {
-      if (stdout.toString()) {
-        data = JSON.parse(stdout.toString());
+function startDots() {
+  dot();
+  timer = setInterval(() => {
+    dot();
+  }, 500)
+}
+
+function stopDots() {
+  clearInterval(timer);
+}
+
+function printTitle(title) {
+  title = '||' + ('  ' + title + '                                 ').substr(0, 36) + '||'
+  console.log('========================================');
+  console.log(title);
+  console.log('========================================');
+
+}
+
+process.stdin.on('keypress', (key, data) => {
+  // console.log(data);
+  if (data.name === 'q' && !data.shift) {
+      // shut down
+      process.exit()
+  }
+
+  if (!waiting) {
+    waiting = true;
+    startDots();
+    exec(`node si.js '${key}'`, {timeout: 30000}, (error, stdout) => {
+      waiting = false;
+      stopDots();
+      if (error && error.signal) {
         console.log();
-        console.log('===============================');
-        console.log('[ ' + data.title + ' ]');
-        console.log('===============================');
-        console.log(util.inspect(data.data, { colors: true, depth: 4 }));
-        printMenu();
+        console.log('TIMEOUT!');
+      } else {
+        try {
+          if (stdout.toString().startsWith('"no_key')) {
+            console.log()
+            console.log('menu item not found - select valid menu item')
+          } else if (stdout.toString()) {
+            data = JSON.parse(stdout.toString());
+            console.log();
+            console.log();
+            printTitle(data.title);
+            console.log(util.inspect(data.data, { colors: true, depth: 4 }));
+            printMenu();
+          }
+        } catch (e) {
+          console.log();
+          console.log('Key: ' + key);
+          console.log('ERROR - UNSUPPORTET');
+        }
       }
-    } catch (e) {
-      noop();
-    }
     })
+  }
 });
 
 printMenu();
