@@ -453,7 +453,24 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | tx_sec | X |  | X |  |  | total bytes reads + written / second  |
 | | ms | X |  | X |  |  | interval length (for per second values) |
 
-#### 10. File System
+#### 10. USB
+
+| Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
+| si.usb(cb) | [{...}] | X | X | X | X |  | get detected USB devices |
+| | [0].bus | X |  |   |  |  | USB bus |
+| | [0].deviceId | X |  |   |  |  | bus device id |
+| | [0].id | X |  | X | X |  | internal id |
+| | [0].name | X |  | X | X |  | name |
+| | [0].type | X |  | X | X |  | name |
+| | [0].removable |  |  | X |  |  | is removable |
+| | [0].vendor | X |  | X |  |  | vendor |
+| | [0].manufacturer | X |  | X | X |  | manifacturer |
+| | [0].maxPower | X |  |   |  |  | max power |
+| | [0].default | X |  | X | X |  | is default printer |
+| | [0].serialNumber |  |  | X |  |  | serial number |
+
+#### 11. Printer
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -461,14 +478,14 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | [0].id | X |  | X | X |  | internal id |
 | | [0].name | X |  | X | X |  | name |
 | | [0].model | X |  | X | X |  | model |
-| | [0].uri | X |  | X | X |  | printer URI |
-| | [0].uuid | X |  | X | X |  | printer UUID |
+| | [0].uri | X |  | X |  |  | printer URI |
+| | [0].uuid | X |  |   |   |  | printer UUID |
 | | [0].status | X |  | X | X |  | printer status (e.g. idle) |
 | | [0].local | X |  | X | X |  | is local printer |
-| | [0].default | X |  | X | X |  | is default printer |
+| | [0].default |   |  | X | X |  | is default printer |
 | | [0].shared | X |  | X | X |  | is shared printer |
 
-#### 11. Network related functions
+#### 12. Network related functions
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -522,7 +539,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | ms | X | X | X | X | X | response time in ms |
 | si.inetLatency(host, cb) | : number | X | X | X | X | X | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
 
-#### 12. Wifi networks
+#### 13. Wifi networks
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.wifiNetworks(cb) | [{...}] | X |  | X | X |  | array of available wifi networks |
@@ -537,7 +554,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | [0].wpaFlags | X |  | X | X |   | array of WPA flags |
 | | [0].rsnFlags | X |  |  |   |   | array of RDN flags |
 
-#### 13. Docker
+#### 14. Docker
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -635,7 +652,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | [0].command | X | X | X | X | X | command and arguments |
 | si.dockerAll(cb) | {...} | X | X | X | X | X | list of all containers including their stats<br>and processes in one single array |
 
-#### 14. Virtual Box
+#### 15. Virtual Box
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -677,7 +694,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | [0].timeOffset | X | X | X | X | X | time Offset |
 | | [0].RTC | X | X | X | X | X | RTC |
 
-#### 14. "Get All / Observe" - functions
+#### 16. "Get All / Observe" - functions
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
