@@ -205,7 +205,7 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
               </table>
               <p>The key names of the <span class="code">valueObject</span> must be exactly the same as the representing function within systeminformation.</p>
               <h3>Providing parameters to the get() function</h3>
-              <p>Now you can also provide parameters to get() functions (where needed). Just pass the parameters in parentheses right after the wanted keys: have a look at the folloging example:</p>
+              <p>Now you can also provide parameters to get() functions (where needed). Just pass the parameters in parentheses right after the wanted keys: have a look at the following example:</p>
               <table class="table table-sm table-bordered table-striped">
                 <thead>
                   <tr>
@@ -240,7 +240,7 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
 // to the processLoad function
 
 valueObject = {
-  processLoad: 'pids, cpu (postgres)'
+  processLoad: '(postgres) pids, cpu'
 }
 si.get(valueObject).then(data => console.log(data));</code></pre class="example">
 <pre class="example">
@@ -255,6 +255,58 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
   }
 }
 </pre>
+                </tr>
+                </tbody>
+              </table>
+              <h3>Filter results in get() function</h3>
+              <p>You can get even further: if the desired result object is an array, you can filter the object to get only the wanted array item: have a look at the following example:</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>si.get(valueObject,cb)</td>
+                  <td>{...}</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>example with filter:<br>add a pipe symbol with the filter definition<br>to the given function:</td>
+                </tr>
+                <tr class="example">
+                  <td></td>
+                  <td colspan="7">
+                    <h5>Example</h5>
+                    <pre><code class="js">const si = require('systeminformation');
+
+// define all values, you want to get back
+// here after the keys we define a filter (pipe symbol after the keys)
+// to get only one specific item of the result array
+
+valueObject = {
+  networkInterfaces: 'iface, ip4 | iface:en0'
+}
+si.get(valueObject).then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  networkInterfaces: [
+    {
+      iface: 'en0',
+      ip4: '192.168.0.10'
+    }
+  ]
+}
+              </pre>
                 </tr>
                 </tbody>
               </table>
