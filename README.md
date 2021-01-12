@@ -864,7 +864,8 @@ Ubuntu is a trademark of Canonical Ltd., FreeBSD is a registered trademark of Th
 NetBSD is a registered trademark of The NetBSD Foundation, Docker is a trademark of Docker, Inc., Sun,
 Solaris, OpenSolaris and registered trademarks of Sun Microsystems, VMware is a trademark of VMware Inc,
 Virtual Box is a trademark of Oracle Corporation, Xen is a registered trademark of Xen Project,
-QEMU is a trademark of Fabrice Bellard, bochs is a trademark of The Bochs Project.
+QEMU is a trademark of Fabrice Bellard, bochs is a trademark of The Bochs Project, USB and USB Logo
+are trademarks of USB Implementation Forum, Bluetooth and Bluetooth Logo are trademarks of Bluetooth SIG.
 
 All other trademarks are the property of their respective owners.
 

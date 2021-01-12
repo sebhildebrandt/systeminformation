@@ -3,6 +3,7 @@ const si = require('../lib/index');
 function test(f) {
   return new Promise((resolve) => {
     process.nextTick(() => {
+      // console.log(f);
       if (f === 'a') { si.audio().then(data => resolve({ data, title: 'Audio' }) )}
       else if (f === 'b') { si.bios().then(data => resolve({ data, title: 'BIOS' })) }
       else if (f === 'B') { si.baseboard().then(data => resolve({ data, title: 'Baseboard' })) }
@@ -37,12 +38,34 @@ function test(f) {
       else if (f === 'w') { si.wifiNetworks().then(data => resolve({ data, title: 'WIFI Networks' })) }
       else if (f === 'y') { si.battery().then(data => resolve({ data, title: 'Battery' })) }
       else if (f === 'z') { si.users().then(data => resolve({ data, title: 'Users' })) }
-      else resolve();
+      else if (f === '1') { si.networkInterfaceDefault().then(data => resolve({ data, title: 'NET Iface Default' })) }
+      else if (f === '2') { si.networkGatewayDefault().then(data => resolve({ data, title: 'NET Gateway Default' })) }
+      else if (f === '3') { si.networkInterfaces().then(data => resolve({ data, title: 'NET Interfaces' })) }
+      else if (f === '4') { si.networkStats().then(data => resolve({ data, title: 'NET Stats' })) }
+      else if (f === '5') { si.networkConnections().then(data => resolve({ data, title: 'NET Connections' })) }
+      else if (f === '6') { si.dockerInfo().then(data => resolve({ data, title: 'Docker Info' })) }
+      else if (f === '7') { si.dockerContainers(true).then(data => resolve({ data, title: 'Docker Containers' })) }
+      else if (f === '8') { si.dockerContainerStats('1').then(data => resolve({ data, title: 'Docker Cont Stats' })) }
+      else if (f === '9') { si.dockerContainerProcesses('1').then(data => resolve({ data, title: 'Docker Cont Processes' })) }
+      else if (f === '0') { si.dockerAll().then(data => resolve({ data, title: 'Docker All' })) }
+      else if (f === '+') { si.getStaticData().then(data => resolve({ data, title: 'All Static Data' })) }
+      else if (f === '-') { si.getDynamicData('apache2, postgres').then(data => resolve({ data, title: 'All Dynamic Data' })) }
+      else if (f === '#') { si.getAllData('apache2, postgres').then(data => resolve({ data, title: 'All Data' })) }
+      else if (f === ',') {
+        const valueObject = {
+          cpu: '*',
+          osInfo: 'platform, release',
+          system: 'model, manufacturer'
+        }
+        si.get(valueObject).then(data => resolve({ data, title: 'Get Object' }))
+      }
+      else resolve('no_key');
     })
   })
 }
 
 const key = process.argv[2];
+// console.log(process.argv)
 
 // console.log(process.argv);
 
