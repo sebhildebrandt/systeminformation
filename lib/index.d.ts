@@ -717,6 +717,32 @@ export namespace Systeminformation {
     shared: boolean;
   }
 
+  interface UsbData {
+    id: number | string;
+    bus: number;
+    deviceId: number;
+    name: string;
+    type: string;
+    removable: boolean;
+    vendor: string;
+    manufacturer: string;
+    maxPower: string;
+    serialNumber: string;
+  }
+
+  interface AudioData {
+    id: number | string;
+    bus: number;
+    deviceId: number;
+    name: string;
+    type: string;
+    removable: boolean;
+    vendor: string;
+    manufacturer: string;
+    maxPower: string;
+    serialNumber: string;
+  }
+
   // 10. "Get All at once" - functions
 
   interface StaticData {
@@ -796,6 +822,10 @@ export function dockerAll(cb?: (data: any) => any): Promise<any>;
 export function vboxInfo(cb?: (data: Systeminformation.VboxInfoData[]) => any): Promise<Systeminformation.VboxInfoData[]>;
 
 export function printer(cb?: (data: Systeminformation.PrinterData[]) => any): Promise<Systeminformation.PrinterData[]>;
+
+export function usb(cb?: (data: Systeminformation.UsbData[]) => any): Promise<Systeminformation.UsbData[]>;
+
+export function audio(cb?: (data: Systeminformation.AudioData[]) => any): Promise<Systeminformation.AudioData[]>;
 
 export function getStaticData(cb?: (data: Systeminformation.StaticData) => any): Promise<Systeminformation.StaticData>;
 export function getDynamicData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<any>;

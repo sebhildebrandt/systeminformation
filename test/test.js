@@ -1,7 +1,8 @@
 const readline = require('readline');
 const util = require('util');
-const { exec } = require('child_process');
+const exec = require('child_process').exec;
 const lib_version = require('../package.json').version;
+const path = require('path');
 
 let waiting = false;
 let timer;
@@ -74,7 +75,8 @@ process.stdin.on('keypress', (key, data) => {
   if (!waiting) {
     waiting = true;
     startDots();
-    exec(`node si.js '${key}'`, {timeout: 30000}, (error, stdout) => {
+    const siPath = path.join(__dirname, 'si.js');
+    exec(`node ${siPath} '${key}'`, {timeout: 30000}, (error, stdout) => {
       waiting = false;
       stopDots();
       clearline();

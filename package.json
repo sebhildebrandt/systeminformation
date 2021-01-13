@@ -11,12 +11,7 @@
   },
   "types": "./lib/index.d.ts",
   "scripts": {
-    "clean": "rimraf dist",
-    "test-bare": "npm run compile && mocha ./test/**/*.test.js",
-    "compile": "tsc",
-    "watch": "tsc -w",
-    "test": "nyc mocha --require ts-node/register --require source-map-support/register  ./test/**/*.test.ts",
-    "coverage": "nyc report --reporter=text-lcov"
+    "test": "node ./test/test.js"
   },
   "files": [
     "lib/"
