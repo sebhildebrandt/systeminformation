@@ -16,7 +16,7 @@ function test(f) {
       else if (f === 'f') { si.fsSize().then(data => { if (data !== null) { resolve({ data, title: 'File System' }); } else { resolve('not_supported') } }) }
       else if (f === 'F') { si.fsStats().then(data => { if (data !== null) { resolve({ data, title: 'FS Stats' }); } else { resolve('not_supported') } }) }
       else if (f === 'g') { si.graphics().then(data => { if (data !== null) { resolve({ data, title: 'Graphics' }); } else { resolve('not_supported') } }) }
-      else if (f === 'h') { si.bluetooth().then(data => { if (data !== null) { resolve({ data, title: 'Bluetooth' }); } else { resolve('not_supported') } }) }
+      else if (f === 'h') { si.bluetoothDevices().then(data => { if (data !== null) { resolve({ data, title: 'Bluetooth' }); } else { resolve('not_supported') } }) }
       else if (f === 'i') { si.inetLatency().then(data => { if (data !== null) { resolve({ data, title: 'Internet Latency' }); } else { resolve('not_supported') } }) }
       else if (f === 'I') { si.inetChecksite('www.plus-innovations.com').then(data => { if (data !== null) { resolve({ data, title: 'Internet Check Site' }); } else { resolve('not_supported') } }) }
       else if (f === 'l') { si.cpuCurrentspeed().then(data => { if (data !== null) { resolve({ data, title: 'CPU Current Speed' }); } else { resolve('not_supported') } }) }
