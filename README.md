@@ -485,7 +485,23 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | [0].default |   |  | X | X |  | is default printer |
 | | [0].shared | X |  | X | X |  | is shared printer |
 
-#### 12. Network related functions
+#### 12. Audio
+
+| Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
+| si.audio(cb) | [{...}] | X | X | X | X |  | get printer information |
+| | [0].id            | X |  | X | X |  | internal id |
+| | [0].name          | X |  | X | X |  | name |
+| | [0].manufacturer  | X |  | X | X |  | manufacturer |
+| | [0].revision      | X |  |   |   |  | revision |
+| | [0].driver        | X |  |   |   |  | driver |
+| | [0].default       |   |  | X | X |  | is default |
+| | [0].in            |   |  | X | X |  | is input channel |
+| | [0].out           |   |  | X | X |  | is output channel |
+| | [0].interfaceType | X |  | X | X |  | interface type (PCIe, USB, HDMI, ...) |
+| | [0].status        | X |  | X | X |  | printer status (e.g. idle) |
+
+#### 13. Network related functions
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -539,7 +555,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | ms | X | X | X | X | X | response time in ms |
 | si.inetLatency(host, cb) | : number | X | X | X | X | X | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
 
-#### 13. Wifi networks
+#### 14. Wifi networks
+
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.wifiNetworks(cb) | [{...}] | X |  | X | X |  | array of available wifi networks |
@@ -554,7 +571,20 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | [0].wpaFlags | X |  | X | X |   | array of WPA flags |
 | | [0].rsnFlags | X |  |  |   |   | array of RDN flags |
 
-#### 14. Docker
+#### 15. Bluetooth
+
+| Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
+| --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
+| si.bluetoothDevices(cb) | [{...}] | X |  | X | X |  | ... |
+| | [0].device | X |  | X | X |   | device name |
+| | [0].name | X |  | X | X |   | name |
+| | [0].address | X |  | X | X |   | address |
+| | [0].batteryPercent | X |  | X | X |   | battery level percent |
+| | [0].manufacturer | X |  | X | X |   | manufacturer |
+| | [0].type | X |  | X | X |   | typoe of bluetooth device |
+| | [0].connected | X |  | X | X |   | is connected |
+
+#### 16. Docker
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -652,7 +682,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | [0].command | X | X | X | X | X | command and arguments |
 | si.dockerAll(cb) | {...} | X | X | X | X | X | list of all containers including their stats<br>and processes in one single array |
 
-#### 15. Virtual Box
+#### 17. Virtual Box
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |

@@ -732,15 +732,25 @@ export namespace Systeminformation {
 
   interface AudioData {
     id: number | string;
-    bus: number;
-    deviceId: number;
     name: string;
-    type: string;
-    removable: boolean;
-    vendor: string;
     manufacturer: string;
-    maxPower: string;
-    serialNumber: string;
+    default: boolean;
+    revision: string;
+    driver: string;
+    in: boolean;
+    out: boolean;
+    interfaceType: string;
+    status: string;
+  }
+
+  interface BluetoothDeviceData {
+    device: string;
+    name: string;
+    address: string;
+    batteryPercent: number;
+    manufacturer: string;
+    type: string;
+    connected: boolean;
   }
 
   // 10. "Get All at once" - functions
@@ -760,7 +770,6 @@ export namespace Systeminformation {
     memLayout: MemLayoutData[];
     diskLayout: DiskLayoutData[];
   }
-
 }
 
 export function version(): string;
@@ -826,6 +835,8 @@ export function printer(cb?: (data: Systeminformation.PrinterData[]) => any): Pr
 export function usb(cb?: (data: Systeminformation.UsbData[]) => any): Promise<Systeminformation.UsbData[]>;
 
 export function audio(cb?: (data: Systeminformation.AudioData[]) => any): Promise<Systeminformation.AudioData[]>;
+
+export function bluetoothDevices(cb?: (data: Systeminformation.BlockDevicesData[]) => any): Promise<Systeminformation.BlockDevicesData[]>;
 
 export function getStaticData(cb?: (data: Systeminformation.StaticData) => any): Promise<Systeminformation.StaticData>;
 export function getDynamicData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<any>;

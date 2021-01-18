@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous">
+  <link rel="stylesheet" href="roboto/css/roboto.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>systeminformation</title>
+
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="container">
+      <a href="."><img class="logo float-left" src="assets/logo.png">
+        <div class="title float-left">systeminformation</div>
+      </a>
+      <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+      <div class="text float-right todocs"><a href="./#docs">Docs Overview</a></div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+      </div>
+      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+        <div class="row">
+          <div class="col-12 sectionheader">
+            <div class="title">Audio</div>
+            <div class="text">
+              <p>In this section you will learn how to get information about detected audio devices or interfaces. Results might differ on different platforms as not everything is available/detectable on each platform:</p>
+              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+              <pre><code class="js">const si = require('systeminformation');</code></pre>
+              <h2>Detected Audio Devices</h2>
+              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>si.audio(cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>audio informatiom</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].id</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>internal ID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].name</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>audio name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].manufacturer</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>manufacturer</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].revision</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>revision</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].driver</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>driver</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].default</td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>is default</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].in</td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>is input channel</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].out</td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>is output channel</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].interfaceType</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>interface type (built-in, PCI, HDMI, USB...)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].status</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>status</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.audio().then(data => console.log(data));</code></pre class="example">
+                      <pre class="example">
+[
+  {
+    id: 0,
+    name: 'MacBook Microphone',
+    manufacturer: 'Apple Inc.',
+    revision: null,
+    driver: null,
+    default: true,
+    channel: 'Built-In',
+    in: true,
+    out: false,
+    status: 'online'
+  },
+  {
+    id: 1,
+    name: 'MacBook Speaker',
+    manufacturer: 'Apple Inc.',
+    revision: null,
+    driver: null,
+    default: true,
+    channel: 'Built-In',
+    in: false,
+    out: true,
+    status: 'online'
+  }
+]</pre>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="." class="medium home">Home</a></li>
+            <li>&nbsp;</li>
+            <li><a href="security.html">Security Advisories&nbsp;&nbsp;<i class="fas fa-shield-check"></i></a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li><a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="history.html">Full Version history</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="contributors.html">Contributors</a></li>
+            <li><a href="trademarks.html">Trademarks</a></li>
+            <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.onload = function (e) {
+      createMenu();
+    }
+  </script>
+</body>
+
+</html>
