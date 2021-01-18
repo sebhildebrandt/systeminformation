@@ -155,29 +155,23 @@ si.bluetoothDevices().then(data => console.log(data));</code></pre class="exampl
                       <pre class="example">
 [
   {
-    id: 0,
-    name: 'MacBook Microphone',
-    manufacturer: 'Apple Inc.',
-    revision: null,
-    driver: null,
-    default: true,
-    channel: 'Built-In',
-    in: true,
-    out: false,
-    status: 'online'
+    device: 'Magic Mouse 2',
+    name: 'My Maus',
+    manufacturer: 'Broadcom (0x5, 0x240C)',
+    address: '10-XX-XX-XX-XX-XX',
+    batteryPercent: '74%',
+    tyoe: 'Mouse',
+    connected: true
   },
   {
-    id: 1,
-    name: 'MacBook Speaker',
-    manufacturer: 'Apple Inc.',
-    revision: null,
-    driver: null,
-    default: true,
-    channel: 'Built-In',
-    in: false,
-    out: true,
-    status: 'online'
-  }
+    device: 'Magic Keyboard with Numeric Keypad',
+    name: 'My Keyboard',
+    manufacturer: 'Broadcom (0x5, 0x240C)',
+    address: '10-XX-XX-XX-XX-XX',
+    batteryPercent: '75%',
+    tyoe: 'Keyboard',
+    connected: true
+  },
 ]</pre>
                   </tr>
                 </tbody>

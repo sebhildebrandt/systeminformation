@@ -3,6 +3,7 @@ const si = require('../lib/index');
 function test(f) {
   return new Promise((resolve) => {
     process.nextTick(() => {
+      f = f.replace(/'/g, '');
       // console.log(f);
       if (f === 'a') { si.audio().then(data => { if (data !== null) { resolve({ data, title: 'Audio' }); } else { resolve('not_supported') } }) }
       else if (f === 'b') { si.bios().then(data => { if (data !== null) { resolve({ data, title: 'BIOS' }); } else { resolve('not_supported') } }) }
@@ -34,8 +35,10 @@ function test(f) {
       else if (f === 'u') { si.usb().then(data => { if (data !== null) { resolve({ data, title: 'USB' }); } else { resolve('not_supported') } }) }
       else if (f === 'U') { si.uuid().then(data => { if (data !== null) { resolve({ data, title: 'UUID' }); } else { resolve('not_supported') } }) }
       else if (f === 'v') { si.versions().then(data => { if (data !== null) { resolve({ data, title: 'Versions' }); } else { resolve('not_supported') } }) }
+      else if (f === 'V') { si.vboxInfo().then(data => { if (data !== null) { resolve({ data, title: 'Virtual Box' }); } else { resolve('not_supported') } }) }
       else if (f === 'w') { si.wifiNetworks().then(data => { if (data !== null) { resolve({ data, title: 'WIFI Networks' }); } else { resolve('not_supported') } }) }
-      else if (f === 'y') { si.battery().then(data => { if (data !== null) { resolve({ data, title: 'Battery' }); } else { resolve('not_supported') } }) }
+      else if (f === 'y') { si.system().then(data => { if (data !== null) { resolve({ data, title: 'System' }); } else { resolve('not_supported') } }) }
+      else if (f === 'Y') { si.battery().then(data => { if (data !== null) { resolve({ data, title: 'Battery' }); } else { resolve('not_supported') } }) }
       else if (f === 'z') { si.users().then(data => { if (data !== null) { resolve({ data, title: 'Users' }); } else { resolve('not_supported') } }) }
       else if (f === '1') { si.networkInterfaceDefault().then(data => { if (data !== null) { resolve({ data, title: 'NET Iface Default' }); } else { resolve('not_supported') } }) }
       else if (f === '2') { si.networkGatewayDefault().then(data => { if (data !== null) { resolve({ data, title: 'NET Gateway Default' }); } else { resolve('not_supported') } }) }
@@ -47,7 +50,6 @@ function test(f) {
       else if (f === '8') { si.dockerContainerStats('1').then(data => { if (data !== null) { resolve({ data, title: 'Docker Cont Stats' }); } else { resolve('not_supported') } }) }
       else if (f === '9') { si.dockerContainerProcesses('1').then(data => { if (data !== null) { resolve({ data, title: 'Docker Cont Processes' }); } else { resolve('not_supported') } }) }
       else if (f === '0') { si.dockerAll().then(data => { if (data !== null) { resolve({ data, title: 'Docker All' }); } else { resolve('not_supported') } }) }
-      else if (f === '-') { si.vboxInfo().then(data => { if (data !== null) { resolve({ data, title: 'Virtual Box' }); } else { resolve('not_supported') } }) }
       else if (f === ',') { si.getStaticData().then(data => { if (data !== null) { resolve({ data, title: 'All Static Data' }); } else { resolve('not_supported') } }) }
       else if (f === '.') { si.getDynamicData('apache2, postgres').then(data => { if (data !== null) { resolve({ data, title: 'All Dynamic Data' }); } else { resolve('not_supported') } }) }
       else if (f === '/') { si.getAllData('apache2, postgres').then(data => { if (data !== null) { resolve({ data, title: 'All Data' }); } else { resolve('not_supported') } }) }
