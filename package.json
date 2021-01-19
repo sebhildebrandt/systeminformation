@@ -1,6 +1,7 @@
 {
   "name": "systeminformation",
   "version": "4.34.4",
+  "prereleaseversion": "5.0-alpha.0109",
   "description": "Simple system and OS information library",
   "license": "MIT",
   "author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com> (https://plus-innovations.com)",
