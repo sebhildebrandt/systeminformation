@@ -529,10 +529,10 @@ export namespace Systeminformation {
     pid: number;
     parentPid: number;
     name: string,
-    pcpu: number;
-    pcpuu: number;
-    pcpus: number;
-    pmem: number;
+    cpu: number;
+    cpuu: number;
+    cpus: number;
+    mem: number;
     priority: number;
     memVsz: number;
     memRss: number;
@@ -559,8 +559,8 @@ export namespace Systeminformation {
     running: boolean;
     startmode: string;
     pids: number[];
-    pcpu: number;
-    pmem: number;
+    cpu: number;
+    mem: number;
   }
 
   // 8. Docker

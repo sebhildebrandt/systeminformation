@@ -37,7 +37,6 @@ function createMenu() {
   var titleElement;
   var titleLink;
   var ulElement;
-  var hrElement;
   var liElement;
   var aElement;
   for (let item of menu) {

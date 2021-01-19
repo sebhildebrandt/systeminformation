@@ -387,8 +387,13 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | [0].running | X | X | X | X |  | true / false |
 | | [0].startmode |   |   |   | X |  | manual, automatic, ... |
 | | [0].pids | X | X | X | X |  | pids |
-| | [0].pcpu | X | X | X |  |  | process % CPU |
-| | [0].pmem | X | X | X |  |  | process % MEM |
+| | [0].cpu | X | X | X |  |  | process % CPU |
+| | [0].mem | X | X | X |  |  | process % MEM |
+| si.processLoad('mysql, apache2', cb) | [{...}] | X | X | X | X |  | pass comma separated string of processes<br>pass "*" for ALL processes (linux/win only) |
+| | [0].proc | X | X | X | X |  | name of process |
+| | [0].pids | X | X | X | X |  | pids |
+| | [0].cpu | X | X | X |  |  | process % CPU |
+| | [0].mem | X | X | X |  |  | process % MEM |
 
 #### 9. File System
 

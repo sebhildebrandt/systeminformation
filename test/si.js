@@ -27,7 +27,7 @@ function test(f) {
       else if (f === 'M') { si.memLayout().then(data => { if (data !== null) { resolve({ data, title: 'Memory Layout' }); } else { resolve('not_supported') } }) }
       else if (f === 'o') { si.osInfo().then(data => { if (data !== null) { resolve({ data, title: 'OS Info' }); } else { resolve('not_supported') } }) }
       else if (f === 'p') { si.processes().then(data => { if (data !== null) { resolve({ data, title: 'Processes' }); } else { resolve('not_supported') } }) }
-      else if (f === 'P') { si.processLoad('postgres').then(data => { if (data !== null) { resolve({ data, title: 'Process Load' }); } else { resolve('not_supported') } }) }
+      else if (f === 'P') { si.processLoad('postgres, login, apache, mysql, nginx, git').then(data => { if (data !== null) { resolve({ data, title: 'Process Load' }); } else { resolve('not_supported') } }) }
       else if (f === 'r') { si.printer().then(data => { if (data !== null) { resolve({ data, title: 'Printer' }); } else { resolve('not_supported') } }) }
       else if (f === 's') { si.services('apache2, postgres').then(data => { if (data !== null) { resolve({ data, title: 'Services' }); } else { resolve('not_supported') } }) }
       else if (f === 'S') { si.shell().then(data => { if (data !== null) { resolve({ data, title: 'Shell' }); } else { resolve('not_supported') } }) }
