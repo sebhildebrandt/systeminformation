@@ -540,7 +540,7 @@ setInterval(function() {
                   </tr>
                   <tr>
                     <td></td>
-                    <td>[0].localaddress</td>
+                    <td>[0].localAddress</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -550,7 +550,7 @@ setInterval(function() {
                   </tr>
                   <tr>
                     <td></td>
-                    <td>[0].localport</td>
+                    <td>[0].localPort</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -560,7 +560,7 @@ setInterval(function() {
                   </tr>
                   <tr>
                     <td></td>
-                    <td>[0].peeraddress</td>
+                    <td>[0].peerAddress</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -570,7 +570,7 @@ setInterval(function() {
                   </tr>
                   <tr>
                     <td></td>
-                    <td>[0].peerport</td>
+                    <td>[0].peerPort</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -618,20 +618,20 @@ si.networkConnections().then(data => console.log(data));</code></pre class="exam
 [
   {
     protocol: 'tcp4',
-    localaddress: '192.168.0.27',
-    localport: '55788',
-    peeraddress: '163.128.xxx.xxx',
-    peerport: '443',
+    localAddress: '192.168.0.27',
+    localPort: '55788',
+    peerAddress: '163.128.xxx.xxx',
+    peerPort: '443',
     state: 'CLOSE_WAIT',
     pid: 702,
     process: ''
   },
   {
     protocol: 'tcp4',
-    localaddress: '192.168.0.27',
-    localport: '55761',
-    peeraddress: '148.253.xxx.xxx',
-    peerport: '22',
+    localAddress: '192.168.0.27',
+    localPort: '55761',
+    peerAddress: '148.253.xxx.xxx',
+    peerPort: '22',
     state: 'ESTABLISHED',
     pid: 7267,
     process: ''

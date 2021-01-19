@@ -78,7 +78,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>avgload</td>
+                    <td>avgLoad</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
@@ -88,7 +88,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>currentload</td>
+                    <td>currentLoad</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
@@ -98,7 +98,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>currentload_user</td>
+                    <td>currentLoadUser</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
@@ -108,7 +108,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>currentload_system</td>
+                    <td>currentLoadSystem</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
@@ -118,7 +118,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>currentload_nice</td>
+                    <td>currentLoadNice</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
@@ -128,7 +128,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>currentload_idle</td>
+                    <td>currentLoadIdle</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
@@ -138,7 +138,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>currentload_irq</td>
+                    <td>currentLoadIrq</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
@@ -148,7 +148,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>raw_currentload...</td>
+                    <td>rawCurrentLoad...</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
@@ -174,33 +174,33 @@
 si.currentLoad().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
 {
-  avgload: 0.23,
-  currentload: 4.326328800988875,
-  currentload_user: 2.595797280593325,
-  currentload_system: 1.73053152039555,
-  currentload_nice: 0,
-  currentload_idle: 95.67367119901112,
-  currentload_irq: 0,
-  raw_currentload: 350,
-  raw_currentload_user: 210,
-  raw_currentload_system: 140,
-  raw_currentload_nice: 0,
-  raw_currentload_idle: 7740,
-  raw_currentload_irq: 0,
+  avgLoad: 0.23,
+  currentLoad: 4.326328800988875,
+  currentLoadUser: 2.595797280593325,
+  currentLoadSystem: 1.73053152039555,
+  currentLoadNice: 0,
+  currentLoadIdle: 95.67367119901112,
+  currentLoadIrq: 0,
+  rawCurrentLoad: 350,
+  rawCurrentLoadUser: 210,
+  rawCurrentLoadSystem: 140,
+  rawCurrentLoadNice: 0,
+  rawCurrentLoadIdle: 7740,
+  rawCurrentLoadIrq: 0,
   cpus: [
     {
       load: 13.725490196078432,
-      load_user: 7.8431372549019605,
-      load_system: 5.88235294117647,
-      load_nice: 0,
-      load_idle: 86.27450980392157,
-      load_irq: 0,
-      raw_load: 140,
-      raw_load_user: 80,
-      raw_load_system: 60,
-      raw_load_nice: 0,
-      raw_load_idle: 880,
-      raw_load_irq: 0
+      loadUser: 7.8431372549019605,
+      loadSystem: 5.88235294117647,
+      loadNice: 0,
+      loadIdle: 86.27450980392157,
+      loadIrq: 0,
+      rawLoad: 140,
+      rawLoadUser: 80,
+      rawLoadSystem: 60,
+      rawLoadNice: 0,
+      rawLoadIdle: 880,
+      rawLoadIrq: 0
     },
     ...
   ]
@@ -368,7 +368,7 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
                   </tr>
                   <tr>
                     <td></td>
-                    <td>...[0].mem_vsz</td>
+                    <td>...[0].memVsz</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -378,7 +378,7 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
                   </tr>
                   <tr>
                     <td></td>
-                    <td>...[0].mem_rss</td>
+                    <td>...[0].memRss</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -489,8 +489,8 @@ si.processes().then(data => console.log(data));</code></pre class="example">
       pcpus: 0.00420463676138747,
       pmem: 0,
       priority: 19,
-      mem_vsz: 166144,
-      mem_rss: 10684,
+      memVsz: 166144,
+      memRss: 10684,
       nice: 0,
       started: '2020-02-08 10:18:15',
       state: 'sleeping',

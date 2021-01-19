@@ -228,17 +228,17 @@ export namespace Systeminformation {
   }
 
   interface BatteryData {
-    hasbattery: boolean;
-    cyclecount: number;
-    ischarging: boolean;
+    hasBattery: boolean;
+    cycleCount: number;
+    isCharging: boolean;
     voltage: number;
-    designedcapacity: number;
-    maxcapacity: number;
-    currentcapacity: number;
+    designedCapacity: number;
+    maxCapacity: number;
+    currentCapacity: number;
     capacityUnit: string;
     percent: number;
-    timeremaining: number,
-    acconnected: boolean;
+    timeRemaining: number,
+    acConnected: boolean;
     type: string;
     model: string;
     manufacturer: string;
@@ -282,11 +282,11 @@ export namespace Systeminformation {
     main: boolean;
     builtin: boolean;
     connection: string;
-    sizex: number;
-    sizey: number;
-    pixeldepth: number;
-    resolutionx: number;
-    resolutiony: number;
+    sizeX: number;
+    sizeY: number;
+    pixelDepth: number;
+    resolutionX: number;
+    resolutionY: number;
     currentResX: number;
     currentResY: number;
     positionX: number;
@@ -381,7 +381,7 @@ export namespace Systeminformation {
     name: string;
     identifier: string;
     type: string;
-    fstype: string;
+    fsType: string;
     mount: string;
     size: number;
     physical: string;
@@ -453,10 +453,10 @@ export namespace Systeminformation {
 
   interface NetworkConnectionsData {
     protocol: string;
-    localaddress: string;
-    localport: string;
-    peeraddress: string;
-    peerport: string;
+    localAddress: string;
+    localPort: string;
+    peerAddress: string;
+    peerPort: string;
     state: string;
     pid: number;
     process: string;
@@ -485,35 +485,35 @@ export namespace Systeminformation {
   // 7. Current Load, Processes & Services
 
   interface CurrentLoadData {
-    avgload: number;
-    currentload: number;
-    currentload_user: number;
-    currentload_system: number;
-    currentload_nice: number;
-    currentload_idle: number;
-    currentload_irq: number;
-    raw_currentload: number;
-    raw_currentload_user: number;
-    raw_currentload_system: number;
-    raw_currentload_nice: number;
-    raw_currentload_idle: number;
-    raw_currentload_irq: number;
+    avgLoad: number;
+    currentLoad: number;
+    currentLoadUser: number;
+    currentLoadSystem: number;
+    currentLoadNice: number;
+    currentLoadIdle: number;
+    currentLoadIrq: number;
+    rawCurrentLoad: number;
+    rawCurrentLoadUser: number;
+    rawCurrentLoadSystem: number;
+    rawCurrentLoadNice: number;
+    rawCurrentLoadIdle: number;
+    rawCurrentLoadIrq: number;
     cpus: CurrentLoadCpuData[];
   }
 
   interface CurrentLoadCpuData {
     load: number;
-    load_user: number;
-    load_system: number;
-    load_nice: number;
-    load_idle: number;
-    load_irq: number;
-    raw_load: number;
-    raw_load_user: number;
-    raw_load_system: number;
-    raw_load_nice: number;
-    raw_load_idle: number;
-    raw_load_irq: number;
+    loadUser: number;
+    loadSystem: number;
+    loadNice: number;
+    loadIdle: number;
+    loadIrq: number;
+    rawLoad: number;
+    rawLoadUser: number;
+    rawLoadSystem: number;
+    rawLoadNice: number;
+    rawLoadIdle: number;
+    rawLoadIrq: number;
   }
 
   interface ProcessesData {
@@ -534,8 +534,8 @@ export namespace Systeminformation {
     pcpus: number;
     pmem: number;
     priority: number;
-    mem_vsz: number;
-    mem_rss: number;
+    memVsz: number;
+    memRss: number;
     nice: number;
     started: string,
     state: string;
@@ -645,10 +645,10 @@ export namespace Systeminformation {
 
   interface DockerContainerStatsData {
     id: string;
-    mem_usage: number;
-    mem_limit: number;
-    mem_percent: number;
-    cpu_percent: number;
+    memUsage: number;
+    memLimit: number;
+    memPercent: number;
+    cpuPercent: number;
     netIO: {
       rx: number;
       wx: number;
@@ -658,9 +658,9 @@ export namespace Systeminformation {
       w: number;
     };
     restartCount: number;
-    cpu_stats: any;
-    precpu_stats: any;
-    memory_stats: any,
+    cpuStats: any;
+    precpuStats: any;
+    memoryStats: any,
     networks: any;
   }
 
@@ -687,22 +687,22 @@ export namespace Systeminformation {
     configFile: string;
     snapshotFolder: string;
     logFolder: string;
-    HPET: boolean;
-    PAE: boolean;
+    hpet: boolean;
+    pae: boolean;
     longMode: boolean;
     tripleFaultReset: boolean;
-    APIC: boolean;
-    X2APIC: boolean;
-    ACPI: boolean;
-    IOAPIC: boolean;
-    biosAPICmode: string;
+    apic: boolean;
+    x2Apic: boolean;
+    acpi: boolean;
+    ioApic: boolean;
+    biosApicMode: string;
     bootMenuMode: string;
     bootDevice1: string;
     bootDevice2: string;
     bootDevice3: string;
     bootDevice4: string;
     timeOffset: string;
-    RTC: string;
+    rtc: string;
   }
 
   interface PrinterData {

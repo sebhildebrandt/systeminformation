@@ -20,7 +20,8 @@ function test(f) {
       else if (f === 'h') { si.bluetoothDevices().then(data => { if (data !== null) { resolve({ data, title: 'Bluetooth' }); } else { resolve('not_supported') } }) }
       else if (f === 'i') { si.inetLatency().then(data => { if (data !== null) { resolve({ data, title: 'Internet Latency' }); } else { resolve('not_supported') } }) }
       else if (f === 'I') { si.inetChecksite('www.plus-innovations.com').then(data => { if (data !== null) { resolve({ data, title: 'Internet Check Site' }); } else { resolve('not_supported') } }) }
-      else if (f === 'l') { si.cpuCurrentspeed().then(data => { if (data !== null) { resolve({ data, title: 'CPU Current Speed' }); } else { resolve('not_supported') } }) }
+      else if (f === 'j') { si.cpuCurrentSpeed().then(data => { if (data !== null) { resolve({ data, title: 'CPU Current Speed' }); } else { resolve('not_supported') } }) }
+      else if (f === 'l') { si.currentLoad().then(data => { if (data !== null) { resolve({ data, title: 'CPU Current Load' }); } else { resolve('not_supported') } }) }
       else if (f === 'L') { si.fullLoad().then(data => { if (data !== null) { resolve({ data, title: 'CPU Full Load' }); } else { resolve('not_supported') } }) }
       else if (f === 'm') { si.mem().then(data => { if (data !== null) { resolve({ data, title: 'Memory' }); } else { resolve('not_supported') } }) }
       else if (f === 'M') { si.memLayout().then(data => { if (data !== null) { resolve({ data, title: 'Memory Layout' }); } else { resolve('not_supported') } }) }
