@@ -25,6 +25,7 @@ function createMenu() {
     [1, 'issues', 'Known Issues'],
     [1, 'changes', 'Version 5 Changes'],
     [1, 'history', 'Version history'],
+    [1, 'tests', 'Testing'],
     [1, 'copyright', 'Copyright & License'],
     [1, 'contributors', 'Contributors'],
     [1, 'trademarks', 'Trademarks'],
