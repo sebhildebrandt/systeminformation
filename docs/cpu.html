@@ -104,27 +104,27 @@
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>in GHz e.g. '3.40'</td>
+                    <td>in GHz e.g. 3.4</td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td>speedmin</td>
+                    <td>speedMin</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>in GHz e.g. '0.80'</td>
+                    <td>in GHz e.g. 0.8</td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td>speedmax</td>
+                    <td>speedMax</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>in GHz e.g. '3.90'</td>
+                    <td>in GHz e.g. 3.9</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -342,9 +342,9 @@ si.cpu().then(data => console.log(data));</code></pre class="example">
     stepping: '13',
     revision: '',
     voltage: '',
-    speed: '3.10',
-    speedmin: '0.80',
-    speedmax: '5.00',
+    speed: 3.1,
+    speedMin: 0.8,
+    speedMax: 5,
     governor: 'powersave',
     cores: 16,
     physicalCores: 8,
@@ -436,7 +436,7 @@ si.cpuCache().then(data => console.log(data));</code></pre class="example">
 </pre>
                   </tr>
                   <tr>
-                    <td>si.cpuCurrentspeed(cb)</td>
+                    <td>si.cpuCurrentSpeed(cb)</td>
                     <td>{...}</td>
                     <td>X</td>
                     <td>X</td>
@@ -490,7 +490,7 @@ si.cpuCache().then(data => console.log(data));</code></pre class="example">
                     <td colspan="7">
                       <h5>Example</h5>
                       <pre><code class="js">const si = require('systeminformation');
-si.cpuCurrentspeed().then(data => console.log(data));</code></pre class="example">
+si.cpuCurrentSpeed().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
 {
   min: 0.86,

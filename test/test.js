@@ -16,18 +16,18 @@ function printHeader() {
 function printMenu() {
   console.log('');
   console.log('┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐');
-  console.log('│  a ... Audio              h ... Bluetooth          S ... Shell              1 ... NET Iface Default        ? ... Get Object      │');
-  console.log('│  b ... BIOS               i ... INET Latency       t ... time               2 ... NET Gateway Default      , ... All Static      │');
-  console.log('│  B ... Baseboard          I ... INET Check Site    T ... CPU Temperature    3 ... NET Interfaces           . ... All Dynamic     │');
-  console.log('│  C ... Chassis            l ... CPU Load           u ... USB                4 ... NET Stats                / ... All             │');
-  console.log('│  c ... CPU                L ... Full Load          U ... UUID               5 ... NET Connections                                │');
-  console.log('│  d ... DiskLayout         m ... Memory             v ... Versions                                                                │');
-  console.log('│  D ... DiskIO             M ... MEM Layout         V ... Virtual Box        6 ... Docker Info                                    │');
-  console.log('│  e ... Block Devices      o ... OS Info            w ... WIFI networks      7 ... Docker Container                               │');
-  console.log('│  E ... Open Files         p ... Processes          y ... System             8 ... Docker Cont Stats                              │');
-  console.log('│  f ... FS Size            P ... Process Load       Y ... Battery            9 ... Docker Cont Proc                               │');
-  console.log('│  F ... FS Stats           r ... Printer            z ... Users              0 ... Docker All                                     │');
-  console.log('│  g ... Graphics           s ... Services                                                                   q >>> QUIT            │');
+  console.log('│  a ... Audio              h ... Bluetooth          s ... Services           1 ... NET Iface Default        ? ... Get Object      │');
+  console.log('│  b ... BIOS               i ... INET Latency       S ... Shell              2 ... NET Gateway Default      , ... All Static      │');
+  console.log('│  B ... Baseboard          I ... INET Check Site    t ... time               3 ... NET Interfaces           . ... All Dynamic     │');
+  console.log('│  C ... Chassis            j ... CPU Current Speed  T ... CPU Temperature    4 ... NET Stats                / ... All             │');
+  console.log('│  c ... CPU                l ... CPU Current Load   u ... USB                5 ... NET Connections                                │');
+  console.log('│  d ... DiskLayout         L ... Full Load          U ... UUID                                                                    │');
+  console.log('│  D ... DiskIO             m ... Memory             v ... Versions           6 ... Docker Info                                    │');
+  console.log('│  e ... Block Devices      M ... MEM Layout         V ... Virtual Box        7 ... Docker Container                               │');
+  console.log('│  E ... Open Files         o ... OS Info            w ... WIFI networks      8 ... Docker Cont Stats                              │');
+  console.log('│  f ... FS Size            p ... Processes          y ... System             9 ... Docker Cont Proc                               │');
+  console.log('│  F ... FS Stats           P ... Process Load       Y ... Battery            0 ... Docker All                                     │');
+  console.log('│  g ... Graphics           r ... Printer            z ... Users                                             q >>> QUIT            │');
   console.log('└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘');
 }
 
