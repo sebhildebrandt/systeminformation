@@ -1,7 +1,7 @@
 const readline = require('readline');
 const util = require('util');
 const exec = require('child_process').exec;
-const lib_version = require('../package.json').version;
+const lib_version = require('../package.json').prereleaseversion;
 const path = require('path');
 
 let waiting = false;
@@ -10,7 +10,7 @@ let timer;
 function printHeader() {
   console.log('');
   console.log('SYSTEMINFORMATION - Test Scripts - Version: ' + lib_version);
-  console.log('═════════════════════════════════════════════════════');
+  console.log('═══════════════════════════════════════════════════════════');
 }
 
 function printMenu() {
@@ -59,10 +59,10 @@ function stopDots() {
 
 function printTitle(title) {
   // https://en.wikipedia.org/wiki/Box_Drawing_(Unicode_block)
-  title = '┃' + ('  ' + title + '                                 ').substr(0, 38) + '┃'
-  console.log('┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓');
+  title = '┃' + ('  ' + title + '                                 ').substr(0, 44 - lib_version.length) + 'v: ' + lib_version + ' ┃'
+  console.log('┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓');
   console.log(title);
-  console.log('┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛');
+  console.log('┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛');
 
 }
 
