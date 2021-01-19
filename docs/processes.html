@@ -318,7 +318,7 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
                   </tr>
                   <tr>
                     <td></td>
-                    <td>...[0].pcpu</td>
+                    <td>...[0].cpu</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -328,7 +328,7 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
                   </tr>
                   <tr>
                     <td></td>
-                    <td>...[0].pcpuu</td>
+                    <td>...[0].cpuu</td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
@@ -338,7 +338,7 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
                   </tr>
                   <tr>
                     <td></td>
-                    <td>...[0].pcpus</td>
+                    <td>...[0].cpus</td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
@@ -348,7 +348,7 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
                   </tr>
                   <tr>
                     <td></td>
-                    <td>...[0].pmem</td>
+                    <td>...[0].mem</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -484,10 +484,10 @@ si.processes().then(data => console.log(data));</code></pre class="example">
       pid: 1,
       parentPid: 0,
       name: 'init',
-      pcpu: 0.04504576931569955,
-      pcpuu: 0.04084113255431208,
-      pcpus: 0.00420463676138747,
-      pmem: 0,
+      cpu: 0.04504576931569955,
+      cpuu: 0.04084113255431208,
+      cpus: 0.00420463676138747,
+      mem: 0,
       priority: 19,
       memVsz: 166144,
       memRss: 10684,
@@ -505,18 +505,18 @@ si.processes().then(data => console.log(data));</code></pre class="example">
 }</pre>
                   </tr>
                   <tr>
-                    <td>si.processLoad('nginx',cb)</td>
-                    <td>{...}</td>
+                    <td>si.processLoad('nginx, ssl',cb)</td>
+                    <td>[{...}]</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>detailed information about given process</td>
+                    <td>detailed information about given processes<br>pass comma separated list or<br>'*' for all processes</td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td>proc</td>
+                    <td>[0].proc</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -526,7 +526,7 @@ si.processes().then(data => console.log(data));</code></pre class="example">
                   </tr>
                   <tr>
                     <td></td>
-                    <td>pid</td>
+                    <td>[0].pid</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -536,7 +536,7 @@ si.processes().then(data => console.log(data));</code></pre class="example">
                   </tr>
                   <tr>
                     <td></td>
-                    <td>pids</td>
+                    <td>[0].pids</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -546,7 +546,7 @@ si.processes().then(data => console.log(data));</code></pre class="example">
                   </tr>
                   <tr>
                     <td></td>
-                    <td>cpu</td>
+                    <td>[0].cpu</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -556,7 +556,7 @@ si.processes().then(data => console.log(data));</code></pre class="example">
                   </tr>
                   <tr>
                     <td></td>
-                    <td>mem</td>
+                    <td>[0].mem</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -569,8 +569,9 @@ si.processes().then(data => console.log(data));</code></pre class="example">
                     <td colspan="7">
                       <h5>Example</h5>
                       <pre><code class="js">const si = require('systeminformation');
-si.processLoad('nginx').then(data => console.log(data));</code></pre class="example">
+si.processLoad('nginx, postgres').then(data => console.log(data));</code></pre class="example">
 <pre class="example">
+[
 {
   proc: 'nginx',
   pid: 11267,
@@ -584,7 +585,19 @@ si.processLoad('nginx').then(data => console.log(data));</code></pre class="exam
   ],
   cpu: 0.01,
   mem: 0
-}</pre>
+},
+  {
+    proc: 'postgres',
+    pid: 1435,
+    pids: [
+      1435, 1513, 1545,
+      1546, 1547, 1548,
+      1549, 1550
+    ],
+    cpu: 0.01,
+    mem: 0
+  },
+]</pre>
                   </tr>
                   <tr>
                     <td>si.services('mysql, apache2', cb)</td>
@@ -638,7 +651,7 @@ si.processLoad('nginx').then(data => console.log(data));</code></pre class="exam
                   </tr>
                   <tr>
                     <td></td>
-                    <td>[0].pcpu</td>
+                    <td>[0].cpu</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -648,7 +661,7 @@ si.processLoad('nginx').then(data => console.log(data));</code></pre class="exam
                   </tr>
                   <tr>
                     <td></td>
-                    <td>[0].pmem</td>
+                    <td>[0].mem</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -669,16 +682,16 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre clas
     running: true,
     startmode: '',
     pids: [ 152 ],
-    pcpu: 0.3,
-    pmem: 0
+    cpu: 0.3,
+    mem: 0
   },
   {
     name: 'postgres',
     running: true,
     startmode: '',
     pids: [ 1087, 1873 ],
-    pcpu: 0,
-    pmem: 0
+    cpu: 0,
+    mem: 0
   },
 ]</pre>
                   </tr>
