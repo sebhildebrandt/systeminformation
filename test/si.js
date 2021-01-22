@@ -19,7 +19,7 @@ function test(f) {
       else if (f === 'g') { si.graphics().then(data => { if (data !== null) { resolve({ data, title: 'Graphics' }); } else { resolve('not_supported') } }) }
       else if (f === 'h') { si.bluetoothDevices().then(data => { if (data !== null) { resolve({ data, title: 'Bluetooth' }); } else { resolve('not_supported') } }) }
       else if (f === 'i') { si.inetLatency().then(data => { if (data !== null) { resolve({ data, title: 'Internet Latency' }); } else { resolve('not_supported') } }) }
-      else if (f === 'I') { si.inetChecksite('https://www.plus-innovations.com').then(data => { if (data !== null) { resolve({ data, title: 'Internet Check Site' }); } else { resolve('not_supported') } }) }
+      else if (f === 'I') { si.inetChecksite('https://systeminformation.io').then(data => { if (data !== null) { resolve({ data, title: 'Internet Check Site' }); } else { resolve('not_supported') } }) }
       else if (f === 'j') { si.cpuCurrentSpeed().then(data => { if (data !== null) { resolve({ data, title: 'CPU Current Speed' }); } else { resolve('not_supported') } }) }
       else if (f === 'l') { si.currentLoad().then(data => { if (data !== null) { resolve({ data, title: 'CPU Current Load' }); } else { resolve('not_supported') } }) }
       else if (f === 'L') { si.fullLoad().then(data => { if (data !== null) { resolve({ data, title: 'CPU Full Load' }); } else { resolve('not_supported') } }) }
