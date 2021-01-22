@@ -746,7 +746,8 @@ export namespace Systeminformation {
   interface BluetoothDeviceData {
     device: string;
     name: string;
-    address: string;
+    macDevice: string;
+    macHost: string;
     batteryPercent: number;
     manufacturer: string;
     type: string;

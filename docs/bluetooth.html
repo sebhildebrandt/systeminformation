@@ -98,13 +98,23 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>[0].address</td>
+                    <td>[0].macDevice</td>
                     <td>X</td>
                     <td></td>
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>address</td>
+                    <td>MAC address device</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].macHost</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>MAC address host</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -158,18 +168,20 @@ si.bluetoothDevices().then(data => console.log(data));</code></pre class="exampl
     device: 'Magic Mouse 2',
     name: 'My Maus',
     manufacturer: 'Broadcom (0x5, 0x240C)',
-    address: '10-XX-XX-XX-XX-XX',
+    macDevice: '10-XX-XX-XX-XX-XX',
+    macHost: null,
     batteryPercent: '74%',
-    tyoe: 'Mouse',
+    type: 'Mouse',
     connected: true
   },
   {
     device: 'Magic Keyboard with Numeric Keypad',
     name: 'My Keyboard',
     manufacturer: 'Broadcom (0x5, 0x240C)',
-    address: '10-XX-XX-XX-XX-XX',
+    macDevice: '10-XX-XX-XX-XX-XX',
+    macHost: null,
     batteryPercent: '75%',
-    tyoe: 'Keyboard',
+    type: 'Keyboard',
     connected: true
   },
 ]</pre>
