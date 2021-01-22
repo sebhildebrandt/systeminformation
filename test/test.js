@@ -50,7 +50,7 @@ function startDots() {
   dot();
   timer = setInterval(() => {
     dot();
-  }, 500)
+  }, 500);
 }
 
 function stopDots() {
@@ -59,10 +59,10 @@ function stopDots() {
 
 function printTitle(title) {
   // https://en.wikipedia.org/wiki/Box_Drawing_(Unicode_block)
-  title = '┃' + ('  ' + title + '                                 ').substr(0, 44 - lib_version.length) + 'v: ' + lib_version + ' ┃'
-  console.log('┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓');
+  title = '│' + ('  ' + title + '                                 ').substr(0, 44 - lib_version.length) + 'v: ' + lib_version + ' │';
+  console.log('┌────────────────────────────────────────────────┐');
   console.log(title);
-  console.log('┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛');
+  console.log('└────────────────────────────────────────────────┘');
 
 }
 
@@ -70,14 +70,14 @@ process.stdin.on('keypress', (key, data) => {
   // console.log(data);
   if (data.name === 'q' && !data.shift) {
       // shut down
-      process.exit()
+    process.exit();
   }
 
   if (!waiting) {
     waiting = true;
     startDots();
     const siPath = path.join(__dirname, 'si.js');
-    exec(`node ${siPath} '${key}'`, {timeout: 30000}, (error, stdout) => {
+    exec(`node ${siPath} '${key}'`, { timeout: 30000 }, (error, stdout) => {
       waiting = false;
       stopDots();
       clearline();
@@ -88,10 +88,10 @@ process.stdin.on('keypress', (key, data) => {
       } else {
         try {
           if (stdout.toString().startsWith('"no_key')) {
-            console.log()
-            console.log('Menu item not found. Please select valid menu item ... Press q to quit')
+            console.log();
+            console.log('Menu item not found. Please select valid menu item ... Press q to quit');
           } else if (stdout.toString().startsWith('"not_supported')) {
-            console.log()
+            console.log();
             console.log('Key: ' + key);
             console.log('Not supported');
           } else if (stdout.toString()) {
@@ -110,7 +110,7 @@ process.stdin.on('keypress', (key, data) => {
           console.log();
         }
       }
-    })
+    });
   }
 });
 

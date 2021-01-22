@@ -9,5 +9,16 @@
   "parserOptions": {
     "ecmaVersion": 12
   },
-  "rules": {}
+  "rules": {
+    "semi": [
+      "error",
+      "always"
+    ],
+    "eqeqeq": "off",
+    "curly": "error",
+    "quotes": [
+      "error",
+      "single"
+    ]
+  }
 }
