@@ -156,6 +156,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | uuid | X | X | X | X |  | UUID |
 | | sku | X | X | X | X |  | SKU number |
 | | virtual | X | X |   | X |  | is virtual machine |
+| | virtualHost | X | X |   | X |  | virtual host (if virtual) |
 | | raspberry | X |   |   |   |  | optional raspberry revision data |
 | si.bios(cb) | {...} | X | X | X | X |  | bios information |
 | | vendor | X | X | X | X |  | e.g. 'AMI' |
@@ -581,13 +582,14 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.bluetoothDevices(cb) | [{...}] | X |  | X | X |  | ... |
-| | [0].device | X |  | X | X |   | device name |
-| | [0].name | X |  | X | X |   | name |
-| | [0].address | X |  | X | X |   | address |
-| | [0].batteryPercent | X |  | X | X |   | battery level percent |
-| | [0].manufacturer | X |  | X | X |   | manufacturer |
-| | [0].type | X |  | X | X |   | typoe of bluetooth device |
-| | [0].connected | X |  | X | X |   | is connected |
+| | [0].device         |   |  | X |   |   | device name |
+| | [0].name           | X |  | X | X |   | name |
+| | [0].macDevice      | X |  | X |   |   | MAC address device |
+| | [0].macHost        | X |  | X |   |   | MAC address host |
+| | [0].batteryPercent |   |  | X |   |   | battery level percent |
+| | [0].manufacturer   |   |  | X | X |   | manufacturer |
+| | [0].type           | X |  | X | X |   | typoe of bluetooth device |
+| | [0].connected      | X |  | X |   |   | is connected |
 
 #### 16. Docker
 
