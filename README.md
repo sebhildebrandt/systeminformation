@@ -497,6 +497,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | [0].revision      | X |  |   |   |  | revision |
 | | [0].driver        | X |  |   |   |  | driver |
 | | [0].default       |   |  | X | X |  | is default |
+| | [0].channel       | X |  | X |   |  | channel e.g. USB, HDMI, ... |
+| | [0].type          | X |  | X | X |  | type e.g. Speaker |
 | | [0].in            |   |  | X | X |  | is input channel |
 | | [0].out           |   |  | X | X |  | is output channel |
 | | [0].interfaceType | X |  | X | X |  | interface type (PCIe, USB, HDMI, ...) |
