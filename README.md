@@ -30,7 +30,7 @@
   [![Sponsoring][sponsor-badge]][sponsor-url]
   [![MIT license][license-img]][license-url]
 
-This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 350 versions published, up to 3 mio downloads per month, > 25 mio downloads overall. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 380 versions published, up to 3 mio downloads per month, > 30 mio downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 5.0
 
@@ -56,7 +56,7 @@ I did a lot of testing on different platforms and machines but of course there m
 
 ## Quick Start
 
-Lightweight collection of 45+ functions to retrieve detailed hardware, system and OS information.
+Lightweight collection of 50+ functions to retrieve detailed hardware, system and OS information.
 
 - simple to use
 - get detailed information about system, cpu, baseboard, battery, memory, disks/filesystem, network, docker, software, services and processes

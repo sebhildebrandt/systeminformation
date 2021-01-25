@@ -380,6 +380,10 @@ h1, h2, h3, h4 {
   .text, .subtitle, .title, .title-small, .npmicons {
       text-align: center;
   }
+  .larger {
+    font-size: 1.2rem;
+  }
+
   a {
       text-decoration: none;
       &:hover {

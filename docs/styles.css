@@ -569,6 +569,10 @@ h1, h2, h3, h4 {
   text-align: center;
 }
 
+.index .larger {
+  font-size: 1.2rem;
+}
+
 .index a {
   text-decoration: none;
 }

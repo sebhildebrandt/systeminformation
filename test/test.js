@@ -1,7 +1,7 @@
 const readline = require('readline');
 const util = require('util');
 const exec = require('child_process').exec;
-const lib_version = require('../package.json').prereleaseversion;
+const lib_version = require('../package.json').version;
 const path = require('path');
 
 let waiting = false;
@@ -32,8 +32,8 @@ function printMenu() {
 }
 
 function EnableUserInput() {
-    readline.emitKeypressEvents(process.stdin);
-    process.stdin.setRawMode(true);
+  readline.emitKeypressEvents(process.stdin);
+  process.stdin.setRawMode(true);
 }
 
 function dot() {
@@ -69,7 +69,7 @@ function printTitle(title) {
 process.stdin.on('keypress', (key, data) => {
   // console.log(data);
   if (data.name === 'q' && !data.shift) {
-      // shut down
+    // shut down
     process.exit();
   }
 

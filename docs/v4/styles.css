@@ -667,4 +667,9 @@ footer .badge {
   color: #fff;
   font-size: 0.9rem;
 }
+
+.larger {
+  margin-top: 10px;
+  font-size: 1.5rem !important;
+}
 /*# sourceMappingURL=styles.css.map */
