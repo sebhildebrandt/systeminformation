@@ -1,0 +1,670 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "segoe ui", Roboto, Helvetica, Arial, sans-serif, "apple color emoji", "segoe ui emoji", "segoe ui symbol";
+  font-weight: 300;
+  min-height: 100%;
+}
+
+h1, h2, h3, h4 {
+  font-family: -apple-system, BlinkMacSystemFont, "segoe ui", Roboto, Helvetica, Arial, sans-serif, "apple color emoji", "segoe ui emoji", "segoe ui symbol";
+  font-weight: 300;
+}
+
+.center {
+  text-align: center;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.bg-image-full {
+  background: no-repeat center center scroll;
+  background-color: #1A1F30;
+  /* For browsers that do not support gradients */
+  background-image: linear-gradient(210deg, #2A2D66, #060520);
+  /* Standard syntax (must be last) */
+  background-size: cover;
+  -o-background-size: cover;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  opacity: 0.95;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.bg-image-full .container {
+  text-align: center;
+  -ms-flex-item-align: center;
+      align-self: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.bg-image-full .recommendation {
+  position: absolute;
+  top: 40px;
+  right: -95px;
+  z-index: 10;
+  display: inline-block;
+  width: 330px;
+  text-align: center;
+  padding: .25em 0;
+  color: white;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  background: #971d1d;
+  font-size: 0.9rem;
+}
+
+@media only screen and (min-width: 420px) {
+  .bg-image-full .recommendation {
+    font-size: 1.0rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .bg-image-full .recommendation {
+    font-size: 1.1rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .bg-image-full .recommendation {
+    top: 50px;
+    right: -75px;
+    font-size: 1.2rem;
+  }
+}
+
+.bg-image-full .recommendation:hover {
+  text-decoration: none;
+}
+
+.bg-image-full .title {
+  color: #fff;
+  padding-top: 10px;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+@media only screen and (min-width: 420px) {
+  .bg-image-full .title {
+    font-size: 2.4rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .bg-image-full .title {
+    font-size: 3.2rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .bg-image-full .title {
+    font-size: 4rem;
+  }
+}
+
+.bg-image-full .logo {
+  width: 100px;
+}
+
+@media only screen and (min-width: 420px) {
+  .bg-image-full .logo {
+    width: 120px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .bg-image-full .logo {
+    width: 160px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .bg-image-full .logo {
+    width: 200px;
+  }
+}
+
+.bg-image-full .subtitle {
+  text-align: center;
+  color: #bbb;
+  font-size: 0.78rem;
+}
+
+@media only screen and (min-width: 375px) {
+  .bg-image-full .subtitle {
+    font-size: 0.9rem;
+  }
+}
+
+@media only screen and (min-width: 420px) {
+  .bg-image-full .subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .bg-image-full .subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .bg-image-full .subtitle {
+    font-size: 1.3rem;
+  }
+}
+
+.bg-image-full .text > a {
+  text-align: center;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.bg-image-full .text > a:hover {
+  color: #aaa;
+  text-decoration: none;
+}
+
+@media only screen and (min-width: 375px) {
+  .bg-image-full .text > a {
+    font-size: 0.9rem;
+  }
+}
+
+@media only screen and (min-width: 420px) {
+  .bg-image-full .text > a {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .bg-image-full .text > a {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .bg-image-full .text > a {
+    font-size: 1.1rem;
+  }
+}
+
+.bg-image-full .version {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: .9rem;
+}
+
+@media only screen and (min-width: 420px) {
+  .bg-image-full .version {
+    font-size: .9rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .bg-image-full .version {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .bg-image-full .version {
+    font-size: 1.1rem;
+  }
+}
+
+.bg-image-full .down {
+  text-align: center;
+  color: #fff;
+  font-size: 1.3rem;
+  line-height: 1;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.bg-image-full .down .caret {
+  font-size: 3rem;
+}
+
+.nav {
+  background: no-repeat center center scroll;
+  background-color: #1A1F30;
+  /* For browsers that do not support gradients */
+  background-image: linear-gradient(210deg, #2A2D66, #060520);
+  /* Standard syntax (must be last) */
+  background-size: cover;
+  -o-background-size: cover;
+  height: 65px;
+  position: relative;
+}
+
+.nav .logo {
+  width: 60px;
+  margin-top: 12px;
+}
+
+.nav .title {
+  display: none;
+  color: #fff;
+  font-size: 1.2rem;
+  margin-left: 15px;
+  margin-top: 18px;
+}
+
+@media only screen and (min-width: 768px) {
+  .nav .title {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .nav .title {
+    font-size: 1.2rem;
+  }
+}
+
+.nav .text {
+  margin-top: 18px;
+}
+
+.nav .text a {
+  color: #fff;
+  margin-top: 12px;
+  font-size: 1.0rem;
+}
+
+@media only screen and (min-width: 1023px) {
+  .nav .text a {
+    margin-top: 10px;
+    font-size: 1.2rem;
+  }
+}
+
+.nav .text a:hover {
+  color: #aaa;
+  text-decoration: none;
+}
+
+.nav .github {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .nav .github {
+    display: inline-block;
+  }
+}
+
+.nav .todocs {
+  display: inline-block;
+}
+
+@media only screen and (min-width: 768px) {
+  .nav .todocs {
+    display: none;
+  }
+}
+
+.features {
+  text-align: center;
+  color: #333;
+}
+
+.features .inner {
+  padding: 10px 0px;
+}
+
+@media only screen and (min-width: 768px) {
+  .features .inner {
+    padding: 15px 20px;
+  }
+}
+
+.features .inner .icons {
+  display: block;
+  font-size: 3rem;
+  color: #bbb;
+}
+
+@media only screen and (min-width: 420px) {
+  .features .inner .icons {
+    font-size: 3.5rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .features .inner .icons {
+    font-size: 4rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .features .inner .icons {
+    font-size: 5rem;
+  }
+}
+
+.features .inner .icontitle {
+  font-size: 1.2rem;
+}
+
+.features .inner:hover {
+  background: #f4f4f4;
+  color: #567adf;
+}
+
+.features .inner:hover .icons {
+  color: #567adf;
+}
+
+.sectionheader .title {
+  text-align: center;
+  padding-top: 20px;
+  font-size: 2rem;
+}
+
+@media only screen and (min-width: 420px) {
+  .sectionheader .title {
+    font-size: 2.3rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .sectionheader .title {
+    text-align: left;
+    padding-top: 25px;
+    font-size: 2.6rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .sectionheader .title {
+    padding-top: 30px;
+    font-size: 3rem;
+  }
+}
+
+.sectionheader .title-small {
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+@media only screen and (min-width: 420px) {
+  .sectionheader .title-small {
+    font-size: 1.6rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .sectionheader .title-small {
+    text-align: left;
+    padding-top: 25px;
+    font-size: 1.8rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .sectionheader .title-small {
+    padding-top: 30px;
+    font-size: 2rem;
+  }
+}
+
+.sectionheader .subtitle {
+  text-align: center;
+  font-size: .9rem;
+}
+
+@media only screen and (min-width: 420px) {
+  .sectionheader .subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .sectionheader .subtitle {
+    text-align: left;
+    font-size: 1.1rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .sectionheader .subtitle {
+    font-size: 1.3rem;
+  }
+}
+
+.sectionheader .npmicons {
+  text-align: center;
+}
+
+.sectionheader .text {
+  text-align: center;
+  padding-top: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+  .sectionheader .text {
+    text-align: left;
+  }
+}
+
+.sectionheader hr {
+  margin-top: 40px;
+  margin-bottom: 0px;
+  border: 1px solid #ddd;
+}
+
+.index {
+  margin: 0 0 10px 0;
+}
+
+.index .text, .index .subtitle, .index .title, .index .title-small, .index .npmicons {
+  text-align: center;
+}
+
+.index a {
+  text-decoration: none;
+}
+
+.index a:hover {
+  text-decoration: none;
+  color: #567adf;
+}
+
+.left .text, .left .subtitle, .left .title, .left .title-small .npmicons {
+  text-align: left;
+}
+
+.table {
+  text-align: left;
+}
+
+ul {
+  text-align: left;
+}
+
+.number-section {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.number-section .numbers {
+  font-size: 2rem;
+}
+
+@media only screen and (min-width: 420px) {
+  .number-section .numbers {
+    font-size: 2.4rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .number-section .numbers {
+    font-size: 2.8rem;
+  }
+}
+
+.number-section .title {
+  color: #999;
+  font-size: 1rem;
+}
+
+@media only screen and (min-width: 420px) {
+  .number-section .title {
+    font-size: 1.1rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .number-section .title {
+    font-size: 1.2rem;
+  }
+}
+
+.menu {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .menu {
+    margin-top: 30px;
+    display: inline-block;
+  }
+}
+
+.menu .title {
+  margin: 25px 0 5px 0;
+  color: #000;
+}
+
+.menu .title a {
+  width: 100%;
+  color: #000;
+  text-decoration: none;
+}
+
+.menu .title a:hover {
+  color: #567adf;
+}
+
+.menu hr {
+  margin: 5px 0;
+}
+
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu ul li {
+  padding: 2px 0;
+}
+
+.menu ul li a {
+  width: 100%;
+  color: #666;
+  text-decoration: none;
+}
+
+.menu ul li a:hover {
+  color: #567adf;
+}
+
+.menu ul li.active > a {
+  color: #567adf;
+}
+
+.code {
+  font-family: Menlo, "dejavu sans mono", "lucida console", monospace;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  display: inline-block;
+  background-color: #eee;
+  margin: 0;
+  padding: 0 5px;
+}
+
+pre {
+  padding: 4px 10px 4px 10px;
+  font-family: Menlo, "dejavu sans mono", "lucida console", monospace;
+  -webkit-font-smoothing: antialiased;
+  font-size: 13px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 18px;
+  background-color: #eee;
+  width: 100%;
+  text-align: left;
+}
+
+.example td:first-child {
+  background-color: #fff !important;
+}
+
+.example td:last-child {
+  background-color: #f8faff !important;
+}
+
+.example h5 {
+  padding-top: 5px;
+  padding-left: 10px;
+}
+
+.example pre {
+  background-color: unset;
+}
+
+.example pre .js {
+  background-color: #f0f0f4;
+}
+
+footer {
+  background-color: #eee;
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  position: relative;
+}
+
+footer a {
+  color: #000;
+}
+
+footer .badge {
+  color: #fff;
+  font-size: 0.9rem;
+}
+/*# sourceMappingURL=styles.css.map */

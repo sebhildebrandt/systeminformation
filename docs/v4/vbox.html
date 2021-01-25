@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>systeminformation</title>
+
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="container">
+      <a href="."><img class="logo float-left" src="assets/logo.png">
+        <div class="title float-left">systeminformation - Version 4</div>
+      </a>
+      <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+      <div class="text float-right todocs"><a href="./#docs">Docs Overview</a></div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+      </div>
+      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+        <div class="row">
+          <div class="col-12 sectionheader">
+            <div class="title">Virtual Box</div>
+            <div class="text">
+              <p>In this section you will learn how to get information about virtual box VMs:</p>
+              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+              <pre><code class="js">const si = require('systeminformation');</code></pre>
+              <h2>VMs</h2>
+              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>si.vboxInfo(cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>returns array of detailed info about all VMs</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].id</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>virtual box ID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].name</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].running</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>vbox is running</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].started</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>started date time</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].runningSince</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>running since (secs)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].stopped</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>stopped date time</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].stoppedSince</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>stopped since (secs)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].guestOS</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>Guest OS</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].hardwareUUID</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>Hardware UUID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].memory</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>Memory in MB</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].vram</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>VRAM in MB</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].cpus</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPUs</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].cpuExepCap</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU exec cap</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].cpuProfile</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU profile</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].chipset</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>chipset</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].firmware</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>firmware</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].pageFusion</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>page fusion</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].configFile</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>config file</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].snapshotFolder</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>snapshot folder</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].logFolder</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>log folder path</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].HPET</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>HPET</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].PAE</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>PAE</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].longMode</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>long mode</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].tripleFaultReset</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>triple fault reset</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].APIC</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>APIC</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].X2APIC</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X2APIC</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].ACPI</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>ACPI</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].IOAPIC</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>IOAPIC</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].biosAPICmode</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>BIOS APIC mode</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].bootMenuMode</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>boot menu Mode</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].bootDevice1</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>bootDevice1</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].bootDevice2</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>bootDevice2</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].bootDevice3</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>bootDevice3</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].bootDevice4</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>bootDevice4</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].timeOffset</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>time Offset</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].RTC</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>RTC</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href=".">Home</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li><a href="contributors.html">Contributors</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+            <li><a href="history.html">Version history</a></li>
+            <li><a href="../index.html">Version 5 Docs</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt, +innovations</a></li>
+            <li><a href="copyright.html">Copyright &amp; License</a></li>
+            <li><a href="trademarks.html">Trademarks</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    window.onload = function (e) {
+      createMenu();
+    }
+  </script>
+</body>
+
+</html>

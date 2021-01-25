@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>systeminformation</title>
+
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="container">
+      <a href="."><img class="logo float-left" src="assets/logo.png">
+        <div class="title float-left">systeminformation - Version 4</div>
+      </a>
+      <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+      <div class="text float-right todocs"><a href="./#docs">Docs Overview</a></div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+      </div>
+      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+        <div class="row">
+          <div class="col-12 sectionheader">
+            <div class="title">System (Hardware)</div>
+            <div class="text">
+              <p>In this section you will learn how to get basic system hardware data. We will cover the system, baseboard and bios:</p>
+              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+              <pre><code class="js">const si = require('systeminformation');</code></pre>
+              <h2>System</h2>
+              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>si.system(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>hardware information</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>manufacturer</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>e.g. 'MSI' or 'DELL'</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>model</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>model/product e.g. 'MS-7823'</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>version</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>version e.g. '1.0'</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>serial</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>serial number</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>uuid</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>UUID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>sku</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>SKU number</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>virtual</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>is virtual machine</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>raspberry</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Additional Raspberry-specific information<br>manufacturer, processor, type, revision<br>Raspberry only</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.system().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  manufacturer: 'Apple Inc.',
+  model: 'MacBookPro13,2',
+  version: '1.0',
+  serial: 'C01xxxxxxxx',
+  uuid: 'F87654-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  sku: 'Mac-99878xxxx...',
+  virtual: false,
+}
+</pre>
+                  </tr>
+                  <tr>
+                    <td>si.bios(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>bios information</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>vendor</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>e.g. 'AMI'</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>version</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>releaseDate</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>release date</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>revision</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>revision</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.bios().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  vendor: 'American Megatrends Inc.',
+  version: 'P4.20',
+  releaseDate: '2019-09-05',
+  revision: '5.13'
+}</pre>
+                  </tr>
+                  <tr>
+                    <td>si.baseboard(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>baseboard information</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>manufacturer</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>e.g. 'ASUS'</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>model</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>model / product name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>version</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>serial</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>serial number</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>assetTag</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>asset tag</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.baseboard().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  manufacturer: 'ASRock',
+  model: 'H310M-STX',
+  version: '',
+  serial: 'C80-xxxxxxxxxxx',
+  assetTag: ''
+}</pre>
+                  </tr>
+                  <tr>
+                    <td>si.chassis(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>chassis information</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>manufacturer</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>e.g. 'ASUS'</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>model</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>model / product name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>type</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>chassis type e.g. 'desktop'</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>version</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>serial</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>serial number</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>assetTag</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>asset tag</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>sku</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>SKU number</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.chassis().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  manufacturer: 'Apple Inc.',
+  model: 'MacBookPro13,2',
+  type: '',
+  version: '1.0',
+  serial: 'C01xxxxxxxx',
+  assetTag: 'Mac-99878xxxx...',
+  sku: ''
+}</pre>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href=".">Home</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li><a href="contributors.html">Contributors</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+            <li><a href="history.html">Version history</a></li>
+            <li><a href="../index.html">Version 5 Docs</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt, +innovations</a></li>
+            <li><a href="copyright.html">Copyright &amp; License</a></li>
+            <li><a href="trademarks.html">Trademarks</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    window.onload = function (e) {
+      createMenu();
+    }
+  </script>
+</body>
+
+</html>

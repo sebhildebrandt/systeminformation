@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>systeminformation</title>
+
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="container">
+      <a href="."><img class="logo float-left" src="assets/logo.png">
+        <div class="title float-left">systeminformation - Version 4</div>
+      </a>
+      <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+      <div class="text float-right todocs"><a href="./#docs">Docs Overview</a></div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+      </div>
+      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+        <div class="row">
+          <div class="col-12 sectionheader">
+            <div class="title">Stats Functions</div>
+            <div class="text">
+              <h2>Getting correct stats values</h2>
+
+              <p>In <span class="code">fsStats()</span>, <span class="code">disksIO()</span>, <span class="code">currentLoad()</span> and <span class="code">networkStats()</span> the
+                results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning with the <strong>second</strong> call of the function.
+                It is determined by calculating the difference of transferred bytes / IOs divided by the time between two calls of the function.</p>
+
+              <p>The first time you are calling one of this functions, you will get <span class="code">-1</span> for transfer rates.
+                The second time, you should then get statistics based on the time between the two calls ...</p>
+
+              <p>So basically, if you e.g. need a values for network stats every second, your code should look like this:</p>
+
+              <pre><code class="js">const si = require('systeminformation');
+
+setInterval(function() {
+    si.networkStats().then(data => {
+        console.log(data);
+    })
+}, 1000)</code></pre>
+              <p>Beginning with the second call, you get network transfer values per second.</p>
+              <h2>Observe System Parameters</h2>
+              <p>systeminformation now allows you to easily observe system parameters: First you define a result object of system parameters you want to observe (see also decription of the <a href="general.html"><span class="code">si.get()</span> function here</a>):</p>
+              <p>Then you just call an <span class="code">si.observe()</span> function with three parameters: your result object, the polling interval (in milliseconds) and a callback function. systeminformation will now observe the result object. Every time the result changes, your callback function is called. This callback function also gets the current value the observed system parameters object.</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>si.observe(valueObject,interval,cb)</td>
+                  <td>-</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>Observe the defined value object,<br>call callback on changes:</td>
+                </tr>
+                <tr class="example">
+                  <td></td>
+                  <td colspan="7">
+                    <h5>Example</h5>
+                    <pre><code class="js">const si = require('systeminformation');
+
+// define all values, you want to get back
+valueObject = {
+  battery: 'acconnected'
+}
+
+function usersCallback(data) {
+  console.log('Power usage now: ' + (data.battery.acconnected ? 'AC' : 'battery'));
+}
+
+// now define the observer function
+let observer = si.observe(valueObject, 1000, usersCallback);
+
+// In this example we stop our observer function after 30 seconds
+setTimeout(() => {
+  clearInterval(observer)
+}, 30000);</code></pre class="example">
+                              </tr>
+                              </tbody>
+                            </table>
+                            <p>The key names of the <span class="code">valueObject</span> must be exactly the same as the representing function in systeminformation.</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href=".">Home</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li><a href="contributors.html">Contributors</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+            <li><a href="history.html">Version history</a></li>
+            <li><a href="../index.html">Version 5 Docs</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt, +innovations</a></li>
+            <li><a href="copyright.html">Copyright &amp; License</a></li>
+            <li><a href="trademarks.html">Trademarks</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    window.onload = function (e) {
+      createMenu();
+    }
+  </script>
+</body>
+
+</html>

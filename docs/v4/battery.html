@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>systeminformation</title>
+
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="container">
+      <a href="."><img class="logo float-left" src="assets/logo.png">
+        <div class="title float-left">systeminformation - Version 4</div>
+      </a>
+      <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+      <div class="text float-right todocs"><a href="./#docs">Docs Overview</a></div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+      </div>
+      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+        <div class="row">
+          <div class="col-12 sectionheader">
+            <div class="title">Battery</div>
+            <div class="text">
+              <p>In this section you will learn how to get battery information - if supported by system:</p>
+              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+              <pre><code class="js">const si = require('systeminformation');</code></pre>
+              <h2>Battery Data</h2>
+              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>si.battery(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>battery information</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>hasbattery</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>indicates presence of battery</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>cyclecount</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>numbers of recharges</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>ischarging</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>indicates if battery is charging</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>designedcapacity</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>designed capacity of battery (mWh)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>maxcapacity</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>max capacity of battery (mWh)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentcapacity</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>current capacity of battery (mWh)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>capacityUnit</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>capacity unit (mWh if possible)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>voltage</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>current voltage of battery (V)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>percent</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>charging level in percent</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>timeremaining</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>minutes left (if discharging)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>acconnected</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>AC connected</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>type</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>battery type</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>model</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>model</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>manufacturer</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>manufacturer</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>serial</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>battery serial</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.battery().then(data => console.log(data));</code></pre class="example">
+                      <pre class="example">
+{
+  hasbattery: true,
+  cyclecount: 35,
+  ischarging: false,
+  designedcapacity: 64958,
+  maxcapacity: 65865,
+  currentcapacity: 64856,
+  voltage: 12.767,
+  capacityUnit: 'mWh',
+  percent: 100,
+  timeremaining: 551,
+  acconnected: false,
+  type: 'Li-ion',
+  model: '',
+  manufacturer: 'Apple',
+  serial: 'F9Y19860Y9AH9XBAX'
+}</pre>
+                  </tr>
+                </tbody>
+              </table>
+              <h2>Known issues</h2>
+              <h4>Windows Battery</h4>
+
+              <p><span class="code">wmic</span> - which is used to determine temperature and battery sometimes needs to be run with admin
+                privileges. So if you do not get any values, try to run it again with according privileges. If you still do not get any
+                values, your system might not support this feature.</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href=".">Home</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li><a href="contributors.html">Contributors</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+            <li><a href="history.html">Version history</a></li>
+            <li><a href="../index.html">Version 5 Docs</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt, +innovations</a></li>
+            <li><a href="copyright.html">Copyright &amp; License</a></li>
+            <li><a href="trademarks.html">Trademarks</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    window.onload = function (e) {
+      createMenu();
+    }
+  </script>
+</body>
+
+</html>

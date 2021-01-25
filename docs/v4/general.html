@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>systeminformation</title>
+
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="container">
+      <a href="."><img class="logo float-left" src="assets/logo.png">
+        <div class="title float-left">systeminformation - Version 4</div>
+      </a>
+      <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+      <div class="text float-right todocs"><a href="./#docs">Docs Overview</a></div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+      </div>
+      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+        <div class="row">
+          <div class="col-12 sectionheader">
+            <div class="title">General</div>
+            <div class="text">
+              <p>In this section you will learn how to get general systeminformation data. We will also cover the "get" and "get-all" functions to get partial or all data with one single call.</p>
+              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+              <pre><code class="js">const si = require('systeminformation');</code></pre>
+              <h2>Lib-Version and Time/Timezone</h2>
+              <p>The first two functions just give back systeminformation library version number and time/timezone information of your machine. These are the only two functions not returning a promise (so they are not async functions):</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>si.version()</td>
+                    <td>: string</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>lib version (no callback/promise)</td>
+                  </tr>
+                  <tr>
+                    <td>si.time()</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>object (no callback/promise) with:</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>current</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>local (server) time</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>uptime</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>uptime in number of seconds</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>timezone</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>e.g. GMT+0200</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>timezoneName</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>e.g. CEST</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>Keep in mind, that there is another function <span class="code">si.versions()</span> that will return versions of other system libraries and software packages</p>
+              <h2>Get Defined Result Object</h2>
+              <p>Normally you would call each of the functions (where you want to get detailed system information) seperately. The docs pages contain a full reference (with examples) for each available function. But there is also another really handy way to get a self-defined result object in one single call:</p>
+              <p>The <span class="code">si.get()</span> function is an alternative, where you can obtain several system information data in one call. You can define a json object which represents the data structure you are expecting and the <span class="code">si.get()</span> call will then return all of the requested data in a single result object</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>si.get(valueObject,cb)</td>
+                  <td>{...}</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>get partial data at once<br>Specify return object for all<br>values that should be returned:</td>
+                </tr>
+                <tr class="example">
+                  <td></td>
+                  <td colspan="7">
+                    <h5>Example</h5>
+                    <pre><code class="js">const si = require('systeminformation');
+
+// define all values, you want to get back
+valueObject = {
+  cpu: '*',
+  osInfo: 'platform, release',
+  system: 'model, manufacturer'
+}
+
+si.get(valueObject).then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  cpu: {
+    manufacturer: 'Intel®',
+    brand: 'Core™ i7-8569U',
+    vendor: 'GenuineIntel',
+    family: '6',
+    model: '142',
+    stepping: '10',
+    revision: '',
+    voltage: '',
+    speed: '2.80',
+    speedmin: '2.80',
+    speedmax: '2.80',
+    governor: '',
+    cores: 8,
+    physicalCores: 4,
+    processors: 1,
+    socket: '',
+    cache: { l1d: 32768, l1i: 32768, l2: 262144, l3: 8388608 }
+  },
+  osInfo: {
+    platform: 'darwin',
+    release: '10.15.4'
+  },
+  system: {
+    model: 'MacBookPro15,2',
+    manufacturer: 'Apple Inc.'
+  }
+}
+</pre>
+                </tr>
+                </tbody>
+              </table>
+              <p>The key names of the <span class="code">valueObject</span> must be exactly the same as the representing function within systeminformation.</p>
+              <h3>Providing parameters to the get() function</h3>
+              <p>Now you can also provide parameters to get() functions (where needed). Just pass the parameters in parentheses right after the wanted keys: have a look at the folloging example:</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>si.get(valueObject,cb)</td>
+                  <td>{...}</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>X</td>
+                  <td>example with parameters:<br>value in paretheses goes as parameter<br>to the given function:</td>
+                </tr>
+                <tr class="example">
+                  <td></td>
+                  <td colspan="7">
+                    <h5>Example</h5>
+                    <pre><code class="js">const si = require('systeminformation');
+
+// define all values, you want to get back
+// here the value in paretheses goes as a parameter
+// to the processLoad function
+
+valueObject = {
+  processLoad: 'pids, cpu (postgres)'
+}
+si.get(valueObject).then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  processLoad: {
+  pids: [
+    640, 643, 654,
+    655, 656, 657,
+    658, 659
+  ],
+    cpu: 0.63
+  }
+}
+</pre>
+                </tr>
+                </tbody>
+              </table>
+              <h2>Get All At Once</h2>
+              <p>The following three functions <span class="code">si.getStaticData()</span>, <span class="code">si.getDynamicData()</span> and <span class="code">si.getAllData()</span> will return most of the available data in a single result object:</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>si.getStaticData(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>all static data at once</td>
+                  </tr>
+                  <tr>
+                    <td>si.getDynamicData(srv,iface,cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>all dynamic data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "*" for ALL services (linux/win only)<br>Pass "*" for ALL network interfaces</td>
+                  </tr>
+                  <tr>
+                    <td>si.getAllData(srv,iface,cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>all data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "*" for ALL services (linux/win only)<br>Pass "*" for ALL network interfaces</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p><strong>Static data</strong> is all hardware related (or more or less constant) data like system, baseboard, bios, OS, versions, cpu, network interfces, memory and disk layout</p>
+              <p><strong>Dynamic data</strong> will return user, cpu-speed, load, processes, services, temperature, file system, network and disk stats, ... </p>
+              <p>As not all funtions are supported in each operating system the result object might be different in each OS.</p>
+              <p><strong>ATTENTION</strong>: Use this only if you really need ALL information. Especially on Windows this can take really long (up to 20 seconds) because the underlying <span class="code">WMIC</span> command is very slow when using it the first time.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href=".">Home</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li><a href="contributors.html">Contributors</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+            <li><a href="history.html">Version history</a></li>
+            <li><a href="../index.html">Version 5 Docs</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt, +innovations</a></li>
+            <li><a href="copyright.html">Copyright &amp; License</a></li>
+            <li><a href="trademarks.html">Trademarks</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    window.onload = function (e) {
+      createMenu();
+    }
+  </script>
+</body>
+
+</html>

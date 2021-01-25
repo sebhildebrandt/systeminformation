@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>systeminformation</title>
+
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="container">
+      <a href="."><img class="logo float-left" src="assets/logo.png">
+        <div class="title float-left">systeminformation - Version 4</div>
+      </a>
+      <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+      <div class="text float-right todocs"><a href="./#docs">Docs Overview</a></div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+      </div>
+      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+        <div class="row">
+          <div class="col-12 sectionheader">
+            <div class="title">Processes and Services</div>
+            <div class="text">
+              <p>In this section you will learn how to get information about current load, running processes and installed services:</p>
+              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+              <pre><code class="js">const si = require('systeminformation');</code></pre>
+              <h2>Current Load, Processes, Services</h2>
+              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>si.currentLoad(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU-Load</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>avgload</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>average load</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentload</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentload_user</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load user in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentload_system</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load system in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentload_nice</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load nice in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentload_idle</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load idle in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentload_irq</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load system in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>raw_currentload...</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load raw values (ticks)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>cpus[]</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>current loads per CPU in % + raw ticks</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.currentLoad().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  avgload: 0.23,
+  currentload: 4.326328800988875,
+  currentload_user: 2.595797280593325,
+  currentload_system: 1.73053152039555,
+  currentload_nice: 0,
+  currentload_idle: 95.67367119901112,
+  currentload_irq: 0,
+  raw_currentload: 350,
+  raw_currentload_user: 210,
+  raw_currentload_system: 140,
+  raw_currentload_nice: 0,
+  raw_currentload_idle: 7740,
+  raw_currentload_irq: 0,
+  cpus: [
+    {
+      load: 13.725490196078432,
+      load_user: 7.8431372549019605,
+      load_system: 5.88235294117647,
+      load_nice: 0,
+      load_idle: 86.27450980392157,
+      load_irq: 0,
+      raw_load: 140,
+      raw_load_user: 80,
+      raw_load_system: 60,
+      raw_load_nice: 0,
+      raw_load_idle: 880,
+      raw_load_irq: 0
+    },
+    ...
+  ]
+}</pre>
+                  </tr>
+                  <tr>
+                    <td>si.fullLoad(cb)</td>
+                    <td>: integer</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>CPU full load since bootup in %</td>
+                  </tr>
+                  <tr>
+                    <td>si.processes(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td># running processes</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>all</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td># of all processes</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>running</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td># of all processes running</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>blocked</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td># of all processes blocked</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>sleeping</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td># of all processes sleeping</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>unknown</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td># of all processes unknown status</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>list[]</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>list of all processes incl. details</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].pid</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process PID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].parentPid</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>parent process PID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].name</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].pcpu</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process % CPU usage</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].pcpuu</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>process % CPU usage (user)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].pcpus</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>process % CPU usage (system)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].pmem</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process memory %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].priority</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process priotity</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].mem_vsz</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process virtual memory size</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].mem_rss</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process mem resident set size</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].nice</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>process nice value</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].started</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process start time</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].state</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process state (e.g. sleeping)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].tty</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>tty from which process was started</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].user</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>user who started process</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].command</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process starting command</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].params</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>process params</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].path</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process path</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.processes().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  all: 258,
+  running: 1,
+  blocked: 0,
+  sleeping: 157,
+  unknown: 0,
+  list: [
+    {
+      pid: 1,
+      parentPid: 0,
+      name: 'init',
+      pcpu: 0.04504576931569955,
+      pcpuu: 0.04084113255431208,
+      pcpus: 0.00420463676138747,
+      pmem: 0,
+      priority: 19,
+      mem_vsz: 166144,
+      mem_rss: 10684,
+      nice: 0,
+      started: '2020-02-08 10:18:15',
+      state: 'sleeping',
+      tty: '',
+      user: 'root',
+      command: 'init',
+      params: '',
+      path: '/sbin'
+    },
+    ...
+  ]
+}</pre>
+                  </tr>
+                  <tr>
+                    <td>si.processLoad('nginx',cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>detailed information about given process</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>proc</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>process name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>pid</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>PID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>pids</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>additional pids</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>cpu</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>process % CPU</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>mem</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>process % MEM</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.processLoad('nginx').then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  proc: 'nginx',
+  pid: 11267,
+  pids: [
+    11251, 11252, 11253,
+    11254, 11255, 11256,
+    11257, 11258, 11259,
+    11260, 11261, 11262,
+    11263, 11264, 11265,
+    11266, 11267
+  ],
+  cpu: 0.01,
+  mem: 0
+}</pre>
+                  </tr>
+                  <tr>
+                    <td>si.services('mysql, apache2', cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>pass comma separated string of services<br />pass &quot;*&quot; for ALL services (linux/win only)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].name</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>name of service</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].running</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>true / false</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].startmode</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>manual, automatic, ...</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].pids</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>pids</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].pcpu</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>process % CPU</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].pmem</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>process % MEM</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.services('mysql, postgres').then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+[
+  {
+    name: 'mysql',
+    running: true,
+    startmode: '',
+    pids: [ 152 ],
+    pcpu: 0.3,
+    pmem: 0
+  },
+  {
+    name: 'postgres',
+    running: true,
+    startmode: '',
+    pids: [ 1087, 1873 ],
+    pcpu: 0,
+    pmem: 0
+  },
+]</pre>
+                  </tr>
+                </tbody>
+              </table>
+              <h4>Getting correct stats values</h4>
+
+              <p>In <span class="code">currentLoad()</span> the
+                results are calculated correctly beginning with the <strong>second</strong> call of the function.
+                It is determined by calculating the difference of cpu ticks between two calls of the function.</p>
+
+              <p>The first time you are calling one of this functions, you will get the load since cpu uptime.
+                The second time, you should then get statistics based on cpu ticks between the two calls ...</p>
+
+              <p>So basically, your code should look like this:</p>
+
+              <pre><code class="js">const si = require('systeminformation');
+
+              setInterval(function() {
+                  si.currentLoad().then(data => {
+                      console.log(data);
+                  })
+              }, 1000)</code></pre>
+              <p>Beginning with the second call, you get precise load values between the two calls.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href=".">Home</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li><a href="contributors.html">Contributors</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+            <li><a href="history.html">Version history</a></li>
+            <li><a href="../index.html">Version 5 Docs</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt, +innovations</a></li>
+            <li><a href="copyright.html">Copyright &amp; License</a></li>
+            <li><a href="trademarks.html">Trademarks</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    window.onload = function (e) {
+      createMenu();
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>systeminformation</title>
+
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="container">
+      <a href="."><img class="logo float-left" src="assets/logo.png">
+        <div class="title float-left">systeminformation - Version 4</div>
+      </a>
+      <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+      <div class="text float-right todocs"><a href="./#docs">Docs Overview</a></div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+      </div>
+      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+        <div class="row">
+          <div class="col-12 sectionheader">
+            <div class="title">Memory</div>
+            <div class="text">
+              <p>In this section you will learn how to get overall memory information (usage by OS) and memory module layout:</p>
+              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+              <pre><code class="js">const si = require('systeminformation');</code></pre>
+              <h2>System Memory and Memory Layout</h2>
+              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+              <table class="table table-sm table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Function</th>
+                    <th>Result object</th>
+                    <th>Linux</th>
+                    <th>BSD</th>
+                    <th>Mac</th>
+                    <th>Win</th>
+                    <th>Sun</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>si.mem(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>Memory information (object)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>total</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>total memory in bytes</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>free</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>not used in bytes</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>used</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>used (incl. buffers/cache)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>active</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>used actively (excl. buffers/cache)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>buffcache</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>used by buffers+cache</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>buffers</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>used by buffers</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>cached</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>used by cache</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>slab</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>used by slab</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>available</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>potentially available (total - active)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>swaptotal</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>swapused</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>swapfree</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.mem().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  total: 67092135936,
+  free: 65769291776,
+  used: 1322844160,
+  active: 1032495104,
+  available: 66059640832,
+  buffers: 63213568,
+  cached: 800124928,
+  slab: 268804096,
+  buffcache: 1132142592,
+  swaptotal: 8589930496,
+  swapused: 0,
+  swapfree: 8589930496
+}
+</pre>
+                  </tr>
+                  <tr>
+                    <td>si.memLayout(cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>Memory Layout (array of objects)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].size</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>size in bytes</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].bank</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>memory bank</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].type</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>memory type</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].clockSpeed</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>clock speed</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].formFactor</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>form factor</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].manufacturer</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>manufacturer</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].partNum</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>part number</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].serialNum</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>serial number</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].voltageConfigured</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>voltage conf.</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].voltageMin</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>voltage min</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].voltageMax</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>voltage max</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.memLayout().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+[
+  {
+    size: 34359738368,
+    bank: 'BANK 0',
+    type: 'DDR4',
+    clockSpeed: 2667,
+    formFactor: 'SODIMM',
+    manufacturer: '029E',
+    partNum: 'CMSX64.....',
+    serialNum: '00000000',
+    voltageConfigured: 1.2,
+    voltageMin: 1.2,
+    voltageMax: 1.2
+  },
+  {
+    size: 34359738368,
+    bank: 'BANK 2',
+    type: 'DDR4',
+    clockSpeed: 2667,
+    formFactor: 'SODIMM',
+    manufacturer: '029E',
+    partNum: 'CMSX64.....',
+    serialNum: '00000000',
+    voltageConfigured: 1.2,
+    voltageMin: 1.2,
+    voltageMax: 1.2
+  }
+]
+</pre>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href=".">Home</a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li><a href="contributors.html">Contributors</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+            <li><a href="history.html">Version history</a></li>
+            <li><a href="../index.html">Version 5 Docs</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt, +innovations</a></li>
+            <li><a href="copyright.html">Copyright &amp; License</a></li>
+            <li><a href="trademarks.html">Trademarks</a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    window.onload = function (e) {
+      createMenu();
+    }
+  </script>
+</body>
+
+</html>
