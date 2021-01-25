@@ -185,6 +185,64 @@ si.system().then(data => console.log(data));</code></pre class="example">
 </pre>
                   </tr>
                   <tr>
+                    <td>si.uuid(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>object of several UUIDs</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>os</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>os specific UUID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>hardware</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>hardware specific UUID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>macs</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>MAC addresses</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.uuid().then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  os: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  hardware: 'xxxxxxxxxxxxxx',
+  macs: [
+    '01:02:03:04:05:06',
+    '02:03:04:05:06:07',
+    'aa:bb:cc:dd:ee:ff'
+  ]
+}
+</pre>
+                  </tr>
+                  <tr>
                     <td>si.bios(cb)</td>
                     <td>{...}</td>
                     <td>X</td>
