@@ -30,44 +30,29 @@
   [![Sponsoring][sponsor-badge]][sponsor-url]
   [![MIT license][license-img]][license-url]
 
-#### Happy new year
-
-```
-                                   .''.
-       .''.      .        *''*    :_\/_:     .
-      :_\/_:   _\(/_  .:.*_\/_*   : /\ :  .'.:.'.
-  .''.: /\ :   ./)\   ':'* /\ * :  '..'.  -=:o:=-
- :_\/_:'.:::.    ' *''*    * '.\'/.' _\(/_'.':'.'
- : /\ : :::::     *_\/_*     -= o =-  /)\    '  *
-  '..'  ':::'     * /\ *     .'/.\'.   '
-      *            *..*         :
-        *
-```
-
 This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 350 versions published, up to 3 mio downloads per month, > 25 mio downloads overall. Thank you to all who contributed to this project!
 
-## Upcoming
+## New Version 5.0
 
-**MacOS on ARM (Apple silicon support), Windows on ARM**: New Apple M1 silicon hardware just arrived (any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)). We already made a lot of tests and improvements to support Apple M1 silicon. Current status [is documented here](https://github.com/sebhildebrandt/systeminformation/issues/453).
+The new Version 5 is here - I spend several weeks finalizing this new version. Any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)
 
-**Version 5**: we are planning a new major version with some minor breaking changes and some additional features. Will try to make this available Q1 of 2021.
+This next major version release 5.0 comes with several optimizations and changes (some of them are breaking changes!):
 
-## New Version 4.0
-
-This next major version release 4.0 comes with several optimizations and changes:
-
-- new systeminformation website with better documentation and examples [systeminformation.io][systeminformation-url]
-- added typescript definitions
-- reworked network section: this will now return more information and allows getting networkStats for more than one interface at once.
-- dockerContainerStats for multiple containers or all containers at once
-- optimized graphics controller and display detection
-- added wifiNetworks to get available Wi-Fi networks
-- added vboxInfo to get detailed vm information
-- added chassis information
+- added bluetooth: get detailed bluetooth device information
+- added usb: get detailed usb controller and device information
+- added printer: get information from detected printers
+- added audio: get detailed audio device information
+- better uuid function to get unique hardware and os UUIDs
+- better/extended cpu info detection
+- better/extended system info detection
+- Apple Silicon M1 support
 - better Raspberry-PI detection
+- systeminformation website updated and extendet with full documentation and examples [systeminformation.io][systeminformation-url]
 - lot of minor improvements
 
-Breaking Changes in version 4: you will see some minor breaking changes. Read the [detailed changelog][changelog-url].
+Breaking Changes in version 5: you will see several breaking changes for the sake of a more consistent API interface and to be future proof. Read the [detailed Version 5 changes][changes5-url].
+
+I did a lot of testing on different platforms and machines but of course there might be some issues that I am not aware of. I would be happy if you inform me when you discover any issues. Issues can be [opened here][new-issue].
 
 ## Quick Start
 
@@ -85,6 +70,15 @@ Lightweight collection of 45+ functions to retrieve detailed hardware, system an
 ```bash
 $ npm install systeminformation --save
 ```
+
+#### Still need Version 4?
+
+If you need the lates version 4 release of the package (for compatibility reasons), you can install version 4 (latest release) with
+
+```bash
+$ npm install systeminformation@4 —save
+```
+
 
 ### Usage
 
@@ -107,13 +101,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.0.0: new version 5 - attention there are some breaking changes. See [detailed version 5 changes here][changes5-url].
 - Version 4.34.0: `system()` added flag virtual (linux, windows)
 - Version 4.33.0: `graphics()` added nvidia-smi support (linux, windows)
 - Version 4.32.0: `graphics()` added clinfo support (linux)
 - Version 4.31.0: `osInfo()` added FQDN
 - Version 4.30.0: `get()` added possibility to provide parameters
 - Version 4.29.0: `fsSize()` correct fs type detection macOS (HFS, APFS, NFS)
-- Version 4.28.0: `graphics()` added deviceName (Windows)
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -968,6 +962,7 @@ All other trademarks are the property of their respective owners.
 [license-img]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
 [npmjs-license]: https://img.shields.io/npm/l/systeminformation.svg?style=flat-square
 [changelog-url]: https://github.com/sebhildebrandt/systeminformation/blob/master/CHANGELOG.md
+[changes5-url]: https://systeminformation.io/changes.html
 [caretaker-url]: https://github.com/sebhildebrandt
 [caretaker-image]: https://img.shields.io/badge/caretaker-sebhildebrandt-blue.svg?style=flat-square
 
@@ -982,6 +977,8 @@ All other trademarks are the property of their respective owners.
 [issues-url]: https://github.com/sebhildebrandt/systeminformation/issues
 [closed-issues-img]: https://img.shields.io/github/issues-closed-raw/sebhildebrandt/systeminformation.svg?style=flat-square&color=brightgreen
 [closed-issues-url]: https://github.com/sebhildebrandt/systeminformation/issues?q=is%3Aissue+is%3Aclosed
+
+[new-issue]: https://github.com/sebhildebrandt/systeminformation/issues/new/choose
 
 [mmon-npm-url]: https://npmjs.org/package/mmon
 [mmon-github-url]: https://github.com/sebhildebrandt/mmon
