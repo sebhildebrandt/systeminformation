@@ -79,9 +79,9 @@
                   <tr>
                     <td></td>
                     <td>[0].device</td>
-                    <td>X</td>
                     <td></td>
-                    <td>X</td>
+                    <td></td>
+                    <td></td>
                     <td>X</td>
                     <td></td>
                     <td>device name</td>
@@ -102,7 +102,7 @@
                     <td>X</td>
                     <td></td>
                     <td>X</td>
-                    <td>X</td>
+                    <td></td>
                     <td></td>
                     <td>MAC address device</td>
                   </tr>
@@ -112,24 +112,24 @@
                     <td>X</td>
                     <td></td>
                     <td>X</td>
-                    <td>X</td>
+                    <td></td>
                     <td></td>
                     <td>MAC address host</td>
                   </tr>
                   <tr>
                     <td></td>
                     <td>[0].batteryPercent</td>
-                    <td>X</td>
+                    <td></td>
                     <td></td>
                     <td>X</td>
-                    <td>X</td>
+                    <td></td>
                     <td></td>
                     <td>battery level percent</td>
                   </tr>
                   <tr>
                     <td></td>
                     <td>[0].manufacturer</td>
-                    <td>X</td>
+                    <td></td>
                     <td></td>
                     <td>X</td>
                     <td>X</td>
@@ -141,8 +141,8 @@
                     <td>[0].type</td>
                     <td>X</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
                     <td></td>
                     <td>type of device</td>
                   </tr>
@@ -151,7 +151,7 @@
                     <td>[0].connected</td>
                     <td>X</td>
                     <td></td>
-                    <td></td>
+                    <td>X</td>
                     <td></td>
                     <td></td>
                     <td>connected</td>
@@ -169,7 +169,7 @@ si.bluetoothDevices().then(data => console.log(data));</code></pre class="exampl
     name: 'My Maus',
     manufacturer: 'Broadcom (0x5, 0x240C)',
     macDevice: '10-XX-XX-XX-XX-XX',
-    macHost: null,
+    macHost: '20-XX-XX-XX-XX-XX',
     batteryPercent: '74%',
     type: 'Mouse',
     connected: true
@@ -179,7 +179,7 @@ si.bluetoothDevices().then(data => console.log(data));</code></pre class="exampl
     name: 'My Keyboard',
     manufacturer: 'Broadcom (0x5, 0x240C)',
     macDevice: '10-XX-XX-XX-XX-XX',
-    macHost: null,
+    macHost: '20-XX-XX-XX-XX-XX',
     batteryPercent: '75%',
     type: 'Keyboard',
     connected: true
