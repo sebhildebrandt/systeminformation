@@ -30,7 +30,8 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 4.34.8         | 2020-01-25     | `graphics()` controller subid fix (win) |
+| 4.34.9         | 2020-01-25     | `graphics()` virtual controller vram value fix (win) |
+| 4.34.8         | 2020-01-25     | `graphics()` controller subDeviceId fix (win) |
 | 4.34.7         | 2020-01-13     | `services()` improved service discovery (linux) |
 | 4.34.6         | 2020-01-12     | `networkInterfaces()` catch errors |
 | 4.34.5         | 2020-01-07     | `networkInterfaceDefault()` fixed CMD popup (windows) |
