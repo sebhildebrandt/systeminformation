@@ -71,7 +71,7 @@ Breaking Changes in version 4: you will see some minor breaking changes. Read th
 
 ## Quick Start
 
-Lightweight collection of 40+ functions to retrieve detailed hardware, system and OS information.
+Lightweight collection of 45+ functions to retrieve detailed hardware, system and OS information.
 
 - simple to use
 - get detailed information about system, cpu, baseboard, battery, memory, disks/filesystem, network, docker, software, services and processes
