@@ -30,7 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 5.0.9          | 2020-01-26     | new version 5 release |
+| 5.0.0          | 2020-01-26     | new major version 5 release |
 | 4.34.9         | 2020-01-25     | `graphics()` virtual controller vram value fix (win) |
 | 4.34.8         | 2020-01-25     | `graphics()` controller subDeviceId fix (win) |
 | 4.34.7         | 2020-01-13     | `services()` improved service discovery (linux) |

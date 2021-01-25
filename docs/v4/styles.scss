@@ -15,8 +15,8 @@ h1, h2, h3, h4 {
 }
 .bg-image-full {
     background: no-repeat center center scroll;
-    background-color: #1A1F30; /* For browsers that do not support gradients */
-    background-image: linear-gradient(210deg, #2A2D66, #060520); /* Standard syntax (must be last) */
+    background-color: #4b2313; /* For browsers that do not support gradients */
+    background-image: linear-gradient(210deg, #4b2313, #2c0c0a ); /* Standard syntax (must be last) */
 
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -170,8 +170,10 @@ h1, h2, h3, h4 {
 // }
 .nav {
     background: no-repeat center center scroll;
-    background-color: #1A1F30; /* For browsers that do not support gradients */
-    background-image: linear-gradient(210deg, #2A2D66, #060520); /* Standard syntax (must be last) */
+    // background-color: #1A1F30; /* For browsers that do not support gradients */
+    // background-image: linear-gradient(210deg, #2A2D66, #060520); /* Standard syntax (must be last) */
+    background-color: #4b2313; /* For browsers that do not support gradients */
+    background-image: linear-gradient(210deg, #4b2313, #2c0c0a ); /* Standard syntax (must be last) */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -473,4 +475,7 @@ footer {
 .larger {
   margin-top: 10px;
   font-size: 1.5rem !important;
+}
+.v5 {
+  color:rgb(86, 122, 223);
 }

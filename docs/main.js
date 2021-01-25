@@ -24,6 +24,7 @@ function createMenu() {
     [1, 'security', 'Security Advisories'],
     [1, 'issues', 'Known Issues'],
     [1, 'changes', 'Version 5 Changes'],
+    [1, 'v4/index', 'Version 4 Docs'],
     [1, 'history', 'Version history'],
     [1, 'tests', 'Testing'],
     [1, 'copyright', 'Copyright & License'],
