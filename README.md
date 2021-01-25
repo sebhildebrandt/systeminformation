@@ -330,7 +330,7 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 | | hardware | X | X | X | X |  | hardware specific UUID |
 | | macs | X | X | X | X |  | MAC addresses |
 | si.versions(apps, cb) | {...} | X | X | X | X | X | version information (kernel, ssl, node, ...)<br />apps param is optional for detecting<br />only specific apps/libs<br />(string, comma separated) |
-| si.shell(cb) | : string | X | X | X |  |  | standard shell |
+| si.shell(cb) | : string | X | X | X | X |  | standard shell |
 | si.users(cb) | [{...}] | X | X | X | X | X | array of users online |
 | | [0].user | X | X | X | X | X | user name |
 | | [0].tty | X | X | X | X | X | terminal |
