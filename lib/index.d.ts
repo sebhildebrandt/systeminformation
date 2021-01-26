@@ -434,7 +434,7 @@ export namespace Systeminformation {
     dnsSuffix: string;
     ieee8021xAuth: string;
     ieee8021xState: string;
-    carrier_changes: number;
+    carrierChanges: number;
   }
 
   interface NetworkStatsData {
