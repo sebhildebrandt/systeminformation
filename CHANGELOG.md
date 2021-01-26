@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.0.1          | 2020-01-26     | code cleanup |
 | 5.0.0          | 2020-01-26     | new major version 5 release |
 | 4.34.9         | 2020-01-25     | `graphics()` virtual controller vram value fix (win) |
 | 4.34.8         | 2020-01-25     | `graphics()` controller subDeviceId fix (win) |
