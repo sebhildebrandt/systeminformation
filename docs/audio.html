@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous">
   <link rel="stylesheet" href="roboto/css/roboto.css">
-  <link rel="stylesheet" href="styles.css?9823642">
-  <script src="main.js?81239823"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
@@ -144,7 +144,7 @@
                     <td>X</td>
                     <td></td>
                     <td></td>
-                    <td>channel e.g. HDMI, USB, ...</td>
+                    <td>channel e.g. Build-In, HDMI, USB, ...</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -178,16 +178,6 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>[0].interfaceType</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>interface type (built-in, PCI, HDMI, USB...)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
                     <td>[0].status</td>
                     <td>X</td>
                     <td></td>
@@ -212,6 +202,7 @@ si.audio().then(data => console.log(data));</code></pre class="example">
     driver: null,
     default: true,
     channel: 'Built-In',
+    type: 'Microphone',
     in: true,
     out: false,
     status: 'online'
@@ -224,6 +215,7 @@ si.audio().then(data => console.log(data));</code></pre class="example">
     driver: null,
     default: true,
     channel: 'Built-In',
+    type: 'Speaker',
     in: false,
     out: true,
     status: 'online'

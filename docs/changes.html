@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous">
   <link rel="stylesheet" href="roboto/css/roboto.css">
-  <link rel="stylesheet" href="styles.css?9823642">
-  <script src="main.js?81239823"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
@@ -53,7 +53,7 @@
               </ul>
               <h4>Breaking Changes</h4>
               <p><span class="bold">Be aware</span>, that the new version 5.x is <span class="bold">NOT fully backward compatible</span> to version 4.x ...</p>
-              <p>We had to make <span class="bold">several interface changes</span> to keep systeminformation as consistent as possible. We highly recommend to go go through the complete list to adapt your own code to be again compatible to the new version 5:</p>
+              <p>We had to make <span class="bold">several interface changes</span> to keep systeminformation as consistent as possible. We highly recommend to go through the complete list and adapt your own code to be again compatible to the new version 5:</p>
               <table class="table table-sm table-bordered table-striped">
                 <thead>
                   <tr>
@@ -71,10 +71,16 @@
                     <td>values which are unknown or unsupported<br>on platform</td>
                   </tr>
                   <tr>
-                    <td><span class="code">processLoad()</span></td>
-                    <td>result as object</td>
-                    <td>result as array of objects</td>
-                    <td>function now allows to provide more than<br>one process (as a comma separated list)</td>
+                    <td><span class="code">battery()</span></td>
+                    <td><span class="code">hasbattery<br>cyclecount<br>ischarging<br>designedcapacity<br>maxcapacity<br>acconnected<br>timeremaining</span></td>
+                    <td><span class="code">hasBattery<br>cycleCount<br>isCharging<br>designedCapacity<br>maxCapacity<br>acConnected<br>timeRemaining</span></td>
+                    <td>pascalCase conformity</td>
+                  </tr>
+                  <tr>
+                    <td><span class="code">blockDevices()</span></td>
+                    <td><span class="code">fstype</span></td>
+                    <td><span class="code">fsType</span></td>
+                    <td>pascalCase conformity</td>
                   </tr>
                   <tr>
                     <td><span class="code">cpu()</span></td>
@@ -95,21 +101,27 @@
                     <td>function name changed<br>pascalCase conformity</td>
                   </tr>
                   <tr>
-                    <td><span class="code">blockDevices()</span></td>
-                    <td><span class="code">fstype</span></td>
-                    <td><span class="code">fsType</span></td>
+                    <td><span class="code">currentLoad()</span></td>
+                    <td><span class="code">avgload<br>currentload<br>currentload_user<br>currentload_system<br>currentload_nice<br>currentload_idle<br>currentload_irq<br>raw_currentload</span></td>
+                    <td><span class="code">avgLoad<br>currentLoad<br>currentLoadUser<br>currentLoadSystem<br>currentLoadNice<br>currentLoadIdle<br>currentLoadIrq<br>rawCurrentLoad</span></td>
+                    <td>pascalCase conformity</td>
+                  </tr>
+                  <tr>
+                    <td><span class="code">dockerContainerStats()</span></td>
+                    <td><span class="code">mem_usage<br>mem_limit<br>mem_percent<br>cpu_percent<br>cpu_stats<br>precpu_stats<br>memory_stats</span></td>
+                    <td><span class="code">memUsage<br>memLimit<br>memPercent<br>cpuPercent<br>cpuStats<br>precpuStats<br>memoryStats</span></td>
+                    <td>pascalCase conformity</td>
+                  </tr>
+                  <tr>
+                    <td><span class="code">dockerContainerProcesses()</span></td>
+                    <td><span class="code">pid_host</span></td>
+                    <td><span class="code">pidHost</span></td>
                     <td>pascalCase conformity</td>
                   </tr>
                   <tr>
                     <td><span class="code">graphics().display</span></td>
                     <td><span class="code">pixeldepth<br>resolutionx<br>resolutiony<br>sizex<br>sizey</span></td>
                     <td><span class="code">pixelDepth<br>resolutionX<br>resolutionY<br>sizeX<br>sizeY</span></td>
-                    <td>pascalCase conformity</td>
-                  </tr>
-                  <tr>
-                    <td><span class="code">battery()</span></td>
-                    <td><span class="code">hasbattery<br>cyclecount<br>ischarging<br>designedcapacity<br>maxcapacity<br>acconnected<br>timeremaining</span></td>
-                    <td><span class="code">hasBattery<br>cycleCount<br>isCharging<br>designedCapacity<br>maxCapacity<br>acConnected<br>timeRemaining</span></td>
                     <td>pascalCase conformity</td>
                   </tr>
                   <tr>
@@ -125,34 +137,22 @@
                     <td>pascalCase conformity</td>
                   </tr>
                   <tr>
-                    <td><span class="code">currentLoad()</span></td>
-                    <td><span class="code">avgload<br>currentload<br>currentload_user<br>currentload_system<br>currentload_nice<br>currentload_idle<br>currentload_irq<br>raw_currentload</span></td>
-                    <td><span class="code">avgLoad<br>currentLoad<br>currentLoadUser<br>currentLoadSystem<br>currentLoadNice<br>currentLoadIdle<br>currentLoadIrq<br>rawCurrentLoad</span></td>
-                    <td>pascalCase conformity</td>
-                  </tr>
-                  <tr>
                     <td><span class="code">processes()</span></td>
                     <td><span class="code">mem_vsz<br>mem_rss<br>pcpu<br>pcpuu<br>pcpus<br>pmem</span></td>
                     <td><span class="code">memVsz<br>memRss<br>cpu<br>cpuu<br>cpus<br>mem</span></td>
                     <td>pascalCase conformity<br>renamed attributes</td>
                   </tr>
                   <tr>
+                    <td><span class="code">processLoad()</span></td>
+                    <td>result as object</td>
+                    <td>result as array of objects</td>
+                    <td>function now allows to provide more than<br>one process (as a comma separated list)</td>
+                  </tr>
+                  <tr>
                     <td><span class="code">services()</span></td>
                     <td><span class="code">pcpu<br>pmem</span></td>
                     <td><span class="code">cpu<br>mem</span></td>
                     <td>renamed attributes</td>
-                  </tr>
-                  <tr>
-                    <td><span class="code">dockerContainerStats()</span></td>
-                    <td><span class="code">mem_usage<br>mem_limit<br>mem_percent<br>cpu_percent<br>cpu_stats<br>precpu_stats<br>memory_stats</span></td>
-                    <td><span class="code">memUsage<br>memLimit<br>memPercent<br>cpuPercent<br>cpuStats<br>precpuStats<br>memoryStats</span></td>
-                    <td>pascalCase conformity</td>
-                  </tr>
-                  <tr>
-                    <td><span class="code">dockerContainerProcesses()</span></td>
-                    <td><span class="code">pid_host</span></td>
-                    <td><span class="code">pidHost</span></td>
-                    <td>pascalCase conformity</td>
                   </tr>
                   <tr>
                     <td><span class="code">vbox()</span></td>
@@ -176,9 +176,9 @@
                 <li><span class="code">fsSize()</span>: improved calculation of <span class="code">used</span></li>
                 <li><span class="code">osInfo()</span>: better fqdn (win)</li>
                 <li><span class="code">uuid()</span>: better value support</li>
-                <li><span class="code">uuid()</span>: added MACs, Raspberry Pi hardware ID</li>
+                <li><span class="code">uuid()</span>: added MACs</li>
                 <li><span class="code">uuid()</span>: better Raspberry Pi hardware ID</li>
-                <li><span class="code">getData()</span>: support for pasing parameters and filters (see <a href="general.html">section getData</a>)</li>
+                <li><span class="code">getData()</span>: support for passing parameters and filters (see <a href="general.html">section General / getData</a>)</li>
                 <li><span class="code">Apple M1 Silicon</span> extended support (now ereything supported exept of cpu temperature)</li>
                 <li>updated TypeScript definitions </li>
               </ul>

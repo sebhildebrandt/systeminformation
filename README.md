@@ -127,6 +127,8 @@ I also created a nice little command line tool called [mmon][mmon-github-url] (m
 
 ### Function Reference and OS Support
 
+Full function reference with examples can be found at [https://systeminformation.io][systeminformation-url].
+
 #### 1. General
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |

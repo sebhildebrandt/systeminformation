@@ -691,6 +691,7 @@ ul {
 
 .menu ul li.active > a {
   color: #567adf;
+  font-weight: 500;
 }
 
 .code {
