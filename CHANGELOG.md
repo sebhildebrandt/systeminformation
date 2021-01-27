@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.0.3          | 2020-01-27     | `cpu()` fix virtualization, `wifi()` fix raspberry  |
 | 5.0.2          | 2020-01-26     | updated typescript typings  |
 | 5.0.1          | 2020-01-26     | code cleanup |
 | 5.0.0          | 2020-01-26     | new major version 5 release |
