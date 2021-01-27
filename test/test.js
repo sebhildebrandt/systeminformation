@@ -59,7 +59,7 @@ function stopDots() {
 
 function printTitle(title) {
   // https://en.wikipedia.org/wiki/Box_Drawing_(Unicode_block)
-  title = '│' + ('  ' + title + '                                 ').substr(0, 44 - lib_version.length) + 'v: ' + lib_version + ' │';
+  title = '│' + ('  ' + title + '                                     ').substr(0, 44 - lib_version.length) + 'v: ' + lib_version + ' │';
   console.log('┌────────────────────────────────────────────────┐');
   console.log(title);
   console.log('└────────────────────────────────────────────────┘');
