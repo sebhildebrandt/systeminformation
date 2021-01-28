@@ -321,6 +321,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | build | X |   | X | X |   | OS build version |
 | | servicepack | | | | X |   | service pack version |
 | | uefi | X | X | X | X |   | OS started via UEFI |
+| | hypervisor |  |  |  | X |   | hyper-v enabled? (win only) |
 | si.uuid(cb) | {...} | X | X | X | X | X | object of several UUIDs |
 | | os | X | X | X | X |  | os specific UUID |
 | | hardware | X | X | X | X |  | hardware specific UUID |
