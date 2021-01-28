@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.0.6          | 2020-01-28     | `osinfo()` added hypervisor (win only) |
 | 5.0.5          | 2020-01-27     | `networkInterfaces()` type detection improved (win) |
 | 5.0.4          | 2020-01-27     | `cpu()` improved manufacturer decoding (linux) |
 | 5.0.3          | 2020-01-27     | `cpu()` fix virtualization, `wifi()` fix raspberry  |

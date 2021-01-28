@@ -311,6 +311,7 @@ export namespace Systeminformation {
     build: string;
     servicepack: string;
     uefi: boolean;
+    hypervizor?: boolean;
   }
 
   interface UuidData {
