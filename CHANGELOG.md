@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.0.7          | 2020-01-29     | `fsSize()` available fixed windows and typescript typings |
 | 5.0.6          | 2020-01-28     | `osinfo()` added hypervisor (win only) |
 | 5.0.5          | 2020-01-27     | `networkInterfaces()` type detection improved (win) |
 | 5.0.4          | 2020-01-27     | `cpu()` improved manufacturer decoding (linux) |

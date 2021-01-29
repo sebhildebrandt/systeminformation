@@ -368,6 +368,7 @@ export namespace Systeminformation {
     type: string;
     size: number;
     used: number;
+    available: number;
     use: number;
     mount: string;
   }

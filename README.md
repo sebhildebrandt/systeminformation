@@ -36,13 +36,13 @@ This is amazing. Started as a small project just for myself, it now has > 10,000
 
 The new Version 5 is here - I spend several weeks finalizing this new version. Any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)
 
-This next major version release 5.0 comes with several optimizations and changes (some of them are breaking changes!):
+This next major version release 5.0 comes with new functionality and several improvements and changes (some of them are breaking changes!):
 
 - added bluetooth: get detailed bluetooth device information
 - added usb: get detailed usb controller and device information
 - added printer: get information from detected printers
 - added audio: get detailed audio device information
-- better uuid function to get unique hardware and os UUIDs
+- better uuid function to get unique hardware and OS UUIDs
 - better/extended cpu info detection
 - better/extended system info detection
 - Apple Silicon M1 support
@@ -50,7 +50,7 @@ This next major version release 5.0 comes with several optimizations and changes
 - systeminformation website updated and extendet with full documentation and examples [systeminformation.io][systeminformation-url]
 - lot of minor improvements
 
-Breaking Changes in version 5: you will see several breaking changes for the sake of a more consistent API interface and to be future proof. Read the [detailed Version 5 changes][changes5-url].
+Breaking Changes in version 5: you will see several breaking changes for the sake of a more consistent API interface and to be future proof. Read the [detailed version 5 changes][changes5-url].
 
 I did a lot of testing on different platforms and machines but of course there might be some issues that I am not aware of. I would be happy if you inform me when you discover any issues. Issues can be [opened here][new-issue].
 
@@ -73,7 +73,7 @@ $ npm install systeminformation --save
 
 #### Still need Version 4?
 
-If you need the lates version 4 release of the package (for compatibility reasons), you can install version 4 (latest release) with
+If you need version 4 (for compatibility reasons), you can install version 4 (latest release) like this
 
 ```bash
 $ npm install systeminformation@4 —save
