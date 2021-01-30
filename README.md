@@ -443,6 +443,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | [0].type | X | X | X | X |  | type of file system |
 | | [0].size | X | X | X | X |  | sizes in bytes |
 | | [0].used | X | X | X | X |  | used in bytes |
+| | [0].available | X | X | X | X |  | used in bytes |
 | | [0].use | X | X | X | X |  | used in % |
 | | [0].mount | X | X | X | X |  | mount point |
 | si.fsOpenFiles(cb) | {...} | X | X | X |  |  | count max/allocated file descriptors |
