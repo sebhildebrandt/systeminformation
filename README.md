@@ -61,7 +61,7 @@ Lightweight collection of 50+ functions to retrieve detailed hardware, system an
 - simple to use
 - get detailed information about system, cpu, baseboard, battery, memory, disks/filesystem, network, docker, software, services and processes
 - supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD and SunOS support
-- no npm dependencies (for production)
+- no npm dependencies
 
 **Attention**: this is a `node.js` library. It is supposed to be used as a backend/server-side library and will definitely not work within a browser.
 
@@ -116,7 +116,7 @@ You can find all changes here: [detailed changelog][changelog-url]
 
 [Node.js][nodejs-url] comes with some basic OS information, but I always wanted a little more. So I came up to write this little library. This library is still work in progress. It is supposed to be used as a backend/server-side library (will definitely not work within a browser). It requires node.js version 4.0 and above.
 
-I was able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra, Mojave) and some Windows 7, Windows 10, FreeBSD, OpenBSD, NetBSD and SunOS machines. Not all functions are supported on all operating systems. Have a look at the function reference in the docs to get further details.
+I was able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra, Mojave, Catalina, Big Sur) and some Windows 7, Windows 8, Windows 10, FreeBSD, OpenBSD, NetBSD and SunOS machines. Not all functions are supported on all operating systems. Have a look at the function reference in the docs to get further details.
 
 If you have comments, suggestions & reports, please feel free to contact me!
 
