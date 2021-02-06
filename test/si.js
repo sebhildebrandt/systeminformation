@@ -27,9 +27,9 @@ function test(f) {
       else if (f === 'M') { si.memLayout().then(data => { if (data !== null) { resolve({ data, title: 'Memory Layout' }); } else { resolve('not_supported'); } }); }
       else if (f === 'o') { si.osInfo().then(data => { if (data !== null) { resolve({ data, title: 'OS Info' }); } else { resolve('not_supported'); } }); }
       else if (f === 'p') { si.processes().then(data => { if (data !== null) { resolve({ data, title: 'Processes' }); } else { resolve('not_supported'); } }); }
-      else if (f === 'P') { si.processLoad('postgres, login, apache, mysql, nginx, git').then(data => { if (data !== null) { resolve({ data, title: 'Process Load' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'P') { si.processLoad('postgres, login, apache, mysql, nginx, git, node').then(data => { if (data !== null) { resolve({ data, title: 'Process Load' }); } else { resolve('not_supported'); } }); }
       else if (f === 'r') { si.printer().then(data => { if (data !== null) { resolve({ data, title: 'Printer' }); } else { resolve('not_supported'); } }); }
-      else if (f === 's') { si.services('apache2, postgres').then(data => { if (data !== null) { resolve({ data, title: 'Services' }); } else { resolve('not_supported'); } }); }
+      else if (f === 's') { si.services('apache2, postgres, wsearch').then(data => { if (data !== null) { resolve({ data, title: 'Services' }); } else { resolve('not_supported'); } }); }
       else if (f === 'S') { si.shell().then(data => { if (data !== null) { resolve({ data, title: 'Shell' }); } else { resolve('not_supported'); } }); }
       else if (f === 't') { resolve({ data: si.time(), title: 'Time' }); }
       else if (f === 'T') { si.cpuTemperature().then(data => { if (data !== null) { resolve({ data, title: 'CPU Temperature' }); } else { resolve('not_supported'); } }); }
@@ -52,8 +52,8 @@ function test(f) {
       else if (f === '9') { si.dockerContainerProcesses('1').then(data => { if (data !== null) { resolve({ data, title: 'Docker Cont Processes' }); } else { resolve('not_supported'); } }); }
       else if (f === '0') { si.dockerAll().then(data => { if (data !== null) { resolve({ data, title: 'Docker All' }); } else { resolve('not_supported'); } }); }
       else if (f === ',') { si.getStaticData().then(data => { if (data !== null) { resolve({ data, title: 'All Static Data' }); } else { resolve('not_supported'); } }); }
-      else if (f === '.') { si.getDynamicData('apache2, postgres').then(data => { if (data !== null) { resolve({ data, title: 'All Dynamic Data' }); } else { resolve('not_supported'); } }); }
-      else if (f === '/') { si.getAllData('apache2, postgres').then(data => { if (data !== null) { resolve({ data, title: 'All Data' }); } else { resolve('not_supported'); } }); }
+      else if (f === '.') { si.getDynamicData('apache2, postgres, wsearch').then(data => { if (data !== null) { resolve({ data, title: 'All Dynamic Data' }); } else { resolve('not_supported'); } }); }
+      else if (f === '/') { si.getAllData('apache2, postgres, wsearch').then(data => { if (data !== null) { resolve({ data, title: 'All Data' }); } else { resolve('not_supported'); } }); }
       else if (f === '?') {
         const valueObject = {
           cpu: '*',
