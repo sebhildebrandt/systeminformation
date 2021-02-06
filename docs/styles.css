@@ -47,13 +47,14 @@ h1, h2, h3, h4 {
       -ms-flex-pack: center;
           justify-content: center;
   text-align: center;
+  width: 100% !important;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
 }
 
-.bg-image-full .container {
+.bg-image-full .top-container {
   text-align: center;
   -ms-flex-item-align: center;
       align-self: center;
@@ -73,15 +74,19 @@ h1, h2, h3, h4 {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+  width: 100% !important;
 }
 
 .bg-image-full .recommendation {
   position: absolute;
-  top: 40px;
-  right: -95px;
+  top: 30px;
+  right: 0px;
+  margin-right: -85px;
   z-index: 10;
   display: inline-block;
-  width: 330px;
+  width: 280px;
   text-align: center;
   padding: .25em 0;
   color: white;
@@ -97,16 +102,21 @@ h1, h2, h3, h4 {
   }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 767px) {
   .bg-image-full .recommendation {
     font-size: 1.1rem;
+    top: 40px;
+    margin-right: -95px;
+    width: 330px;
   }
 }
 
 @media only screen and (min-width: 1024px) {
   .bg-image-full .recommendation {
-    top: 50px;
-    right: -75px;
+    width: 330px;
+    top: 60px;
+    right: 0px;
+    margin-right: -71px;
     font-size: 1.2rem;
   }
 }

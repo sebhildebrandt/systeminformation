@@ -41,10 +41,10 @@ h1, h2, h3, h4 {
     display: flex;
     justify-content: center;
     text-align: center;
-
+    width: 100% !important;
     // align-items: center;
     flex-direction: column;
-    .container {
+    .top-container {
       text-align: center;
       align-self: center;
       display: flex;
@@ -52,14 +52,18 @@ h1, h2, h3, h4 {
       flex-direction: column;
       align-items: center;
       flex-grow: 1;
+      overflow: hidden;
+      position: relative;
+      width: 100% !important;
     }
     .recommendation {
       position: absolute;
-      top: 40px;
-      right: -95px;
+      top: 30px;
+      right: 0px;
+      margin-right:-85px;
       z-index: 10;
       display: inline-block;
-      width: 330px;
+      width: 280px;
       text-align: center;
       padding: .25em 0;
       color: white;
@@ -67,14 +71,19 @@ h1, h2, h3, h4 {
       background: rgb(151, 29, 29);
       font-size: 0.9rem;
       @media only screen and (min-width: 420px) {
-          font-size: 1.0rem;
+        font-size: 1.0rem;
       }
-      @media only screen and (min-width: 768px) {
-          font-size: 1.1rem;
+      @media only screen and (min-width: 767px) {
+        font-size: 1.1rem;
+        top: 40px;
+        margin-right:-95px;
+        width: 330px;
       }
       @media only screen and (min-width: 1024px) {
-        top: 50px;
-        right: -75px;
+        width: 330px;
+        top: 60px;
+        right: 0px;
+        margin-right:-71px;
         font-size: 1.2rem;
       }
       &:hover {
