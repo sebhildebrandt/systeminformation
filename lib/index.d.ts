@@ -123,6 +123,7 @@ export namespace Systeminformation {
     size: number;
     bank: string;
     type: string;
+    ecc?: boolean;
     clockSpeed: number;
     formFactor: string;
     partNum: string;
