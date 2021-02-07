@@ -30,7 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 5.1.0          | 2020-02-08     | `memLayout()` added ECC flag |
+| 5.1.0          | 2020-02-08     | `memLayout()` added ECC flag, `bios()` added language, features (linux) |
 | 5.0.11         | 2020-02-07     | `fsSize()` fixed windows WSL issue |
 | 5.0.10         | 2020-02-06     | `getDynamicData()` fixed windows WSL issue |
 | 5.0.9          | 2020-02-02     | `fsSize()` fixed parsing edge case issue mac OS |

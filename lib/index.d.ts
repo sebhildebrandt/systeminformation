@@ -38,6 +38,8 @@ export namespace Systeminformation {
     version: string;
     releaseDate: string;
     revision: string;
+    language?: string;
+    features?: string[];
   }
 
   interface BaseboardData {

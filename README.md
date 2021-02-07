@@ -101,7 +101,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
-- Version 5.1.0: `memLayout()` added ECC flag
+- Version 5.1.0: `memLayout()` added ECC flag, `bios()` added language, features (linux)
 - Version 5.0.0: new version 5 - attention there are some breaking changes. See [detailed version 5 changes here][changes5-url].
 - Version 4.34.0: `system()` added flag virtual (linux, windows)
 - Version 4.33.0: `graphics()` added nvidia-smi support (linux, windows)

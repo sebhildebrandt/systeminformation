@@ -292,6 +292,26 @@ si.uuid().then(data => console.log(data));</code></pre class="example">
                     <td></td>
                     <td>revision</td>
                   </tr>
+                  <tr>
+                    <td></td>
+                    <td>language</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>bios language</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>features</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>supported features</td>
+                  </tr>
                   <tr class="example">
                     <td></td>
                     <td colspan="7">
@@ -303,7 +323,20 @@ si.bios().then(data => console.log(data));</code></pre class="example">
   vendor: 'American Megatrends Inc.',
   version: 'P4.20',
   releaseDate: '2019-09-05',
-  revision: '5.13'
+  revision: '5.13',
+  langage: 'en',
+  features: [
+    'PCI',
+    'Boot from CD',
+    'Selectable boot',
+    'EDD',
+    'Print screen service',
+    'ACPI',
+    'USB legacy',
+    'BIOS boot specification',
+    'Targeted content distribution',
+    'UEFI'
+  ]
 }</pre>
                   </tr>
                   <tr>
