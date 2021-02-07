@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.0.11         | 2020-02-07     | `fsSize()` fixed windows WSL issue |
 | 5.0.10         | 2020-02-06     | `getDynamicData()` fixed windows WSL issue |
 | 5.0.9          | 2020-02-02     | `fsSize()` fixed parsing edge case issue mac OS |
 | 5.0.8          | 2020-01-30     | typescript typings fix cpuCurrentSpeed |
