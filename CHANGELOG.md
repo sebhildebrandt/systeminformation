@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.1.2          | 2020-02-08     | fixed node 4 compatibility issue |
 | 5.1.1          | 2020-02-08     | `baseboard()` added memMax, memSlots, smaller improvements Raspberry |
 | 5.1.0          | 2020-02-08     | `memLayout()` added ECC flag, `bios()` added language, features (linux) |
 | 5.0.11         | 2020-02-07     | `fsSize()` fixed windows WSL issue |
