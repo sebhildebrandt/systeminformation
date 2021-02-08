@@ -30,7 +30,7 @@
   [![Sponsoring][sponsor-badge]][sponsor-url]
   [![MIT license][license-img]][license-url]
 
-This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 380 versions published, up to 3 mio downloads per month, > 30 mio downloads overall. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 400 versions published, up to 3 mio downloads per month, > 30 mio downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 5.0
 
@@ -165,6 +165,8 @@ Full function reference with examples can be found at [https://systeminformation
 | | version | X | X | X | X |  | version |
 | | serial | X | X | X | X |  | serial number |
 | | assetTag | X | X | X | X |  | asset tag |
+| | memMax | X |  | X | X |  | max memory in bytes |
+| | memSlots | X |  | X | X |  | memory slots on baseboard |
 | si.chassis(cb) | {...} | X | X | X | X |  | chassis information |
 | | manufacturer | X | X | X | X |  | e.g. 'MSI' |
 | | model | X | X | X | X |  | model / product name |
