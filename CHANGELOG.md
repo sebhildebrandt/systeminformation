@@ -1,35 +1,59 @@
 # Changelog
 
-### Major Changes - Version 4
+### Major Changes - Version 5
 
 **New Functions**
 
-- `chassis()`: chassis information
+- `audio()` detailed audio information
+- `bluetoothDevices()` detailed information detected bluetooth devices
+- `printers()` detailed printer information
+- `usb()` detailed USB information
+- `wifiInterfaces()` detected Wi-Fi interfaces
+- `wifiConnections()` active Wi-Fi connections
 
 **Breaking Changes**
 
-- `networkStats()`: will provide an **array** of stats for all given interfaces. In previous versions only one interface was provided as a parameter. Pass '*' for all interfaces
-- `networkStats()`: `rx` and `tx` changed to `rx_bytes` and `tx_bytes`
-- `dockerContainerStats()`: will provide an **array** of stats for all given docker containers. In previous versions only one interface was provided as a parameter. Pass '*' for all docker containers
+**Be aware**, that the new version 5.x **is NOT fully backward compatible** to version 4.x ...
 
-**Other Changes**
+We had to make several interface changes to keep systeminformation as consistent as possible. We highly recommend to go [through the complete list](https://systeminformation.io/changes.html) and adapt your own code to be again compatible to the new version 5.
 
-- `system()` optimized system detection (e.g. new Raspberry Pi models, ...), additional flags
-- `system()`, `bios()`, `baseboard()` information also as non-root (linux)
-- `graphics()` better controller and display detection, fixes
-- `versions()` optimization, fixes
-- `networkInterfaces()` added `operstate`, `type`, `duplex`, `mtu`, `speed`, `carrierChanges`
-- `networkStats()` added stats for `errors`, `dropped`
-- added TypeScript definitions
+**Other Improvements and Changes**
 
-**Be aware**, that the new version 4.x is **NOT fully backward compatible** to version 3.x ...
+- `baseboard(): added memMax, memSlots
+- `bios()`: added language and features (linux)
+- `cpu()`: extended AMD processor list
+- `cpu()`: extended socket list (win)
+- `cpu()`: added virtualization if cpu supports virtualization
+- `cpu()`: now flags are part of this function
+- `fsSize()`: added available
+- `fsSize()`: improved calculation of used
+- `getData()`: support for passing parameters and filters (see section General / getData)
+- `graphics()`: extended nvidia-smi parsing
+- `networkInterfaces()`: type detection improved (win - wireless)
+- `memoryLayout()`: extended manufacturer list (decoding)
+- `memoryLayout()`: added ECC flag
+- `osInfo()`: better fqdn (win)
+- `osinfo()`: added hypervizor if hyper-v is enabled (win only)
+- `system()`: better Raspberry PI detection
+- `system()`: added virtual and virtualHost (if system is virtual instance)
+- `uuid()`: better value support
+- `uuid()`: added MACs
+- `uuid()`: better Raspberry Pi hardware ID
+- `Apple M1 Silicon extended support (now everything supported except of cpu temperature)
+- `updated TypeScript definitions
 
-For major (breaking) changes - version 3 and 2 see end of page.
+**Test Full Version 5 Functionality**
+
+If you want to see all function results on your machine, please head over to (Testing section)[https://systeminformation.io/tests.html]. We implemented a tiny test suite where you can easily go through all functions and test resuls on your machine without coding.
+
+
+For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 ## Version history
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.2.0          | 2020-02-10     | `wifiInterfces()` and `wifiConnections()` added |
 | 5.1.2          | 2020-02-08     | fixed node 4 compatibility issue |
 | 5.1.1          | 2020-02-08     | `baseboard()` added memMax, memSlots, smaller improvements Raspberry |
 | 5.1.0          | 2020-02-08     | `memLayout()` added ECC flag, `bios()` added language, features (linux) |
@@ -436,6 +460,29 @@ For major (breaking) changes - version 3 and 2 see end of page.
 | 0.0.2          | 2014-03-14     | Optimization FS-Speed & CPU current speed |
 | 0.0.1          | 2014-03-13     | initial release |
 
+### Major C`hanges - Version 4
+
+**New Functions**
+
+- `chassis()`: chassis information
+
+**Breaking Changes**
+
+- `networkStats()`: will provide an **array** of stats for all given interfaces. In previous versions only one interface was provided as a parameter. Pass '*' for all interfaces
+- `networkStats()`: `rx` and `tx` changed to `rx_bytes` and `tx_bytes`
+- `dockerContainerStats()`: will provide an **array** of stats for all given docker containers. In previous versions only one interface was provided as a parameter. Pass '*' for all docker containers
+
+**Other Changes**
+
+- `system()` optimized system detection (e.g. new Raspberry Pi models, ...), additional flags
+- `system()`, `bios()`, `baseboard()` information also as non-root (linux)
+- `graphics()` better controller and display detection, fixes
+- `versions()` optimization, fixes
+- `networkInterfaces()` added `operstate`, `type`, `duplex`, `mtu`, `speed`, `carrierChanges`
+- `networkStats()` added stats for `errors`, `dropped`
+- added TypeScript definitions
+
+**Be aware**, that the new version 4.x is **NOT fully backward compatible** to version 3.x ...
 ### Major (breaking) Changes - Version 3
 
 - works only with [node.js][nodejs-url] **v4.0.0** and above (using now internal ES6 promise function, arrow functions, ...)

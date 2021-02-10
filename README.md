@@ -565,7 +565,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | ms | X | X | X | X | X | response time in ms |
 | si.inetLatency(host, cb) | : number | X | X | X | X | X | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)|
 
-#### 14. Wifi networks
+#### 14. Wifi
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
@@ -580,6 +580,25 @@ Full function reference with examples can be found at [https://systeminformation
 | | [0].security | X |  | X | X |   | array e.g. WPA, WPA-2 |
 | | [0].wpaFlags | X |  | X | X |   | array of WPA flags |
 | | [0].rsnFlags | X |  |  |   |   | array of RDN flags |
+| si.wifiInterfaces(cb) | [{...}] | X |  | X | X |  | array of detected wifi interfaces |
+| | [0].id | X |  | X | X |   | ID |
+| | [0].iface | X |  | X | X |   | interface |
+| | [0].model | X |  | X | X |   | model |
+| | [0].vendor | X |  | X | X |   | vendor |
+| | [0].mac | X |  | X | X |   | MAC address |
+| si.wifiConnections(cb) | [{...}] | X |  | X | X |  | array of active wifi connections |
+| | [0].id | X |  | X | X |   | ID |
+| | [0].iface | X |  | X | X |   | interface |
+| | [0].name | X |  | X | X |   | name |
+| | [0].mode | X |  | X | X |   | model |
+| | [0].bssid | X |  | X | X |   | BSSID (mac) |
+| | [0].mode | X |  |   |   |   | mode |
+| | [0].channel | X |  | X | X |   | channel |
+| | [0].frequency | X |  | X | X |   | frequengy in MHz |
+| | [0].signalLevel | X |  | X | X |   | signal level in dB |
+| | [0].quality | X |  | X | X |   | quaility in % |
+| | [0].security | X |  | X | X |   | array e.g. WPA, WPA-2 |
+| | [0].txRate | X |  | X | X |   | transfer rate MBit/s |
 
 #### 15. Bluetooth
 

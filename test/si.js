@@ -38,6 +38,8 @@ function test(f) {
       else if (f === 'v') { si.versions().then(data => { if (data !== null) { resolve({ data, title: 'Versions' }); } else { resolve('not_supported'); } }); }
       else if (f === 'V') { si.vboxInfo().then(data => { if (data !== null) { resolve({ data, title: 'Virtual Box' }); } else { resolve('not_supported'); } }); }
       else if (f === 'w') { si.wifiNetworks().then(data => { if (data !== null) { resolve({ data, title: 'WIFI Networks' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'W') { si.wifiInterfaces().then(data => { if (data !== null) { resolve({ data, title: 'WIFI Interfaces' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'x') { si.wifiConnections().then(data => { if (data !== null) { resolve({ data, title: 'WIFI Connections' }); } else { resolve('not_supported'); } }); }
       else if (f === 'y') { si.system().then(data => { if (data !== null) { resolve({ data, title: 'System' }); } else { resolve('not_supported'); } }); }
       else if (f === 'Y') { si.battery().then(data => { if (data !== null) { resolve({ data, title: 'Battery' }); } else { resolve('not_supported'); } }); }
       else if (f === 'z') { si.users().then(data => { if (data !== null) { resolve({ data, title: 'Users' }); } else { resolve('not_supported'); } }); }

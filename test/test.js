@@ -16,8 +16,8 @@ function printHeader() {
 function printMenu() {
   console.log('');
   console.log('┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐');
-  console.log('│  a ... Audio              h ... Bluetooth          s ... Services                                          ? ... Get Object      │');
-  console.log('│  b ... BIOS               i ... INET Latency       S ... Shell                                             , ... All Static      │');
+  console.log('│  a ... Audio              h ... Bluetooth          s ... Services           Y ... Battery                  ? ... Get Object      │');
+  console.log('│  b ... BIOS               i ... INET Latency       S ... Shell              z ... Users                    , ... All Static      │');
   console.log('│  B ... Baseboard          I ... INET Check Site    t ... time               1 ... NET Iface Default        . ... All Dynamic     │');
   console.log('│  C ... Chassis            j ... CPU Current Speed  T ... CPU Temperature    2 ... NET Gateway Default      / ... All             │');
   console.log('│  c ... CPU                l ... CPU Current Load   u ... USB                3 ... NET Interfaces                                 │');
@@ -25,10 +25,11 @@ function printMenu() {
   console.log('│  D ... DiskIO             m ... Memory             v ... Versions           5 ... NET Connections                                │');
   console.log('│  e ... Block Devices      M ... MEM Layout         V ... Virtual Box        6 ... Docker Info                                    │');
   console.log('│  E ... Open Files         o ... OS Info            w ... WIFI networks      7 ... Docker Container                               │');
-  console.log('│  f ... FS Size            p ... Processes          y ... System             8 ... Docker Cont Stats                              │');
-  console.log('│  F ... FS Stats           P ... Process Load       Y ... Battery            9 ... Docker Cont Proc                               │');
-  console.log('│  g ... Graphics           r ... Printer            z ... Users              0 ... Docker All               q >>> QUIT            │');
+  console.log('│  f ... FS Size            p ... Processes          W ... WIFI interfaces    8 ... Docker Cont Stats                              │');
+  console.log('│  F ... FS Stats           P ... Process Load       x ... WIFI connections   9 ... Docker Cont Proc                               │');
+  console.log('│  g ... Graphics           r ... Printer            y ... System             0 ... Docker All               q >>> QUIT            │');
   console.log('└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘');
+
 }
 
 function EnableUserInput() {
@@ -75,6 +76,7 @@ process.stdin.on('keypress', (key, data) => {
 
   if (!waiting) {
     waiting = true;
+    console.time(['Time to complete']);
     startDots();
     const siPath = path.join(__dirname, 'si.js');
     exec(`node ${siPath} '${key}'`, { timeout: 30000 }, (error, stdout) => {
@@ -89,9 +91,11 @@ process.stdin.on('keypress', (key, data) => {
         try {
           if (stdout.toString().startsWith('"no_key')) {
             console.log();
+            console.timeEnd(['Time to complete']);
             console.log('Menu item not found. Please select valid menu item ... Press q to quit');
           } else if (stdout.toString().startsWith('"not_supported')) {
             console.log();
+            console.timeEnd(['Time to complete']);
             console.log('Key: ' + key);
             console.log('Not supported');
           } else if (stdout.toString()) {
@@ -99,6 +103,7 @@ process.stdin.on('keypress', (key, data) => {
             console.log();
             printTitle(data.title);
             console.log(util.inspect(data.data, { colors: true, depth: 4 }));
+            console.timeEnd(['Time to complete']);
             printMenu();
           }
         } catch (e) {
@@ -107,6 +112,7 @@ process.stdin.on('keypress', (key, data) => {
           console.log('ERROR');
           console.log('----------------------------------------------------------------------------------------------------');
           console.log(stdout.toString());
+          console.timeEnd(['Time to complete']);
           console.log();
         }
       }

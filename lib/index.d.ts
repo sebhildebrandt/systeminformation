@@ -487,6 +487,27 @@ export namespace Systeminformation {
     rsnFlags: string[];
   }
 
+  interface WifiInterfaceData {
+    id: string;
+    iface: string;
+    model: string;
+    vendor: string;
+  }
+
+  interface WifiConnectionData {
+    id: string;
+    iface: string;
+    model: string;
+    ssid: string;
+    bssid: string;
+    channel: number;
+    type: string;
+    security: string;
+    frequency: number;
+    signalLevel: number;
+    txRate: number;
+  }
+
   // 7. Current Load, Processes & Services
 
   interface CurrentLoadData {
