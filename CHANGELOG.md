@@ -53,6 +53,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.2.1          | 2020-02-10     | `system()` fixed issue virtual detect (linux) |
 | 5.2.0          | 2020-02-10     | `wifiInterfces()` and `wifiConnections()` added |
 | 5.1.2          | 2020-02-08     | fixed node 4 compatibility issue |
 | 5.1.1          | 2020-02-08     | `baseboard()` added memMax, memSlots, smaller improvements Raspberry |
