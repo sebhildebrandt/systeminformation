@@ -1,8 +1,8 @@
 # Changelog
 
-### Major Changes - Version 5
+## Major Changes - Version 5
 
-**New Functions**
+#### New Functions
 
 - `audio()` detailed audio information
 - `bluetoothDevices()` detailed information detected bluetooth devices
@@ -11,13 +11,32 @@
 - `wifiInterfaces()` detected Wi-Fi interfaces
 - `wifiConnections()` active Wi-Fi connections
 
-**Breaking Changes**
+#### Breaking Changes
 
 **Be aware**, that the new version 5.x **is NOT fully backward compatible** to version 4.x ...
 
-We had to make several interface changes to keep systeminformation as consistent as possible. We highly recommend to go [through the complete list](https://systeminformation.io/changes.html) and adapt your own code to be again compatible to the new version 5.
+We had to make **several interface changes** to keep systeminformation as consistent as possible. We highly [recommend to go through the complete list](https://systeminformation.io/changes.html) and adapt your own code to be again compatible to the new version 5.
 
-**Other Improvements and Changes**
+| Function        | Old                | New (V5)           | Comments           |
+| --------------- | ------------------ | ------------------ | ------------------ |
+| unsupported values |	-1	           | null	            | values which are unknown or<br>unsupported on platform |
+| `battery()`	      | hasbattery<br>cyclecount<br>ischarging<br>designedcapacity<br>maxcapacity<br>acconnected<br>timeremaining | hasBattery<br>cycleCount<br>isCharging<br>designedCapacity<br>maxCapacity<br>acConnected<br>timeRemaining | pascalCase conformity |
+| `blockDevices()`  | fstype             | fsType             | pascalCase conformity |
+| `cpu()`           | speedmin<br>speedmax | speedMin<br>speedMax | pascalCase conformity |
+| `cpu().speed`<br>`cpu().speedMin`<br>`cpu().speedMax` | string values | now returning<br>numerical values | better value handling |
+| `cpuCurrentspeed()` |                  | cpuCurrentSpeed()  | function name changed<br>pascalCase conformity |
+| `currentLoad()`   | avgload<br>currentload<br>currentload_user<br>currentload_system<br>currentload_nice<br>currentload_idle<br>currentload_irq<br>raw_currentload | avgLoad<br>currentLoad<br>currentLoadUser<br>currentLoadSystem<br>currentLoadNice<br>currentLoadIdle<br>currentLoadIrq<br>rawCurrentLoad | pascalCase conformity |
+| `dockerContainerStats()` | mem_usage<br>mem_limit<br>mem_percent<br>cpu_percent<br>cpu_stats<br>precpu_stats<br>memory_stats | memUsage<br>memLimit<br>memPercent<br>cpuPercent<br>cpuStats<br>precpuStats<br>memoryStats | pascalCase conformity |
+| `dockerContainerProcesses()` | pid_host | pidHost | pascalCase conformity |
+| `graphics().display` | pixeldepth<br>resolutionx<br>resolutiony<br>sizex<br>sizey | pixelDepth<br>resolutionX<br>resolutionY<br>sizeX<br>sizeY | pascalCase conformity |
+| `networkConnections()` | localaddress<br>localport<br>peeraddress<br>peerport | localAddress<br>localPort<br>peerAddress<br>peerPort | pascalCase conformity |
+| `networkInterfaces()` | carrier_changes | carrierChanges | pascalCase conformity |
+| `processes()` | mem_vsz<br>mem_rss<br>pcpu<br>pcpuu<br>pcpus<br>pmem | memVsz<br>memRss<br>cpu<br>cpuu<br>cpus<br>mem | pascalCase conformity<br>renamed attributes |
+| `processLoad()` | result as object | result as array of objects | function now allows to provide more than<br>one process (as a comma separated list) |
+| `services()` | pcpu<br>pmem | cpu<br>mem | renamed attributes |
+| `vbox()` | HPET<br>PAE<br>APIC<br>X2APIC<br>ACPI<br>IOAPIC<br>biosAPICmode<br>TRC | hpet<br>pae<br>apic<br>x2Apic<br>acpi<br>ioApic<br>biosApicMode<br>rtc | pascalCase conformity |
+
+#### Other Improvements and Changes
 
 - `baseboard(): added memMax, memSlots
 - `bios()`: added language and features (linux)
@@ -42,7 +61,7 @@ We had to make several interface changes to keep systeminformation as consistent
 - `Apple M1 Silicon extended support (now everything supported except of cpu temperature)
 - `updated TypeScript definitions
 
-**Test Full Version 5 Functionality**
+#### Test Full Version 5 Functionality
 
 If you want to see all function results on your machine, please head over to (Testing section)[https://systeminformation.io/tests.html]. We implemented a tiny test suite where you can easily go through all functions and test resuls on your machine without coding.
 

@@ -30,7 +30,7 @@
   [![Sponsoring][sponsor-badge]][sponsor-url]
   [![MIT license][license-img]][license-url]
 
-This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 400 versions published, up to 3 mio downloads per month, > 30 mio downloads overall. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 400 versions published, > 3 mio downloads per month, > 30 mio downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 5.0
 
@@ -101,13 +101,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.2.0: `wifiInterfaces()` and `wifiConnections()` added
 - Version 5.1.0: `memLayout()` added ECC flag, `bios()` added language, features (linux)
 - Version 5.0.0: new version 5 - attention there are some breaking changes. See [detailed version 5 changes here][changes5-url].
 - Version 4.34.0: `system()` added flag virtual (linux, windows)
 - Version 4.33.0: `graphics()` added nvidia-smi support (linux, windows)
 - Version 4.32.0: `graphics()` added clinfo support (linux)
 - Version 4.31.0: `osInfo()` added FQDN
-- Version 4.30.0: `get()` added possibility to provide parameters
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
