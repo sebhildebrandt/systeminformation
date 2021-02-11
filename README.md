@@ -23,7 +23,7 @@
   [![NPM Downloads][downloads-image]][downloads-url]
   [![Git Issues][issues-img]][issues-url]
   [![Closed Issues][closed-issues-img]][closed-issues-url]
-  [![deps status][daviddm-img]][daviddm-url]
+  <img src="docs/assets/no-dependencies.svg" alt="no dependencies">
   [![Code Quality: Javascript][lgtm-badge]][lgtm-badge-url]
   [![Total alerts][lgtm-alerts]][lgtm-alerts-url]
   [![Caretaker][caretaker-image]][caretaker-url]
@@ -38,10 +38,11 @@ The new Version 5 is here - I spend several weeks finalizing this new version. A
 
 This next major version release 5.0 comes with new functionality and several improvements and changes (some of them are breaking changes!):
 
-- added bluetooth: get detailed bluetooth device information
-- added usb: get detailed usb controller and device information
-- added printer: get information from detected printers
 - added audio: get detailed audio device information
+- added bluetooth: get detailed bluetooth device information
+- added printer: get information from detected printers
+- added usb: get detailed usb controller and device information
+- added wifi interfaces ans connections: extended wifi information
 - better uuid function to get unique hardware and OS UUIDs
 - better/extended cpu info detection
 - better/extended system info detection
