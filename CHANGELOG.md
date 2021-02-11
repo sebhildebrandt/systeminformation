@@ -72,6 +72,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.2.3          | 2020-02-11     | `diskLayout()` added USB drives (mac OS) |
 | 5.2.2          | 2020-02-11     | code cleanup, updated docs |
 | 5.2.1          | 2020-02-10     | `system()` fixed issue virtual detect (linux) |
 | 5.2.0          | 2020-02-10     | `wifiInterfces()` and `wifiConnections()` added |
