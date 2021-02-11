@@ -72,6 +72,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.2.5          | 2020-02-11     | `processes()` fixed truncated params (linux) |
 | 5.2.4          | 2020-02-11     | `currentLoad()` fixed issue |
 | 5.2.3          | 2020-02-11     | `diskLayout()` added USB drives (mac OS) |
 | 5.2.2          | 2020-02-11     | code cleanup, updated docs |
