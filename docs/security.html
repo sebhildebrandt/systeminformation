@@ -43,11 +43,27 @@
           <div class="col-12 sectionheader">
             <div class="title">Security Advisories</div>
             <div class="text">
+              <h2>DOS Injection Vulnerability</h2>
+              <p><span class="bold">Affected versions:</span>
+                &lt; 5.2.6 and &lt; 4.34.10<br>
+                <span class="bold">Date:</span> 2021-02-12<br>
+                <span class="bold">CVE indentifier</span> -
+              </p>
+
+              <h4>Impact</h4>
+              <p>Here we had an issue that there was a possibility to perform a ping command execution for too long time. Affected commands: <span class="code">inetLatency()</span>.</p>
+
+              <h4>Patch</h4>
+              <p>Problem was fixed with a shell string sanitation fix. Please upgrade to version >= 5.2.6 (or >= 4.34.10 if you are using version 4).</p>
+
+              <h4>Workarround</h4>
+              <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetLatency()</span> (no spaces)</p>
+
               <h2>Command Injection Vulnerability</h2>
               <p><span class="bold">Affected versions:</span>
-                < 4.31.1<br>
-                  <span class="bold">Date:</span> 2020-12-11<br>
-                  <span class="bold">CVE indentifier</span> CVE-2020-26274, CVE-2020-28448
+                &lt; 4.31.1<br>
+                <span class="bold">Date:</span> 2020-12-11<br>
+                <span class="bold">CVE indentifier</span> CVE-2020-26274, CVE-2020-28448
               </p>
 
               <h4>Impact</h4>
@@ -59,12 +75,11 @@
               <h4>Workarround</h4>
               <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetLatency()</span></p>
 
-
               <h2>command injection vulnerability - prototype pollution</h2>
               <p><span class="bold">Affected versions:</span>
-                < 4.30.5<br>
-                  <span class="bold">Date:</span> 2020-11-26<br>
-                  <span class="bold">CVE indentifier</span> CVE-2020-26245
+                &lt; 4.30.5<br>
+                <span class="bold">Date:</span> 2020-11-26<br>
+                <span class="bold">CVE indentifier</span> CVE-2020-26245
               </p>
 
               <h4>Impact</h4>
@@ -79,9 +94,9 @@
 
               <h2>Command Injection Vulnerability</h2>
               <p><span class="bold">Affected versions:</span>
-                < 4.27.11<br>
-                  <span class="bold">Date:</span> 2020-10-26<br>
-                  <span class="bold">CVE indentifier</span> CVE-2020-7752
+                &lt; 4.27.11<br>
+                <span class="bold">Date:</span> 2020-10-26<br>
+                <span class="bold">CVE indentifier</span> CVE-2020-7752
               </p>
 
               <h4>Impact</h4>
