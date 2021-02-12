@@ -42,6 +42,22 @@
           <div class="col-12 sectionheader">
             <div class="title">Security Advisories</div>
             <div class="text">
+              <h2>DOS Injection Vulnerability</h2>
+              <p><span class="bold">Affected versions:</span>
+                &lt; 4.34.10<br>
+                <span class="bold">Date:</span> 2021-02-12<br>
+                <span class="bold">CVE indentifier</span> -
+              </p>
+
+              <h4>Impact</h4>
+              <p>Here we had an issue that there was a possibility to perform a ping command execution for too long time. Affected commands: <span class="code">inetLatency()</span>.</p>
+
+              <h4>Patch</h4>
+              <p>Problem was fixed with a shell string sanitation fix. Please upgrade to version >= 4.34.10 if you are using version 4.</p>
+
+              <h4>Workarround</h4>
+              <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetLatency()</span> (no spaces)</p>
+
               <h2>Command Injection Vulnerability</h2>
               <p><span class="bold">Affected versions:</span>
                 < 4.31.1<br>
