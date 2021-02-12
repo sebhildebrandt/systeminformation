@@ -72,6 +72,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.2.7          | 2020-02-12     | `fsStats()`, `blockDevices()` improved linux |
 | 5.2.6          | 2020-02-12     | `inetLatency()` fixed possible DOS intrusion |
 | 5.2.5          | 2020-02-11     | `processes()` fixed truncated params (linux) |
 | 5.2.4          | 2020-02-11     | `currentLoad()` fixed issue |
