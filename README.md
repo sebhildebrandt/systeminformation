@@ -102,6 +102,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.3.0: `osInfo()` added remoteSession (win only)
 - Version 5.2.0: `wifiInterfaces()` and `wifiConnections()` added
 - Version 5.1.0: `memLayout()` added ECC flag, `bios()` added language, features (linux)
 - Version 5.0.0: new version 5 - attention there are some breaking changes. See [detailed version 5 changes here][changes5-url].
@@ -325,6 +326,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | servicepack | | | | X |   | service pack version |
 | | uefi | X | X | X | X |   | OS started via UEFI |
 | | hypervisor |  |  |  | X |   | hyper-v enabled? (win only) |
+| | remoteSession |  |  |  | X |   | runs in remote session (win only) |
 | si.uuid(cb) | {...} | X | X | X | X | X | object of several UUIDs |
 | | os | X | X | X | X |  | os specific UUID |
 | | hardware | X | X | X | X |  | hardware specific UUID |

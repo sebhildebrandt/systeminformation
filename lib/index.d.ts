@@ -315,6 +315,7 @@ export namespace Systeminformation {
     servicepack: string;
     uefi: boolean;
     hypervizor?: boolean;
+    remoteSession?: boolean;
   }
 
   interface UuidData {
