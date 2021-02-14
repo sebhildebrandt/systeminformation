@@ -72,6 +72,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.3.1          | 2020-02-14     | `inetLatency()` `ineChecksite()` `servcices()` `processes()` fixed possible security issue |
 | 5.3.0          | 2020-02-12     | `osInfo()` added remoteSession (windows) |
 | 5.2.7          | 2020-02-12     | `fsStats()`, `blockDevices()` improved linux |
 | 5.2.6          | 2020-02-12     | `inetLatency()` fixed possible DOS intrusion |
