@@ -43,6 +43,23 @@
           <div class="col-12 sectionheader">
             <div class="title">Security Advisories</div>
             <div class="text">
+              <h2>Insufficient File Scheme Validation</h2>
+              <p><span class="bold">Affected versions:</span>
+                &lt; 5.3.2 and &lt; 4.34.12<br>
+                <span class="bold">Date:</span> 2021-02-15<br>
+                <span class="bold">CVE indentifier</span> -
+              </p>
+
+              <h4>Impact</h4>
+              <p>We had an issue that there was a possibility to run inetChecksite against local files due to improper file scheme validation. Affected commands: <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>.</p>
+
+              <h4>Patch</h4>
+              <p>Problem was fixed with additional parameter checking. Please upgrade to version >= 5.3.2 (or >= 4.34.12 if you are using version 4).</p>
+
+              <h4>Workarround</h4>
+              <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span> (sanitize `file://` parameter)</p>
+              <hr>
+              <br>
               <h2>Command Injection Vulnerability</h2>
               <p><span class="bold">Affected versions:</span>
                 &lt; 5.3.1 and &lt; 4.34.11<br>
