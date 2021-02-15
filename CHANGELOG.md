@@ -72,6 +72,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.3.3          | 2020-02-15     | `dockerContainerStats()` fixed ID splitting |
 | 5.3.2          | 2020-02-15     | `inetLatency()` `ineChecksite()` fixed possible security issue (file://) |
 | 5.3.1          | 2020-02-14     | `inetLatency()` `ineChecksite()` `servcices()` `processes()` fixed possible security issue (arrays) |
 | 5.3.0          | 2020-02-12     | `osInfo()` added remoteSession (windows) |
