@@ -30,6 +30,9 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.34.14        | 2021-02-20     | `sanitizeShellString()` optimized strict sanitation |
+| 4.34.13        | 2021-02-15     | `dockerContainerStats()` fixed ID splitting |
+| 4.34.12        | 2021-02-15     | `inetLatency()` `ineChecksite()` fixed possible security issue (file://) |
 | 4.34.11        | 2021-02-12     | `inetLatency()` `inetChecksite()` `services()` `processLoad()` fixed possible security issue |
 | 4.34.10        | 2021-02-12     | `inetLatency()` fixed possible DOS intrusion |
 | 4.34.9         | 2020-01-25     | `graphics()` virtual controller vram value fix (win) |
