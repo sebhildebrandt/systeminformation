@@ -65,6 +65,11 @@
               <p>In some cases you need to install the linux <span class="code">sensors</span> package to be able to measure temperature e.g. on DEBIAN based systems by running</p>
               <pre>$ sudo apt-get install lm-sensors</pre>
 
+              <h4>Windows, macOS - CPU Speed</h4>
+
+              <p><span class="code">node.js</span> and <span class="code">wmic</span> are not able to determine correct CPU current speed on windows and macOS.
+                This means, you will have constant values here on both platforms for all processor cores in <span class="code">cpuCurrentSpeed()</span>.</p>
+
               <h4>Linux S.M.A.R.T. Status</h4>
 
               <p>To be able to detect S.M.A.R.T. status on Linux you need to install <span class="code">smartmontools</span>. On DEBIAN based linux distributions you can install it by running:</p>
