@@ -50,8 +50,8 @@ function test(f) {
       else if (f === '5') { si.networkConnections().then(data => { if (data !== null) { resolve({ data, title: 'NET Connections' }); } else { resolve('not_supported'); } }); }
       else if (f === '6') { si.dockerInfo().then(data => { if (data !== null) { resolve({ data, title: 'Docker Info' }); } else { resolve('not_supported'); } }); }
       else if (f === '7') { si.dockerContainers(true).then(data => { if (data !== null) { resolve({ data, title: 'Docker Containers' }); } else { resolve('not_supported'); } }); }
-      else if (f === '8') { si.dockerContainerStats('1').then(data => { if (data !== null) { resolve({ data, title: 'Docker Cont Stats' }); } else { resolve('not_supported'); } }); }
-      else if (f === '9') { si.dockerContainerProcesses('1').then(data => { if (data !== null) { resolve({ data, title: 'Docker Cont Processes' }); } else { resolve('not_supported'); } }); }
+      else if (f === '8') { si.dockerContainerStats('*').then(data => { if (data !== null) { resolve({ data, title: 'Docker Cont Stats' }); } else { resolve('not_supported'); } }); }
+      else if (f === '9') { si.dockerContainerProcesses('*').then(data => { if (data !== null) { resolve({ data, title: 'Docker Cont Processes' }); } else { resolve('not_supported'); } }); }
       else if (f === '0') { si.dockerAll().then(data => { if (data !== null) { resolve({ data, title: 'Docker All' }); } else { resolve('not_supported'); } }); }
       else if (f === ',') { si.getStaticData().then(data => { if (data !== null) { resolve({ data, title: 'All Static Data' }); } else { resolve('not_supported'); } }); }
       else if (f === '.') { si.getDynamicData('apache2, postgres, wsearch').then(data => { if (data !== null) { resolve({ data, title: 'All Dynamic Data' }); } else { resolve('not_supported'); } }); }
