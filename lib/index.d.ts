@@ -641,6 +641,27 @@ export namespace Systeminformation {
     productLicense: string;
   }
 
+  interface DockerImageData {
+    id: string;
+    container: string;
+    comment: string;
+    os: string;
+    architecture: string;
+    parent: string;
+    dockerVersion: string;
+    size: number;
+    sharedSize: number;
+    virtualSize: number;
+    author: string;
+    created: number;
+    containerConfig: any;
+    graphDriver: any;
+    repoDigests: any;
+    repoTags: any;
+    config: any;
+    rootFS: any;
+  }  
+
   interface DockerContainerData {
     id: string;
     name: string;
@@ -851,6 +872,7 @@ export function processLoad(processName: string, cb?: (data: Systeminformation.P
 export function services(serviceName: string, cb?: (data: Systeminformation.ServicesData[]) => any): Promise<Systeminformation.ServicesData[]>;
 
 export function dockerInfo(cb?: (data: Systeminformation.DockerInfoData) => any): Promise<Systeminformation.DockerInfoData>;
+export function dockerImages(all?: boolean, cb?: (data: dockerstats.DockerImageData[]) => any): Promise<dockerstats.DockerImageData[]>;
 export function dockerContainers(all?: boolean, cb?: (data: Systeminformation.DockerContainerData[]) => any): Promise<Systeminformation.DockerContainerData[]>;
 export function dockerContainerStats(id?: string, cb?: (data: Systeminformation.DockerContainerStatsData[]) => any): Promise<Systeminformation.DockerContainerStatsData[]>;
 export function dockerContainerProcesses(id?: string, cb?: (data: any) => any): Promise<any>;

@@ -40,6 +40,7 @@ This next major version release 5.0 comes with new functionality and several imp
 
 - added audio: get detailed audio device information
 - added bluetooth: get detailed bluetooth device information
+- added dockerImages: get detailed information about docker images
 - added printer: get information from detected printers
 - added usb: get detailed usb controller and device information
 - added wifi interfaces ans connections: extended wifi information
@@ -102,6 +103,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.4.0: `dockerImages()` added
 - Version 5.3.0: `osInfo()` added remoteSession (win only)
 - Version 5.2.0: `wifiInterfaces()` and `wifiConnections()` added
 - Version 5.1.0: `memLayout()` added ECC flag, `bios()` added language, features (linux)
@@ -668,6 +670,25 @@ Full function reference with examples can be found at [https://systeminformation
 | | isolation | X | X | X | X | X | isolation |
 | | initBinary | X | X | X | X | X | init binary |
 | | productLicense | X | X | X | X | X | product license |
+| si.dockerImages(all, cb) | [{...}] | X | X | X | X | X | returns array of top level/all docker images |
+| | [0].id | X | X | X | X | X | image ID |
+| | [0].container | X | X | X | X | X | container ID |
+| | [0].comment | X | X | X | X | X | comment |
+| | [0].os | X | X | X | X | X | OS |
+| | [0].architecture | X | X | X | X | X | architecture |
+| | [0].parent | X | X | X | X | X | parent ID |
+| | [0].dockerVersion | X | X | X | X | X | docker version |
+| | [0].size | X | X | X | X | X | image size |
+| | [0].sharedSize | X | X | X | X | X | shared size |
+| | [0].virtualSize | X | X | X | X | X | virtual size |
+| | [0].author | X | X | X | X | X | author |
+| | [0].created | X | X | X | X | X | created date / time |
+| | [0].containerConfig | X | X | X | X | X | container config object |
+| | [0].graphDriver | X | X | X | X | X | graph driver object |
+| | [0].repoDigests | X | X | X | X | X | repo digests array |
+| | [0].repoTags | X | X | X | X | X | repo tags array |
+| | [0].config | X | X | X | X | X | config object |
+| | [0].rootFS | X | X | X | X | X | root fs object |
 | si.dockerContainers(all, cb) | [{...}] | X | X | X | X | X | returns array of active/all docker containers |
 | | [0].id | X | X | X | X | X | ID of container |
 | | [0].name | X | X | X | X | X | name of container |

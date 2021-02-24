@@ -72,47 +72,48 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 5.3.5          | 2020-02-23     | `dockerContainerStats()` fixed parameter * |
-| 5.3.4          | 2020-02-20     | `sanitizeShellString()` optimized strict sanitation |
-| 5.3.3          | 2020-02-15     | `dockerContainerStats()` fixed ID splitting |
-| 5.3.2          | 2020-02-15     | `inetLatency()` `ineChecksite()` fixed possible security issue (file://) |
-| 5.3.1          | 2020-02-14     | `inetLatency()` `ineChecksite()` `servcices()` `processes()` fixed possible security issue (arrays) |
-| 5.3.0          | 2020-02-12     | `osInfo()` added remoteSession (windows) |
-| 5.2.7          | 2020-02-12     | `fsStats()`, `blockDevices()` improved linux |
-| 5.2.6          | 2020-02-12     | `inetLatency()` fixed possible DOS intrusion |
-| 5.2.5          | 2020-02-11     | `processes()` fixed truncated params (linux) |
-| 5.2.4          | 2020-02-11     | `currentLoad()` fixed issue |
-| 5.2.3          | 2020-02-11     | `diskLayout()` added USB drives (mac OS) |
-| 5.2.2          | 2020-02-11     | code cleanup, updated docs |
-| 5.2.1          | 2020-02-10     | `system()` fixed issue virtual detect (linux) |
-| 5.2.0          | 2020-02-10     | `wifiInterfces()` and `wifiConnections()` added |
-| 5.1.2          | 2020-02-08     | fixed node 4 compatibility issue |
-| 5.1.1          | 2020-02-08     | `baseboard()` added memMax, memSlots, smaller improvements Raspberry |
-| 5.1.0          | 2020-02-08     | `memLayout()` added ECC flag, `bios()` added language, features (linux) |
-| 5.0.11         | 2020-02-07     | `fsSize()` fixed windows WSL issue |
-| 5.0.10         | 2020-02-06     | `getDynamicData()` fixed windows WSL issue |
-| 5.0.9          | 2020-02-02     | `fsSize()` fixed parsing edge case issue mac OS |
-| 5.0.8          | 2020-01-30     | typescript typings fix cpuCurrentSpeed |
-| 5.0.7          | 2020-01-29     | `fsSize()` available fixed windows and typescript typings |
-| 5.0.6          | 2020-01-28     | `osinfo()` added hypervisor (win only) |
-| 5.0.5          | 2020-01-27     | `networkInterfaces()` type detection improved (win) |
-| 5.0.4          | 2020-01-27     | `cpu()` improved manufacturer decoding (linux) |
-| 5.0.3          | 2020-01-27     | `cpu()` fix virtualization, `wifi()` fix raspberry  |
-| 5.0.2          | 2020-01-26     | updated typescript typings  |
-| 5.0.1          | 2020-01-26     | code cleanup |
-| 5.0.0          | 2020-01-26     | new major version 5 release |
-| 4.34.9         | 2020-01-25     | `graphics()` virtual controller vram value fix (win) |
-| 4.34.8         | 2020-01-25     | `graphics()` controller subDeviceId fix (win) |
-| 4.34.7         | 2020-01-13     | `services()` improved service discovery (linux) |
-| 4.34.6         | 2020-01-12     | `networkInterfaces()` catch errors |
-| 4.34.5         | 2020-01-07     | `networkInterfaceDefault()` fixed CMD popup (windows) |
-| 4.34.4         | 2020-01-06     | `system()` fixed vitrual catch error |
-| 4.34.3         | 2020-01-06     | `graphics()` fixed non nvidia-smi controllers (win) |
-| 4.34.2         | 2020-01-05     | `system()` uuid lowercase as in uuid() |
-| 4.34.1         | 2020-01-05     | `graphics()` nvidia-smi detection improved |
-| 4.34.0         | 2020-01-05     | `system()` added flag virtual |
-| 4.33.8         | 2020-01-04     | `virtualBox()` fix issue windows host |
-| 4.33.7         | 2020-01-04     | `graphics()` nvidia-smi detection improved |
+| 5.4.0          | 2021-02-24     | `dockerImages()` added |
+| 5.3.5          | 2021-02-23     | `dockerContainerStats()` fixed parameter * |
+| 5.3.4          | 2021-02-20     | `sanitizeShellString()` optimized strict sanitation |
+| 5.3.3          | 2021-02-15     | `dockerContainerStats()` fixed ID splitting |
+| 5.3.2          | 2021-02-15     | `inetLatency()` `ineChecksite()` fixed possible security issue (file://) |
+| 5.3.1          | 2021-02-14     | `inetLatency()` `ineChecksite()` `servcices()` `processes()` fixed possible security issue (arrays) |
+| 5.3.0          | 2021-02-12     | `osInfo()` added remoteSession (windows) |
+| 5.2.7          | 2021-02-12     | `fsStats()`, `blockDevices()` improved linux |
+| 5.2.6          | 2021-02-12     | `inetLatency()` fixed possible DOS intrusion |
+| 5.2.5          | 2021-02-11     | `processes()` fixed truncated params (linux) |
+| 5.2.4          | 2021-02-11     | `currentLoad()` fixed issue |
+| 5.2.3          | 2021-02-11     | `diskLayout()` added USB drives (mac OS) |
+| 5.2.2          | 2021-02-11     | code cleanup, updated docs |
+| 5.2.1          | 2021-02-10     | `system()` fixed issue virtual detect (linux) |
+| 5.2.0          | 2021-02-10     | `wifiInterfces()` and `wifiConnections()` added |
+| 5.1.2          | 2021-02-08     | fixed node 4 compatibility issue |
+| 5.1.1          | 2021-02-08     | `baseboard()` added memMax, memSlots, smaller improvements Raspberry |
+| 5.1.0          | 2021-02-08     | `memLayout()` added ECC flag, `bios()` added language, features (linux) |
+| 5.0.11         | 2021-02-07     | `fsSize()` fixed windows WSL issue |
+| 5.0.10         | 2021-02-06     | `getDynamicData()` fixed windows WSL issue |
+| 5.0.9          | 2021-02-02     | `fsSize()` fixed parsing edge case issue mac OS |
+| 5.0.8          | 2021-01-30     | typescript typings fix cpuCurrentSpeed |
+| 5.0.7          | 2021-01-29     | `fsSize()` available fixed windows and typescript typings |
+| 5.0.6          | 2021-01-28     | `osinfo()` added hypervisor (win only) |
+| 5.0.5          | 2021-01-27     | `networkInterfaces()` type detection improved (win) |
+| 5.0.4          | 2021-01-27     | `cpu()` improved manufacturer decoding (linux) |
+| 5.0.3          | 2021-01-27     | `cpu()` fix virtualization, `wifi()` fix raspberry  |
+| 5.0.2          | 2021-01-26     | updated typescript typings  |
+| 5.0.1          | 2021-01-26     | code cleanup |
+| 5.0.0          | 2021-01-26     | new major version 5 release |
+| 4.34.9         | 2021-01-25     | `graphics()` virtual controller vram value fix (win) |
+| 4.34.8         | 2021-01-25     | `graphics()` controller subDeviceId fix (win) |
+| 4.34.7         | 2021-01-13     | `services()` improved service discovery (linux) |
+| 4.34.6         | 2021-01-12     | `networkInterfaces()` catch errors |
+| 4.34.5         | 2021-01-07     | `networkInterfaceDefault()` fixed CMD popup (windows) |
+| 4.34.4         | 2021-01-06     | `system()` fixed vitrual catch error |
+| 4.34.3         | 2021-01-06     | `graphics()` fixed non nvidia-smi controllers (win) |
+| 4.34.2         | 2021-01-05     | `system()` uuid lowercase as in uuid() |
+| 4.34.1         | 2021-01-05     | `graphics()` nvidia-smi detection improved |
+| 4.34.0         | 2021-01-05     | `system()` added flag virtual |
+| 4.33.8         | 2021-01-04     | `virtualBox()` fix issue windows host |
+| 4.33.7         | 2021-01-04     | `graphics()` nvidia-smi detection improved |
 | 4.33.6         | 2021-01-02     | `dockerContainerStats()` fix `tx` changed to `wx` as documented |
 | 4.33.5         | 2020-12-30     | `graphics()` vram (nvidia-smi) |
 | 4.33.4         | 2020-12-28     | `typescript` typings fix |
