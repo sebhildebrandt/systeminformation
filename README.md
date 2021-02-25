@@ -40,7 +40,7 @@ This next major version release 5.0 comes with new functionality and several imp
 
 - added audio: get detailed audio device information
 - added bluetooth: get detailed bluetooth device information
-- added dockerImages: get detailed information about docker images
+- added dockerImages, dockerVolumes: get detailed information about docker images and volumes
 - added printer: get information from detected printers
 - added usb: get detailed usb controller and device information
 - added wifi interfaces ans connections: extended wifi information
@@ -103,6 +103,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.5.0: `dockerVolumes()` added
 - Version 5.4.0: `dockerImages()` added
 - Version 5.3.0: `osInfo()` added remoteSession (win only)
 - Version 5.2.0: `wifiInterfaces()` and `wifiConnections()` added
@@ -110,8 +111,6 @@ si.cpu()
 - Version 5.0.0: new version 5 - attention there are some breaking changes. See [detailed version 5 changes here][changes5-url].
 - Version 4.34.0: `system()` added flag virtual (linux, windows)
 - Version 4.33.0: `graphics()` added nvidia-smi support (linux, windows)
-- Version 4.32.0: `graphics()` added clinfo support (linux)
-- Version 4.31.0: `osInfo()` added FQDN
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -734,6 +733,14 @@ Full function reference with examples can be found at [https://systeminformation
 | | [0].rss | X | X | X | X | X | resident set size |
 | | [0].vsz | X | X | X | X | X | virtual size in Kbytes |
 | | [0].command | X | X | X | X | X | command and arguments |
+| si.dockerVolumes(cb) | [{...}] | returns array of all docker volumes |
+| | [0].name | X | X | X | X | X | volume name |
+| | [0].driver | X | X | X | X | X | driver |
+| | [0].labels | X | X | X | X | X | labels object |
+| | [0].mountpoint | X | X | X | X | X | mountpoint |
+| | [0].options | X | X | X | X | X | options |
+| | [0].scope | X | X | X | X | X | scope |
+| | [0].created | X | X | X | X | X | created at |
 | si.dockerAll(cb) | {...} | X | X | X | X | X | list of all containers including their stats<br>and processes in one single array |
 
 #### 17. Virtual Box

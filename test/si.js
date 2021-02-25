@@ -53,6 +53,7 @@ function test(f) {
       else if (f === '8') { si.dockerContainers(true).then(data => { if (data !== null) { resolve({ data, title: 'Docker Containers' }); } else { resolve('not_supported'); } }); }
       else if (f === '9') { si.dockerContainerStats('*').then(data => { if (data !== null) { resolve({ data, title: 'Docker Cont Stats' }); } else { resolve('not_supported'); } }); }
       else if (f === '0') { si.dockerContainerProcesses('*').then(data => { if (data !== null) { resolve({ data, title: 'Docker Cont Processes' }); } else { resolve('not_supported'); } }); }
+      else if (f === '+') { si.dockerVolumes().then(data => { if (data !== null) { resolve({ data, title: 'Docker Volumes' }); } else { resolve('not_supported'); } }); }
       else if (f === ',') { si.getStaticData().then(data => { if (data !== null) { resolve({ data, title: 'All Static Data' }); } else { resolve('not_supported'); } }); }
       else if (f === '.') { si.getDynamicData('apache2, postgres, wsearch').then(data => { if (data !== null) { resolve({ data, title: 'All Dynamic Data' }); } else { resolve('not_supported'); } }); }
       else if (f === '/') { si.getAllData('apache2, postgres, wsearch').then(data => { if (data !== null) { resolve({ data, title: 'All Data' }); } else { resolve('not_supported'); } }); }

@@ -6,6 +6,8 @@
 
 - `audio()` detailed audio information
 - `bluetoothDevices()` detailed information detected bluetooth devices
+- `dockerImages()` detailed information docker images
+- `dockerVolumes()` detailed information docker volumes
 - `printers()` detailed printer information
 - `usb()` detailed USB information
 - `wifiInterfaces()` detected Wi-Fi interfaces
@@ -44,6 +46,7 @@ We had to make **several interface changes** to keep systeminformation as consis
 - `cpu()`: extended socket list (win)
 - `cpu()`: added virtualization if cpu supports virtualization
 - `cpu()`: now flags are part of this function
+- `diskLayout()`: added USB drives (mac OS)
 - `fsSize()`: added available
 - `fsSize()`: improved calculation of used
 - `getData()`: support for passing parameters and filters (see section General / getData)
@@ -53,6 +56,7 @@ We had to make **several interface changes** to keep systeminformation as consis
 - `memoryLayout()`: added ECC flag
 - `osInfo()`: better fqdn (win)
 - `osinfo()`: added hypervizor if hyper-v is enabled (win only)
+- `osInfo()`: added remoteSession (win only)
 - `system()`: better Raspberry PI detection
 - `system()`: added virtual and virtualHost (if system is virtual instance)
 - `uuid()`: better value support
@@ -72,6 +76,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.5.0          | 2021-02-25     | `dockerVolumes()` added |
 | 5.4.0          | 2021-02-24     | `dockerImages()` added |
 | 5.3.5          | 2021-02-23     | `dockerContainerStats()` fixed parameter * |
 | 5.3.4          | 2021-02-20     | `sanitizeShellString()` optimized strict sanitation |
