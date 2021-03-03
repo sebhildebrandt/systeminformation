@@ -104,6 +104,8 @@ export namespace Systeminformation {
     main: number;
     cores: number[];
     max: number;
+    socket?: number[];
+    chipset?: number;
   }
 
   interface MemData {

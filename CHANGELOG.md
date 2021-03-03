@@ -46,6 +46,7 @@ We had to make **several interface changes** to keep systeminformation as consis
 - `cpu()`: extended socket list (win)
 - `cpu()`: added virtualization if cpu supports virtualization
 - `cpu()`: now flags are part of this function
+- `cpuTemperature()` added added socket and chipset temp (linux)
 - `diskLayout()`: added USB drives (mac OS)
 - `fsSize()`: added available
 - `fsSize()`: improved calculation of used
@@ -76,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.6.0          | 2021-03-03     | `cpuTemperature()` added socket and chipset temp (linux) |
 | 5.5.0          | 2021-02-25     | `dockerVolumes()` added |
 | 5.4.0          | 2021-02-24     | `dockerImages()` added |
 | 5.3.5          | 2021-02-23     | `dockerContainerStats()` fixed parameter * |

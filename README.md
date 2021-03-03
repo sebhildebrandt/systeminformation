@@ -103,14 +103,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.6.0: `cpuTemperature()` added added socket and chipset temp (linux)
 - Version 5.5.0: `dockerVolumes()` added
 - Version 5.4.0: `dockerImages()` added
 - Version 5.3.0: `osInfo()` added remoteSession (win only)
 - Version 5.2.0: `wifiInterfaces()` and `wifiConnections()` added
 - Version 5.1.0: `memLayout()` added ECC flag, `bios()` added language, features (linux)
 - Version 5.0.0: new version 5 - attention there are some breaking changes. See [detailed version 5 changes here][changes5-url].
-- Version 4.34.0: `system()` added flag virtual (linux, windows)
-- Version 4.33.0: `graphics()` added nvidia-smi support (linux, windows)
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -224,6 +223,8 @@ Full function reference with examples can be found at [https://systeminformation
 | | main | X | X | X | X |  | main temperature (avg) |
 | | cores | X | X | X | X |  | array of temperatures |
 | | max | X | X | X | X |  | max temperature |
+| | socket | X |   |   |   |  | array socket temperatures |
+| | chipset | X |   |   |   |  |  chipset temperature |
 
 #### 4. Memory
 

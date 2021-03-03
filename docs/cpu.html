@@ -545,6 +545,26 @@ si.cpuCurrentSpeed().then(data => console.log(data));</code></pre class="example
                     <td></td>
                     <td>max temperature</td>
                   </tr>
+                  <tr>
+                    <td></td>
+                    <td>socket</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>array socket temperatures</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>chipset</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>chipset temperature</td>
+                  </tr>
                   <tr class="example">
                     <td></td>
                     <td colspan="7">
@@ -552,7 +572,16 @@ si.cpuCurrentSpeed().then(data => console.log(data));</code></pre class="example
                       <pre><code class="js">const si = require('systeminformation');
 si.cpuTemperature().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
-{ main: 42, cores: [], max: 42 }
+{
+  main: 42,
+  cores: [
+    34, 35, 33, 32,
+    37, 32, 35, 33
+  ],
+  max: 42,
+  socket: [ 16.8, 27.8 ],
+  chipset: 49
+}
 </pre>
                   </tr>
                 </tbody>
