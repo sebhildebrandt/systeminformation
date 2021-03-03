@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.6.1          | 2021-03-03     | `get()` fixed issue boolean parameters |
 | 5.6.0          | 2021-03-03     | `cpuTemperature()` added socket and chipset temp (linux) |
 | 5.5.0          | 2021-02-25     | `dockerVolumes()` added |
 | 5.4.0          | 2021-02-24     | `dockerImages()` added |
