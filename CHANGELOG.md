@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.34.16        | 2021-03-14     | `sanitizeShellString()` improvements |
 | 4.34.15        | 2021-02-23     | `dockerContainerStats()` fixed parameter * |
 | 4.34.14        | 2021-02-20     | `sanitizeShellString()` optimized strict sanitation |
 | 4.34.13        | 2021-02-15     | `dockerContainerStats()` fixed ID splitting |
