@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.6.5          | 2021-03-15     | `cpuTemperature()` fix (linux) |
 | 5.6.4          | 2021-03-15     | `sanitizeShellString()` and other security improvements |
 | 5.6.3          | 2021-03-14     | `sanitizeShellString()` improvement |
 | 5.6.2          | 2021-03-10     | `networkInterfaces()` `cpu()` improvement (win) |
