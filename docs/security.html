@@ -43,6 +43,9 @@
           <div class="col-12 sectionheader">
             <div class="title">Security Advisories</div>
             <div class="text">
+              <h2>Passing User Paramters to Systeminformation</h2>
+              <p><span class="bold">Be aware</span> to not use <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span> with arbitrary untrusted user input! We are doing a lot of input sanitation for those functions in this package but we cannot handle all cases!</p>
+
               <h2>Command Injection Vulnerability</h2>
               <p><span class="bold">Affected versions:</span>
                 &lt; 5.6.4 and &lt; 4.34.17<br>
