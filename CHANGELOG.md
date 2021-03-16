@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.34.18        | 2021-03-16     | code refactoring |
 | 4.34.17        | 2021-03-15     | `sanitizeShellString()` and other security improvements |
 | 4.34.16        | 2021-03-14     | `sanitizeShellString()` improvements |
 | 4.34.15        | 2021-02-23     | `dockerContainerStats()` fixed parameter * |
