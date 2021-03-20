@@ -14,6 +14,14 @@ h1, h2, h3, h4 {
 .bold {
     font-weight: 500;
 }
+.warning {
+    font-weight: 500;
+    color: rgb(156, 1, 1);
+}
+.larger {
+  margin-top: 10px;
+  font-size: 1.5rem !important;
+}
 .medium {
     font-weight: 500;
 }

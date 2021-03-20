@@ -43,7 +43,9 @@
             <div class="title">Security Advisories</div>
             <div class="text">
               <h2>Passing User Paramters to Systeminformation</h2>
-              <p><span class="bold">Be aware</span> to not use <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span> with arbitrary untrusted user input! We are doing a lot of input sanitation for those functions in this package but we cannot handle all cases!</p>
+              <p>For most of the applications that are using <span class="code">systeminformation</span>, there is no reason to worry. <span class="bold">But be aware!</span> If you are using <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span> with arbitrary untrusted user input, you should pay extra attention! We are doing a lot of input sanitation for those functions inside this package but we cannot handle all cases!</p>
+              <p class="warning">This can lead to serious impact on your servers!</p>
+              <p>We highly recommend to always upgrade to the latest version of our package. We maintain security updates for version 5 AND also version 4. For version 4 you can install latest version by placing <span class="code">"systeminformation": "^4"</span> in your package.json (dependencies) and run <span class="code">npm install</span></p>
 
               <h2>Command Injection Vulnerability</h2>
               <p><span class="bold">Affected versions:</span>
