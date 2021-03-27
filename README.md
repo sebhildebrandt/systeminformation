@@ -30,7 +30,7 @@
   [![Sponsoring][sponsor-badge]][sponsor-url]
   [![MIT license][license-img]][license-url]
 
-This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 400 versions published, > 3 mio downloads per month, > 30 mio downloads overall. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 400 versions published, up to 3 mio downloads per month, > 30 mio downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 5.0
 
@@ -40,6 +40,7 @@ This next major version release 5.0 comes with new functionality and several imp
 
 - added audio: get detailed audio device information
 - added bluetooth: get detailed bluetooth device information
+- added dockerImages, dockerVolumes: get detailed information about docker images and volumes
 - added printer: get information from detected printers
 - added usb: get detailed usb controller and device information
 - added wifi interfaces ans connections: extended wifi information
@@ -102,14 +103,13 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.6.0: `cpuTemperature()` added added socket and chipset temp (linux)
+- Version 5.5.0: `dockerVolumes()` added
+- Version 5.4.0: `dockerImages()` added
 - Version 5.3.0: `osInfo()` added remoteSession (win only)
 - Version 5.2.0: `wifiInterfaces()` and `wifiConnections()` added
 - Version 5.1.0: `memLayout()` added ECC flag, `bios()` added language, features (linux)
 - Version 5.0.0: new version 5 - attention there are some breaking changes. See [detailed version 5 changes here][changes5-url].
-- Version 4.34.0: `system()` added flag virtual (linux, windows)
-- Version 4.33.0: `graphics()` added nvidia-smi support (linux, windows)
-- Version 4.32.0: `graphics()` added clinfo support (linux)
-- Version 4.31.0: `osInfo()` added FQDN
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
@@ -223,6 +223,8 @@ Full function reference with examples can be found at [https://systeminformation
 | | main | X | X | X | X |  | main temperature (avg) |
 | | cores | X | X | X | X |  | array of temperatures |
 | | max | X | X | X | X |  | max temperature |
+| | socket | X |   |   |   |  | array socket temperatures |
+| | chipset | X |   |   |   |  |  chipset temperature |
 
 #### 4. Memory
 
@@ -668,6 +670,25 @@ Full function reference with examples can be found at [https://systeminformation
 | | isolation | X | X | X | X | X | isolation |
 | | initBinary | X | X | X | X | X | init binary |
 | | productLicense | X | X | X | X | X | product license |
+| si.dockerImages(all, cb) | [{...}] | X | X | X | X | X | returns array of top level/all docker images |
+| | [0].id | X | X | X | X | X | image ID |
+| | [0].container | X | X | X | X | X | container ID |
+| | [0].comment | X | X | X | X | X | comment |
+| | [0].os | X | X | X | X | X | OS |
+| | [0].architecture | X | X | X | X | X | architecture |
+| | [0].parent | X | X | X | X | X | parent ID |
+| | [0].dockerVersion | X | X | X | X | X | docker version |
+| | [0].size | X | X | X | X | X | image size |
+| | [0].sharedSize | X | X | X | X | X | shared size |
+| | [0].virtualSize | X | X | X | X | X | virtual size |
+| | [0].author | X | X | X | X | X | author |
+| | [0].created | X | X | X | X | X | created date / time |
+| | [0].containerConfig | X | X | X | X | X | container config object |
+| | [0].graphDriver | X | X | X | X | X | graph driver object |
+| | [0].repoDigests | X | X | X | X | X | repo digests array |
+| | [0].repoTags | X | X | X | X | X | repo tags array |
+| | [0].config | X | X | X | X | X | config object |
+| | [0].rootFS | X | X | X | X | X | root fs object |
 | si.dockerContainers(all, cb) | [{...}] | X | X | X | X | X | returns array of active/all docker containers |
 | | [0].id | X | X | X | X | X | ID of container |
 | | [0].name | X | X | X | X | X | name of container |
@@ -713,6 +734,14 @@ Full function reference with examples can be found at [https://systeminformation
 | | [0].rss | X | X | X | X | X | resident set size |
 | | [0].vsz | X | X | X | X | X | virtual size in Kbytes |
 | | [0].command | X | X | X | X | X | command and arguments |
+| si.dockerVolumes(cb) | [{...}] | returns array of all docker volumes |
+| | [0].name | X | X | X | X | X | volume name |
+| | [0].driver | X | X | X | X | X | driver |
+| | [0].labels | X | X | X | X | X | labels object |
+| | [0].mountpoint | X | X | X | X | X | mountpoint |
+| | [0].options | X | X | X | X | X | options |
+| | [0].scope | X | X | X | X | X | scope |
+| | [0].created | X | X | X | X | X | created at |
 | si.dockerAll(cb) | {...} | X | X | X | X | X | list of all containers including their stats<br>and processes in one single array |
 
 #### 17. Virtual Box

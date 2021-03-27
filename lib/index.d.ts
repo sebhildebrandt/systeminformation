@@ -104,6 +104,8 @@ export namespace Systeminformation {
     main: number;
     cores: number[];
     max: number;
+    socket?: number[];
+    chipset?: number;
   }
 
   interface MemData {
@@ -641,6 +643,27 @@ export namespace Systeminformation {
     productLicense: string;
   }
 
+  interface DockerImageData {
+    id: string;
+    container: string;
+    comment: string;
+    os: string;
+    architecture: string;
+    parent: string;
+    dockerVersion: string;
+    size: number;
+    sharedSize: number;
+    virtualSize: number;
+    author: string;
+    created: number;
+    containerConfig: any;
+    graphDriver: any;
+    repoDigests: any;
+    repoTags: any;
+    config: any;
+    rootFS: any;
+  }
+
   interface DockerContainerData {
     id: string;
     name: string;
@@ -689,6 +712,16 @@ export namespace Systeminformation {
     precpuStats: any;
     memoryStats: any,
     networks: any;
+  }
+
+  interface DockerVolumeData {
+    name: string;
+    driver: string;
+    labels: any;
+    mountpoint: string;
+    options: any;
+    scope: string;
+    created: number;
   }
 
   // 9. Virtual Box
@@ -843,6 +876,8 @@ export function inetChecksite(url: string, cb?: (data: Systeminformation.InetChe
 export function inetLatency(host?: string, cb?: (data: number) => any): Promise<number>;
 
 export function wifiNetworks(cb?: (data: Systeminformation.WifiNetworkData[]) => any): Promise<Systeminformation.WifiNetworkData[]>;
+export function wifiInterfaces(cb?: (data: Systeminformation.WifiInterfaceData[]) => any): Promise<Systeminformation.WifiInterfaceData[]>;
+export function wifiConnections(cb?: (data: Systeminformation.WifiConnectionData[]) => any): Promise<Systeminformation.WifiConnectionData[]>;
 
 export function users(cb?: (data: Systeminformation.UserData[]) => any): Promise<Systeminformation.UserData[]>;
 
@@ -851,9 +886,11 @@ export function processLoad(processName: string, cb?: (data: Systeminformation.P
 export function services(serviceName: string, cb?: (data: Systeminformation.ServicesData[]) => any): Promise<Systeminformation.ServicesData[]>;
 
 export function dockerInfo(cb?: (data: Systeminformation.DockerInfoData) => any): Promise<Systeminformation.DockerInfoData>;
+export function dockerImages(all?: boolean, cb?: (data: Systeminformation.DockerImageData[]) => any): Promise<Systeminformation.DockerImageData[]>;
 export function dockerContainers(all?: boolean, cb?: (data: Systeminformation.DockerContainerData[]) => any): Promise<Systeminformation.DockerContainerData[]>;
 export function dockerContainerStats(id?: string, cb?: (data: Systeminformation.DockerContainerStatsData[]) => any): Promise<Systeminformation.DockerContainerStatsData[]>;
 export function dockerContainerProcesses(id?: string, cb?: (data: any) => any): Promise<any>;
+export function dockerVolumes(cb?: (data: Systeminformation.DockerVolumeData[]) => any): Promise<Systeminformation.DockerVolumeData[]>;
 export function dockerAll(cb?: (data: any) => any): Promise<any>;
 
 export function vboxInfo(cb?: (data: Systeminformation.VboxInfoData[]) => any): Promise<Systeminformation.VboxInfoData[]>;

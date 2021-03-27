@@ -47,7 +47,7 @@
           <div class="col-12 sectionheader">
             <div class="title">Docker</div>
             <div class="text">
-              <p>In this section you will learn how to get information about docker containers, stats and processes inside a docker container:</p>
+              <p>In this section you will learn how to get information about docker, images, containers, container stats and processes inside a docker container:</p>
               <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
               <pre><code class="js">const si = require('systeminformation');</code></pre>
               <h2>Container, Stats, Processes</h2>
@@ -537,6 +537,196 @@
                     <td>product license</td>
                   </tr>
                   <tr>
+                    <td>si.dockerImages(all, cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>returns array of top level/all docker images</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].id</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>image ID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].container</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>container ID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].comment</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>comment</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].os</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>OS</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].architecture</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>architecture</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].parent</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>parent ID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].dockerVersion</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>docker version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].size</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>image size</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].sharedSize</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>shared size</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].virtualSize</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>virtual size</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].author</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>author</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].created</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>created date / time</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].containerConfig</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>container config object</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].graphDriver</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>graph driver object</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].repoDigests</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>repo digests array</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].repoTags</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>repo tags array</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].config</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>config object</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].rootFS</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>root fs object</td>
+                  </tr>
+                  <tr>
                     <td>si.dockerContainers(all, cb)</td>
                     <td>[{...}]</td>
                     <td>X</td>
@@ -728,7 +918,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>id</td>
+                    <td>[0].id</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -738,7 +928,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>memUsage</td>
+                    <td>[0].memUsage</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -748,7 +938,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>memLimit</td>
+                    <td>[0].memLimit</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -758,7 +948,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>memPercent</td>
+                    <td>[0].memPercent</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -768,7 +958,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>cpuPercent</td>
+                    <td>[0].cpuPercent</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -778,7 +968,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>pids</td>
+                    <td>[0].pids</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -788,7 +978,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>netIO.rx</td>
+                    <td>[0].netIO.rx</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -798,7 +988,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>netIO.wx</td>
+                    <td>[0].netIO.wx</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -808,7 +998,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>blockIO.r</td>
+                    <td>[0].blockIO.r</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -818,7 +1008,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>blockIO.w</td>
+                    <td>[0].blockIO.w</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -828,7 +1018,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>restartCount</td>
+                    <td>[0].restartCount</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -838,7 +1028,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>cpuStats</td>
+                    <td>[0].cpuStats</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -848,7 +1038,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>precpuStats</td>
+                    <td>[0].precpuStats</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -858,7 +1048,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>memoryStats</td>
+                    <td>[0].memoryStats</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -868,7 +1058,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>networks</td>
+                    <td>[0].networks</td>
                     <td>X</td>
                     <td>X</td>
                     <td>X</td>
@@ -1025,6 +1215,87 @@
                     <td>X</td>
                     <td>X</td>
                     <td>command and arguments</td>
+                  </tr>
+                  <tr>
+                    <td>si.dockerVolumes(cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>returns array of docker volumes</td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td>[0].name</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>volume name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].driver</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>driver</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].labels</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>labels object</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].mountpoint</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>mountpoint</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].options</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>options</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].scope</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>scope</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].created</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>created at</td>
                   </tr>
                   <tr>
                     <td>si.dockerAll(cb)</td>
