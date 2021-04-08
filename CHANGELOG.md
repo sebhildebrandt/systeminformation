@@ -77,6 +77,14 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.6.10         | 2021-03-29     | `vboxInfo()` fixed windows bug |
+| 5.6.9          | 2021-03-28     | `graphics()` fixed nvidia-smi compare bug |
+| 5.6.8          | 2021-03-22     | typescript definitions fix `wifiInterfces()`, `wifiConnections()` |
+| 5.6.7          | 2021-03-16     | `inetLatency()` `ineChecksite()` schema validation |
+| 5.6.6          | 2021-03-16     | code refactoring |
+| 5.6.5          | 2021-03-15     | `cpuTemperature()` fix (linux) |
+| 5.6.4          | 2021-03-15     | `sanitizeShellString()` and other security improvements |
+| 5.6.3          | 2021-03-14     | `sanitizeShellString()` improvement |
 | 5.6.2          | 2021-03-10     | `networkInterfaces()` `cpu()` improvement (win) |
 | 5.6.1          | 2021-03-03     | `get()` fixed issue boolean parameters |
 | 5.6.0          | 2021-03-03     | `cpuTemperature()` added socket and chipset temp (linux) |

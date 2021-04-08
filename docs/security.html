@@ -43,6 +43,28 @@
           <div class="col-12 sectionheader">
             <div class="title">Security Advisories</div>
             <div class="text">
+              <h2>Passing User Paramters to Systeminformation</h2>
+              <p>For most of the applications that are using <span class="code">systeminformation</span>, there is no reason to worry. <span class="bold">But be aware!</span> If you are using <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span> with arbitrary untrusted user input, you should pay extra attention! We are doing a lot of input sanitation for those functions inside this package but we cannot handle all cases!</p>
+              <p class="warning">This can lead to serious impact on your servers!</p>
+              <p>We highly recommend to always upgrade to the latest version of our package. We maintain security updates for version 5 AND also version 4. For version 4 you can install latest version by placing <span class="code">"systeminformation": "^4"</span> in your package.json (dependencies) and run <span class="code">npm install</span></p>
+
+              <h2>Command Injection Vulnerability</h2>
+              <p><span class="bold">Affected versions:</span>
+                &lt; 5.6.4 and &lt; 4.34.17<br>
+                <span class="bold">Date:</span> 2021-03-15<br>
+                <span class="bold">CVE indentifier</span> CVE-2021-21388
+              </p>
+
+              <h4>Impact</h4>
+              <p>We had an issue that there was a possibility to perform a potential command injection possibility by passing a manipulated string prototype as a parameter to the following functions. Affected commands: <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span>.</p>
+
+              <h4>Patch</h4>
+              <p>Problem was fixed with additional parameter checking. Please upgrade to version >= 5.6.4 (or >= 4.34.17 if you are using version 4).</p>
+
+              <h4>Workarround</h4>
+              <p>If you cannot upgrade, be sure to check or sanitize parameter strings that are passed to <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span> (string only)</p>
+              <hr>
+              <br>
               <h2>Insufficient File Scheme Validation</h2>
               <p><span class="bold">Affected versions:</span>
                 &lt; 5.3.2 and &lt; 4.34.12<br>

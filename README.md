@@ -360,9 +360,9 @@ Full function reference with examples can be found at [https://systeminformation
 | si.fullLoad(cb) | : integer | X |  | X | X |  | CPU full load since bootup in % |
 | si.processes(cb) | {...} | X | X | X | X | X | # running processes |
 | | all | X | X | X | X | X | # of all processes |
-| | running | X | X | X | X | X | # of all processes running |
-| | blocked | X | X | X | X | X | # of all processes blocked |
-| | sleeping | X | X | X | X | X | # of all processes sleeping |
+| | running | X | X | X |  | X | # of all processes running |
+| | blocked | X | X | X |  | X | # of all processes blocked |
+| | sleeping | X | X | X |  | X | # of all processes sleeping |
 | | unknown |   |   |   | X |  | # of all processes unknown status |
 | | list[] | X | X | X | X | X | list of all processes incl. details |
 | | ...[0].pid | X | X | X | X | X | process PID |

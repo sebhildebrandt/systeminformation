@@ -876,6 +876,8 @@ export function inetChecksite(url: string, cb?: (data: Systeminformation.InetChe
 export function inetLatency(host?: string, cb?: (data: number) => any): Promise<number>;
 
 export function wifiNetworks(cb?: (data: Systeminformation.WifiNetworkData[]) => any): Promise<Systeminformation.WifiNetworkData[]>;
+export function wifiInterfaces(cb?: (data: Systeminformation.WifiInterfaceData[]) => any): Promise<Systeminformation.WifiInterfaceData[]>;
+export function wifiConnections(cb?: (data: Systeminformation.WifiConnectionData[]) => any): Promise<Systeminformation.WifiConnectionData[]>;
 
 export function users(cb?: (data: Systeminformation.UserData[]) => any): Promise<Systeminformation.UserData[]>;
 
