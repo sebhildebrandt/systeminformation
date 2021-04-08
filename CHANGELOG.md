@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.6.11         | 2021-04-08     | `versions()` parameter sanitation |
 | 5.6.10         | 2021-03-29     | `vboxInfo()` fixed windows bug |
 | 5.6.9          | 2021-03-28     | `graphics()` fixed nvidia-smi compare bug |
 | 5.6.8          | 2021-03-22     | typescript definitions fix `wifiInterfces()`, `wifiConnections()` |
