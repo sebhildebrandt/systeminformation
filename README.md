@@ -811,7 +811,7 @@ Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com)
 
 Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebrandt)
 
-#### Contributers
+#### Contributors
 
 - Guillaume Legrain [glegrain](https://github.com/glegrain)
 - Riccardo Novaglia [richy24](https://github.com/richy24)

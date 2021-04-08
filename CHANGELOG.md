@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.34.20        | 2021-04-08     | `versions()` parameter validation |
 | 4.34.19        | 2021-03-16     | `inetLatency()` `ineChecksite()` schema validation |
 | 4.34.18        | 2021-03-16     | code refactoring |
 | 4.34.17        | 2021-03-15     | `sanitizeShellString()` and other security improvements |
