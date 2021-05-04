@@ -122,6 +122,7 @@ I was able to test it on several Debian, Raspbian, Ubuntu distributions as well 
 
 If you have comments, suggestions & reports, please feel free to contact me!
 
+
 I also created a nice little command line tool called [mmon][mmon-github-url] (micro-monitor) for Linux and macOS, also available via [github][mmon-github-url] and [npm][mmon-npm-url]
 
 
@@ -958,6 +959,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Ricardo Polo [ricardopolo](https://github.com/ricardopolo)
 - Miłosz Dźwigała [mily20001](https://github.com/mily20001)
 - cconley717 [cconley717](https://github.com/cconley717)
+- Maria Camila Cubides [MariaCamilaCubides](https://github.com/MariaCamilaCubides)
 
 OSX Temperature: credits here are going to:
 

@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.6.14         | 2021-05-04     | `networkGatewayDefault()` macOS improvement for active VPN |
 | 5.6.13         | 2021-05-04     | `dockerImagesInspect()`, `dockerContainerInspect()`, `dockerContainerProcesses()` security updates |
 | 5.6.12         | 2021-04-09     | `networkinterfaces()` windows detection fix |
 | 5.6.11         | 2021-04-08     | `versions()` parameter sanitation |
@@ -398,7 +399,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 3.37.2         | 2018-02-15     | fixed bug `battery().percent` for macOS |
 | 3.37.1         | 2018-02-13     | fixed bug `battery().ischarging` for macOS |
 | 3.37.0         | 2018-02-11     | extended FreeBSD support `networkStats()` |
-| 3.36.0         | 2018-02-11     | extended FreeBSD support `networkConnections()` |
+| 3.36.
+0         | 2018-02-11     | extended FreeBSD support `networkConnections()` |
 | 3.35.0         | 2018-02-11     | extended FreeBSD support `processLoad()` |
 | 3.34.1         | 2018-02-11     | updated docs |
 | 3.34.0         | 2018-02-10     | first partial FreeBSD support |
