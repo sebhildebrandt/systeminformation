@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.6.13         | 2021-05-04     | `dockerImagesInspect()`, `dockerContainerInspect()`, `dockerContainerProcesses()` security updates |
 | 5.6.12         | 2021-04-09     | `networkinterfaces()` windows detection fix |
 | 5.6.11         | 2021-04-08     | `versions()` parameter sanitation |
 | 5.6.10         | 2021-03-29     | `vboxInfo()` fixed windows bug |
