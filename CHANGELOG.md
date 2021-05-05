@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.6.16         | 2021-05-05     | `graphics()` fixed compare bug |
 | 5.6.15         | 2021-05-05     | restored Node 4.x compatibility |
 | 5.6.14         | 2021-05-04     | `networkGatewayDefault()` macOS improvement for active VPN |
 | 5.6.13         | 2021-05-04     | `dockerImagesInspect()`, `dockerContainerInspect()`, `dockerContainerProcesses()` security updates |
