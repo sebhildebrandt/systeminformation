@@ -30,6 +30,7 @@ For major (breaking) changes - version 3 and 2 see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 4.34.23        | 2021-05-05     | `networkInterfaces()` fixed Windows XP bug (WMIC NetEnabled) |
 | 4.34.22        | 2021-05-05     | restored Node 4.x compatibility |
 | 4.34.21        | 2021-05-04     | `dockerContainerInspect()`, `dockerContainerProcesses()` parameter validation fix |
 | 4.34.20        | 2021-04-08     | `versions()` parameter validation |
