@@ -77,7 +77,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 5.6.19         | 2021-05-06     | `services()`  modified service listing (linux) |
+| 5.6.20         | 2021-05-07     | `system()` fixed vm detection (linux) |
+| 5.6.19         | 2021-05-06     | `services()` modified service listing (linux) |
 | 5.6.18         | 2021-05-06     | `processes()` fixed Windows mem bug (naming conform to all platforms) |
 | 5.6.17         | 2021-05-05     | `networkInterfaces()` fixed Windows XP bug (WMIC NetEnabled) |
 | 5.6.16         | 2021-05-05     | `graphics()` fixed compare bug |
