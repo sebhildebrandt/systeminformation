@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.6.21         | 2021-05-14     | `graphics()` fixed dual gpu issue (macOS) |
 | 5.6.20         | 2021-05-07     | `system()` fixed vm detection (linux) |
 | 5.6.19         | 2021-05-06     | `services()` modified service listing (linux) |
 | 5.6.18         | 2021-05-06     | `processes()` fixed Windows mem bug (naming conform to all platforms) |
