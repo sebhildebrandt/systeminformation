@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.7.0          | 2021-05-20     | `diskLayout()` added smartdata for win (if istalled) |
 | 5.6.22         | 2021-05-18     | `diskLayout()` fixed to small buffer smartdata (linux) |
 | 5.6.21         | 2021-05-14     | `graphics()` fixed dual gpu issue (macOS) |
 | 5.6.20         | 2021-05-07     | `system()` fixed vm detection (linux) |

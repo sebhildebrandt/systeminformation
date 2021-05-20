@@ -103,6 +103,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.7.0: `diskLayout()` added S.M.A.R.T for Windows (if installed)
 - Version 5.6.0: `cpuTemperature()` added added socket and chipset temp (linux)
 - Version 5.5.0: `dockerVolumes()` added
 - Version 5.4.0: `dockerImages()` added
@@ -424,7 +425,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | [0].interfaceType | X |  | | X |  | SATA, PCIe, ... |
 | | [0].smartStatus | X |  | X | X |  | S.M.A.R.T Status (see Known Issues) |
 | | [0].temperature | X |  | | |  | S.M.A.R.T temperature |
-| | [0].smartData | X |  |  |  |  | full S.M.A.R.T data from smartctl<br>requires at least smartmontools 7.0 |
+| | [0].smartData | X |  |  | X |  | full S.M.A.R.T data from smartctl<br>requires at least smartmontools 7.0 |
 | si.blockDevices(cb) | [{...}] | X |  | X | X |  | returns array of disks, partitions,<br>raids and roms |
 | | [0].name | X |  | X | X |  | name |
 | | [0].type | X |  | X | X |  | type |

@@ -252,7 +252,7 @@
                     <td>X</td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <td>X</td>
                     <td></td>
                     <td>full S.M.A.R.T data from smartctl<br>requires at least smartmontools 7.0<br>(see Known Issues)</td>
                   </tr>
@@ -286,8 +286,8 @@ si.diskLayout().then(data => console.log(data));</code></pre class="example">
       smartctl: [Object],
       device: [Object],
       model_name: 'SAMSUNG xxxxxxxxxxxx-xxxx',
-      serial_number: '...serial....',
-      ...
+      serial_number: '...serial....',             // full structure
+      ...                                         // see index.d.ts
     }
   },
   {

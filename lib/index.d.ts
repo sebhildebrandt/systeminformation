@@ -138,6 +138,7 @@ export namespace Systeminformation {
   }
 
   interface SmartData {
+    json_format_version: number[];
     smartctl: {
       version: number[];
       platform_info: string;
@@ -145,17 +146,23 @@ export namespace Systeminformation {
       argv: string[];
       exit_status: number;
     };
-    json_format_version: number[];
     device: {
       name: string;
       info_name: string;
       type: string;
       protocol: string;
     }
+    model_family?: string,
+    model_name?: string,
+    serial_number?: string,
+    firmware_version?: string,
     smart_status: {
       passed: boolean;
     }
-    ata_smart_attributes: {
+    trim?: {
+      supported: boolean
+    },
+    ata_smart_attributes?: {
       revision: number;
       table: {
         id: number;
@@ -177,20 +184,13 @@ export namespace Systeminformation {
         raw: { value: number; string: string }
       }[];
     };
-    power_on_time: {
-      hours: number;
-    };
-    power_cycle_count: number;
-    temperature: {
-      current: number;
-    };
-    ata_smart_error_log: {
+    ata_smart_error_log?: {
       summary: {
         revision: number;
         count: number;
       };
     };
-    ata_smart_self_test_log: {
+    ata_smart_self_test_log?: {
       standard: {
         revision: number;
         table: {
@@ -210,6 +210,42 @@ export namespace Systeminformation {
         error_count_outdated: number;
       };
     }
+    nvme_pci_vendor?: {
+      id: number,
+      subsystem_id: number
+    },
+    nvme_smart_health_information_log?: {
+      critical_warning?: number,
+      temperature?: number,
+      available_spare?: number,
+      available_spare_threshold?: number,
+      percentage_used?: number,
+      data_units_read?: number,
+      data_units_written?: number,
+      host_reads?: number,
+      host_writes?: number,
+      controller_busy_time?: number,
+      power_cycles?: number,
+      power_on_hours?: number,
+      unsafe_shutdowns?: number,
+      media_errors?: number,
+      num_err_log_entries?: number,
+      warning_temp_time?: number,
+      critical_comp_time?: number,
+      temperature_sensors?: number[]
+    },
+    user_capacity?: {
+      blocks: number,
+      bytes: number
+    },
+    logical_block_size?: number,
+    temperature: {
+      current: number;
+    };
+    power_cycle_count: number;
+    power_on_time: {
+      hours: number;
+    };
   }
 
   interface DiskLayoutData {
