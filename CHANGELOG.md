@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.7.4          | 2021-05-27     | `osInfo()`, `cpu()` improved hypervisor, virtualization detection (windows) |
 | 5.7.3          | 2021-05-26     | `osInfo()` improved UEFI detection (windows) |
 | 5.7.2          | 2021-05-24     | `system()` virtual detection improvement |
 | 5.7.1          | 2021-05-20     | `graphics()` Check for qwMemorySize on Windows |
