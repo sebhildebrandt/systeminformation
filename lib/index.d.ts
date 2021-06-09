@@ -284,6 +284,7 @@ export namespace Systeminformation {
     model: string;
     manufacturer: string;
     serial: string;
+    additionalBatteries?: BatteryData[];
   }
 
   interface GraphicsData {
