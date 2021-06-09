@@ -53,8 +53,8 @@ We had to make **several interface changes** to keep systeminformation as consis
 - `getData()`: support for passing parameters and filters (see section General / getData)
 - `graphics()`: extended nvidia-smi parsing
 - `networkInterfaces()`: type detection improved (win - wireless)
-- `memoryLayout()`: extended manufacturer list (decoding)
-- `memoryLayout()`: added ECC flag
+- `memLayout()`: extended manufacturer list (decoding)
+- `memLayout()`: added ECC flag
 - `osInfo()`: better fqdn (win)
 - `osinfo()`: added hypervizor if hyper-v is enabled (win only)
 - `osInfo()`: added remoteSession (win only)
@@ -77,6 +77,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.7.6          | 2021-06-09     | `battery()` improved detection (additional batteries windows) |
+| 5.7.5          | 2021-06-08     | `memLayout()` improved clock speed detection (windows) |
 | 5.7.4          | 2021-05-27     | `osInfo()`, `cpu()` improved hypervisor, virtualization detection (windows) |
 | 5.7.3          | 2021-05-26     | `osInfo()` improved UEFI detection (windows) |
 | 5.7.2          | 2021-05-24     | `system()` virtual detection improvement |
