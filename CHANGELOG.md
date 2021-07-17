@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.7.8          | 2021-07-16     | `battery()` fix designedCapacity (win, linux), fix catch error |
 | 5.7.7          | 2021-06-15     | `graphics()` improved detection screen resolution (macOS) |
 | 5.7.6          | 2021-06-09     | `battery()` improved detection (additional batteries windows) |
 | 5.7.5          | 2021-06-08     | `memLayout()` improved clock speed detection (windows) |
@@ -236,7 +237,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 4.21.0         | 2020-01-27     | `npx` compatibility |
 | 4.20.1         | 2020-01-26     | `battery()` code refactoring, cleanup, updated docs |
 | 4.20.1         | 2020-01-26     | `battery()` code refactoring, cleanup, updated docs |
-| 4.20.0         | 2020-01-25     | `battery()` added designcapacity, voltage, unit |
+| 4.20.0         | 2020-01-25     | `battery()` added designCapacity, voltage, unit |
 | 4.19.4         | 2020-01-24     | `mem()` prevent log messages, `memgetDefaultNetworkInterface()` catch errors |
 | 4.19.3         | 2020-01-24     | `memLayout()` bank info fix macOS |
 | 4.19.2         | 2020-01-19     | `cpu()` muli-processor fix windows |
