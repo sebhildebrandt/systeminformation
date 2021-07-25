@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.7.9          | 2021-07-25     | `uuid()` better regedit path detection (win) |
 | 5.7.8          | 2021-07-16     | `battery()` fix designedCapacity (win, linux), fix catch error |
 | 5.7.7          | 2021-06-15     | `graphics()` improved detection screen resolution (macOS) |
 | 5.7.6          | 2021-06-09     | `battery()` improved detection (additional batteries windows) |
