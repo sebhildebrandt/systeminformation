@@ -919,7 +919,7 @@ export function wifiConnections(cb?: (data: Systeminformation.WifiConnectionData
 export function users(cb?: (data: Systeminformation.UserData[]) => any): Promise<Systeminformation.UserData[]>;
 
 export function processes(cb?: (data: Systeminformation.ProcessesData) => any): Promise<Systeminformation.ProcessesData>;
-export function processLoad(processName: string, cb?: (data: Systeminformation.ProcessesProcessLoadData) => any): Promise<Systeminformation.ProcessesProcessLoadData>;
+export function processLoad(processNames: string, cb?: (data: Systeminformation.ProcessesProcessLoadData[]) => any): Promise<Systeminformation.ProcessesProcessLoadData[]>;
 export function services(serviceName: string, cb?: (data: Systeminformation.ServicesData[]) => any): Promise<Systeminformation.ServicesData[]>;
 
 export function dockerInfo(cb?: (data: Systeminformation.DockerInfoData) => any): Promise<Systeminformation.DockerInfoData>;
