@@ -938,7 +938,7 @@ export function usb(cb?: (data: Systeminformation.UsbData[]) => any): Promise<Sy
 
 export function audio(cb?: (data: Systeminformation.AudioData[]) => any): Promise<Systeminformation.AudioData[]>;
 
-export function bluetoothDevices(cb?: (data: Systeminformation.BlockDevicesData[]) => any): Promise<Systeminformation.BlockDevicesData[]>;
+export function bluetoothDevices(cb?: (data: Systeminformation.BluetoothDeviceData[]) => any): Promise<Systeminformation.BluetoothDeviceData[]>;
 
 export function getStaticData(cb?: (data: Systeminformation.StaticData) => any): Promise<Systeminformation.StaticData>;
 export function getDynamicData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<any>;
