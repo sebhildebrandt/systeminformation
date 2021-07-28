@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.7.13         | 2021-07-28     | `osInfo()` fix uefi detection (win) |
 | 5.7.12         | 2021-07-27     | `osInfo()` fix uefi detection (win) |
 | 5.7.11         | 2021-07-27     | typescript typings fix `bluetoothDevices()` |
 | 5.7.10         | 2021-07-26     | typescript typings fix `processLoad()` |
