@@ -294,7 +294,7 @@
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>L1D (data) size bytes</td>
+                    <td>L1D (data) size in bytes</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -304,7 +304,7 @@
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>L1I (instruction) size bytes</td>
+                    <td>L1I (instruction) size in bytes</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -314,7 +314,7 @@
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>L2 size bytes</td>
+                    <td>L2 size in bytes</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -324,7 +324,7 @@
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>L3 size bytes</td>
+                    <td>L3 size in bytes</td>
                   </tr>
                   <tr class="example">
                     <td></td>
@@ -393,7 +393,7 @@ fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>L1D size</td>
+                    <td>L1D size in bytes</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -403,7 +403,7 @@ fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>L1I size</td>
+                    <td>L1I size in bytes</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -413,7 +413,7 @@ fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>L2 size</td>
+                    <td>L2 size in bytes</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -423,7 +423,7 @@ fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge
                     <td>X</td>
                     <td>X</td>
                     <td></td>
-                    <td>L3 size</td>
+                    <td>L3 size in bytes</td>
                   </tr>
                   <tr class="example">
                     <td></td>
@@ -432,7 +432,7 @@ fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge
                       <pre><code class="js">const si = require('systeminformation');
 si.cpuCache().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
-{ l1d: 262144, l1i: 262144, l2: 2, l3: 16 }
+{ l1d: 262144, l1i: 262144, l2: 2097152, l3: 16777216 }
 </pre>
                   </tr>
                   <tr>

@@ -103,6 +103,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.8.0: `disksIO()` added waitTime, waitPercent (linux)
 - Version 5.7.0: `diskLayout()` added S.M.A.R.T for Windows (if installed)
 - Version 5.6.0: `cpuTemperature()` added added socket and chipset temp (linux)
 - Version 5.5.0: `dockerVolumes()` added
@@ -446,6 +447,12 @@ Full function reference with examples can be found at [https://systeminformation
 | | rIO_sec | X |  | X |  |  | read IO per sec (* see notes) |
 | | wIO_sec | X |  | X |  |  | write IO per sec (* see notes) |
 | | tIO_sec | X |  | X |  |  | total IO per sec (* see notes) |
+| | rWaitTime | X |  |  |  |  | read IO request time (* see notes) |
+| | wWaitTime | X |  |  |  |  | write IO request time (* see notes) |
+| | tWaitTime | X |  |  |  |  | total IO request time (* see notes) |
+| | rWaitPercent | X |  |  |  |  | read IO request time percent (* see notes) |
+| | wWaitPercent | X |  |  |  |  | write IO request time percent (* see notes) |
+| | tWaitPercent | X |  |  |  |  | total IO request time percent (* see notes) |
 | | ms | X |  | X |  |  | interval length (for per second values) |
 | si.fsSize(cb) | [{...}] | X | X | X | X |  | returns array of mounted file systems |
 | | [0].fs | X | X | X | X |  | name of file system |

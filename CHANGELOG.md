@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.8.0          | 2021-08-02     | `disksIO()` added waitTime, waitPercent (linux) |
 | 5.7.14         | 2021-08-01     | `cpu()` cache calculation fix (linux) |
 | 5.7.13         | 2021-07-28     | `osInfo()` fix uefi detection (win) |
 | 5.7.12         | 2021-07-27     | `osInfo()` fix uefi detection (win) |
