@@ -69,7 +69,8 @@
     "wifinetworks",
     "virtual box",
     "virtualbox",
-    "vm"
+    "vm",
+    "backend"
   ],
   "repository": {
     "type": "git",
