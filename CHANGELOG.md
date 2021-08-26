@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.8.6          | 2021-08-26     | `cpu()` improved detection (win) |
 | 5.8.5          | 2021-08-26     | `osInfo()` hyper-v detection fix (win VM) |
 | 5.8.4          | 2021-08-26     | `graphics()` added vendor (macOS) |
 | 5.8.3          | 2021-08-26     | `graphics()` fix empty controller (macOS) |
