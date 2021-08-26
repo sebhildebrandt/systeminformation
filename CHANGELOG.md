@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.8.3          | 2021-08-26     | `graphics()` fix empty controller (macOS) |
 | 5.8.2          | 2021-08-24     | `baseboard()`, `getDefaultNetworkInterface()` fix catch error |
 | 5.8.1          | 2021-08-24     | `battery()` fix capacity |
 | 5.8.0          | 2021-08-02     | `disksIO()` added waitTime, waitPercent (linux) |
