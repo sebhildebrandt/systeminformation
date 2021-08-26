@@ -36,9 +36,6 @@ const testWithTimeout = async (fn) => {
     console.log('Testing osInfo:');
     console.log(await testWithTimeout(si.osInfo));
 
-    console.log('Testing versions:');
-    console.log(await testWithTimeout(si.versions));
-
     console.log('Testing networkInterfaces:');
     console.log(await testWithTimeout(si.networkInterfaces));
 
