@@ -15,8 +15,29 @@ const testWithTimeout = async (fn) => {
 
 (async () => {
   try {
-    // console.log('Testing osInfo:');
-    // console.log(await testWithTimeout(si.osInfo));
+    console.log('Testing system:');
+    console.log(await testWithTimeout(si.system));
+
+    console.log('Testing cpu:');
+    console.log(await testWithTimeout(si.cpu));
+
+    console.log('Testing mem:');
+    console.log(await testWithTimeout(si.mem));
+
+    console.log('Testing memLayout:');
+    console.log(await testWithTimeout(si.memLayout));
+
+    console.log('Testing graphics:');
+    console.log(await testWithTimeout(si.graphics));
+
+    console.log('Testing diskLayout:');
+    console.log(await testWithTimeout(si.diskLayout));
+
+    console.log('Testing osInfo:');
+    console.log(await testWithTimeout(si.osInfo));
+
+    console.log('Testing versions:');
+    console.log(await testWithTimeout(si.versions));
 
     console.log('Testing networkInterfaces:');
     console.log(await testWithTimeout(si.networkInterfaces));
@@ -29,9 +50,6 @@ const testWithTimeout = async (fn) => {
 
     console.log('Testing currentLoad:');
     console.log(await testWithTimeout(si.currentLoad));
-
-    console.log('Testing mem:');
-    console.log(await testWithTimeout(si.mem));
 
     console.log('Testing cpuTemperature:');
     console.log(await testWithTimeout(si.cpuTemperature));
