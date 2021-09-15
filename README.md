@@ -287,20 +287,29 @@ Full function reference with examples can be found at [https://systeminformation
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
 | si.graphics(cb) | {...} | X |  | X | X |  | arrays of graphics controllers and displays |
 | | controllers[]| X |  | X | X |  | graphics controllers array |
-| | ...[0].model | X |  | X | X |  | graphics controller model |
 | | ...[0].vendor | X |  | X | X |  | e.g. ATI |
-| | ...[0].deviceName |  |  |   | X |  | e.g. \\\\.\\DISPLAY1 |
+| | ...[0].vendorId |  |  | X | |  | vendor ID |
+| | ...[0].model | X |  | X | X |  | graphics controller model |
+| | ...[0].deviceId |  |  | X | |  | device ID |
 | | ...[0].bus | X |  | X | X |  | on which bus (e.g. PCIe) |
 | | ...[0].vram | X |  | X | X |  | VRAM size (in MB) |
 | | ...[0].vramDynamic | X |  | X | X |  | true if dynamicly allocated ram |
+| | ...[0].external |  |  | X | |  | is external GPU |
+| | ...[0].cores |  |  | X | |  | Apple silicon only |
+| | ...[0].metalVersion |  |  | X | |  | Apple Metal Version |
 | | displays[] | X |  | X | X |  | monitor/display array |
 | | ...[0].vendor |  |  |  | X |  | monitor/display vendor |
+| | ...[0].vendorId |  |  | X | |  | vendor ID |
+| | ...[0].deviceName |  |  |   | X |  | e.g. \\\\.\\DISPLAY1 |
 | | ...[0].model | X |  | X | X |  | monitor/display model |
+| | ...[0].productionYear |  |  | X | |  | production year |
+| | ...[0].serial |  |  | X | |  | serial number |
+| | ...[0].displayId |  |  | X | |  | display ID |
 | | ...[0].main | X |  | X | X|  | true if main monitor |
 | | ...[0].builtin | X |  | X |  |  | true if built in monitor |
 | | ...[0].connection | X |  | X | X |  | e.g. DisplayPort or HDMI |
-| | ...[0].sizeX | X |  | X | X |  | size in mm horizontal |
-| | ...[0].sizeY | X |  | X | X |  | size in mm vertical |
+| | ...[0].sizeX | X |  | | X |  | size in mm horizontal |
+| | ...[0].sizeY | X |  | | X |  | size in mm vertical |
 | | ...[0].pixelDepth | X |  | X | X |  | color depth in bits |
 | | ...[0].resolutionX | X |  | X | X |  | pixel horizontal |
 | | ...[0].resolutionY | X |  | X | X |  | pixel vertical |

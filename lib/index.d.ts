@@ -151,16 +151,16 @@ export namespace Systeminformation {
       info_name: string;
       type: string;
       protocol: string;
-    }
+    };
     model_family?: string,
     model_name?: string,
     serial_number?: string,
     firmware_version?: string,
     smart_status: {
       passed: boolean;
-    }
+    };
     trim?: {
-      supported: boolean
+      supported: boolean;
     },
     ata_smart_attributes?: {
       revision: number;
@@ -181,7 +181,7 @@ export namespace Systeminformation {
           event_count: boolean;
           auto_keep: boolean;
         };
-        raw: { value: number; string: string }
+        raw: { value: number; string: string; };
       }[];
     };
     ata_smart_error_log?: {
@@ -209,10 +209,10 @@ export namespace Systeminformation {
         error_count_total: number;
         error_count_outdated: number;
       };
-    }
+    };
     nvme_pci_vendor?: {
       id: number,
-      subsystem_id: number
+      subsystem_id: number;
     },
     nvme_smart_health_information_log?: {
       critical_warning?: number,
@@ -232,11 +232,11 @@ export namespace Systeminformation {
       num_err_log_entries?: number,
       warning_temp_time?: number,
       critical_comp_time?: number,
-      temperature_sensors?: number[]
+      temperature_sensors?: number[];
     },
     user_capacity?: {
       blocks: number,
-      bytes: number
+      bytes: number;
     },
     logical_block_size?: number,
     temperature: {
@@ -294,11 +294,16 @@ export namespace Systeminformation {
 
   interface GraphicsControllerData {
     vendor: string;
+    vendorId?: string;
     model: string;
+    deviceId?: string;
     bus: string;
     busAddress?: string;
     vram: number;
     vramDynamic: boolean;
+    external?: boolean;
+    cores?: number;
+    metalVersion?: string;
     subDeviceId?: string;
     driverVersion?: string;
     name?: string;
