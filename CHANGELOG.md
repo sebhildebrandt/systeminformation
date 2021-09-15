@@ -77,6 +77,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.9.0          | 2021-09-15     | `graphics()` new XML parser, added properties (macOS) |
 | 5.8.9          | 2021-09-13     | `battery()` fix linux |
 | 5.8.8          | 2021-09-11     | `wifiConnections()`, `wifiInterfaces()`, `wifiNetworks()` fix windows |
 | 5.8.7          | 2021-09-01     | `processes()` fix alpine linux |

@@ -95,14 +95,13 @@ si.cpu()
   .catch(error => console.error(error));
 ```
 
-**Callback, Promises, Async / Await**
-
 ## News and Changes
 
 ### Latest Activity
 
 (last 7 major and minor version releases)
 
+- Version 5.9.0: `graphics()` added properties (macOS)
 - Version 5.8.0: `disksIO()` added waitTime, waitPercent (linux)
 - Version 5.7.0: `diskLayout()` added S.M.A.R.T for Windows (if installed)
 - Version 5.6.0: `cpuTemperature()` added added socket and chipset temp (linux)
