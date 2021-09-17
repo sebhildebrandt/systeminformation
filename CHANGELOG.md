@@ -47,10 +47,13 @@ We had to make **several interface changes** to keep systeminformation as consis
 - `cpu()`: added virtualization if cpu supports virtualization
 - `cpu()`: now flags are part of this function
 - `cpuTemperature()` added added socket and chipset temp (linux)
+- `disksIO()` added wait time (linux)
 - `diskLayout()`: added USB drives (mac OS)
+- `diskLayout()`: added S.M.R.R.T. (win)
 - `fsSize()`: added available
 - `fsSize()`: improved calculation of used
 - `getData()`: support for passing parameters and filters (see section General / getData)
+- `graphics()`: extended properties (mac OS)
 - `graphics()`: extended nvidia-smi parsing
 - `networkInterfaces()`: type detection improved (win - wireless)
 - `memLayout()`: extended manufacturer list (decoding)
@@ -77,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.9.3          | 2021-09-17     | `cpuTemperature()` improved tdie detection (linus) |
 | 5.9.2          | 2021-09-16     | `graohics()` (macOS),  `memLayout()` (win) improvements |
 | 5.9.1          | 2021-09-15     | `diskLayout()` fix size (macOS) |
 | 5.9.0          | 2021-09-15     | `graphics()` new XML parser, added properties (macOS) |
