@@ -37,169 +37,170 @@
     </div>
   </nav>
 
-  <section class="container">
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-      </div>
-      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-        <div class="row">
-          <div class="col-12 sectionheader">
-            <div class="title">Memory</div>
-            <div class="text">
-              <p>In this section you will learn how to get overall memory information (usage by OS) and memory module layout:</p>
-              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
-              <pre><code class="js">const si = require('systeminformation');</code></pre>
-              <h2>System Memory and Memory Layout</h2>
-              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
-              <table class="table table-sm table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Function</th>
-                    <th>Result object</th>
-                    <th>Linux</th>
-                    <th>BSD</th>
-                    <th>Mac</th>
-                    <th>Win</th>
-                    <th>Sun</th>
-                    <th>Comments</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>si.mem(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>Memory information (object)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>total</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>total memory in bytes</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>free</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>not used in bytes</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>used</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>used (incl. buffers/cache)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>active</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>used actively (excl. buffers/cache)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>buffcache</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>used by buffers+cache</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>buffers</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>used by buffers</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cached</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>used by cache</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>slab</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>used by slab</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>available</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>potentially available (total - active)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>swaptotal</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>swapused</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>swapfree</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+  <div class="container-fluid">
+    <section class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+          <div class="row">
+            <div class="col-12 sectionheader">
+              <div class="title">Memory</div>
+              <div class="text">
+                <p>In this section you will learn how to get overall memory information (usage by OS) and memory module layout:</p>
+                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                <pre><code class="js">const si = require('systeminformation');</code></pre>
+                <h2>System Memory and Memory Layout</h2>
+                <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+                <table class="table table-sm table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Function</th>
+                      <th>Result object</th>
+                      <th>Linux</th>
+                      <th>BSD</th>
+                      <th>Mac</th>
+                      <th>Win</th>
+                      <th>Sun</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>si.mem(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>Memory information (object)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>total</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>total memory in bytes</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>free</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>not used in bytes</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>used</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>used (incl. buffers/cache)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>active</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>used actively (excl. buffers/cache)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>buffcache</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>used by buffers+cache</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>buffers</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>used by buffers</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cached</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>used by cache</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>slab</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>used by slab</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>available</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>potentially available (total - active)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>swaptotal</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>swapused</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>swapfree</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.mem().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
 {
@@ -217,132 +218,132 @@ si.mem().then(data => console.log(data));</code></pre class="example">
   swapfree: 8589930496
 }
 </pre>
-                  </tr>
-                  <tr>
-                    <td>si.memLayout(cb)</td>
-                    <td>[{...}]</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>Memory Layout (array of objects)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].size</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>size in bytes</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].bank</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>memory bank</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].type</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>memory type</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].clockSpeed</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>clock speed</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].formFactor</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>form factor</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].manufacturer</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>manufacturer</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].partNum</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>part number</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].serialNum</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>serial number</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].voltageConfigured</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>voltage conf.</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].voltageMin</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>voltage min</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].voltageMax</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>voltage max</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+                    </tr>
+                    <tr>
+                      <td>si.memLayout(cb)</td>
+                      <td>[{...}]</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>Memory Layout (array of objects)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].size</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>size in bytes</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].bank</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>memory bank</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].type</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>memory type</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].clockSpeed</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>clock speed</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].formFactor</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>form factor</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].manufacturer</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>manufacturer</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].partNum</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>part number</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].serialNum</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>serial number</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].voltageConfigured</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>voltage conf.</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].voltageMin</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>voltage min</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].voltageMax</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>voltage max</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.memLayout().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
 [
@@ -374,17 +375,18 @@ si.memLayout().then(data => console.log(data));</code></pre class="example">
   }
 ]
 </pre>
-                  </tr>
-                </tbody>
-              </table>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
+  </div>
   </section>
-  <footer class="container-fluid">
+  </div>
+  <footer class="container-fluid footer">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-12">

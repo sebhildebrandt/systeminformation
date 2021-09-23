@@ -37,199 +37,200 @@
     </div>
   </nav>
 
-  <section class="container">
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-      </div>
-      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-        <div class="row">
-          <div class="col-12 sectionheader">
-            <div class="title">Battery</div>
-            <div class="text">
-              <p>In this section you will learn how to get battery information - if supported by system:</p>
-              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
-              <pre><code class="js">const si = require('systeminformation');</code></pre>
-              <h2>Battery Data</h2>
-              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
-              <table class="table table-sm table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Function</th>
-                    <th>Result object</th>
-                    <th>Linux</th>
-                    <th>BSD</th>
-                    <th>Mac</th>
-                    <th>Win</th>
-                    <th>Sun</th>
-                    <th>Comments</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>si.battery(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>battery information</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>hasbattery</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>indicates presence of battery</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cyclecount</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>numbers of recharges</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>ischarging</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>indicates if battery is charging</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>designedcapacity</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>designed capacity of battery (mWh)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>maxcapacity</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>max capacity of battery (mWh)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>currentcapacity</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>current capacity of battery (mWh)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>capacityUnit</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>capacity unit (mWh if possible)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>voltage</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>current voltage of battery (V)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>percent</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>charging level in percent</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>timeremaining</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>minutes left (if discharging)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>acconnected</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>AC connected</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>type</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>battery type</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>model</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>model</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>manufacturer</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>manufacturer</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>serial</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>battery serial</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+  <div class="container-fluid">
+    <section class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+          <div class="row">
+            <div class="col-12 sectionheader">
+              <div class="title">Battery</div>
+              <div class="text">
+                <p>In this section you will learn how to get battery information - if supported by system:</p>
+                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                <pre><code class="js">const si = require('systeminformation');</code></pre>
+                <h2>Battery Data</h2>
+                <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+                <table class="table table-sm table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Function</th>
+                      <th>Result object</th>
+                      <th>Linux</th>
+                      <th>BSD</th>
+                      <th>Mac</th>
+                      <th>Win</th>
+                      <th>Sun</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>si.battery(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>battery information</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>hasbattery</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>indicates presence of battery</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cyclecount</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>numbers of recharges</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>ischarging</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>indicates if battery is charging</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>designedcapacity</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>designed capacity of battery (mWh)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>maxcapacity</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>max capacity of battery (mWh)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>currentcapacity</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>current capacity of battery (mWh)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>capacityUnit</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>capacity unit (mWh if possible)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>voltage</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>current voltage of battery (V)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>percent</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>charging level in percent</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>timeremaining</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>minutes left (if discharging)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>acconnected</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>AC connected</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>type</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>battery type</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>model</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>model</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>manufacturer</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>manufacturer</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>serial</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>battery serial</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.battery().then(data => console.log(data));</code></pre class="example">
                       <pre class="example">
 {
@@ -249,24 +250,25 @@ si.battery().then(data => console.log(data));</code></pre class="example">
   manufacturer: 'Apple',
   serial: 'F9Y19860Y9AH9XBAX'
 }</pre>
-                  </tr>
-                </tbody>
-              </table>
-              <h2>Known issues</h2>
-              <h4>Windows Battery</h4>
+                    </tr>
+                  </tbody>
+                </table>
+                <h2>Known issues</h2>
+                <h4>Windows Battery</h4>
 
-              <p><span class="code">wmic</span> - which is used to determine temperature and battery sometimes needs to be run with admin
-                privileges. So if you do not get any values, try to run it again with according privileges. If you still do not get any
-                values, your system might not support this feature.</p>
+                <p><span class="code">wmic</span> - which is used to determine temperature and battery sometimes needs to be run with admin
+                  privileges. So if you do not get any values, try to run it again with according privileges. If you still do not get any
+                  values, your system might not support this feature.</p>
 
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
+  </div>
   </section>
-  <footer class="container-fluid">
+  </div>
+  <footer class="container-fluid footer">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-12">

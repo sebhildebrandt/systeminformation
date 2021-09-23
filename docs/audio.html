@@ -38,159 +38,160 @@
     </div>
   </nav>
 
-  <section class="container">
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-      </div>
-      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-        <div class="row">
-          <div class="col-12 sectionheader">
-            <div class="title">Audio</div>
-            <div class="text">
-              <p>In this section you will learn how to get information about detected audio devices or interfaces. Results might differ on different platforms as not everything is available/detectable on each platform:</p>
-              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
-              <pre><code class="js">const si = require('systeminformation');</code></pre>
-              <h2>Detected Audio Devices</h2>
-              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
-              <table class="table table-sm table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Function</th>
-                    <th>Result object</th>
-                    <th>Linux</th>
-                    <th>BSD</th>
-                    <th>Mac</th>
-                    <th>Win</th>
-                    <th>Sun</th>
-                    <th>Comments</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>si.audio(cb)</td>
-                    <td>[{...}]</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>audio informatiom</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].id</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>internal ID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].name</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>audio name</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].manufacturer</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>manufacturer</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].revision</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>revision</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].driver</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>driver</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].default</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>is default</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].channel</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>channel e.g. Build-In, HDMI, USB, ...</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].type</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>type e.g. Speaker</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].in</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>is input channel</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].out</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>is output channel</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].status</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>status</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+  <div class="container-fluid">
+    <section class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+          <div class="row">
+            <div class="col-12 sectionheader">
+              <div class="title">Audio</div>
+              <div class="text">
+                <p>In this section you will learn how to get information about detected audio devices or interfaces. Results might differ on different platforms as not everything is available/detectable on each platform:</p>
+                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                <pre><code class="js">const si = require('systeminformation');</code></pre>
+                <h2>Detected Audio Devices</h2>
+                <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+                <table class="table table-sm table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Function</th>
+                      <th>Result object</th>
+                      <th>Linux</th>
+                      <th>BSD</th>
+                      <th>Mac</th>
+                      <th>Win</th>
+                      <th>Sun</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>si.audio(cb)</td>
+                      <td>[{...}]</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>audio informatiom</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].id</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>internal ID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].name</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>audio name</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].manufacturer</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>manufacturer</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].revision</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>revision</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].driver</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>driver</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].default</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>is default</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].channel</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>channel e.g. Build-In, HDMI, USB, ...</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].type</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>type e.g. Speaker</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].in</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>is input channel</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].out</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>is output channel</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].status</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>status</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.audio().then(data => console.log(data));</code></pre class="example">
                       <pre class="example">
 [
@@ -221,17 +222,18 @@ si.audio().then(data => console.log(data));</code></pre class="example">
     status: 'online'
   }
 ]</pre>
-                  </tr>
-                </tbody>
-              </table>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
+  </div>
   </section>
-  <footer class="container-fluid">
+  </div>
+  <footer class="container-fluid footer">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-12">

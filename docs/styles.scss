@@ -1,5 +1,6 @@
 body {
     font-family: 'Roboto', 'HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Helvetica,Arial,sans-serif;
+    background-color: rgb(14, 24, 46);
     font-weight: 300;
     min-height: 100%;
 }
@@ -29,6 +30,10 @@ h1, h2, h3, h4 {
   color:  rgb(61, 92, 179);
 }
 
+.container-fluid {
+  background-color: rgb(255,255,255);
+  padding-bottom: 30px;
+}
 .bg-image-full {
     // background: no-repeat center center scroll;
     background-color: #1A1F30; /* For browsers that do not support gradients */
@@ -535,9 +540,8 @@ pre {
       }
     }
 }
-footer {
+.footer {
     background-color: #eee;
-    margin-top: 30px;
     padding-top: 30px;
     padding-bottom: 30px;
     position: relative;

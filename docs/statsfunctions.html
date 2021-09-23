@@ -38,65 +38,66 @@
     </div>
   </nav>
 
-  <section class="container">
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-      </div>
-      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-        <div class="row">
-          <div class="col-12 sectionheader">
-            <div class="title">Stats Functions</div>
-            <div class="text">
-              <h2>Getting correct stats values</h2>
+  <div class="container-fluid">
+    <section class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+          <div class="row">
+            <div class="col-12 sectionheader">
+              <div class="title">Stats Functions</div>
+              <div class="text">
+                <h2>Getting correct stats values</h2>
 
-              <p>In <span class="code">fsStats()</span>, <span class="code">disksIO()</span>, <span class="code">currentLoad()</span> and <span class="code">networkStats()</span> the
-                results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning with the <strong>second</strong> call of the function.
-                It is determined by calculating the difference of transferred bytes / IOs divided by the time between two calls of the function.</p>
+                <p>In <span class="code">fsStats()</span>, <span class="code">disksIO()</span>, <span class="code">currentLoad()</span> and <span class="code">networkStats()</span> the
+                  results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning with the <strong>second</strong> call of the function.
+                  It is determined by calculating the difference of transferred bytes / IOs divided by the time between two calls of the function.</p>
 
-              <p>The first time you are calling one of this functions, you will get <span class="code">-1</span> for transfer rates.
-                The second time, you should then get statistics based on the time between the two calls ...</p>
+                <p>The first time you are calling one of this functions, you will get <span class="code">-1</span> for transfer rates.
+                  The second time, you should then get statistics based on the time between the two calls ...</p>
 
-              <p>So basically, if you e.g. need a values for network stats every second, your code should look like this:</p>
+                <p>So basically, if you e.g. need a values for network stats every second, your code should look like this:</p>
 
-              <pre><code class="js">const si = require('systeminformation');
+                <pre><code class="js">const si = require('systeminformation');
 
 setInterval(function() {
     si.networkStats().then(data => {
         console.log(data);
     })
 }, 1000)</code></pre>
-              <p>Beginning with the second call, you get network transfer values per second.</p>
-              <h2>Observe System Parameters</h2>
-              <p>systeminformation now allows you to easily observe system parameters: First you define a result object of system parameters you want to observe (see also decription of the <a href="general.html"><span class="code">si.get()</span> function here</a>):</p>
-              <p>Then you just call an <span class="code">si.observe()</span> function with three parameters: your result object, the polling interval (in milliseconds) and a callback function. systeminformation will now observe the result object. Every time the result changes, your callback function is called. This callback function also gets the current value the observed system parameters object.</p>
-              <table class="table table-sm table-bordered table-striped">
-                <thead>
+                <p>Beginning with the second call, you get network transfer values per second.</p>
+                <h2>Observe System Parameters</h2>
+                <p>systeminformation now allows you to easily observe system parameters: First you define a result object of system parameters you want to observe (see also decription of the <a href="general.html"><span class="code">si.get()</span> function here</a>):</p>
+                <p>Then you just call an <span class="code">si.observe()</span> function with three parameters: your result object, the polling interval (in milliseconds) and a callback function. systeminformation will now observe the result object. Every time the result changes, your callback function is called. This callback function also gets the current value the observed system parameters object.</p>
+                <table class="table table-sm table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Function</th>
+                      <th>Result object</th>
+                      <th>Linux</th>
+                      <th>BSD</th>
+                      <th>Mac</th>
+                      <th>Win</th>
+                      <th>Sun</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
                   <tr>
-                    <th>Function</th>
-                    <th>Result object</th>
-                    <th>Linux</th>
-                    <th>BSD</th>
-                    <th>Mac</th>
-                    <th>Win</th>
-                    <th>Sun</th>
-                    <th>Comments</th>
+                    <td>si.observe(valueObject,interval,cb)</td>
+                    <td>-</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>Observe the defined value object,<br>call callback on changes:</td>
                   </tr>
-                </thead>
-                <tr>
-                  <td>si.observe(valueObject,interval,cb)</td>
-                  <td>-</td>
-                  <td>X</td>
-                  <td>X</td>
-                  <td>X</td>
-                  <td>X</td>
-                  <td>X</td>
-                  <td>Observe the defined value object,<br>call callback on changes:</td>
-                </tr>
-                <tr class="example">
-                  <td></td>
-                  <td colspan="7">
-                    <h5>Example</h5>
-                    <pre><code class="js">const si = require('systeminformation');
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
 
 // define all values, you want to get back
 valueObject = {
@@ -126,7 +127,8 @@ setTimeout(() => {
     </div>
     </div>
   </section>
-  <footer class="container-fluid">
+  </div>
+  <footer class="container-fluid footer">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-12">

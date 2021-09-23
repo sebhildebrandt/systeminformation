@@ -38,1285 +38,1287 @@
     </div>
   </nav>
 
-  <section class="container">
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-      </div>
-      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-        <div class="row">
-          <div class="col-12 sectionheader">
-            <div class="title">Docker</div>
-            <div class="text">
-              <p>In this section you will learn how to get information about docker, images, containers, container stats and processes inside a docker container:</p>
-              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
-              <pre><code class="js">const si = require('systeminformation');</code></pre>
-              <h2>Container, Stats, Processes</h2>
-              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
-              <table class="table table-sm table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Function</th>
-                    <th>Result object</th>
-                    <th>Linux</th>
-                    <th>BSD</th>
-                    <th>Mac</th>
-                    <th>Win</th>
-                    <th>Sun</th>
-                    <th>Comments</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>si.dockerInfo(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>returns general docker info</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>id</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>Docker ID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>containers</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>number of containers</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>containersRunning</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>number of running containers</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>containersPaused</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>number of paused containers</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>containersStopped</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>number of stopped containers</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>images</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>number of images</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>driver</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>driver (e.g. 'devicemapper', 'overlay2')</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>memoryLimit</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>has memory limit</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>SwapLimit</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>has swap limit</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>kernelMemory</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>has kernal memory</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cpuCfsPeriod</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>has CpuCfsPeriod</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cpuCfsQuota</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>has CpuCfsQuota</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cpuShares</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>has CPUShares</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cpuSet</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>has CPUShares</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>ipv4Forwarding</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>has IPv4Forwarding</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>bridgeNfIptables</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>has BridgeNfIptables</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>bridgeNfIp6tables</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>has BridgeNfIp6tables</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>debug</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>Debug on</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>nfd</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>named data networking forwarding daemon</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>oomKillDisable</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>out-of-memory kill disabled</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>ngoroutines</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>number NGoroutines</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>systemTime</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>docker SystemTime</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>loggingDriver</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>logging driver e.g. 'json-file'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cgroupDriver</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>cgroup driver e.g. 'cgroupfs'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>nEventsListener</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>number NEventsListeners</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>kernelVersion</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>docker kernel version</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>operatingSystem</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>docker OS e.g. 'Docker for Mac'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>osType</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>OSType e.g. 'linux'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>architecture</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>architecture e.g. x86_64</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>ncpu</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>number of CPUs</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>memTotal</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>memory total</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>dockerRootDir</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>docker root directory</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>httpProxy</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>http proxy</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>httpsProxy</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>https proxy</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>noProxy</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>NoProxy</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>name</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>Name</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>labels</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>array of labels</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>experimentalBuild</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>is experimental build</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>serverVersion</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>server version</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>clusterStore</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>cluster store</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>clusterAdvertise</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>cluster advertise</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>defaultRuntime</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>default runtime e.g. 'runc'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>liveRestoreEnabled</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>live store enabled</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>isolation</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>isolation</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>initBinary</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>init binary</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>productLicense</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>product license</td>
-                  </tr>
-                  <tr>
-                    <td>si.dockerImages(all, cb)</td>
-                    <td>[{...}]</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>returns array of top level/all docker images</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].id</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>image ID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].container</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>container ID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].comment</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>comment</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].os</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>OS</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].architecture</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>architecture</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].parent</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>parent ID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].dockerVersion</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>docker version</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].size</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>image size</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].sharedSize</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>shared size</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].virtualSize</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>virtual size</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].author</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>author</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].created</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>created date / time</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].containerConfig</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>container config object</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].graphDriver</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>graph driver object</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].repoDigests</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>repo digests array</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].repoTags</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>repo tags array</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].config</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>config object</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].rootFS</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>root fs object</td>
-                  </tr>
-                  <tr>
-                    <td>si.dockerContainers(all, cb)</td>
-                    <td>[{...}]</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>returns array of active/all docker containers</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].id</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>ID of container</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].name</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>name of container</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].image</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>name of image</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].imageID</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>ID of image</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].command</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>command</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].created</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>creation time (unix time)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].started</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>started time (unix time)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].finished</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>finished time (unix time)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].createdAt</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>creation date time string</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].startedAt</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>creation date time string</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].finishedAt</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>creation date time string</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].state</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>created, running, exited</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].restartCount</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>restart count</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].platform</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>e.g. linux</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].driver</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>e.g. overlay2 or devicemapper</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].ports</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>array of ports</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].mounts</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>array of mounts</td>
-                  </tr>
-                  <tr>
-                    <td>si.dockerContainerStats(ids, cb)</td>
-                    <td>[{...}]</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>statistics for specific containers<br>container IDs: space or comma separated,<br>pass '*' for all containers</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].id</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>Container ID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].memUsage</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>memory usage in bytes</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].memLimit</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>memory limit (max mem) in bytes</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].memPercent</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>memory usage in percent</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].cpuPercent</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>cpu usage in percent</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].pids</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>number of processes</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].netIO.rx</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>received bytes via network</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].netIO.wx</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>sent bytes via network</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].blockIO.r</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>bytes read from BlockIO</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].blockIO.w</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>bytes written to BlockIO</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].restartCount</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>restart count</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].cpuStats</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>detailed cpu stats</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].precpuStats</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>cpu statistic of previous read</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].memoryStats</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>detailed memory stats</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].networks</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>detailed network stats per interface</td>
-                  </tr>
-                  <tr>
-                    <td>si.dockerContainerProcesses(id, cb)</td>
-                    <td>[{...}]</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>array of processes inside a container</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].pidHost</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>process ID (host)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].ppid</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>parent process ID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].pgid</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>process group ID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].user</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>effective user name</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].ruser</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>real user name</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].group</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>effective group name</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].rgroup</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>real group name</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].stat</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>process state</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].time</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>accumulated CPU time</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].elapsed</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>elapsed running time</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].nice</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>nice value</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].rss</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>resident set size</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].vsz</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>virtual size in Kbytes</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].command</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>command and arguments</td>
-                  </tr>
-                  <tr>
-                    <td>si.dockerVolumes(cb)</td>
-                    <td>[{...}]</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>returns array of docker volumes</td>
-                  </tr>
+  <div class="container-fluid">
+    <section class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+          <div class="row">
+            <div class="col-12 sectionheader">
+              <div class="title">Docker</div>
+              <div class="text">
+                <p>In this section you will learn how to get information about docker, images, containers, container stats and processes inside a docker container:</p>
+                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                <pre><code class="js">const si = require('systeminformation');</code></pre>
+                <h2>Container, Stats, Processes</h2>
+                <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+                <table class="table table-sm table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Function</th>
+                      <th>Result object</th>
+                      <th>Linux</th>
+                      <th>BSD</th>
+                      <th>Mac</th>
+                      <th>Win</th>
+                      <th>Sun</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>si.dockerInfo(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>returns general docker info</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>id</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>Docker ID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>containers</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>number of containers</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>containersRunning</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>number of running containers</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>containersPaused</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>number of paused containers</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>containersStopped</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>number of stopped containers</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>images</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>number of images</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>driver</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>driver (e.g. 'devicemapper', 'overlay2')</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>memoryLimit</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>has memory limit</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>SwapLimit</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>has swap limit</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>kernelMemory</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>has kernal memory</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cpuCfsPeriod</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>has CpuCfsPeriod</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cpuCfsQuota</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>has CpuCfsQuota</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cpuShares</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>has CPUShares</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cpuSet</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>has CPUShares</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>ipv4Forwarding</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>has IPv4Forwarding</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>bridgeNfIptables</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>has BridgeNfIptables</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>bridgeNfIp6tables</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>has BridgeNfIp6tables</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>debug</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>Debug on</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>nfd</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>named data networking forwarding daemon</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>oomKillDisable</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>out-of-memory kill disabled</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>ngoroutines</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>number NGoroutines</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>systemTime</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>docker SystemTime</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>loggingDriver</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>logging driver e.g. 'json-file'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cgroupDriver</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>cgroup driver e.g. 'cgroupfs'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>nEventsListener</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>number NEventsListeners</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>kernelVersion</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>docker kernel version</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>operatingSystem</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>docker OS e.g. 'Docker for Mac'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>osType</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>OSType e.g. 'linux'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>architecture</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>architecture e.g. x86_64</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>ncpu</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>number of CPUs</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>memTotal</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>memory total</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>dockerRootDir</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>docker root directory</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>httpProxy</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>http proxy</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>httpsProxy</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>https proxy</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>noProxy</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>NoProxy</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>name</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>Name</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>labels</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>array of labels</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>experimentalBuild</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>is experimental build</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>serverVersion</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>server version</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>clusterStore</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>cluster store</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>clusterAdvertise</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>cluster advertise</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>defaultRuntime</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>default runtime e.g. 'runc'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>liveRestoreEnabled</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>live store enabled</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>isolation</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>isolation</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>initBinary</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>init binary</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>productLicense</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>product license</td>
+                    </tr>
+                    <tr>
+                      <td>si.dockerImages(all, cb)</td>
+                      <td>[{...}]</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>returns array of top level/all docker images</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].id</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>image ID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].container</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>container ID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].comment</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>comment</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].os</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>OS</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].architecture</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>architecture</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].parent</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>parent ID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].dockerVersion</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>docker version</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].size</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>image size</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].sharedSize</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>shared size</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].virtualSize</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>virtual size</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].author</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>author</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].created</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>created date / time</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].containerConfig</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>container config object</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].graphDriver</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>graph driver object</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].repoDigests</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>repo digests array</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].repoTags</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>repo tags array</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].config</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>config object</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].rootFS</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>root fs object</td>
+                    </tr>
+                    <tr>
+                      <td>si.dockerContainers(all, cb)</td>
+                      <td>[{...}]</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>returns array of active/all docker containers</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].id</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>ID of container</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].name</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>name of container</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].image</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>name of image</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].imageID</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>ID of image</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].command</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>command</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].created</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>creation time (unix time)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].started</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>started time (unix time)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].finished</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>finished time (unix time)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].createdAt</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>creation date time string</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].startedAt</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>creation date time string</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].finishedAt</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>creation date time string</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].state</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>created, running, exited</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].restartCount</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>restart count</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].platform</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>e.g. linux</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].driver</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>e.g. overlay2 or devicemapper</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].ports</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>array of ports</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].mounts</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>array of mounts</td>
+                    </tr>
+                    <tr>
+                      <td>si.dockerContainerStats(ids, cb)</td>
+                      <td>[{...}]</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>statistics for specific containers<br>container IDs: space or comma separated,<br>pass '*' for all containers</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].id</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>Container ID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].memUsage</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>memory usage in bytes</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].memLimit</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>memory limit (max mem) in bytes</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].memPercent</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>memory usage in percent</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].cpuPercent</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>cpu usage in percent</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].pids</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>number of processes</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].netIO.rx</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>received bytes via network</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].netIO.wx</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>sent bytes via network</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].blockIO.r</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>bytes read from BlockIO</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].blockIO.w</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>bytes written to BlockIO</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].restartCount</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>restart count</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].cpuStats</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>detailed cpu stats</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].precpuStats</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>cpu statistic of previous read</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].memoryStats</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>detailed memory stats</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].networks</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>detailed network stats per interface</td>
+                    </tr>
+                    <tr>
+                      <td>si.dockerContainerProcesses(id, cb)</td>
+                      <td>[{...}]</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>array of processes inside a container</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].pidHost</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>process ID (host)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].ppid</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>parent process ID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].pgid</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>process group ID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].user</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>effective user name</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].ruser</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>real user name</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].group</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>effective group name</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].rgroup</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>real group name</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].stat</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>process state</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].time</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>accumulated CPU time</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].elapsed</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>elapsed running time</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].nice</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>nice value</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].rss</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>resident set size</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].vsz</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>virtual size in Kbytes</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].command</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>command and arguments</td>
+                    </tr>
+                    <tr>
+                      <td>si.dockerVolumes(cb)</td>
+                      <td>[{...}]</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>returns array of docker volumes</td>
+                    </tr>
 
-                  <tr>
-                    <td></td>
-                    <td>[0].name</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>volume name</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].driver</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>driver</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].labels</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>labels object</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].mountpoint</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>mountpoint</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].options</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>options</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].scope</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>scope</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].created</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>created at</td>
-                  </tr>
-                  <tr>
-                    <td>si.dockerAll(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>list of all containers including their stats<br />and processes in one single array</td>
-                  </tr>
-                </tbody>
-              </table>
+                    <tr>
+                      <td></td>
+                      <td>[0].name</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>volume name</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].driver</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>driver</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].labels</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>labels object</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].mountpoint</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>mountpoint</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].options</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>options</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].scope</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>scope</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].created</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>created at</td>
+                    </tr>
+                    <tr>
+                      <td>si.dockerAll(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>list of all containers including their stats<br />and processes in one single array</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
+  </div>
   </section>
-  <footer class="container-fluid">
+  </div>
+  <footer class="container-fluid footer">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-12">

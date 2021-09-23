@@ -37,439 +37,440 @@
     </div>
   </nav>
 
-  <section class="container">
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-      </div>
-      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-        <div class="row">
-          <div class="col-12 sectionheader">
-            <div class="title">Graphics</div>
-            <div class="text">
-              <p>In this section you will learn how to get information about installed graphics conrollers and connected displays:</p>
-              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
-              <pre><code class="js">const si = require('systeminformation');</code></pre>
-              <h2>Graphics Controllers, Displays</h2>
-              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
-              <table class="table table-sm table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Function</th>
-                    <th>Result object</th>
-                    <th>Linux</th>
-                    <th>BSD</th>
-                    <th>Mac</th>
-                    <th>Win</th>
-                    <th>Sun</th>
-                    <th>Comments</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>si.graphics(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>arrays of graphics controllers and displays</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>controllers[]</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>graphics controllers array</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].model</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>graphics controller model</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].vendor</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>e.g. ATI</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].bus</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>on which bus (e.g. PCIe)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].vram</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>VRAM size (in MB)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].vramDynamic</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>true if dynamicly allocated ram</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].subDeviceId</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - sub device ID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].driverVersion</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - driver version</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].name</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - name</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].pciBus</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - PCI bus ID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].fanSpeed</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - fan speed</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].memory total</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - memory total</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].memoryUsed</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - memory used</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].memoryFree</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - memory free</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].utilizationGpu</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - utilization GPU</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].utilizationMemory</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - utilization memory</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].temperatureGpu</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - temperature GPU</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].temperatureMemory</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - temperature memory</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].powerDraw</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - power draw</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].powerLimit</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - power limit</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].clockCore</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - clock core</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].clockMemory</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>(pptional nvidia-smi) - clock memory</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>displays[]</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>monitor/display array</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].vendor</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>monitor/display vendor</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].deviceName</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>e.g. \\.\DISPLAY1</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].model</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>monitor/display model</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].main</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>true if main monitor</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].builtin</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>true if built in monitor</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].connection</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>e.g. DisplayPort, HDMI</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].sizex</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>size in mm horizontal</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].sizey</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>size in mm vertical</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].pixeldepth</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>color depth in bits</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].resolutionx</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>pixel horizontal</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].resolutiony</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>pixel vertical</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].currentResX</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>current pixel horizontal</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].currentResY</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>current pixel vertical</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].positionX</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>screen position X</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].positionY</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>screen position Y</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>...[0].currentRefreshRate</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>current screen refresh rate</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+  <div class="container-fluid">
+    <section class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+          <div class="row">
+            <div class="col-12 sectionheader">
+              <div class="title">Graphics</div>
+              <div class="text">
+                <p>In this section you will learn how to get information about installed graphics conrollers and connected displays:</p>
+                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                <pre><code class="js">const si = require('systeminformation');</code></pre>
+                <h2>Graphics Controllers, Displays</h2>
+                <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+                <table class="table table-sm table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Function</th>
+                      <th>Result object</th>
+                      <th>Linux</th>
+                      <th>BSD</th>
+                      <th>Mac</th>
+                      <th>Win</th>
+                      <th>Sun</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>si.graphics(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>arrays of graphics controllers and displays</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>controllers[]</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>graphics controllers array</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].model</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>graphics controller model</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].vendor</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>e.g. ATI</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].bus</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>on which bus (e.g. PCIe)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].vram</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>VRAM size (in MB)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].vramDynamic</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>true if dynamicly allocated ram</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].subDeviceId</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - sub device ID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].driverVersion</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - driver version</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].name</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - name</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].pciBus</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - PCI bus ID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].fanSpeed</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - fan speed</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].memory total</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - memory total</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].memoryUsed</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - memory used</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].memoryFree</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - memory free</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].utilizationGpu</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - utilization GPU</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].utilizationMemory</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - utilization memory</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].temperatureGpu</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - temperature GPU</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].temperatureMemory</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - temperature memory</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].powerDraw</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - power draw</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].powerLimit</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - power limit</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].clockCore</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - clock core</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].clockMemory</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>(pptional nvidia-smi) - clock memory</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>displays[]</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>monitor/display array</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].vendor</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>monitor/display vendor</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].deviceName</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>e.g. \\.\DISPLAY1</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].model</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>monitor/display model</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].main</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>true if main monitor</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].builtin</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>true if built in monitor</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].connection</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>e.g. DisplayPort, HDMI</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].sizex</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>size in mm horizontal</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].sizey</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>size in mm vertical</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].pixeldepth</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>color depth in bits</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].resolutionx</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>pixel horizontal</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].resolutiony</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>pixel vertical</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].currentResX</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>current pixel horizontal</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].currentResY</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>current pixel vertical</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].positionX</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>screen position X</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].positionY</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>screen position Y</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>...[0].currentRefreshRate</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>current screen refresh rate</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.graphics().then(data => console.log(data));</code></pre class="example">
                       <pre class="example">
 {
@@ -502,17 +503,18 @@ si.graphics().then(data => console.log(data));</code></pre class="example">
     }
   ]
 }</pre>
-                  </tr>
-                </tbody>
-              </table>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
+  </div>
   </section>
-  <footer class="container-fluid">
+  </div>
+  <footer class="container-fluid footer">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-12">

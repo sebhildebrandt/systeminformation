@@ -1,5 +1,6 @@
 body {
   font-family: "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #0e182e;
   font-weight: 300;
   min-height: 100%;
 }
@@ -34,6 +35,11 @@ h1, h2, h3, h4 {
 
 .blue {
   color: #3d5cb3;
+}
+
+.container-fluid {
+  background-color: white;
+  padding-bottom: 30px;
 }
 
 .bg-image-full {
@@ -640,24 +646,23 @@ pre {
   background-color: #f0f0f4;
 }
 
-footer {
+.footer {
   background-color: #eee;
-  margin-top: 30px;
   padding-top: 30px;
   padding-bottom: 30px;
   position: relative;
 }
-footer .home {
+.footer .home {
   color: #3d5cb3;
   font-size: 1.1rem;
 }
-footer a {
+.footer a {
   color: #000;
 }
-footer a:hover {
+.footer a:hover {
   text-decoration: none;
 }
-footer .badge {
+.footer .badge {
   color: #fff;
   font-size: 0.9rem;
 }/*# sourceMappingURL=styles.css.map */

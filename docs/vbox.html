@@ -38,414 +38,416 @@
     </div>
   </nav>
 
-  <section class="container">
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-      </div>
-      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-        <div class="row">
-          <div class="col-12 sectionheader">
-            <div class="title">Virtual Box</div>
-            <div class="text">
-              <p>In this section you will learn how to get information about virtual box VMs:</p>
-              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
-              <pre><code class="js">const si = require('systeminformation');</code></pre>
-              <h2>VMs</h2>
-              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
-              <table class="table table-sm table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Function</th>
-                    <th>Result object</th>
-                    <th>Linux</th>
-                    <th>BSD</th>
-                    <th>Mac</th>
-                    <th>Win</th>
-                    <th>Sun</th>
-                    <th>Comments</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>si.vboxInfo(cb)</td>
-                    <td>[{...}]</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>returns array of detailed info about all VMs</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].id</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>virtual box ID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].name</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>name</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].running</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>vbox is running</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].started</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>started date time</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].runningSince</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>running since (secs)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].stopped</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>stopped date time</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].stoppedSince</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>stopped since (secs)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].guestOS</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>Guest OS</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].hardwareUUID</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>Hardware UUID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].memory</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>Memory in MB</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].vram</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>VRAM in MB</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].cpus</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>CPUs</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].cpuExepCap</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>CPU exec cap</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].cpuProfile</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>CPU profile</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].chipset</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>chipset</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].firmware</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>firmware</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].pageFusion</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>page fusion</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].configFile</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>config file</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].snapshotFolder</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>snapshot folder</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].logFolder</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>log folder path</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].hpet</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>HPET</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].pae</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>PAE</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].longMode</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>long mode</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].tripleFaultReset</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>triple fault reset</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].apic</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>APIC</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].x2Apic</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X2APIC</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].acpi</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>ACPI</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].ioApic</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>IOAPIC</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].biosApicMode</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>BIOS APIC mode</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].bootMenuMode</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>boot menu Mode</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].bootDevice1</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>bootDevice1</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].bootDevice2</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>bootDevice2</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].bootDevice3</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>bootDevice3</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].bootDevice4</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>bootDevice4</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].timeOffset</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>time Offset</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].rtc</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>RTC</td>
-                  </tr>
-                </tbody>
-              </table>
+  <div class="container-fluid">
+    <section class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+          <div class="row">
+            <div class="col-12 sectionheader">
+              <div class="title">Virtual Box</div>
+              <div class="text">
+                <p>In this section you will learn how to get information about virtual box VMs:</p>
+                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                <pre><code class="js">const si = require('systeminformation');</code></pre>
+                <h2>VMs</h2>
+                <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+                <table class="table table-sm table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Function</th>
+                      <th>Result object</th>
+                      <th>Linux</th>
+                      <th>BSD</th>
+                      <th>Mac</th>
+                      <th>Win</th>
+                      <th>Sun</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>si.vboxInfo(cb)</td>
+                      <td>[{...}]</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>returns array of detailed info about all VMs</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].id</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>virtual box ID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].name</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>name</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].running</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>vbox is running</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].started</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>started date time</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].runningSince</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>running since (secs)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].stopped</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>stopped date time</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].stoppedSince</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>stopped since (secs)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].guestOS</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>Guest OS</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].hardwareUUID</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>Hardware UUID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].memory</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>Memory in MB</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].vram</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>VRAM in MB</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].cpus</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>CPUs</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].cpuExepCap</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>CPU exec cap</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].cpuProfile</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>CPU profile</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].chipset</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>chipset</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].firmware</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>firmware</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].pageFusion</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>page fusion</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].configFile</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>config file</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].snapshotFolder</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>snapshot folder</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].logFolder</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>log folder path</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].hpet</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>HPET</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].pae</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>PAE</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].longMode</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>long mode</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].tripleFaultReset</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>triple fault reset</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].apic</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>APIC</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].x2Apic</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X2APIC</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].acpi</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>ACPI</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].ioApic</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>IOAPIC</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].biosApicMode</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>BIOS APIC mode</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].bootMenuMode</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>boot menu Mode</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].bootDevice1</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>bootDevice1</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].bootDevice2</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>bootDevice2</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].bootDevice3</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>bootDevice3</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].bootDevice4</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>bootDevice4</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].timeOffset</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>time Offset</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].rtc</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>RTC</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
+  </div>
   </section>
-  <footer class="container-fluid">
+  </div>
+  <footer class="container-fluid footer">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-12">

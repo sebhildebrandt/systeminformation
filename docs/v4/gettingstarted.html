@@ -37,50 +37,51 @@
     </div>
   </nav>
 
-  <section class="container">
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-      </div>
-      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-        <div class="row">
-          <div class="col-12 sectionheader">
-            <div class="title">Quick Start</div>
-            <div class="text">
-              <p>Lightweight collection of 40+ functions to retrieve detailed hardware, system and OS information.</p>
-              <ul>
-                <li>simple to use</li>
-                <li>get detailed information about system, cpu, baseboard, battery, memory, disks/filesystem, network, docker, software, services and processes</li>
-                <li>supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD and SunOS support</li>
-                <li>no npm dependencies (for production)</li>
-              </ul>
+  <div class="container-fluid">
+    <section class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+          <div class="row">
+            <div class="col-12 sectionheader">
+              <div class="title">Quick Start</div>
+              <div class="text">
+                <p>Lightweight collection of 40+ functions to retrieve detailed hardware, system and OS information.</p>
+                <ul>
+                  <li>simple to use</li>
+                  <li>get detailed information about system, cpu, baseboard, battery, memory, disks/filesystem, network, docker, software, services and processes</li>
+                  <li>supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD and SunOS support</li>
+                  <li>no npm dependencies (for production)</li>
+                </ul>
 
-              <h2>Core Concept</h2>
-              <p><a href="https://nodejs.org/en/" rel="nofollow">Node.js</a> comes with some basic OS information, but I always wanted a little more. So I came up to write this
-                little library. This library is still work in progress. It requires node.js version 4.0 and above.</p>
+                <h2>Core Concept</h2>
+                <p><a href="https://nodejs.org/en/" rel="nofollow">Node.js</a> comes with some basic OS information, but I always wanted a little more. So I came up to write this
+                  little library. This library is still work in progress. It requires node.js version 4.0 and above.</p>
 
-              <p>I was able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra, Mojave) and some Windows 7, Windows 10, FreeBSD, OpenBSD, NetBSD and SunOS machines.
-                Not all functions are supported on all operating systems. Have a look at the function reference in the docs to get further details.</p>
-              <p>If you have comments, suggestions &amp; reports, please feel free to contact me on <a href="https://github.com/sebhildebrandt/systeminformation/issues">github</a>!</p>
-              <p>I also created a nice little command line tool called <a href="https://github.com/sebhildebrandt/mmon" rel="nofollow">mmon</a> (micro-monitor) for Linux and macOS, also available via <a href="https://github.com/sebhildebrandt/mmon" rel="nofollow">github</a> and <a href="https://npmjs.org/package/mmon" rel="nofollow">npm</a></p>
+                <p>I was able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra, Mojave) and some Windows 7, Windows 10, FreeBSD, OpenBSD, NetBSD and SunOS machines.
+                  Not all functions are supported on all operating systems. Have a look at the function reference in the docs to get further details.</p>
+                <p>If you have comments, suggestions &amp; reports, please feel free to contact me on <a href="https://github.com/sebhildebrandt/systeminformation/issues">github</a>!</p>
+                <p>I also created a nice little command line tool called <a href="https://github.com/sebhildebrandt/mmon" rel="nofollow">mmon</a> (micro-monitor) for Linux and macOS, also available via <a href="https://github.com/sebhildebrandt/mmon" rel="nofollow">github</a> and <a href="https://npmjs.org/package/mmon" rel="nofollow">npm</a></p>
 
-              <h3>Attention:</h3>
-              <p>This library is supposed to be used as a <a href="https://nodejs.org/en/" rel="nofollow">node.js</a> backend/server-side library and will definilely not work within a browser.</p>
+                <h3>Attention:</h3>
+                <p>This library is supposed to be used as a <a href="https://nodejs.org/en/" rel="nofollow">node.js</a> backend/server-side library and will definilely not work within a browser.</p>
 
-              <h2>Installation (old version 4)</h2>
-              <pre>$ npm install systeminformation@4 —-save</pre>
-              <h2>Usage</h2>
-              <p>All functions (except <span class="code">version</span> and <span class="code">time</span>) are implemented as asynchronous functions. Here a small example how to use them:</p>
-              <pre><code class="js">const si = require('systeminformation');
+                <h2>Installation (old version 4)</h2>
+                <pre>$ npm install systeminformation@4 —-save</pre>
+                <h2>Usage</h2>
+                <p>All functions (except <span class="code">version</span> and <span class="code">time</span>) are implemented as asynchronous functions. Here a small example how to use them:</p>
+                <pre><code class="js">const si = require('systeminformation');
 
 // promises style - new since version 3
 si.cpu()
     .then(data => console.log(data))
     .catch(error => console.error(error));
 </code></pre>
-              <h2>Callback, Promises, Async Await</h2>
-              <p>Remember: all functions (except <span class="code">version</span> and <span class="code">time</span>) are implemented as asynchronous functions! There are now three ways to consume them:</p>
-              <p><strong>Callback Style</strong></p>
-              <pre><code class="js">const si = require('systeminformation');
+                <h2>Callback, Promises, Async Await</h2>
+                <p>Remember: all functions (except <span class="code">version</span> and <span class="code">time</span>) are implemented as asynchronous functions! There are now three ways to consume them:</p>
+                <p><strong>Callback Style</strong></p>
+                <pre><code class="js">const si = require('systeminformation');
 
 si.cpu(function(data) {
     console.log('CPU Information:');
@@ -91,12 +92,12 @@ si.cpu(function(data) {
     console.log('- physical cores: ' + data.physicalCores);
     console.log('...');
 })</code></pre><br>
-              <p><strong>Promise Style</strong></p>
-              <p>Promises style is new since version 3.0.
-              <p></p>
+                <p><strong>Promise Style</strong></p>
+                <p>Promises style is new since version 3.0.
+                <p></p>
 
-              <p>When omitting callback parameter (cb), then you can use all function in a promise oriented way. All functions (exept of <span class="code">version</span> and <span class="code">time</span>) are returning a promise, that you can consume:</p>
-              <pre><code class="js">const si = require('systeminformation');
+                <p>When omitting callback parameter (cb), then you can use all function in a promise oriented way. All functions (exept of <span class="code">version</span> and <span class="code">time</span>) are returning a promise, that you can consume:</p>
+                <pre><code class="js">const si = require('systeminformation');
 
 si.cpu()
     .then(data => {
@@ -109,9 +110,9 @@ si.cpu()
         console.log('...');
     })
     .catch(error => console.error(error));</code></pre><br>
-              <p><strong>Async/Await Style</strong></p>
-              <p>Since node v7.6 you can also use the async / await pattern. The above example would then look like this:</p>
-              <pre><code class="js">const si = require('systeminformation');
+                <p><strong>Async/Await Style</strong></p>
+                <p>Since node v7.6 you can also use the async / await pattern. The above example would then look like this:</p>
+                <pre><code class="js">const si = require('systeminformation');
 
 async function cpuData() {
     try {
@@ -127,16 +128,17 @@ async function cpuData() {
         console.log(e)
     }
 }</code></pre><br>
-              <p><strong>Issues</strong></p>
-              <p>If you discover some empty or incorrect values, please be sure to first have a look at the <a href="issues.html">Known issues</a> section.</p>
+                <p><strong>Issues</strong></p>
+                <p>If you discover some empty or incorrect values, please be sure to first have a look at the <a href="issues.html">Known issues</a> section.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
+  </div>
   </section>
-  <footer class="container-fluid">
+  </div>
+  <footer class="container-fluid footer">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-12">

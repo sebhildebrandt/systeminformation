@@ -38,139 +38,140 @@
     </div>
   </nav>
 
-  <section class="container">
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-      </div>
-      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-        <div class="row">
-          <div class="col-12 sectionheader">
-            <div class="title">System (Hardware)</div>
-            <div class="text">
-              <p>In this section you will learn how to get basic system hardware data. We will cover the system, baseboard and bios:</p>
-              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
-              <pre><code class="js">const si = require('systeminformation');</code></pre>
-              <h2>System</h2>
-              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
-              <table class="table table-sm table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Function</th>
-                    <th>Result object</th>
-                    <th>Linux</th>
-                    <th>BSD</th>
-                    <th>Mac</th>
-                    <th>Win</th>
-                    <th>Sun</th>
-                    <th>Comments</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>si.system(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>hardware information</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>manufacturer</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>e.g. 'MSI' or 'DELL'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>model</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>model/product e.g. 'MS-7823'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>version</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>version e.g. '1.0'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>serial</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>serial number</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>uuid</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>UUID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>sku</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>SKU number</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>virtual</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>is virtual machine</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>virtualHost</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>virtual host (only if virtual = true)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>raspberry</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Additional Raspberry-specific information<br>manufacturer, processor, type, revision<br>Raspberry only</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+  <div class="container-fluid">
+    <section class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+          <div class="row">
+            <div class="col-12 sectionheader">
+              <div class="title">System (Hardware)</div>
+              <div class="text">
+                <p>In this section you will learn how to get basic system hardware data. We will cover the system, baseboard and bios:</p>
+                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                <pre><code class="js">const si = require('systeminformation');</code></pre>
+                <h2>System</h2>
+                <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+                <table class="table table-sm table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Function</th>
+                      <th>Result object</th>
+                      <th>Linux</th>
+                      <th>BSD</th>
+                      <th>Mac</th>
+                      <th>Win</th>
+                      <th>Sun</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>si.system(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>hardware information</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>manufacturer</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>e.g. 'MSI' or 'DELL'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>model</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>model/product e.g. 'MS-7823'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>version</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>version e.g. '1.0'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>serial</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>serial number</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>uuid</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>UUID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>sku</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>SKU number</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>virtual</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>is virtual machine</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>virtualHost</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>virtual host (only if virtual = true)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>raspberry</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Additional Raspberry-specific information<br>manufacturer, processor, type, revision<br>Raspberry only</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.system().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
 {
@@ -183,52 +184,52 @@ si.system().then(data => console.log(data));</code></pre class="example">
   virtual: false,
 }
 </pre>
-                  </tr>
-                  <tr>
-                    <td>si.uuid(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>object of several UUIDs</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>os</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>os specific UUID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>hardware</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>hardware specific UUID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>macs</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>MAC addresses</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+                    </tr>
+                    <tr>
+                      <td>si.uuid(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>object of several UUIDs</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>os</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>os specific UUID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>hardware</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>hardware specific UUID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>macs</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>MAC addresses</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.uuid().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
 {
@@ -241,82 +242,82 @@ si.uuid().then(data => console.log(data));</code></pre class="example">
   ]
 }
 </pre>
-                  </tr>
-                  <tr>
-                    <td>si.bios(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>bios information</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>vendor</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>e.g. 'AMI'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>version</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>version</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>releaseDate</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>release date</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>revision</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>revision</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>language</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>bios language</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>features</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>supported features</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+                    </tr>
+                    <tr>
+                      <td>si.bios(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>bios information</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>vendor</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>e.g. 'AMI'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>version</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>version</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>releaseDate</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>release date</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>revision</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>revision</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>language</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>bios language</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>features</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>supported features</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.bios().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
 {
@@ -338,92 +339,92 @@ si.bios().then(data => console.log(data));</code></pre class="example">
     'UEFI'
   ]
 }</pre>
-                  </tr>
-                  <tr>
-                    <td>si.baseboard(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>baseboard information</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>manufacturer</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>e.g. 'ASUS'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>model</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>model / product name</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>version</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>version</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>serial</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>serial number</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>assetTag</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>asset tag</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>memMax</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>memory max capacity bytes (where available)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>memSlots</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>number memory slots on baseboard</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+                    </tr>
+                    <tr>
+                      <td>si.baseboard(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>baseboard information</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>manufacturer</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>e.g. 'ASUS'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>model</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>model / product name</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>version</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>version</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>serial</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>serial number</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>assetTag</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>asset tag</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>memMax</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>memory max capacity bytes (where available)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>memSlots</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>number memory slots on baseboard</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.baseboard().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
 {
@@ -435,92 +436,92 @@ si.baseboard().then(data => console.log(data));</code></pre class="example">
   memMax: 68719476736
   memSlots: 2
 }</pre>
-                  </tr>
-                  <tr>
-                    <td>si.chassis(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>chassis information</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>manufacturer</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>e.g. 'ASUS'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>model</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>model / product name</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>type</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>chassis type e.g. 'desktop'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>version</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>version</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>serial</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>serial number</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>assetTag</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>asset tag</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>sku</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>SKU number</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+                    </tr>
+                    <tr>
+                      <td>si.chassis(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>chassis information</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>manufacturer</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>e.g. 'ASUS'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>model</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>model / product name</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>type</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>chassis type e.g. 'desktop'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>version</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>version</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>serial</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>serial number</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>assetTag</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>asset tag</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>sku</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>SKU number</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.chassis().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
 {
@@ -532,17 +533,18 @@ si.chassis().then(data => console.log(data));</code></pre class="example">
   assetTag: 'Mac-99878xxxx...',
   sku: ''
 }</pre>
-                  </tr>
-                </tbody>
-              </table>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
+  </div>
   </section>
-  <footer class="container-fluid">
+  </div>
+  <footer class="container-fluid footer">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-12">

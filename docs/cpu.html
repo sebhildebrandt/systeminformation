@@ -38,299 +38,300 @@
     </div>
   </nav>
 
-  <section class="container">
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-      </div>
-      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-        <div class="row">
-          <div class="col-12 sectionheader">
-            <div class="title">CPU</div>
-            <div class="text">
-              <p>In this section you will learn how to get CPU data including current speed and temperature:</p>
-              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
-              <pre><code class="js">const si = require('systeminformation');</code></pre>
-              <h2>CPU Data</h2>
-              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
-              <table class="table table-sm table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Function</th>
-                    <th>Result object</th>
-                    <th>Linux</th>
-                    <th>BSD</th>
-                    <th>Mac</th>
-                    <th>Win</th>
-                    <th>Sun</th>
-                    <th>Comments</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>si.cpu(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>CPU information object</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>manufacturer</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>e.g. 'Intel(R)'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>brand</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>e.g. 'Core(TM)2 Duo'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>speed</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>in GHz e.g. 3.4</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>speedMin</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>in GHz e.g. 0.8</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>speedMax</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>in GHz e.g. 3.9</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>governor</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>e.g. 'powersave'</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cores</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td># cores</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>physicalCores</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td># physical cores</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>efficiencyCores</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td># efficiency cores (ARM only)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>performanceCores</td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td># performance cores (ARM only)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>processors</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td># processors</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>socket</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td>socket type e.g. &quot;LGA1356&quot;</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>vendor</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>vendor ID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>family</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>processor family</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>model</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>processor model</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>stepping</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>processor stepping</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>revision</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>revision</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>voltage</td>
-                    <td></td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>voltage</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>flags</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>CPU flags</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>virtualization</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>supports virtualization</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cache</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>cache in bytes (object)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cache.l1d</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>L1D (data) size in bytes</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cache.l1i</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>L1I (instruction) size in bytes</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cache.l2</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>L2 size in bytes</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cache.l3</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>L3 size in bytes</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+  <div class="container-fluid">
+    <section class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+          <div class="row">
+            <div class="col-12 sectionheader">
+              <div class="title">CPU</div>
+              <div class="text">
+                <p>In this section you will learn how to get CPU data including current speed and temperature:</p>
+                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                <pre><code class="js">const si = require('systeminformation');</code></pre>
+                <h2>CPU Data</h2>
+                <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+                <table class="table table-sm table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Function</th>
+                      <th>Result object</th>
+                      <th>Linux</th>
+                      <th>BSD</th>
+                      <th>Mac</th>
+                      <th>Win</th>
+                      <th>Sun</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>si.cpu(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>CPU information object</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>manufacturer</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>e.g. 'Intel(R)'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>brand</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>e.g. 'Core(TM)2 Duo'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>speed</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>in GHz e.g. 3.4</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>speedMin</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>in GHz e.g. 0.8</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>speedMax</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>in GHz e.g. 3.9</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>governor</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>e.g. 'powersave'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cores</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td># cores</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>physicalCores</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td># physical cores</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>efficiencyCores</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td># efficiency cores (ARM only)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>performanceCores</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td># performance cores (ARM only)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>processors</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td># processors</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>socket</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>socket type e.g. &quot;LGA1356&quot;</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>vendor</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>vendor ID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>family</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>processor family</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>model</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>processor model</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>stepping</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>processor stepping</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>revision</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>revision</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>voltage</td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>voltage</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>flags</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>CPU flags</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>virtualization</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>supports virtualization</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cache</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>cache in bytes (object)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cache.l1d</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>L1D (data) size in bytes</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cache.l1i</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>L1I (instruction) size in bytes</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cache.l2</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>L2 size in bytes</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cache.l3</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>L3 size in bytes</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.cpu().then(data => console.log(data));</code></pre class="example">
                       <pre class="example">
 {
@@ -354,142 +355,142 @@ si.cpu().then(data => console.log(data));</code></pre class="example">
     virtualization: true,
     cache: { l1d: 262144, l1i: 262144, l2: 2097152, l3: 16777216 }
 }</pre>
-                  </tr>
-                  <tr>
-                    <td>si.cpuFlags(cb)</td>
-                    <td>: string</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>CPU flags</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+                    </tr>
+                    <tr>
+                      <td>si.cpuFlags(cb)</td>
+                      <td>: string</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>CPU flags</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.cpuFlags().then(data => console.log(data));</code></pre class="example">
     <pre class="example">
 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge
 </pre>
-                  </tr>
-                  <tr>
-                    <td>si.cpuCache(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>CPU cache sizes object</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>l1d</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>L1D size in bytes</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>l1i</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>L1I size in bytes</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>l2</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>L2 size in bytes</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>l3</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>L3 size in bytes</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+                    </tr>
+                    <tr>
+                      <td>si.cpuCache(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>CPU cache sizes object</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>l1d</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>L1D size in bytes</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>l1i</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>L1I size in bytes</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>l2</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>L2 size in bytes</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>l3</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>L3 size in bytes</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.cpuCache().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
 { l1d: 262144, l1i: 262144, l2: 2097152, l3: 16777216 }
 </pre>
-                  </tr>
-                  <tr>
-                    <td>si.cpuCurrentSpeed(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>current CPU speed (GHz) object</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>avg</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>avg CPU speed (all cores)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>min</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>min CPU speed (all cores)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>max</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>max CPU speed (all cores)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cores</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>CPU speed per core (array)</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+                    </tr>
+                    <tr>
+                      <td>si.cpuCurrentSpeed(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>current CPU speed (GHz) object</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>avg</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>avg CPU speed (all cores)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>min</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>min CPU speed (all cores)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>max</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>max CPU speed (all cores)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cores</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>CPU speed per core (array)</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.cpuCurrentSpeed().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
 {
@@ -504,72 +505,72 @@ si.cpuCurrentSpeed().then(data => console.log(data));</code></pre class="example
   ]
 }
 </pre>
-                  </tr>
-                  <tr>
-                    <td>si.cpuTemperature(cb)</td>
-                    <td>{...}</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X*</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>CPU temperature (if supported)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>main</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>main temperature (avg)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>cores</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>array of temperatures</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>max</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>max temperature</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>socket</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>array socket temperatures</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>chipset</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>chipset temperature</td>
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+                    </tr>
+                    <tr>
+                      <td>si.cpuTemperature(cb)</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X*</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>CPU temperature (if supported)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>main</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>main temperature (avg)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cores</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>array of temperatures</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>max</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>max temperature</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>socket</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>array socket temperatures</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>chipset</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>chipset temperature</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.cpuTemperature().then(data => console.log(data));</code></pre class="example">
 <pre class="example">
 {
@@ -583,34 +584,35 @@ si.cpuTemperature().then(data => console.log(data));</code></pre class="example"
   chipset: 49
 }
 </pre>
-                  </tr>
-                </tbody>
-              </table>
-              <h2>Known issues</h2>
-              <h4>macOS - Temperature</h4>
+                    </tr>
+                  </tbody>
+                </table>
+                <h2>Known issues</h2>
+                <h4>macOS - Temperature</h4>
 
-              <p>To be able to measure temperature on macOS I created a little additional package. Due to some difficulties in NPM with <span class="code">optionalDependencies</span>
-                I unfortunately was getting unexpected warnings on other platforms. So I decided to drop this optional dependency for macOS - so by default,
-                you will not get correct values.</p>
+                <p>To be able to measure temperature on macOS I created a little additional package. Due to some difficulties in NPM with <span class="code">optionalDependencies</span>
+                  I unfortunately was getting unexpected warnings on other platforms. So I decided to drop this optional dependency for macOS - so by default,
+                  you will not get correct values.</p>
 
-              <p>But if you need to detect macOS temperature just run the following additional installation command:</p>
+                <p>But if you need to detect macOS temperature just run the following additional installation command:</p>
 
-              <pre>$ npm install osx-temperature-sensor --save</pre>
-              <p>systeminformation will then detect this additional library and return the temperature when calling systeminformations standard function <span class="code">cpuTemperature()</span></p>
+                <pre>$ npm install osx-temperature-sensor --save</pre>
+                <p>systeminformation will then detect this additional library and return the temperature when calling systeminformations standard function <span class="code">cpuTemperature()</span></p>
 
-              <h4>Windows Temperature</h4>
+                <h4>Windows Temperature</h4>
 
-              <p><span class="code">wmic</span> - which is used to determine battery sometimes needs to be run with admin
-                privileges. So if you do not get any values, try to run it again with according privileges. If you still do not get any
-                values, your system might not support this feature. </p>
+                <p><span class="code">wmic</span> - which is used to determine battery sometimes needs to be run with admin
+                  privileges. So if you do not get any values, try to run it again with according privileges. If you still do not get any
+                  values, your system might not support this feature. </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
+  </div>
   </section>
-  <footer class="container-fluid">
+  </div>
+  <footer class="container-fluid footer">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-12">

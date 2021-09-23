@@ -38,28 +38,29 @@
     </div>
   </nav>
 
-  <section class="container">
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-      </div>
-      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-        <div class="row">
-          <div class="col-12 sectionheader">
-            <div class="title">Tests</div>
-            <div class="text">
-              <p>If you run into problems, you now can easily test if a specific function is supported on your platform and returns plausible results. In this section you will learn how you can easily test all functions on your platform:</p>
-              <h2>Testing on your platform</h2>
-              <p>First of all make sure, that you have <span class="code">git</span> installed on your machine. </p>
-              <p>Next you need to clone the git repository to a directory of your choice:</p>
-              <pre><code class="js">git clone https://github.com/sebhildebrandt/systeminformation.git</code></pre>
-              <p>Go inside the newly created <span class="code">systeminformation</span> directory</p>
-              <pre><code class="js">cd systeminformation</code></pre>
-              <p>If you already cloned the repository, make sure that you have the latest version installed:</p>
-              <pre><code class="js">git pull</code></pre>
-              <p>Now you can start the test with</p>
-              <pre><code class="js">npm run test</code></pre>
-              <p>You get a nice menu where you now can run function by function and see if you get meaningfull results (if supported on yur platform) or errors. Sample output:</p>
-              <pre><code class="js">SYSTEMINFORMATION - Test Scripts - Version: 5.x.y
+  <div class="container-fluid">
+    <section class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+          <div class="row">
+            <div class="col-12 sectionheader">
+              <div class="title">Tests</div>
+              <div class="text">
+                <p>If you run into problems, you now can easily test if a specific function is supported on your platform and returns plausible results. In this section you will learn how you can easily test all functions on your platform:</p>
+                <h2>Testing on your platform</h2>
+                <p>First of all make sure, that you have <span class="code">git</span> installed on your machine. </p>
+                <p>Next you need to clone the git repository to a directory of your choice:</p>
+                <pre><code class="js">git clone https://github.com/sebhildebrandt/systeminformation.git</code></pre>
+                <p>Go inside the newly created <span class="code">systeminformation</span> directory</p>
+                <pre><code class="js">cd systeminformation</code></pre>
+                <p>If you already cloned the repository, make sure that you have the latest version installed:</p>
+                <pre><code class="js">git pull</code></pre>
+                <p>Now you can start the test with</p>
+                <pre><code class="js">npm run test</code></pre>
+                <p>You get a nice menu where you now can run function by function and see if you get meaningfull results (if supported on yur platform) or errors. Sample output:</p>
+                <pre><code class="js">SYSTEMINFORMATION - Test Scripts - Version: 5.x.y
 ═══════════════════════════════════════════════════════════
 
 ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -77,9 +78,9 @@
 │  g ... Graphics           s ... Services           z ... Users              9 ... Docker Cont Stats                         │
 │  h ... Bluetooth          S ... Shell                                       0 ... Docker Cont Proc      q >>> QUIT          │
 └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘</code></pre>
-              <p><span class="bold">Press q</span> to exit the test suite</p>
-              <p>Here a sample output for the e.g. <span class="bold">c ... CPU</span></p>
-              <pre><code class="js">┌────────────────────────────────────────────────┐
+                <p><span class="bold">Press q</span> to exit the test suite</p>
+                <p>Here a sample output for the e.g. <span class="bold">c ... CPU</span></p>
+                <pre><code class="js">┌────────────────────────────────────────────────┐
 │  CPU                                  v: 5.x.y │
 └────────────────────────────────────────────────┘
 {
@@ -103,16 +104,17 @@
   virtualization: true,
   cache: { l1d: 32768, l1i: 32768, l2: 262144, l3: 8388608 }
 }</code></pre>
-              <p>Make sure to have a look in the documentation if there are already <a href="issues.html">known issues</a> and if the specific function is supported on your platform. If yes, check whether results are meaningfull and plausible.</p>
-              <p>I highly appreciate if you test all functions on your specific platform. This will help me improving the package and provide the best possible platform support.</p>
+                <p>Make sure to have a look in the documentation if there are already <a href="issues.html">known issues</a> and if the specific function is supported on your platform. If yes, check whether results are meaningfull and plausible.</p>
+                <p>I highly appreciate if you test all functions on your specific platform. This will help me improving the package and provide the best possible platform support.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
+  </div>
   </section>
-  <footer class="container-fluid">
+  </div>
+  <footer class="container-fluid footer">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-12">

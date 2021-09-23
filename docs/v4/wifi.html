@@ -37,149 +37,150 @@
     </div>
   </nav>
 
-  <section class="container">
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-      </div>
-      <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-        <div class="row">
-          <div class="col-12 sectionheader">
-            <div class="title">Wifi</div>
-            <div class="text">
-              <p>In this section you will learn how to get detailed information about available wifi networks:</p>
-              <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
-              <pre><code class="js">const si = require('systeminformation');</code></pre>
-              <h2>Wifi Networks</h2>
-              <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
-              <table class="table table-sm table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Function</th>
-                    <th>Result object</th>
-                    <th>Linux</th>
-                    <th>BSD</th>
-                    <th>Mac</th>
-                    <th>Win</th>
-                    <th>Sun</th>
-                    <th>Comments</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>si.wifiNetworks(cb)</td>
-                    <td>[{...}]</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>array of available wifi networks</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].ssid</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>Wifi network SSID</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].bssid</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>BSSID (mac)</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].mode</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>mode</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].channel</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>channel</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].frequency</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>frequengy in MHz</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].signalLevel</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>signal level in dB</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].quality</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>quaility in %</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].security</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>array e.g. WPA, WPA-2</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].wpaFlags</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td></td>
-                    <td>array of WPA flags</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>[0].rsnFlags</td>
-                    <td>X</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>array of RDN flags
-                  </tr>
-                  <tr class="example">
-                    <td></td>
-                    <td colspan="7">
-                      <h5>Example</h5>
-                      <pre><code class="js">const si = require('systeminformation');
+  <div class="container-fluid">
+    <section class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+          <div class="row">
+            <div class="col-12 sectionheader">
+              <div class="title">Wifi</div>
+              <div class="text">
+                <p>In this section you will learn how to get detailed information about available wifi networks:</p>
+                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                <pre><code class="js">const si = require('systeminformation');</code></pre>
+                <h2>Wifi Networks</h2>
+                <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+                <table class="table table-sm table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Function</th>
+                      <th>Result object</th>
+                      <th>Linux</th>
+                      <th>BSD</th>
+                      <th>Mac</th>
+                      <th>Win</th>
+                      <th>Sun</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>si.wifiNetworks(cb)</td>
+                      <td>[{...}]</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>array of available wifi networks</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].ssid</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>Wifi network SSID</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].bssid</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>BSSID (mac)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].mode</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>mode</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].channel</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>channel</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].frequency</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>frequengy in MHz</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].signalLevel</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>signal level in dB</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].quality</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>quaility in %</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].security</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>array e.g. WPA, WPA-2</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].wpaFlags</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>array of WPA flags</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].rsnFlags</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>array of RDN flags
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
 si.wifiNetworks().then(data => console.log(data));</code></pre class="example">
                       <pre class="example">
 [
@@ -209,19 +210,20 @@ si.wifiNetworks().then(data => console.log(data));</code></pre class="example">
   },
   ...
 ]</pre>
-                  </tr>
+                    </tr>
 
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
 
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
+  </div>
   </section>
-  <footer class="container-fluid">
+  </div>
+  <footer class="container-fluid footer">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-12">

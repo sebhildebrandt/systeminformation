@@ -2,6 +2,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "segoe ui", Roboto, Helvetica, Arial, sans-serif, "apple color emoji", "segoe ui emoji", "segoe ui symbol";
   font-weight: 300;
   min-height: 100%;
+  background-color: #59351e;
 }
 
 h1, h2, h3, h4 {
@@ -20,6 +21,11 @@ h1, h2, h3, h4 {
 .warning {
   font-weight: 500;
   color: #9c0101;
+}
+
+.container-fluid {
+  background-color: white;
+  padding-bottom: 30px;
 }
 
 .bg-image-full {
@@ -546,17 +552,16 @@ pre {
   background-color: #f0f0f4;
 }
 
-footer {
+.footer {
   background-color: #eee;
-  margin-top: 30px;
   padding-top: 30px;
   padding-bottom: 30px;
   position: relative;
 }
-footer a {
+.footer a {
   color: #000;
 }
-footer .badge {
+.footer .badge {
   color: #fff;
   font-size: 0.9rem;
 }
