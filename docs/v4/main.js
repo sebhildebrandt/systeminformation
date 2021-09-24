@@ -19,7 +19,7 @@ function createMenu() {
     [0, '', 'More'],
     [1, 'security', 'Security Advisories'],
     [1, 'issues', 'Known Issues'],
-    [1, 'history', 'Version history'],
+    [1, 'history', 'Version History'],
     [1, '../index', 'Version 5 Docs'],
     [1, 'copyright', 'Copyright & License'],
     [1, 'contributors', 'Contributors'],

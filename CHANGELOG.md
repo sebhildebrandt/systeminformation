@@ -76,7 +76,7 @@ If you want to see all function results on your machine, please head over to (Te
 
 For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
-## Version history
+## Version History
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
