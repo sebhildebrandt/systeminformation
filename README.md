@@ -30,7 +30,7 @@
   [![Sponsoring][sponsor-badge]][sponsor-url]
   [![MIT license][license-img]][license-url]
 
-This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 400 versions published, up to 3 mio downloads per month, > 45 mio downloads overall. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 450 versions published, up to 3 mio downloads per month, > 48 mio downloads overall. Thank you to all who contributed to this project!
 
 ## New Version 5.0
 
