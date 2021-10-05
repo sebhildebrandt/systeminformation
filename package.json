@@ -1,7 +1,7 @@
 {
   "name": "systeminformation",
   "version": "5.9.4",
-  "description": "Simple system and OS information library",
+  "description": "Advanced, lightweight system and OS information library",
   "license": "MIT",
   "author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com> (https://plus-innovations.com)",
   "homepage": "https://systeminformation.io",
@@ -70,7 +70,10 @@
     "virtual box",
     "virtualbox",
     "vm",
-    "backend"
+    "backend",
+    "hardware",
+    "BIOS",
+    "chassis"
   ],
   "repository": {
     "type": "git",
