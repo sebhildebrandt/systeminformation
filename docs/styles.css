@@ -455,6 +455,8 @@ h1, h2, h3, h4 {
 .sectionheader .subtitle {
   text-align: center;
   font-size: 0.9rem;
+  padding-top: 3px;
+  padding-bottom: 5px;
 }
 @media only screen and (min-width: 420px) {
   .sectionheader .subtitle {
