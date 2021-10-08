@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.9.5          | 2021-10-08     | `battery()` fixed isCharging (windows) |
 | 5.9.4          | 2021-09-23     | `processes()` fixed memVsz, Memrss (macOS M1) |
 | 5.9.3          | 2021-09-17     | `cpuTemperature()` improved tdie detection (linus) |
 | 5.9.2          | 2021-09-16     | `graohics()` (macOS),  `memLayout()` (win) improvements |
