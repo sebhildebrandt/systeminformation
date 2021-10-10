@@ -240,9 +240,9 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 4.24.1         | 2020-05-03     | `processes()` fix parsing command and params |
 | 4.24.0         | 2020-05-01     | `networkInterfaces()` added subnet mask ip4 and ip6 |
 | 4.23.10        | 2020-05-01     | `cpuTemperature()` optimized parsing linux |
-| 4.23.9         | 2020-04-29     | `currentLoad()` workarround for no os.cpus info |
+| 4.23.9         | 2020-04-29     | `currentLoad()` workaround for no os.cpus info |
 | 4.23.8         | 2020-04-26     | `getMacAddresses()` fix added try catch |
-| 4.23.7         | 2020-04-26     | `getCpuCurrentSpeedSync()` workarround fix |
+| 4.23.7         | 2020-04-26     | `getCpuCurrentSpeedSync()` workaround fix |
 | 4.23.6         | 2020-04-25     | `networkGatewayDefault()` bug fix no interfaces |
 | 4.23.5         | 2020-04-20     | updated docs |
 | 4.23.4         | 2020-04-20     | `users()` optimized parseDateTime function |
