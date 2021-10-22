@@ -655,7 +655,7 @@ export namespace Systeminformation {
     bridgeNfIptables: boolean;
     bridgeNfIp6tables: boolean;
     debug: boolean;
-    mfd: number;
+    nfd: number;
     oomKillDisable: boolean;
     ngoroutines: number;
     systemTime: string;
