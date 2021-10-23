@@ -888,6 +888,8 @@ To be able to measure temperature on macOS I created a little additional package
 in NPM with `optionalDependencies` I unfortunately was getting unexpected warnings on other platforms.
 So I decided to drop this optional dependency for macOS - so by default, you will not get correct values.
 
+This additional package will unfortunately NOT work on Apple Silicon M1 machines.
+
 But if you need to detect macOS temperature just run the following additional
 installation command:
 
