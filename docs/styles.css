@@ -5,7 +5,10 @@ body {
   min-height: 100%;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   color: #3d5cb3;
@@ -43,9 +46,9 @@ h1, h2, h3, h4 {
 }
 
 .bg-image-full {
-  background-color: #1A1F30;
+  background-color: #1a1f30;
   /* For browsers that do not support gradients */
-  background-image: linear-gradient(210deg, #2A2D66, #060520);
+  background-image: linear-gradient(210deg, #2a2d66, #060520);
   /* Standard syntax (must be last) */
   background-position: center;
   background-repeat: no-repeat;
@@ -293,9 +296,9 @@ h1, h2, h3, h4 {
 
 .nav {
   background: no-repeat center center scroll;
-  background-color: #1A1F30;
+  background-color: #1a1f30;
   /* For browsers that do not support gradients */
-  background-image: linear-gradient(210deg, #2A2D66, #060520);
+  background-image: linear-gradient(210deg, #2a2d66, #060520);
   /* Standard syntax (must be last) */
   background-size: cover;
   -o-background-size: cover;
@@ -495,7 +498,11 @@ h1, h2, h3, h4 {
 .index {
   margin: 0 0 10px 0;
 }
-.index .text, .index .subtitle, .index .title, .index .title-small, .index .npmicons {
+.index .text,
+.index .subtitle,
+.index .title,
+.index .title-small,
+.index .npmicons {
   text-align: center;
 }
 .index .larger {
@@ -509,12 +516,16 @@ h1, h2, h3, h4 {
   color: #567adf;
 }
 
-.left .text, .left .subtitle, .left .title, .left .title-small .npmicons {
+.left .text,
+.left .subtitle,
+.left .title,
+.left .title-small .npmicons {
   text-align: left;
 }
 
 .table {
   text-align: left;
+  background-color: #fff;
 }
 
 ul {

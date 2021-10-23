@@ -5,7 +5,10 @@ body {
   background-color: #59351e;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: -apple-system, BlinkMacSystemFont, "segoe ui", Roboto, Helvetica, Arial, sans-serif, "apple color emoji", "segoe ui emoji", "segoe ui symbol";
   font-weight: 300;
 }
@@ -409,7 +412,11 @@ h1, h2, h3, h4 {
 .index {
   margin: 0 0 10px 0;
 }
-.index .text, .index .subtitle, .index .title, .index .title-small, .index .npmicons {
+.index .text,
+.index .subtitle,
+.index .title,
+.index .title-small,
+.index .npmicons {
   text-align: center;
 }
 .index a {
@@ -420,12 +427,16 @@ h1, h2, h3, h4 {
   color: #567adf;
 }
 
-.left .text, .left .subtitle, .left .title, .left .title-small .npmicons {
+.left .text,
+.left .subtitle,
+.left .title,
+.left .title-small .npmicons {
   text-align: left;
 }
 
 .table {
   text-align: left;
+  background-color: #fff;
 }
 
 ul {
