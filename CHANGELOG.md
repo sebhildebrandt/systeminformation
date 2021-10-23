@@ -40,7 +40,7 @@ We had to make **several interface changes** to keep systeminformation as consis
 
 #### Other Improvements and Changes
 
-- `baseboard(): added memMax, memSlots
+- `baseboard()`: added memMax, memSlots
 - `bios()`: added language and features (linux)
 - `cpu()`: extended AMD processor list
 - `cpu()`: extended socket list (win)
