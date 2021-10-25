@@ -48,6 +48,8 @@ export namespace Systeminformation {
     version: string;
     serial: string;
     assetTag: string;
+    memMax: number | null;
+    memSlots: number | null;
   }
 
   interface ChassisData {
@@ -127,14 +129,15 @@ export namespace Systeminformation {
     size: number;
     bank: string;
     type: string;
-    ecc?: boolean;
-    clockSpeed: number;
+    ecc?: boolean | null;
+    clockSpeed: number | null;
     formFactor: string;
+    manufacturer?: string;
     partNum: string;
     serialNum: string;
-    voltageConfigured: number;
-    voltageMin: number;
-    voltageMax: number;
+    voltageConfigured: number | null;
+    voltageMin: number | null;
+    voltageMax: number | null;
   }
 
   interface SmartData {
@@ -360,11 +363,13 @@ export namespace Systeminformation {
     uefi: boolean;
     hypervizor?: boolean;
     remoteSession?: boolean;
+    hypervisor?: boolean;
   }
 
   interface UuidData {
     os: string;
     hardware: string;
+    macs: string[];
   }
 
   interface VersionData {
@@ -537,6 +542,7 @@ export namespace Systeminformation {
     iface: string;
     model: string;
     vendor: string;
+    mac: string;
   }
 
   interface WifiConnectionData {
@@ -741,6 +747,7 @@ export namespace Systeminformation {
     memLimit: number;
     memPercent: number;
     cpuPercent: number;
+    pids: number;
     netIO: {
       rx: number;
       wx: number;
@@ -754,6 +761,23 @@ export namespace Systeminformation {
     precpuStats: any;
     memoryStats: any,
     networks: any;
+  }
+
+  interface DockerContainerProcessData {
+    pidHost: string;
+    ppid: string;
+    pgid: string;
+    user: string;
+    ruser: string;
+    group: string;
+    rgroup: string;
+    stat: string;
+    time: string;
+    elapsed: string;
+    nice: string;
+    rss: string;
+    vsz: string;
+    command: string;
   }
 
   interface DockerVolumeData {
@@ -931,7 +955,7 @@ export function dockerInfo(cb?: (data: Systeminformation.DockerInfoData) => any)
 export function dockerImages(all?: boolean, cb?: (data: Systeminformation.DockerImageData[]) => any): Promise<Systeminformation.DockerImageData[]>;
 export function dockerContainers(all?: boolean, cb?: (data: Systeminformation.DockerContainerData[]) => any): Promise<Systeminformation.DockerContainerData[]>;
 export function dockerContainerStats(id?: string, cb?: (data: Systeminformation.DockerContainerStatsData[]) => any): Promise<Systeminformation.DockerContainerStatsData[]>;
-export function dockerContainerProcesses(id?: string, cb?: (data: any) => any): Promise<any>;
+export function dockerContainerProcesses(id?: string, cb?: (data: any) => any): Promise<Systeminformation.DockerContainerProcessData[]>;
 export function dockerVolumes(cb?: (data: Systeminformation.DockerVolumeData[]) => any): Promise<Systeminformation.DockerVolumeData[]>;
 export function dockerAll(cb?: (data: any) => any): Promise<any>;
 
