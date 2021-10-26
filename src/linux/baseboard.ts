@@ -1,12 +1,12 @@
 import { totalmem } from 'os';
 import { promises as fs } from 'fs';
-import { getValue, nextTick, toInt } from '../common';
+import { cloneObj, getValue, nextTick, toInt } from '../common';
 import { execCmd } from '../common/exec';
 import { initBaseboard } from '../common/defaults';
 import { decodePiCpuinfo } from '../common/raspberry';
 
 export const nixBaseboard = async () => {
-  const result = initBaseboard;
+  const result = cloneObj(initBaseboard);
   let cmd = '';
   if (process.arch === 'arm') {
     cmd = 'cat /proc/cpuinfo | grep Serial';

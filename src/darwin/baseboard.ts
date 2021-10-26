@@ -1,10 +1,10 @@
 import { arch, totalmem } from 'os';
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initBaseboard } from '../common/defaults';
 
 export const darwinBaseboard = async () => {
-  const result = initBaseboard;
+  const result = cloneObj(initBaseboard);
   const workload = [];
   workload.push(execCmd('ioreg -c IOPlatformExpertDevice -d 2'));
   workload.push(execCmd('system_profiler SPMemoryDataType'));

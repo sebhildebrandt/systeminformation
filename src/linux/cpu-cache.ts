@@ -1,9 +1,9 @@
 import { execCmd } from '../common/exec';
 import { initCpuCacheResult } from '../common/defaults';
-import { nextTick } from '../common';
+import { cloneObj, nextTick } from '../common';
 
 export const linuxCpuCache = async () => {
-  const result = initCpuCacheResult;
+  const result = cloneObj(initCpuCacheResult);
   try {
     const stdout = await execCmd('export LC_ALL=C; lscpu; unset LC_ALL');
     const lines = stdout.toString().split('\n');

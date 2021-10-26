@@ -1,6 +1,6 @@
 import { cpus } from 'os';
 import { powerShell } from '../common/exec';
-import { getValue, toInt, countLines, nextTick } from '../common';
+import { getValue, toInt, countLines, nextTick, cloneObj } from '../common';
 import { getAMDSpeed, socketTypes, cpuBrandManufacturer } from '../common/mappings';
 import { cpuFlags } from './cpu-flags';
 
@@ -9,7 +9,7 @@ import { initCpuCacheResult, initCpuResult } from '../common/defaults';
 let _cpu_speed = 0;
 
 export const windowsCpu = async () => {
-  let result = initCpuResult;
+  let result = cloneObj(initCpuResult);
   const flags = await cpuFlags();
   result.flags = flags;
   result.virtualization = flags.indexOf('vmx') > -1 || flags.indexOf('svm') > -1;

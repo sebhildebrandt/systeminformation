@@ -1,13 +1,13 @@
 import { release } from 'os';
 import { promises as fs, existsSync } from 'fs';
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initSystem } from '../common/defaults';
 import { decodePiCpuinfo } from '../common/raspberry';
 import { FREEBSD, NETBSD } from '../common/const';
 
 export const nixSystem = async () => {
-  const result = initSystem;
+  const result = cloneObj(initSystem);
   let stdout = (await execCmd('export LC_ALL=C; dmidecode -t system 2>/dev/null; unset LC_ALL')).toString();
   // if (!error) {
   let lines = stdout.split('\n');

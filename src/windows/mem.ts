@@ -1,14 +1,15 @@
-import { nextTick } from '../common';
+import { cloneObj, nextTick } from '../common';
 import { initMemData } from '../common/defaults';
 import { powerShell } from '../common/exec';
 
 export const windowsMem = async () => {
-  const result = initMemData;
+  const result = cloneObj(initMemData);
   try {
     let swaptotal = 0;
     let swapused = 0;
     const stdout = await powerShell('Get-CimInstance Win32_PageFileUsage | Select AllocatedBaseSize, CurrentUsage');
-    const lines = stdout.split('\r\n').filter(line => line.trim() !== '').filter((line, idx) => idx > 0);
+    const lines = stdout.split('\r\n').filter(line => line.trim() !== '');
+    lines.shift;
     lines.forEach(function (line) {
       if (line !== '') {
         const lineParts = line.trim().split(/\s\s+/);

@@ -1,9 +1,9 @@
-import { getValue, nextTick, toInt } from '../common';
+import { cloneObj, getValue, nextTick, toInt } from '../common';
 import { powerShell } from '../common/exec';
 import { initBaseboard } from '../common/defaults';
 
 export const windowsBaseboard = async () => {
-  const result = initBaseboard;
+  const result = cloneObj(initBaseboard);
   try {
     const workload = [];
     workload.push(powerShell('Get-WmiObject Win32_baseboard | fl *'));

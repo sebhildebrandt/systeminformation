@@ -9,7 +9,7 @@ export const darwinWifiConnections = async () => {
   const parts1 = stdout.toString().split('\n\n    Wi-Fi:\n\n');
   if (parts1.length > 1) {
     const lines = parts1[1].split('\n\n')[0].split('\n');
-    const iface = getValue(lines, 'BSD Device Name', ':', true);
+    const networkInterface = getValue(lines, 'BSD Device Name', ':', true);
     const model = getValue(lines, 'hardware', ':', true);
     stdout = await execCmd('/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I');
     const lines2 = stdout.toString().split('\n');
@@ -27,7 +27,7 @@ export const darwinWifiConnections = async () => {
       if (ssid && bssid) {
         result.push({
           id: 'Wi-Fi',
-          iface,
+          networkInterface,
           model,
           ssid,
           bssid,
@@ -40,8 +40,8 @@ export const darwinWifiConnections = async () => {
         });
       }
     }
-    return result;
   }
+  return result;
 };
 
 export const wifiConnections = async () => {

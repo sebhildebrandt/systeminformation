@@ -84,3 +84,17 @@ export const nextTick = () => new Promise<void>(resolve => {
     resolve();
   });
 });
+
+export const cloneObj = (obj: any) => {
+  if (typeof (obj) === 'object' && obj !== null) {
+    try {
+      // eslint-disable-next-line
+      return JSON.parse(JSON.stringify(obj));
+    } catch (e) {
+      return {};
+    }
+  } else {
+    return {};
+  }
+
+};

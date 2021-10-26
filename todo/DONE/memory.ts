@@ -96,7 +96,8 @@ export const windowsMem = async () => {
     let swaptotal = 0;
     let swapused = 0;
     const stdout = await powerShell('Get-CimInstance Win32_PageFileUsage | Select AllocatedBaseSize, CurrentUsage');
-    let lines = stdout.split('\r\n').filter(line => line.trim() !== '').filter((line, idx) => idx > 0);
+    let lines = stdout.split('\r\n').filter(line => line.trim() !== '');
+    lines.shift();
     lines.forEach(function (line) {
       if (line !== '') {
         const lineParts = line.trim().split(/\s\s+/);

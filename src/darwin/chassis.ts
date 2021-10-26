@@ -1,9 +1,9 @@
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initChassis } from '../common/defaults';
 
 export const darwinChassis = async () => {
-  const result = initChassis;
+  const result = cloneObj(initChassis);
   const stdout = await execCmd('ioreg -c IOPlatformExpertDevice -d 2');
   if (stdout) {
     const lines = stdout.toString().replace(/[<>"]/g, '').split('\n');

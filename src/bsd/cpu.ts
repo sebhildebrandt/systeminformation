@@ -1,6 +1,6 @@
 import { cpus } from 'os';
 import { execCmd } from '../common/exec';
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { getAMDSpeed, cpuBrandManufacturer } from '../common/mappings';
 import { cpuFlags } from './cpu-flags';
 import { getCpuCurrentSpeed } from '../cpu-current-speed';
@@ -10,7 +10,7 @@ import { initCpuCacheResult, initCpuResult } from '../common/defaults';
 let _cpu_speed = 0;
 
 export const bsdCpu = async () => {
-  let result = initCpuResult;
+  let result = cloneObj(initCpuResult);
   const flags = await cpuFlags();
   result.flags = flags;
   result.virtualization = flags.indexOf('vmx') > -1 || flags.indexOf('svm') > -1;

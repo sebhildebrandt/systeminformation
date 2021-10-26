@@ -1,7 +1,7 @@
 import { cpus } from 'os';
 import { promises as fs } from 'fs';
 import { execCmd } from '../common/exec';
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { decodePiCpuinfo } from '../common/raspberry';
 import { getAMDSpeed, cpuBrandManufacturer } from '../common/mappings';
 import { cpuFlags } from './cpu-flags';
@@ -11,7 +11,7 @@ import { initCpuCacheResult, initCpuResult } from '../common/defaults';
 let _cpu_speed = 0;
 
 export const linuxCpu = async () => {
-  let result = initCpuResult;
+  let result = cloneObj(initCpuResult);
   const flags = await cpuFlags();
   result.flags = flags;
   result.virtualization = flags.indexOf('vmx') > -1 || flags.indexOf('svm') > -1;

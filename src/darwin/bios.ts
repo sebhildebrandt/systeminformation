@@ -1,9 +1,9 @@
-import { nextTick } from '../common';
+import { cloneObj, nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initBios } from '../common/defaults';
 
 export const darwinBios = async () => {
-  const result = initBios;
+  const result = cloneObj(initBios);
   result.vendor = 'Apple Inc.';
   const stdout = await execCmd('system_profiler SPHardwareDataType -json');
   try {

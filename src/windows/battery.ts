@@ -1,5 +1,5 @@
 import { powerShell } from '../common/exec';
-import { getValue, nextTick, toInt } from '../common';
+import { cloneObj, getValue, nextTick, toInt } from '../common';
 import { initBatteryResult } from '../common/defaults';
 
 const parseWinBatteryPart = (lines: string[], designedCapacity: number, fullChargeCapacity: number) => {
@@ -24,7 +24,7 @@ const parseWinBatteryPart = (lines: string[], designedCapacity: number, fullChar
 };
 
 export const windowsBattery = async () => {
-  let result = initBatteryResult;
+  let result = cloneObj(initBatteryResult);
   try {
     const workload = [];
     workload.push(powerShell('Get-WmiObject Win32_Battery | fl *'));

@@ -1,9 +1,9 @@
 import { execCmd } from '../common/exec';
 import { initCpuCacheResult } from '../common/defaults';
-import { nextTick } from '../common';
+import { cloneObj, nextTick } from '../common';
 
 export const darwinCpuCache = async () => {
-  const result = initCpuCacheResult;
+  const result = cloneObj(initCpuCacheResult);
   try {
     const stdout = await execCmd('sysctl hw.l1icachesize hw.l1dcachesize hw.l2cachesize hw.l3cachesize');
     const lines = stdout.toString().split('\n');

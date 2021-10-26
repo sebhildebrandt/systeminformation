@@ -15,17 +15,17 @@ export const windowsWifiInterfaces = async () => {
   parts.forEach(part => {
     const lines = part.split('\r\n');
     if (lines.length >= 5) {
-      const iface = lines[0].indexOf(':') >= 0 ? lines[0].split(':')[1].trim() : '';
+      const networkInterface = lines[0].indexOf(':') >= 0 ? lines[0].split(':')[1].trim() : '';
       const model = lines[1].indexOf(':') >= 0 ? lines[1].split(':')[1].trim() : '';
       const id = lines[2].indexOf(':') >= 0 ? lines[2].split(':')[1].trim() : '';
       const macParts = lines[3].indexOf(':') >= 0 ? lines[3].split(':') : [];
       macParts.shift();
       const mac = macParts.join(':').trim();
       const vendor = wifiVendor(model);
-      if (iface && model && id && mac) {
+      if (networkInterface && model && id && mac) {
         result.push({
           id,
-          iface,
+          networkInterface,
           model,
           vendor,
           mac,

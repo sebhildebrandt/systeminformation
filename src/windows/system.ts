@@ -1,9 +1,9 @@
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { powerShell } from '../common/exec';
 import { initSystem } from '../common/defaults';
 
 export const windowsSystem = async () => {
-  const result = initSystem;
+  const result = cloneObj(initSystem);
   try {
     let stdout = (await powerShell('Get-WmiObject Win32_ComputerSystemProduct | fl *')).toString();
     if (stdout) {

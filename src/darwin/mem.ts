@@ -1,9 +1,9 @@
-import { nextTick } from '../common';
+import { cloneObj, nextTick } from '../common';
 import { initMemData } from '../common/defaults';
 import { execCmd } from '../common/exec';
 
 export const darwinMem = async () => {
-  const result = initMemData;
+  const result = cloneObj(initMemData);
   try {
     let stdout = (await execCmd('vm_stat 2>/dev/null | grep "Pages active"')).toString();
     let lines = stdout.split('\n');

@@ -1,8 +1,8 @@
-import { nextTick } from '../common';
+import { cloneObj, nextTick } from '../common';
 import { initCpuTemperature } from '../common/defaults';
 
 export const darwinCpuTemperature = async () => {
-  let result = initCpuTemperature;
+  let result = cloneObj(initCpuTemperature);
   let osxTemp = null;
   try {
     osxTemp = require('osx-temperature-sensor');

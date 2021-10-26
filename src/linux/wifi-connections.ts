@@ -4,29 +4,29 @@ import { toInt, getValue, nextTick } from '../common';
 import { WifiNetworkData, WifiConnectionData } from '../common/types';
 import { wifiDBFromQuality, wifiChannelFromFrequencs, wifiFrequencyFromChannel } from '../common/network';
 
-type ifaceList = {
+type interfaceList = {
   id: number,
-  iface: string,
+  networkInterface: string,
   mac: string,
   channel: number;
 };
 
-const ifaceListLinux = async () => {
-  const result: ifaceList[] = [];
+const interfaceListLinux = async () => {
+  const result: interfaceList[] = [];
   const cmd = 'iw dev';
   try {
     const all = (await execCmd(cmd)).toString().split('\n').map((line: string) => line.trim()).join('\n');
     const parts = all.split('\nInterface ');
     parts.shift();
-    parts.forEach((ifaceDetails: string) => {
-      const lines = ifaceDetails.split('\n');
-      const iface = lines[0];
+    parts.forEach((interfaceDetails: string) => {
+      const lines = interfaceDetails.split('\n');
+      const networkInterface = lines[0];
       const id = toInt(getValue(lines, 'ifindex', ' '));
       const mac = getValue(lines, 'addr', ' ');
       const channel = toInt(getValue(lines, 'channel', ' '));
       result.push({
         id,
-        iface,
+        networkInterface,
         mac,
         channel
       });
@@ -37,13 +37,13 @@ const ifaceListLinux = async () => {
   }
 };
 
-const nmiDeviceLinux = async (iface: string) => {
-  const cmd = `nmcli -t -f general,wifi-properties,capabilities,ip4,ip6 device show ${iface} 2>/dev/null`;
+const nmiDeviceLinux = async (networkInterface: string) => {
+  const cmd = `nmcli -t -f general,wifi-properties,capabilities,ip4,ip6 device show ${networkInterface} 2>/dev/null`;
   try {
     const lines = (await execCmd(cmd)).toString().split('\n');
     const ssid = getValue(lines, 'GENERAL.CONNECTION');
     return {
-      iface,
+      networkInterface,
       type: getValue(lines, 'GENERAL.TYPE'),
       vendor: getValue(lines, 'GENERAL.VENDOR'),
       product: getValue(lines, 'GENERAL.PRODUCT'),
@@ -73,8 +73,8 @@ const nmiConnectionLinux = async (ssid: string) => {
   }
 };
 
-const wpaConnectionLinux = async (iface: string) => {
-  const cmd = `wpa_cli -i ${iface} status 2>&1`;
+const wpaConnectionLinux = async (networkInterface: string) => {
+  const cmd = `wpa_cli -i ${networkInterface} status 2>&1`;
   try {
     const lines = (await execCmd(cmd)).toString().split('\n');
     const freq = toInt(getValue(lines, 'freq', '='));
@@ -127,11 +127,11 @@ const getWifiNetworkListNmi = async () => {
 
 export const linuxWifiConnections = async () => {
   const result: WifiConnectionData[] = [];
-  const interfaces = await ifaceListLinux();
+  const interfaces = await interfaceListLinux();
   const networkList = await getWifiNetworkListNmi();
-  interfaces.forEach(async (ifaceDetail) => {
-    const nmiDetails = await nmiDeviceLinux(ifaceDetail.iface);
-    const wpaDetails = await wpaConnectionLinux(ifaceDetail.iface);
+  interfaces.forEach(async (interfaceDetail) => {
+    const nmiDetails = await nmiDeviceLinux(interfaceDetail.networkInterface);
+    const wpaDetails = await wpaConnectionLinux(interfaceDetail.networkInterface);
     const ssid = nmiDetails.ssid || wpaDetails.ssid;
     const network = networkList.filter(nw => nw.ssid === ssid);
     const nmiConnection = await nmiConnectionLinux(ssid || '');
@@ -139,8 +139,8 @@ export const linuxWifiConnections = async () => {
     const bssid = network && network.length && network[0].bssid ? network[0].bssid : (wpaDetails.bssid ? wpaDetails.bssid : null);
     if (ssid && bssid) {
       result.push({
-        id: '' + ifaceDetail.id,
-        iface: ifaceDetail.iface,
+        id: '' + interfaceDetail.id,
+        networkInterface: interfaceDetail.networkInterface,
         model: nmiDetails.product || null,
         ssid,
         bssid: network && network.length && network[0].bssid ? network[0].bssid : (wpaDetails.bssid ? wpaDetails.bssid : null),

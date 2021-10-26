@@ -1,9 +1,9 @@
 import { initCheckSite } from '../common/defaults';
 import { sanitizeUrl } from '../common/security';
-import { nextTick } from '../common';
+import { cloneObj, nextTick } from '../common';
 
 export const windowsInetCheckSite = async (url: string) => {
-  const result = initCheckSite;
+  const result = cloneObj(initCheckSite);
   const t = Date.now();
   result.url = sanitizeUrl(url);
   if (result.url) {

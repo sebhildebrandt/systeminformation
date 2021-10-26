@@ -1,9 +1,9 @@
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { initMemData } from '../common/defaults';
 import { execCmd } from '../common/exec';
 
 export const bsdMem = async () => {
-  const result = initMemData;
+  const result = cloneObj(initMemData);
   try {
     const stdout = execCmd('/sbin/sysctl -a 2>/dev/null | grep -E "hw.realmem|hw.physmem|vm.stats.vm.v_page_count|vm.stats.vm.v_wire_count|vm.stats.vm.v_active_count|vm.stats.vm.v_inactive_count|vm.stats.vm.v_cache_count|vm.stats.vm.v_free_count|vm.stats.vm.v_page_size"');
     const lines = stdout.toString().split('\n');

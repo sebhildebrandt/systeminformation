@@ -1,10 +1,10 @@
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { powerShell } from '../common/exec';
 import { initChassis } from '../common/defaults';
 import { chassisTypes } from '../common/mappings';
 
 export const windowsChassis = async () => {
-  const result = initChassis;
+  const result = cloneObj(initChassis);
   const stdout = await powerShell('Get-WmiObject Win32_SystemEnclosure | fl *');
   if (stdout) {
     const lines = stdout.toString().split('\r\n');

@@ -38,10 +38,10 @@ const getWifiNetworkListNmi = async () => {
   }
 };
 
-const getWifiNetworkListIw = async (iface: string) => {
+const getWifiNetworkListIw = async (networkInterface: string) => {
   const result: WifiNetworkData[] = [];
   try {
-    const iwlistParts = (await execCmd(`export LC_ALL=C; iwlist ${iface} scan 2>&1; unset LC_ALL`)).toString().split('        Cell ');
+    const iwlistParts = (await execCmd(`export LC_ALL=C; iwlist ${networkInterface} scan 2>&1; unset LC_ALL`)).toString().split('        Cell ');
     if (iwlistParts[0].indexOf('resource busy') >= 0) { return -1; }
     if (iwlistParts.length > 1) {
       iwlistParts.shift();
@@ -121,18 +121,18 @@ export const linuxWifiNetwork = async () => {
   if (result.length === 0) {
     try {
       const iwconfigParts = (await execCmd('export LC_ALL=C; iwconfig 2>/dev/null; unset LC_ALL')).toString().split('\n\n');
-      let iface = '';
+      let networkInterface = '';
       for (let i = 0; i < iwconfigParts.length; i++) {
         if (iwconfigParts[i].indexOf('no wireless') === -1 && iwconfigParts[i].trim() !== '') {
-          iface = iwconfigParts[i].split(' ')[0];
+          networkInterface = iwconfigParts[i].split(' ')[0];
         }
       }
-      if (iface) {
-        const res = await getWifiNetworkListIw(iface);
+      if (networkInterface) {
+        const res = await getWifiNetworkListIw(networkInterface);
         if (res === -1) {
           // try again after 4 secs
           await timeout(4000);
-          const res = await getWifiNetworkListIw(iface);
+          const res = await getWifiNetworkListIw(networkInterface);
           if (res != -1) { result = res; }
           return result;
         } else {

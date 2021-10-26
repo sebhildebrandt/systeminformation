@@ -1,9 +1,9 @@
-import { nextTick } from '../common';
+import { cloneObj, nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initCpuTemperature } from '../common/defaults';
 
 export const bsdCpuTemperature = async () => {
-  const result = initCpuTemperature;
+  const result = cloneObj(initCpuTemperature);
   const stdout = (await execCmd('sysctl dev.cpu | grep temp')).toString();
   const lines = stdout.toString().split('\n');
   let sum = 0;

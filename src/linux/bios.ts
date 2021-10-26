@@ -1,10 +1,10 @@
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { initBios } from '../common/defaults';
 import { parseDateTime } from '../common/datetime';
 import { execCmd } from '../common/exec';
 
 export const nixBios = async () => {
-  const result = initBios;
+  const result = cloneObj(initBios);
   let cmd = '';
   if (process.arch === 'arm') {
     cmd = 'cat /proc/cpuinfo | grep Serial';

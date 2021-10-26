@@ -1,6 +1,6 @@
 import { arch, cpus } from 'os';
 import { execCmd } from '../common/exec';
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { cpuBrandManufacturer } from '../common/mappings';
 import { cpuFlags } from './cpu-flags';
 import { cpuCache } from './cpu-cache';
@@ -13,7 +13,7 @@ let _cpu_speed = 0;
 // CPU - brand, speed
 
 export const darwinCpu = async () => {
-  let result = initCpuResult;
+  let result = cloneObj(initCpuResult);
   const flags = await cpuFlags();
   result.flags = flags;
   result.virtualization = flags.indexOf('vmx') > -1 || flags.indexOf('svm') > -1;

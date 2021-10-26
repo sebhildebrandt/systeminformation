@@ -1,9 +1,9 @@
 import { execCmd } from '../common/exec';
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { initCpuCacheResult } from '../common/defaults';
 
 export const bsdCpuCache = async () => {
-  const result = initCpuCacheResult;
+  const result = cloneObj(initCpuCacheResult);
   const stdout = (await execCmd('export LC_ALL=C; dmidecode -t 7 2>/dev/null; unset LC_ALL')).toString();
   let cache: string[] = [];
   cache = stdout.split('Cache Information');

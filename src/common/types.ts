@@ -376,7 +376,7 @@ export type WifiNetworkData = {
 
 export type WifiInterfaceData = {
   id: string | null;
-  iface: string;
+  networkInterface: string;
   model: string | null;
   vendor: string | null;
   mac: string | null;
@@ -384,7 +384,7 @@ export type WifiInterfaceData = {
 
 export type WifiConnectionData = {
   id: string;
-  iface: string;
+  networkInterface: string;
   model: string | null;
   ssid: string;
   bssid: string | null;

@@ -2,10 +2,10 @@ import { execCmd, } from '../common/exec';
 import { UsbData } from '../common/types';
 import { initUsbResult } from '../common/defaults';
 import { usbDarwinType } from '../common/mappings';
-import { nextTick } from '../common';
+import { cloneObj, nextTick } from '../common';
 
 function parseUsb(usb: string): UsbData | null {
-  const result: UsbData = initUsbResult;
+  const result: UsbData = cloneObj(initUsbResult);
 
   usb = usb.replace(/ \|/g, '');
   usb = usb.trim();

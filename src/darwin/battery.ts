@@ -1,9 +1,9 @@
 import { execCmd } from '../common/exec';
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { initBatteryResult } from '../common/defaults';
 
 export const darwinBattery = async () => {
-  const result = initBatteryResult;
+  const result = cloneObj(initBatteryResult);
   const stdout = await execCmd('ioreg -n AppleSmartBattery -r | egrep "CycleCount|IsCharging|DesignCapacity|MaxCapacity|CurrentCapacity|BatterySerialNumber|TimeRemaining|Voltage"; pmset -g batt | grep %');
   if (stdout) {
     const lines = stdout.toString().replace(/ +/g, '').replace(/"+/g, '').replace(/-/g, '').split('\n');

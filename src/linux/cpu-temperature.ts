@@ -1,10 +1,10 @@
-import { nextTick } from '../common';
+import { cloneObj, nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initCpuTemperature } from '../common/defaults';
 import { promises as fs, existsSync } from 'fs';
 
 export const linuxCpuTemperature = async () => {
-  const result = initCpuTemperature;
+  const result = cloneObj(initCpuTemperature);
   try {
     const cmd = 'cat /sys/class/thermal/thermal_zone*/type  2>/dev/null; echo "-----"; cat /sys/class/thermal/thermal_zone*/temp 2>/dev/null;';
     const parts = (await execCmd(cmd)).toString().split('-----\n');
@@ -44,7 +44,7 @@ export const linuxCpuTemperature = async () => {
 
     if (result.cores.length > 0) {
       if (result.main === null) {
-        result.main = Math.round(result.cores.reduce((a, b) => a + b, 0) / result.cores.length);
+        result.main = Math.round(result.cores.reduce((a: number, b: number) => a + b, 0) / result.cores.length);
       }
       const maxtmp = Math.max(...result.cores);
       result.max = (maxtmp > result.main) ? maxtmp : result.main;
@@ -99,7 +99,7 @@ export const linuxCpuTemperature = async () => {
     });
     if (result.cores.length > 0) {
       if (result.main === null) {
-        result.main = Math.round(result.cores.reduce((a, b) => a + b, 0) / result.cores.length);
+        result.main = Math.round(result.cores.reduce((a: number, b: number) => a + b, 0) / result.cores.length);
       }
       const maxtmp = Math.max(...result.cores);
       result.max = (maxtmp > result.main) ? maxtmp : result.main;

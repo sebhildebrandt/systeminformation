@@ -1,9 +1,9 @@
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { powerShell } from '../common/exec';
 import { initBios } from '../common/defaults';
 
 export const windowsBios = async () => {
-  const result = initBios;
+  const result = cloneObj(initBios);
   const stdout = await powerShell('Get-WmiObject Win32_bios | fl *');
   if (stdout) {
     const lines = stdout.toString().split('\r\n');

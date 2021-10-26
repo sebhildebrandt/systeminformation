@@ -15,7 +15,7 @@ export const windowsWifiConnections = async () => {
   parts.forEach((part: string) => {
     const lines = part.split('\r\n');
     if (lines.length >= 5) {
-      const iface = lines[0].indexOf(':') >= 0 ? lines[0].split(':')[1].trim() : '';
+      const networkInterface = lines[0].indexOf(':') >= 0 ? lines[0].split(':')[1].trim() : '';
       const model = lines[1].indexOf(':') >= 0 ? lines[1].split(':')[1].trim() : '';
       const id = lines[2].indexOf(':') >= 0 ? lines[2].split(':')[1].trim() : '';
       const ssid = getValue(lines, 'SSID', ':', true);
@@ -28,7 +28,7 @@ export const windowsWifiConnections = async () => {
       if (model && id && ssid && bssid) {
         result.push({
           id,
-          iface,
+          networkInterface,
           model,
           ssid,
           bssid,

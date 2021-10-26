@@ -1,10 +1,10 @@
 import { totalmem, freemem } from 'os';
 import { promises as fs } from 'fs';
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { initMemData } from '../common/defaults';
 
 export const linuxMem = async () => {
-  const result = initMemData;
+  const result = cloneObj(initMemData);
   try {
     const stdout = await fs.readFile('/proc/meminfo');
     const lines = stdout.toString().split('\n');

@@ -1,9 +1,9 @@
 import { execCmd } from '../common/exec';
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { initBatteryResult } from '../common/defaults';
 
 export const bsdBattery = async () => {
-  const result = initBatteryResult;
+  const result = cloneObj(initBatteryResult);
   const stdout = await execCmd('sysctl hw.acpi.battery hw.acpi.acline');
   const lines = stdout.toString().split('\n');
   const batteries = parseInt('0' + getValue(lines, 'hw.acpi.battery.units'), 10);

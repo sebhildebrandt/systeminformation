@@ -1,9 +1,9 @@
 import { powerShell } from '../common/exec';
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { initCpuCacheResult } from '../common/defaults';
 
 export const windowsCpuCache = async () => {
-  const result = initCpuCacheResult;
+  const result = cloneObj(initCpuCacheResult);
   try {
     powerShell('Get-WmiObject Win32_processor | fl *').then((stdout) => {
       const lines = stdout.split('\r\n');

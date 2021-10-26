@@ -1,10 +1,10 @@
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initChassis } from '../common/defaults';
 import { chassisTypes } from '../common/mappings';
 
 export const nixChassis = async () => {
-  const result = initChassis;
+  const result = cloneObj(initChassis);
   const cmd = `echo -n "chassis_asset_tag: "; cat /sys/devices/virtual/dmi/id/chassis_asset_tag 2>/dev/null; echo;
             echo -n "chassis_serial: "; cat /sys/devices/virtual/dmi/id/chassis_serial 2>/dev/null; echo;
             echo -n "chassis_type: "; cat /sys/devices/virtual/dmi/id/chassis_type 2>/dev/null; echo;

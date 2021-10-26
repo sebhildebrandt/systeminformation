@@ -2,28 +2,28 @@ import { execCmd } from '../common/exec';
 import { toInt, getValue, nextTick } from '../common';
 import { WifiInterfaceData } from '../common/types';
 
-type ifaceList = {
+type interfaceList = {
   id: number,
-  iface: string,
+  networkInterface: string,
   mac: string,
   channel: number;
 };
-const ifaceListLinux = async () => {
-  const result: ifaceList[] = [];
+const interfaceListLinux = async () => {
+  const result: interfaceList[] = [];
   const cmd = 'iw dev';
   try {
     const all = (await execCmd(cmd)).toString().split('\n').map((line: string) => line.trim()).join('\n');
     const parts = all.split('\nInterface ');
     parts.shift();
-    parts.forEach((ifaceDetails: string) => {
-      const lines = ifaceDetails.split('\n');
-      const iface = lines[0];
+    parts.forEach((interfaceDetails: string) => {
+      const lines = interfaceDetails.split('\n');
+      const networkInterface = lines[0];
       const id = toInt(getValue(lines, 'ifindex', ' '));
       const mac = getValue(lines, 'addr', ' ');
       const channel = toInt(getValue(lines, 'channel', ' '));
       result.push({
         id,
-        iface,
+        networkInterface,
         mac,
         channel
       });
@@ -34,13 +34,13 @@ const ifaceListLinux = async () => {
   }
 };
 
-const nmiDeviceLinux = async (iface: string) => {
-  const cmd = `nmcli -t -f general,wifi-properties,capabilities,ip4,ip6 device show ${iface} 2>/dev/null`;
+const nmiDeviceLinux = async (networkInterface: string) => {
+  const cmd = `nmcli -t -f general,wifi-properties,capabilities,ip4,ip6 device show ${networkInterface} 2>/dev/null`;
   try {
     const lines = (await execCmd(cmd)).toString().split('\n');
     const ssid = getValue(lines, 'GENERAL.CONNECTION');
     return {
-      iface,
+      interface: networkInterface,
       type: getValue(lines, 'GENERAL.TYPE'),
       vendor: getValue(lines, 'GENERAL.VENDOR'),
       product: getValue(lines, 'GENERAL.PRODUCT'),
@@ -54,15 +54,15 @@ const nmiDeviceLinux = async (iface: string) => {
 
 export const linuxWifiInterfaces = async () => {
   const result: WifiInterfaceData[] = [];
-  const interfaces = await ifaceListLinux();
-  interfaces.forEach(async (ifaceDetail) => {
-    const nmiDetails = await nmiDeviceLinux(ifaceDetail.iface);
+  const interfaces = await interfaceListLinux();
+  interfaces.forEach(async (interfaceDetail) => {
+    const nmiDetails = await nmiDeviceLinux(interfaceDetail.networkInterface);
     result.push({
-      id: '' + ifaceDetail.id,
-      iface: ifaceDetail.iface,
+      id: '' + interfaceDetail.id,
+      networkInterface: interfaceDetail.networkInterface,
       model: nmiDetails.product ? nmiDetails.product : null,
       vendor: nmiDetails.vendor ? nmiDetails.vendor : null,
-      mac: ifaceDetail.mac,
+      mac: interfaceDetail.mac,
     });
   });
   return result;

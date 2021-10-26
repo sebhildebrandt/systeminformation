@@ -1,10 +1,10 @@
 import { promises as fs, existsSync } from 'fs';
 
-import { getValue, nextTick } from '../common';
+import { cloneObj, getValue, nextTick } from '../common';
 import { initBatteryResult } from '../common/defaults';
 
 export const linuxBattery = async () => {
-  const result = initBatteryResult;
+  const result = cloneObj(initBatteryResult);
   let acConnected = false;
   const bat1 = '/sys/class/power_supply/BAT1/uevent';
   const bat0 = '/sys/class/power_supply/BAT0/uevent';

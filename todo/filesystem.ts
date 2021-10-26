@@ -127,7 +127,8 @@ function fsSize(callback) {
       if (_windows) {
         try {
           util.wmic('logicaldisk get Caption,FileSystem,FreeSpace,Size').then((stdout) => {
-            let lines = stdout.split('\r\n').filter(line => line.trim() !== '').filter((line, idx) => idx > 0);
+            let lines = stdout.split('\r\n').filter(line => line.trim() !== '');
+            lines.shift();
             lines.forEach(function (line) {
               if (line !== '') {
                 line = line.trim().split(/\s\s+/);
