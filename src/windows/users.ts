@@ -71,14 +71,14 @@ export const windowsUsers = async () => {
     const loggedons = parseWinLoggedOn(data[1].toString().split(/\n\s*\n/));
     const users = parseWinUsers(data[2].toString().split(/\n\s*\n/));
     for (const id in loggedons) {
-      if ({}.hasOwnProperty.call(loggedons, id)) {
-        loggedons[id].dateTime = {}.hasOwnProperty.call(sessions, id) ? sessions[id] : '';
+      if (Object.keys(loggedons).includes(id)) {
+        loggedons[id].dateTime = Object.keys(sessions).includes(id) ? sessions[id] : '';
       }
     }
     users.forEach(user => {
       let dateTime = '';
       for (const id in loggedons) {
-        if ({}.hasOwnProperty.call(loggedons, id)) {
+        if (Object.keys(loggedons).includes(id)) {
           if (loggedons[id].user === user.user && (!dateTime || dateTime < loggedons[id].dateTime)) {
             dateTime = loggedons[id].dateTime;
           }

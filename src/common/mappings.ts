@@ -195,7 +195,7 @@ export const LINUX_RAM_manufacturers: { [index: string]: any; } = {
 };
 
 export const getManufacturerDarwin = (manId: string) => {
-  if ({}.hasOwnProperty.call(OSX_RAM_manufacturers, manId)) {
+  if (Object.keys(OSX_RAM_manufacturers).includes(manId)) {
     return (OSX_RAM_manufacturers[manId]);
   }
   return manId;
@@ -203,7 +203,7 @@ export const getManufacturerDarwin = (manId: string) => {
 
 export const getManufacturerLinux = (manId: string) => {
   const manIdSearch = manId.replace('0x', '').toUpperCase();
-  if (manIdSearch.length === 4 && {}.hasOwnProperty.call(LINUX_RAM_manufacturers, manIdSearch)) {
+  if (manIdSearch.length === 4 && Object.keys(LINUX_RAM_manufacturers).includes(manIdSearch)) {
     return (LINUX_RAM_manufacturers[manIdSearch]);
   }
   return manId;
@@ -624,7 +624,7 @@ export const getAMDSpeed = (brand: string): number => {
   let result = '0';
   let key: keyof typeof AMDBaseFrequencies;
   for (key in AMDBaseFrequencies) {
-    if ({}.hasOwnProperty.call(AMDBaseFrequencies, key)) {
+    if (Object.keys(AMDBaseFrequencies).includes(key)) {
       const parts = key.split('|');
       let found = 0;
       parts.forEach(item => {

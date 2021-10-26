@@ -192,7 +192,7 @@ export const dockerContainers = async (all = false): Promise<DockerContainerData
       if (docker_containers && Object.prototype.toString.call(docker_containers) === '[object Array]' && docker_containers.length > 0) {
         // GC in _docker_container_stats
         for (const key in _docker_container_stats) {
-          if ({}.hasOwnProperty.call(_docker_container_stats, key)) {
+          if (Object.keys(_docker_container_stats).includes(key)) {
             if (!inContainers(docker_containers, key)) { delete _docker_container_stats[key]; }
           }
         }
@@ -219,7 +219,7 @@ export const dockerContainers = async (all = false): Promise<DockerContainerData
     } catch (err) {
       // GC in _docker_container_stats
       for (const key in _docker_container_stats) {
-        if ({}.hasOwnProperty.call(_docker_container_stats, key)) {
+        if (Object.keys(_docker_container_stats).includes(key)) {
           if (!inContainers(docker_containers, key)) { delete _docker_container_stats[key]; }
         }
       }
@@ -314,7 +314,7 @@ const docker_calcNetworkIO = (networks: any) => {
   let wx = 0;
   for (const key in networks) {
     // skip loop if the property is from prototype
-    if (!{}.hasOwnProperty.call(networks, key)) { continue; }
+    if (!Object.keys(networks).includes(key)) { continue; }
 
     /**
      * @namespace

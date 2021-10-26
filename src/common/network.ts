@@ -14,13 +14,13 @@ export const wifiQualityFromDB = (db: number) => {
 };
 
 export const wifiFrequencyFromChannel = (channel: number) => {
-  return {}.hasOwnProperty.call(wifiFrequencies, channel) ? wifiFrequencies[channel] : null;
+  return Object.keys(wifiFrequencies).includes(String(channel)) ? wifiFrequencies[channel] : null;
 };
 
 export const wifiChannelFromFrequencs = (frequency: number) => {
   let channel = 0;
   for (const key in wifiFrequencies) {
-    if ({}.hasOwnProperty.call(wifiFrequencies, key)) {
+    if (Object.keys(wifiFrequencies).includes(key)) {
       if (wifiFrequencies[key] === frequency) { channel = toInt(key); }
     }
   }
@@ -47,7 +47,7 @@ export const getUniqueMacAdresses = () => {
   const ifaces = networkInterfaces();
   let macs: string[] = [];
   for (const dev in ifaces) {
-    if ({}.hasOwnProperty.call(ifaces, dev)) {
+    if (Object.keys(ifaces).includes(dev)) {
       ifaces[dev]?.forEach((details: any) => {
         if (details && details.mac && details.mac !== '00:00:00:00:00:00') {
           const mac = details.mac.toLowerCase();

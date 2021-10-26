@@ -63,8 +63,8 @@ export const versions = async (apps?: string | string[]) => {
     apps.forEach(el => {
       if (el) {
         for (const key in versionObject) {
-          if ({}.hasOwnProperty.call(versionObject, key)) {
-            if (key.toLowerCase() === el.toLowerCase() && !{}.hasOwnProperty.call(result.versions, key)) {
+          if (Object.keys(versionObject).includes(key)) {
+            if (key.toLowerCase() === el.toLowerCase() && !Object.keys(result.versions).includes(key)) {
               result.versions[key] = versionObject[key];
               if (key === 'openssl') {
                 result.versions.systemOpenssl = '';
@@ -95,7 +95,7 @@ export const versions = async (apps?: string | string[]) => {
 
       let cmd = '';
       try {
-        if ({}.hasOwnProperty.call(appsObj.versions, 'openssl')) {
+        if (Object.keys(appsObj.versions).includes('openssl')) {
           appsObj.versions.openssl = process.versions.openssl;
           execCmd('openssl version').then((stdout: string) => {
             if (stdout) {
@@ -107,7 +107,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'npm')) {
+        if (Object.keys(appsObj.versions).includes('npm')) {
           execCmd('npm -v').then((stdout: string) => {
             if (stdout) {
               appsObj.versions.npm = stdout.toString().split('\n')[0];
@@ -115,7 +115,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'pm2')) {
+        if (Object.keys(appsObj.versions).includes('pm2')) {
           cmd = 'pm2';
           if (WINDOWS) {
             cmd += '.cmd';
@@ -130,7 +130,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'yarn')) {
+        if (Object.keys(appsObj.versions).includes('yarn')) {
           execCmd('yarn --version').then((stdout: string) => {
             if (stdout) {
               appsObj.versions.yarn = stdout.toString().split('\n')[0];
@@ -138,7 +138,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'gulp')) {
+        if (Object.keys(appsObj.versions).includes('gulp')) {
           cmd = 'gulp';
           if (WINDOWS) {
             cmd += '.cmd';
@@ -151,7 +151,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'tsc')) {
+        if (Object.keys(appsObj.versions).includes('tsc')) {
           cmd = 'tsc';
           if (WINDOWS) {
             cmd += '.cmd';
@@ -164,7 +164,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'grunt')) {
+        if (Object.keys(appsObj.versions).includes('grunt')) {
           cmd = 'grunt';
           if (WINDOWS) {
             cmd += '.cmd';
@@ -177,7 +177,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'git')) {
+        if (Object.keys(appsObj.versions).includes('git')) {
           if (DARWIN) {
             const gitHomebrewExists = existsSync('/usr/local/Cellar/git');
             if (await await darwinXcodeExists() || gitHomebrewExists) {
@@ -203,7 +203,7 @@ export const versions = async (apps?: string | string[]) => {
             });
           }
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'apache')) {
+        if (Object.keys(appsObj.versions).includes('apache')) {
           execCmd('apachectl -v 2>&1').then((stdout: string) => {
             if (stdout) {
               const apache = (stdout.toString().split('\n')[0] || '').split(':');
@@ -212,7 +212,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'nginx')) {
+        if (Object.keys(appsObj.versions).includes('nginx')) {
           execCmd('nginx -v 2>&1').then((stdout: string) => {
             if (stdout) {
               const nginx = stdout.toString().split('\n')[0] || '';
@@ -221,7 +221,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'mysql')) {
+        if (Object.keys(appsObj.versions).includes('mysql')) {
           execCmd('mysql -V').then((stdout: string) => {
             if (stdout) {
               let mysql = stdout.toString().split('\n')[0] || '';
@@ -240,7 +240,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'php')) {
+        if (Object.keys(appsObj.versions).includes('php')) {
           execCmd('php -v').then((stdout: string) => {
             if (stdout) {
               const php = stdout.toString().split('\n')[0] || '';
@@ -253,7 +253,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'redis')) {
+        if (Object.keys(appsObj.versions).includes('redis')) {
           execCmd('redis-server --version').then((stdout: string) => {
             if (stdout) {
               const redis = stdout.toString().split('\n')[0] || '';
@@ -263,7 +263,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'docker')) {
+        if (Object.keys(appsObj.versions).includes('docker')) {
           execCmd('docker --version').then((stdout: string) => {
             if (stdout) {
               const docker = stdout.toString().split('\n')[0] || '';
@@ -273,7 +273,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'postfix')) {
+        if (Object.keys(appsObj.versions).includes('postfix')) {
           execCmd('postconf -d | grep mail_version').then((stdout: string) => {
             if (stdout) {
               const postfix = stdout.toString().split('\n') || [];
@@ -282,7 +282,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'mongodb')) {
+        if (Object.keys(appsObj.versions).includes('mongodb')) {
           execCmd('mongod --version').then((stdout: string) => {
             if (stdout) {
               const mongodb = stdout.toString().split('\n')[0] || '';
@@ -291,7 +291,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'postgresql')) {
+        if (Object.keys(appsObj.versions).includes('postgresql')) {
           if (LINUX) {
             execCmd('locate bin/postgres').then((stdout: string) => {
               if (stdout) {
@@ -348,7 +348,7 @@ export const versions = async (apps?: string | string[]) => {
             }
           }
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'perl')) {
+        if (Object.keys(appsObj.versions).includes('perl')) {
           execCmd('perl -v').then((stdout: string) => {
             if (stdout) {
               const perl = stdout.toString().split('\n') || '';
@@ -362,7 +362,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'python')) {
+        if (Object.keys(appsObj.versions).includes('python')) {
           if (DARWIN) {
             const gitHomebrewExists = existsSync('/usr/local/Cellar/python');
             if (await darwinXcodeExists() || gitHomebrewExists) {
@@ -386,7 +386,7 @@ export const versions = async (apps?: string | string[]) => {
             });
           }
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'python3')) {
+        if (Object.keys(appsObj.versions).includes('python3')) {
           if (DARWIN) {
             const gitHomebrewExists = existsSync('/usr/local/Cellar/python3');
             if (await darwinXcodeExists() || gitHomebrewExists) {
@@ -410,7 +410,7 @@ export const versions = async (apps?: string | string[]) => {
             });
           }
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'pip')) {
+        if (Object.keys(appsObj.versions).includes('pip')) {
           if (DARWIN) {
             const gitHomebrewExists = existsSync('/usr/local/Cellar/pip');
             if (await darwinXcodeExists() || gitHomebrewExists) {
@@ -436,7 +436,7 @@ export const versions = async (apps?: string | string[]) => {
             });
           }
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'pip3')) {
+        if (Object.keys(appsObj.versions).includes('pip3')) {
           if (DARWIN) {
             const gitHomebrewExists = existsSync('/usr/local/Cellar/pip3');
             if (await darwinXcodeExists() || gitHomebrewExists) {
@@ -462,7 +462,7 @@ export const versions = async (apps?: string | string[]) => {
             });
           }
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'java')) {
+        if (Object.keys(appsObj.versions).includes('java')) {
           if (DARWIN) {
             // check if any JVM is installed but avoid dialog box that Java needs to be installed
             execCmd('/usr/libexec/java_home -V 2>&1').then((stdout: string) => {
@@ -491,7 +491,7 @@ export const versions = async (apps?: string | string[]) => {
             });
           }
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'gcc')) {
+        if (Object.keys(appsObj.versions).includes('gcc')) {
           if ((DARWIN && await darwinXcodeExists()) || !DARWIN) {
             execCmd('gcc -dumpversion').then((stdout: string) => {
               if (stdout) {
@@ -516,7 +516,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           }
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'virtualbox')) {
+        if (Object.keys(appsObj.versions).includes('virtualbox')) {
           execCmd(VBOXMANAGE + ' -v 2>&1').then((stdout: string) => {
             if (stdout) {
               const vbox = stdout.toString().split('\n')[0] || '';
@@ -526,7 +526,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'bash')) {
+        if (Object.keys(appsObj.versions).includes('bash')) {
           execCmd('bash --version').then((stdout: string) => {
             if (stdout) {
               const line = stdout.toString().split('\n')[0];
@@ -538,7 +538,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'zsh')) {
+        if (Object.keys(appsObj.versions).includes('zsh')) {
           execCmd('zsh --version').then((stdout: string) => {
             if (stdout) {
               const line = stdout.toString().split('\n')[0];
@@ -550,7 +550,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'fish')) {
+        if (Object.keys(appsObj.versions).includes('fish')) {
           execCmd('fish --version').then((stdout: string) => {
             if (stdout) {
               const line = stdout.toString().split('\n')[0];
@@ -562,7 +562,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           });
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'powershell')) {
+        if (Object.keys(appsObj.versions).includes('powershell')) {
           if (WINDOWS) {
             powerShell('$PSVersionTable').then((stdout) => {
               const lines = stdout.toString().split('\n').map(line => line.replace(/ +/g, ' ').replace(/ +/g, ':'));
@@ -573,7 +573,7 @@ export const versions = async (apps?: string | string[]) => {
             functionProcessed();
           }
         }
-        if ({}.hasOwnProperty.call(appsObj.versions, 'dotnet')) {
+        if (Object.keys(appsObj.versions).includes('dotnet')) {
           powerShell('gci "HKLM:\\SOFTWARE\\Microsoft\\NET Framework Setup\\NDP" -recurse | gp -name Version,Release -EA 0 | where { $_.PSChildName -match "^(?!S)\\p{L}"} | select PSChildName, Version, Release').then(stdout => {
             const lines = stdout.toString().split('\r\n');
             let dotnet = '';

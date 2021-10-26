@@ -12,7 +12,7 @@ export const getCpuCurrentSpeed = (): CpuCurrentSpeedObject => {
 
   if (oscpus && oscpus.length) {
     for (const i in oscpus) {
-      if ({}.hasOwnProperty.call(oscpus, i)) {
+      if (Object.keys(oscpus).includes(i)) {
         const freq = oscpus[i].speed > 100 ? (oscpus[i].speed + 1) / 1000 : oscpus[i].speed / 10;
         avgFreq = avgFreq + freq;
         if (freq > maxFreq) { maxFreq = freq; }

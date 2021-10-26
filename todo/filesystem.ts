@@ -846,7 +846,7 @@ function diskLayout(callback) {
               let devices = [];
               try {
                 const outJSON = JSON.parse(out);
-                if (outJSON && {}.hasOwnProperty.call(outJSON, 'blockdevices')) {
+                if (outJSON && Object.keys(outJSON).includes('blockdevices')) {
                   devices = outJSON.blockdevices.filter(item => { return (item.type === 'disk') && item.size > 0 && (item.model !== null || (item.mountpoint === null && item.label === null && item.fsType === null && item.parttype === null)); });
                 }
               } catch (e) {

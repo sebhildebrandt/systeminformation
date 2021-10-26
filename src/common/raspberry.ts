@@ -177,7 +177,7 @@ export const decodePiCpuinfo = (lines: string[]) => {
     revision: '',
 
   };
-  if ({}.hasOwnProperty.call(oldRevisionCodes, revisionCode)) {
+  if (Object.keys(oldRevisionCodes).includes(revisionCode)) {
     // old revision codes
     result = {
       model,
@@ -207,7 +207,7 @@ export const decodePiCpuinfo = (lines: string[]) => {
       memory: 256 * Math.pow(2, memSizeCode),
       manufacturer,
       processor,
-      type: {}.hasOwnProperty.call(typeList, typeCode) ? typeList[typeCode] : '',
+      type: Object.keys(typeList).includes(typeCode) ? typeList[typeCode] : '',
       revision: '1.' + revision.substr(7, 1),
     };
   }
