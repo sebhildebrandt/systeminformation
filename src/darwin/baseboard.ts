@@ -1,18 +1,17 @@
 'use strict';
 
 import * as os from 'os';
-import { getValue, nextTick, promiseAll } from '../common';
+import { getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initBaseboard } from '../common/initials';
-import { BaseboardData } from './../common/types';
 
 export const darwinBaseboard = async () => {
   const result = initBaseboard;
   const workload = [];
   workload.push(execCmd('ioreg -c IOPlatformExpertDevice -d 2'));
   workload.push(execCmd('system_profiler SPMemoryDataType'));
-  const data = await promiseAll(workload);
-  let lines = data.results[0] ? data.results[0].toString().replace(/[<>"]/g, '').split('\n') : [''];
+  const data = await Promise.allSettled(workload);
+  let lines = data[0] ? data[0].toString().replace(/[<>"]/g, '').split('\n') : [''];
   result.manufacturer = getValue(lines, 'manufacturer', '=', true);
   result.model = getValue(lines, 'model', '=', true);
   result.version = getValue(lines, 'version', '=', true);
@@ -20,9 +19,9 @@ export const darwinBaseboard = async () => {
   result.assetTag = getValue(lines, 'board-id', '=', true);
 
   // mem
-  let devices = data.results[1] ? data.results[1].toString().split('        BANK ') : [''];
+  let devices = data[1] ? data[1].toString().split('        BANK ') : [''];
   if (devices.length === 1) {
-    devices = data.results[1] ? data.results[1].toString().split('        DIMM') : [''];
+    devices = data[1] ? data[1].toString().split('        DIMM') : [''];
   }
   devices.shift();
   result.memSlots = devices.length;

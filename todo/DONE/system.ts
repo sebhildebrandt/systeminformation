@@ -2,7 +2,7 @@
 
 import * as os from 'os';
 import { promises as fs, existsSync } from 'fs';
-import { getValue, noop, promiseAll, toInt } from "./common";
+import { getValue, noop, toInt } from "./common";
 import { execCmd, powerShell } from "./common/exec";
 import { initBaseboard, initBios, initChassis, initSystem } from "./common/initials";
 import { chassisTypes } from "./common/mappings";
@@ -375,8 +375,8 @@ export const nixBaseboard = async () => {
   const workload = [];
   workload.push(execCmd(cmd));
   workload.push(execCmd('export LC_ALL=C; dmidecode -t memory 2>/dev/null'));
-  const data = await promiseAll(workload);
-  let lines = data.results[0] ? data.results[0].toString().split('\n') : [''];
+  const data = await Promise.allSettled(workload);
+  let lines = data[0] ? data[0].toString().split('\n') : [''];
   result.manufacturer = getValue(lines, 'Manufacturer');
   result.model = getValue(lines, 'Product Name');
   result.version = getValue(lines, 'Version');
@@ -402,7 +402,7 @@ export const nixBaseboard = async () => {
   if (result.assetTag.toLowerCase().indexOf('o.e.m.') !== -1) { result.assetTag = '-'; }
 
   // mem
-  lines = data.results[1] ? data.results[1].toString().split('\n') : [''];
+  lines = data[1] ? data[1].toString().split('\n') : [''];
   result.memMax = toInt(getValue(lines, 'Maximum Capacity')) * 1024 * 1024 * 1024 || null;
   result.memSlots = toInt(getValue(lines, 'Number Of Devices')) || null;
 
@@ -432,8 +432,8 @@ export const darwinBaseboard = async () => {
   const workload = [];
   workload.push(execCmd('ioreg -c IOPlatformExpertDevice -d 2'));
   workload.push(execCmd('system_profiler SPMemoryDataType'));
-  const data = await promiseAll(workload);
-  let lines = data.results[0] ? data.results[0].toString().replace(/[<>"]/g, '').split('\n') : [''];
+  const data = await Promise.allSettled(workload);
+  let lines = data[0] ? data[0].toString().replace(/[<>"]/g, '').split('\n') : [''];
   result.manufacturer = getValue(lines, 'manufacturer', '=', true);
   result.model = getValue(lines, 'model', '=', true);
   result.version = getValue(lines, 'version', '=', true);
@@ -441,9 +441,9 @@ export const darwinBaseboard = async () => {
   result.assetTag = getValue(lines, 'board-id', '=', true);
 
   // mem
-  let devices = data.results[1] ? data.results[1].toString().split('        BANK ') : [''];
+  let devices = data[1] ? data[1].toString().split('        BANK ') : [''];
   if (devices.length === 1) {
-    devices = data.results[1] ? data.results[1].toString().split('        DIMM') : [''];
+    devices = data[1] ? data[1].toString().split('        DIMM') : [''];
   }
   devices.shift();
   result.memSlots = devices.length;
@@ -462,8 +462,8 @@ export const windowsBaseboard = async () => {
     const workload = [];
     workload.push(powerShell('Get-WmiObject Win32_baseboard | fl *'));
     workload.push(powerShell('Get-WmiObject Win32_physicalmemoryarray | select MaxCapacity, MemoryDevices | fl'));
-    const data = await promiseAll(workload);
-    let lines = data.results[0] ? data.results[0].toString().split('\r\n') : [''];
+    const data = await Promise.allSettled(workload);
+    let lines = data[0] ? data[0].toString().split('\r\n') : [''];
 
     result.manufacturer = getValue(lines, 'manufacturer', ':');
     result.model = getValue(lines, 'model', ':');
@@ -478,7 +478,7 @@ export const windowsBaseboard = async () => {
     }
 
     // memphysical
-    lines = data.results[1] ? data.results[1].toString().split('\r\n') : [''];
+    lines = data[1] ? data[1].toString().split('\r\n') : [''];
     result.memMax = toInt(getValue(lines, 'MaxCapacity', ':')) || null;
     result.memSlots = toInt(getValue(lines, 'MemoryDevices', ':')) || null;
 

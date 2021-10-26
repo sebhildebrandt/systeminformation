@@ -1,10 +1,8 @@
 'use strict';
 
 export const toInt = (value: any) => {
-  let result = parseInt(value, 10);
-  if (isNaN(result)) {
-    result = 0;
-  }
+  const result = parseInt(value, 10);
+  if (isNaN(result)) return 0;
   return result;
 };
 

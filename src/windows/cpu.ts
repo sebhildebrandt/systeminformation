@@ -2,7 +2,7 @@
 
 import * as os from 'os';
 import { powerShell } from '../common/exec';
-import { getValue, promiseAll, toInt, countLines, nextTick } from '../common';
+import { getValue, toInt, countLines, nextTick } from '../common';
 import { CpuObject } from '../common/types';
 import { getAMDSpeed, socketTypes, cpuBrandManufacturer } from '../common/mappings';
 import { cpuFlags } from './cpuFlags';
@@ -23,8 +23,8 @@ export const windowsCpu = async () => {
     // workload.push(powerShell('Get-ComputerInfo -property "HyperV*"'));
     workload.push(powerShell('(Get-CimInstance Win32_ComputerSystem).HypervisorPresent'));
 
-    const data = await promiseAll(workload);
-    let lines = data.results[0].split('\r\n');
+    const data = await Promise.allSettled(workload);
+    let lines = data[0].toString().split('\r\n');
     let name = getValue(lines, 'name', ':') || '';
     if (name.indexOf('@') >= 0) {
       result.brand = name.split('@')[0].trim();
@@ -83,7 +83,7 @@ export const windowsCpu = async () => {
       result.cores = result.cores * countProcessors;
       result.physicalCores = result.physicalCores * countProcessors;
     }
-    const parts = data.results[1].split(/\n\s*\n/);
+    const parts = data[1].toString().split(/\n\s*\n/);
     let l1i = 0;
     let l1d = 0;
     parts.forEach((part: string) => {
@@ -102,7 +102,7 @@ export const windowsCpu = async () => {
     });
     result.cache.l1i = l1i;
     result.cache.l1d = l1d;
-    const hyperv = data.results[2] ? data.results[2].toString().toLowerCase() : '';
+    const hyperv = data[2] ? data[2].toString().toLowerCase() : '';
     result.virtualization = hyperv.indexOf('true') !== -1;
 
     return result;

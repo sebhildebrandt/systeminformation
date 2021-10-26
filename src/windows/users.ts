@@ -1,7 +1,7 @@
 'use strict';
 
 import { powerShell } from '../common/exec';
-import { getValue, nextTick, promiseAll } from '../common';
+import { getValue, nextTick } from '../common';
 import { UserData } from '../common/types';
 
 const parseWinSessions = (sessionParts: string[]) => {
@@ -66,12 +66,12 @@ export const windowsUsers = async () => {
     workload.push(powerShell('Get-WmiObject Win32_LogonSession | fl *'));
     workload.push(powerShell('Get-WmiObject Win32_LoggedOnUser | fl *'));
     workload.push(powerShell('Get-WmiObject Win32_Process -Filter "name=\'explorer.exe\'" | Select @{Name="domain";Expression={$_.GetOwner().Domain}}, @{Name="username";Expression={$_.GetOwner().User}} | fl'));
-    const data = await promiseAll(workload);
+    const data = await Promise.allSettled(workload);
     // controller + vram
     // let accounts = parseWinAccounts(data[0].split(/\n\s*\n/));
-    let sessions = parseWinSessions(data.results[0].split(/\n\s*\n/));
-    let loggedons = parseWinLoggedOn(data.results[1].split(/\n\s*\n/));
-    let users = parseWinUsers(data.results[2].split(/\n\s*\n/));
+    let sessions = parseWinSessions(data[0].toString().split(/\n\s*\n/));
+    let loggedons = parseWinLoggedOn(data[1].toString().split(/\n\s*\n/));
+    let users = parseWinUsers(data[2].toString().split(/\n\s*\n/));
     for (let id in loggedons) {
       if ({}.hasOwnProperty.call(loggedons, id)) {
         loggedons[id].dateTime = {}.hasOwnProperty.call(sessions, id) ? sessions[id] : '';

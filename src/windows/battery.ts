@@ -1,7 +1,7 @@
 'use strict';
 
 import { powerShell } from '../common/exec';
-import { getValue, nextTick, promiseAll, toInt } from '../common';
+import { getValue, nextTick, toInt } from '../common';
 import { BatteryObject } from '../common/types';
 import { initBatteryResult } from '../common/initials';
 
@@ -34,9 +34,9 @@ export const windowsBattery = async () => {
     workload.push(powerShell('Get-WmiObject Win32_Battery | fl *'));
     workload.push(powerShell('(Get-WmiObject -Class BatteryStaticData -Namespace ROOT/WMI).DesignedCapacity'));
     workload.push(powerShell('(Get-WmiObject -Class BatteryFullChargedCapacity -Namespace ROOT/WMI).FullChargedCapacity'));
-    const data = await promiseAll(workload);
+    const data = await Promise.allSettled(workload);
     if (data) {
-      let parts = data.results[0].split(/\n\s*\n/);
+      let parts = data[0].toString().split(/\n\s*\n/);
       let batteries: any[] = [];
       const hasValue = (value: string) => /\S/.test(value);
       for (let i = 0; i < parts.length; i++) {
@@ -47,8 +47,8 @@ export const windowsBattery = async () => {
           batteries[batteries.length - 1].push(parts[i]);
         }
       }
-      let designCapacities = data.results[1].split('\r\n');
-      let fullChargeCapacities = data.results[2].split('\r\n');
+      let designCapacities = data[1].toString().split('\r\n');
+      let fullChargeCapacities = data[2].toString().split('\r\n');
       if (batteries.length) {
         let first = false;
         let additionalBatteries = [];
