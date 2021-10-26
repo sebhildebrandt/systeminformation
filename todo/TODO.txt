@@ -1,0 +1,1 @@
+isUefiWindows ansehen in osInfo ... testen, verbessern

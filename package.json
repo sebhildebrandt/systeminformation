@@ -1,6 +1,6 @@
 {
   "name": "systeminformation",
-  "version": "5.9.8",
+  "version": "5.9.7",
   "description": "Advanced, lightweight system and OS information library",
   "license": "MIT",
   "author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com> (https://plus-innovations.com)",
@@ -11,10 +11,11 @@
   },
   "types": "./lib/index.d.ts",
   "scripts": {
-    "test": "node ./test/test.js"
+    "test": "node ./test/test.js",
+    "build": "tsc"
   },
   "files": [
-    "lib/"
+    "lib/**/*"
   ],
   "keywords": [
     "system information",
@@ -94,5 +95,9 @@
   ],
   "engines": {
     "node": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.1",
+    "typescript": "^4.4.4"
   }
 }
