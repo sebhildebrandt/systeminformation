@@ -2,7 +2,7 @@
 
 import { execSafe } from '../common/exec';
 import { sanitizeUrl } from '../common/security';
-import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS, execOptsWin } from '../common/const';
+import { DARWIN, FREEBSD, LINUX, NETBSD } from '../common/const';
 import { nextTick } from '../common';
 
 export const nixInetLatency = async (host: string) => {

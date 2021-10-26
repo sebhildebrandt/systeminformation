@@ -59,27 +59,27 @@ function parseWinLoggedOn(loggedonParts: string[]) {
 }
 
 export const windowsUsers = async () => {
-  let result: UserData[] = [];
+  const result: UserData[] = [];
   try {
     const workload: any[] = [];
     // workload.push(powerShell('Get-CimInstance -ClassName Win32_Account | fl *'));
     workload.push(powerShell('Get-WmiObject Win32_LogonSession | fl *'));
     workload.push(powerShell('Get-WmiObject Win32_LoggedOnUser | fl *'));
     workload.push(powerShell('Get-WmiObject Win32_Process -Filter "name=\'explorer.exe\'" | Select @{Name="domain";Expression={$_.GetOwner().Domain}}, @{Name="username";Expression={$_.GetOwner().User}} | fl'));
-    const data = await Promise.allSettled(workload);
+    const data = await Promise.allSettled(workload).then(results => results.map(result => result.status === 'fulfilled' ? result.value : null));
     // controller + vram
     // let accounts = parseWinAccounts(data[0].split(/\n\s*\n/));
-    let sessions = parseWinSessions(data[0].toString().split(/\n\s*\n/));
-    let loggedons = parseWinLoggedOn(data[1].toString().split(/\n\s*\n/));
-    let users = parseWinUsers(data[2].toString().split(/\n\s*\n/));
-    for (let id in loggedons) {
+    const sessions = parseWinSessions(data[0].toString().split(/\n\s*\n/));
+    const loggedons = parseWinLoggedOn(data[1].toString().split(/\n\s*\n/));
+    const users = parseWinUsers(data[2].toString().split(/\n\s*\n/));
+    for (const id in loggedons) {
       if ({}.hasOwnProperty.call(loggedons, id)) {
         loggedons[id].dateTime = {}.hasOwnProperty.call(sessions, id) ? sessions[id] : '';
       }
     }
     users.forEach(user => {
       let dateTime = '';
-      for (let id in loggedons) {
+      for (const id in loggedons) {
         if ({}.hasOwnProperty.call(loggedons, id)) {
           if (loggedons[id].user === user.user && (!dateTime || dateTime < loggedons[id].dateTime)) {
             dateTime = loggedons[id].dateTime;

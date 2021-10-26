@@ -5,9 +5,9 @@ import { execCmd } from '../common/exec';
 import { UserData } from '../common/types';
 
 const parseUsersDarwin = (lines: string[]): UserData[] => {
-  let result: UserData[] = [];
-  let result_who: UserData[] = [];
-  let result_w: any = {};
+  const result: UserData[] = [];
+  const result_who: UserData[] = [];
+  const result_w: any = {};
   let who_line: any = [];
 
   let is_whopart = true;
@@ -15,7 +15,7 @@ const parseUsersDarwin = (lines: string[]): UserData[] => {
     if (line === '---') {
       is_whopart = false;
     } else {
-      let l = line.replace(/ +/g, ' ').split(' ');
+      const l = line.replace(/ +/g, ' ').split(' ');
 
       // who part
       if (is_whopart) {
@@ -58,7 +58,7 @@ export const bsdUsers = async () => {
   let result: UserData[] = [];
   const stdout = await execCmd('who; echo "---"; w -ih');
   // lines / split
-  let lines = stdout.toString().split('\n');
+  const lines = stdout.toString().split('\n');
   result = parseUsersDarwin(lines);
   return result;
 };

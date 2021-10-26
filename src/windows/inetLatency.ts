@@ -13,11 +13,11 @@ export const windowsInetLatency = async (host: string) => {
     const params = [hostSanitized, '-n', '1'];
     const stdout = await execSafe('ping', params, execOptsWin);
     if (stdout) {
-      let lines = stdout.split('\r\n');
+      const lines = stdout.split('\r\n');
       lines.shift();
       lines.forEach(function (line) {
         if ((line.toLowerCase().match(/ms/g) || []).length === 3) {
-          let l = line.replace(/ +/g, ' ').split(' ');
+          const l = line.replace(/ +/g, ' ').split(' ');
           if (l.length > 6) {
             result = parseFloat(l[l.length - 1]);
           }

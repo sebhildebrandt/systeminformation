@@ -1,12 +1,11 @@
 'use strict';
 
-import { nextTick, noop } from '../common';
+import { nextTick } from '../common';
 import { initMemData } from '../common/initials';
-import { MemData } from '../common/types';
 import { execCmd } from '../common/exec';
 
 export const darwinMem = async () => {
-  let result = initMemData;
+  const result = initMemData;
   try {
     let stdout = (await execCmd('vm_stat 2>/dev/null | grep "Pages active"')).toString();
     let lines = stdout.split('\n');
@@ -17,7 +16,7 @@ export const darwinMem = async () => {
     stdout = (await execCmd('sysctl -n vm.swapusage 2>/dev/null')).toString();
     lines = stdout.split('\n');
     if (lines.length > 0) {
-      let line = lines[0].replace(/,/g, '.').replace(/M/g, '');
+      const line = lines[0].replace(/,/g, '.').replace(/M/g, '');
       const lineParts = line.trim().split('  ');
       for (let i = 0; i < lineParts.length; i++) {
         if (lineParts[i].toLowerCase().indexOf('total') !== -1) { result.swaptotal = parseFloat(lineParts[i].split('=')[1].trim()) * 1024 * 1024; }
@@ -26,7 +25,6 @@ export const darwinMem = async () => {
       }
     }
   } catch (e) {
-    noop();
   }
   return result;
 };

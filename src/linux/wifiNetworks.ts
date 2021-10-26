@@ -43,7 +43,7 @@ const getWifiNetworkListNmi = async () => {
 const getWifiNetworkListIw = async (iface: string) => {
   const result: WifiNetworkData[] = [];
   try {
-    let iwlistParts = (await execCmd(`export LC_ALL=C; iwlist ${iface} scan 2>&1; unset LC_ALL`)).toString().split('        Cell ');
+    const iwlistParts = (await execCmd(`export LC_ALL=C; iwlist ${iface} scan 2>&1; unset LC_ALL`)).toString().split('        Cell ');
     if (iwlistParts[0].indexOf('resource busy') >= 0) { return -1; }
     if (iwlistParts.length > 1) {
       iwlistParts.shift();

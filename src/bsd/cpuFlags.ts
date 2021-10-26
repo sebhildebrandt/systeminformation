@@ -4,7 +4,7 @@ import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 
 export const bsdCpuFlags = async () => {
-  let result: string = '';
+  let result = '';
   try {
     const stdout = (await execCmd('export LC_ALL=C; dmidecode -t 4 2>/dev/null; unset LC_ALL')).toString();
     let flagsArray: string[] = [];

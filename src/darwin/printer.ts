@@ -1,6 +1,6 @@
 'use strict';
 
-import { nextTick, noop } from '../common';
+import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { PrinterData } from '../common/types';
 
@@ -33,7 +33,6 @@ export const darwinPrinter = async () => {
       }
     }
   } catch (e) {
-    noop();
   }
   return (result);
 };

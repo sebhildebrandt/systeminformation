@@ -1,6 +1,5 @@
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
-import { CpuCacheData } from '../common/types';
 import { initCpuCacheResult } from '../common/initials';
 
 export const bsdCpuCache = async () => {
@@ -22,7 +21,8 @@ export const bsdCpuCache = async () => {
         case cacheType === 'l1':
           result.l1d = size / 2;
           result.l1i = size / 2;
-        case cacheType === 'l2': result.l2 = size;
+          break;
+        case cacheType === 'l2': result.l2 = size; break;
         case cacheType === 'l3': result.l3 = size;
       }
     }

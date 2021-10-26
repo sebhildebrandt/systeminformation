@@ -1,7 +1,7 @@
 'use strict';
 
 export type AudioPCI = {
-  slotId: any;
+  slotId: string;
   driver: string;
 };
 

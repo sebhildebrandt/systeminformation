@@ -13,7 +13,6 @@ const getAudioPci = async () => {
     for (let i = 0; i < parts.length; i++) {
       const lines = parts[i].split(os.EOL);
       if (lines && lines.length && lines[0].toLowerCase().indexOf('audio') >= 0) {
-        const audio = {};
         result.push({
           slotId: lines[0].split(' ')[0],
           driver: getValue(lines, 'Kernel driver in use', ':', true) || getValue(lines, 'Kernel modules', ':', true)

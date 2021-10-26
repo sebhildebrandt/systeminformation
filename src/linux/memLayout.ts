@@ -1,20 +1,20 @@
 'use strict';
 
 import * as os from 'os';
-import { getValue, nextTick, noop, toInt } from '../common';
+import { getValue, nextTick, toInt } from '../common';
 import { MemLayoutData } from '../common/types';
 import { execCmd } from '../common/exec';
 import { getManufacturerLinux, raspberryClockSpeed } from '../common/mappings';
 
 export const nixMemLayout = async () => {
-  let result: MemLayoutData[] = [];
+  const result: MemLayoutData[] = [];
   try {
 
     let stdout = (await execCmd('export LC_ALL=C; dmidecode -t memory 2>/dev/null | grep -iE "Size:|Type|Speed|Manufacturer|Form Factor|Locator|Memory Device|Serial Number|Voltage|Part Number"; unset LC_ALL')).toString();
-    let devices = stdout.toString().split('Memory Device');
+    const devices = stdout.toString().split('Memory Device');
     devices.shift();
     devices.forEach(function (device) {
-      let lines = device.split('\n');
+      const lines = device.split('\n');
       const sizeString = getValue(lines, 'Size');
       const size = sizeString.indexOf('GB') >= 0 ? parseInt(sizeString, 10) * 1024 * 1024 * 1024 : parseInt(sizeString, 10) * 1024 * 1024;
       if (parseInt(getValue(lines, 'Size'), 10) > 0) {
@@ -68,8 +68,8 @@ export const nixMemLayout = async () => {
       // Try Raspberry PI
       stdout = (await execCmd('cat /proc/cpuinfo 2>/dev/null')).toString();
       let lines = stdout.split('\n');
-      let model = getValue(lines, 'hardware', ':', true).toUpperCase();
-      let version = getValue(lines, 'revision', ':', true).toLowerCase();
+      const model = getValue(lines, 'hardware', ':', true).toUpperCase();
+      const version = getValue(lines, 'revision', ':', true).toLowerCase();
 
       if (model === 'BCM2835' || model === 'BCM2708' || model === 'BCM2709' || model === 'BCM2835' || model === 'BCM2837') {
 
@@ -82,14 +82,14 @@ export const nixMemLayout = async () => {
 
         stdout = (await execCmd('vcgencmd get_config sdram_freq 2>/dev/null')).toString();
         lines = stdout.split('\n');
-        let freq = parseInt(getValue(lines, 'sdram_freq', '=', true), 10) || 0;
+        const freq = parseInt(getValue(lines, 'sdram_freq', '=', true), 10) || 0;
         if (freq) {
           result[0].clockSpeed = freq;
         }
 
         stdout = (await execCmd('vcgencmd measure_volts sdram_p 2>/dev/null')).toString();
         lines = stdout.split('\n');
-        let voltage = parseFloat(getValue(lines, 'volt', '=', true)) || 0;
+        const voltage = parseFloat(getValue(lines, 'volt', '=', true)) || 0;
         if (voltage) {
           result[0].voltageConfigured = voltage;
           result[0].voltageMin = voltage;
@@ -98,7 +98,6 @@ export const nixMemLayout = async () => {
       }
     }
   } catch (e) {
-    noop();
   }
   return result;
 };

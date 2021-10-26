@@ -3,10 +3,10 @@
 import { execCmd } from '../common/exec';
 import { initUUID } from '../common/initials';
 import { UuidData } from '../common/types';
-import { getValue, nextTick, noop } from '../common';
+import { getValue, nextTick } from '../common';
 
 export const bsdUuid = async () => {
-  let result: UuidData = initUUID;
+  const result: UuidData = initUUID;
   try {
     const cmd = `echo -n "os: "; sysctl -n kern.hostid; echo;
 echo -n "hardware: "; sysctl -n kern.hostuuid; echo;`;
@@ -17,7 +17,6 @@ echo -n "hardware: "; sysctl -n kern.hostuuid; echo;`;
     if (result.os.indexOf('unknown') >= 0) { result.os = ''; }
     if (result.hardware.indexOf('unknown') >= 0) { result.hardware = ''; }
   } catch (e) {
-    noop();
   }
   return result;
 };

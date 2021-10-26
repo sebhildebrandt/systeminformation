@@ -1,15 +1,14 @@
 'use strict';
 
-import { getValue, nextTick } from "../common";
-import { execCmd } from "../common/exec";
-import { initChassis } from "../common/initials";
-import { ChassisData } from './../common/types';
+import { getValue, nextTick } from '../common';
+import { execCmd } from '../common/exec';
+import { initChassis } from '../common/initials';
 
 export const darwinChassis = async () => {
   const result = initChassis;
   const stdout = await execCmd('ioreg -c IOPlatformExpertDevice -d 2');
   if (stdout) {
-    let lines = stdout.toString().replace(/[<>"]/g, '').split('\n');
+    const lines = stdout.toString().replace(/[<>"]/g, '').split('\n');
     result.manufacturer = getValue(lines, 'manufacturer', '=', true);
     result.model = getValue(lines, 'model', '=', true);
     result.version = getValue(lines, 'version', '=', true);

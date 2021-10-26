@@ -5,7 +5,7 @@ import { darwinCpuFlags } from './darwin/cpuFlags';
 import { windowsCpuFlags } from './windows/cpuFlags';
 import { bsdCpuFlags } from './bsd/cpuFlags';
 
-import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
 import { nextTick } from './common';
 
 export const cpuFlags = async () => {

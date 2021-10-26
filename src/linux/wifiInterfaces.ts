@@ -55,7 +55,7 @@ const nmiDeviceLinux = async (iface: string) => {
 };
 
 export const linuxWifiInterfaces = async () => {
-  let result: WifiInterfaceData[] = [];
+  const result: WifiInterfaceData[] = [];
   const ifaces = await ifaceListLinux();
   ifaces.forEach(async (ifaceDetail) => {
     const nmiDetails = await nmiDeviceLinux(ifaceDetail.iface);

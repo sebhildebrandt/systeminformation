@@ -3,13 +3,12 @@
 import { getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initSystem } from '../common/initials';
-import { SystemData } from './../common/types';
 
 export const darwinSystem = async () => {
   const result = initSystem;
   const stdout = await execCmd('ioreg -c IOPlatformExpertDevice -d 2');
   if (stdout) {
-    let lines = stdout.toString().replace(/[<>"]/g, '').split('\n');
+    const lines = stdout.toString().replace(/[<>"]/g, '').split('\n');
     result.manufacturer = getValue(lines, 'manufacturer', '=', true);
     result.model = getValue(lines, 'model', '=', true);
     result.version = getValue(lines, 'version', '=', true);

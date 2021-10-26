@@ -1,16 +1,15 @@
 'use strict';
 
-import { getValue, nextTick } from "../common";
-import { powerShell } from "../common/exec";
-import { initChassis } from "../common/initials";
-import { chassisTypes } from "../common/mappings";
-import { ChassisData } from './../common/types';
+import { getValue, nextTick } from '../common';
+import { powerShell } from '../common/exec';
+import { initChassis } from '../common/initials';
+import { chassisTypes } from '../common/mappings';
 
 export const windowsChassis = async () => {
   const result = initChassis;
   const stdout = await powerShell('Get-WmiObject Win32_SystemEnclosure | fl *');
   if (stdout) {
-    let lines = stdout.toString().split('\r\n');
+    const lines = stdout.toString().split('\r\n');
 
     result.manufacturer = getValue(lines, 'manufacturer', ':');
     result.model = getValue(lines, 'model', ':');

@@ -2,7 +2,7 @@
 
 export const toInt = (value: any) => {
   const result = parseInt(value, 10);
-  if (isNaN(result)) return 0;
+  if (isNaN(result)) { return 0; }
   return result;
 };
 
@@ -34,7 +34,7 @@ export const getValue = (lines: string[], property: string, separator = ':', tri
 export const promiseAll = (promises: Promise<any>[]) => {
   const resolvingPromises = promises.map(function (promise) {
     return new Promise(function (resolve) {
-      var payload = new Array(2);
+      const payload = new Array(2);
       promise.then(function (result) {
         payload[0] = result;
       })
@@ -80,8 +80,6 @@ export const countLines = (lines: string[], startingWith = '') => {
   });
   return uniqueLines.length;
 };
-
-export const noop = () => { };
 
 export const nextTick = () => new Promise<void>(resolve => {
   process.nextTick(() => {

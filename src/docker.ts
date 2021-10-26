@@ -14,13 +14,13 @@
 // ----------------------------------------------------------------------------------
 
 import { WINDOWS } from './common/const';
-import { DockerInfoData, DockerImageData, DockerContainerData, DockerContainerStatsData, DockerContainerProcessData, DockerVolumeData } from './common/types';
+import { DockerContainerData, DockerContainerStatsData, DockerContainerProcessData, DockerVolumeData } from './common/types';
 import { DockerSocket } from './dockerSocket';
 import { sanitizeShellString, isPrototypePolluted, stringReplace, stringToLower, stringTrim, mathMin } from './common/security';
 import { nanoSeconds } from './common/datetime';
-import { nextTick, noop } from './common';
+import { nextTick } from './common';
 
-let _docker_container_stats: { [index: string]: any; } = {};
+const _docker_container_stats: { [index: string]: any; } = {};
 let _docker_socket: DockerSocket;
 let _docker_last_read = 0;
 
@@ -170,7 +170,7 @@ const dockerImagesInspect = async (imageID: string, payload: any) => {
 export const dockerContainers = async (all = false): Promise<DockerContainerData[]> => {
 
   const inContainers = (containers: any, id: string) => {
-    let filtered = containers.filter((obj: any) => {
+    const filtered = containers.filter((obj: any) => {
       /**
        * @namespace
        * @property {string}  Id
@@ -180,7 +180,7 @@ export const dockerContainers = async (all = false): Promise<DockerContainerData
     return (filtered.length > 0);
   };
 
-  let result: DockerContainerData[] = [];
+  const result: DockerContainerData[] = [];
   await nextTick();
   if (!_docker_socket) {
     _docker_socket = new DockerSocket();
@@ -193,7 +193,7 @@ export const dockerContainers = async (all = false): Promise<DockerContainerData
       docker_containers = data;
       if (docker_containers && Object.prototype.toString.call(docker_containers) === '[object Array]' && docker_containers.length > 0) {
         // GC in _docker_container_stats
-        for (let key in _docker_container_stats) {
+        for (const key in _docker_container_stats) {
           if ({}.hasOwnProperty.call(_docker_container_stats, key)) {
             if (!inContainers(docker_containers, key)) { delete _docker_container_stats[key]; }
           }
@@ -220,7 +220,7 @@ export const dockerContainers = async (all = false): Promise<DockerContainerData
       }
     } catch (err) {
       // GC in _docker_container_stats
-      for (let key in _docker_container_stats) {
+      for (const key in _docker_container_stats) {
         if ({}.hasOwnProperty.call(_docker_container_stats, key)) {
           if (!inContainers(docker_containers, key)) { delete _docker_container_stats[key]; }
         }
@@ -286,9 +286,9 @@ const docker_calcCPUPercent = (cpu_stats: any, precpu_stats: any) => {
   if (!WINDOWS) {
     let cpuPercent = 0.0;
     // calculate the change for the cpu usage of the container in between readings
-    let cpuDelta = cpu_stats.cpu_usage.total_usage - precpu_stats.cpu_usage.total_usage;
+    const cpuDelta = cpu_stats.cpu_usage.total_usage - precpu_stats.cpu_usage.total_usage;
     // calculate the change for the entire system between readings
-    let systemDelta = cpu_stats.system_cpu_usage - precpu_stats.system_cpu_usage;
+    const systemDelta = cpu_stats.system_cpu_usage - precpu_stats.system_cpu_usage;
 
     if (systemDelta > 0.0 && cpuDelta > 0.0) {
       // calculate the change for the cpu usage of the container in between readings
@@ -297,11 +297,11 @@ const docker_calcCPUPercent = (cpu_stats: any, precpu_stats: any) => {
 
     return cpuPercent;
   } else {
-    let nanoSecNow = nanoSeconds();
+    const nanoSecNow = nanoSeconds();
     let cpuPercent = 0.0;
     if (_docker_last_read > 0) {
-      let possIntervals = (nanoSecNow - _docker_last_read); //  / 100 * os.cpus().length;
-      let intervalsUsed = cpu_stats.cpu_usage.total_usage - precpu_stats.cpu_usage.total_usage;
+      const possIntervals = (nanoSecNow - _docker_last_read); //  / 100 * os.cpus().length;
+      const intervalsUsed = cpu_stats.cpu_usage.total_usage - precpu_stats.cpu_usage.total_usage;
       if (possIntervals > 0) {
         cpuPercent = 100.0 * intervalsUsed / possIntervals;
       }
@@ -314,7 +314,7 @@ const docker_calcCPUPercent = (cpu_stats: any, precpu_stats: any) => {
 const docker_calcNetworkIO = (networks: any) => {
   let rx = 0;
   let wx = 0;
-  for (let key in networks) {
+  for (const key in networks) {
     // skip loop if the property is from prototype
     if (!{}.hasOwnProperty.call(networks, key)) { continue; }
 
@@ -323,7 +323,7 @@ const docker_calcNetworkIO = (networks: any) => {
      * @property {number}  rx_bytes
      * @property {number}  tx_bytes
      */
-    let obj = networks[key];
+    const obj = networks[key];
     rx = +obj.rx_bytes;
     wx = +obj.tx_bytes;
   }
@@ -334,7 +334,7 @@ const docker_calcNetworkIO = (networks: any) => {
 };
 
 const docker_calcBlockIO = (blkio_stats: any) => {
-  let result = {
+  const result = {
     r: 0,
     w: 0
   };
@@ -401,7 +401,7 @@ export const dockerContainerStats = async (containerIDs = '*') => {
   if (containerArray.length && containerArray[0].trim() === '*') {
     containerArray = [];
     dockerContainers().then(allContainers => {
-      for (let container of allContainers) {
+      for (const container of allContainers) {
         containerArray.push(container.id);
       }
       if (containerArray.length) {
@@ -413,7 +413,7 @@ export const dockerContainerStats = async (containerIDs = '*') => {
       }
     });
   } else {
-    for (let containerID of containerArray) {
+    for (const containerID of containerArray) {
       workload.push(dockerContainerStatsSingle(containerID.trim()));
     }
     if (workload.length) {
@@ -433,7 +433,7 @@ export const dockerContainerStats = async (containerIDs = '*') => {
 
 const dockerContainerStatsSingle = async (containerID: string) => {
   containerID = containerID || '';
-  let result: DockerContainerStatsData = {
+  const result: DockerContainerStatsData = {
     id: containerID,
     memUsage: 0,
     memLimit: 0,
@@ -465,7 +465,7 @@ const dockerContainerStatsSingle = async (containerID: string) => {
       try {
         _docker_socket.getStats(containerID).then((data: any) => {
           try {
-            let stats = data;
+            const stats = data;
 
             if (!stats.message) {
               result.memUsage = (stats.memory_stats && stats.memory_stats.usage ? stats.memory_stats.usage : 0);
@@ -482,13 +482,11 @@ const dockerContainerStatsSingle = async (containerID: string) => {
               result.networks = (stats.networks ? stats.networks : {});
             }
           } catch (err) {
-            noop();
           }
           // }
           return result;
         });
       } catch (err) {
-        noop();
       }
     });
   } else {
@@ -500,7 +498,7 @@ const dockerContainerStatsSingle = async (containerID: string) => {
 // container processes (for one container)
 
 export const dockerContainerProcesses = async (containerID: string) => {
-  let result: DockerContainerProcessData[] = [];
+  const result: DockerContainerProcessData[] = [];
   await nextTick();
   containerID = containerID || '';
   if (typeof containerID !== 'string') {
@@ -517,23 +515,23 @@ export const dockerContainerProcesses = async (containerID: string) => {
     _docker_socket.getProcesses(containerIdSanitized).then((data: any) => {
       try {
         if (data && data.Titles && data.Processes) {
-          let titles = data.Titles.map((value: string) => {
+          const titles = data.Titles.map((value: string) => {
             return value.toUpperCase();
           });
-          let pos_pid = titles.indexOf('PID');
-          let pos_ppid = titles.indexOf('PPID');
-          let pos_pgid = titles.indexOf('PGID');
-          let pos_vsz = titles.indexOf('VSZ');
-          let pos_time = titles.indexOf('TIME');
-          let pos_elapsed = titles.indexOf('ELAPSED');
-          let pos_ni = titles.indexOf('NI');
-          let pos_ruser = titles.indexOf('RUSER');
-          let pos_user = titles.indexOf('USER');
-          let pos_rgroup = titles.indexOf('RGROUP');
-          let pos_group = titles.indexOf('GROUP');
-          let pos_stat = titles.indexOf('STAT');
-          let pos_rss = titles.indexOf('RSS');
-          let pos_command = titles.indexOf('COMMAND');
+          const pos_pid = titles.indexOf('PID');
+          const pos_ppid = titles.indexOf('PPID');
+          const pos_pgid = titles.indexOf('PGID');
+          const pos_vsz = titles.indexOf('VSZ');
+          const pos_time = titles.indexOf('TIME');
+          const pos_elapsed = titles.indexOf('ELAPSED');
+          const pos_ni = titles.indexOf('NI');
+          const pos_ruser = titles.indexOf('RUSER');
+          const pos_user = titles.indexOf('USER');
+          const pos_rgroup = titles.indexOf('RGROUP');
+          const pos_group = titles.indexOf('GROUP');
+          const pos_stat = titles.indexOf('STAT');
+          const pos_rss = titles.indexOf('RSS');
+          const pos_command = titles.indexOf('COMMAND');
 
           data.Processes.forEach((process: any) => {
             result.push({
@@ -555,7 +553,6 @@ export const dockerContainerProcesses = async (containerID: string) => {
           });
         }
       } catch (err) {
-        noop();
       }
       return result;
     });
@@ -566,7 +563,7 @@ export const dockerContainerProcesses = async (containerID: string) => {
 
 export const dockerVolumes = async () => {
 
-  let result: DockerVolumeData[] = [];
+  const result: DockerVolumeData[] = [];
   await nextTick();
   if (!_docker_socket) {
     _docker_socket = new DockerSocket();

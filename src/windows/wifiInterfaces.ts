@@ -3,10 +3,10 @@
 import { nextTick } from '../common';
 import { powerShell } from '../common/exec';
 import { WifiInterfaceData } from '../common/types';
-import { wifiVendor } from "./../common/mappings";
+import { wifiVendor } from '../common/mappings';
 
 export const windowsWifiInterfaces = async () => {
-  let result: WifiInterfaceData[] = [];
+  const result: WifiInterfaceData[] = [];
   const stdout = await powerShell('netsh wlan show interfaces');
   const allLines = stdout.toString().split('\r\n');
   for (let i = 0; i < allLines.length; i++) {

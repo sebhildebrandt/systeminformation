@@ -22,8 +22,8 @@ export const getFilesInPath = (source: string) => {
 
   const getFilesRecursively = (source: string): string[] => {
     try {
-      let dirs = getDirectories(source);
-      let files = dirs
+      const dirs = getDirectories(source);
+      const files = dirs
         .map(function (dir) { return getFilesRecursively(dir); })
         .reduce(function (a, b) { return a.concat(b); }, []);
       return files.concat(getFiles(source));

@@ -2,12 +2,11 @@
 
 import * as os from 'os';
 import { promises as fs, existsSync } from 'fs';
-import { getValue, nextTick, noop } from '../common';
+import { getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initSystem } from '../common/initials';
 import { decodePiCpuinfo } from '../common/raspberry';
 import { FREEBSD, NETBSD } from '../common/const';
-import { SystemData } from './../common/types';
 
 export const nixSystem = async () => {
   const result = initSystem;
@@ -35,7 +34,6 @@ export const nixSystem = async () => {
     result.serial = result.serial === '' ? getValue(lines, 'product_serial') : result.serial;
     result.uuid = result.uuid === '' ? getValue(lines, 'product_uuid').toLowerCase() : result.uuid;
   } catch (e) {
-    noop();
   }
   if (!result.serial || result.serial.toLowerCase().indexOf('o.e.m.') !== -1) { result.serial = '-'; }
   if (!result.manufacturer || result.manufacturer.toLowerCase().indexOf('o.e.m.') !== -1) { result.manufacturer = ''; }
@@ -84,7 +82,6 @@ export const nixSystem = async () => {
         result.virtualHost = 'VirtualBox';
       }
     } catch (e) {
-      noop();
     }
   }
   if (!result.virtual && (os.release().toLowerCase().indexOf('microsoft') >= 0 || os.release().toLowerCase().endsWith('wsl2'))) {
@@ -114,7 +111,6 @@ export const nixSystem = async () => {
           break;
       }
     } catch (e) {
-      noop();
     }
   }
   // detect docker
@@ -124,7 +120,7 @@ export const nixSystem = async () => {
   try {
     stdout = (await execCmd('dmesg 2>/dev/null | grep -iE "virtual|hypervisor" | grep -iE "vmware|qemu|kvm|xen" | grep -viE "Nested Virtualization|/virtual/"')).toString();
     // detect virtual machines
-    let lines = stdout.split('\n');
+    const lines = stdout.split('\n');
     if (lines.length > 0) {
       if (result.model === 'Computer') { result.model = 'Virtual machine'; }
       result.virtual = true;
@@ -142,14 +138,13 @@ export const nixSystem = async () => {
       }
     }
   } catch (e) {
-    noop();
   }
 
   if (result.manufacturer === '' && result.model === 'Computer' && result.version === '') {
     // Check Raspberry Pi
     stdout = (await fs.readFile('/proc/cpuinfo')).toString();
     if (stdout) {
-      let lines = stdout.split('\n');
+      const lines = stdout.split('\n');
       result.model = getValue(lines, 'hardware', ':', true).toUpperCase();
       result.version = getValue(lines, 'revision', ':', true).toLowerCase();
       result.serial = getValue(lines, 'serial', ':', true);

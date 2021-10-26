@@ -5,12 +5,12 @@ import { execCmd } from '../common/exec';
 import { UserData } from '../common/types';
 
 const parseUsersLinux = (lines: string[], phase: number): UserData[] => {
-  let result: UserData[] = [];
-  let result_who: UserData[] = [];
-  let result_w: any = {};
+  const result: UserData[] = [];
+  const result_who: UserData[] = [];
+  const result_w: any = {};
   let w_first = true;
   let w_header: string[] = [];
-  let w_pos: number[] = [];
+  const w_pos: number[] = [];
   let who_line: any = [];
 
   let is_whopart = true;
@@ -18,7 +18,7 @@ const parseUsersLinux = (lines: string[], phase: number): UserData[] => {
     if (line === '---') {
       is_whopart = false;
     } else {
-      let l = line.replace(/ +/g, ' ').split(' ');
+      const l = line.replace(/ +/g, ' ').split(' ');
 
       // who part
       if (is_whopart) {

@@ -2,13 +2,12 @@
 
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
-import { BatteryObject } from '../common/types';
 import { initBatteryResult } from '../common/initials';
 
 export const bsdBattery = async () => {
-  let result = initBatteryResult;
+  const result = initBatteryResult;
   const stdout = await execCmd('sysctl hw.acpi.battery hw.acpi.acline');
-  let lines = stdout.toString().split('\n');
+  const lines = stdout.toString().split('\n');
   const batteries = parseInt('0' + getValue(lines, 'hw.acpi.battery.units'), 10);
   const percent = parseInt('0' + getValue(lines, 'hw.acpi.battery.life'), 10);
   result.hasBattery = (batteries > 0);

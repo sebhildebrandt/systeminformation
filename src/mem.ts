@@ -4,9 +4,8 @@ import { linuxMem } from './linux/mem';
 import { bsdMem } from './bsd/mem';
 import { darwinMem } from './darwin/mem';
 import { windowsMem } from './windows/mem';
-import { MemData } from './common/types';
 
-import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
 import { nextTick } from './common';
 
 export const mem = async () => {

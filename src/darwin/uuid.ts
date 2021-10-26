@@ -1,12 +1,12 @@
 'use strict';
 
-import { execCmd } from "../common/exec";
-import { initUUID } from "../common/initials";
-import { UuidData } from "../common/types";
-import { nextTick, noop } from "../common";
+import { execCmd } from '../common/exec';
+import { initUUID } from '../common/initials';
+import { UuidData } from '../common/types';
+import { nextTick } from '../common';
 
 export const darwinUuid = async () => {
-  let result: UuidData = initUUID;
+  const result: UuidData = initUUID;
   try {
     const stdout = await execCmd('system_profiler SPHardwareDataType -json');
     const jsonObj = JSON.parse(stdout.toString());
@@ -16,7 +16,6 @@ export const darwinUuid = async () => {
       result.hardware = spHardware.serial_number;
     }
   } catch (e) {
-    noop();
   }
   return result;
 };

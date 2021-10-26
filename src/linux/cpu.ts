@@ -1,10 +1,9 @@
 'use strict';
 
 import * as os from 'os';
-import { promises as fs } from "fs";
+import { promises as fs } from 'fs';
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
-import { CpuObject } from '../common/types';
 import { decodePiCpuinfo } from '../common/raspberry';
 import { getAMDSpeed, cpuBrandManufacturer } from '../common/mappings';
 import { cpuFlags } from './cpuFlags';
@@ -60,8 +59,8 @@ export const linuxCpu = async () => {
   const threadsPerCore = getValue(lines, 'thread(s) per core') || '1';
   // const coresPerSocketInt = parseInt(getValue(lines, 'cores(s) per socket') || '1', 10);
   const processors = getValue(lines, 'socket(s)') || '1';
-  let threadsPerCoreInt = parseInt(threadsPerCore, 10);
-  let processorsInt = parseInt(processors, 10);
+  const threadsPerCoreInt = parseInt(threadsPerCore, 10);
+  const processorsInt = parseInt(processors, 10);
   result.physicalCores = result.cores / threadsPerCoreInt;
   result.processors = processorsInt;
   result.governor = getValue(lines, 'governor') || '';

@@ -8,7 +8,7 @@ import { parseHead } from '../common/parse';
 import { wifiQualityFromDB, wifiFrequencyFromChannel } from '../common/network';
 
 export const darwinWifiNetwork = async () => {
-  let result: WifiNetworkData[] = [];
+  const result: WifiNetworkData[] = [];
   const stdout = await execCmd('/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s');
   const lines = stdout.toString().split(os.EOL);
   if (lines && lines.length > 1) {
@@ -21,7 +21,7 @@ export const darwinWifiNetwork = async () => {
           const channel = channelStr ? parseInt(channelStr, 10) : null;
           const signalLevel = toInt(line.substring(parsedhead[2].from, parsedhead[2].to).trim()) || null;
           const securityAll = line.substring(parsedhead[6].from, 1000).trim().split(' ');
-          let security: string[] = [];
+          const security: string[] = [];
           let wpaFlags: string[] = [];
           securityAll.forEach((securitySingle: string) => {
             if (securitySingle.indexOf('(') > 0) {

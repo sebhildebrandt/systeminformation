@@ -6,7 +6,6 @@ import { UsbData } from '../common/types';
 import { usbLinuxType } from '../common/mappings';
 
 function parseUsb(usb: string) {
-  const result = {};
   const lines = usb.split('\n');
   let bus: number | null = null;
   let deviceId: number | null = null;
@@ -23,22 +22,22 @@ function parseUsb(usb: string) {
     deviceId = null;
   }
   const idVendor = getValue(lines, 'idVendor', ' ', true).trim();
-  let vendorParts = idVendor.split(' ');
+  const vendorParts = idVendor.split(' ');
   vendorParts.shift();
   const vendor = vendorParts.join(' ');
 
   const idProduct = getValue(lines, 'idProduct', ' ', true).trim();
-  let productParts = idProduct.split(' ');
+  const productParts = idProduct.split(' ');
   productParts.shift();
   const product = productParts.join(' ');
 
   const interfaceClass = getValue(lines, 'bInterfaceClass', ' ', true).trim();
-  let interfaceClassParts = interfaceClass.split(' ');
+  const interfaceClassParts = interfaceClass.split(' ');
   interfaceClassParts.shift();
   const usbType = interfaceClassParts.join(' ');
 
   const iManufacturer = getValue(lines, 'iManufacturer', ' ', true).trim();
-  let iManufacturerParts = iManufacturer.split(' ');
+  const iManufacturerParts = iManufacturer.split(' ');
   iManufacturerParts.shift();
   const manufacturer = iManufacturerParts.join(' ');
 

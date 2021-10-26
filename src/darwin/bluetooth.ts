@@ -1,6 +1,6 @@
 'use strict';
 
-import { nextTick, noop } from '../common';
+import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { bluetoothTypeLabel } from '../common/mappings';
 import { BluetoothObject } from '../common/types';
@@ -44,7 +44,6 @@ export const darwinBluetooth = async () => {
       }
     }
   } catch (e) {
-    noop();
   }
   return result;
 };

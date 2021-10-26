@@ -1,9 +1,8 @@
 'use strict';
 
-import { getValue, nextTick, noop } from '../common';
+import { getValue, nextTick } from '../common';
 import { initBios } from '../common/initials';
 import { parseDateTime } from '../common/datetime';
-import { BiosData } from './../common/types';
 import { execCmd } from '../common/exec';
 
 export const nixBios = async () => {
@@ -21,7 +20,7 @@ export const nixBios = async () => {
   let datetime = getValue(lines, 'Release Date');
   result.releaseDate = parseDateTime(datetime).date;
   result.revision = getValue(lines, 'BIOS Revision');
-  let language = getValue(lines, 'Currently Installed Language').split('|')[0];
+  const language = getValue(lines, 'Currently Installed Language').split('|')[0];
   if (language) {
     result.language = language;
   }
@@ -46,7 +45,6 @@ export const nixBios = async () => {
     datetime = getValue(lines, 'bios_date');
     result.releaseDate = !result.releaseDate ? parseDateTime(datetime).date : result.releaseDate;
   } catch (e) {
-    noop();
   }
   return result;
 };

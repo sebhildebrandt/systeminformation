@@ -3,7 +3,6 @@
 import * as os from 'os';
 import { powerShell } from '../common/exec';
 import { getValue, toInt, countLines, nextTick } from '../common';
-import { CpuObject } from '../common/types';
 import { getAMDSpeed, socketTypes, cpuBrandManufacturer } from '../common/mappings';
 import { cpuFlags } from './cpuFlags';
 
@@ -23,9 +22,9 @@ export const windowsCpu = async () => {
     // workload.push(powerShell('Get-ComputerInfo -property "HyperV*"'));
     workload.push(powerShell('(Get-CimInstance Win32_ComputerSystem).HypervisorPresent'));
 
-    const data = await Promise.allSettled(workload);
+    const data = await Promise.allSettled(workload).then(results => results.map(result => result.status === 'fulfilled' ? result.value : ''));
     let lines = data[0].toString().split('\r\n');
-    let name = getValue(lines, 'name', ':') || '';
+    const name = getValue(lines, 'name', ':') || '';
     if (name.indexOf('@') >= 0) {
       result.brand = name.split('@')[0].trim();
       result.speed = name.split('@')[1] ? parseFloat(name.split('@')[1].trim()) : 0;
@@ -51,7 +50,7 @@ export const windowsCpu = async () => {
     }
     result.speedMin = result.speed;
 
-    let description = getValue(lines, 'description', ':').split(' ');
+    const description = getValue(lines, 'description', ':').split(' ');
     for (let i = 0; i < description.length; i++) {
       if (description[i].toLowerCase().startsWith('family') && (i + 1) < description.length && description[i + 1]) {
         result.family = description[i + 1];

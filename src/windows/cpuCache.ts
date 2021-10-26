@@ -2,14 +2,13 @@
 
 import { powerShell } from '../common/exec';
 import { getValue, nextTick } from '../common';
-import { CpuCacheData } from '../common/types';
 import { initCpuCacheResult } from '../common/initials';
 
 export const windowsCpuCache = async () => {
   const result = initCpuCacheResult;
   try {
     powerShell('Get-WmiObject Win32_processor | fl *').then((stdout) => {
-      let lines = stdout.split('\r\n');
+      const lines = stdout.split('\r\n');
       result.l1d = 0;
       result.l1i = 0;
       const l2 = getValue(lines, 'l2cachesize', ':');

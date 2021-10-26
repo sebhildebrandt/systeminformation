@@ -29,13 +29,13 @@ export const parseTime = (t: string, pmDesignator = '') => {
   t = t.toUpperCase();
   let hour = 0;
   let min = 0;
-  let splitter = detectSplit(t);
-  let parts = t.split(splitter);
+  const splitter = detectSplit(t);
+  const parts = t.split(splitter);
   if (parts.length >= 2) {
     if (parts[2]) {
       parts[1] += parts[2];
     }
-    let isPM = (parts[1] && (parts[1].toLowerCase().indexOf('pm') > -1) || (parts[1].toLowerCase().indexOf('p.m.') > -1) || (parts[1].toLowerCase().indexOf('p. m.') > -1) || (parts[1].toLowerCase().indexOf('n') > -1) || (parts[1].toLowerCase().indexOf('ch') > -1) || (parts[1].toLowerCase().indexOf('ös') > -1) || (pmDesignator && parts[1].toLowerCase().indexOf(pmDesignator) > -1));
+    const isPM = (parts[1] && (parts[1].toLowerCase().indexOf('pm') > -1) || (parts[1].toLowerCase().indexOf('p.m.') > -1) || (parts[1].toLowerCase().indexOf('p. m.') > -1) || (parts[1].toLowerCase().indexOf('n') > -1) || (parts[1].toLowerCase().indexOf('ch') > -1) || (parts[1].toLowerCase().indexOf('ös') > -1) || (pmDesignator && parts[1].toLowerCase().indexOf(pmDesignator) > -1));
     hour = parseInt(parts[0], 10);
     min = parseInt(parts[1], 10);
     hour = isPM && hour < 12 ? hour + 12 : hour;
@@ -50,8 +50,8 @@ export const parseDateTime = (dt: string, culture: any = {}) => {
     date: '',
     time: ''
   };
-  let dateFormat = (culture.dateFormat || '').toLowerCase();
-  let pmDesignator = (culture.pmDesignator || '');
+  const dateFormat = (culture.dateFormat || '').toLowerCase();
+  const pmDesignator = (culture.pmDesignator || '');
 
   const parts = dt.split(' ');
   if (parts[0]) {
@@ -105,7 +105,7 @@ export const parseDateTime = (dt: string, culture: any = {}) => {
   }
   if (parts[1]) {
     parts.shift();
-    let time = parts.join(' ');
+    const time = parts.join(' ');
     result.time = parseTime(time, pmDesignator);
   }
   return result;

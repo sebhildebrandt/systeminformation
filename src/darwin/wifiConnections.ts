@@ -1,13 +1,12 @@
 'use strict';
 
-import * as os from 'os';
 import { execCmd } from '../common/exec';
 import { toInt, getValue, nextTick } from '../common';
 import { WifiConnectionData } from '../common/types';
-import { wifiFrequencyFromChannel } from "../common/network";
+import { wifiFrequencyFromChannel } from '../common/network';
 
 export const darwinWifiConnections = async () => {
-  let result: WifiConnectionData[] = [];
+  const result: WifiConnectionData[] = [];
   let stdout = await execCmd('system_profiler SPNetworkDataType');
   const parts1 = stdout.toString().split('\n\n    Wi-Fi:\n\n');
   if (parts1.length > 1) {

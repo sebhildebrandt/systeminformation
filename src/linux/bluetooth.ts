@@ -3,7 +3,7 @@
 import * as path from 'path';
 import { promises as fs } from 'fs';
 
-import { getValue, nextTick, noop } from '../common';
+import { getValue, nextTick } from '../common';
 import { getFilesInPath } from '../common/files';
 import { bluetoothTypeLabel } from '../common/mappings';
 import { BluetoothObject } from '../common/types';
@@ -46,7 +46,6 @@ export const linuxBluetooth = async () => {
       }
     }
   } catch (e) {
-    noop();
   }
   return result;
 };

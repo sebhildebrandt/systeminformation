@@ -4,9 +4,8 @@ import { linuxBattery } from './linux/battery';
 import { darwinBattery } from './darwin/battery';
 import { windowsBattery } from './windows/battery';
 import { bsdBattery } from './bsd/battery';
-import { BatteryObject } from './common/types';
 
-import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
 import { nextTick } from './common';
 
 export const battery = async () => {

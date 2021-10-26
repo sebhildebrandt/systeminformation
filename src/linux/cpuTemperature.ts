@@ -1,13 +1,12 @@
 'use strict';
 
-import { nextTick, noop } from '../common';
+import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initCpuTemperature } from '../common/initials';
-import { CpuTemperatureObject } from '../common/types';
-import { promises as fs, existsSync } from "fs";
+import { promises as fs, existsSync } from 'fs';
 
 export const linuxCpuTemperature = async () => {
-  let result = initCpuTemperature;
+  const result = initCpuTemperature;
   try {
     const cmd = 'cat /sys/class/thermal/thermal_zone*/type  2>/dev/null; echo "-----"; cat /sys/class/thermal/thermal_zone*/temp 2>/dev/null;';
     const parts = (await execCmd(cmd)).toString().split('-----\n');
@@ -25,7 +24,6 @@ export const linuxCpuTemperature = async () => {
       }
     }
   } catch (e) {
-    noop();
   }
 
   const cmd = 'for mon in /sys/class/hwmon/hwmon*; do for label in "$mon"/temp*_label; do if [ -f $label ]; then value=$(echo $label | rev | cut -c 7- | rev)_input; if [ -f "$value" ]; then echo $(cat "$label")___$(cat "$value");  fi; fi; done; done;';
@@ -51,7 +49,7 @@ export const linuxCpuTemperature = async () => {
       if (result.main === null) {
         result.main = Math.round(result.cores.reduce((a, b) => a + b, 0) / result.cores.length);
       }
-      let maxtmp = Math.max.apply(Math, result.cores);
+      const maxtmp = Math.max(...result.cores);
       result.max = (maxtmp > result.main) ? maxtmp : result.main;
     }
     if (result.main !== null) {
@@ -79,7 +77,7 @@ export const linuxCpuTemperature = async () => {
       const regex = /[+-]([^°]*)/g;
       const tempsArray = line.match(regex);
       const temps = tempsArray && tempsArray.length ? tempsArray[0] : '';
-      let firstPart = line.split(':')[0].toUpperCase();
+      const firstPart = line.split(':')[0].toUpperCase();
       if (section === 'acpi') {
         // socket temp
         if (firstPart.indexOf('TEMP') !== -1) {
@@ -106,7 +104,7 @@ export const linuxCpuTemperature = async () => {
       if (result.main === null) {
         result.main = Math.round(result.cores.reduce((a, b) => a + b, 0) / result.cores.length);
       }
-      let maxtmp = Math.max.apply(Math, result.cores);
+      const maxtmp = Math.max(...result.cores);
       result.max = (maxtmp > result.main) ? maxtmp : result.main;
     } else {
       if (result.main === null && tdieTemp !== null) {
@@ -120,7 +118,7 @@ export const linuxCpuTemperature = async () => {
     }
     if (existsSync('/sys/class/thermal/thermal_zone0/temp')) {
       stdout = (await fs.readFile('/sys/class/thermal/thermal_zone0/temp')).toString();
-      let lines = stdout.toString().split('\n');
+      const lines = stdout.toString().split('\n');
       if (lines.length > 0) {
         result.main = parseFloat(lines[0]) / 1000.0;
         result.max = result.main;
@@ -128,13 +126,13 @@ export const linuxCpuTemperature = async () => {
       return result;
     } else {
       stdout = (await execCmd('/opt/vc/bin/vcgencmd measure_temp')).toString();
-      let lines = stdout.split('\n');
+      const lines = stdout.split('\n');
       if (lines.length > 0 && lines[0].indexOf('=')) {
         result.main = parseFloat(lines[0].split('=')[1]);
         result.max = result.main;
       }
       return result;
-    };
+    }
   } catch (er) {
     return result;
   }

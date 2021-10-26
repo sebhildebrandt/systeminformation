@@ -1,14 +1,13 @@
 import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initCpuTemperature } from '../common/initials';
-import { CpuTemperatureObject } from '../common/types';
 
 export const bsdCpuTemperature = async () => {
-  let result = initCpuTemperature;
+  const result = initCpuTemperature;
   const stdout = (await execCmd('sysctl dev.cpu | grep temp')).toString();
-  let lines = stdout.toString().split('\n');
+  const lines = stdout.toString().split('\n');
   let sum = 0;
-  lines.forEach((line: string) => {
+  lines.forEach((line) => {
     const parts = line.split(':');
     if (parts.length > 1) {
       const temp = parseFloat(parts[1].replace(',', '.'));

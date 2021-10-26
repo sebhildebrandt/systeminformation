@@ -3,8 +3,8 @@
 import * as os from 'os';
 import { execCmd } from '../common/exec';
 import { toInt, getValue, nextTick } from '../common';
-import { WifiNetworkData, WifiConnectionData, WifiInterfaceData } from '../common/types';
-import { wifiDBFromQuality, wifiChannelFromFrequencs, wifiFrequencyFromChannel } from "./../common/network";
+import { WifiNetworkData, WifiConnectionData } from '../common/types';
+import { wifiDBFromQuality, wifiChannelFromFrequencs, wifiFrequencyFromChannel } from './../common/network';
 
 type ifaceList = {
   id: number,
@@ -128,7 +128,7 @@ const getWifiNetworkListNmi = async () => {
 };
 
 export const linuxWifiConnections = async () => {
-  let result: WifiConnectionData[] = [];
+  const result: WifiConnectionData[] = [];
   const ifaces = await ifaceListLinux();
   const networkList = await getWifiNetworkListNmi();
   ifaces.forEach(async (ifaceDetail) => {

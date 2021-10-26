@@ -3,7 +3,7 @@
 import * as os from 'os';
 
 export const time = () => {
-  let t = new Date().toString().split(' ');
+  const t = new Date().toString().split(' ');
 
   return {
     current: Date.now(),

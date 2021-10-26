@@ -21,7 +21,7 @@ const getFullLoad = () => {
       totalIrq += cpu.irq;
       totalIdle += cpu.idle;
     }
-    let totalTicks = totalIdle + totalIrq + totalNice + totalSystem + totalUser;
+    const totalTicks = totalIdle + totalIrq + totalNice + totalSystem + totalUser;
     result = (totalTicks - totalIdle) / totalTicks * 100.0;
 
   } else {

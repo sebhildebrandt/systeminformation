@@ -8,7 +8,7 @@ export const windowsBios = async () => {
   const result = initBios;
   const stdout = await powerShell('Get-WmiObject Win32_bios | fl *');
   if (stdout) {
-    let lines = stdout.toString().split('\r\n');
+    const lines = stdout.toString().split('\r\n');
     const description = getValue(lines, 'description', ':');
     if (description.indexOf(' Version ') !== -1) {
       // ... Phoenix ROM BIOS PLUS Version 1.10 A04

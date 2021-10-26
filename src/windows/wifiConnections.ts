@@ -6,9 +6,8 @@ import { WifiConnectionData } from '../common/types';
 import { wifiFrequencyFromChannel } from '../common/network';
 
 export const windowsWifiConnections = async () => {
-  let result: WifiConnectionData[] = [];
-  let cmd = 'netsh wlan show interfaces';
-  const stdout = await powerShell(cmd);
+  const result: WifiConnectionData[] = [];
+  const stdout = await powerShell('netsh wlan show interfaces');
   const allLines = stdout.toString().split('\r\n');
   for (let i = 0; i < allLines.length; i++) {
     allLines[i] = allLines[i].trim();

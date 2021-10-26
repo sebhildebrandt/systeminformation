@@ -3,8 +3,7 @@
 import { execCmd, powerShell } from '../common/exec';
 import { initOsInfo } from '../common/initials';
 import { getLogoFile } from '../common/mappings';
-import { OsData } from '../common/types';
-import { getValue, nextTick, noop } from '../common';
+import { getValue, nextTick } from '../common';
 import { getCodepage } from '../common/codepage';
 
 const windowsIsUefi = async () => {
@@ -20,7 +19,7 @@ const windowsIsUefi = async () => {
 };
 
 export const windowsOsInfo = async () => {
-  let result = await initOsInfo();
+  const result = await initOsInfo();
   try {
     result.logofile = getLogoFile();
     result.release = result.kernel;
@@ -28,8 +27,8 @@ export const windowsOsInfo = async () => {
     workload.push(powerShell('Get-WmiObject Win32_OperatingSystem | fl *'));
     workload.push(powerShell('(Get-CimInstance Win32_ComputerSystem).HypervisorPresent'));
     workload.push(powerShell('Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SystemInformation]::TerminalServerSession'));
-    const data = await Promise.allSettled(workload);
-    let lines = data[0] ? data[0].toString().split('\r\n') : [''];
+    const data = await Promise.allSettled(workload).then(results => results.map(result => result.status === 'fulfilled' ? result.value : null));
+    const lines = data[0] ? data[0].toString().split('\r\n') : [''];
     result.distro = getValue(lines, 'Caption', ':').trim();
     result.serial = getValue(lines, 'SerialNumber', ':').trim();
     result.build = getValue(lines, 'BuildNumber', ':').trim();
@@ -42,7 +41,6 @@ export const windowsOsInfo = async () => {
     const uefi = await windowsIsUefi();
     result.uefi = uefi;
   } catch (e) {
-    noop();
   }
   return result;
 };

@@ -1,5 +1,5 @@
 import { getValue, hex2bin } from '.';
-import { RaspberryFullRevisionData, RaspberryRevisionData } from './types';
+import { RaspberryFullRevisionData } from './types';
 
 export const decodePiCpuinfo = (lines: string[]) => {
 

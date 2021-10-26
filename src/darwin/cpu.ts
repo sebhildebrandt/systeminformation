@@ -3,7 +3,6 @@
 import * as os from 'os';
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
-import { CpuObject } from '../common/types';
 import { cpuBrandManufacturer } from '../common/mappings';
 import { cpuFlags } from './cpuFlags';
 import { cpuCache } from './cpuCache';
@@ -22,7 +21,7 @@ export const darwinCpu = async () => {
   result.virtualization = flags.indexOf('vmx') > -1 || flags.indexOf('svm') > -1;
 
   const stdout = (await execCmd('sysctl machdep.cpu hw.cpufrequency_max hw.cpufrequency_min hw.packages hw.physicalcpu_max hw.ncpu hw.tbfrequency hw.cpufamily hw.cpusubfamily')).toString();
-  let lines = stdout.split('\n');
+  const lines = stdout.split('\n');
   const modelline = getValue(lines, 'machdep.cpu.brand_string');
   const modellineParts = modelline.split('@');
   result.brand = modellineParts[0].trim();
@@ -59,7 +58,7 @@ export const darwinCpu = async () => {
     result.physicalCores = parseInt(countCores) || os.cpus().length;
   }
   const caches = await cpuCache();
-  if (caches) { result.cache = caches; };
+  if (caches) { result.cache = caches; }
   return result;
 };
 

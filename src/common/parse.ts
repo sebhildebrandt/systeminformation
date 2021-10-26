@@ -5,7 +5,7 @@ export const parseHead = (head: string, rights: number) => {
   let count = 1;
   let from = 0;
   let to = 0;
-  let result = [];
+  const result = [];
   for (let i = 0; i < head.length; i++) {
     if (count <= rights) {
       // if (head[i] === ' ' && !space) {
@@ -43,7 +43,7 @@ export const parseHead = (head: string, rights: number) => {
     cap: head.substring(from, to)
   });
   let len = result.length;
-  for (var i = 0; i < len; i++) {
+  for (let i = 0; i < len; i++) {
     if (result[i].cap.replace(/\s/g, '').length === 0) {
       if (i + 1 < len) {
         result[i].to = result[i + 1].to;

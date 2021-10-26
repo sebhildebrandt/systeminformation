@@ -1,16 +1,16 @@
 'use strict';
 
-import { noop, getValue, nextTick } from './common';
+import { getValue, nextTick } from './common';
 import { VBOXMANAGE } from './common/const';
 import { execCmd } from './common/exec';
 import { VboxInfoData } from './common/types';
 import * as os from 'os';
 
 const getVboxInfo = async () => {
-  let result: VboxInfoData[] = [];
+  const result: VboxInfoData[] = [];
   try {
     const stdout = await execCmd(VBOXMANAGE + ' list vms --long');
-    let parts = (os.EOL + stdout.toString()).split(os.EOL + 'Name:');
+    const parts = (os.EOL + stdout.toString()).split(os.EOL + 'Name:');
     parts.shift();
     parts.forEach(part => {
       const lines = ('Name:' + part).split(os.EOL);
@@ -25,7 +25,6 @@ const getVboxInfo = async () => {
           runningSince = Math.round((Date.now() - sinceDateObj.getTime()) / 1000) + offset * 60;
         }
       } catch (e) {
-        noop();
       }
       const stoppedSinceString = !running ? state.replace('powered off (since', '').replace(')', '').trim() : '';
       let stoppedSince = 0;
@@ -36,7 +35,6 @@ const getVboxInfo = async () => {
           stoppedSince = Math.round((Date.now() - sinceDateObj.getTime()) / 1000) + offset * 60;
         }
       } catch (e) {
-        noop();
       }
       result.push({
         id: getValue(lines, 'UUID'),

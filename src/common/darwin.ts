@@ -1,8 +1,13 @@
-import { existsSync } from "fs";
+import { constants } from 'fs';
+import { access } from 'fs/promises';
 
-export const darwinXcodeExists = () => {
-  const cmdLineToolsExists = existsSync('/Library/Developer/CommandLineTools/usr/bin/');
-  const xcodeAppExists = existsSync('/Applications/Xcode.app/Contents/Developer/Tools');
-  const xcodeExists = existsSync('/Library/Developer/Xcode/');
-  return (cmdLineToolsExists || xcodeExists || xcodeAppExists);
+export const darwinXcodeExists = async () => {
+  const results = await Promise.allSettled([
+    access('/Library/Developer/CommandLineTools/usr/bin/', constants.F_OK),
+    access('/Applications/Xcode.app/Contents/Developer/Tools', constants.F_OK),
+    access('/Library/Developer/Xcode/', constants.F_OK)
+  ]);
+
+  // If at least one path fulfilled the promise xcode is installed
+  return results.find(result => result.status === 'fulfilled') !== undefined;
 };

@@ -1,10 +1,9 @@
 'use strict';
 
-import { getValue, nextTick } from "../common";
-import { execCmd } from "../common/exec";
-import { initChassis } from "../common/initials";
-import { chassisTypes } from "../common/mappings";
-import { ChassisData } from './../common/types';
+import { getValue, nextTick } from '../common';
+import { execCmd } from '../common/exec';
+import { initChassis } from '../common/initials';
+import { chassisTypes } from '../common/mappings';
 
 export const nixChassis = async () => {
   const result = initChassis;
@@ -14,7 +13,7 @@ export const nixChassis = async () => {
             echo -n "chassis_vendor: "; cat /sys/devices/virtual/dmi/id/chassis_vendor 2>/dev/null; echo;
             echo -n "chassis_version: "; cat /sys/devices/virtual/dmi/id/chassis_version 2>/dev/null; echo;`;
   const stdout = await execCmd(cmd);
-  let lines = stdout.toString().split('\n');
+  const lines = stdout.toString().split('\n');
   result.manufacturer = getValue(lines, 'chassis_vendor');
   const ctype = parseInt(getValue(lines, 'chassis_type').replace(/\D/g, ''));
   result.type = (ctype && !isNaN(ctype) && ctype < chassisTypes.length) ? chassisTypes[ctype - 1] : '';

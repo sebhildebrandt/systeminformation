@@ -7,9 +7,8 @@ import { WifiNetworkData } from '../common/types';
 import { wifiDBFromQuality, wifiFrequencyFromChannel } from '../common/network';
 
 export const windowsWifiNetwork = async () => {
-  let result: WifiNetworkData[] = [];
-  let cmd = 'netsh wlan show networks mode=Bssid';
-  const stdout = await powerShell(cmd);
+  const result: WifiNetworkData[] = [];
+  const stdout = await powerShell('netsh wlan show networks mode=Bssid');
   const ssidParts = stdout.toString().split(os.EOL + os.EOL + 'SSID ');
   ssidParts.shift();
 

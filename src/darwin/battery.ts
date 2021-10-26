@@ -2,14 +2,13 @@
 
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
-import { BatteryObject } from '../common/types';
 import { initBatteryResult } from '../common/initials';
 
 export const darwinBattery = async () => {
-  let result = initBatteryResult;
+  const result = initBatteryResult;
   const stdout = await execCmd('ioreg -n AppleSmartBattery -r | egrep "CycleCount|IsCharging|DesignCapacity|MaxCapacity|CurrentCapacity|BatterySerialNumber|TimeRemaining|Voltage"; pmset -g batt | grep %');
   if (stdout) {
-    let lines = stdout.toString().replace(/ +/g, '').replace(/"+/g, '').replace(/-/g, '').split('\n');
+    const lines = stdout.toString().replace(/ +/g, '').replace(/"+/g, '').replace(/-/g, '').split('\n');
     result.cycleCount = parseInt('0' + getValue(lines, 'cyclecount', '='), 10);
     result.voltage = parseInt('0' + getValue(lines, 'voltage', '='), 10) / 1000.0;
     result.capacityUnit = result.voltage ? 'mWh' : 'mAh';
@@ -20,9 +19,9 @@ export const darwinBattery = async () => {
     result.serial = getValue(lines, 'BatterySerialNumber', '=');
     let percent = null;
     const line = getValue(lines, 'internal', 'Battery');
-    let parts = line.split(';');
+    const parts = line.split(';');
     if (parts && parts[0]) {
-      let parts2 = parts[0].split('\t');
+      const parts2 = parts[0].split('\t');
       if (parts2 && parts2[1]) {
         percent = parseFloat(parts2[1].trim().replace(/%/g, ''));
       }

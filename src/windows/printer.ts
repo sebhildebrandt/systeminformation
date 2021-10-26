@@ -1,7 +1,7 @@
 'use strict';
 
 import { getValue, nextTick } from '../common';
-import { execCmd, powerShell } from '../common/exec';
+import { powerShell } from '../common/exec';
 import { PrinterData } from '../common/types';
 import { winPrinterStatus } from '../common/mappings';
 

@@ -1,20 +1,20 @@
 'use strict';
 
-import { getValue, nextTick, noop, toInt } from '../common';
+import { getValue, nextTick, toInt } from '../common';
 import { MemLayoutData } from '../common/types';
 import { powerShell } from '../common/exec';
 
 export const windowsMemLayout = async () => {
-  let result: MemLayoutData[] = [];
+  const result: MemLayoutData[] = [];
   try {
     const memoryTypes = 'Unknown|Other|DRAM|Synchronous DRAM|Cache DRAM|EDO|EDRAM|VRAM|SRAM|RAM|ROM|FLASH|EEPROM|FEPROM|EPROM|CDRAM|3DRAM|SDRAM|SGRAM|RDRAM|DDR|DDR2|DDR2 FB-DIMM|Reserved|DDR3|FBD2|DDR4|LPDDR|LPDDR2|LPDDR3|LPDDR4'.split('|');
     const FormFactors = 'Unknown|Other|SIP|DIP|ZIP|SOJ|Proprietary|SIMM|DIMM|TSOP|PGA|RIMM|SODIMM|SRIMM|SMD|SSMP|QFP|TQFP|SOIC|LCC|PLCC|BGA|FPBGA|LGA'.split('|');
 
     const stdout = await powerShell('Get-WmiObject Win32_PhysicalMemory | fl *');
-    let devices = stdout.toString().split(/\n\s*\n/);
+    const devices = stdout.toString().split(/\n\s*\n/);
     devices.shift();
     devices.forEach(function (device) {
-      let lines = device.split('\r\n');
+      const lines = device.split('\r\n');
       const dataWidth = toInt(getValue(lines, 'DataWidth', ':'));
       const totalWidth = toInt(getValue(lines, 'TotalWidth', ':'));
       const size = parseInt(getValue(lines, 'Capacity', ':'), 10) || 0;
@@ -36,7 +36,6 @@ export const windowsMemLayout = async () => {
       }
     });
   } catch (e) {
-    noop();
   }
   return result;
 };

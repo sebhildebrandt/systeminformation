@@ -1,13 +1,12 @@
 'use strict';
 
 import * as os from 'os';
-import { promises as fs } from "fs";
-import { getValue, nextTick, noop } from '../common';
+import { promises as fs } from 'fs';
+import { getValue, nextTick } from '../common';
 import { initMemData } from '../common/initials';
-import { MemData } from '../common/types';
 
 export const linuxMem = async () => {
-  let result = initMemData;
+  const result = initMemData;
   try {
     const stdout = await fs.readFile('/proc/meminfo');
     const lines = stdout.toString().split('\n');
@@ -25,7 +24,7 @@ export const linuxMem = async () => {
     result.slab = result.slab ? result.slab * 1024 : 0;
     result.buffcache = result.buffers + result.cached + result.slab;
 
-    let available = parseInt(getValue(lines, 'memavailable'), 10);
+    const available = parseInt(getValue(lines, 'memavailable'), 10);
     result.available = available ? available * 1024 : result.free + result.buffcache;
     result.active = result.total - result.available;
 
@@ -35,7 +34,6 @@ export const linuxMem = async () => {
     result.swapfree = result.swapfree ? result.swapfree * 1024 : 0;
     result.swapused = result.swaptotal - result.swapfree;
   } catch (e) {
-    noop();
   }
   return result;
 };

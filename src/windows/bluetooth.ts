@@ -28,7 +28,7 @@ export const windowsBluetooth = async () => {
     if (getValue(parts[i].split('\n'), 'PNPClass', ':') === 'Bluetooth') {
       result.push(parseBluetoothDevices(parts[i].split('\n')));
     }
-  };
+  }
   return result;
 };
 

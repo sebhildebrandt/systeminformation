@@ -1,4 +1,4 @@
-import { DARWIN, execOptsWin, FREEBSD, LINUX, NETBSD, WINDOWS } from "./const";
+import { DARWIN, execOptsWin, FREEBSD, LINUX, NETBSD, WINDOWS } from './const';
 import { execSync } from 'child_process';
 let _codepage = '';
 

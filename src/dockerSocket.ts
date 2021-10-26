@@ -23,7 +23,7 @@ export class DockerSocket {
   getInfo() {
     return new Promise((resolve) => {
       try {
-        let socket = net.createConnection({ path: socketPath });
+        const socket = net.createConnection({ path: socketPath });
         let alldata = '';
         let data;
 
@@ -40,7 +40,7 @@ export class DockerSocket {
         });
 
         socket.on('end', () => {
-          let startbody = alldata.indexOf('\r\n\r\n');
+          const startbody = alldata.indexOf('\r\n\r\n');
           alldata = alldata.substring(startbody + 4);
           try {
             data = JSON.parse(alldata);
@@ -58,7 +58,7 @@ export class DockerSocket {
   listImages(all: boolean) {
     return new Promise((resolve) => {
       try {
-        let socket = net.createConnection({ path: socketPath });
+        const socket = net.createConnection({ path: socketPath });
         let alldata = '';
         let data;
 
@@ -75,7 +75,7 @@ export class DockerSocket {
         });
 
         socket.on('end', () => {
-          let startbody = alldata.indexOf('\r\n\r\n');
+          const startbody = alldata.indexOf('\r\n\r\n');
           alldata = alldata.substring(startbody + 4);
           try {
             data = JSON.parse(alldata);
@@ -94,7 +94,7 @@ export class DockerSocket {
     return new Promise((resolve) => {
       if (id) {
         try {
-          let socket = net.createConnection({ path: socketPath });
+          const socket = net.createConnection({ path: socketPath });
           let alldata = '';
           let data;
 
@@ -111,7 +111,7 @@ export class DockerSocket {
           });
 
           socket.on('end', () => {
-            let startbody = alldata.indexOf('\r\n\r\n');
+            const startbody = alldata.indexOf('\r\n\r\n');
             alldata = alldata.substring(startbody + 4);
             try {
               data = JSON.parse(alldata);
@@ -133,7 +133,7 @@ export class DockerSocket {
     return new Promise((resolve) => {
       try {
 
-        let socket = net.createConnection({ path: socketPath });
+        const socket = net.createConnection({ path: socketPath });
         let alldata = '';
         let data;
 
@@ -150,7 +150,7 @@ export class DockerSocket {
         });
 
         socket.on('end', () => {
-          let startbody = alldata.indexOf('\r\n\r\n');
+          const startbody = alldata.indexOf('\r\n\r\n');
           alldata = alldata.substring(startbody + 4);
           try {
             data = JSON.parse(alldata);
@@ -169,7 +169,7 @@ export class DockerSocket {
     return new Promise((resolve) => {
       if (id) {
         try {
-          let socket = net.createConnection({ path: socketPath });
+          const socket = net.createConnection({ path: socketPath });
           let alldata = '';
           let data;
 
@@ -186,7 +186,7 @@ export class DockerSocket {
           });
 
           socket.on('end', () => {
-            let startbody = alldata.indexOf('\r\n\r\n');
+            const startbody = alldata.indexOf('\r\n\r\n');
             alldata = alldata.substring(startbody + 4);
             try {
               data = JSON.parse(alldata);
@@ -208,7 +208,7 @@ export class DockerSocket {
     return new Promise((resolve) => {
       if (id) {
         try {
-          let socket = net.createConnection({ path: socketPath });
+          const socket = net.createConnection({ path: socketPath });
           let alldata = '';
           let data;
 
@@ -225,7 +225,7 @@ export class DockerSocket {
           });
 
           socket.on('end', () => {
-            let startbody = alldata.indexOf('\r\n\r\n');
+            const startbody = alldata.indexOf('\r\n\r\n');
             alldata = alldata.substring(startbody + 4);
             try {
               data = JSON.parse(alldata);
@@ -247,7 +247,7 @@ export class DockerSocket {
     return new Promise((resolve) => {
       if (id) {
         try {
-          let socket = net.createConnection({ path: socketPath });
+          const socket = net.createConnection({ path: socketPath });
           let alldata = '';
           let data;
 
@@ -264,7 +264,7 @@ export class DockerSocket {
           });
 
           socket.on('end', () => {
-            let startbody = alldata.indexOf('\r\n\r\n');
+            const startbody = alldata.indexOf('\r\n\r\n');
             alldata = alldata.substring(startbody + 4);
             try {
               data = JSON.parse(alldata);
@@ -286,7 +286,7 @@ export class DockerSocket {
     return new Promise((resolve) => {
       try {
 
-        let socket = net.createConnection({ path: socketPath });
+        const socket = net.createConnection({ path: socketPath });
         let alldata = '';
         let data;
 
@@ -303,7 +303,7 @@ export class DockerSocket {
         });
 
         socket.on('end', () => {
-          let startbody = alldata.indexOf('\r\n\r\n');
+          const startbody = alldata.indexOf('\r\n\r\n');
           alldata = alldata.substring(startbody + 4);
           try {
             data = JSON.parse(alldata);

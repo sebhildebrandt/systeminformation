@@ -1,7 +1,7 @@
 'use strict';
 
-import { PLATFORM, WINDOWS } from "./const";
-import { CpuObject } from "./types";
+import { PLATFORM, WINDOWS } from './const';
+import { CpuObject } from './types';
 
 export const audioTypeLabel = (type: string, input = false, output = false) => {
   const speaker = 'Speaker';
@@ -35,7 +35,6 @@ export const audioDarwinChannelLabel = (str: string) => {
 };
 
 export const bluetoothTypeLabel = (str: string) => {
-  let result = '';
   switch (true) {
     case str.indexOf('keyboard') >= 0: return 'Keyboard';
     case str.indexOf('mouse') >= 0: return 'Mouse';
@@ -47,7 +46,6 @@ export const bluetoothTypeLabel = (str: string) => {
 };
 
 export const usbLinuxType = (type: string, name: string) => {
-  let result = type;
   const str = (name + ' ' + type).toLowerCase();
   switch (true) {
     case (str.indexOf('camera') >= 0): return 'Camera';
@@ -59,7 +57,7 @@ export const usbLinuxType = (type: string, name: string) => {
     case (str.indexOf('mic') >= 0): return 'Microphone';
     case (str.indexOf('headset') >= 0): return 'Audio';
     case (str.indexOf('audio') >= 0): return 'Audio';
-    default: return '';
+    default: return type;
   }
 };
 
@@ -629,7 +627,7 @@ export const getAMDSpeed = (brand: string): number => {
   let key: keyof typeof AMDBaseFrequencies;
   for (key in AMDBaseFrequencies) {
     if ({}.hasOwnProperty.call(AMDBaseFrequencies, key)) {
-      let parts = key.split('|');
+      const parts = key.split('|');
       let found = 0;
       parts.forEach(item => {
         if (brand.indexOf(item) > -1) {
@@ -651,7 +649,7 @@ export const cpuBrandManufacturer = (res: CpuObject) => {
   res.brand = res.brand.replace(/CPU+/g, '').replace(/\s+/g, ' ').trim();
   res.manufacturer = res.brand.split(' ')[0];
 
-  let parts = res.brand.split(' ');
+  const parts = res.brand.split(' ');
   parts.shift();
   res.brand = parts.join(' ');
   return res;

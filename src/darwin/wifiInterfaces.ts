@@ -5,7 +5,7 @@ import { getValue, nextTick } from '../common';
 import { WifiInterfaceData } from '../common/types';
 
 export const darwinWifiInterfaces = async () => {
-  let result: WifiInterfaceData[] = [];
+  const result: WifiInterfaceData[] = [];
   const stdout = await execCmd('system_profiler SPNetworkDataType');
   const parts1 = stdout.toString().split('\n\n    Wi-Fi:\n\n');
   if (parts1.length > 1) {

@@ -5,9 +5,8 @@ import { sunUsers } from './sun/users';
 import { linuxUsers } from './linux/users';
 import { darwinUsers } from './darwin/users';
 import { windowsUsers } from './windows/users';
-import { UserData } from './common/types';
 
-import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
 import { nextTick } from './common';
 
 export const users = async () => {

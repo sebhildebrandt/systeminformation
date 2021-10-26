@@ -1,9 +1,8 @@
 'use strict';
 
-import { getValue, nextTick, noop, toInt } from '../common';
+import { getValue, nextTick, toInt } from '../common';
 import { powerShell } from '../common/exec';
 import { initBaseboard } from '../common/initials';
-import { BaseboardData } from './../common/types';
 
 export const windowsBaseboard = async () => {
   const result = initBaseboard;
@@ -11,7 +10,7 @@ export const windowsBaseboard = async () => {
     const workload = [];
     workload.push(powerShell('Get-WmiObject Win32_baseboard | fl *'));
     workload.push(powerShell('Get-WmiObject Win32_physicalmemoryarray | select MaxCapacity, MemoryDevices | fl'));
-    const data = await Promise.allSettled(workload);
+    const data = await Promise.allSettled(workload).then(results => results.map(result => result.status === 'fulfilled' ? result.value : null));
     let lines = data[0] ? data[0].toString().split('\r\n') : [''];
 
     result.manufacturer = getValue(lines, 'manufacturer', ':');
@@ -32,7 +31,6 @@ export const windowsBaseboard = async () => {
     result.memSlots = toInt(getValue(lines, 'MemoryDevices', ':')) || null;
 
   } catch (e) {
-    noop();
   }
   return result;
 };

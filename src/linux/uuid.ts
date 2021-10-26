@@ -4,10 +4,10 @@ import { execCmd } from '../common/exec';
 import { initUUID } from '../common/initials';
 import { promises as fs } from 'fs';
 import { UuidData } from '../common/types';
-import { getValue, nextTick, noop } from '../common';
+import { getValue, nextTick } from '../common';
 
 export const linuxUuid = async () => {
-  let result: UuidData = initUUID;
+  const result: UuidData = initUUID;
   try {
     const cmd = `echo -n "os: "; cat /var/lib/dbus/machine-id 2> /dev/null; echo;
 echo -n "os: "; cat /etc/machine-id 2> /dev/null; echo;
@@ -22,7 +22,6 @@ echo -n "hardware: "; cat /sys/class/dmi/id/product_uuid 2> /dev/null; echo;`;
       result.hardware = serial || '';
     }
   } catch (e) {
-    noop();
   }
   return result;
 };

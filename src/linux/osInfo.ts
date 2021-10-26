@@ -4,8 +4,7 @@ import { execCmd } from '../common/exec';
 import { initOsInfo } from '../common/initials';
 import { getLogoFile } from '../common/mappings';
 import { existsSync } from 'fs';
-import { OsData } from '../common/types';
-import { nextTick, noop } from '../common';
+import { nextTick } from '../common';
 import { linuxUuid } from '../linux/uuid';
 import { getCodepage } from '../common/codepage';
 
@@ -19,11 +18,11 @@ const linuxIsUefi = async () => {
 };
 
 export const linuxOsInfo = async () => {
-  let result = await initOsInfo();
+  const result = await initOsInfo();
   try {
     const stdout = await execCmd('cat /etc/*-release; cat /usr/lib/os-release; cat /etc/openwrt_release');
-    let release: any = {};
-    let lines = stdout.toString().split('\n');
+    const release: any = {};
+    const lines = stdout.toString().split('\n');
     lines.forEach((line: string) => {
       if (line.indexOf('=') !== -1) {
         release[line.split('=')[0].trim().toUpperCase()] = line.split('=')[1].trim();
@@ -46,7 +45,6 @@ export const linuxOsInfo = async () => {
     const data = await linuxUuid();
     result.serial = data.os;
   } catch (e) {
-    noop();
   }
   return result;
 };

@@ -1,13 +1,12 @@
 'use strict';
 
-import { InetChecksiteData } from '../common/types';
 import { initCheckSite } from '../common/initials';
 import { sanitizeUrl } from '../common/security';
 import { nextTick } from '../common';
 
 export const windowsInetCheckSite = async (url: string) => {
   const result = initCheckSite;
-  let t = Date.now();
+  const t = Date.now();
   result.url = sanitizeUrl(url);
   if (result.url) {
     const http = (result.url.startsWith('https:') ? require('https') : require('http'));

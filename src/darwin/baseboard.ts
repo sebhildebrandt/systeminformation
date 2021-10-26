@@ -10,8 +10,8 @@ export const darwinBaseboard = async () => {
   const workload = [];
   workload.push(execCmd('ioreg -c IOPlatformExpertDevice -d 2'));
   workload.push(execCmd('system_profiler SPMemoryDataType'));
-  const data = await Promise.allSettled(workload);
-  let lines = data[0] ? data[0].toString().replace(/[<>"]/g, '').split('\n') : [''];
+  const data = await Promise.allSettled(workload).then(results => results.map(result => result.status === 'fulfilled' ? result.value : null));
+  const lines = data[0] ? data[0].toString().replace(/[<>"]/g, '').split('\n') : [''];
   result.manufacturer = getValue(lines, 'manufacturer', '=', true);
   result.model = getValue(lines, 'model', '=', true);
   result.version = getValue(lines, 'version', '=', true);

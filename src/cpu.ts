@@ -4,9 +4,8 @@ import { linuxCpu } from './linux/cpu';
 import { darwinCpu } from './darwin/cpu';
 import { windowsCpu } from './windows/cpu';
 import { bsdCpu } from './bsd/cpu';
-import { CpuObject } from './common/types';
 
-import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
 import { nextTick } from './common';
 
 export const cpu = async () => {

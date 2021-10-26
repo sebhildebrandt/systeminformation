@@ -1,13 +1,12 @@
 'use strict';
 
-import { promises as fs, existsSync } from "fs";
+import { promises as fs, existsSync } from 'fs';
 
 import { getValue, nextTick } from '../common';
-import { BatteryObject } from '../common/types';
 import { initBatteryResult } from '../common/initials';
 
 export const linuxBattery = async () => {
-  let result = initBatteryResult;
+  const result = initBatteryResult;
   let acConnected = false;
   const bat1 = '/sys/class/power_supply/BAT1/uevent';
   const bat0 = '/sys/class/power_supply/BAT0/uevent';
@@ -22,7 +21,7 @@ export const linuxBattery = async () => {
 
   if (battery_path) {
     const stdout = await fs.readFile(battery_path);
-    let lines = stdout.toString().split('\n');
+    const lines = stdout.toString().split('\n');
 
     result.isCharging = (getValue(lines, 'POWER_SUPPLY_STATUS', '=').toLowerCase() === 'charging');
     result.acConnected = acConnected || result.isCharging;

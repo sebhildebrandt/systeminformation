@@ -3,9 +3,8 @@
 import { nixInetLatency } from './linux/inetLatency';
 import { sunInetLatency } from './sun/inetLatency';
 import { windowsInetLatency } from './windows/inetLatency';
-import { WifiConnectionData } from './common/types';
 
-import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
 import { nextTick } from './common';
 
 export const inetLatency = async (host: string) => {

@@ -2,9 +2,7 @@
 
 import { powerShell } from '../common/exec';
 import { getValue, nextTick, toInt } from '../common';
-import { BatteryObject } from '../common/types';
 import { initBatteryResult } from '../common/initials';
-
 
 const parseWinBatteryPart = (lines: string[], designedCapacity: number, fullChargeCapacity: number) => {
   const status = toInt(getValue(lines, 'BatteryStatus', ':').trim());
@@ -34,10 +32,10 @@ export const windowsBattery = async () => {
     workload.push(powerShell('Get-WmiObject Win32_Battery | fl *'));
     workload.push(powerShell('(Get-WmiObject -Class BatteryStaticData -Namespace ROOT/WMI).DesignedCapacity'));
     workload.push(powerShell('(Get-WmiObject -Class BatteryFullChargedCapacity -Namespace ROOT/WMI).FullChargedCapacity'));
-    const data = await Promise.allSettled(workload);
+    const data = await Promise.allSettled(workload).then(results => results.map(result => result.status === 'fulfilled' ? result.value : ''));
     if (data) {
-      let parts = data[0].toString().split(/\n\s*\n/);
-      let batteries: any[] = [];
+      const parts = data[0].toString().split(/\n\s*\n/);
+      const batteries: any[] = [];
       const hasValue = (value: string) => /\S/.test(value);
       for (let i = 0; i < parts.length; i++) {
         if (hasValue(parts[i]) && (!batteries.length || !hasValue(parts[i - 1]))) {
@@ -47,13 +45,13 @@ export const windowsBattery = async () => {
           batteries[batteries.length - 1].push(parts[i]);
         }
       }
-      let designCapacities = data[1].toString().split('\r\n');
-      let fullChargeCapacities = data[2].toString().split('\r\n');
+      const designCapacities = data[1].toString().split('\r\n');
+      const fullChargeCapacities = data[2].toString().split('\r\n');
       if (batteries.length) {
         let first = false;
-        let additionalBatteries = [];
+        const additionalBatteries = [];
         for (let i = 0; i < batteries.length; i++) {
-          let lines = batteries[i];
+          const lines = batteries[i];
           const designedCapacity = designCapacities && designCapacities.length >= (i + 1) && designCapacities[i] ? toInt(designCapacities[i]) : 0;
           const fullChargeCapacity = fullChargeCapacities && fullChargeCapacities.length >= (i + 1) && fullChargeCapacities[i] ? toInt(fullChargeCapacities[i]) : 0;
           const parsed = parseWinBatteryPart(lines, designedCapacity, fullChargeCapacity);

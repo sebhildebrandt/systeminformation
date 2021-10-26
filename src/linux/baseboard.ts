@@ -2,11 +2,10 @@
 
 import * as os from 'os';
 import { promises as fs } from 'fs';
-import { getValue, nextTick, noop, toInt } from '../common';
+import { getValue, nextTick, toInt } from '../common';
 import { execCmd } from '../common/exec';
 import { initBaseboard } from '../common/initials';
 import { decodePiCpuinfo } from '../common/raspberry';
-import { BaseboardData } from './../common/types';
 
 export const nixBaseboard = async () => {
   const result = initBaseboard;
@@ -19,7 +18,7 @@ export const nixBaseboard = async () => {
   const workload = [];
   workload.push(execCmd(cmd));
   workload.push(execCmd('export LC_ALL=C; dmidecode -t memory 2>/dev/null'));
-  const data = await Promise.allSettled(workload);
+  const data = await Promise.allSettled(workload).then(results => results.map(result => result.status === 'fulfilled' ? result.value : null));
   let lines = data[0] ? data[0].toString().split('\n') : [''];
   result.manufacturer = getValue(lines, 'Manufacturer');
   result.model = getValue(lines, 'Product Name');
@@ -40,7 +39,6 @@ export const nixBaseboard = async () => {
     result.serial = !result.serial ? getValue(lines, 'board_serial') : result.serial;
     result.assetTag = !result.assetTag ? getValue(lines, 'board_asset_tag') : result.assetTag;
   } catch (e) {
-    noop();
   }
   if (result.serial.toLowerCase().indexOf('o.e.m.') !== -1) { result.serial = '-'; }
   if (result.assetTag.toLowerCase().indexOf('o.e.m.') !== -1) { result.assetTag = '-'; }
@@ -55,7 +53,6 @@ export const nixBaseboard = async () => {
   try {
     linesRpi = (await fs.readFile('/proc/cpuinfo')).toString().split('\n');
   } catch (e) {
-    noop();
   }
   const hardware = getValue(linesRpi, 'hardware');
   if (hardware.startsWith('BCM')) {

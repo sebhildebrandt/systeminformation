@@ -1,9 +1,8 @@
 'use strict';
 
-import { nextTick, noop } from '../common';
+import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initBios } from '../common/initials';
-import { BiosData } from './../common/types';
 
 export const darwinBios = async () => {
   const result = initBios;
@@ -17,7 +16,6 @@ export const darwinBios = async () => {
       result.version = bootRomVersion;
     }
   } catch (e) {
-    noop();
   }
   return result;
 };

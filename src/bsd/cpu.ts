@@ -3,7 +3,6 @@
 import * as os from 'os';
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
-import { CpuObject } from '../common/types';
 import { getAMDSpeed, cpuBrandManufacturer } from '../common/mappings';
 import { cpuFlags } from './cpuFlags';
 import { getCpuCurrentSpeed } from '../cpuCurrentSpeed';
@@ -42,7 +41,7 @@ export const bsdCpu = async () => {
 
   result = cpuBrandManufacturer(result);
   result.vendor = getValue(lines, 'manufacturer');
-  let sig = getValue(lines, 'signature');
+  const sig = getValue(lines, 'signature');
   const sigParts = sig.split(',');
   for (let i = 0; i < sigParts.length; i++) {
     sigParts[i] = sigParts[i].trim();
@@ -67,7 +66,8 @@ export const bsdCpu = async () => {
         case cacheType === 'l1':
           result.cache.l1d = size / 2;
           result.cache.l1i = size / 2;
-        case cacheType === 'l2': result.cache.l2 = size;
+          break;
+        case cacheType === 'l2': result.cache.l2 = size; break;
         case cacheType === 'l3': result.cache.l3 = size;
       }
     }

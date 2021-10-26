@@ -1,7 +1,7 @@
 'use strict';
 
 import { promises as fs } from "fs";
-import { getValue, noop, toInt } from './common';
+import { getValue, toInt } from './common';
 import { initMemData } from './common/initials';
 import { MemData, MemLayoutData } from './common/types';
 import { execCmd, powerShell } from './common/exec';

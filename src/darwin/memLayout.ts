@@ -1,12 +1,12 @@
 'use strict';
 
-import { getValue, nextTick, noop } from '../common';
+import { getValue, nextTick } from '../common';
 import { MemLayoutData } from '../common/types';
 import { execCmd } from '../common/exec';
 import { getManufacturerDarwin } from '../common/mappings';
 
 export const darwinMemLayout = async () => {
-  let result: MemLayoutData[] = [];
+  const result: MemLayoutData[] = [];
   try {
     const stdout = await execCmd('system_profiler SPMemoryDataType');
     const allLines = stdout.toString().split('\n');
@@ -19,7 +19,7 @@ export const darwinMemLayout = async () => {
     }
     devices.shift();
     devices.forEach((device: string) => {
-      let lines = device.split('\n');
+      const lines = device.split('\n');
       const bank = (hasBank ? 'BANK ' : 'DIMM') + lines[0].trim().split('/')[0];
       const size = parseInt(getValue(lines, '          Size'));
       if (size) {
@@ -77,7 +77,6 @@ export const darwinMemLayout = async () => {
     }
 
   } catch (e) {
-    noop();
   }
   return result;
 };

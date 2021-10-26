@@ -4,7 +4,7 @@ import * as os from 'os';
 import { exec, spawn, ExecException } from 'child_process';
 
 export const execCmd = (cmd: string) => {
-  return new Promise<string>((resolve, reject) => {
+  return new Promise<string>((resolve) => {
     exec(cmd, (error: ExecException | null, stdout: string, stderr: string) => {
       if (error) {
         resolve('');

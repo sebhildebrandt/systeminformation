@@ -1,6 +1,5 @@
 import { nextTick } from '../common';
 import { initCpuTemperature } from '../common/initials';
-import { CpuTemperatureObject } from '../common/types';
 
 export const darwinCpuTemperature = async () => {
   let result = initCpuTemperature;

@@ -2,7 +2,7 @@
 
 import * as os from 'os';
 import { promises as fs, existsSync } from 'fs';
-import { getValue, noop, toInt } from "./common";
+import { getValue, toInt } from "./common";
 import { execCmd, powerShell } from "./common/exec";
 import { initBaseboard, initBios, initChassis, initSystem } from "./common/initials";
 import { chassisTypes } from "./common/mappings";
@@ -375,7 +375,7 @@ export const nixBaseboard = async () => {
   const workload = [];
   workload.push(execCmd(cmd));
   workload.push(execCmd('export LC_ALL=C; dmidecode -t memory 2>/dev/null'));
-  const data = await Promise.allSettled(workload);
+  const data = await Promise.allSettled(workload).then(results => results.map(result => result.status === 'fulfilled' ? result.value : null));
   let lines = data[0] ? data[0].toString().split('\n') : [''];
   result.manufacturer = getValue(lines, 'Manufacturer');
   result.model = getValue(lines, 'Product Name');
@@ -432,7 +432,7 @@ export const darwinBaseboard = async () => {
   const workload = [];
   workload.push(execCmd('ioreg -c IOPlatformExpertDevice -d 2'));
   workload.push(execCmd('system_profiler SPMemoryDataType'));
-  const data = await Promise.allSettled(workload);
+  const data = await Promise.allSettled(workload).then(results => results.map(result => result.status === 'fulfilled' ? result.value : null));
   let lines = data[0] ? data[0].toString().replace(/[<>"]/g, '').split('\n') : [''];
   result.manufacturer = getValue(lines, 'manufacturer', '=', true);
   result.model = getValue(lines, 'model', '=', true);
@@ -462,7 +462,7 @@ export const windowsBaseboard = async () => {
     const workload = [];
     workload.push(powerShell('Get-WmiObject Win32_baseboard | fl *'));
     workload.push(powerShell('Get-WmiObject Win32_physicalmemoryarray | select MaxCapacity, MemoryDevices | fl'));
-    const data = await Promise.allSettled(workload);
+    const data = await Promise.allSettled(workload).then(results => results.map(result => result.status === 'fulfilled' ? result.value : null));
     let lines = data[0] ? data[0].toString().split('\r\n') : [''];
 
     result.manufacturer = getValue(lines, 'manufacturer', ':');

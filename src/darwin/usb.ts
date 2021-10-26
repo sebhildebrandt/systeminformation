@@ -11,7 +11,7 @@ function parseUsb(usb: string): UsbData | null {
 
   usb = usb.replace(/ \|/g, '');
   usb = usb.trim();
-  let lines = usb.split('\n');
+  const lines = usb.split('\n');
   lines.shift();
   try {
     for (let i = 0; i < lines.length; i++) {

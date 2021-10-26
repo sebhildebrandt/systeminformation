@@ -1,10 +1,10 @@
 'use strict';
 
 import * as os from 'os';
-import { wifiFrequencies } from "./mappings";
-import { noop, toInt } from "./index";
-import { execCmd } from "./exec";
-import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './const';
+import { wifiFrequencies } from './mappings';
+import { toInt } from './index';
+import { execCmd } from './exec';
+import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './const';
 
 export const wifiDBFromQuality = (quality: string) => {
   return (parseFloat(quality) / 2 - 100);
@@ -21,7 +21,7 @@ export const wifiFrequencyFromChannel = (channel: number) => {
 
 export const wifiChannelFromFrequencs = (frequency: number) => {
   let channel = 0;
-  for (let key in wifiFrequencies) {
+  for (const key in wifiFrequencies) {
     if ({}.hasOwnProperty.call(wifiFrequencies, key)) {
       if (wifiFrequencies[key] === frequency) { channel = toInt(key); }
     }
@@ -42,7 +42,6 @@ export const getFQDN = async () => {
       default: return os.hostname();
     }
   } catch (e) {
-    noop();
   }
   return os.hostname();
 };
@@ -50,7 +49,7 @@ export const getFQDN = async () => {
 export const getUniqueMacAdresses = () => {
   const ifaces = os.networkInterfaces();
   let macs: string[] = [];
-  for (let dev in ifaces) {
+  for (const dev in ifaces) {
     if ({}.hasOwnProperty.call(ifaces, dev)) {
       ifaces[dev]?.forEach((details: any) => {
         if (details && details.mac && details.mac !== '00:00:00:00:00:00') {
