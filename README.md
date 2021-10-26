@@ -32,6 +32,27 @@
 
 This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 450 versions published, up to 4 mio downloads per month, > 50 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
 
+## Version 6.0 Branch
+
+This is the development branch of new version 6. This version is **not yet published** and still work in progress. It is now fully written in typescript.
+
+Currently not all functions are available
+
+ToDo:
+
+[ ] filesystem
+[ ] graphics
+[ ] networks
+[ ] processes
+
+To test or run this code:
+
+```
+npm install
+npm run build
+npm run test
+```
+
 ## New Version 5.0
 
 The new Version 5 is here - I spend several weeks finalizing this new version. Any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)
