@@ -3,7 +3,7 @@ import { initOsInfo } from '../common/defaults';
 import { getLogoFile } from '../common/mappings';
 import { existsSync } from 'fs';
 import { nextTick } from '../common';
-import { linuxUuid } from '../linux/uuid';
+import { linuxUuid } from './uuid';
 import { getCodepage } from '../common/codepage';
 
 const linuxIsUefi = async () => {

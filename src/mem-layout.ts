@@ -1,6 +1,6 @@
-import { nixMemLayout } from './linux/memLayout';
-import { darwinMemLayout } from './darwin/memLayout';
-import { windowsMemLayout } from './windows/memLayout';
+import { nixMemLayout } from './linux/mem-layout';
+import { darwinMemLayout } from './darwin/mem-layout';
+import { windowsMemLayout } from './windows/mem-layout';
 
 import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
 import { nextTick } from './common';

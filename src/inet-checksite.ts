@@ -1,5 +1,5 @@
-import { nixInetCheckSite } from './linux/inetChecksite';
-import { windowsInetCheckSite } from './windows/inetChecksite';
+import { nixInetCheckSite } from './linux/inet-checksite';
+import { windowsInetCheckSite } from './windows/inet-checksite';
 
 import { DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
 import { nextTick } from './common';

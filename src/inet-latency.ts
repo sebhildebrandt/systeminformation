@@ -1,6 +1,6 @@
-import { nixInetLatency } from './linux/inetLatency';
-import { sunInetLatency } from './sun/inetLatency';
-import { windowsInetLatency } from './windows/inetLatency';
+import { nixInetLatency } from './linux/inet-latency';
+import { sunInetLatency } from './sun/inet-latency';
+import { windowsInetLatency } from './windows/inet-latency';
 
 import { DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
 import { nextTick } from './common';

@@ -2,7 +2,7 @@ import * as os from 'os';
 import { powerShell } from '../common/exec';
 import { getValue, toInt, countLines, nextTick } from '../common';
 import { getAMDSpeed, socketTypes, cpuBrandManufacturer } from '../common/mappings';
-import { cpuFlags } from './cpuFlags';
+import { cpuFlags } from './cpu-flags';
 
 import { initCpuCacheResult, initCpuResult } from '../common/defaults';
 

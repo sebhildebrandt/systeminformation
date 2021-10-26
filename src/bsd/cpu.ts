@@ -2,8 +2,8 @@ import * as os from 'os';
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
 import { getAMDSpeed, cpuBrandManufacturer } from '../common/mappings';
-import { cpuFlags } from './cpuFlags';
-import { getCpuCurrentSpeed } from '../cpuCurrentSpeed';
+import { cpuFlags } from './cpu-flags';
+import { getCpuCurrentSpeed } from '../cpu-current-speed';
 
 import { initCpuCacheResult, initCpuResult } from '../common/defaults';
 

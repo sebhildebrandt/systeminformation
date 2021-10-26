@@ -1,6 +1,6 @@
-import { linuxWifiInterfaces } from './linux/wifiInterfaces';
-import { darwinWifiInterfaces } from './darwin/wifiInterfaces';
-import { windowsWifiInterfaces } from './windows/wifiInterfaces';
+import { linuxWifiInterfaces } from './linux/wifi-interfaces';
+import { darwinWifiInterfaces } from './darwin/wifi-interfaces';
+import { windowsWifiInterfaces } from './windows/wifi-interfaces';
 
 import { DARWIN, LINUX, WINDOWS } from './common/const';
 import { nextTick } from './common';

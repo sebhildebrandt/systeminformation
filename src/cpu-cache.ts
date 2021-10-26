@@ -1,7 +1,7 @@
-import { linuxCpuCache } from './linux/cpuCache';
-import { darwinCpuCache } from './darwin/cpuCache';
-import { windowsCpuCache } from './windows/cpuCache';
-import { bsdCpuCache } from './bsd/cpuCache';
+import { linuxCpuCache } from './linux/cpu-cache';
+import { darwinCpuCache } from './darwin/cpu-cache';
+import { windowsCpuCache } from './windows/cpu-cache';
+import { bsdCpuCache } from './bsd/cpu-cache';
 
 import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
 import { nextTick } from './common';

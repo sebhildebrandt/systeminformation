@@ -1,7 +1,7 @@
-import { linuxCpuTemperature } from './linux/cpuTemperature';
-import { darwinCpuTemperature } from './darwin/cpuTemperature';
-import { windowsCpuTemperature } from './windows/cpuTemperature';
-import { bsdCpuTemperature } from './bsd/cpuTemperature';
+import { linuxCpuTemperature } from './linux/cpu-temperature';
+import { darwinCpuTemperature } from './darwin/cpu-temperature';
+import { windowsCpuTemperature } from './windows/cpu-temperature';
+import { bsdCpuTemperature } from './bsd/cpu-temperature';
 
 import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
 import { nextTick } from './common';

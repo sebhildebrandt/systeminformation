@@ -13,7 +13,7 @@
 
 import { WINDOWS } from './common/const';
 import { DockerContainerData, DockerContainerStatsData, DockerContainerProcessData, DockerVolumeData } from './common/types';
-import { DockerSocket } from './dockerSocket';
+import { DockerSocket } from './docker-socket';
 import { sanitizeShellString, isPrototypePolluted, stringReplace, stringToLower, stringTrim, mathMin } from './common/security';
 import { nanoSeconds } from './common/datetime';
 import { nextTick } from './common';

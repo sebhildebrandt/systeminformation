@@ -2,8 +2,8 @@ import * as os from 'os';
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
 import { cpuBrandManufacturer } from '../common/mappings';
-import { cpuFlags } from './cpuFlags';
-import { cpuCache } from './cpuCache';
+import { cpuFlags } from './cpu-flags';
+import { cpuCache } from './cpu-cache';
 
 import { initCpuResult } from '../common/defaults';
 

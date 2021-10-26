@@ -1,6 +1,6 @@
-import { linuxWifiConnections } from './linux/wifiConnections';
-import { darwinWifiConnections } from './darwin/wifiConnections';
-import { windowsWifiConnections } from './windows/wifiConnections';
+import { linuxWifiConnections } from './linux/wifi-connections';
+import { darwinWifiConnections } from './darwin/wifi-connections';
+import { windowsWifiConnections } from './windows/wifi-connections';
 
 import { DARWIN, LINUX, WINDOWS } from './common/const';
 import { nextTick } from './common';

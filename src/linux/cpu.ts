@@ -4,8 +4,8 @@ import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
 import { decodePiCpuinfo } from '../common/raspberry';
 import { getAMDSpeed, cpuBrandManufacturer } from '../common/mappings';
-import { cpuFlags } from './cpuFlags';
-import { getCpuCurrentSpeed } from '../cpuCurrentSpeed';
+import { cpuFlags } from './cpu-flags';
+import { getCpuCurrentSpeed } from '../cpu-current-speed';
 import { initCpuCacheResult, initCpuResult } from '../common/defaults';
 
 let _cpu_speed = 0;

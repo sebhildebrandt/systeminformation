@@ -1,7 +1,7 @@
-import { linuxCpuFlags } from './linux/cpuFlags';
-import { darwinCpuFlags } from './darwin/cpuFlags';
-import { windowsCpuFlags } from './windows/cpuFlags';
-import { bsdCpuFlags } from './bsd/cpuFlags';
+import { linuxCpuFlags } from './linux/cpu-flags';
+import { darwinCpuFlags } from './darwin/cpu-flags';
+import { windowsCpuFlags } from './windows/cpu-flags';
+import { bsdCpuFlags } from './bsd/cpu-flags';
 
 import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
 import { nextTick } from './common';
