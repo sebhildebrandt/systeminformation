@@ -62,6 +62,6 @@ CVS
 package-lock.json
 yarn.lock
 
-dist/
+lib/
 tsconfig.json
 typings.d.ts
