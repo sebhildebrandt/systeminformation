@@ -1,6 +1,6 @@
 'use strict';
 
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { LINUX } from '../common/const';
 import { execCmd } from '../common/exec';
 import { PrinterData } from '../common/types';
@@ -83,10 +83,7 @@ export const nixPrinter = async () => {
   }
 };
 
-export const printer = () => {
-  return new Promise<PrinterData[] | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(nixPrinter());
-    });
-  });
+export const printer = async () => {
+  await nextTick();
+  return nixPrinter();
 };

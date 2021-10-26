@@ -1,5 +1,6 @@
 'use strict';
 
+import { nextTick } from '../common';
 import { powerShell } from '../common/exec';
 import { initCpuTemperature } from '../common/initials';
 import { CpuTemperatureObject } from '../common/types';
@@ -26,10 +27,7 @@ export const windowsCpuTemperature = async () => {
   }
 };
 
-export const cpuTemperature = () => {
-  return new Promise<CpuTemperatureObject | null | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsCpuTemperature());
-    });
-  });
+export const cpuTemperature = async () => {
+  await nextTick();
+  return windowsCpuTemperature();
 };

@@ -6,20 +6,18 @@ import { windowsBios } from './windows/bios';
 import { BiosData } from './common/types';
 
 import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { nextTick } from './common';
 
-export const bios = () => {
-  return new Promise<BiosData | null>(resolve => {
-    process.nextTick(() => {
-      switch (true) {
-        case LINUX:
-          return resolve(nixBios());
-        case DARWIN:
-          return resolve(darwinBios());
-        case WINDOWS:
-          return resolve(windowsBios());
-        default:
-          return resolve(null);
-      }
-    });
-  });
+export const bios = async () => {
+  await nextTick();
+  switch (true) {
+    case LINUX:
+      return nixBios();
+    case DARWIN:
+      return darwinBios();
+    case WINDOWS:
+      return windowsBios();
+    default:
+      return null;
+  }
 };

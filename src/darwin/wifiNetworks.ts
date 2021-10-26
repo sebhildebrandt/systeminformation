@@ -2,7 +2,7 @@
 
 import * as os from 'os';
 import { execCmd } from '../common/exec';
-import { toInt } from '../common';
+import { nextTick, toInt } from '../common';
 import { WifiNetworkData } from '../common/types';
 import { parseHead } from '../common/parse';
 import { wifiQualityFromDB, wifiFrequencyFromChannel } from '../common/network';
@@ -50,10 +50,7 @@ export const darwinWifiNetwork = async () => {
   return result;
 };
 
-export const wifiNetworks = () => {
-  return new Promise<WifiNetworkData[] | null | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinWifiNetwork());
-    });
-  });
+export const wifiNetworks = async () => {
+  await nextTick();
+  return darwinWifiNetwork();
 };

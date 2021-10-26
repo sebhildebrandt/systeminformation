@@ -2,7 +2,7 @@
 
 import * as os from 'os';
 import { promises as fs } from 'fs';
-import { getValue, noop, promiseAll, toInt } from '../common';
+import { getValue, nextTick, noop, promiseAll, toInt } from '../common';
 import { execCmd } from '../common/exec';
 import { initBaseboard } from '../common/initials';
 import { decodePiCpuinfo } from '../common/raspberry';
@@ -71,11 +71,8 @@ export const nixBaseboard = async () => {
   return result;
 };
 
-export const baseboard = () => {
-  return new Promise<BaseboardData>(resolve => {
-    process.nextTick(() => {
-      return resolve(nixBaseboard());
-    });
-  });
+export const baseboard = async () => {
+  await nextTick();
+  return nixBaseboard();
 };
 

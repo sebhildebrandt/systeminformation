@@ -1,5 +1,6 @@
 'use strict';
 
+import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { audioDarwinChannelLabel, audioTypeLabel } from '../common/mappings';
 import { AudioObject, DarwinAudioObject } from '../common/types';
@@ -38,10 +39,7 @@ export const darwinAudio = async () => {
   return result;
 };
 
-export const audio = () => {
-  return new Promise<AudioObject[] | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinAudio());
-    });
-  });
+export const audio = async () => {
+  await nextTick();
+  return darwinAudio();
 };

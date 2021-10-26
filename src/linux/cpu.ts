@@ -3,7 +3,7 @@
 import * as os from 'os';
 import { promises as fs } from "fs";
 import { execCmd } from '../common/exec';
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { CpuObject } from '../common/types';
 import { decodePiCpuinfo } from '../common/raspberry';
 import { getAMDSpeed, cpuBrandManufacturer } from '../common/mappings';
@@ -80,7 +80,7 @@ export const linuxCpu = async () => {
   }
 
   // socket type
-  stdout = await execCmd('export LC_ALL=C; dmidecode –t 4 2>/dev/null | grep "Upgrade: Socket"; unset LC_ALL')
+  stdout = await execCmd('export LC_ALL=C; dmidecode –t 4 2>/dev/null | grep "Upgrade: Socket"; unset LC_ALL');
   lines = stdout.toString().split('\n');
   if (lines && lines.length) {
     result.socket = getValue(lines, 'Upgrade').replace('Socket', '').trim() || result.socket;
@@ -88,10 +88,7 @@ export const linuxCpu = async () => {
   return result;
 };
 
-export const cpu = () => {
-  return new Promise<CpuObject | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(linuxCpu());
-    });
-  });
+export const cpu = async () => {
+  await nextTick();
+  return linuxCpu();
 };

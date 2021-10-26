@@ -1,6 +1,6 @@
 'use strict';
 
-import { noop } from '../common';
+import { nextTick, noop } from '../common';
 import { execCmd } from '../common/exec';
 import { initCpuTemperature } from '../common/initials';
 import { CpuTemperatureObject } from '../common/types';
@@ -140,10 +140,7 @@ export const linuxCpuTemperature = async () => {
   }
 };
 
-export const cpuTemperature = () => {
-  return new Promise<CpuTemperatureObject | null | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(linuxCpuTemperature());
-    });
-  });
+export const cpuTemperature = async () => {
+  await nextTick();
+  return linuxCpuTemperature();
 };

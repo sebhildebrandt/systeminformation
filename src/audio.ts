@@ -6,20 +6,18 @@ import { windowsAudio } from './windows/audio';
 import { AudioObject } from './common/types';
 
 import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { nextTick } from './common';
 
-export const audio = () => {
-  return new Promise<AudioObject[] | null>(resolve => {
-    process.nextTick(() => {
-      switch (true) {
-        case LINUX || FREEBSD || NETBSD:
-          return resolve(nixAudio());
-        case DARWIN:
-          return resolve(darwinAudio());
-        case WINDOWS:
-          return resolve(windowsAudio());
-        default:
-          return resolve(null);
-      }
-    });
-  });
+export const audio = async () => {
+  await nextTick();
+  switch (true) {
+    case LINUX || FREEBSD || NETBSD:
+      return nixAudio();
+    case DARWIN:
+      return darwinAudio();
+    case WINDOWS:
+      return windowsAudio();
+    default:
+      return null;
+  }
 };

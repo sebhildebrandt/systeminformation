@@ -2,7 +2,7 @@
 
 import { promises as fs } from "fs";
 import { execCmd } from '../common/exec';
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 
 export const linuxCpuFlags = async () => {
   let result: string = '';
@@ -28,10 +28,7 @@ export const linuxCpuFlags = async () => {
   }
 };
 
-export const cpuFlags = () => {
-  return new Promise<string>(resolve => {
-    process.nextTick(() => {
-      return resolve(linuxCpuFlags());
-    });
-  });
+export const cpuFlags = async () => {
+  await nextTick();
+  return linuxCpuFlags();
 };

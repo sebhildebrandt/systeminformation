@@ -84,3 +84,9 @@ export const countLines = (lines: string[], startingWith = '') => {
 };
 
 export const noop = () => { };
+
+export const nextTick = () => new Promise<void>(resolve => {
+  process.nextTick(() => {
+    resolve();
+  });
+});

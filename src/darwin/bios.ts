@@ -1,6 +1,6 @@
 'use strict';
 
-import { noop } from '../common';
+import { nextTick, noop } from '../common';
 import { execCmd } from '../common/exec';
 import { initBios } from '../common/initials';
 import { BiosData } from './../common/types';
@@ -22,10 +22,7 @@ export const darwinBios = async () => {
   return result;
 };
 
-export const bios = () => {
-  return new Promise<BiosData>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinBios());
-    });
-  });
+export const bios = async () => {
+  await nextTick();
+  return darwinBios();
 };

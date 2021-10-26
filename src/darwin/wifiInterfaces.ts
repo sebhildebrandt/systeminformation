@@ -1,7 +1,7 @@
 'use strict';
 
 import { execCmd } from '../common/exec';
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { WifiInterfaceData } from '../common/types';
 
 export const darwinWifiInterfaces = async () => {
@@ -24,10 +24,7 @@ export const darwinWifiInterfaces = async () => {
   return result;
 };
 
-export const wifiInterfaces = () => {
-  return new Promise<WifiInterfaceData[] | null | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinWifiInterfaces());
-    });
-  });
+export const wifiInterfaces = async () => {
+  await nextTick();
+  return darwinWifiInterfaces();
 };

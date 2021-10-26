@@ -6,20 +6,18 @@ import { windowsUsb } from './windows/usb';
 import { UsbData } from './common/types';
 
 import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { nextTick } from './common';
 
-export const usb = () => {
-  return new Promise<UsbData[] | null>(resolve => {
-    process.nextTick(() => {
-      switch (true) {
-        case LINUX:
-          return resolve(linuxUsb());
-        case DARWIN:
-          return resolve(darwinUsb());
-        case WINDOWS:
-          return resolve(windowsUsb());
-        default:
-          return resolve(null);
-      }
-    });
-  });
+export const usb = async () => {
+  await nextTick();
+  switch (true) {
+    case LINUX:
+      return linuxUsb();
+    case DARWIN:
+      return darwinUsb();
+    case WINDOWS:
+      return windowsUsb();
+    default:
+      return null;
+  }
 };

@@ -5,7 +5,7 @@ import { initOsInfo } from '../common/initials';
 import { getLogoFile } from '../common/mappings';
 import { existsSync } from 'fs';
 import { OsData } from '../common/types';
-import { noop } from '../common';
+import { nextTick, noop } from '../common';
 import { linuxUuid } from '../linux/uuid';
 import { getCodepage } from '../common/codepage';
 
@@ -51,10 +51,7 @@ export const linuxOsInfo = async () => {
   return result;
 };
 
-export const osInfo = () => {
-  return new Promise<OsData>(resolve => {
-    process.nextTick(() => {
-      return resolve(linuxOsInfo());
-    });
-  });
+export const osInfo = async () => {
+  await nextTick();
+  return linuxOsInfo();
 };

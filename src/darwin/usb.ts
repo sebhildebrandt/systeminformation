@@ -4,6 +4,7 @@ import { execCmd, } from '../common/exec';
 import { UsbData } from '../common/types';
 import { initUsbResult } from '../common/initials';
 import { usbDarwinType } from '../common/mappings';
+import { nextTick } from '../common';
 
 function parseUsb(usb: string): UsbData | null {
   const result: UsbData = initUsbResult;
@@ -59,10 +60,7 @@ export const darwinUsb = async () => {
   return result;
 };
 
-export const usb = () => {
-  return new Promise<UsbData[] | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinUsb());
-    });
-  });
+export const usb = async () => {
+  await nextTick();
+  return darwinUsb();
 };

@@ -7,22 +7,20 @@ import { windowsUuid } from './windows/uuid';
 import { MemData, UuidData } from './common/types';
 
 import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { nextTick } from './common';
 
-export const uuid = () => {
-  return new Promise<UuidData | null>(resolve => {
-    process.nextTick(() => {
-      switch (true) {
-        case LINUX:
-          return resolve(linuxUuid());
-        case NETBSD || FREEBSD:
-          return resolve(bsdUuid());
-        case DARWIN:
-          return resolve(darwinUuid());
-        case WINDOWS:
-          return resolve(windowsUuid());
-        default:
-          return resolve(null);
-      }
-    });
-  });
+export const uuid = async () => {
+  await nextTick();
+  switch (true) {
+    case LINUX:
+      return linuxUuid();
+    case NETBSD || FREEBSD:
+      return bsdUuid();
+    case DARWIN:
+      return darwinUuid();
+    case WINDOWS:
+      return windowsUuid();
+    default:
+      return null;
+  }
 };

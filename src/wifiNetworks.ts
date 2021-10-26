@@ -6,20 +6,18 @@ import { windowsWifiNetwork } from './windows/wifiNetworks';
 import { WifiNetworkData } from './common/types';
 
 import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { nextTick } from './common';
 
-export const wifiNetworks = () => {
-  return new Promise<WifiNetworkData[] | null | undefined>(resolve => {
-    process.nextTick(() => {
-      switch (true) {
-        case LINUX:
-          return resolve(linuxWifiNetwork());
-        case DARWIN:
-          return resolve(darwinWifiNetwork());
-        case WINDOWS:
-          return resolve(windowsWifiNetwork());
-        default:
-          return resolve(null);
-      }
-    });
-  });
+export const wifiNetworks = async () => {
+  await nextTick();
+  switch (true) {
+    case LINUX:
+      return linuxWifiNetwork();
+    case DARWIN:
+      return darwinWifiNetwork();
+    case WINDOWS:
+      return windowsWifiNetwork();
+    default:
+      return null;
+  }
 };

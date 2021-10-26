@@ -4,7 +4,7 @@ import { execCmd } from '../common/exec';
 import { initOsInfo } from '../common/initials';
 import { getLogoFile } from '../common/mappings';
 import { OsData } from '../common/types';
-import { getValue, noop } from '../common';
+import { getValue, nextTick, noop } from '../common';
 import { getCodepage } from '../common/codepage';
 
 export const darwinOsInfo = async () => {
@@ -45,10 +45,7 @@ export const darwinOsInfo = async () => {
   return result;
 };
 
-export const osInfo = () => {
-  return new Promise<OsData>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinOsInfo());
-    });
-  });
+export const osInfo = async () => {
+  await nextTick();
+  return darwinOsInfo();
 };

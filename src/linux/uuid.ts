@@ -1,10 +1,10 @@
 'use strict';
 
-import { execCmd } from "./../common/exec";
-import { initUUID } from "./../common/initials";
-import { promises as fs } from "fs";
-import { UuidData } from "./../common/types";
-import { getValue, noop } from "./../common";
+import { execCmd } from '../common/exec';
+import { initUUID } from '../common/initials';
+import { promises as fs } from 'fs';
+import { UuidData } from '../common/types';
+import { getValue, nextTick, noop } from '../common';
 
 export const linuxUuid = async () => {
   let result: UuidData = initUUID;
@@ -27,10 +27,7 @@ echo -n "hardware: "; cat /sys/class/dmi/id/product_uuid 2> /dev/null; echo;`;
   return result;
 };
 
-export const uuid = () => {
-  return new Promise<UuidData | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(linuxUuid());
-    });
-  });
+export const uuid = async () => {
+  await nextTick();
+  return linuxUuid();
 };

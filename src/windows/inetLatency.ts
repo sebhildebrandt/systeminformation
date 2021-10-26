@@ -3,6 +3,7 @@
 import { execSafe } from '../common/exec';
 import { sanitizeUrl } from '../common/security';
 import { execOptsWin } from '../common/const';
+import { nextTick } from '../common';
 
 export const windowsInetLatency = async (host: string) => {
   let hostSanitized = sanitizeUrl(host);
@@ -29,10 +30,7 @@ export const windowsInetLatency = async (host: string) => {
   }
 };
 
-export const inetLatency = (url: string) => {
-  return new Promise<number | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsInetLatency(url));
-    });
-  });
+export const inetLatency = async (url: string) => {
+  await nextTick();
+  return windowsInetLatency(url);
 };

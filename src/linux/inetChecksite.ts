@@ -4,6 +4,7 @@ import { execSafe } from '../common/exec';
 import { InetChecksiteData } from '../common/types';
 import { initCheckSite } from '../common/initials';
 import { sanitizeUrl } from '../common/security';
+import { nextTick } from '../common';
 
 export const nixInetCheckSite = async (url: string) => {
   const result = initCheckSite;
@@ -24,10 +25,7 @@ export const nixInetCheckSite = async (url: string) => {
   return result;
 };
 
-export const inetChecksite = (url: string) => {
-  return new Promise<InetChecksiteData | null | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(nixInetCheckSite(url));
-    });
-  });
+export const inetChecksite = async (url: string) => {
+  await nextTick();
+  return nixInetCheckSite(url);
 };

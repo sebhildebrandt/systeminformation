@@ -1,7 +1,7 @@
 'use strict';
 
 import { powerShell } from '../common/exec';
-import { getValue, promiseAll, toInt } from '../common';
+import { getValue, nextTick, promiseAll, toInt } from '../common';
 import { BatteryObject } from '../common/types';
 import { initBatteryResult } from '../common/initials';
 
@@ -106,11 +106,7 @@ export const windowsBattery = async () => {
   }
 };
 
-export const battery = () => {
-  return new Promise<BatteryObject | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsBattery());
-    });
-  });
-
+export const battery = async () => {
+  await nextTick();
+  return windowsBattery();
 };

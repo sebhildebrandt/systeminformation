@@ -8,24 +8,22 @@ import { windowsOsInfo } from './windows/osInfo';
 import { OsData } from './common/types';
 
 import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { nextTick } from './common';
 
-export const osInfo = () => {
-  return new Promise<OsData | null>(resolve => {
-    process.nextTick(() => {
-      switch (true) {
-        case LINUX:
-          return resolve(linuxOsInfo());
-        case NETBSD || FREEBSD:
-          return resolve(bsdOsInfo());
-        case DARWIN:
-          return resolve(darwinOsInfo());
-        case SUNOS:
-          return resolve(sunOsInfo());
-        case WINDOWS:
-          return resolve(windowsOsInfo());
-        default:
-          return resolve(null);
-      }
-    });
-  });
+export const osInfo = async () => {
+  await nextTick();
+  switch (true) {
+    case LINUX:
+      return linuxOsInfo();
+    case NETBSD || FREEBSD:
+      return bsdOsInfo();
+    case DARWIN:
+      return darwinOsInfo();
+    case SUNOS:
+      return sunOsInfo();
+    case WINDOWS:
+      return windowsOsInfo();
+    default:
+      return null;
+  }
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-import { getValue, noop } from '../common';
+import { getValue, nextTick, noop } from '../common';
 import { MemLayoutData } from '../common/types';
 import { execCmd } from '../common/exec';
 import { getManufacturerDarwin } from '../common/mappings';
@@ -82,10 +82,7 @@ export const darwinMemLayout = async () => {
   return result;
 };
 
-export const memLayout = () => {
-  return new Promise<MemLayoutData[]>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinMemLayout());
-    });
-  });
+export const memLayout = async () => {
+  await nextTick();
+  return darwinMemLayout();
 };

@@ -7,22 +7,20 @@ import { bsdCpuTemperature } from './bsd/cpuTemperature';
 import { CpuTemperatureObject } from './common/types';
 
 import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { nextTick } from './common';
 
-export const cpuTemperature = () => {
-  return new Promise<CpuTemperatureObject | null | undefined>(resolve => {
-    process.nextTick(() => {
-      switch (true) {
-        case LINUX:
-          return resolve(linuxCpuTemperature());
-        case FREEBSD || NETBSD:
-          return resolve(bsdCpuTemperature());
-        case DARWIN:
-          return resolve(darwinCpuTemperature());
-        case WINDOWS:
-          return resolve(windowsCpuTemperature());
-        default:
-          return resolve(null);
-      }
-    });
-  });
+export const cpuTemperature = async () => {
+  await nextTick();
+  switch (true) {
+    case LINUX:
+      return linuxCpuTemperature();
+    case FREEBSD || NETBSD:
+      return bsdCpuTemperature();
+    case DARWIN:
+      return darwinCpuTemperature();
+    case WINDOWS:
+      return windowsCpuTemperature();
+    default:
+      return null;
+  }
 };

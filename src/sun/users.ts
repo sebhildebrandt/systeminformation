@@ -1,7 +1,7 @@
 'use strict';
 
 import { execCmd, powerShell } from '../common/exec';
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { UserData } from '../common/types';
 
 const parseUsersDarwin = (lines: string[]): UserData[] => {
@@ -63,10 +63,7 @@ export const sunUsers = async () => {
   return result;
 };
 
-export const users = () => {
-  return new Promise<UserData[] | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(sunUsers());
-    });
-  });
+export const users = async () => {
+  await nextTick();
+  return sunUsers();
 };

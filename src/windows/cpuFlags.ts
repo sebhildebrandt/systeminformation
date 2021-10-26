@@ -1,5 +1,6 @@
 'use strict';
 
+import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 
 export const windowsCpuFlags = async () => {
@@ -29,10 +30,7 @@ export const windowsCpuFlags = async () => {
   }
 };
 
-export const cpuFlags = () => {
-  return new Promise<string>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsCpuFlags());
-    });
-  });
+export const cpuFlags = async () => {
+  await nextTick();
+  return windowsCpuFlags();
 };

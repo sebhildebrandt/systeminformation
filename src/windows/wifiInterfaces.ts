@@ -1,5 +1,6 @@
 'use strict';
 
+import { nextTick } from '../common';
 import { powerShell } from '../common/exec';
 import { WifiInterfaceData } from '../common/types';
 import { wifiVendor } from "./../common/mappings";
@@ -37,10 +38,7 @@ export const windowsWifiInterfaces = async () => {
   return result;
 };
 
-export const wifiInterfaces = () => {
-  return new Promise<WifiInterfaceData[] | null | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsWifiInterfaces());
-    });
-  });
+export const wifiInterfaces = async () => {
+  await nextTick();
+  return windowsWifiInterfaces();
 };

@@ -1,3 +1,4 @@
+import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initCpuTemperature } from '../common/initials';
 import { CpuTemperatureObject } from '../common/types';
@@ -22,10 +23,7 @@ export const bsdCpuTemperature = async () => {
   return result;
 };
 
-export const cpuTemperature = () => {
-  return new Promise<CpuTemperatureObject | null | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(bsdCpuTemperature());
-    });
-  });
+export const cpuTemperature = async () => {
+  await nextTick();
+  return bsdCpuTemperature();
 };

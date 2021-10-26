@@ -1,6 +1,6 @@
 'use strict';
 
-import { getValue, noop } from '../common';
+import { getValue, nextTick, noop } from '../common';
 import { powerShell } from '../common/exec';
 import { initSystem } from '../common/initials';
 import { SystemData } from './../common/types';
@@ -80,11 +80,8 @@ export const windowsSystem = async () => {
   return result;
 };
 
-export const system = () => {
-  return new Promise<SystemData>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsSystem());
-    });
-  });
+export const system = async () => {
+  await nextTick();
+  return windowsSystem();
 };
 

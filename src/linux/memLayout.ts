@@ -1,7 +1,7 @@
 'use strict';
 
 import * as os from 'os';
-import { getValue, noop, toInt } from '../common';
+import { getValue, nextTick, noop, toInt } from '../common';
 import { MemLayoutData } from '../common/types';
 import { execCmd } from '../common/exec';
 import { getManufacturerLinux, raspberryClockSpeed } from '../common/mappings';
@@ -103,10 +103,7 @@ export const nixMemLayout = async () => {
   return result;
 };
 
-export const memLayout = () => {
-  return new Promise<MemLayoutData[]>(resolve => {
-    process.nextTick(() => {
-      return resolve(nixMemLayout());
-    });
-  });
+export const memLayout = async () => {
+  await nextTick();
+  return nixMemLayout();
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-import { getValue } from "../common";
+import { getValue, nextTick } from "../common";
 import { execCmd } from "../common/exec";
 import { initChassis } from "../common/initials";
 import { ChassisData } from './../common/types';
@@ -19,11 +19,8 @@ export const darwinChassis = async () => {
   return result;
 };
 
-export const chassis = () => {
-  return new Promise<ChassisData>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinChassis());
-    });
-  });
+export const chassis = async () => {
+  await nextTick();
+  return darwinChassis();
 };
 

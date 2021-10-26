@@ -4,7 +4,7 @@ import { execCmd } from "../common/exec";
 import { initOsInfo } from "../common/initials";
 import { getLogoFile } from "../common/mappings";
 import { OsData } from "../common/types";
-import { noop } from "../common";
+import { nextTick, noop } from "../common";
 
 export const sunOsInfo = async () => {
   let result = await initOsInfo();
@@ -20,10 +20,7 @@ export const sunOsInfo = async () => {
   return result;
 };
 
-export const osInfo = () => {
-  return new Promise<OsData>(resolve => {
-    process.nextTick(() => {
-      return resolve(sunOsInfo());
-    });
-  });
+export const osInfo = async () => {
+  await nextTick();
+  return sunOsInfo();
 };

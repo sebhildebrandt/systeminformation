@@ -2,7 +2,7 @@
 
 import * as os from 'os';
 import { execCmd } from '../common/exec';
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { CpuObject } from '../common/types';
 import { cpuBrandManufacturer } from '../common/mappings';
 import { cpuFlags } from './cpuFlags';
@@ -63,10 +63,7 @@ export const darwinCpu = async () => {
   return result;
 };
 
-export const cpu = () => {
-  return new Promise<CpuObject | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinCpu());
-    });
-  });
+export const cpu = async () => {
+  await nextTick();
+  return darwinCpu();
 };

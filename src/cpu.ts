@@ -7,22 +7,20 @@ import { bsdCpu } from './bsd/cpu';
 import { CpuObject } from './common/types';
 
 import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { nextTick } from './common';
 
-export const cpu = () => {
-  return new Promise<CpuObject | null | undefined>(resolve => {
-    process.nextTick(() => {
-      switch (true) {
-        case LINUX:
-          return resolve(linuxCpu());
-        case FREEBSD || NETBSD:
-          return resolve(bsdCpu());
-        case DARWIN:
-          return resolve(darwinCpu());
-        case WINDOWS:
-          return resolve(windowsCpu());
-        default:
-          return resolve(null);
-      }
-    });
-  });
+export const cpu = async () => {
+  await nextTick();
+  switch (true) {
+    case LINUX:
+      return linuxCpu();
+    case FREEBSD || NETBSD:
+      return bsdCpu();
+    case DARWIN:
+      return darwinCpu();
+    case WINDOWS:
+      return windowsCpu();
+    default:
+      return null;
+  }
 };

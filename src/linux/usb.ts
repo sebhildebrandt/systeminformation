@@ -1,7 +1,7 @@
 'use strict';
 
 import { execCmd } from '../common/exec';
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { UsbData } from '../common/types';
 import { usbLinuxType } from '../common/mappings';
 
@@ -68,10 +68,7 @@ export const linuxUsb = async () => {
   return result;
 };
 
-export const usb = () => {
-  return new Promise<UsbData[] | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(linuxUsb());
-    });
-  });
+export const usb = async () => {
+  await nextTick();
+  return linuxUsb();
 };

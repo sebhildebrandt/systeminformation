@@ -1,7 +1,7 @@
 'use strict';
 
 import { powerShell } from '../common/exec';
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { bluetoothTypeLabel } from '../common/mappings';
 import { BluetoothObject } from '../common/types';
 
@@ -32,10 +32,7 @@ export const windowsBluetooth = async () => {
   return result;
 };
 
-export const bluetoothDevices = () => {
-  return new Promise<BluetoothObject[] | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsBluetooth());
-    });
-  });
+export const bluetoothDevices = async () => {
+  await nextTick();
+  return windowsBluetooth();
 };

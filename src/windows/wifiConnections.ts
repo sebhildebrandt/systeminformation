@@ -1,7 +1,7 @@
 'use strict';
 
 import { powerShell } from '../common/exec';
-import { toInt, getValue } from '../common';
+import { toInt, getValue, nextTick } from '../common';
 import { WifiConnectionData } from '../common/types';
 import { wifiFrequencyFromChannel } from '../common/network';
 
@@ -48,10 +48,7 @@ export const windowsWifiConnections = async () => {
   return result;
 };
 
-export const wifiConnections = () => {
-  return new Promise<WifiConnectionData[] | null | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsWifiConnections());
-    });
-  });
+export const wifiConnections = async () => {
+  await nextTick();
+  return windowsWifiConnections();
 };

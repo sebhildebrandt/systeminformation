@@ -1,6 +1,6 @@
 'use strict';
 
-import { getValue, noop } from '../common';
+import { getValue, nextTick, noop } from '../common';
 import { initMemData } from '../common/initials';
 import { MemData } from '../common/types';
 import { execCmd } from '../common/exec';
@@ -30,10 +30,7 @@ export const bsdMem = async () => {
   return result;
 };
 
-export const mem = () => {
-  return new Promise<MemData>(resolve => {
-    process.nextTick(() => {
-      return resolve(bsdMem());
-    });
-  });
+export const mem = async () => {
+  await nextTick();
+  return bsdMem();
 };

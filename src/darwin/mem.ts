@@ -1,6 +1,6 @@
 'use strict';
 
-import { noop } from '../common';
+import { nextTick, noop } from '../common';
 import { initMemData } from '../common/initials';
 import { MemData } from '../common/types';
 import { execCmd } from '../common/exec';
@@ -31,10 +31,7 @@ export const darwinMem = async () => {
   return result;
 };
 
-export const mem = () => {
-  return new Promise<MemData>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinMem());
-    });
-  });
+export const mem = async () => {
+  await nextTick();
+  return darwinMem();
 };

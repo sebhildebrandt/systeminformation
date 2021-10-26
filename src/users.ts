@@ -8,24 +8,22 @@ import { windowsUsers } from './windows/users';
 import { UserData } from './common/types';
 
 import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { nextTick } from './common';
 
-export const users = () => {
-  return new Promise<UserData[] | null | undefined>(resolve => {
-    process.nextTick(() => {
-      switch (true) {
-        case LINUX:
-          return resolve(linuxUsers());
-        case NETBSD || FREEBSD:
-          return resolve(bsdUsers());
-        case SUNOS:
-          return resolve(sunUsers());
-        case DARWIN:
-          return resolve(darwinUsers());
-        case WINDOWS:
-          return resolve(windowsUsers());
-        default:
-          return resolve(null);
-      }
-    });
-  });
+export const users = async () => {
+  await nextTick();
+  switch (true) {
+    case LINUX:
+      return linuxUsers();
+    case NETBSD || FREEBSD:
+      return bsdUsers();
+    case SUNOS:
+      return sunUsers();
+    case DARWIN:
+      return darwinUsers();
+    case WINDOWS:
+      return windowsUsers();
+    default:
+      return null;
+  }
 };

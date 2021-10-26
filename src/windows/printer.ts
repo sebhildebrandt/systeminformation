@@ -1,6 +1,6 @@
 'use strict';
 
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { execCmd, powerShell } from '../common/exec';
 import { PrinterData } from '../common/types';
 import { winPrinterStatus } from '../common/mappings';
@@ -36,10 +36,7 @@ export const windowsPrinter = async () => {
   return (result);
 };
 
-export const printer = () => {
-  return new Promise<PrinterData[] | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsPrinter());
-    });
-  });
+export const printer = async () => {
+  await nextTick();
+  return windowsPrinter();
 };

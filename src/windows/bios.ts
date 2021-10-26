@@ -1,9 +1,8 @@
 'use strict';
 
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { powerShell } from '../common/exec';
 import { initBios } from '../common/initials';
-import { BiosData } from './../common/types';
 
 export const windowsBios = async () => {
   const result = initBios;
@@ -33,10 +32,7 @@ export const windowsBios = async () => {
   return result;
 };
 
-export const bios = () => {
-  return new Promise<BiosData>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsBios());
-    });
-  });
+export const bios = async () => {
+  await nextTick();
+  return windowsBios();
 };

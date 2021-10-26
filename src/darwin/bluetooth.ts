@@ -1,6 +1,6 @@
 'use strict';
 
-import { noop } from '../common';
+import { nextTick, noop } from '../common';
 import { execCmd } from '../common/exec';
 import { bluetoothTypeLabel } from '../common/mappings';
 import { BluetoothObject } from '../common/types';
@@ -49,10 +49,7 @@ export const darwinBluetooth = async () => {
   return result;
 };
 
-export const bluetoothDevices = () => {
-  return new Promise<BluetoothObject[] | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinBluetooth());
-    });
-  });
+export const bluetoothDevices = async () => {
+  await nextTick();
+  return darwinBluetooth();
 };

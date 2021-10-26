@@ -1,6 +1,6 @@
 'use strict';
 
-import { getValue } from "../common";
+import { getValue, nextTick } from "../common";
 import { execCmd } from "../common/exec";
 import { initChassis } from "../common/initials";
 import { chassisTypes } from "../common/mappings";
@@ -29,11 +29,8 @@ export const nixChassis = async () => {
   return result;
 };
 
-export const chassis = () => {
-  return new Promise<ChassisData>(resolve => {
-    process.nextTick(() => {
-      return resolve(nixChassis());
-    });
-  });
+export const chassis = async () => {
+  await nextTick();
+  return nixChassis();
 };
 

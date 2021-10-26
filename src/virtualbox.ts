@@ -1,6 +1,6 @@
 'use strict';
 
-import { noop, getValue } from './common';
+import { noop, getValue, nextTick } from './common';
 import { VBOXMANAGE } from './common/const';
 import { execCmd } from './common/exec';
 import { VboxInfoData } from './common/types';
@@ -82,10 +82,7 @@ const getVboxInfo = async () => {
     return result;
   }
 };
-export const vboxInfo = () => {
-  return new Promise<VboxInfoData[] | null>(resolve => {
-    process.nextTick(() => {
-      resolve(getVboxInfo());
-    });
-  });
+export const vboxInfo = async () => {
+  await nextTick();
+  return getVboxInfo();
 };

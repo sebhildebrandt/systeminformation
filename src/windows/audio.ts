@@ -2,7 +2,7 @@
 
 import * as os from 'os';
 import { execCmd } from '../common/exec';
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { audioTypeLabel } from '../common/mappings';
 import { AudioObject } from '../common/types';
 
@@ -38,10 +38,7 @@ export const windowsAudio = async () => {
   return result;
 };
 
-export const audio = () => {
-  return new Promise<AudioObject[] | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsAudio());
-    });
-  });
+export const audio = async () => {
+  await nextTick();
+  return windowsAudio();
 };

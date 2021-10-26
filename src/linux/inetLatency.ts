@@ -3,6 +3,7 @@
 import { execSafe } from '../common/exec';
 import { sanitizeUrl } from '../common/security';
 import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS, execOptsWin } from '../common/const';
+import { nextTick } from '../common';
 
 export const nixInetLatency = async (host: string) => {
   let hostSanitized = sanitizeUrl(host);
@@ -37,10 +38,7 @@ export const nixInetLatency = async (host: string) => {
   return result;
 };
 
-export const inetLatency = (url: string) => {
-  return new Promise<number | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(nixInetLatency(url));
-    });
-  });
+export const inetLatency = async (url: string) => {
+  await nextTick();
+  return nixInetLatency(url);
 };

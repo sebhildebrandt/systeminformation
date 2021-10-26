@@ -1,5 +1,6 @@
 'use strict';
 
+import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 
 export const darwinCpuFlags = async () => {
@@ -12,10 +13,7 @@ export const darwinCpuFlags = async () => {
   return result;
 };
 
-export const cpuFlags = () => {
-  return new Promise<string>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinCpuFlags());
-    });
-  });
+export const cpuFlags = async () => {
+  await nextTick();
+  return darwinCpuFlags();
 };

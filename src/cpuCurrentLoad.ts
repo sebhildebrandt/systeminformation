@@ -1,4 +1,5 @@
 import * as os from 'os';
+import { nextTick } from './common';
 import { CurrentLoadData } from "./common/types";
 
 let _current_cpu = {
@@ -180,12 +181,9 @@ const getLoad = () => {
   });
 };
 
-export const currentLoad = () => {
-  return new Promise((resolve) => {
-    process.nextTick(() => {
-      getLoad().then(result => {
-        resolve(result);
-      });
-    });
+export const currentLoad = async () => {
+  await nextTick();
+  getLoad().then(result => {
+    return result;
   });
 };

@@ -4,7 +4,7 @@ import { execCmd, powerShell } from '../common/exec';
 import { initOsInfo } from '../common/initials';
 import { getLogoFile } from '../common/mappings';
 import { OsData } from '../common/types';
-import { getValue, noop, promiseAll } from '../common';
+import { getValue, nextTick, noop, promiseAll } from '../common';
 import { getCodepage } from '../common/codepage';
 
 const windowsIsUefi = async () => {
@@ -47,10 +47,7 @@ export const windowsOsInfo = async () => {
   return result;
 };
 
-export const osInfo = () => {
-  return new Promise<OsData>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsOsInfo());
-    });
-  });
+export const osInfo = async () => {
+  await nextTick();
+  return windowsOsInfo();
 };

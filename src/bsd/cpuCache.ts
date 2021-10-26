@@ -1,5 +1,5 @@
 import { execCmd } from '../common/exec';
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { CpuCacheData } from '../common/types';
 import { initCpuCacheResult } from '../common/initials';
 
@@ -30,10 +30,7 @@ export const bsdCpuCache = async () => {
   return result;
 };
 
-export const cpuCache = () => {
-  return new Promise<CpuCacheData | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(bsdCpuCache());
-    });
-  });
+export const cpuCache = async () => {
+  await nextTick();
+  return bsdCpuCache();
 };

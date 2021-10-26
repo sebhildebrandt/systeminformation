@@ -1,9 +1,9 @@
 'use strict';
 
-import { execCmd, powerShell } from "./../common/exec";
-import { initUUID } from "./../common/initials";
-import { UuidData } from "./../common/types";
-import { getValue, noop } from "./../common";
+import { execCmd, powerShell } from '../common/exec';
+import { initUUID } from '../common/initials';
+import { UuidData } from '../common/types';
+import { getValue, nextTick, noop } from '../common';
 
 export const windowsUuid = async () => {
   let result: UuidData = initUUID;
@@ -24,10 +24,7 @@ export const windowsUuid = async () => {
   return result;
 };
 
-export const uuid = () => {
-  return new Promise<UuidData | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsUuid());
-    });
-  });
+export const uuid = async () => {
+  await nextTick();
+  return windowsUuid();
 };

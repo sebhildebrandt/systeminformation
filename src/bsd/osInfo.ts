@@ -4,7 +4,7 @@ import { execCmd } from '../common/exec';
 import { initOsInfo } from '../common/initials';
 import { getLogoFile } from '../common/mappings';
 import { OsData } from '../common/types';
-import { getValue, noop } from '../common';
+import { getValue, nextTick, noop } from '../common';
 import { getCodepage } from '../common/codepage';
 
 export const bsdOsInfo = async () => {
@@ -25,10 +25,7 @@ export const bsdOsInfo = async () => {
   return result;
 };
 
-export const osInfo = () => {
-  return new Promise<OsData>(resolve => {
-    process.nextTick(() => {
-      return resolve(bsdOsInfo());
-    });
-  });
+export const osInfo = async () => {
+  await nextTick();
+  return bsdOsInfo();
 };

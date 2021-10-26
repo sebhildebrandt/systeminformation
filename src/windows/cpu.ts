@@ -2,7 +2,7 @@
 
 import * as os from 'os';
 import { powerShell } from '../common/exec';
-import { getValue, promiseAll, toInt, countLines } from '../common';
+import { getValue, promiseAll, toInt, countLines, nextTick } from '../common';
 import { CpuObject } from '../common/types';
 import { getAMDSpeed, socketTypes, cpuBrandManufacturer } from '../common/mappings';
 import { cpuFlags } from './cpuFlags';
@@ -111,10 +111,7 @@ export const windowsCpu = async () => {
   }
 };
 
-export const cpu = () => {
-  return new Promise<CpuObject | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsCpu());
-    });
-  });
+export const cpu = async () => {
+  await nextTick();
+  return windowsCpu();
 };

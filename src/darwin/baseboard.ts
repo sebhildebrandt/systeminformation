@@ -1,7 +1,7 @@
 'use strict';
 
 import * as os from 'os';
-import { getValue, promiseAll } from '../common';
+import { getValue, nextTick, promiseAll } from '../common';
 import { execCmd } from '../common/exec';
 import { initBaseboard } from '../common/initials';
 import { BaseboardData } from './../common/types';
@@ -35,11 +35,8 @@ export const darwinBaseboard = async () => {
   return result;
 };
 
-export const baseboard = () => {
-  return new Promise<BaseboardData>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinBaseboard());
-    });
-  });
+export const baseboard = async () => {
+  await nextTick();
+  return darwinBaseboard();
 };
 

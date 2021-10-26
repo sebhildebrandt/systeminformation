@@ -1,6 +1,6 @@
 'use strict';
 
-import { getValue, noop } from '../common';
+import { getValue, nextTick, noop } from '../common';
 import { initBios } from '../common/initials';
 import { parseDateTime } from '../common/datetime';
 import { BiosData } from './../common/types';
@@ -51,10 +51,7 @@ export const nixBios = async () => {
   return result;
 };
 
-export const bios = () => {
-  return new Promise<BiosData>(resolve => {
-    process.nextTick(() => {
-      return resolve(nixBios());
-    });
-  });
+export const bios = async () => {
+  await nextTick();
+  return nixBios();
 };

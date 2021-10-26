@@ -1,7 +1,7 @@
 'use strict';
 
 import { powerShell } from '../common/exec';
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { CpuCacheData } from '../common/types';
 import { initCpuCacheResult } from '../common/initials';
 
@@ -40,10 +40,7 @@ export const windowsCpuCache = async () => {
   }
 };
 
-export const cpuCache = () => {
-  return new Promise<CpuCacheData | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsCpuCache());
-    });
-  });
+export const cpuCache = async () => {
+  await nextTick();
+  return windowsCpuCache();
 };

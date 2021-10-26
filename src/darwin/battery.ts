@@ -1,7 +1,7 @@
 'use strict';
 
 import { execCmd } from '../common/exec';
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { BatteryObject } from '../common/types';
 import { initBatteryResult } from '../common/initials';
 
@@ -46,10 +46,7 @@ export const darwinBattery = async () => {
   return result;
 };
 
-export const battery = () => {
-  return new Promise<BatteryObject | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinBattery());
-    });
-  });
+export const battery = async () => {
+  await nextTick();
+  return darwinBattery();
 };

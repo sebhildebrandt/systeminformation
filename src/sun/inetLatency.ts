@@ -1,5 +1,6 @@
 'use strict';
 
+import { nextTick } from '../common';
 import { execSafe } from '../common/exec';
 import { sanitizeUrl } from '../common/security';
 
@@ -23,10 +24,7 @@ export const sunInetLatency = async (host: string) => {
   return result;
 };
 
-export const inetLatency = (url: string) => {
-  return new Promise<number | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(sunInetLatency(url));
-    });
-  });
+export const inetLatency = async (url: string) => {
+  await nextTick();
+  return sunInetLatency(url);
 };

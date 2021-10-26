@@ -1,7 +1,7 @@
 'use strict';
 
 import { execCmd } from '../common/exec';
-import { toInt, getValue } from '../common';
+import { toInt, getValue, nextTick } from '../common';
 import { WifiInterfaceData } from '../common/types';
 
 type ifaceList = {
@@ -70,10 +70,7 @@ export const linuxWifiInterfaces = async () => {
   return result;
 };
 
-export const wifiInterfaces = () => {
-  return new Promise<WifiInterfaceData[] | null | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(linuxWifiInterfaces());
-    });
-  });
+export const wifiInterfaces = async () => {
+  await nextTick();
+  return linuxWifiInterfaces();
 };

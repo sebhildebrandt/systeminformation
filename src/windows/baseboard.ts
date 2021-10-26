@@ -1,6 +1,6 @@
 'use strict';
 
-import { getValue, noop, promiseAll, toInt } from '../common';
+import { getValue, nextTick, noop, promiseAll, toInt } from '../common';
 import { powerShell } from '../common/exec';
 import { initBaseboard } from '../common/initials';
 import { BaseboardData } from './../common/types';
@@ -37,11 +37,8 @@ export const windowsBaseboard = async () => {
   return result;
 };
 
-export const baseboard = () => {
-  return new Promise<BaseboardData>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsBaseboard());
-    });
-  });
+export const baseboard = async () => {
+  await nextTick();
+  return windowsBaseboard();
 };
 

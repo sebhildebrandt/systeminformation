@@ -1,6 +1,6 @@
 'use strict';
 
-import { getValue, noop, toInt } from '../common';
+import { getValue, nextTick, noop, toInt } from '../common';
 import { MemLayoutData } from '../common/types';
 import { powerShell } from '../common/exec';
 
@@ -41,10 +41,7 @@ export const windowsMemLayout = async () => {
   return result;
 };
 
-export const memLayout = () => {
-  return new Promise<MemLayoutData[]>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsMemLayout());
-    });
-  });
+export const memLayout = async () => {
+  await nextTick();
+  return windowsMemLayout();
 };

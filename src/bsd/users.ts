@@ -1,5 +1,6 @@
 'use strict';
 
+import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { UserData } from '../common/types';
 
@@ -62,10 +63,7 @@ export const bsdUsers = async () => {
   return result;
 };
 
-export const users = () => {
-  return new Promise<UserData[] | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(bsdUsers());
-    });
-  });
+export const users = async () => {
+  await nextTick();
+  return bsdUsers();
 };

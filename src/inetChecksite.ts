@@ -5,18 +5,16 @@ import { windowsInetCheckSite } from './windows/inetChecksite';
 import { InetChecksiteData } from './common/types';
 
 import { AIX, ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
+import { nextTick } from './common';
 
-export const inetChecksite = (url: string) => {
-  return new Promise<InetChecksiteData | null | undefined>(resolve => {
-    process.nextTick(() => {
-      switch (true) {
-        case LINUX || DARWIN || SUNOS || NETBSD || FREEBSD:
-          return resolve(nixInetCheckSite(url));
-        case WINDOWS:
-          return resolve(windowsInetCheckSite(url));
-        default:
-          return resolve(null);
-      }
-    });
-  });
+export const inetChecksite = async (url: string) => {
+  await nextTick();
+  switch (true) {
+    case LINUX || DARWIN || SUNOS || NETBSD || FREEBSD:
+      return nixInetCheckSite(url);
+    case WINDOWS:
+      return windowsInetCheckSite(url);
+    default:
+      return null;
+  }
 };

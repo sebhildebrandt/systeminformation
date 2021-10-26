@@ -1,6 +1,6 @@
 'use strict';
 
-import { noop } from '../common';
+import { nextTick, noop } from '../common';
 import { execCmd } from '../common/exec';
 import { PrinterData } from '../common/types';
 
@@ -38,10 +38,7 @@ export const darwinPrinter = async () => {
   return (result);
 };
 
-export const printer = () => {
-  return new Promise<PrinterData[] | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinPrinter());
-    });
-  });
+export const printer = async () => {
+  await nextTick();
+  return darwinPrinter();
 };

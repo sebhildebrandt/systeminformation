@@ -2,7 +2,7 @@
 
 import * as os from 'os';
 import { promises as fs, existsSync } from 'fs';
-import { getValue, noop } from '../common';
+import { getValue, nextTick, noop } from '../common';
 import { execCmd } from '../common/exec';
 import { initSystem } from '../common/initials';
 import { decodePiCpuinfo } from '../common/raspberry';
@@ -173,11 +173,8 @@ export const nixSystem = async () => {
   return result;
 };
 
-export const system = () => {
-  return new Promise<SystemData>(resolve => {
-    process.nextTick(() => {
-      return resolve(nixSystem());
-    });
-  });
+export const system = async () => {
+  await nextTick();
+  return nixSystem();
 };
 

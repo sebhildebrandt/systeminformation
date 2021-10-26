@@ -2,7 +2,7 @@
 
 import { promises as fs, existsSync } from "fs";
 
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { BatteryObject } from '../common/types';
 import { initBatteryResult } from '../common/initials';
 
@@ -66,10 +66,7 @@ export const linuxBattery = async () => {
   return result;
 };
 
-export const battery = () => {
-  return new Promise<BatteryObject | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(linuxBattery());
-    });
-  });
+export const battery = async () => {
+  await nextTick();
+  return linuxBattery();
 };

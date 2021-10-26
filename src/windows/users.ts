@@ -1,7 +1,7 @@
 'use strict';
 
 import { powerShell } from '../common/exec';
-import { getValue, promiseAll } from '../common';
+import { getValue, nextTick, promiseAll } from '../common';
 import { UserData } from '../common/types';
 
 const parseWinSessions = (sessionParts: string[]) => {
@@ -103,10 +103,7 @@ export const windowsUsers = async () => {
   }
 };
 
-export const users = () => {
-  return new Promise<UserData[] | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsUsers());
-    });
-  });
+export const users = async () => {
+  await nextTick();
+  return windowsUsers();
 };

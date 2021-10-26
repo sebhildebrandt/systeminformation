@@ -1,4 +1,5 @@
 import * as os from 'os';
+import { nextTick } from './common';
 import { CpuCurrentSpeedObject } from "./common/types";
 
 export const getCpuCurrentSpeed = (): CpuCurrentSpeedObject => {
@@ -39,20 +40,17 @@ export const getCpuCurrentSpeed = (): CpuCurrentSpeedObject => {
 // TODO: _cpu_speed
 const _cpu_speed = 0;
 
-export const cpuCurrentSpeed = () => {
-  return new Promise<CpuCurrentSpeedObject>((resolve) => {
-    process.nextTick(() => {
-      let result = getCpuCurrentSpeed();
-      if (result.avg === 0 && _cpu_speed !== 0) {
-        const currCpuSpeed = _cpu_speed;
-        result = {
-          min: currCpuSpeed,
-          max: currCpuSpeed,
-          avg: currCpuSpeed,
-          cores: []
-        };
-      }
-      resolve(result);
-    });
-  });
+export const cpuCurrentSpeed = async () => {
+  await nextTick();
+  let result = getCpuCurrentSpeed();
+  if (result.avg === 0 && _cpu_speed !== 0) {
+    const currCpuSpeed = _cpu_speed;
+    result = {
+      min: currCpuSpeed,
+      max: currCpuSpeed,
+      avg: currCpuSpeed,
+      cores: []
+    };
+  }
+  return result;
 };

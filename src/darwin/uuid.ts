@@ -1,9 +1,9 @@
 'use strict';
 
-import { execCmd } from "./../common/exec";
-import { initUUID } from "./../common/initials";
-import { UuidData } from "./../common/types";
-import { noop } from "./../common";
+import { execCmd } from "../common/exec";
+import { initUUID } from "../common/initials";
+import { UuidData } from "../common/types";
+import { nextTick, noop } from "../common";
 
 export const darwinUuid = async () => {
   let result: UuidData = initUUID;
@@ -21,10 +21,7 @@ export const darwinUuid = async () => {
   return result;
 };
 
-export const uuid = () => {
-  return new Promise<UuidData | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinUuid());
-    });
-  });
+export const uuid = async () => {
+  await nextTick();
+  return darwinUuid();
 };

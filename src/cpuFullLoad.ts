@@ -1,4 +1,5 @@
 import * as os from 'os';
+import { nextTick } from './common';
 
 const getFullLoad = () => {
 
@@ -29,10 +30,7 @@ const getFullLoad = () => {
   return result;
 };
 
-export const fullLoad = () => {
-  return new Promise<number>((resolve) => {
-    process.nextTick(() => {
-      resolve(getFullLoad());
-    });
-  });
+export const fullLoad = async () => {
+  await nextTick();
+  return getFullLoad();
 };

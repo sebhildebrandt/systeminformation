@@ -1,6 +1,6 @@
 'use strict';
 
-import { getValue } from "../common";
+import { getValue, nextTick } from "../common";
 import { powerShell } from "../common/exec";
 import { initChassis } from "../common/initials";
 import { chassisTypes } from "../common/mappings";
@@ -28,11 +28,8 @@ export const windowsChassis = async () => {
   return result;
 };
 
-export const chassis = () => {
-  return new Promise<ChassisData>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsChassis());
-    });
-  });
+export const chassis = async () => {
+  await nextTick();
+  return windowsChassis();
 };
 

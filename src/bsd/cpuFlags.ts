@@ -1,5 +1,6 @@
 'use strict';
 
+import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 
 export const bsdCpuFlags = async () => {
@@ -24,10 +25,7 @@ export const bsdCpuFlags = async () => {
   }
 };
 
-export const cpuFlags = () => {
-  return new Promise<string>(resolve => {
-    process.nextTick(() => {
-      return resolve(bsdCpuFlags());
-    });
-  });
+export const cpuFlags = async () => {
+  await nextTick();
+  return bsdCpuFlags();
 };

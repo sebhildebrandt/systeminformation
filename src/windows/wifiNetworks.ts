@@ -2,7 +2,7 @@
 
 import * as os from 'os';
 import { powerShell } from '../common/exec';
-import { toInt } from '../common';
+import { nextTick, toInt } from '../common';
 import { WifiNetworkData } from '../common/types';
 import { wifiDBFromQuality, wifiFrequencyFromChannel } from '../common/network';
 
@@ -50,10 +50,7 @@ export const windowsWifiNetwork = async () => {
   return result;
 };
 
-export const wifiNetworks = () => {
-  return new Promise<WifiNetworkData[] | null | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsWifiNetwork());
-    });
-  });
+export const wifiNetworks = async () => {
+  await nextTick();
+  return windowsWifiNetwork();
 };

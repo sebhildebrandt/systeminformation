@@ -1,7 +1,7 @@
 'use strict';
 
 import { powerShell } from '../common/exec';
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { UsbData } from '../common/types';
 import { usbWindowsType } from '../common/mappings';
 
@@ -39,10 +39,7 @@ export const windowsUsb = async () => {
   return result;
 };
 
-export const usb = () => {
-  return new Promise<UsbData[] | null>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsUsb());
-    });
-  });
+export const usb = async () => {
+  await nextTick();
+  return windowsUsb();
 };

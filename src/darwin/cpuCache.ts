@@ -1,6 +1,7 @@
 import { execCmd } from '../common/exec';
 import { CpuCacheData } from '../common/types';
 import { initCpuCacheResult } from '../common/initials';
+import { nextTick } from '../common';
 
 export const darwinCpuCache = async () => {
   const result = initCpuCacheResult;
@@ -28,10 +29,7 @@ export const darwinCpuCache = async () => {
   }
 };
 
-export const cpuCache = () => {
-  return new Promise<CpuCacheData | undefined>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinCpuCache());
-    });
-  });
+export const cpuCache = async () => {
+  await nextTick();
+  return darwinCpuCache();
 };

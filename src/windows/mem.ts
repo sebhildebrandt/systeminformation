@@ -1,6 +1,6 @@
 'use strict';
 
-import { noop } from '../common';
+import { nextTick, noop } from '../common';
 import { initMemData } from '../common/initials';
 import { MemData } from '../common/types';
 import { powerShell } from '../common/exec';
@@ -28,10 +28,7 @@ export const windowsMem = async () => {
   return result;
 };
 
-export const mem = () => {
-  return new Promise<MemData>(resolve => {
-    process.nextTick(() => {
-      return resolve(windowsMem());
-    });
-  });
+export const mem = async () => {
+  await nextTick();
+  return windowsMem();
 };

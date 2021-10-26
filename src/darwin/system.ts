@@ -1,6 +1,6 @@
 'use strict';
 
-import { getValue } from '../common';
+import { getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initSystem } from '../common/initials';
 import { SystemData } from './../common/types';
@@ -20,11 +20,8 @@ export const darwinSystem = async () => {
   return result;
 };
 
-export const system = () => {
-  return new Promise<SystemData>(resolve => {
-    process.nextTick(() => {
-      return resolve(darwinSystem());
-    });
-  });
+export const system = async () => {
+  await nextTick();
+  return darwinSystem();
 };
 
