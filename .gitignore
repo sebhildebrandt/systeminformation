@@ -63,5 +63,6 @@ package-lock.json
 yarn.lock
 
 dist/
+src/
 tsconfig.json
 typings.d.ts
