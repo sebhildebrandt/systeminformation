@@ -1,8 +1,6 @@
-'use strict';
-
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
-import { initBatteryResult } from '../common/initials';
+import { initBatteryResult } from '../common/defaults';
 
 export const bsdBattery = async () => {
   const result = initBatteryResult;

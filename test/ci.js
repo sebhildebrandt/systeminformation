@@ -1,4 +1,4 @@
-const si = require('../lib/index');
+const si = require('../dist/index');
 
 const testWithTimeout = async (fn) => {
   return new Promise((resolve, reject) => {

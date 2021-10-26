@@ -1,5 +1,3 @@
-'use strict';
-
 import { nixSystem } from './linux/system';
 import { darwinSystem } from './darwin/system';
 import { windowsSystem } from './windows/system';

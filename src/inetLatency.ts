@@ -1,5 +1,3 @@
-'use strict';
-
 import { nixInetLatency } from './linux/inetLatency';
 import { sunInetLatency } from './sun/inetLatency';
 import { windowsInetLatency } from './windows/inetLatency';

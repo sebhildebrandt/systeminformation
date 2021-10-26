@@ -1,5 +1,3 @@
-'use strict';
-
 import { nixPrinter } from './linux/printer';
 import { darwinPrinter } from './darwin/printer';
 import { windowsPrinter } from './windows/printer';

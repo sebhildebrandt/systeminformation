@@ -1,5 +1,3 @@
-'use strict';
-
 import { PLATFORM, WINDOWS } from './const';
 import { CpuObject } from './types';
 

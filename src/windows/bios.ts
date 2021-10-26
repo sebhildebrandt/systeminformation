@@ -1,8 +1,6 @@
-'use strict';
-
 import { getValue, nextTick } from '../common';
 import { powerShell } from '../common/exec';
-import { initBios } from '../common/initials';
+import { initBios } from '../common/defaults';
 
 export const windowsBios = async () => {
   const result = initBios;

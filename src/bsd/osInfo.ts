@@ -1,7 +1,5 @@
-'use strict';
-
 import { execCmd } from '../common/exec';
-import { initOsInfo } from '../common/initials';
+import { initOsInfo } from '../common/defaults';
 import { getLogoFile } from '../common/mappings';
 import { getValue, nextTick } from '../common';
 import { getCodepage } from '../common/codepage';
@@ -18,8 +16,7 @@ export const bsdOsInfo = async () => {
     result.codename = '';
     result.codepage = getCodepage();
     result.uefi = getValue(lines, 'machdep.bootmethod').toLowerCase().indexOf('uefi') >= 0;
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

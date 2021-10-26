@@ -1,5 +1,3 @@
-'use strict';
-
 import { nixInetCheckSite } from './linux/inetChecksite';
 import { windowsInetCheckSite } from './windows/inetChecksite';
 

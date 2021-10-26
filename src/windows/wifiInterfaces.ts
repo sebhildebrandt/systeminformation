@@ -1,5 +1,3 @@
-'use strict';
-
 import { nextTick } from '../common';
 import { powerShell } from '../common/exec';
 import { WifiInterfaceData } from '../common/types';

@@ -1,7 +1,5 @@
-'use strict';
-
 import { nextTick } from '../common';
-import { initMemData } from '../common/initials';
+import { initMemData } from '../common/defaults';
 import { powerShell } from '../common/exec';
 
 export const windowsMem = async () => {
@@ -21,8 +19,7 @@ export const windowsMem = async () => {
     result.swaptotal = swaptotal * 1024 * 1024;
     result.swapused = swapused * 1024 * 1024;
     result.swapfree = result.swaptotal - result.swapused;
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

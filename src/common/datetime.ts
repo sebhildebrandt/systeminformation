@@ -1,5 +1,3 @@
-'use strict';
-
 export const nanoSeconds = () => {
   const time = process.hrtime();
   if (!Array.isArray(time) || time.length !== 2) {

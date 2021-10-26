@@ -1,5 +1,3 @@
-'use strict';
-
 import { linuxCpuTemperature } from './linux/cpuTemperature';
 import { darwinCpuTemperature } from './darwin/cpuTemperature';
 import { windowsCpuTemperature } from './windows/cpuTemperature';

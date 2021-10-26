@@ -1,7 +1,5 @@
-'use strict';
-
 import { nextTick } from '../common';
-import { initMemData } from '../common/initials';
+import { initMemData } from '../common/defaults';
 import { execCmd } from '../common/exec';
 
 export const darwinMem = async () => {
@@ -24,8 +22,7 @@ export const darwinMem = async () => {
         if (lineParts[i].toLowerCase().indexOf('free') !== -1) { result.swapfree = parseFloat(lineParts[i].split('=')[1].trim()) * 1024 * 1024; }
       }
     }
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

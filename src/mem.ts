@@ -1,5 +1,3 @@
-'use strict';
-
 import { linuxMem } from './linux/mem';
 import { bsdMem } from './bsd/mem';
 import { darwinMem } from './darwin/mem';

@@ -1,5 +1,3 @@
-'use strict';
-
 export const PLATFORM = process.platform;
 
 export const AIX = PLATFORM === 'aix';

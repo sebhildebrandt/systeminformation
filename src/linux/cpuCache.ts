@@ -1,5 +1,5 @@
 import { execCmd } from '../common/exec';
-import { initCpuCacheResult } from '../common/initials';
+import { initCpuCacheResult } from '../common/defaults';
 import { nextTick } from '../common';
 
 export const linuxCpuCache = async () => {

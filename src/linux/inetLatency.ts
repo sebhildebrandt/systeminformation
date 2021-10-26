@@ -1,5 +1,3 @@
-'use strict';
-
 import { execSafe } from '../common/exec';
 import { sanitizeUrl } from '../common/security';
 import { DARWIN, FREEBSD, LINUX, NETBSD } from '../common/const';

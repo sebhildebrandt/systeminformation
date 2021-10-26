@@ -1,5 +1,3 @@
-'use strict';
-
 import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { UserData } from '../common/types';

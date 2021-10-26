@@ -1,8 +1,6 @@
-'use strict';
-
 import { powerShell } from '../common/exec';
 import { getValue, nextTick, toInt } from '../common';
-import { initBatteryResult } from '../common/initials';
+import { initBatteryResult } from '../common/defaults';
 
 const parseWinBatteryPart = (lines: string[], designedCapacity: number, fullChargeCapacity: number) => {
   const status = toInt(getValue(lines, 'BatteryStatus', ':').trim());

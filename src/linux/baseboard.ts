@@ -1,10 +1,8 @@
-'use strict';
-
 import * as os from 'os';
 import { promises as fs } from 'fs';
 import { getValue, nextTick, toInt } from '../common';
 import { execCmd } from '../common/exec';
-import { initBaseboard } from '../common/initials';
+import { initBaseboard } from '../common/defaults';
 import { decodePiCpuinfo } from '../common/raspberry';
 
 export const nixBaseboard = async () => {
@@ -38,8 +36,7 @@ export const nixBaseboard = async () => {
     result.version = !result.version ? getValue(lines, 'board_version') : result.version;
     result.serial = !result.serial ? getValue(lines, 'board_serial') : result.serial;
     result.assetTag = !result.assetTag ? getValue(lines, 'board_asset_tag') : result.assetTag;
-  } catch (e) {
-  }
+  } catch { }
   if (result.serial.toLowerCase().indexOf('o.e.m.') !== -1) { result.serial = '-'; }
   if (result.assetTag.toLowerCase().indexOf('o.e.m.') !== -1) { result.assetTag = '-'; }
 
@@ -52,8 +49,7 @@ export const nixBaseboard = async () => {
   let linesRpi: string[] = [];
   try {
     linesRpi = (await fs.readFile('/proc/cpuinfo')).toString().split('\n');
-  } catch (e) {
-  }
+  } catch { }
   const hardware = getValue(linesRpi, 'hardware');
   if (hardware.startsWith('BCM')) {
     const rpi = decodePiCpuinfo(linesRpi);

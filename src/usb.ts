@@ -1,5 +1,3 @@
-'use strict';
-
 import { linuxUsb } from './linux/usb';
 import { darwinUsb } from './darwin/usb';
 import { windowsUsb } from './windows/usb';

@@ -1,5 +1,3 @@
-'use strict';
-
 import { execSafe } from './common/exec';
 import { InetChecksiteData } from './common/types';
 import { initCheckSite } from './common/initials';

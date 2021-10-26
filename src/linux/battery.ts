@@ -1,9 +1,7 @@
-'use strict';
-
 import { promises as fs, existsSync } from 'fs';
 
 import { getValue, nextTick } from '../common';
-import { initBatteryResult } from '../common/initials';
+import { initBatteryResult } from '../common/defaults';
 
 export const linuxBattery = async () => {
   const result = initBatteryResult;

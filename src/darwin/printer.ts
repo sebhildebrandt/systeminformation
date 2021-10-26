@@ -1,5 +1,3 @@
-'use strict';
-
 import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { PrinterData } from '../common/types';
@@ -32,8 +30,7 @@ export const darwinPrinter = async () => {
         result.push(printer);
       }
     }
-  } catch (e) {
-  }
+  } catch { }
   return (result);
 };
 

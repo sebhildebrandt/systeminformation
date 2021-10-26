@@ -1,8 +1,6 @@
-'use strict';
-
 import { getValue, nextTick, toInt } from '../common';
 import { powerShell } from '../common/exec';
-import { initBaseboard } from '../common/initials';
+import { initBaseboard } from '../common/defaults';
 
 export const windowsBaseboard = async () => {
   const result = initBaseboard;
@@ -30,8 +28,7 @@ export const windowsBaseboard = async () => {
     result.memMax = toInt(getValue(lines, 'MaxCapacity', ':')) || null;
     result.memSlots = toInt(getValue(lines, 'MemoryDevices', ':')) || null;
 
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

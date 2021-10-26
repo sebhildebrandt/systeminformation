@@ -1,5 +1,3 @@
-'use strict';
-
 import { promises as fs } from "fs";
 import { getValue, toInt } from './common';
 import { initMemData } from './common/initials';

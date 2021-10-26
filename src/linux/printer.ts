@@ -1,5 +1,3 @@
-'use strict';
-
 import { getValue, nextTick } from '../common';
 import { LINUX } from '../common/const';
 import { execCmd } from '../common/exec';

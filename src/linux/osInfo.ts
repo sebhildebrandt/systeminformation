@@ -1,7 +1,5 @@
-'use strict';
-
 import { execCmd } from '../common/exec';
-import { initOsInfo } from '../common/initials';
+import { initOsInfo } from '../common/defaults';
 import { getLogoFile } from '../common/mappings';
 import { existsSync } from 'fs';
 import { nextTick } from '../common';
@@ -44,8 +42,7 @@ export const linuxOsInfo = async () => {
     result.uefi = uefi;
     const data = await linuxUuid();
     result.serial = data.os;
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

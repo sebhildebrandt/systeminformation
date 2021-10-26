@@ -1,7 +1,5 @@
-'use strict';
-
 import { execSafe } from '../common/exec';
-import { initCheckSite } from '../common/initials';
+import { initCheckSite } from '../common/defaults';
 import { sanitizeUrl } from '../common/security';
 import { nextTick } from '../common';
 

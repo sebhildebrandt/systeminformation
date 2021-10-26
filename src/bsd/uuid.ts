@@ -1,7 +1,5 @@
-'use strict';
-
 import { execCmd } from '../common/exec';
-import { initUUID } from '../common/initials';
+import { initUUID } from '../common/defaults';
 import { UuidData } from '../common/types';
 import { getValue, nextTick } from '../common';
 
@@ -16,8 +14,7 @@ echo -n "hardware: "; sysctl -n kern.hostuuid; echo;`;
     result.hardware = getValue(lines, 'hardware').toLowerCase();
     if (result.os.indexOf('unknown') >= 0) { result.os = ''; }
     if (result.hardware.indexOf('unknown') >= 0) { result.hardware = ''; }
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

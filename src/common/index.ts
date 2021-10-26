@@ -1,5 +1,3 @@
-'use strict';
-
 export const toInt = (value: any) => {
   const result = parseInt(value, 10);
   if (isNaN(result)) { return 0; }

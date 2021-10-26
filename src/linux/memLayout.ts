@@ -1,5 +1,3 @@
-'use strict';
-
 import * as os from 'os';
 import { getValue, nextTick, toInt } from '../common';
 import { MemLayoutData } from '../common/types';
@@ -97,8 +95,7 @@ export const nixMemLayout = async () => {
         }
       }
     }
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

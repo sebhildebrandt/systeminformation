@@ -1,7 +1,5 @@
-'use strict';
-
 import { execCmd, powerShell } from '../common/exec';
-import { initOsInfo } from '../common/initials';
+import { initOsInfo } from '../common/defaults';
 import { getLogoFile } from '../common/mappings';
 import { getValue, nextTick } from '../common';
 import { getCodepage } from '../common/codepage';
@@ -40,8 +38,7 @@ export const windowsOsInfo = async () => {
     result.remoteSession = (term.toString().toLowerCase().indexOf('true') >= 0);
     const uefi = await windowsIsUefi();
     result.uefi = uefi;
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

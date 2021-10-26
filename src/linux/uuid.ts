@@ -1,7 +1,5 @@
-'use strict';
-
 import { execCmd } from '../common/exec';
-import { initUUID } from '../common/initials';
+import { initUUID } from '../common/defaults';
 import { promises as fs } from 'fs';
 import { UuidData } from '../common/types';
 import { getValue, nextTick } from '../common';
@@ -21,8 +19,7 @@ echo -n "hardware: "; cat /sys/class/dmi/id/product_uuid 2> /dev/null; echo;`;
       const serial = getValue(lines, 'serial');
       result.hardware = serial || '';
     }
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

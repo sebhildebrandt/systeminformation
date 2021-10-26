@@ -1,7 +1,5 @@
-'use strict';
-
 import { getValue, nextTick } from '../common';
-import { initMemData } from '../common/initials';
+import { initMemData } from '../common/defaults';
 import { execCmd } from '../common/exec';
 
 export const bsdMem = async () => {
@@ -23,8 +21,7 @@ export const bsdMem = async () => {
     result.swaptotal = 0;
     result.swapfree = 0;
     result.swapused = 0;
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

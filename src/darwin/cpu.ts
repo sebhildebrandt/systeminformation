@@ -1,5 +1,3 @@
-'use strict';
-
 import * as os from 'os';
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
@@ -7,7 +5,7 @@ import { cpuBrandManufacturer } from '../common/mappings';
 import { cpuFlags } from './cpuFlags';
 import { cpuCache } from './cpuCache';
 
-import { initCpuResult } from '../common/initials';
+import { initCpuResult } from '../common/defaults';
 
 let _cpu_speed = 0;
 

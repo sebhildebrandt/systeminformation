@@ -1,6 +1,6 @@
 import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
-import { initCpuTemperature } from '../common/initials';
+import { initCpuTemperature } from '../common/defaults';
 
 export const bsdCpuTemperature = async () => {
   const result = initCpuTemperature;

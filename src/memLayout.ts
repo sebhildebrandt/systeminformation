@@ -1,5 +1,3 @@
-'use strict';
-
 import { nixMemLayout } from './linux/memLayout';
 import { darwinMemLayout } from './darwin/memLayout';
 import { windowsMemLayout } from './windows/memLayout';

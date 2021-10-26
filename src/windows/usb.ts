@@ -1,5 +1,3 @@
-'use strict';
-
 import { powerShell } from '../common/exec';
 import { getValue, nextTick } from '../common';
 import { UsbData } from '../common/types';

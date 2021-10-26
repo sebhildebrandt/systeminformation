@@ -1,5 +1,3 @@
-'use strict';
-
 import * as os from 'os';
 import { execCmd, powerShell } from './common/exec';
 import { toInt, getValue } from './common';

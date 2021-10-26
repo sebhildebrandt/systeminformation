@@ -1,5 +1,3 @@
-'use strict';
-
 import { linuxCpu } from './linux/cpu';
 import { darwinCpu } from './darwin/cpu';
 import { windowsCpu } from './windows/cpu';

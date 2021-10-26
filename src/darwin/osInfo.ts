@@ -1,7 +1,5 @@
-'use strict';
-
 import { execCmd } from '../common/exec';
-import { initOsInfo } from '../common/initials';
+import { initOsInfo } from '../common/defaults';
 import { getLogoFile } from '../common/mappings';
 import { getValue, nextTick } from '../common';
 import { getCodepage } from '../common/codepage';
@@ -36,8 +34,7 @@ export const darwinOsInfo = async () => {
     }
     result.uefi = true;
     result.codepage = getCodepage();
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

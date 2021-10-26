@@ -1,8 +1,6 @@
-'use strict';
-
 import { getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
-import { initChassis } from '../common/initials';
+import { initChassis } from '../common/defaults';
 
 export const darwinChassis = async () => {
   const result = initChassis;

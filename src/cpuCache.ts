@@ -1,5 +1,3 @@
-'use strict';
-
 import { linuxCpuCache } from './linux/cpuCache';
 import { darwinCpuCache } from './darwin/cpuCache';
 import { windowsCpuCache } from './windows/cpuCache';

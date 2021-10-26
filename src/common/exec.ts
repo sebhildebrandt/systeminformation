@@ -1,5 +1,3 @@
-'use strict';
-
 import * as os from 'os';
 import { exec, spawn, ExecException } from 'child_process';
 

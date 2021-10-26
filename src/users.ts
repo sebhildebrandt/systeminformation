@@ -1,5 +1,3 @@
-'use strict';
-
 import { bsdUsers } from './bsd/users';
 import { sunUsers } from './sun/users';
 import { linuxUsers } from './linux/users';

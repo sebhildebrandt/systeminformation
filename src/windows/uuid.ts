@@ -1,7 +1,5 @@
-'use strict';
-
 import { execCmd, powerShell } from '../common/exec';
-import { initUUID } from '../common/initials';
+import { initUUID } from '../common/defaults';
 import { UuidData } from '../common/types';
 import { getValue, nextTick } from '../common';
 
@@ -18,8 +16,7 @@ export const windowsUuid = async () => {
     stdout = await powerShell('Get-WmiObject Win32_ComputerSystemProduct | fl *');
     const lines = stdout.split('\r\n');
     result.hardware = getValue(lines, 'uuid', ':').toLowerCase();
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

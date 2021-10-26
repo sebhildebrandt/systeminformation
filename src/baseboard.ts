@@ -1,5 +1,3 @@
-'use strict';
-
 import { nixBaseboard } from './linux/baseboard';
 import { darwinBaseboard } from './darwin/baseboard';
 import { windowsBaseboard } from './windows/baseboard';

@@ -1,5 +1,3 @@
-'use strict';
-
 import * as os from 'os';
 import { promises as fs, existsSync } from 'fs';
 import { getValue, toInt } from "./common";

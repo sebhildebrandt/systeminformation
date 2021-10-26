@@ -1,5 +1,3 @@
-'use strict';
-
 export const parseHead = (head: string, rights: number) => {
   let space = (rights > 0);
   let count = 1;

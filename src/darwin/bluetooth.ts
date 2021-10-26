@@ -1,5 +1,3 @@
-'use strict';
-
 import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { bluetoothTypeLabel } from '../common/mappings';
@@ -43,8 +41,7 @@ export const darwinBluetooth = async () => {
         }
       }
     }
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

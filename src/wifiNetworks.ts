@@ -1,5 +1,3 @@
-'use strict';
-
 import { linuxWifiNetwork } from './linux/wifiNetworks';
 import { darwinWifiNetwork } from './darwin/wifiNetworks';
 import { windowsWifiNetwork } from './windows/wifiNetworks';

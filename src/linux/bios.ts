@@ -1,7 +1,5 @@
-'use strict';
-
 import { getValue, nextTick } from '../common';
-import { initBios } from '../common/initials';
+import { initBios } from '../common/defaults';
 import { parseDateTime } from '../common/datetime';
 import { execCmd } from '../common/exec';
 
@@ -44,8 +42,7 @@ export const nixBios = async () => {
     result.version = !result.version ? getValue(lines, 'bios_version') : result.version;
     datetime = getValue(lines, 'bios_date');
     result.releaseDate = !result.releaseDate ? parseDateTime(datetime).date : result.releaseDate;
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

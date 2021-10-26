@@ -1,5 +1,3 @@
-'use strict';
-
 import * as os from 'os';
 import { powerShell } from '../common/exec';
 import { nextTick, toInt } from '../common';

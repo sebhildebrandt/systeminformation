@@ -1,7 +1,5 @@
-'use strict';
-
 import { execCmd } from '../common/exec';
-import { initUUID } from '../common/initials';
+import { initUUID } from '../common/defaults';
 import { UuidData } from '../common/types';
 import { nextTick } from '../common';
 
@@ -15,8 +13,7 @@ export const darwinUuid = async () => {
       result.os = spHardware.platform_UUID.toLowerCase();
       result.hardware = spHardware.serial_number;
     }
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

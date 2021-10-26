@@ -1,5 +1,3 @@
-'use strict';
-
 import { nixChassis } from './linux/chassis';
 import { darwinChassis } from './darwin/chassis';
 import { windowsChassis } from './windows/chassis';

@@ -1,8 +1,6 @@
-'use strict';
-
 import { nextTick } from '../common';
 import { execCmd } from '../common/exec';
-import { initCpuTemperature } from '../common/initials';
+import { initCpuTemperature } from '../common/defaults';
 import { promises as fs, existsSync } from 'fs';
 
 export const linuxCpuTemperature = async () => {
@@ -23,8 +21,7 @@ export const linuxCpuTemperature = async () => {
         }
       }
     }
-  } catch (e) {
-  }
+  } catch { }
 
   const cmd = 'for mon in /sys/class/hwmon/hwmon*; do for label in "$mon"/temp*_label; do if [ -f $label ]; then value=$(echo $label | rev | cut -c 7- | rev)_input; if [ -f "$value" ]; then echo $(cat "$label")___$(cat "$value");  fi; fi; done; done;';
   try {

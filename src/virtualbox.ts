@@ -1,5 +1,3 @@
-'use strict';
-
 import { getValue, nextTick } from './common';
 import { VBOXMANAGE } from './common/const';
 import { execCmd } from './common/exec';
@@ -24,8 +22,7 @@ const getVboxInfo = async () => {
           const offset = sinceDateObj.getTimezoneOffset();
           runningSince = Math.round((Date.now() - sinceDateObj.getTime()) / 1000) + offset * 60;
         }
-      } catch (e) {
-      }
+      } catch { }
       const stoppedSinceString = !running ? state.replace('powered off (since', '').replace(')', '').trim() : '';
       let stoppedSince = 0;
       try {
@@ -34,8 +31,7 @@ const getVboxInfo = async () => {
           const offset = sinceDateObj.getTimezoneOffset();
           stoppedSince = Math.round((Date.now() - sinceDateObj.getTime()) / 1000) + offset * 60;
         }
-      } catch (e) {
-      }
+      } catch { }
       result.push({
         id: getValue(lines, 'UUID'),
         name: getValue(lines, 'Name'),

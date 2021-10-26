@@ -1,5 +1,3 @@
-'use strict';
-
 import { linuxWifiConnections } from './linux/wifiConnections';
 import { darwinWifiConnections } from './darwin/wifiConnections';
 import { windowsWifiConnections } from './windows/wifiConnections';

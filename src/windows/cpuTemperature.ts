@@ -1,8 +1,6 @@
-'use strict';
-
 import { nextTick } from '../common';
 import { powerShell } from '../common/exec';
-import { initCpuTemperature } from '../common/initials';
+import { initCpuTemperature } from '../common/defaults';
 
 export const windowsCpuTemperature = async () => {
   const result = initCpuTemperature;

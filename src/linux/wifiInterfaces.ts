@@ -1,5 +1,3 @@
-'use strict';
-
 import { execCmd } from '../common/exec';
 import { toInt, getValue, nextTick } from '../common';
 import { WifiInterfaceData } from '../common/types';

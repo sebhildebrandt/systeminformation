@@ -1,5 +1,3 @@
-'use strict';
-
 import { nextTick } from '../common';
 import { execSafe } from '../common/exec';
 import { sanitizeUrl } from '../common/security';

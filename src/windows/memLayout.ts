@@ -1,5 +1,3 @@
-'use strict';
-
 import { getValue, nextTick, toInt } from '../common';
 import { MemLayoutData } from '../common/types';
 import { powerShell } from '../common/exec';
@@ -35,8 +33,7 @@ export const windowsMemLayout = async () => {
         });
       }
     });
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

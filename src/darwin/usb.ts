@@ -1,8 +1,6 @@
-'use strict';
-
 import { execCmd, } from '../common/exec';
 import { UsbData } from '../common/types';
-import { initUsbResult } from '../common/initials';
+import { initUsbResult } from '../common/defaults';
 import { usbDarwinType } from '../common/mappings';
 import { nextTick } from '../common';
 

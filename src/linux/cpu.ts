@@ -1,5 +1,3 @@
-'use strict';
-
 import * as os from 'os';
 import { promises as fs } from 'fs';
 import { execCmd } from '../common/exec';
@@ -8,7 +6,7 @@ import { decodePiCpuinfo } from '../common/raspberry';
 import { getAMDSpeed, cpuBrandManufacturer } from '../common/mappings';
 import { cpuFlags } from './cpuFlags';
 import { getCpuCurrentSpeed } from '../cpuCurrentSpeed';
-import { initCpuCacheResult, initCpuResult } from '../common/initials';
+import { initCpuCacheResult, initCpuResult } from '../common/defaults';
 
 let _cpu_speed = 0;
 

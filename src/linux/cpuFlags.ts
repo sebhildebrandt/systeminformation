@@ -1,5 +1,3 @@
-'use strict';
-
 import { promises as fs } from 'fs';
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';

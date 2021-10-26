@@ -1,6 +1,6 @@
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
-import { initCpuCacheResult } from '../common/initials';
+import { initCpuCacheResult } from '../common/defaults';
 
 export const bsdCpuCache = async () => {
   const result = initCpuCacheResult;

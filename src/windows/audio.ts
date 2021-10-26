@@ -1,5 +1,3 @@
-'use strict';
-
 import * as os from 'os';
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';

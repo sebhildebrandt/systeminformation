@@ -1,8 +1,6 @@
-'use strict';
-
 import { powerShell } from '../common/exec';
 import { getValue, nextTick } from '../common';
-import { initCpuCacheResult } from '../common/initials';
+import { initCpuCacheResult } from '../common/defaults';
 
 export const windowsCpuCache = async () => {
   const result = initCpuCacheResult;

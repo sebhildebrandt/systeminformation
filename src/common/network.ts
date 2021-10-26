@@ -1,5 +1,3 @@
-'use strict';
-
 import * as os from 'os';
 import { wifiFrequencies } from './mappings';
 import { toInt } from './index';
@@ -41,8 +39,7 @@ export const getFQDN = async () => {
         return stdout.toString().replace('.%USERDNSDOMAIN%', '').split(os.EOL)[0];
       default: return os.hostname();
     }
-  } catch (e) {
-  }
+  } catch { }
   return os.hostname();
 };
 

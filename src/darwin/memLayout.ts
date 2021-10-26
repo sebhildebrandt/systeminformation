@@ -1,5 +1,3 @@
-'use strict';
-
 import { getValue, nextTick } from '../common';
 import { MemLayoutData } from '../common/types';
 import { execCmd } from '../common/exec';
@@ -76,8 +74,7 @@ export const darwinMemLayout = async () => {
       }
     }
 
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

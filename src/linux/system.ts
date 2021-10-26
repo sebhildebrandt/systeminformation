@@ -1,10 +1,8 @@
-'use strict';
-
 import * as os from 'os';
 import { promises as fs, existsSync } from 'fs';
 import { getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
-import { initSystem } from '../common/initials';
+import { initSystem } from '../common/defaults';
 import { decodePiCpuinfo } from '../common/raspberry';
 import { FREEBSD, NETBSD } from '../common/const';
 
@@ -33,8 +31,7 @@ export const nixSystem = async () => {
     result.version = result.version === '' ? getValue(lines, 'product_version') : result.version;
     result.serial = result.serial === '' ? getValue(lines, 'product_serial') : result.serial;
     result.uuid = result.uuid === '' ? getValue(lines, 'product_uuid').toLowerCase() : result.uuid;
-  } catch (e) {
-  }
+  } catch { }
   if (!result.serial || result.serial.toLowerCase().indexOf('o.e.m.') !== -1) { result.serial = '-'; }
   if (!result.manufacturer || result.manufacturer.toLowerCase().indexOf('o.e.m.') !== -1) { result.manufacturer = ''; }
   if (!result.model || result.model.toLowerCase().indexOf('o.e.m.') !== -1) { result.model = 'Computer'; }
@@ -81,8 +78,7 @@ export const nixSystem = async () => {
         result.virtual = true;
         result.virtualHost = 'VirtualBox';
       }
-    } catch (e) {
-    }
+    } catch { }
   }
   if (!result.virtual && (os.release().toLowerCase().indexOf('microsoft') >= 0 || os.release().toLowerCase().endsWith('wsl2'))) {
     const kernelVersion = parseFloat(os.release().toLowerCase());
@@ -110,8 +106,7 @@ export const nixSystem = async () => {
           result.virtualHost = 'bochs';
           break;
       }
-    } catch (e) {
-    }
+    } catch { }
   }
   // detect docker
   if (existsSync('/.dockerenv') || existsSync('/.dockerinit')) {
@@ -137,8 +132,7 @@ export const nixSystem = async () => {
         result.virtualHost = 'KVM';
       }
     }
-  } catch (e) {
-  }
+  } catch { }
 
   if (result.manufacturer === '' && result.model === 'Computer' && result.version === '') {
     // Check Raspberry Pi

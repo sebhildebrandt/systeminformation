@@ -1,5 +1,3 @@
-'use strict';
-
 import { linuxCpuFlags } from './linux/cpuFlags';
 import { darwinCpuFlags } from './darwin/cpuFlags';
 import { windowsCpuFlags } from './windows/cpuFlags';

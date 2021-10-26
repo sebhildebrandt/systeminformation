@@ -1,8 +1,6 @@
-'use strict';
-
 import { getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
-import { initSystem } from '../common/initials';
+import { initSystem } from '../common/defaults';
 
 export const darwinSystem = async () => {
   const result = initSystem;

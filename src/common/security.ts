@@ -1,5 +1,3 @@
-'use strict';
-
 export const stringReplace = new String().replace;
 export const stringToLower = new String().toLowerCase;
 export const stringToString = new String().toString;

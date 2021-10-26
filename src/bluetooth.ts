@@ -1,5 +1,3 @@
-'use strict';
-
 import { linuxBluetooth } from './linux/bluetooth';
 import { darwinBluetooth } from './darwin/bluetooth';
 import { windowsBluetooth } from './windows/bluetooth';

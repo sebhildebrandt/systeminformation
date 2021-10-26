@@ -1,8 +1,6 @@
-'use strict';
-
 import { getValue, nextTick } from '../common';
 import { powerShell } from '../common/exec';
-import { initSystem } from '../common/initials';
+import { initSystem } from '../common/defaults';
 
 export const windowsSystem = async () => {
   const result = initSystem;
@@ -73,8 +71,7 @@ export const windowsSystem = async () => {
         }
       }
     }
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

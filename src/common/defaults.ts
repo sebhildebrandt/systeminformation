@@ -1,5 +1,3 @@
-'use strict';
-
 import * as os from 'os';
 import { BatteryObject, UsbData, CpuObject, CpuCacheData, CpuTemperatureObject, InetChecksiteData, MemData, OsData, UuidData, ChassisData, BaseboardData, BiosData, SystemData } from './types';
 import { PLATFORM, UNKNOWN } from './const';

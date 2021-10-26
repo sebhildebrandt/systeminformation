@@ -1,5 +1,3 @@
-'use strict';
-
 import { linuxUuid } from './linux/uuid';
 import { bsdUuid } from './bsd/uuid';
 import { darwinUuid } from './darwin/uuid';

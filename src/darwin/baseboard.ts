@@ -1,9 +1,7 @@
-'use strict';
-
 import * as os from 'os';
 import { getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
-import { initBaseboard } from '../common/initials';
+import { initBaseboard } from '../common/defaults';
 
 export const darwinBaseboard = async () => {
   const result = initBaseboard;

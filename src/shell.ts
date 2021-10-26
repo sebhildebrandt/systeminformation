@@ -1,5 +1,3 @@
-'use strict';
-
 import { nextTick } from './common';
 import { WINDOWS } from './common/const';
 import { execCmd } from './common/exec';

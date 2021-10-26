@@ -1,5 +1,3 @@
-'use strict';
-
 import { nixBios } from './linux/bios';
 import { darwinBios } from './darwin/bios';
 import { windowsBios } from './windows/bios';

@@ -1,5 +1,3 @@
-'use strict';
-
 import { linuxOsInfo } from './linux/osInfo';
 import { bsdOsInfo } from './bsd/osInfo';
 import { darwinOsInfo } from './darwin/osInfo';

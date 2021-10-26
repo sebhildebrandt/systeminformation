@@ -1,9 +1,7 @@
-'use strict';
-
 import * as os from 'os';
 import { promises as fs } from 'fs';
 import { getValue, nextTick } from '../common';
-import { initMemData } from '../common/initials';
+import { initMemData } from '../common/defaults';
 
 export const linuxMem = async () => {
   const result = initMemData;
@@ -33,8 +31,7 @@ export const linuxMem = async () => {
     result.swapfree = parseInt(getValue(lines, 'swapfree'), 10);
     result.swapfree = result.swapfree ? result.swapfree * 1024 : 0;
     result.swapused = result.swaptotal - result.swapfree;
-  } catch (e) {
-  }
+  } catch { }
   return result;
 };
 

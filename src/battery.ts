@@ -1,5 +1,3 @@
-'use strict';
-
 import { linuxBattery } from './linux/battery';
 import { darwinBattery } from './darwin/battery';
 import { windowsBattery } from './windows/battery';

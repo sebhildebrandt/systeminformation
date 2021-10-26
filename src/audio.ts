@@ -1,5 +1,3 @@
-'use strict';
-
 import { nixAudio } from './linux/audio';
 import { darwinAudio } from './darwin/audio';
 import { windowsAudio } from './windows/audio';

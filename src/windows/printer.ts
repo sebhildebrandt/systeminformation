@@ -1,5 +1,3 @@
-'use strict';
-
 import { getValue, nextTick } from '../common';
 import { powerShell } from '../common/exec';
 import { PrinterData } from '../common/types';
