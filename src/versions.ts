@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { release } from 'os';
 import { existsSync } from 'fs';
 import { getValue } from './common';
 import { DARWIN, LINUX, VBOXMANAGE, WINDOWS } from './common/const';
@@ -8,7 +8,7 @@ import { VersionData } from './common/types';
 
 export const versions = async (apps?: string | string[]) => {
   const versionObject: { [index: string]: any; } = {
-    kernel: os.release(),
+    kernel: release(),
     openssl: '',
     systemOpenssl: '',
     systemOpensslLib: '',

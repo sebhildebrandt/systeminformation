@@ -12,8 +12,8 @@
 // ----------------------------------------------------------------------------------
 
 import * as net from 'net';
-import * as os from 'os';
-const isWin = os.type() === 'Windows_NT';
+import { type } from 'os';
+const isWin = type() === 'Windows_NT';
 const socketPath = isWin ? '//./pipe/docker_engine' : '/var/run/docker.sock';
 
 export class DockerSocket {

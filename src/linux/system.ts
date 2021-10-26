@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { release } from 'os';
 import { promises as fs, existsSync } from 'fs';
 import { getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
@@ -80,8 +80,8 @@ export const nixSystem = async () => {
       }
     } catch { }
   }
-  if (!result.virtual && (os.release().toLowerCase().indexOf('microsoft') >= 0 || os.release().toLowerCase().endsWith('wsl2'))) {
-    const kernelVersion = parseFloat(os.release().toLowerCase());
+  if (!result.virtual && (release().toLowerCase().indexOf('microsoft') >= 0 || release().toLowerCase().endsWith('wsl2'))) {
+    const kernelVersion = parseFloat(release().toLowerCase());
     result.virtual = true;
     result.manufacturer = 'Microsoft';
     result.model = 'WSL';

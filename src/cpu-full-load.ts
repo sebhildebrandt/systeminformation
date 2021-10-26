@@ -1,9 +1,9 @@
-import * as os from 'os';
+import { cpus } from 'os';
 import { nextTick } from './common';
 
 const getFullLoad = () => {
 
-  const cpus = os.cpus();
+  const oscpus = cpus();
   let totalUser = 0;
   let totalSystem = 0;
   let totalNice = 0;
@@ -12,9 +12,9 @@ const getFullLoad = () => {
 
   let result = 0;
 
-  if (cpus && cpus.length) {
-    for (let i = 0, len = cpus.length; i < len; i++) {
-      const cpu = cpus[i].times;
+  if (oscpus && oscpus.length) {
+    for (let i = 0, len = oscpus.length; i < len; i++) {
+      const cpu = oscpus[i].times;
       totalUser += cpu.user;
       totalSystem += cpu.sys;
       totalNice += cpu.nice;

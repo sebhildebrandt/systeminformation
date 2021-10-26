@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { EOL } from 'os';
 import { powerShell } from '../common/exec';
 import { nextTick, toInt } from '../common';
 import { WifiNetworkData } from '../common/types';
@@ -7,17 +7,17 @@ import { wifiDBFromQuality, wifiFrequencyFromChannel } from '../common/network';
 export const windowsWifiNetwork = async () => {
   const result: WifiNetworkData[] = [];
   const stdout = await powerShell('netsh wlan show networks mode=Bssid');
-  const ssidParts = stdout.toString().split(os.EOL + os.EOL + 'SSID ');
+  const ssidParts = stdout.toString().split(EOL + EOL + 'SSID ');
   ssidParts.shift();
 
   ssidParts.forEach((ssidPart: string) => {
-    const ssidLines = ssidPart.split(os.EOL);
+    const ssidLines = ssidPart.split(EOL);
     if (ssidLines && ssidLines.length >= 8 && ssidLines[0].indexOf(':') >= 0) {
       const bssidsParts = ssidPart.split(' BSSID');
       bssidsParts.shift();
 
       bssidsParts.forEach((bssidPart) => {
-        const bssidLines = bssidPart.split(os.EOL);
+        const bssidLines = bssidPart.split(EOL);
         const bssidLine = bssidLines[0].split(':');
         bssidLine.shift();
         const bssid = bssidLine.join(':').trim().toLowerCase();

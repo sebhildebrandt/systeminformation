@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { totalmem, freemem } from 'os';
 import { promises as fs } from 'fs';
 import { getValue, nextTick } from '../common';
 import { initMemData } from '../common/defaults';
@@ -9,9 +9,9 @@ export const linuxMem = async () => {
     const stdout = await fs.readFile('/proc/meminfo');
     const lines = stdout.toString().split('\n');
     result.total = parseInt(getValue(lines, 'memtotal'), 10);
-    result.total = result.total ? result.total * 1024 : os.totalmem();
+    result.total = result.total ? result.total * 1024 : totalmem();
     result.free = parseInt(getValue(lines, 'memfree'), 10);
-    result.free = result.free ? result.free * 1024 : os.freemem();
+    result.free = result.free ? result.free * 1024 : freemem();
     result.used = result.total - result.free;
 
     result.buffers = parseInt(getValue(lines, 'buffers'), 10);

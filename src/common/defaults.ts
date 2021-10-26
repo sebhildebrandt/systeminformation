@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { cpus, freemem, totalmem, release, arch, hostname } from 'os';
 import { BatteryObject, UsbData, CpuObject, CpuCacheData, CpuTemperatureObject, InetChecksiteData, MemData, OsData, UuidData, ChassisData, BaseboardData, BiosData, SystemData } from './types';
 import { PLATFORM, UNKNOWN } from './const';
 import { getFQDN, getUniqueMacAdresses } from './network';
@@ -47,8 +47,8 @@ export const initCpuResult: CpuObject = {
   speedMin: 0,
   speedMax: 0,
   governor: '',
-  cores: os.cpus().length,
-  physicalCores: os.cpus().length,
+  cores: cpus().length,
+  physicalCores: cpus().length,
   processors: 1,
   socket: '',
   flags: '',
@@ -79,12 +79,12 @@ export const initCheckSite: InetChecksiteData = {
 };
 
 export const initMemData: MemData = {
-  total: os.totalmem(),
-  free: os.freemem(),
-  used: os.totalmem() - os.freemem(),
+  total: totalmem(),
+  free: freemem(),
+  used: totalmem() - freemem(),
 
-  active: os.totalmem() - os.freemem(),     // temporarily (fallback)
-  available: os.freemem(),                  // temporarily (fallback)
+  active: totalmem() - freemem(),     // temporarily (fallback)
+  available: freemem(),                  // temporarily (fallback)
   buffers: 0,
   cached: 0,
   slab: 0,
@@ -101,9 +101,9 @@ export const initOsInfo = async (): Promise<OsData> => {
     distro: 'unknown',
     release: 'unknown',
     codename: '',
-    kernel: os.release(),
-    arch: os.arch(),
-    hostname: os.hostname(),
+    kernel: release(),
+    arch: arch(),
+    hostname: hostname(),
     fqdn: await getFQDN(),
     codepage: '',
     logofile: '',

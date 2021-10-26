@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { EOL } from 'os';
 import { exec, spawn, ExecException } from 'child_process';
 
 export const execCmd = (cmd: string) => {
@@ -48,8 +48,8 @@ export const powerShell = (cmd: string) => {
             resolve(result);
           });
           try {
-            child.stdin.write(toUTF8 + cmd + os.EOL);
-            child.stdin.write('exit' + os.EOL);
+            child.stdin.write(toUTF8 + cmd + EOL);
+            child.stdin.write('exit' + EOL);
             child.stdin.end();
           } catch (e) {
             child.kill();

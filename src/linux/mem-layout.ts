@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { totalmem } from 'os';
 import { getValue, nextTick, toInt } from '../common';
 import { MemLayoutData } from '../common/types';
 import { execCmd } from '../common/exec';
@@ -50,7 +50,7 @@ export const nixMemLayout = async () => {
     });
     if (!result.length) {
       result.push({
-        size: os.totalmem(),
+        size: totalmem(),
         bank: '',
         type: '',
         ecc: null,

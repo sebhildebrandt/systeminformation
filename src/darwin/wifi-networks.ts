@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { EOL } from 'os';
 import { execCmd } from '../common/exec';
 import { nextTick, toInt } from '../common';
 import { WifiNetworkData } from '../common/types';
@@ -8,7 +8,7 @@ import { wifiQualityFromDB, wifiFrequencyFromChannel } from '../common/network';
 export const darwinWifiNetwork = async () => {
   const result: WifiNetworkData[] = [];
   const stdout = await execCmd('/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s');
-  const lines = stdout.toString().split(os.EOL);
+  const lines = stdout.toString().split(EOL);
   if (lines && lines.length > 1) {
     const parsedhead = parseHead(lines[0], 1);
     if (parsedhead.length >= 7) {

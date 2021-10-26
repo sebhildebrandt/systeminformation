@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { arch, totalmem } from 'os';
 import { getValue, nextTick } from '../common';
 import { execCmd } from '../common/exec';
 import { initBaseboard } from '../common/defaults';
@@ -24,9 +24,9 @@ export const darwinBaseboard = async () => {
   devices.shift();
   result.memSlots = devices.length;
 
-  if (os.arch() === 'arm64') {
+  if (arch() === 'arm64') {
     result.memSlots = 0;
-    result.memMax = os.totalmem();
+    result.memMax = totalmem();
   }
 
   return result;

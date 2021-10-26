@@ -2,16 +2,16 @@ import { getValue, nextTick } from './common';
 import { VBOXMANAGE } from './common/const';
 import { execCmd } from './common/exec';
 import { VboxInfoData } from './common/types';
-import * as os from 'os';
+import { EOL } from 'os';
 
 const getVboxInfo = async () => {
   const result: VboxInfoData[] = [];
   try {
     const stdout = await execCmd(VBOXMANAGE + ' list vms --long');
-    const parts = (os.EOL + stdout.toString()).split(os.EOL + 'Name:');
+    const parts = (EOL + stdout.toString()).split(EOL + 'Name:');
     parts.shift();
     parts.forEach(part => {
-      const lines = ('Name:' + part).split(os.EOL);
+      const lines = ('Name:' + part).split(EOL);
       const state = getValue(lines, 'State');
       const running = state.startsWith('running');
       const runningSinceString = running ? state.replace('running (since ', '').replace(')', '').trim() : '';

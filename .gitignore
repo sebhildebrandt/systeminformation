@@ -63,5 +63,3 @@ package-lock.json
 yarn.lock
 
 dist/
-tsconfig.json
-typings.d.ts

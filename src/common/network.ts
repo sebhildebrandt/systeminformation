@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { EOL, hostname, networkInterfaces } from 'os';
 import { wifiFrequencies } from './mappings';
 import { toInt } from './index';
 import { execCmd } from './exec';
@@ -33,18 +33,18 @@ export const getFQDN = async () => {
     switch (true) {
       case (LINUX || DARWIN || FREEBSD || NETBSD):
         stdout = (await execCmd('hostname -f')).toString();
-        return stdout.split(os.EOL)[0];
+        return stdout.split(EOL)[0];
       case (WINDOWS):
         stdout = (await execCmd('echo %COMPUTERNAME%.%USERDNSDOMAIN%')).toString();
-        return stdout.toString().replace('.%USERDNSDOMAIN%', '').split(os.EOL)[0];
-      default: return os.hostname();
+        return stdout.toString().replace('.%USERDNSDOMAIN%', '').split(EOL)[0];
+      default: return hostname();
     }
   } catch { }
-  return os.hostname();
+  return hostname();
 };
 
 export const getUniqueMacAdresses = () => {
-  const ifaces = os.networkInterfaces();
+  const ifaces = networkInterfaces();
   let macs: string[] = [];
   for (const dev in ifaces) {
     if ({}.hasOwnProperty.call(ifaces, dev)) {

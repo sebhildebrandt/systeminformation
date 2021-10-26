@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { cpus } from 'os';
 import { powerShell } from '../common/exec';
 import { getValue, toInt, countLines, nextTick } from '../common';
 import { getAMDSpeed, socketTypes, cpuBrandManufacturer } from '../common/mappings';
@@ -73,8 +73,8 @@ export const windowsCpu = async () => {
       result.processors = countProcessors || 1;
     }
     if (countCores && countThreads) {
-      result.cores = parseInt(countThreads) || os.cpus().length;
-      result.physicalCores = parseInt(countCores) || os.cpus().length;
+      result.cores = parseInt(countThreads) || cpus().length;
+      result.physicalCores = parseInt(countCores) || cpus().length;
     }
     if (countProcessors > 1) {
       result.cores = result.cores * countProcessors;

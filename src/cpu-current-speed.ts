@@ -1,26 +1,26 @@
-import * as os from 'os';
+import { cpus } from 'os';
 import { nextTick } from './common';
 import { CpuCurrentSpeedObject } from './common/types';
 
 export const getCpuCurrentSpeed = (): CpuCurrentSpeedObject => {
 
-  const cpus = os.cpus();
+  const oscpus = cpus();
   let minFreq = 999999999;
   let maxFreq = 0;
   let avgFreq = 0;
   const cores: number[] = [];
 
-  if (cpus && cpus.length) {
-    for (const i in cpus) {
-      if ({}.hasOwnProperty.call(cpus, i)) {
-        const freq = cpus[i].speed > 100 ? (cpus[i].speed + 1) / 1000 : cpus[i].speed / 10;
+  if (oscpus && oscpus.length) {
+    for (const i in oscpus) {
+      if ({}.hasOwnProperty.call(oscpus, i)) {
+        const freq = oscpus[i].speed > 100 ? (oscpus[i].speed + 1) / 1000 : oscpus[i].speed / 10;
         avgFreq = avgFreq + freq;
         if (freq > maxFreq) { maxFreq = freq; }
         if (freq < minFreq) { minFreq = freq; }
         cores.push(parseFloat(freq.toFixed(2)));
       }
     }
-    avgFreq = avgFreq / cpus.length;
+    avgFreq = avgFreq / oscpus.length;
     return {
       min: parseFloat(minFreq.toFixed(2)),
       max: parseFloat(maxFreq.toFixed(2)),

@@ -12,19 +12,16 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "test": "node ./test/test.js",
-    "build": "tsup src",
+    "build": "tsup src/index.ts --dts",
     "watch": "tsup src/index.ts --watch src"
   },
   "tsup": {
     "splitting": false,
     "sourcemap": false,
-    "clean": true,
-    "entryPoints": [
-      "src/index.ts"
-    ]
+    "clean": true
   },
   "files": [
-    "lib/**/*"
+    "dist"
   ],
   "keywords": [
     "system information",

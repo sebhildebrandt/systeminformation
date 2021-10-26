@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { totalmem } from 'os';
 import { promises as fs } from 'fs';
 import { getValue, nextTick, toInt } from '../common';
 import { execCmd } from '../common/exec';
@@ -57,7 +57,7 @@ export const nixBaseboard = async () => {
     result.model = 'Raspberry Pi';
     result.serial = rpi.serial;
     result.version = rpi.type + ' - ' + rpi.revision;
-    result.memMax = os.totalmem();
+    result.memMax = totalmem();
     result.memSlots = 0;
   }
 

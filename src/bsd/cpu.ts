@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { cpus } from 'os';
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
 import { getAMDSpeed, cpuBrandManufacturer } from '../common/mappings';
@@ -16,7 +16,7 @@ export const bsdCpu = async () => {
   result.virtualization = flags.indexOf('vmx') > -1 || flags.indexOf('svm') > -1;
 
   let modelline = '';
-  if (os.cpus()[0] && os.cpus()[0].model) { modelline = os.cpus()[0].model; }
+  if (cpus()[0] && cpus()[0].model) { modelline = cpus()[0].model; }
   const stdout = (await execCmd('export LC_ALL=C; dmidecode -t 4; dmidecode -t 7 unset LC_ALL')).toString();
   let cache = [];
   const data = stdout.toString().split('# dmidecode');

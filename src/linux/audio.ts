@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { EOL } from 'os';
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
 import { AudioObject, AudioPCI } from '../common/types';
@@ -7,9 +7,9 @@ import { audioTypeLabel } from '../common/mappings';
 const getAudioPci = async () => {
   const result = [];
   try {
-    const parts = await execCmd('lspci -v 2>/dev/null').toString().split(`${os.EOL}${os.EOL}`);
+    const parts = await execCmd('lspci -v 2>/dev/null').toString().split(`${EOL}${EOL}`);
     for (let i = 0; i < parts.length; i++) {
-      const lines = parts[i].split(os.EOL);
+      const lines = parts[i].split(EOL);
       if (lines && lines.length && lines[0].toLowerCase().indexOf('audio') >= 0) {
         result.push({
           slotId: lines[0].split(' ')[0],
@@ -47,7 +47,7 @@ const parseAudioPci = (lines: string[], audioPCI: AudioPCI[]): AudioObject => {
 export const nixAudio = async () => {
   const stdout = await execCmd('lspci -vmm 2>/dev/null');
   const audioPCI = await getAudioPci();
-  const parts = stdout.toString().split(`${os.EOL}${os.EOL}`);
+  const parts = stdout.toString().split(`${EOL}${EOL}`);
   const result = [];
   for (let i = 0; i < parts.length; i++) {
     const lines = parts[i].split('\n');

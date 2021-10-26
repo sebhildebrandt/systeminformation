@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { EOL } from 'os';
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
 import { audioTypeLabel } from '../common/mappings';
@@ -29,7 +29,7 @@ export const windowsAudio = async () => {
   const parts = stdout.toString().split(/\n\s*\n/);
   const result = [];
   for (let i = 0; i < parts.length; i++) {
-    if (getValue(parts[i].split(os.EOL), 'name', '=')) {
+    if (getValue(parts[i].split(EOL), 'name', '=')) {
       result.push(parseAudio(parts[i].split('\n')));
     }
   }

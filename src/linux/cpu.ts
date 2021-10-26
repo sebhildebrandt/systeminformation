@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { cpus } from 'os';
 import { promises as fs } from 'fs';
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
@@ -16,7 +16,7 @@ export const linuxCpu = async () => {
   result.flags = flags;
   result.virtualization = flags.indexOf('vmx') > -1 || flags.indexOf('svm') > -1;
   let modelline = '';
-  if (os.cpus()[0] && os.cpus()[0].model) { modelline = os.cpus()[0].model; }
+  if (cpus()[0] && cpus()[0].model) { modelline = cpus()[0].model; }
   let stdout = await execCmd('export LC_ALL=C; lscpu; echo -n "Governor: "; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 2>/dev/null; echo; unset LC_ALL');
   let lines = stdout.toString().split('\n');
   modelline = getValue(lines, 'model name') || modelline;

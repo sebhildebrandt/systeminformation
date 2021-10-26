@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { cpus as oscpu, loadavg } from 'os';
 import { nextTick } from './common';
 import { CurrentLoadData } from './common/types';
 
@@ -30,7 +30,7 @@ let _corecount = 0;
 
 const getLoad = async () => {
 
-  const loads = os.loadavg().map((x: number) => { return x / os.cpus().length; });
+  const loads = loadavg().map((x: number) => { return x / oscpu().length; });
   const avgLoad = parseFloat((Math.max(...loads)).toFixed(2));
   let result: CurrentLoadData = {
     avgLoad: 0,
@@ -52,7 +52,7 @@ const getLoad = async () => {
   const now = Date.now() - _current_cpu.ms;
   if (now >= 200) {
     _current_cpu.ms = Date.now();
-    const cpus = os.cpus();
+    const cpus = oscpu();
     let totalUser = 0;
     let totalSystem = 0;
     let totalNice = 0;

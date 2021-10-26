@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { arch, cpus } from 'os';
 import { execCmd } from '../common/exec';
 import { getValue, nextTick } from '../common';
 import { cpuBrandManufacturer } from '../common/mappings';
@@ -40,7 +40,7 @@ export const darwinCpu = async () => {
   const countProcessors = getValue(lines, 'hw.packages');
   const countCores = getValue(lines, 'hw.physicalcpu_max');
   const countThreads = getValue(lines, 'hw.ncpu');
-  if (os.arch() === 'arm64') {
+  if (arch() === 'arm64') {
     const clusters = (await execCmd('ioreg -c IOPlatformDevice -d 3 -r | grep cluster-type')).toString().split('\n');
     const efficiencyCores = clusters.filter((line: string) => line.indexOf('"E"') >= 0).length;
     const performanceCores = clusters.filter((line: string) => line.indexOf('"P"') >= 0).length;
@@ -52,8 +52,8 @@ export const darwinCpu = async () => {
     result.processors = parseInt(countProcessors) || 1;
   }
   if (countCores && countThreads) {
-    result.cores = parseInt(countThreads) || os.cpus().length;
-    result.physicalCores = parseInt(countCores) || os.cpus().length;
+    result.cores = parseInt(countThreads) || cpus().length;
+    result.physicalCores = parseInt(countCores) || cpus().length;
   }
   const caches = await cpuCache();
   if (caches) { result.cache = caches; }

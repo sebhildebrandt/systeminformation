@@ -1,4 +1,4 @@
-import * as os from 'os';
+import { EOL } from 'os';
 import { execCmd } from '../common/exec';
 import { toInt, getValue, nextTick } from '../common';
 import { WifiNetworkData, WifiConnectionData } from '../common/types';
@@ -100,7 +100,7 @@ const getWifiNetworkListNmi = async () => {
     parts.shift();
     parts.forEach((part: string) => {
       part = 'ACTIVE:' + part;
-      const lines = part.split(os.EOL);
+      const lines = part.split(EOL);
       const channel = getValue(lines, 'CHAN');
       const frequency = getValue(lines, 'FREQ').toLowerCase().replace('mhz', '').trim();
       const security = getValue(lines, 'SECURITY').replace('(', '').replace(')', '');
