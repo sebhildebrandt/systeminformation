@@ -40,10 +40,10 @@ Currently not all functions are available
 
 ToDo:
 
-[ ] filesystem
-[ ] graphics
-[ ] networks
-[ ] processes
+- [ ] filesystem
+- [ ] graphics
+- [ ] networks
+- [ ] processes
 
 To test or run this code:
 
