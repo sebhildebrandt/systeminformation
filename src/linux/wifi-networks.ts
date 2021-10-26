@@ -1,5 +1,5 @@
 import { EOL } from 'os';
-import { execCmd } from '../common/exec';
+import { execCmd, timeout } from '../common/exec';
 import { toInt, getValue, nextTick } from '../common';
 import { WifiNetworkData } from '../common/types';
 import { wifiDBFromQuality, wifiQualityFromDB } from '../common/network';
@@ -131,11 +131,10 @@ export const linuxWifiNetwork = async () => {
         const res = await getWifiNetworkListIw(iface);
         if (res === -1) {
           // try again after 4 secs
-          setTimeout(async (iface: string) => {
-            const res = await getWifiNetworkListIw(iface);
-            if (res != -1) { result = res; }
-            return result;
-          }, 4000);
+          await timeout(4000);
+          const res = await getWifiNetworkListIw(iface);
+          if (res != -1) { result = res; }
+          return result;
         } else {
           result = res;
           return result;

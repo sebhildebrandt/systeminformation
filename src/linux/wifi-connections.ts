@@ -127,9 +127,9 @@ const getWifiNetworkListNmi = async () => {
 
 export const linuxWifiConnections = async () => {
   const result: WifiConnectionData[] = [];
-  const ifaces = await ifaceListLinux();
+  const interfaces = await ifaceListLinux();
   const networkList = await getWifiNetworkListNmi();
-  ifaces.forEach(async (ifaceDetail) => {
+  interfaces.forEach(async (ifaceDetail) => {
     const nmiDetails = await nmiDeviceLinux(ifaceDetail.iface);
     const wpaDetails = await wpaConnectionLinux(ifaceDetail.iface);
     const ssid = nmiDetails.ssid || wpaDetails.ssid;

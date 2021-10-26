@@ -43,12 +43,12 @@ export const getFQDN = async () => {
   return hostname();
 };
 
-export const getUniqueMacAdresses = () => {
-  const ifaces = networkInterfaces();
+export const getUniqueMacAddresses = () => {
+  const interfaces = networkInterfaces();
   let macs: string[] = [];
-  for (const dev in ifaces) {
-    if (Object.keys(ifaces).includes(dev)) {
-      ifaces[dev]?.forEach((details: any) => {
+  for (const dev in interfaces) {
+    if (Object.keys(interfaces).includes(dev)) {
+      interfaces[dev]?.forEach((details: any) => {
         if (details && details.mac && details.mac !== '00:00:00:00:00:00') {
           const mac = details.mac.toLowerCase();
           if (macs.indexOf(mac) === -1) {

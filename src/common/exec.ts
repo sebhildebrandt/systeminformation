@@ -100,3 +100,7 @@ export const execSafe = (cmd: string, args: any, options?: any) => {
     });
   });
 };
+
+export const timeout = (ms: number) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};

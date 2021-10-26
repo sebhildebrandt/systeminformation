@@ -354,9 +354,9 @@ const windowsWifiNetwork = async () => {
 
 const linuxWifiConnections = async () => {
   let result: WifiConnectionData[] = [];
-  const ifaces = await ifaceListLinux();
+  const interfaces = await ifaceListLinux();
   const networkList = await getWifiNetworkListNmi();
-  ifaces.forEach(async (ifaceDetail) => {
+  interfaces.forEach(async (ifaceDetail) => {
     const nmiDetails = await nmiDeviceLinux(ifaceDetail.iface);
     const wpaDetails = await wpaConnectionLinux(ifaceDetail.iface);
     const ssid = nmiDetails.ssid || wpaDetails.ssid;
@@ -472,8 +472,8 @@ const windowsWifiConnections = async () => {
 
 const linuxWifiInterfaces = async () => {
   let result: WifiInterfaceData[] = [];
-  const ifaces = await ifaceListLinux();
-  ifaces.forEach(async (ifaceDetail) => {
+  const interfaces = await ifaceListLinux();
+  interfaces.forEach(async (ifaceDetail) => {
     const nmiDetails = await nmiDeviceLinux(ifaceDetail.iface);
     result.push({
       id: '' + ifaceDetail.id,

@@ -12,8 +12,9 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "test": "node ./test/test.js",
+    "dev": "tsup src",
     "build": "tsup src/index.ts --dts",
-    "watch": "tsup src/index.ts --watch src"
+    "watch": "tsup src --watch src"
   },
   "tsup": {
     "splitting": false,

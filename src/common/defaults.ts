@@ -1,7 +1,7 @@
 import { cpus, freemem, totalmem, release, arch, hostname } from 'os';
 import { BatteryObject, UsbData, CpuObject, CpuCacheData, CpuTemperatureObject, InetChecksiteData, MemData, OsData, UuidData, ChassisData, BaseboardData, BiosData, SystemData } from './types';
 import { PLATFORM, UNKNOWN } from './const';
-import { getFQDN, getUniqueMacAdresses } from './network';
+import { getFQDN, getUniqueMacAddresses } from './network';
 
 export const initBatteryResult: BatteryObject = {
   hasBattery: false,
@@ -117,7 +117,7 @@ export const initOsInfo = async (): Promise<OsData> => {
 export const initUUID: UuidData = {
   os: '',
   hardware: '',
-  macs: getUniqueMacAdresses()
+  macs: getUniqueMacAddresses()
 };
 
 export const initChassis: ChassisData = {

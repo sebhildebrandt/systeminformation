@@ -912,7 +912,7 @@ export function networkInterfaceDefault(cb?: (data: string) => any): Promise<str
 export function networkGatewayDefault(cb?: (data: string) => any): Promise<string>;
 export function networkInterfaces(cb?: (data: Systeminformation.NetworkInterfacesData[]) => any): Promise<Systeminformation.NetworkInterfacesData[]>;
 
-export function networkStats(ifaces?: string, cb?: (data: Systeminformation.NetworkStatsData[]) => any): Promise<Systeminformation.NetworkStatsData[]>;
+export function networkStats(interfaces?: string, cb?: (data: Systeminformation.NetworkStatsData[]) => any): Promise<Systeminformation.NetworkStatsData[]>;
 export function networkConnections(cb?: (data: Systeminformation.NetworkConnectionsData[]) => any): Promise<Systeminformation.NetworkConnectionsData[]>;
 export function inetChecksite(url: string, cb?: (data: Systeminformation.InetChecksiteData) => any): Promise<Systeminformation.InetChecksiteData>;
 export function inetLatency(host?: string, cb?: (data: number) => any): Promise<number>;

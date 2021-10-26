@@ -31,7 +31,7 @@ const _sunos = (_platform === 'sunos');
 
 let _network = {};
 let _default_iface = '';
-let _ifaces = {};
+let _interfaces = {};
 let _dhcpNics = [];
 let _networkInterfaces = [];
 let _mac = {};
@@ -42,14 +42,14 @@ function getDefaultNetworkInterface() {
   let ifacename = '';
   let ifacenameFirst = '';
   try {
-    let ifaces = os.networkInterfaces();
+    let interfaces = os.networkInterfaces();
 
     let scopeid = 9999;
 
     // fallback - "first" external interface (sorted by scopeid)
-    for (let dev in ifaces) {
-      if ({}.hasOwnProperty.call(ifaces, dev)) {
-        ifaces[dev].forEach(function (details) {
+    for (let dev in interfaces) {
+      if ({}.hasOwnProperty.call(interfaces, dev)) {
+        interfaces[dev].forEach(function (details) {
           if (details && details.internal === false) {
             ifacenameFirst = ifacenameFirst || dev; // fallback if no scopeid
             if (details.scopeid && details.scopeid < scopeid) {
@@ -78,9 +78,9 @@ function getDefaultNetworkInterface() {
         }
       });
       if (defaultIp) {
-        for (let dev in ifaces) {
-          if ({}.hasOwnProperty.call(ifaces, dev)) {
-            ifaces[dev].forEach(function (details) {
+        for (let dev in interfaces) {
+          if ({}.hasOwnProperty.call(interfaces, dev)) {
+            interfaces[dev].forEach(function (details) {
               if (details && details.address && details.address === defaultIp) {
                 ifacename = dev;
               }
@@ -263,7 +263,7 @@ function getWindowsDNSsuffixes() {
   let dnsSuffixes = {
     primaryDNS: '',
     exitCode: 0,
-    ifaces: [],
+    interfaces: [],
   };
 
   try {
@@ -290,7 +290,7 @@ function getWindowsDNSsuffixes() {
           });
           const dnsSuffix = connectionSpecificDNS[0].substring(connectionSpecificDNS[0].lastIndexOf(':') + 1);
           iface.dnsSuffix = dnsSuffix.trim();
-          dnsSuffixes.ifaces.push(iface);
+          dnsSuffixes.interfaces.push(iface);
           iface = {};
         }
       }
@@ -302,17 +302,17 @@ function getWindowsDNSsuffixes() {
     return {
       primaryDNS: '',
       exitCode: 0,
-      ifaces: [],
+      interfaces: [],
     };
   }
 }
 
-function getWindowsIfaceDNSsuffix(ifaces, ifacename) {
+function getWindowsIfaceDNSsuffix(interfaces, ifacename) {
   let dnsSuffix = '';
   // Adding (.) to ensure ifacename compatibility when duplicated iface-names
   const interfaceName = ifacename + '.';
   try {
-    const connectionDnsSuffix = ifaces.filter((iface) => {
+    const connectionDnsSuffix = interfaces.filter((iface) => {
       return interfaceName.includes(iface.name + '.');
     }).map((iface) => iface.dnsSuffix);
     if (connectionDnsSuffix[0]) {
@@ -349,22 +349,22 @@ function getWindowsWirelessIfaceSSID(interfaceName) {
     return 'Unknown';
   }
 }
-function getWindowsIEEE8021x(connectionType, iface, ifaces) {
+function getWindowsIEEE8021x(connectionType, iface, interfaces) {
   let i8021x = {
     state: 'Unknown',
     protocol: 'Unknown',
   };
 
-  if (ifaces === 'Disabled') {
+  if (interfaces === 'Disabled') {
     i8021x.state = 'Disabled';
     i8021x.protocol = 'Not defined';
     return i8021x;
   }
 
-  if (connectionType == 'wired' && ifaces.length > 0) {
+  if (connectionType == 'wired' && interfaces.length > 0) {
     try {
       // Get 802.1x information by interface name
-      const iface8021xInfo = ifaces.find((element) => {
+      const iface8021xInfo = interfaces.find((element) => {
         return element.includes(iface + '\r\n');
       });
       const arrayIface8021xInfo = iface8021xInfo.split('\r\n');
@@ -694,7 +694,7 @@ function networkInterfaces(callback, rescan) {
   }
   return new Promise((resolve) => {
     process.nextTick(() => {
-      let ifaces = os.networkInterfaces();
+      let interfaces = os.networkInterfaces();
 
       let result = [];
       let nics = [];
@@ -707,8 +707,8 @@ function networkInterfaces(callback, rescan) {
 
         nics.forEach(nic => {
 
-          if ({}.hasOwnProperty.call(ifaces, nic.iface)) {
-            ifaces[nic.iface].forEach(function (details) {
+          if ({}.hasOwnProperty.call(interfaces, nic.iface)) {
+            interfaces[nic.iface].forEach(function (details) {
               if (details.family === 'IPv4') {
                 nic.ip4subnet = details.netmask;
               }
@@ -744,22 +744,22 @@ function networkInterfaces(callback, rescan) {
         if (callback) { callback(result); }
         resolve(result);
       } else {
-        if ((JSON.stringify(ifaces) === JSON.stringify(_ifaces)) && !rescan) {
+        if ((JSON.stringify(interfaces) === JSON.stringify(_interfaces)) && !rescan) {
           // no changes - just return object
           result = _networkInterfaces;
 
           if (callback) { callback(result); }
           resolve(result);
         } else {
-          _ifaces = Object.assign({}, ifaces);
+          _interfaces = Object.assign({}, interfaces);
 
           if (_windows) {
             nics = getWindowsNics();
             nics.forEach(nic => {
               let found = false;
-              Object.keys(ifaces).forEach(key => {
+              Object.keys(interfaces).forEach(key => {
                 if (!found) {
-                  ifaces[key].forEach(value => {
+                  interfaces[key].forEach(value => {
                     if (Object.keys(value).indexOf('mac') >= 0) {
                       found = value['mac'] === nic.mac;
                     }
@@ -768,7 +768,7 @@ function networkInterfaces(callback, rescan) {
               });
 
               if (!found) {
-                ifaces[nic.name] = [{ mac: nic.mac }];
+                interfaces[nic.name] = [{ mac: nic.mac }];
               }
             });
 
@@ -778,7 +778,7 @@ function networkInterfaces(callback, rescan) {
           if (_linux) {
             _dhcpNics = getLinuxDHCPNics();
           }
-          for (let dev in ifaces) {
+          for (let dev in interfaces) {
             let iface = dev;
             let ip4 = '';
             let ip4subnet = '';
@@ -796,9 +796,9 @@ function networkInterfaces(callback, rescan) {
             let ieee8021xState = '';
             let type = '';
 
-            if ({}.hasOwnProperty.call(ifaces, dev)) {
+            if ({}.hasOwnProperty.call(interfaces, dev)) {
               let ifaceName = dev;
-              ifaces[dev].forEach(function (details) {
+              interfaces[dev].forEach(function (details) {
                 if (details.family === 'IPv4') {
                   ip4 = details.address;
                   ip4subnet = details.netmask;
@@ -876,7 +876,7 @@ function networkInterfaces(callback, rescan) {
               if (_windows) {
 
 
-                dnsSuffix = getWindowsIfaceDNSsuffix(dnsSuffixes.ifaces, dev);
+                dnsSuffix = getWindowsIfaceDNSsuffix(dnsSuffixes.interfaces, dev);
                 let foundFirst = false;
                 nics.forEach(detail => {
                   if (detail.mac === mac && !foundFirst) {
@@ -898,7 +898,7 @@ function networkInterfaces(callback, rescan) {
                 ieee8021xAuth = IEEE8021x.protocol;
                 ieee8021xState = IEEE8021x.state;
               }
-              let internal = (ifaces[dev] && ifaces[dev][0]) ? ifaces[dev][0].internal : false;
+              let internal = (interfaces[dev] && interfaces[dev][0]) ? interfaces[dev][0].internal : false;
               if (dev.toLowerCase().indexOf('loopback') > -1 || ifaceName.toLowerCase().indexOf('loopback') > -1) {
                 internal = true;
               }
@@ -979,48 +979,48 @@ function calcNetworkSpeed(iface, rx_bytes, tx_bytes, operstate, rx_dropped, rx_e
   return result;
 }
 
-function networkStats(ifaces, callback) {
+function networkStats(interfaces, callback) {
 
-  let ifacesArray = [];
+  let interfacesArray = [];
 
   return new Promise((resolve) => {
     process.nextTick(() => {
 
       // fallback - if only callback is given
-      if (util.isFunction(ifaces) && !callback) {
-        callback = ifaces;
-        ifacesArray = [getDefaultNetworkInterface()];
+      if (util.isFunction(interfaces) && !callback) {
+        callback = interfaces;
+        interfacesArray = [getDefaultNetworkInterface()];
       } else {
-        if (typeof ifaces !== 'string' && ifaces !== undefined) {
+        if (typeof interfaces !== 'string' && interfaces !== undefined) {
           if (callback) { callback([]); }
           return resolve([]);
         }
-        ifaces = ifaces || getDefaultNetworkInterface();
+        interfaces = interfaces || getDefaultNetworkInterface();
 
-        ifaces.__proto__.toLowerCase = util.stringToLower;
-        ifaces.__proto__.replace = util.stringReplace;
-        ifaces.__proto__.trim = util.stringTrim;
+        interfaces.__proto__.toLowerCase = util.stringToLower;
+        interfaces.__proto__.replace = util.stringReplace;
+        interfaces.__proto__.trim = util.stringTrim;
 
-        ifaces = ifaces.trim().toLowerCase().replace(/,+/g, '|');
-        ifacesArray = ifaces.split('|');
+        interfaces = interfaces.trim().toLowerCase().replace(/,+/g, '|');
+        interfacesArray = interfaces.split('|');
       }
 
       const result = [];
 
       const workload = [];
-      if (ifacesArray.length && ifacesArray[0].trim() === '*') {
-        ifacesArray = [];
+      if (interfacesArray.length && interfacesArray[0].trim() === '*') {
+        interfacesArray = [];
         networkInterfaces(false).then(allIFaces => {
           for (let iface of allIFaces) {
-            ifacesArray.push(iface.iface);
+            interfacesArray.push(iface.iface);
           }
-          networkStats(ifacesArray.join(',')).then(result => {
+          networkStats(interfacesArray.join(',')).then(result => {
             if (callback) { callback(result); }
             resolve(result);
           });
         });
       } else {
-        for (let iface of ifacesArray) {
+        for (let iface of interfacesArray) {
           workload.push(networkStatsSingle(iface.trim()));
         }
         if (workload.length) {

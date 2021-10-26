@@ -580,7 +580,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | [0].carrierChanges | X | | | | | # changes up/down |
 | si.networkInterfaceDefault(cb) | : string | X | X | X | X | X | get name of default network interface |
 | si.networkGatewayDefault(cb) | : string | X | X | X | X | X | get default network gateway |
-| si.networkStats(ifaces,cb) | [{...}] | X | X | X | X |  | current network stats of given interfaces<br>iface list: space or comma separated<br>iface parameter is optional<br>defaults to first external network interface,<br />Pass '*' for all interfaces |
+| si.networkStats(interfaces,cb) | [{...}] | X | X | X | X |  | current network stats of given interfaces<br>iface list: space or comma separated<br>iface parameter is optional<br>defaults to first external network interface,<br />Pass '*' for all interfaces |
 | | [0].iface | X | X | X | X |  | interface |
 | | [0].operstate | X | X | X | X |  | up / down |
 | | [0].rx_bytes | X | X | X | X |  | received bytes overall |
