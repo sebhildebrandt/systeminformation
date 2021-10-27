@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.9.9          | 2021-10-27     | `graphics` fixed screen resolution issue (windows) |
 | 5.9.8          | 2021-10-22     | `wmic` fixed code page issues (windows) |
 | 5.9.7          | 2021-10-09     | `battery()` fixed typo seperator (windows) |
 | 5.9.6          | 2021-10-08     | `system()` fixed virtual on WSL2 |
