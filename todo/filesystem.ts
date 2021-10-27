@@ -785,7 +785,7 @@ function diskLayout(callback) {
       { pattern: '^IC.+', manufacturer: 'Hitachi' },
       { pattern: '^HTS.+', manufacturer: 'Hitachi' },
       { pattern: '^SANDISK.+', manufacturer: 'SanDisk' },
-      { pattern: '^KINGSTON.+', manufacturer: 'Kingston Technonogy' },
+      { pattern: '^KINGSTON.+', manufacturer: 'Kingston Technology' },
       { pattern: '^SONY.+', manufacturer: 'Sony' },
       { pattern: '^TRANSCEND.+', manufacturer: 'Transcend' },
       { pattern: 'SAMSUNG.+', manufacturer: 'Samsung' },

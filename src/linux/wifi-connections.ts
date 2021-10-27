@@ -2,7 +2,7 @@ import { EOL } from 'os';
 import { execCmd } from '../common/exec';
 import { toInt, getValue, nextTick } from '../common';
 import { WifiNetworkData, WifiConnectionData } from '../common/types';
-import { wifiDBFromQuality, wifiChannelFromFrequencs, wifiFrequencyFromChannel } from '../common/network';
+import { wifiDBFromQuality, wifiChannelFromFrequencies, wifiFrequencyFromChannel } from '../common/network';
 
 type interfaceList = {
   id: number,
@@ -83,7 +83,7 @@ const wpaConnectionLinux = async (networkInterface: string) => {
       uuid: getValue(lines, 'uuid', '='),
       security: getValue(lines, 'key_mgmt', '='),
       freq,
-      channel: wifiChannelFromFrequencs(freq),
+      channel: wifiChannelFromFrequencies(freq),
       bssid: getValue(lines, 'bssid', '=').toLowerCase()
     };
   } catch (e) {

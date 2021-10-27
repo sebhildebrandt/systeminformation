@@ -17,7 +17,7 @@ export const wifiFrequencyFromChannel = (channel: number) => {
   return Object.keys(wifiFrequencies).includes(String(channel)) ? wifiFrequencies[channel] : null;
 };
 
-export const wifiChannelFromFrequencs = (frequency: number) => {
+export const wifiChannelFromFrequencies = (frequency: number) => {
   let channel = 0;
   for (const key in wifiFrequencies) {
     if (Object.keys(wifiFrequencies).includes(key)) {
