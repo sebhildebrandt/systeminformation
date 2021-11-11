@@ -163,6 +163,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | version | X | X | X | X |  | version |
 | | releaseDate | X | X |  | X |  | release date |
 | | revision | X | X |  | X |  | revision |
+| | serial | X |  |  | X |  | serial |
 | si.baseboard(cb) | {...} | X | X | X | X |  | baseboard information |
 | | manufacturer | X | X | X | X |  | e.g. 'ASUS' |
 | | model | X | X | X | X |  | model / product name |
