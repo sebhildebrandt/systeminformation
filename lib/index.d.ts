@@ -38,6 +38,7 @@ export namespace Systeminformation {
     version: string;
     releaseDate: string;
     revision: string;
+    serial?: string;
     language?: string;
     features?: string[];
   }
@@ -302,7 +303,7 @@ export namespace Systeminformation {
     deviceId?: string;
     bus: string;
     busAddress?: string;
-    vram: number;
+    vram: number | null;
     vramDynamic: boolean;
     external?: boolean;
     cores?: number;
@@ -311,6 +312,7 @@ export namespace Systeminformation {
     driverVersion?: string;
     name?: string;
     pciBus?: string;
+    pciID?: string;
     fanSpeed?: number;
     memoryTotal?: number;
     memoryUsed?: number;
@@ -327,21 +329,25 @@ export namespace Systeminformation {
 
   interface GraphicsDisplayData {
     vendor: string;
+    vendorId: string | null;
     model: string;
-    deviceName: string;
+    productionYear: number | null;
+    serial: string | null;
+    deviceName: string | null;
+    displayId: string | null;
     main: boolean;
     builtin: boolean;
-    connection: string;
-    sizeX: number;
-    sizeY: number;
-    pixelDepth: number;
-    resolutionX: number;
-    resolutionY: number;
-    currentResX: number;
-    currentResY: number;
+    connection: string | null;
+    sizeX: number | null;
+    sizeY: number | null;
+    pixelDepth: number | null;
+    resolutionX: number | null;
+    resolutionY: number | null;
+    currentResX: number | null;
+    currentResY: number | null;
     positionX: number;
     positionY: number;
-    currentRefreshRate: number;
+    currentRefreshRate: number | null;
   }
 
   // 4. Operating System
@@ -452,9 +458,9 @@ export namespace Systeminformation {
     rx: number;
     wx: number;
     tx: number;
-    rx_sec: number;
-    wx_sec: number;
-    tx_sec: number;
+    rx_sec: number | null;
+    wx_sec: number | null;
+    tx_sec: number | null;
     ms: number;
   }
 
@@ -462,9 +468,15 @@ export namespace Systeminformation {
     rIO: number;
     wIO: number;
     tIO: number;
-    rIO_sec: number;
-    wIO_sec: number;
-    tIO_sec: number;
+    rIO_sec: number | null;
+    wIO_sec: number | null;
+    tIO_sec: number | null;
+    rWaitTime: number;
+    wWaitTime: number;
+    tWaitTime: number;
+    rWaitPercent: number | null;
+    wWaitPercent: number | null;
+    tWaitPercent: number | null;
     ms: number;
   }
 
