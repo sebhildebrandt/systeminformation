@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.9.10         | 2021-11-11     | `powerShell` transition from `wmic` (windows) |
 | 5.9.9          | 2021-10-27     | `graphics` fixed screen resolution issue (windows) |
 | 5.9.8          | 2021-10-22     | `wmic` fixed code page issues (windows) |
 | 5.9.7          | 2021-10-09     | `battery()` fixed typo seperator (windows) |
@@ -445,8 +446,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 3.37.2         | 2018-02-15     | fixed bug `battery().percent` for macOS |
 | 3.37.1         | 2018-02-13     | fixed bug `battery().ischarging` for macOS |
 | 3.37.0         | 2018-02-11     | extended FreeBSD support `networkStats()` |
-| 3.36.
-0         | 2018-02-11     | extended FreeBSD support `networkConnections()` |
+| 3.36.0         | 2018-02-11     | extended FreeBSD support `networkConnections()` |
 | 3.35.0         | 2018-02-11     | extended FreeBSD support `processLoad()` |
 | 3.34.1         | 2018-02-11     | updated docs |
 | 3.34.0         | 2018-02-10     | first partial FreeBSD support |
