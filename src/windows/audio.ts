@@ -1,39 +1,23 @@
-import { EOL } from 'os';
-import { execCmd } from '../common/exec';
-import { getValue, nextTick } from '../common';
-import { audioTypeLabel } from '../common/mappings';
-import { AudioObject } from '../common/types';
+import { nextTick } from '../../common';
+import { powerShell } from '../../common/exec';
+import { audioTypeLabel } from '../../common/mappings';
 
-
-const parseAudio = (lines: string[]): AudioObject => {
-  const status = getValue(lines, 'StatusInfo', ':');
-  const name = getValue(lines, 'name', ':');
-
-  return {
-    id: getValue(lines, 'DeviceID', ':'),
-    name: getValue(lines, 'name', ':'),
-    manufacturer: getValue(lines, 'manufacturer', ':'),
-    revision: null,
-    driver: null,
-    default: null,
-    channel: null,
-    type: audioTypeLabel(name),
-    in: null,
-    out: null,
-    status: status,
-  };
-};
+interface WindowsAudio {
+  DeviceID: string;
+  Name: string;
+  Manufacturer: string;
+  Status: string;
+}
 
 export const windowsAudio = async () => {
-  const stdout = await execCmd('path Win32_SoundDevice get /value');
-  const parts = stdout.toString().split(/\n\s*\n/);
-  const result = [];
-  for (let i = 0; i < parts.length; i++) {
-    if (getValue(parts[i].split(EOL), 'name', '=')) {
-      result.push(parseAudio(parts[i].split('\n')));
-    }
-  }
-  return result;
+  const devices = await powerShell('Get-WmiObject Win32_SoundDevice | ConvertTo-Json -Depth 5').then(stdout => JSON.parse(stdout) as WindowsAudio[]);
+  return devices.map(data => ({
+    id: data.DeviceID,
+    name: data.Name,
+    manufacturer: data.Manufacturer.trim(),
+    type: audioTypeLabel(data.Name),
+    status: data.Status
+  }));
 };
 
 export const audio = async () => {
