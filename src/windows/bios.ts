@@ -1,33 +1,44 @@
-import { cloneObj, getValue, nextTick } from '../common';
-import { powerShell } from '../common/exec';
-import { initBios } from '../common/defaults';
+import { nextTick } from '../../common';
+import { powerShell } from '../../common/exec';
+
+type RegExpMatchArrayWithGroups<T> = {
+  groups?: {
+    [key in keyof T]: string;
+  }
+} | null;
+
+interface Property {
+  Name: string;
+  Value: unknown;
+}
+
+interface WindowsBIOS {
+  Properties: Property[];
+  Manufacturer: string;
+  Version: string;
+  BuildNumber: string;
+}
 
 export const windowsBios = async () => {
-  const result = cloneObj(initBios);
-  const stdout = await powerShell('Get-WmiObject Win32_bios | fl *');
-  if (stdout) {
-    const lines = stdout.toString().split('\r\n');
-    const description = getValue(lines, 'description', ':');
-    if (description.indexOf(' Version ') !== -1) {
-      // ... Phoenix ROM BIOS PLUS Version 1.10 A04
-      result.vendor = description.split(' Version ')[0].trim();
-      result.version = description.split(' Version ')[1].trim();
-    } else if (description.indexOf(' Ver: ') !== -1) {
-      // ... BIOS Date: 06/27/16 17:50:16 Ver: 1.4.5
-      result.vendor = getValue(lines, 'manufacturer', ':');
-      result.version = description.split(' Ver: ')[1].trim();
-    } else {
-      result.vendor = getValue(lines, 'manufacturer', ':');
-      result.version = getValue(lines, 'version', ':');
-    }
-    result.releaseDate = getValue(lines, 'releasedate', ':');
-    if (result.releaseDate.length >= 10) {
-      result.releaseDate = result.releaseDate.substr(0, 4) + '-' + result.releaseDate.substr(4, 2) + '-' + result.releaseDate.substr(6, 2);
-    }
-    result.revision = getValue(lines, 'buildnumber', ':');
-  }
+  const data = await powerShell('Get-WmiObject Win32_bios | ConvertTo-Json -Depth 5').then(stdout => JSON.parse(stdout) as WindowsBIOS);
+  const rawReleaseDate = data.Properties.find(property => property.Name === 'ReleaseDate')?.Value as string;
+  const match = rawReleaseDate.match(/(?<year>19\d{2}|20\d{2})(?<month>\d{2})(?<day>\d{2})(?<hour>\d{2})(?<minute>\d{2})(?<second>\d{2})/) as RegExpMatchArrayWithGroups<{
+    year: string;
+    month: string;
+    day: string;
+    hour: string;
+    minute: string;
+    second: string;
+  }>;
 
-  return result;
+  const releaseDate = match && match.groups ? Date.parse(`${match.groups.day} ${match.groups.month} ${match.groups.year} ${match.groups.hour}:${match.groups.minute}:${match.groups.second} UTC`) : null;
+
+  return {
+    vendor: data.Manufacturer,
+    version: data.Version,
+    releaseDate: releaseDate ? new Date(releaseDate) : null,
+    revision: data.BuildNumber
+  };
 };
 
 export const bios = async () => {
