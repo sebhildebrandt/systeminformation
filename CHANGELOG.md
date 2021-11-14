@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.9.13         | 2021-11-14     | `time()` timezone name, `l1 cache` improvements |
 | 5.9.12         | 2021-11-13     | `users()` fix data check (windows) |
 | 5.9.11         | 2021-11-12     | `fsStats()` fix null result (bsd) |
 | 5.9.10         | 2021-11-11     | `powerShell` transition from `wmic` (windows) |
