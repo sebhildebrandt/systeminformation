@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.9.17         | 2021-12-07     | `wifiNetworks()` fix empty issue (mac OS) |
 | 5.9.16         | 2021-12-05     | `wifiNetworks()` adaption for Apple silicon (mac OS) |
 | 5.9.15         | 2021-11-19     | `cpuCache()` fix (windows) |
 | 5.9.14         | 2021-11-17     | `versions()` python 2 monterey (deprecated warning) fix (mac OS) |
