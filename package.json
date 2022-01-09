@@ -90,7 +90,8 @@
     "freebsd",
     "openbsd",
     "netbsd",
-    "sunos"
+    "sunos",
+    "android"
   ],
   "engines": {
     "node": ">=8.0.0"

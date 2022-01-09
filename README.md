@@ -62,7 +62,7 @@ Lightweight collection of 50+ functions to retrieve detailed hardware, system an
 
 - simple to use
 - get detailed information about system, cpu, baseboard, battery, memory, disks/filesystem, network, docker, software, services and processes
-- supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD and SunOS support
+- supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD, SunOS and Android support
 - no npm dependencies
 
 **Attention**: this is a `node.js` library. It is supposed to be used as a backend/server-side library and will definitely not work within a browser.
