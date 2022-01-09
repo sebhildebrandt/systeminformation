@@ -101,6 +101,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.10.0: basic `android` support
 - Version 5.9.0: `graphics()` added properties (macOS)
 - Version 5.8.0: `disksIO()` added waitTime, waitPercent (linux)
 - Version 5.7.0: `diskLayout()` added S.M.A.R.T for Windows (if installed)
