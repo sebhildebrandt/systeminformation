@@ -80,6 +80,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.10.3         | 2022-01-17     | `system()` improved virtual detection (windows) |
+| 5.10.2         | 2022-01-17     | `uuid()` fix results (windows) |
 | 5.10.1         | 2022-01-17     | `cpu()` fix manufacturer |
 | 5.10.0         | 2022-01-09     | basic `Android` support |
 | 5.9.18         | 2022-01-08     | `wifiConections()` fix empty issue (mac OS) |
