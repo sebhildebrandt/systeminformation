@@ -982,6 +982,7 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Maria Camila Cubides [MariaCamilaCubides](https://github.com/MariaCamilaCubides)
 - Aleksander Krasnicki [plakak](https://github.com/plakak)
 - Alexis Tyler [OmgImAlexis](https://github.com/OmgImAlexis)
+- Simon Smith [si458](https://github.com/si458)
 
 OSX Temperature: credits here are going to:
 
