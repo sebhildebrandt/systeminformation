@@ -52,10 +52,10 @@ const testWithTimeout = async (fn) => {
     console.log(await testWithTimeout(si.cpuTemperature));
 
     console.log('Testing UUID:');
-    console.log(await testWithTimeout(si.uuid()));
+    console.log(await testWithTimeout(si.uuid));
 
     console.log('Testing versions:');
-    console.log(await testWithTimeout(si.versions()));
+    console.log(await testWithTimeout(si.versions));
 
     console.log('All tests complete.');
     process.exit(0);
