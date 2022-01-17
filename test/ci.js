@@ -5,7 +5,7 @@ const testWithTimeout = async (fn) => {
     (async () => {
       const timeout = setTimeout(() => {
         reject('Test Timeout');
-      }, 15000);
+      }, 20000);
       const result = await fn();
       clearTimeout(timeout);
       return resolve(result);
@@ -50,6 +50,12 @@ const testWithTimeout = async (fn) => {
 
     console.log('Testing cpuTemperature:');
     console.log(await testWithTimeout(si.cpuTemperature));
+
+    console.log('Testing UUID:');
+    console.log(await testWithTimeout(si.uuid()));
+
+    console.log('Testing versions:');
+    console.log(await testWithTimeout(si.versions()));
 
     console.log('All tests complete.');
     process.exit(0);
