@@ -381,9 +381,9 @@ Full function reference with examples can be found at [https://systeminformation
 | | ...[0].pid | X | X | X | X | X | process PID |
 | | ...[0].parentPid | X | X | X | X | X | parent process PID |
 | | ...[0].name | X | X | X | X | X | process name |
-| | ...[0].pcpu | X | X | X | X | X | process % CPU usage |
-| | ...[0].pcpuu | X | X |  | X |   | process % CPU usage (user) |
-| | ...[0].pcpus | X | X |  | X |   | process % CPU usage (system) |
+| | ...[0].cpu | X | X | X | X | X | process % CPU usage |
+| | ...[0].cpuu | X | X |  | X |   | process % CPU usage (user) |
+| | ...[0].cpus | X | X |  | X |   | process % CPU usage (system) |
 | | ...[0].pmem | X | X | X | X | X | process memory % |
 | | ...[0].priority | X | X | X | X | X | process priotity |
 | | ...[0].memVsz | X | X | X | X | X | process virtual memory size |
