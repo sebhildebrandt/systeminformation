@@ -80,7 +80,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 5.10.4         | 2022-01-18     | `battery()` fix deection (windows) |
+| 5.10.5         | 2022-01-19     | `processes()` fix calculation (windows) |
+| 5.10.4         | 2022-01-18     | `battery()` fix detection (windows) |
 | 5.10.3         | 2022-01-17     | `system()` improved virtual detection (windows) |
 | 5.10.2         | 2022-01-17     | `uuid()` fix results (windows) |
 | 5.10.1         | 2022-01-17     | `cpu()` fix manufacturer |
