@@ -384,7 +384,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | ...[0].cpu | X | X | X | X | X | process % CPU usage |
 | | ...[0].cpuu | X | X |  | X |   | process % CPU usage (user) |
 | | ...[0].cpus | X | X |  | X |   | process % CPU usage (system) |
-| | ...[0].pmem | X | X | X | X | X | process memory % |
+| | ...[0].mem | X | X | X | X | X | process memory % |
 | | ...[0].priority | X | X | X | X | X | process priotity |
 | | ...[0].memVsz | X | X | X | X | X | process virtual memory size |
 | | ...[0].memRss | X | X | X | X | X | process mem resident set size |
