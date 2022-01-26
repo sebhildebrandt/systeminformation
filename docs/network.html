@@ -99,6 +99,16 @@
                     </tr>
                     <tr>
                       <td></td>
+                      <td>[0].default</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>true if this is the default interface</td>
+                    </tr>
+                    <tr>
+                      <td></td>
                       <td>[0].ip4</td>
                       <td>X</td>
                       <td>X</td>
@@ -278,6 +288,7 @@ si.networkInterfaces().then(data => console.log(data));</code></pre class="examp
   {
     iface: 'lo0',
     ifaceName: 'lo0',
+    default: false,
     ip4: '127.0.0.1',
     ip4subnet: '255.0.0.0',
     ip6: '::1',
@@ -299,6 +310,7 @@ si.networkInterfaces().then(data => console.log(data));</code></pre class="examp
   {
     iface: 'en0',
     ifaceName: 'en0',
+    default: true,
     ip4: '192.168.0.27',
     ip4subnet: '255.255.255.0',
     ip6: 'fe80::134a:1e43:abc5:d413',
@@ -318,6 +330,33 @@ si.networkInterfaces().then(data => console.log(data));</code></pre class="examp
     carrierChanges: 0
   }, ...
 ]</pre>
+                        <h5>Get Default Interface only</h5>
+                        <p>&nbsp;&nbsp;With the 'default' parameter this function returns only the default interface</p>
+                        <pre><code class="js">const si = require('systeminformation');
+si.networkInterfaces('default').then(data => console.log(data));</code></pre class="example">
+<pre class="example">
+{
+  iface: 'en0',
+  ifaceName: 'en0',
+  default: true,
+  ip4: '192.168.0.27',
+  ip4subnet: '255.255.255.0',
+  ip6: 'fe80::134a:1e43:abc5:d413',
+  ip6subnet: 'ffff:ffff:ffff:ffff::',
+  mac: 'xx:xx:xx:xx:xx:xx',
+  internal: false,
+  virtual: false,
+  operstate: 'up',
+  type: 'wired',
+  duplex: 'full',
+  mtu: 1500,
+  speed: 1000,
+  dhcp: true,
+  dnsSuffix: '',
+  ieee8021xAuth: '',
+  ieee8021xState: '',
+  carrierChanges: 0
+}</pre>
                     </tr>
                     <tr>
                       <td>si.networkInterfaceDefault(cb)</td>

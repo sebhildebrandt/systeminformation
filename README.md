@@ -101,6 +101,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.11.0: `networkInterfaces()` added default property and default parameter
 - Version 5.10.0: basic `android` support
 - Version 5.9.0: `graphics()` added properties (macOS)
 - Version 5.8.0: `disksIO()` added waitTime, waitPercent (linux)
@@ -539,9 +540,10 @@ Full function reference with examples can be found at [https://systeminformation
 
 | Function        | Result object | Linux | BSD | Mac | Win | Sun | Comments |
 | --------------- | ------------- | ----- | ------- | --- | --- | --- | -------- |
-| si.networkInterfaces(cb) | [{...}] | X | X | X | X | X | array of network interfaces |
+| si.networkInterfaces(cb) | [{...}] | X | X | X | X | X | array of network interfaces<br>With the 'default' parameter it returns<br>only the default interface |
 | | [0].iface | X | X | X | X | X | interface |
 | | [0].ifaceName | X | X | X | X | X | interface name (differs on Windows) |
+| | [0].default | X | X | X | X | X | true if this is the default interface |
 | | [0].ip4 | X | X | X | X | X | ip4 address |
 | | [0].ip4subnet | X | X | X | X | X | ip4 subnet mask |
 | | [0].ip6 | X | X | X | X | X | ip6 address |

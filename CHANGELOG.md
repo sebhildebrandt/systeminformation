@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.11.0         | 2022-01-26     | `networkInterfaces()` added default property and parameter |
 | 5.10.7         | 2022-01-21     | `processes()` reverted PR #560 (windows) |
 | 5.10.6         | 2022-01-21     | `usb()` fix `users()` fix tty (windows) |
 | 5.10.5         | 2022-01-19     | `processes()` fix calculation (windows) |
