@@ -85,6 +85,9 @@
                 <h4>Empty / incorrect values</h4>
                 <p>If you discover empty or incorrect values, please keep in mind that some underlying commands need to be run under admin privileges. So if you run your scripts as normal users, not all system information values can be determined. For linux this is e.g. the case for `memLayout()`, advances `system()`, `bios()`, `baseboard()`, `cpu()`information, S.M.A.R.T. status and others... </p>
 
+                <h4>Encoding issues - Windows</h4>
+                <p>I now reimplemented all windows functions to avoid encoding problems (special chacarters). And as Windows 11 also droppend <span class="code">wmic</span> support, I had to move completely to <span class="code">powershell</span>. Be sure that powershell version 5+ is installed on your machine. On older Windows versions (7, 8) you might still see encoding problems due to the old powershell version.</p>
+
                 <h4>Finding New Issues</h4>
                 <p>If you still have problems, please feel free to open an issue on our <a href="https://github.com/sebhildebrandt/systeminformation/issues">github page</a></p>
               </div>

@@ -30,7 +30,7 @@
   [![Sponsoring][sponsor-badge]][sponsor-url]
   [![MIT license][license-img]][license-url]
 
-This is amazing. Started as a small project just for myself, it now has > 10,000 lines of code, > 450 versions published, up to 4 mio downloads per month, > 50 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 500 versions published, up to 4 mio downloads per month, > 60 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
 
 ## New Version 5.0
 
@@ -919,6 +919,8 @@ e.g. on DEBIAN based systems by running `sudo apt-get install lm-sensors`
 
 To be able to detect S.M.A.R.T. status on Linux you need to install `smartmontools`. On DEBIAN based Linux distributions you can install it by running `sudo apt-get install smartmontools`
 
+#### Windows Encoding Issues
+I now reimplemented all windows functions to avoid encoding problems (special chacarters). And as Windows 11 now droppend `wmic` support, I had to move completely to `powershell`. Be sure that powershell version 5+ is installed on your machine. On older Windows versions (7, 8) you might still see encoding problems due to the old powershell version.
 ## *: Additional Notes
 
 In `fsStats()`, `disksIO()` and `networkStats()` the results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning
