@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.11.2         | 2022-02-05     | `powerShell` speed improvements (windows) |
 | 5.11.1         | 2022-02-03     | `osInfo()` fixed issue fqdn (openBSD) |
 | 5.11.0         | 2022-01-26     | `networkInterfaces()` added default property and parameter |
 | 5.10.7         | 2022-01-21     | `processes()` reverted PR #560 (windows) |
