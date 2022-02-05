@@ -5,7 +5,7 @@ const testWithTimeout = async (fn) => {
     (async () => {
       const timeout = setTimeout(() => {
         reject('Test Timeout');
-      }, 80000);
+      }, 120000);
       const result = await fn();
       clearTimeout(timeout);
       return resolve(result);
