@@ -1003,7 +1003,8 @@ NetBSD is a registered trademark of The NetBSD Foundation, Docker is a trademark
 Solaris, OpenSolaris and registered trademarks of Sun Microsystems, VMware is a trademark of VMware Inc,
 Virtual Box is a trademark of Oracle Corporation, Xen is a registered trademark of Xen Project,
 QEMU is a trademark of Fabrice Bellard, bochs is a trademark of The Bochs Project, USB and USB Logo
-are trademarks of USB Implementation Forum, Bluetooth and Bluetooth Logo are trademarks of Bluetooth SIG.
+are trademarks of USB Implementation Forum, Bluetooth and Bluetooth Logo are trademarks of Bluetooth SIG,
+Android is a trademark of Google LLC.
 
 All other trademarks are the property of their respective owners.
 
