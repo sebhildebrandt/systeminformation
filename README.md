@@ -927,7 +927,7 @@ In `fsStats()`, `disksIO()` and `networkStats()` the results / sec. values (rx_s
 with the second call of the function. It is determined by calculating the difference of transferred bytes / IOs
 divided by the time between two calls of the function.
 
-The first time you are calling one of these functions, you will get `-1` for transfer rates. The second time, you should then get statistics based on the time between the two calls ...
+The first time you are calling one of these functions, you will get `null` for transfer rates. The second time, you should then get statistics based on the time between the two calls ...
 
 So basically, if you e.g. need a value for network stats every second, your code should look like this:
 
