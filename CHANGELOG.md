@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.11.4         | 2022-02-20     | `powerShell` execution policy fix (windows) |
 | 5.11.3         | 2022-02-14     | updated docs |
 | 5.11.2         | 2022-02-05     | `powerShell` speed improvements (windows) |
 | 5.11.1         | 2022-02-03     | `osInfo()` fixed issue fqdn (openBSD) |
