@@ -269,6 +269,7 @@ export namespace Systeminformation {
     serialNum: string;
     interfaceType: string;
     smartStatus: string;
+    temperature: null | number;
     smartData?: SmartData;
   }
 
