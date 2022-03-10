@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.11.7         | 2022-03-10     | `cpuTemperature()` fi NaN issue (windows) |
 | 5.11.6         | 2022-03-01     | typescript typings fix `diskLayout()` |
 | 5.11.5         | 2022-02-26     | fixed parsing issues (windows) |
 | 5.11.4         | 2022-02-20     | `powerShell` execution policy fix (windows) |
