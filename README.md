@@ -905,10 +905,10 @@ $ npm install osx-temperature-sensor --save
 
 #### Windows Temperature, Battery, ...
 
-`wmic` - which is used to determine temperature and battery sometimes needs to be run with admin
+`get-WmiObject` - which is used to determine temperature and battery sometimes needs to be run with admin
 privileges. So if you do not get any values, try to run it again with according
 privileges. If you still do not get any values, your system might not support this feature.
-In some cases we also discovered that `wmic` returned incorrect temperature values.
+In some cases we also discovered that `get-WmiObject` returned incorrect temperature values.
 
 #### Linux Temperature
 

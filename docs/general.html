@@ -364,7 +364,7 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
                 <p><strong>Static data</strong> is all hardware related (or more or less constant) data like system, baseboard, bios, OS, versions, cpu, network interfces, memory and disk layout</p>
                 <p><strong>Dynamic data</strong> will return user, cpu-speed, load, processes, services, temperature, file system, network and disk stats, ... </p>
                 <p>As not all funtions are supported in each operating system the result object might be different in each OS.</p>
-                <p><strong>ATTENTION</strong>: Use this only if you really need ALL information. Especially on Windows this can take really long (up to 20 seconds) because the underlying <span class="code">WMIC</span> command is very slow when using it the first time.</p>
+                <p><strong>ATTENTION</strong>: Use this only if you really need ALL information. Especially on Windows this can take really long (up to 20 seconds) because the underlying <span class="code">get-WmiObject</span> command is very slow when using it the first time.</p>
               </div>
             </div>
           </div>
