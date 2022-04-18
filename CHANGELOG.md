@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.11.10        | 2022-04-18     | updated docs |
 | 5.11.9         | 2022-03-20     | `diskLayout()` fixed issue smartStatus (linux) |
 | 5.11.8         | 2022-03-11     | `cpu()` improved socket detection by name (windows) |
 | 5.11.7         | 2022-03-10     | `cpuTemperature()` fix NaN issue (windows) |

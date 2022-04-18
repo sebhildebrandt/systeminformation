@@ -224,7 +224,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | min | X | X | X | X | X | min CPU speed (all cores) |
 | | max | X | X | X | X | X | max CPU speed (all cores) |
 | | cores | X | X | X | X | X | CPU speed per core (array) |
-| si.cpuTemperature(cb) | {...} | X | X | X* | X |  | CPU temperature (if supported) |
+| si.cpuTemperature(cb) | {...} | X | X | X* | X |  | CPU temperature in C (if supported) |
 | | main | X | X | X | X |  | main temperature (avg) |
 | | cores | X | X | X | X |  | array of temperatures |
 | | max | X | X | X | X |  | max temperature |
