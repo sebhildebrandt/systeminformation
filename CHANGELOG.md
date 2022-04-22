@@ -80,7 +80,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
-| 5.11.13        | 2022-04-21     | `etworkStats()` improved scanning (mac OS) |
+| 5.11.14        | 2022-04-22     | `netforkInterfaces()` node 18 compatibility |
+| 5.11.13        | 2022-04-21     | `networkStats()` improved scanning (mac OS) |
 | 5.11.12        | 2022-04-19     | `battery()` improved M1 support (mac OS) |
 | 5.11.11        | 2022-04-19     | `networkInterfaces()` improved parsing (windows) |
 | 5.11.10        | 2022-04-18     | updated docs |
