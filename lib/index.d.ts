@@ -876,9 +876,10 @@ export namespace Systeminformation {
     default: boolean;
     revision: string;
     driver: string;
+    channel: string;
     in: boolean;
     out: boolean;
-    interfaceType: string;
+    type: string;
     status: string;
   }
 
