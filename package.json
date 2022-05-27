@@ -11,6 +11,7 @@
   },
   "types": "./lib/index.d.ts",
   "scripts": {
+    "lint": "eslint lib",
     "test": "node ./test/test.js"
   },
   "files": [

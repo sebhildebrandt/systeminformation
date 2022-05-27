@@ -7,18 +7,13 @@
   },
   "extends": "eslint:recommended",
   "parserOptions": {
-    "ecmaVersion": 12
+    "ecmaVersion": 12,
+    "sourceType": "module"
   },
   "rules": {
-    "semi": [
-      "error",
-      "always"
-    ],
+    "semi": ["error", "always"],
     "eqeqeq": "off",
     "curly": "error",
-    "quotes": [
-      "error",
-      "single"
-    ]
+    "quotes": ["error", "single"]
   }
 }
