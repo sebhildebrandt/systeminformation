@@ -1,4 +1,4 @@
-const si = require('../lib/index');
+const si = require('..');
 
 function test(f) {
   return new Promise((resolve) => {
