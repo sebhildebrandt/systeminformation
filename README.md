@@ -70,7 +70,13 @@ Lightweight collection of 50+ functions to retrieve detailed hardware, system an
 ### Installation
 
 ```bash
-$ npm install systeminformation --save
+npm install systeminformation --save
+```
+
+or simpler
+
+```bash
+npm install systeminformation
 ```
 
 #### Still need Version 4?
@@ -78,9 +84,14 @@ $ npm install systeminformation --save
 If you need version 4 (for compatibility reasons), you can install version 4 (latest release) like this
 
 ```bash
-$ npm install systeminformation@4 —save
+npm install systeminformation@4 —save
 ```
 
+or simpler
+
+```bash
+npm install systeminformation@4
+```
 
 ### Usage
 
