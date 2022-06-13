@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.11.19        | 2022-06-13     | `diskLayout()` optimized parsing linux (JSON) |
 | 5.11.18        | 2022-06-13     | `diskLayout()` fix parsing linux (JSON) |
 | 5.11.17        | 2022-06-13     | `diskLayout()` fix parsing linux (JSON) |
 | 5.11.16        | 2022-05-30     | `docs` updated, `tests` added node 18 |
