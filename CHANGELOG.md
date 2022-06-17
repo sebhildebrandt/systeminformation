@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.11.21        | 2022-06-17     | `fsSize()` fix parsing linux (df) |
 | 5.11.20        | 2022-06-13     | `diskLayout()` fix parsing linux (JSON) |
 | 5.11.19        | 2022-06-13     | `diskLayout()` optimized parsing linux (JSON) |
 | 5.11.18        | 2022-06-13     | `diskLayout()` fix parsing linux (JSON) |
