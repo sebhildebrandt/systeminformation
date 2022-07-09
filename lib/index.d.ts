@@ -7,8 +7,8 @@ export namespace Systeminformation {
   // 1. General
 
   interface TimeData {
-    current: string;
-    uptime: string;
+    current: number;
+    uptime: number;
     timezone: string;
     timezoneName: string;
   }
