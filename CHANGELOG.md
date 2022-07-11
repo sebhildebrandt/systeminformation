@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.11.25        | 2022-07-11     | `fsSize()` fix iussue filtering (linux) |
 | 5.11.24        | 2022-07-10     | `fsSize()` fix parsing linux (df) |
 | 5.11.23        | 2022-07-09     | `fsSize()` fixes (linux), `baseboard()` fix (windows), `cpuTemperatur()` fix linux |
 | 5.11.22        | 2022-06-24     | `processes()` improved parsing (linux, mac OS) |
