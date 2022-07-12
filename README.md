@@ -112,6 +112,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.12.0: `cpu()` added performance and efficiency cores
 - Version 5.11.0: `networkInterfaces()` added default property and default parameter
 - Version 5.10.0: basic `android` support
 - Version 5.9.0: `graphics()` added properties (macOS)
@@ -207,8 +208,8 @@ Full function reference with examples can be found at [https://systeminformation
 | | governor | X | | | |  | e.g. 'powersave' |
 | | cores | X | X | X | X |  | # cores |
 | | physicalCores | X | X | X | X |  | # physical cores |
-| | efficiencyCores |   |   | X |  |  | # efficiancy cores (ARM only) |
-| | performanceCores |   |   | X |  |  | # performance cores (ARM only) |
+| | efficiencyCores | X |   | X |  |  | # efficiancy cores |
+| | performanceCores | X |   | X |  |  | # performance cores |
 | | processors | X | X | X | X |  | # processors |
 | | socket | X | X |  | X |  | socket type e.g. "LGA1356" |
 | | vendor | X | X | X | X |  | vendor ID |
