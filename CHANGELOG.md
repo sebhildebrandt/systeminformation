@@ -80,6 +80,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.12.1         | 2022-07-14     | `cpuTemperature()` Apple Silicon support (see docs) |
+| 5.12.0         | 2022-07-12     | `cpu()` added performance and efficiency cores (linux) |
 | 5.11.26        | 2022-07-12     | `cpu()` fix iussue parsing physical cores (linux) |
 | 5.11.25        | 2022-07-11     | `fsSize()` fix issue filtering (linux) |
 | 5.11.24        | 2022-07-10     | `fsSize()` fix parsing linux (df) |
