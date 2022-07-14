@@ -66,7 +66,7 @@ We had to make **several interface changes** to keep systeminformation as consis
 - `uuid()`: better value support
 - `uuid()`: added MACs
 - `uuid()`: better Raspberry Pi hardware ID
-- `Apple M1 Silicon extended support (now everything supported except of cpu temperature)
+- `Apple M1 Silicon extended support
 - `updated TypeScript definitions
 
 #### Test Full Version 5 Functionality
