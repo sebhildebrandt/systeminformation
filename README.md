@@ -1009,7 +1009,7 @@ OSX Temperature: credits here are going to:
 Linux is a registered trademark of Linus Torvalds. Apple, macOS, OS X are registered trademarks of Apple Inc.,
 Windows is a registered trademark of Microsoft Corporation. Node.js is a trademark of Joyent Inc.,
 Intel is a trademark of Intel Corporation, AMD is a trademark of Advanced Micro Devices Inc.,
-Raspberry Pi is a trademark of the Raspberry Pi Foundation, Debian is a trademark of the Debian Project,
+Raspberry Pi is a trademark of the Raspberry Pi Foundation, Debian is a trademark owned by Software in the Public Interest, Inc.,
 Ubuntu is a trademark of Canonical Ltd., FreeBSD is a registered trademark of The FreeBSD Foundation,
 NetBSD is a registered trademark of The NetBSD Foundation, Docker is a trademark of Docker, Inc., Sun,
 Solaris, OpenSolaris and registered trademarks of Sun Microsystems, VMware is a trademark of VMware Inc,
