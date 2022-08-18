@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version        | Date           | Comment  |
 | -------------- | -------------- | -------- |
+| 5.12.6         | 2022-08-18     | `networkConnections()` fix UDP (windows) |
 | 5.12.5         | 2022-08-11     | `cpu()` virtualization fix (mac OS) |
 | 5.12.4         | 2022-08-09     | `cpuTemperature()` fix main (linux) |
 | 5.12.3         | 2022-08-04     | `networkInterfaces()` operstate fix (mac OS) |
