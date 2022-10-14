@@ -208,7 +208,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | governor | X | | | |  | e.g. 'powersave' |
 | | cores | X | X | X | X |  | # cores |
 | | physicalCores | X | X | X | X |  | # physical cores |
-| | efficiencyCores | X |   | X |  |  | # efficiancy cores |
+| | efficiencyCores | X |   | X |  |  | # efficiency cores |
 | | performanceCores | X |   | X |  |  | # performance cores |
 | | processors | X | X | X | X |  | # processors |
 | | socket | X | X |  | X |  | socket type e.g. "LGA1356" |
