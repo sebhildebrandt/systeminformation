@@ -156,16 +156,16 @@ export namespace Systeminformation {
       type: string;
       protocol: string;
     };
-    model_family?: string,
-    model_name?: string,
-    serial_number?: string,
-    firmware_version?: string,
+    model_family?: string;
+    model_name?: string;
+    serial_number?: string;
+    firmware_version?: string;
     smart_status: {
       passed: boolean;
     };
     trim?: {
       supported: boolean;
-    },
+    };
     ata_smart_attributes?: {
       revision: number;
       table: {
@@ -185,7 +185,10 @@ export namespace Systeminformation {
           event_count: boolean;
           auto_keep: boolean;
         };
-        raw: { value: number; string: string; };
+        raw: {
+          value: number;
+          string: string;
+        };
       }[];
     };
     ata_smart_error_log?: {
@@ -201,12 +204,12 @@ export namespace Systeminformation {
           type: {
             value: number;
             string: string;
-          },
+          };
           status: {
             value: number;
             string: string;
             passed: boolean;
-          },
+          };
           lifetime_hours: number;
         }[];
         count: number;
@@ -215,34 +218,34 @@ export namespace Systeminformation {
       };
     };
     nvme_pci_vendor?: {
-      id: number,
+      id: number;
       subsystem_id: number;
     },
     nvme_smart_health_information_log?: {
-      critical_warning?: number,
-      temperature?: number,
-      available_spare?: number,
-      available_spare_threshold?: number,
-      percentage_used?: number,
-      data_units_read?: number,
-      data_units_written?: number,
-      host_reads?: number,
-      host_writes?: number,
-      controller_busy_time?: number,
-      power_cycles?: number,
-      power_on_hours?: number,
-      unsafe_shutdowns?: number,
-      media_errors?: number,
-      num_err_log_entries?: number,
-      warning_temp_time?: number,
-      critical_comp_time?: number,
+      critical_warning?: number;
+      temperature?: number;
+      available_spare?: number;
+      available_spare_threshold?: number;
+      percentage_used?: number;
+      data_units_read?: number;
+      data_units_written?: number;
+      host_reads?: number;
+      host_writes?: number;
+      controller_busy_time?: number;
+      power_cycles?: number;
+      power_on_hours?: number;
+      unsafe_shutdowns?: number;
+      media_errors?: number;
+      num_err_log_entries?: number;
+      warning_temp_time?: number;
+      critical_comp_time?: number;
       temperature_sensors?: number[];
     },
     user_capacity?: {
-      blocks: number,
+      blocks: number;
       bytes: number;
     },
-    logical_block_size?: number,
+    logical_block_size?: number;
     temperature: {
       current: number;
     };
@@ -283,7 +286,7 @@ export namespace Systeminformation {
     currentCapacity: number;
     capacityUnit: string;
     percent: number;
-    timeRemaining: number,
+    timeRemaining: number;
     acConnected: boolean;
     type: string;
     model: string;
@@ -618,7 +621,7 @@ export namespace Systeminformation {
   interface ProcessesProcessData {
     pid: number;
     parentPid: number;
-    name: string,
+    name: string;
     cpu: number;
     cpuu: number;
     cpus: number;
@@ -627,7 +630,7 @@ export namespace Systeminformation {
     memVsz: number;
     memRss: number;
     nice: number;
-    started: string,
+    started: string;
     state: string;
     tty: string;
     user: string;
@@ -772,7 +775,7 @@ export namespace Systeminformation {
     restartCount: number;
     cpuStats: any;
     precpuStats: any;
-    memoryStats: any,
+    memoryStats: any;
     networks: any;
   }
 

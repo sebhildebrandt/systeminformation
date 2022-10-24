@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.12.9  | 2022-10-24 | fix typescript typings, code cleanup, docs updated                                                  |
 | 5.12.8  | 2022-10-23 | `processes()` fix truncated commands (windows)                                                      |
 | 5.12.7  | 2022-10-15 | `versions()` fix postgres                                                                           |
 | 5.12.6  | 2022-08-18 | `networkConnections()` fix UDP (windows)                                                            |

@@ -52,7 +52,16 @@ h4 {
   background-size: cover;
   -o-background-size: cover;
   height: 100vh; //calc(100vh);
-  height: calc(var(--vh, 1vh) * 100);
+  // height: calc(var(--vh, 1vh) * 100);
+
+  @media only screen and (min-height: 1100px) {
+    max-height: 900px;
+  }
+
+  @media only screen and (min-height: 1900px) {
+    max-height: 1260px;
+  }
+
   opacity: 0.95;
   display: flex;
   justify-content: center;

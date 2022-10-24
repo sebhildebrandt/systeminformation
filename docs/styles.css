@@ -1,6 +1,6 @@
 body {
   font-family: "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: #0e182e;
+  background-color: rgb(14, 24, 46);
   font-weight: 300;
   min-height: 100%;
 }
@@ -11,7 +11,7 @@ h3,
 h4 {
   font-family: "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
-  color: #3d5cb3;
+  color: rgb(61, 92, 179);
 }
 
 .center {
@@ -24,7 +24,7 @@ h4 {
 
 .warning {
   font-weight: 500;
-  color: #9c0101;
+  color: rgb(156, 1, 1);
 }
 
 .larger {
@@ -37,19 +37,17 @@ h4 {
 }
 
 .blue {
-  color: #3d5cb3;
+  color: rgb(61, 92, 179);
 }
 
 .container-fluid {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   padding-bottom: 30px;
 }
 
 .bg-image-full {
-  background-color: #1a1f30;
-  /* For browsers that do not support gradients */
-  background-image: linear-gradient(210deg, #2a2d66, #060520);
-  /* Standard syntax (must be last) */
+  background-color: #1a1f30; /* For browsers that do not support gradients */
+  background-image: linear-gradient(210deg, #2a2d66, #060520); /* Standard syntax (must be last) */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -57,13 +55,22 @@ h4 {
   background-size: cover;
   -o-background-size: cover;
   height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
   opacity: 0.95;
   display: flex;
   justify-content: center;
   text-align: center;
   width: 100% !important;
   flex-direction: column;
+}
+@media only screen and (min-height: 1100px) {
+  .bg-image-full {
+    max-height: 900px;
+  }
+}
+@media only screen and (min-height: 1900px) {
+  .bg-image-full {
+    max-height: 1260px;
+  }
 }
 .bg-image-full .top-container {
   text-align: center;
@@ -89,7 +96,7 @@ h4 {
   padding: 0.25em 0;
   color: white;
   transform: rotate(45deg);
-  background: #971d1d;
+  background: rgb(151, 29, 29);
   font-size: 0.9rem;
 }
 @media only screen and (min-width: 420px) {
@@ -296,10 +303,8 @@ h4 {
 
 .nav {
   background: no-repeat center center scroll;
-  background-color: #1a1f30;
-  /* For browsers that do not support gradients */
-  background-image: linear-gradient(210deg, #2a2d66, #060520);
-  /* Standard syntax (must be last) */
+  background-color: #1a1f30; /* For browsers that do not support gradients */
+  background-image: linear-gradient(210deg, #2a2d66, #060520); /* Standard syntax (must be last) */
   background-size: cover;
   -o-background-size: cover;
   height: 65px;
@@ -400,10 +405,10 @@ h4 {
 }
 .features .inner:hover {
   background: #f4f4f4;
-  color: #567adf;
+  color: rgb(86, 122, 223);
 }
 .features .inner:hover .icons {
-  color: #567adf;
+  color: rgb(86, 122, 223);
 }
 
 .sectionheader .title {
@@ -411,7 +416,7 @@ h4 {
   padding-top: 20px;
   font-size: 2rem;
   font-weight: 500;
-  color: #3d5cb3;
+  color: rgb(61, 92, 179);
 }
 @media only screen and (min-width: 420px) {
   .sectionheader .title {
@@ -435,7 +440,7 @@ h4 {
   text-align: center;
   font-size: 1.4rem;
   font-weight: 500;
-  color: #3d5cb3;
+  color: rgb(61, 92, 179);
 }
 @media only screen and (min-width: 420px) {
   .sectionheader .title-small {
@@ -513,7 +518,7 @@ h4 {
 }
 .index a:hover {
   text-decoration: none;
-  color: #567adf;
+  color: rgb(86, 122, 223);
 }
 
 .left .text,
@@ -583,13 +588,13 @@ ul {
   text-decoration: none;
 }
 .menu .title a:hover {
-  color: #567adf;
+  color: rgb(86, 122, 223);
 }
 .menu .title .navtitle {
   font-size: 1.3rem;
   margin-bottom: 5px;
   display: inline-block;
-  color: #3d5cb3;
+  color: rgb(61, 92, 179);
 }
 .menu hr {
   margin: 5px 0;
@@ -608,10 +613,10 @@ ul {
   text-decoration: none;
 }
 .menu ul li a:hover {
-  color: #567adf;
+  color: rgb(86, 122, 223);
 }
 .menu ul li.active > a {
-  color: #567adf;
+  color: rgb(86, 122, 223);
   font-weight: 500;
 }
 
@@ -666,7 +671,7 @@ pre {
   position: relative;
 }
 .footer .home {
-  color: #3d5cb3;
+  color: rgb(61, 92, 179);
   font-size: 1.1rem;
 }
 .footer a {

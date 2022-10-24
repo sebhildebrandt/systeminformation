@@ -2,7 +2,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "segoe ui", Roboto, Helvetica, Arial, sans-serif, "apple color emoji", "segoe ui emoji", "segoe ui symbol";
   font-weight: 300;
   min-height: 100%;
-  background-color: #59351e;
+  background-color: rgb(89, 53, 30);
 }
 
 h1,
@@ -23,29 +23,36 @@ h4 {
 
 .warning {
   font-weight: 500;
-  color: #9c0101;
+  color: rgb(156, 1, 1);
 }
 
 .container-fluid {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   padding-bottom: 30px;
 }
 
 .bg-image-full {
   background: no-repeat center center scroll;
-  background-color: #4b2313;
-  /* For browsers that do not support gradients */
-  background-image: linear-gradient(210deg, #4b2313, #2c0c0a);
-  /* Standard syntax (must be last) */
+  background-color: #4b2313; /* For browsers that do not support gradients */
+  background-image: linear-gradient(210deg, #4b2313, #2c0c0a); /* Standard syntax (must be last) */
   background-size: cover;
   -o-background-size: cover;
   height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
   opacity: 0.95;
   display: flex;
   justify-content: center;
   text-align: center;
   flex-direction: column;
+}
+@media only screen and (min-height: 1100px) {
+  .bg-image-full {
+    max-height: 900px;
+  }
+}
+@media only screen and (min-height: 1900px) {
+  .bg-image-full {
+    max-height: 1260px;
+  }
 }
 .bg-image-full .container {
   text-align: center;
@@ -67,7 +74,7 @@ h4 {
   padding: 0.25em 0;
   color: white;
   transform: rotate(45deg);
-  background: #971d1d;
+  background: rgb(151, 29, 29);
   font-size: 0.9rem;
 }
 @media only screen and (min-width: 420px) {
@@ -95,20 +102,36 @@ h4 {
   padding-top: 10px;
   font-size: 1.8rem;
   margin-bottom: 10px;
+  font-weight: 500;
+}
+@media only screen and (min-width: 374px) {
+  .bg-image-full .title {
+    font-size: 2.1rem;
+  }
 }
 @media only screen and (min-width: 420px) {
   .bg-image-full .title {
     font-size: 2.4rem;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 767px) {
   .bg-image-full .title {
-    font-size: 3.2rem;
+    font-size: 3.5rem;
   }
 }
 @media only screen and (min-width: 1024px) {
   .bg-image-full .title {
     font-size: 4rem;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .bg-image-full .title {
+    font-size: 5rem;
+  }
+}
+@media only screen and (min-width: 1900px) {
+  .bg-image-full .title {
+    font-size: 6rem;
   }
 }
 .bg-image-full .logo {
@@ -119,7 +142,7 @@ h4 {
     width: 120px;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 767px) {
   .bg-image-full .logo {
     width: 160px;
   }
@@ -127,6 +150,11 @@ h4 {
 @media only screen and (min-width: 1024px) {
   .bg-image-full .logo {
     width: 200px;
+  }
+}
+@media only screen and (min-width: 1900px) {
+  .bg-image-full .logo {
+    width: 250px;
   }
 }
 .bg-image-full .subtitle {
@@ -144,7 +172,7 @@ h4 {
     font-size: 1rem;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 767px) {
   .bg-image-full .subtitle {
     font-size: 1.1rem;
   }
@@ -152,6 +180,16 @@ h4 {
 @media only screen and (min-width: 1024px) {
   .bg-image-full .subtitle {
     font-size: 1.3rem;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .bg-image-full .subtitle {
+    font-size: 1.4rem;
+  }
+}
+@media only screen and (min-width: 1900px) {
+  .bg-image-full .subtitle {
+    font-size: 1.6rem;
   }
 }
 .bg-image-full .text > a {
@@ -173,7 +211,7 @@ h4 {
     font-size: 1rem;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 767px) {
   .bg-image-full .text > a {
     font-size: 1rem;
   }
@@ -181,6 +219,16 @@ h4 {
 @media only screen and (min-width: 1024px) {
   .bg-image-full .text > a {
     font-size: 1.1rem;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .bg-image-full .text > a {
+    font-size: 1.2rem;
+  }
+}
+@media only screen and (min-width: 1900px) {
+  .bg-image-full .text > a {
+    font-size: 1.5rem;
   }
 }
 .bg-image-full .version {
@@ -204,6 +252,16 @@ h4 {
     font-size: 1.1rem;
   }
 }
+@media only screen and (min-width: 1200px) {
+  .bg-image-full .version {
+    font-size: 1.2rem;
+  }
+}
+@media only screen and (min-width: 1900px) {
+  .bg-image-full .version {
+    font-size: 1.5rem;
+  }
+}
 .bg-image-full .down {
   text-align: center;
   color: #fff;
@@ -218,10 +276,8 @@ h4 {
 
 .nav {
   background: no-repeat center center scroll;
-  background-color: #4b2313;
-  /* For browsers that do not support gradients */
-  background-image: linear-gradient(210deg, #4b2313, #2c0c0a);
-  /* Standard syntax (must be last) */
+  background-color: #4b2313; /* For browsers that do not support gradients */
+  background-image: linear-gradient(210deg, #4b2313, #2c0c0a); /* Standard syntax (must be last) */
   background-size: cover;
   -o-background-size: cover;
   height: 65px;
@@ -320,10 +376,10 @@ h4 {
 }
 .features .inner:hover {
   background: #f4f4f4;
-  color: #567adf;
+  color: rgb(86, 122, 223);
 }
 .features .inner:hover .icons {
-  color: #567adf;
+  color: rgb(86, 122, 223);
 }
 
 .sectionheader .title {
@@ -424,7 +480,7 @@ h4 {
 }
 .index a:hover {
   text-decoration: none;
-  color: #567adf;
+  color: rgb(86, 122, 223);
 }
 
 .left .text,
@@ -494,7 +550,7 @@ ul {
   text-decoration: none;
 }
 .menu .title a:hover {
-  color: #567adf;
+  color: rgb(86, 122, 223);
 }
 .menu hr {
   margin: 5px 0;
@@ -513,10 +569,10 @@ ul {
   text-decoration: none;
 }
 .menu ul li a:hover {
-  color: #567adf;
+  color: rgb(86, 122, 223);
 }
 .menu ul li.active > a {
-  color: #567adf;
+  color: rgb(86, 122, 223);
 }
 
 .code {
@@ -583,5 +639,5 @@ pre {
 }
 
 .v5 {
-  color: #567adf;
+  color: rgb(86, 122, 223);
 }/*# sourceMappingURL=styles.css.map */
