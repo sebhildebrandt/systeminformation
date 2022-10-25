@@ -53,6 +53,9 @@ h4 {
   -o-background-size: cover;
   height: 100vh; //calc(100vh);
   // height: calc(var(--vh, 1vh) * 100);
+  @media only screen and (max-width: 480px) {
+    height: calc(var(--vh, 1vh) * 100);
+  }
 
   @media only screen and (min-height: 1100px) {
     max-height: 900px;

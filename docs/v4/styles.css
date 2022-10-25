@@ -44,6 +44,11 @@ h4 {
   text-align: center;
   flex-direction: column;
 }
+@media only screen and (max-width: 480px) {
+  .bg-image-full {
+    height: calc(var(--vh, 1vh) * 100);
+  }
+}
 @media only screen and (min-height: 1100px) {
   .bg-image-full {
     max-height: 900px;
