@@ -80,7 +80,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.12.10 | 2022-10-25 | `bluetooth()` adapted parsing to acceptü also new profile (mac OS)                                  |
+| 5.12.11 | 2022-10-27 | `wifiInterfaces()`, `wifiConnections` improved parsing (linux)                                      |
+| 5.12.10 | 2022-10-25 | `bluetooth()` adapted parsing to accept also new profile (mac OS)                                   |
 | 5.12.9  | 2022-10-24 | fix typescript typings, code cleanup, docs updated                                                  |
 | 5.12.8  | 2022-10-23 | `processes()` fix truncated commands (windows)                                                      |
 | 5.12.7  | 2022-10-15 | `versions()` fix postgres                                                                           |
