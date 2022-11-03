@@ -500,7 +500,7 @@ export namespace Systeminformation {
     type: string;
     duplex: string;
     mtu: number;
-    speed: number;
+    speed: number | null;
     dhcp: boolean;
     dnsSuffix: string;
     ieee8021xAuth: string;
