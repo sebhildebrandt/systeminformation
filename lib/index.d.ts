@@ -499,8 +499,8 @@ export namespace Systeminformation {
     operstate: string;
     type: string;
     duplex: string;
-    mtu: number;
-    speed: number;
+    mtu: number | null;
+    speed: number | null;
     dhcp: boolean;
     dnsSuffix: string;
     ieee8021xAuth: string;
