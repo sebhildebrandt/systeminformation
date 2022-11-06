@@ -34,7 +34,7 @@ This is amazing. Started as a small project just for myself, it now has > 15,000
 
 ## New Version 5.0
 
-The new Version 5 is here - I spend several weeks finalizing this new version. Any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)
+The new Version 5 is here - I spent several weeks finalizing this new version. Any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)
 
 This next major version release 5.0 comes with new functionality and several improvements and changes (some of them are breaking changes!):
 
@@ -43,13 +43,13 @@ This next major version release 5.0 comes with new functionality and several imp
 - added dockerImages, dockerVolumes: get detailed information about docker images and volumes
 - added printer: get information from detected printers
 - added usb: get detailed usb controller and device information
-- added wifi interfaces ans connections: extended wifi information
+- added wifi interfaces and connections: extended wifi information
 - better uuid function to get unique hardware and OS UUIDs
 - better/extended cpu info detection
 - better/extended system info detection
 - Apple Silicon M1 support
 - better Raspberry-PI detection
-- systeminformation website updated and extendet with full documentation and examples [systeminformation.io][systeminformation-url]
+- systeminformation website updated and extended with full documentation and examples [systeminformation.io][systeminformation-url]
 - lot of minor improvements
 
 Breaking Changes in version 5: you will see several breaking changes for the sake of a more consistent API interface and to be future proof. Read the [detailed version 5 changes][changes5-url].
@@ -118,7 +118,7 @@ si.cpu()
 - Version 5.9.0: `graphics()` added properties (macOS)
 - Version 5.8.0: `disksIO()` added waitTime, waitPercent (linux)
 - Version 5.7.0: `diskLayout()` added S.M.A.R.T for Windows (if installed)
-- Version 5.6.0: `cpuTemperature()` added added socket and chipset temp (linux)
+- Version 5.6.0: `cpuTemperature()` added socket and chipset temp (linux)
 - Version 5.5.0: `dockerVolumes()` added
 - Version 5.4.0: `dockerImages()` added
 - Version 5.3.0: `osInfo()` added remoteSession (win only)
@@ -131,7 +131,7 @@ You can find all changes here: [detailed changelog][changelog-url]
 
 ## Core concept
 
-[Node.js][nodejs-url] comes with some basic OS information, but I always wanted a little more. So I came up to write this little library. This library is still work in progress. It is supposed to be used as a backend/server-side library (will definitely not work within a browser). It requires node.js version 4.0 and above.
+[Node.js][nodejs-url] comes with some basic OS information, but I always wanted a little more. So I came up to write this little library. This library is still a work in progress. It is supposed to be used as a backend/server-side library (it will definitely not work within a browser). It requires node.js version 4.0 and above.
 
 I was able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra, Mojave, Catalina, Big Sur) and some Windows 7, Windows 8, Windows 10, FreeBSD, OpenBSD, NetBSD and SunOS machines. Not all functions are supported on all operating systems. Have a look at the function reference in the docs to get further details.
 
@@ -294,7 +294,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | manufacturer | X |  | X |  |  | manufacturer |
 | | serial | X |  | X |  |  | battery serial |
 
-* See known issues if you have problem with macOS temperature or windows temperature
+* See known issues if you have a problem with macOS temperature or windows temperature
 
 #### 6. Graphics
 
@@ -308,7 +308,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | ...[0].deviceId |  |  | X | |  | device ID |
 | | ...[0].bus | X |  | X | X |  | on which bus (e.g. PCIe) |
 | | ...[0].vram | X |  | X | X |  | VRAM size (in MB) |
-| | ...[0].vramDynamic | X |  | X | X |  | true if dynamicly allocated ram |
+| | ...[0].vramDynamic | X |  | X | X |  | true if dynamically allocated ram |
 | | ...[0].external |  |  | X | |  | is external GPU |
 | | ...[0].cores |  |  | X | |  | Apple silicon only |
 | | ...[0].metalVersion |  |  | X | |  | Apple Metal Version |
@@ -321,7 +321,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | ...[0].serial |  |  | X | |  | serial number |
 | | ...[0].displayId |  |  | X | |  | display ID |
 | | ...[0].main | X |  | X | X|  | true if main monitor |
-| | ...[0].builtin | X |  | X |  |  | true if built in monitor |
+| | ...[0].builtin | X |  | X |  |  | true if built-in monitor |
 | | ...[0].connection | X |  | X | X |  | e.g. DisplayPort or HDMI |
 | | ...[0].sizeX | X |  | | X |  | size in mm horizontal |
 | | ...[0].sizeY | X |  | | X |  | size in mm vertical |
@@ -398,7 +398,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | ...[0].cpuu | X | X |  | X |   | process % CPU usage (user) |
 | | ...[0].cpus | X | X |  | X |   | process % CPU usage (system) |
 | | ...[0].mem | X | X | X | X | X | process memory % |
-| | ...[0].priority | X | X | X | X | X | process priotity |
+| | ...[0].priority | X | X | X | X | X | process priority |
 | | ...[0].memVsz | X | X | X | X | X | process virtual memory size |
 | | ...[0].memRss | X | X | X | X | X | process mem resident set size |
 | | ...[0].nice | X | X | X |  | X | process nice value |
@@ -510,7 +510,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | [0].type | X |  | X | X |  | name |
 | | [0].removable |  |  | X |  |  | is removable |
 | | [0].vendor | X |  | X |  |  | vendor |
-| | [0].manufacturer | X |  | X | X |  | manifacturer |
+| | [0].manufacturer | X |  | X | X |  | manufacturer |
 | | [0].maxPower | X |  |   |  |  | max power |
 | | [0].default | X |  | X | X |  | is default printer |
 | | [0].serialNumber |  |  | X |  |  | serial number |
@@ -612,9 +612,9 @@ Full function reference with examples can be found at [https://systeminformation
 | | [0].bssid | X |  | X | X |   | BSSID (mac) |
 | | [0].mode | X |  |   |   |   | mode |
 | | [0].channel | X |  | X | X |   | channel |
-| | [0].frequency | X |  | X | X |   | frequengy in MHz |
+| | [0].frequency | X |  | X | X |   | frequency in MHz |
 | | [0].signalLevel | X |  | X | X |   | signal level in dB |
-| | [0].quality | X |  | X | X |   | quaility in % |
+| | [0].quality | X |  | X | X |   | quality in % |
 | | [0].security | X |  | X | X |   | array e.g. WPA, WPA-2 |
 | | [0].wpaFlags | X |  | X | X |   | array of WPA flags |
 | | [0].rsnFlags | X |  |  |   |   | array of RDN flags |
@@ -632,9 +632,9 @@ Full function reference with examples can be found at [https://systeminformation
 | | [0].bssid | X |  | X | X |   | BSSID (mac) |
 | | [0].mode | X |  |   |   |   | mode |
 | | [0].channel | X |  | X | X |   | channel |
-| | [0].frequency | X |  | X | X |   | frequengy in MHz |
+| | [0].frequency | X |  | X | X |   | frequency in MHz |
 | | [0].signalLevel | X |  | X | X |   | signal level in dB |
-| | [0].quality | X |  | X | X |   | quaility in % |
+| | [0].quality | X |  | X | X |   | quality in % |
 | | [0].security | X |  | X | X |   | array e.g. WPA, WPA-2 |
 | | [0].txRate | X |  | X | X |   | transfer rate MBit/s |
 
@@ -649,7 +649,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | [0].macHost        | X |  | X |   |   | MAC address host |
 | | [0].batteryPercent |   |  | X |   |   | battery level percent |
 | | [0].manufacturer   |   |  | X | X |   | manufacturer |
-| | [0].type           | X |  | X | X |   | typoe of bluetooth device |
+| | [0].type           | X |  | X | X |   | type of bluetooth device |
 | | [0].connected      | X |  | X |   |   | is connected |
 
 #### 16. Docker
@@ -666,7 +666,7 @@ Full function reference with examples can be found at [https://systeminformation
 | | driver | X | X | X | X | X | driver (e.g. 'devicemapper', 'overlay2') |
 | | memoryLimit | X | X | X | X | X | has memory limit |
 | | swapLimit | X | X | X | X | X | has swap limit |
-| | kernelMemory | X | X | X | X | X | has kernal memory |
+| | kernelMemory | X | X | X | X | X | has kernel memory |
 | | cpuCfsPeriod | X | X | X | X | X | has CpuCfsPeriod |
 | | cpuCfsQuota | X | X | X | X | X | has CpuCfsQuota |
 | | cpuShares | X | X | X | X | X | has CPUShares |
@@ -840,7 +840,7 @@ const si = require('systeminformation');
 
 si.cpu(function(data) {
   console.log('CPU Information:');
-  console.log('- manufucturer: ' + data.manufacturer);
+  console.log('- manufacturer: ' + data.manufacturer);
   console.log('- brand: ' + data.brand);
   console.log('- speed: ' + data.speed);
   console.log('- cores: ' + data.cores);
@@ -861,7 +861,7 @@ const si = require('systeminformation');
 si.cpu()
   .then(data => {
     console.log('CPU Information:');
-    console.log('- manufucturer: ' + data.manufacturer);
+    console.log('- manufacturer: ' + data.manufacturer);
     console.log('- brand: ' + data.brand);
     console.log('- speed: ' + data.speed);
     console.log('- cores: ' + data.cores);
@@ -884,7 +884,7 @@ async function cpuData() {
   try {
     const data = await si.cpu();
     console.log('CPU Information:');
-    console.log('- manufucturer: ' + data.manufacturer);
+    console.log('- manufacturer: ' + data.manufacturer);
     console.log('- brand: ' + data.brand);
     console.log('- speed: ' + data.speed);
     console.log('- cores: ' + data.cores);
@@ -932,7 +932,7 @@ e.g. on DEBIAN based systems by running `sudo apt-get install lm-sensors`
 To be able to detect S.M.A.R.T. status on Linux you need to install `smartmontools`. On DEBIAN based Linux distributions you can install it by running `sudo apt-get install smartmontools`
 
 #### Windows Encoding Issues
-I now reimplemented all windows functions to avoid encoding problems (special chacarters). And as Windows 11 now droppend `wmic` support, I had to move completely to `powershell`. Be sure that powershell version 5+ is installed on your machine. On older Windows versions (7, 8) you might still see encoding problems due to the old powershell version.
+I now reimplemented all windows functions to avoid encoding problems (special chacarters). And as Windows 11 now dropped `wmic` support, I had to move completely to `powershell`. Be sure that powershell version 5+ is installed on your machine. On older Windows versions (7, 8) you might still see encoding problems due to the old powershell version.
 ## *: Additional Notes
 
 In `fsStats()`, `disksIO()` and `networkStats()` the results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning
