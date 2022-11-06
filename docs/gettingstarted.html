@@ -58,7 +58,7 @@
 
                 <h2>Core Concept</h2>
                 <p><a href="https://nodejs.org/en/" rel="nofollow">Node.js</a> comes with some basic OS information, but I always wanted a little more. So I came up to write this
-                  little library. This library is still work in progress. It requires node.js version 4.0 and above.</p>
+                  little library. This library is still a work in progress. It requires node.js version 4.0 and above.</p>
 
                 <p>I was able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra, Mojave, Catalina, Big Sur) and some Windows 7, Windows 8, Windows 10, FreeBSD, OpenBSD, NetBSD and SunOS machines.
                   Not all functions are supported on all operating systems. Have a look at the function reference in the docs to get further details.</p>
@@ -88,7 +88,7 @@ si.cpu()
 
 si.cpu(function(data) {
     console.log('CPU Information:');
-    console.log('- manufucturer: ' + data.manufacturer);
+    console.log('- manufacturer: ' + data.manufacturer);
     console.log('- brand: ' + data.brand);
     console.log('- speed: ' + data.speed);
     console.log('- cores: ' + data.cores);
@@ -103,7 +103,7 @@ si.cpu(function(data) {
 si.cpu()
     .then(data => {
         console.log('CPU Information:');
-        console.log('- manufucturer: ' + data.manufacturer);
+        console.log('- manufacturer: ' + data.manufacturer);
         console.log('- brand: ' + data.brand);
         console.log('- speed: ' + data.speed);
         console.log('- cores: ' + data.cores);
@@ -119,7 +119,7 @@ async function cpuData() {
     try {
         const data = await si.cpu();
         console.log('CPU Information:');
-        console.log('- manufucturer: ' + data.manufacturer);
+        console.log('- manufacturer: ' + data.manufacturer);
         console.log('- brand: ' + data.brand);
         console.log('- speed: ' + data.speed);
         console.log('- cores: ' + data.cores);

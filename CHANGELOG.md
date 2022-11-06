@@ -46,7 +46,7 @@ We had to make **several interface changes** to keep systeminformation as consis
 - `cpu()`: extended socket list (win)
 - `cpu()`: added virtualization if cpu supports virtualization
 - `cpu()`: now flags are part of this function
-- `cpuTemperature()` added added socket and chipset temp (linux)
+- `cpuTemperature()` added socket and chipset temp (linux)
 - `disksIO()` added wait time (linux)
 - `diskLayout()`: added USB drives (mac OS)
 - `diskLayout()`: added S.M.R.R.T. (win)
@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.12.13 | 2022-11-06 | updated docs                                                                                        |
 | 5.12.12 | 2022-11-03 | fix typescript typings                                                                              |
 | 5.12.11 | 2022-10-27 | `wifiInterfaces()`, `wifiConnections` improved parsing (linux)                                      |
 | 5.12.10 | 2022-10-25 | `bluetooth()` adapted parsing to accept also new profile (mac OS)                                   |
