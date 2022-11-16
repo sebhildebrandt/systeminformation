@@ -80,6 +80,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.12.15 | 2022-11-16 | `networkConnections()` adapted parsing to reflect also UDP (mac OS)                                 |
 | 5.12.14 | 2022-11-11 | restored `powershell` compatibility for version 7.3 (windows)                                       |
 | 5.12.13 | 2022-11-06 | updated docs                                                                                        |
 | 5.12.12 | 2022-11-03 | fix typescript typings                                                                              |
