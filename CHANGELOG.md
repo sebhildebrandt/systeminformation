@@ -56,6 +56,7 @@ We had to make **several interface changes** to keep systeminformation as consis
 - `graphics()`: extended properties (mac OS)
 - `graphics()`: extended nvidia-smi parsing
 - `networkInterfaces()`: type detection improved (win - wireless)
+- `networkConnections()`: added process name (mac OS)
 - `memLayout()`: extended manufacturer list (decoding)
 - `memLayout()`: added ECC flag
 - `osInfo()`: better fqdn (win)
@@ -80,6 +81,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.13.0  | 2022-11-17 | `networkConnections()` addedd process name (mac OS)                                                 |
 | 5.12.15 | 2022-11-16 | `networkConnections()` adapted parsing to reflect also UDP (mac OS)                                 |
 | 5.12.14 | 2022-11-11 | restored `powershell` compatibility for version 7.3 (windows)                                       |
 | 5.12.13 | 2022-11-06 | updated docs                                                                                        |

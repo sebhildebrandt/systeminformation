@@ -112,6 +112,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.13.0: `networkConnections()` added process name (mac OS)
 - Version 5.12.0: `cpu()` added performance and efficiency cores
 - Version 5.11.0: `networkInterfaces()` added default property and default parameter
 - Version 5.10.0: basic `android` support
@@ -595,7 +596,7 @@ Full function reference with examples can be found at [https://systeminformation
 |                                | [0].peerPort       | X     | X   | X   | X   |     | peer port                                                                                                                                                                                          |
 |                                | [0].state          | X     | X   | X   | X   |     | like ESTABLISHED, TIME_WAIT, ...                                                                                                                                                                   |
 |                                | [0].pid            | X     | X   | X   | X   |     | process ID                                                                                                                                                                                         |
-|                                | [0].process        | X     | X   |     |     |     | process name                                                                                                                                                                                       |
+|                                | [0].process        | X     | X   | X   |     |     | process name                                                                                                                                                                                       |
 | si.inetChecksite(url, cb)      | {...}              | X     | X   | X   | X   | X   | response-time (ms) to fetch given URL                                                                                                                                                              |
 |                                | url                | X     | X   | X   | X   | X   | given url                                                                                                                                                                                          |
 |                                | ok                 | X     | X   | X   | X   | X   | status code OK (2xx, 3xx)                                                                                                                                                                          |
