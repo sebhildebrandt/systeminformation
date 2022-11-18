@@ -456,6 +456,7 @@ export namespace Systeminformation {
     serial: string;
     removable: boolean;
     protocol: string;
+    group?: string;
   }
 
   interface FsStatsData {
