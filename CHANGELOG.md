@@ -81,7 +81,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.13.1  | 2022-11-17 | `processLoag()` fix main pid (linux)                                                                |
+| 5.13.1  | 2022-11-18 | `cpuTemperature()` fix main temp (linux)                                                            |
+| 5.13.1  | 2022-11-18 | `processLoad()` fix main pid (linux)                                                                |
 | 5.13.0  | 2022-11-17 | `networkConnections()` addedd process name (mac OS)                                                 |
 | 5.12.15 | 2022-11-16 | `networkConnections()` adapted parsing to reflect also UDP (mac OS)                                 |
 | 5.12.14 | 2022-11-11 | restored `powershell` compatibility for version 7.3 (windows)                                       |
