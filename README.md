@@ -112,6 +112,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.14.0: `blockDevices()` added raid group member (linux)
 - Version 5.13.0: `networkConnections()` added process name (mac OS)
 - Version 5.12.0: `cpu()` added performance and efficiency cores
 - Version 5.11.0: `networkInterfaces()` added default property and default parameter
@@ -464,6 +465,7 @@ Full function reference with examples can be found at [https://systeminformation
 |                     | [0].serial            | X     |     |     | X   |     | serial                                                                   |
 |                     | [0].removable         | X     |     | X   | X   |     | serial                                                                   |
 |                     | [0].protocol          | X     |     | X   |     |     | protocol (SATA, PCI-Express, ...)                                        |
+|                     | [0].group             | X     |     |     |     |     | Raid group member (e.g. md1)                                             |
 | si.disksIO(cb)      | {...}                 | X     |     | X   |     |     | current transfer stats                                                   |
 |                     | rIO                   | X     |     | X   |     |     | read IOs on all mounted drives                                           |
 |                     | wIO                   | X     |     | X   |     |     | write IOs on all mounted drives                                          |

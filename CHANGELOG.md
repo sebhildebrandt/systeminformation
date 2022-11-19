@@ -81,6 +81,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.14.0  | 2022-11-10 | `blockDevices()` added raid group member (linux)                                                    |
 | 5.13.5  | 2022-11-18 | `users()` fix parsing issue (windows)                                                               |
 | 5.13.4  | 2022-11-18 | `users()` fix Get-CimInstance issue (windows)                                                       |
 | 5.13.3  | 2022-11-18 | `cpuTemperature()` fix main temp (linux)                                                            |
