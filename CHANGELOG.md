@@ -42,6 +42,7 @@ We had to make **several interface changes** to keep systeminformation as consis
 
 - `baseboard()`: added memMax, memSlots
 - `bios()`: added language and features (linux)
+- `blockDevices()` added raid group member (linux)
 - `cpu()`: extended AMD processor list
 - `cpu()`: extended socket list (win)
 - `cpu()`: added virtualization if cpu supports virtualization
@@ -81,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.14.2  | 2022-11-20 | `osInfo()` improved parsing (FreeBSD)                                                               |
 | 5.14.1  | 2022-11-20 | `memLayout()` bank descriptor cleanup (linux)                                                       |
 | 5.14.0  | 2022-11-19 | `blockDevices()` added raid group member (linux)                                                    |
 | 5.13.5  | 2022-11-18 | `users()` fix parsing issue (windows)                                                               |
