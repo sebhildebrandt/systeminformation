@@ -68,7 +68,6 @@ function printTitle(title) {
 }
 
 process.stdin.on('keypress', (key, data) => {
-  // console.log(data);
   if (data.name === 'q' && !data.shift) {
     // shut down
     process.exit();
