@@ -82,7 +82,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.14.3  | 2022-11-21 | `graphics()` multi monitor refresh rate (windows)                                                   |
+| 5.14.4  | 2022-11-21 | `osInfo()` improved uefi parsing (FreeBSD)                                                          |
+| 5.14.3  | 2022-11-20 | `graphics()` multi monitor refresh rate (windows)                                                   |
 | 5.14.2  | 2022-11-20 | `osInfo()` improved parsing (FreeBSD)                                                               |
 | 5.14.1  | 2022-11-20 | `memLayout()` bank descriptor cleanup (linux)                                                       |
 | 5.14.0  | 2022-11-19 | `blockDevices()` added raid group member (linux)                                                    |
