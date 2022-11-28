@@ -53,6 +53,18 @@ const testWithTimeout = async (fn) => {
     console.log(`Time to complete: ${(Date.now() - startTime) * 0.001} s`); startTime = Date.now();
     console.log('----------------------------------------\n');
 
+    console.log('Testing fsSize:');
+    console.log(await testWithTimeout(si.fsSize));
+    console.log('----------------------------------------');
+    console.log(`Time to complete: ${(Date.now() - startTime) * 0.001} s`); startTime = Date.now();
+    console.log('----------------------------------------\n');
+
+    console.log('Testing blockDevices:');
+    console.log(await testWithTimeout(si.blockDevices));
+    console.log('----------------------------------------');
+    console.log(`Time to complete: ${(Date.now() - startTime) * 0.001} s`); startTime = Date.now();
+    console.log('----------------------------------------\n');
+
     console.log('Testing osInfo:');
     console.log(await testWithTimeout(si.osInfo));
     console.log('----------------------------------------');
@@ -98,7 +110,7 @@ const testWithTimeout = async (fn) => {
     console.log('Testing Versions:');
     console.log(await testWithTimeout(si.versions));
     console.log('----------------------------------------');
-    console.log(`Time to complete: ${(Date.now() - startTime) * 0.001} s`); startTime = Date.now();
+    console.log(`Time to complete: ${(Date.now() - startTime) * 0.001} s`);
     console.log('----------------------------------------\n');
 
     console.log('All tests complete.');
