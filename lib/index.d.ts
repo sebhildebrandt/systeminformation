@@ -457,6 +457,7 @@ export namespace Systeminformation {
     removable: boolean;
     protocol: string;
     group?: string;
+    device?: string;
   }
 
   interface FsStatsData {
