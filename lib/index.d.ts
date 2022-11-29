@@ -1010,7 +1010,7 @@ export function audio(cb?: (data: Systeminformation.AudioData[]) => any): Promis
 export function bluetoothDevices(cb?: (data: Systeminformation.BluetoothDeviceData[]) => any): Promise<Systeminformation.BluetoothDeviceData[]>;
 
 export function getStaticData(cb?: (data: Systeminformation.StaticData) => any): Promise<Systeminformation.StaticData>;
-export function getDynamicData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<ysteminformation.DynamicData>;
+export function getDynamicData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<Systeminformation.DynamicData>;
 export function getAllData(srv?: string, iface?: string, cb?: (data: any) => any): Promise<Systeminformation.StaticData & Systeminformation.DynamicData>;
 export function get(valuesObject: any, cb?: (data: any) => any): Promise<any>;
 export function observe(valuesObject: any, interval: number, cb?: (data: any) => any): number;
