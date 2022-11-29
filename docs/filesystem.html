@@ -436,6 +436,16 @@ si.diskLayout().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>Raid group member (e.g. md1)</td>
                     </tr>
+                    <tr>
+                      <td></td>
+                      <td>[1].device</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>Physical device mapped to (e.g. /dev/sda)</td>
+                    </tr>
                     <tr class="example">
                       <td></td>
                       <td colspan="7">
@@ -457,7 +467,8 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
     serial: '... serial ...',
     removable: false,
     protocol: 'nvme',
-    group: undefined
+    group: '',
+    device: 'nvme0n1'
   },
   {
     ...

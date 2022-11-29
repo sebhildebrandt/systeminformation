@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.15.0  | 2022-11-29 | `blockDevices()` added device (win, linux, mac OS)                                                  |
 | 5.14.4  | 2022-11-21 | `osInfo()` improved uefi parsing (FreeBSD)                                                          |
 | 5.14.3  | 2022-11-20 | `graphics()` multi monitor refresh rate (windows)                                                   |
 | 5.14.2  | 2022-11-20 | `osInfo()` improved parsing (FreeBSD)                                                               |

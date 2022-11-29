@@ -466,6 +466,7 @@ Full function reference with examples can be found at [https://systeminformation
 |                     | [0].removable         | X     |     | X   | X   |     | serial                                                                   |
 |                     | [0].protocol          | X     |     | X   |     |     | protocol (SATA, PCI-Express, ...)                                        |
 |                     | [0].group             | X     |     |     |     |     | Raid group member (e.g. md1)                                             |
+|                     | [0].device            | X     |     | X   | X   |     | physical device mapped to (e.g. /dev/sda)                                |
 | si.disksIO(cb)      | {...}                 | X     |     | X   |     |     | current transfer stats                                                   |
 |                     | rIO                   | X     |     | X   |     |     | read IOs on all mounted drives                                           |
 |                     | wIO                   | X     |     | X   |     |     | write IOs on all mounted drives                                          |
