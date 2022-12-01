@@ -112,6 +112,8 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.16.0: `fsSize()` added rw property
+- Version 5.15.0: `blockDevices()` added device
 - Version 5.14.0: `blockDevices()` added raid group member (linux)
 - Version 5.13.0: `networkConnections()` added process name (mac OS)
 - Version 5.12.0: `cpu()` added performance and efficiency cores
@@ -489,6 +491,7 @@ Full function reference with examples can be found at [https://systeminformation
 |                     | [0].available         | X     | X   | X   | X   |     | used in bytes                                                            |
 |                     | [0].use               | X     | X   | X   | X   |     | used in %                                                                |
 |                     | [0].mount             | X     | X   | X   | X   |     | mount point                                                              |
+|                     | [0].rw                | X     | X   | X   | X   |     | read and write (false if read only)                                      |
 | si.fsOpenFiles(cb)  | {...}                 | X     | X   | X   |     |     | count max/allocated file descriptors                                     |
 |                     | max                   | X     | X   | X   |     |     | max file descriptors                                                     |
 |                     | allocated             | X     | X   | X   |     |     | current open files count                                                 |

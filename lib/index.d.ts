@@ -434,6 +434,7 @@ export namespace Systeminformation {
     available: number;
     use: number;
     mount: string;
+    rw: boolean | null;
   }
 
   interface FsOpenFilesData {

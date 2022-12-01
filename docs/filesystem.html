@@ -742,6 +742,16 @@ setInterval(function() {
                       <td></td>
                       <td>mount point</td>
                     </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].rw</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>Read/Write (false if read only)</td>
+                    </tr>
                     <tr class="example">
                       <td></td>
                       <td colspan="7">
@@ -757,7 +767,8 @@ si.fsSize().then(data => console.log(data));</code></pre class="example">
     used: 59142635520,
     available: 913434726400,
     use: 6.08,
-    mount: '/'
+    mount: '/',
+    rw: true
   },
   {
     ...
