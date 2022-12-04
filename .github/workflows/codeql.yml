@@ -11,6 +11,9 @@
 #
 name: "CodeQL"
 
+paths:
+  - lib
+
 on:
   push:
     branches: [ "master" ]
