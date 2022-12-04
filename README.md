@@ -24,8 +24,6 @@
   [![Git Issues][issues-img]][issues-url]
   [![Closed Issues][closed-issues-img]][closed-issues-url]
   <img src="docs/assets/no-dependencies.svg" alt="no dependencies">
-  [![Code Quality: Javascript][lgtm-badge]][lgtm-badge-url]
-  [![Total alerts][lgtm-alerts]][lgtm-alerts-url]
   [![Caretaker][caretaker-image]][caretaker-url]
   [![Sponsoring][sponsor-badge]][sponsor-url]
   [![MIT license][license-img]][license-url]
@@ -1058,11 +1056,6 @@ All other trademarks are the property of their respective owners.
 [npm-url]: https://npmjs.org/package/systeminformation
 [downloads-image]: https://img.shields.io/npm/dm/systeminformation.svg?style=flat-square
 [downloads-url]: https://npmjs.org/package/systeminformation
-
-[lgtm-badge]: https://img.shields.io/lgtm/grade/javascript/g/sebhildebrandt/systeminformation.svg?style=flat-square
-[lgtm-badge-url]: https://lgtm.com/projects/g/sebhildebrandt/systeminformation/context:javascript
-[lgtm-alerts]: https://img.shields.io/lgtm/alerts/g/sebhildebrandt/systeminformation.svg?style=flat-square
-[lgtm-alerts-url]: https://lgtm.com/projects/g/sebhildebrandt/systeminformation/alerts
 
 [sponsor-badge]: https://img.shields.io/badge/-Buy%20me%20a%20coffee-blue?style=flat-square
 [sponsor-url]: https://www.buymeacoffee.com/systeminfo

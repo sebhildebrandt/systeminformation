@@ -1,5 +1,6 @@
 const readline = require('readline');
 const util = require('util');
+const utils = require('../lib/util');
 const exec = require('child_process').exec;
 const lib_version = require('../package.json').version;
 const path = require('path');
@@ -78,13 +79,14 @@ process.stdin.on('keypress', (key, data) => {
     console.time(['Time to complete']);
     startDots();
     const siPath = path.join(__dirname, 'si.js');
-    exec(`node ${siPath} '${key}'`, { timeout: 30000 }, (error, stdout) => {
+    const sanitizedKey = utils.sanitizeShellString(key);
+    exec(`node ${siPath} '${sanitizedKey}'`, { timeout: 30000 }, (error, stdout) => {
       waiting = false;
       stopDots();
       clearline();
       if (error && error.signal) {
         console.log();
-        console.log('Key: ' + key);
+        console.log('Key: ' + sanitizedKey);
         console.log('TIMEOUT!');
       } else {
         try {
@@ -95,7 +97,7 @@ process.stdin.on('keypress', (key, data) => {
           } else if (stdout.toString().startsWith('"not_supported')) {
             console.log();
             console.timeEnd(['Time to complete']);
-            console.log('Key: ' + key);
+            console.log('Key: ' + sanitizedKey);
             console.log('Not supported');
           } else if (stdout.toString()) {
             data = JSON.parse(stdout.toString());
@@ -107,7 +109,7 @@ process.stdin.on('keypress', (key, data) => {
           }
         } catch (e) {
           console.log();
-          console.log('Key: ' + key);
+          console.log('Key: ' + sanitizedKey);
           console.log('ERROR');
           console.log('----------------------------------------------------------------------------------------------------');
           console.log(stdout.toString());
