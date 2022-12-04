@@ -1,0 +1,7 @@
+name: "My CodeQL config"
+
+paths:
+  - lib
+paths-ignore:
+  - node_modules
+  - '**/*.test.js'
