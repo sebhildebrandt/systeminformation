@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.16.1  | 2022-12-04 | code cleanup, moved from lgtm to GitHub Code Scan                                                   |
 | 5.16.0  | 2022-12-01 | `fsSize()` added rw (win, linux, mac OS, BSD)                                                       |
 | 5.15.1  | 2022-11-29 | fix typescript typings                                                                              |
 | 5.15.0  | 2022-11-29 | `blockDevices()` added device (win, linux, mac OS)                                                  |
