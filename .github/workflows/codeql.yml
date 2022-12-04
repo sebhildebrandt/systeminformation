@@ -13,6 +13,9 @@ name: "CodeQL"
 
 paths:
   - lib
+paths-ignore:
+  - node_modules
+  - test
 
 on:
   push:
