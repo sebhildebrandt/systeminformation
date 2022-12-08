@@ -24,8 +24,8 @@
   [![Git Issues][issues-img]][issues-url]
   [![Closed Issues][closed-issues-img]][closed-issues-url]
   <img src="docs/assets/no-dependencies.svg" alt="no dependencies">
-  [![Caretaker][caretaker-image]][caretaker-url]
   [![Sponsoring][sponsor-badge]][sponsor-url]
+  [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
 This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 500 versions published, up to 5 mio downloads per month, > 100 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
@@ -1057,7 +1057,7 @@ All other trademarks are the property of their respective owners.
 [downloads-image]: https://img.shields.io/npm/dm/systeminformation.svg?style=flat-square
 [downloads-url]: https://npmjs.org/package/systeminformation
 
-[sponsor-badge]: https://img.shields.io/badge/-Buy%20me%20a%20coffee-blue?style=flat-square
+[sponsor-badge]: https://img.shields.io/badge/Support-Buy%20me%20a%20coffee-brightgreen?style=flat-square
 [sponsor-url]: https://www.buymeacoffee.com/systeminfo
 
 [license-url]: https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE
