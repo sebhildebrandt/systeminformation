@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.16.6  | 2022-12-12 | `processes()` time format fix (linux)                                                               |
 | 5.16.5  | 2022-12-09 | `inetLatency()` fix for alpine (linux)                                                              |
 | 5.16.4  | 2022-12-09 | `processes()` fix started (linux alpine)                                                            |
 | 5.16.3  | 2022-12-08 | `users()` fix when multiple explorer.exe (windows)                                                  |
