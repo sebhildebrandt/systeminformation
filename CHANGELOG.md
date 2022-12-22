@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.16.8  | 2022-12-22 | `processes()` params truncated fix (max OS)                                                         |
 | 5.16.7  | 2022-12-22 | `processes()` commandLine missing spaces fix (windows)                                              |
 | 5.16.6  | 2022-12-12 | `processes()` time format fix (linux)                                                               |
 | 5.16.5  | 2022-12-09 | `inetLatency()` fix for alpine (linux)                                                              |
