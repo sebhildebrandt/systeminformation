@@ -28,6 +28,29 @@
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
+## Merry Christmas and Happy new year
+
+```
+                                                          .''.
+                              .''.      .        *''*    :_\/_:
+                             :_\/_:   _\(/_  .:.*_\/_*   : /\ :
+                         .''.: /\ :   ./)\   ':'* /\ * :  '..'.
+                        :_\/_:'.:::.    ' *''*    * '.\'/.' _\(/_
+                        : /\ : :::::     *_\/_*     -= o =-  /)\
+                         '..'  ':::'     * /\ *     .'/.\'.   '
+                                          *..*         :
+                   *
+           *      /.\   *       *           .   *
+        .        /..'\     .     .     * .
+                */'.'\*       . .          .     *   *
+            *   /.''.'\    *     .  .     .   *
+      .        */.'.'.\*
+.........".""""/'.''.'.\""."."........".".".......................
+               ^^^[_]^^^*
+```
+I wish you all a Merry Christmas and a peaceful New Year 2023.
+
+## The Systeminformation Project
 This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 500 versions published, up to 5 mio downloads per month, > 100 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
 
 ## New Version 5.0
