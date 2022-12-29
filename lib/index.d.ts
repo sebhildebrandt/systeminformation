@@ -977,7 +977,7 @@ export function networkInterfaceDefault(cb?: (data: string) => any): Promise<str
 export function networkGatewayDefault(cb?: (data: string) => any): Promise<string>;
 export function networkInterfaces(
   cb?:
-    | ((data: Systeminformation.NetworkInterfacesData[]) => any)
+    | ((data: Systeminformation.NetworkInterfacesData[] | Systeminformation.NetworkInterfacesData) => any)
     | boolean
     | string,
   rescan?: boolean,
