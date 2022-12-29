@@ -982,7 +982,7 @@ export function networkInterfaces(
     | string,
   rescan?: boolean,
   defaultString?: string
-): Promise<Systeminformation.NetworkInterfacesData[]>;
+): Promise<Systeminformation.NetworkInterfacesData[] | Systeminformation.NetworkInterfacesData>;
 
 export function networkStats(ifaces?: string, cb?: (data: Systeminformation.NetworkStatsData[]) => any): Promise<Systeminformation.NetworkStatsData[]>;
 export function networkConnections(cb?: (data: Systeminformation.NetworkConnectionsData[]) => any): Promise<Systeminformation.NetworkConnectionsData[]>;
