@@ -975,7 +975,14 @@ export function diskLayout(cb?: (data: Systeminformation.DiskLayoutData[]) => an
 
 export function networkInterfaceDefault(cb?: (data: string) => any): Promise<string>;
 export function networkGatewayDefault(cb?: (data: string) => any): Promise<string>;
-export function networkInterfaces(cb?: (data: Systeminformation.NetworkInterfacesData[]) => any): Promise<Systeminformation.NetworkInterfacesData[]>;
+export function networkInterfaces(
+  cb?:
+    | ((data: Systeminformation.NetworkInterfacesData[] | Systeminformation.NetworkInterfacesData) => any)
+    | boolean
+    | string,
+  rescan?: boolean,
+  defaultString?: string
+): Promise<Systeminformation.NetworkInterfacesData[] | Systeminformation.NetworkInterfacesData>;
 
 export function networkStats(ifaces?: string, cb?: (data: Systeminformation.NetworkStatsData[]) => any): Promise<Systeminformation.NetworkStatsData[]>;
 export function networkConnections(cb?: (data: Systeminformation.NetworkConnectionsData[]) => any): Promise<Systeminformation.NetworkConnectionsData[]>;

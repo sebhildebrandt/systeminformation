@@ -28,28 +28,6 @@
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
-## Merry Christmas and Happy new year
-
-```
-                                                          .''.
-                              .''.      .        *''*    :_\/_:
-                             :_\/_:   _\(/_  .:.*_\/_*   : /\ :
-                         .''.: /\ :   ./)\   ':'* /\ * :  '..'.
-                        :_\/_:'.:::.    ' *''*    * '.\'/.' _\(/_
-                        : /\ : :::::     *_\/_*     -= o =-  /)\
-                         '..'  ':::'     * /\ *     .'/.\'.   '
-                                          *..*         :
-                   *
-           *      /.\   *       *           .   *
-        .        /..'\     .     .     * .
-                */'.'\*       . .          .     *   *
-            *   /.''.'\    *     .  .     .   *
-      .        */.'.'.\*
-.........".""""/'.''.'.\""."."........".".".......................
-               ^^^[_]^^^*
-```
-I wish you all a Merry Christmas and a peaceful New Year 2023.
-
 ## The Systeminformation Project
 This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 500 versions published, up to 5 mio downloads per month, > 100 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
 
@@ -133,6 +111,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.17.0: `graphics()` added positionX, positionY (mac OS)
 - Version 5.16.0: `fsSize()` added rw property
 - Version 5.15.0: `blockDevices()` added device
 - Version 5.14.0: `blockDevices()` added raid group member (linux)
@@ -355,8 +334,8 @@ Full function reference with examples can be found at [https://systeminformation
 |                 | ...[0].resolutionY        | X     |     | X   | X   |     | pixel vertical                              |
 |                 | ...[0].currentResX        | X     |     | X   | X   |     | current pixel horizontal                    |
 |                 | ...[0].currentResY        | X     |     | X   | X   |     | current pixel vertical                      |
-|                 | ...[0].positionX          |       |     |     | X   |     | display position X                          |
-|                 | ...[0].positionY          |       |     |     | X   |     | display position Y                          |
+|                 | ...[0].positionX          |       |     | X   | X   |     | display position X                          |
+|                 | ...[0].positionY          |       |     | X   | X   |     | display position Y                          |
 |                 | ...[0].currentRefreshRate | X     |     | X   | X   |     | current screen refresh rate                 |
 
 #### 7. Operating System
@@ -1052,7 +1031,7 @@ All other trademarks are the property of their respective owners.
 
 >The [`MIT`][license-url] License (MIT)
 >
->Copyright &copy; 2014-2022 Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com).
+>Copyright &copy; 2014-2023 Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com).
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy
 >of this software and associated documentation files (the "Software"), to deal
