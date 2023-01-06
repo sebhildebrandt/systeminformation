@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.17.1  | 2023-01-06 | `graphics()` positionX, positionY Ventura fix (max OS)                                              |
 | 5.17.0  | 2023-01-06 | `graphics()` added positionX, positionY (max OS)                                                    |
 | 5.16.9  | 2022-12-27 | updated docs                                                                                        |
 | 5.16.8  | 2022-12-22 | `processes()` params truncated fix (max OS)                                                         |
