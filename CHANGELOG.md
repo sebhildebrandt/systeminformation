@@ -82,7 +82,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.17.3  | 2023-01-10 | `processes` fix elapsed time parsing (linux)                                                        |
+| 5.17.4  | 2023-01-24 | `networkInterfaces()` sanitizing networkInterfaces device names                                     |
+| 5.17.3  | 2023-01-10 | `processes()` fix elapsed time parsing (linux)                                                      |
 | 5.17.2  | 2023-01-10 | `utils` fix killing powershell (windows)                                                            |
 | 5.17.1  | 2023-01-06 | `graphics()` positionX, positionY Ventura fix (max OS)                                              |
 | 5.17.0  | 2023-01-06 | `graphics()` added positionX, positionY (max OS)                                                    |
