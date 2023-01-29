@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.17.6  | 2023-01-29 | `processes()` fixed Node Version 8 compatibility issue                                              |
 | 5.17.5  | 2023-01-29 | `processes()` improved parsing of all services (linux)                                              |
 | 5.17.4  | 2023-01-24 | `networkInterfaces()` sanitizing networkInterfaces device names                                     |
 | 5.17.3  | 2023-01-10 | `processes()` fix elapsed time parsing (linux)                                                      |
