@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.17.8  | 2023-01-30 | `system()` improved virtual host detection for Parallels                                            |
 | 5.17.7  | 2023-01-29 | `processes()` fixed CPU usage info (windows)                                                        |
 | 5.17.6  | 2023-01-29 | `processes()` fixed Node Version 8 compatibility issue                                              |
 | 5.17.5  | 2023-01-29 | `processes()` improved parsing of all services (linux)                                              |

@@ -1023,7 +1023,7 @@ Solaris, OpenSolaris and registered trademarks of Sun Microsystems, VMware is a 
 Virtual Box is a trademark of Oracle Corporation, Xen is a registered trademark of Xen Project,
 QEMU is a trademark of Fabrice Bellard, bochs is a trademark of The Bochs Project, USB and USB Logo
 are trademarks of USB Implementation Forum, Bluetooth and Bluetooth Logo are trademarks of Bluetooth SIG,
-Android is a trademark of Google LLC.
+Android is a trademark of Google LLC, Parallels is a trademarks of Parallels International GmbH.
 
 All other trademarks are the property of their respective owners.
 
