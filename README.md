@@ -29,7 +29,7 @@
   [![MIT license][license-img]][license-url]
 
 ## The Systeminformation Project
-This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 500 versions published, up to 5 mio downloads per month, > 100 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 500 versions published, up to 6 mio downloads per month, > 130 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
 
 ## New Version 5.0
 
