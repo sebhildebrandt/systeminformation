@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.17.10 | 2023-02-23 | `blockDevices()` fixed parsing raids (linux)                                                        |
 | 5.17.9  | 2023-02-11 | `system()` fixed model Apple Silicon                                                                |
 | 5.17.8  | 2023-01-30 | `system()` improved virtual host detection for Parallels                                            |
 | 5.17.7  | 2023-01-29 | `processes()` fixed CPU usage info (windows)                                                        |
