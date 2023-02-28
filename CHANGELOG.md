@@ -82,7 +82,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.17.11 | 2023-02-27 | `blockDevices()` raid added label, uuid  (linux)                                                    |
+| 5.17.12 | 2023-02-28 | `uuid()` fix unique mac address issue (Android)                                                     |
+| 5.17.11 | 2023-02-27 | `blockDevices()` raid added label, uuid (linux)                                                     |
 | 5.17.10 | 2023-02-23 | `blockDevices()` fixed parsing raids (linux)                                                        |
 | 5.17.9  | 2023-02-11 | `system()` fixed model Apple Silicon                                                                |
 | 5.17.8  | 2023-01-30 | `system()` improved virtual host detection for Parallels                                            |
