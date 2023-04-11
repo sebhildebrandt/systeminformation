@@ -931,7 +931,7 @@ export namespace Systeminformation {
     networkConnections: NetworkConnectionsData;
     mem: MemData;
     battery: BatteryData;
-    services: ServicesData;
+    services: ServicesData[];
     fsSize: FsSizeData;
     fsStats: FsStatsData;
     disksIO: DisksIoData;
