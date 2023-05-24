@@ -492,6 +492,7 @@ export namespace Systeminformation {
   interface NetworkInterfacesData {
     iface: string;
     ifaceName: string;
+    default: boolean;
     ip4: string;
     ip4subnet: string;
     ip6: string;
@@ -924,14 +925,14 @@ export namespace Systeminformation {
     v8: string;
     cpuCurrentSpeed: CpuCurrentSpeedData;
     users: UserData[];
-    processes: ProcessesData;
+    processes: ProcessesData[];
     currentLoad: CurrentLoadData;
     cpuTemperature: CpuTemperatureData;
-    networkStats: NetworkStatsData;
-    networkConnections: NetworkConnectionsData;
+    networkStats: NetworkStatsData[];
+    networkConnections: NetworkConnectionsData[];
     mem: MemData;
     battery: BatteryData;
-    services: ServicesData;
+    services: ServicesData[];
     fsSize: FsSizeData;
     fsStats: FsStatsData;
     disksIO: DisksIoData;
