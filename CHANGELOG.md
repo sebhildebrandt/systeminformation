@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.17.14 | 2023-05-29 | `diskLayout()`, `osInfo()` fix parsing issues (mac OS)                                              |
 | 5.17.13 | 2023-05-24 | `typings` fix typings dynamicData, networkInterfaceDatass                                           |
 | 5.17.12 | 2023-02-28 | `uuid()` fix unique mac address issue (Android)                                                     |
 | 5.17.11 | 2023-02-27 | `blockDevices()` raid added label, uuid (linux)                                                     |
@@ -94,10 +95,10 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.17.4  | 2023-01-24 | `networkInterfaces()` sanitizing networkInterfaces device names                                     |
 | 5.17.3  | 2023-01-10 | `processes()` fix elapsed time parsing (linux)                                                      |
 | 5.17.2  | 2023-01-10 | `utils` fix killing powershell (windows)                                                            |
-| 5.17.1  | 2023-01-06 | `graphics()` positionX, positionY Ventura fix (max OS)                                              |
-| 5.17.0  | 2023-01-06 | `graphics()` added positionX, positionY (max OS)                                                    |
+| 5.17.1  | 2023-01-06 | `graphics()` positionX, positionY Ventura fix (mac OS)                                              |
+| 5.17.0  | 2023-01-06 | `graphics()` added positionX, positionY (mac OS)                                                    |
 | 5.16.9  | 2022-12-27 | updated docs                                                                                        |
-| 5.16.8  | 2022-12-22 | `processes()` params truncated fix (max OS)                                                         |
+| 5.16.8  | 2022-12-22 | `processes()` params truncated fix (mac OS)                                                         |
 | 5.16.7  | 2022-12-22 | `processes()` commandLine missing spaces fix (windows)                                              |
 | 5.16.6  | 2022-12-12 | `processes()` time format fix (linux)                                                               |
 | 5.16.5  | 2022-12-09 | `inetLatency()` fix for alpine (linux)                                                              |
