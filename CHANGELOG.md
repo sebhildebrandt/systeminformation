@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.17.15 | 2023-05-29 | `powershell()` added NoProfile to speed up powershell (windows)                                     |
 | 5.17.14 | 2023-05-29 | `diskLayout()`, `osInfo()` fix parsing issues (mac OS)                                              |
 | 5.17.13 | 2023-05-24 | `typings` fix typings dynamicData, networkInterfaceDatass                                           |
 | 5.17.12 | 2023-02-28 | `uuid()` fix unique mac address issue (Android)                                                     |
