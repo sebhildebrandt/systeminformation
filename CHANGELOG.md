@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.17.17 | 2023-06-03 | `osInfo()` improved fqdn (linux)                                                                    |
 | 5.17.16 | 2023-05-30 | `usb()` fix parsing JSON (mac OS)                                                                   |
 | 5.17.15 | 2023-05-29 | `powershell()` added NoProfile to speed up powershell (windows)                                     |
 | 5.17.14 | 2023-05-29 | `diskLayout()`, `osInfo()` fix parsing issues (mac OS)                                              |
