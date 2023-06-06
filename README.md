@@ -111,6 +111,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.18.0: `fsSize()` added optional drive parameter
 - Version 5.17.0: `graphics()` added positionX, positionY (mac OS)
 - Version 5.16.0: `fsSize()` added rw property
 - Version 5.15.0: `blockDevices()` added device
@@ -433,77 +434,77 @@ Full function reference with examples can be found at [https://systeminformation
 
 #### 9. File System
 
-| Function            | Result object         | Linux | BSD | Mac | Win | Sun | Comments                                                                 |
-| ------------------- | --------------------- | ----- | --- | --- | --- | --- | ------------------------------------------------------------------------ |
-| si.diskLayout(cb)   | [{...}]               | X     |     | X   | X   |     | physical disk layout (array)                                             |
-|                     | [0].device            | X     |     | X   |     |     | e.g. /dev/sda                                                            |
-|                     | [0].type              | X     |     | X   | X   |     | HD, SSD, NVMe                                                            |
-|                     | [0].name              | X     |     | X   | X   |     | disk name                                                                |
-|                     | [0].vendor            | X     |     |     | X   |     | vendor/producer                                                          |
-|                     | [0].size              | X     |     | X   | X   |     | size in bytes                                                            |
-|                     | [0].bytesPerSector    |       |     |     | X   |     | bytes per sector                                                         |
-|                     | [0].totalCylinders    |       |     |     | X   |     | total cylinders                                                          |
-|                     | [0].totalHeads        |       |     |     | X   |     | total heads                                                              |
-|                     | [0].totalSectors      |       |     |     | X   |     | total sectors                                                            |
-|                     | [0].totalTracks       |       |     |     | X   |     | total tracks                                                             |
-|                     | [0].tracksPerCylinder |       |     |     | X   |     | tracks per cylinder                                                      |
-|                     | [0].sectorsPerTrack   |       |     |     | X   |     | sectors per track                                                        |
-|                     | [0].firmwareRevision  | X     |     | X   | X   |     | firmware revision                                                        |
-|                     | [0].serialNum         | X     |     | X   | X   |     | serial number                                                            |
-|                     | [0].interfaceType     | X     |     |     | X   |     | SATA, PCIe, ...                                                          |
-|                     | [0].smartStatus       | X     |     | X   | X   |     | S.M.A.R.T Status (see Known Issues)                                      |
-|                     | [0].temperature       | X     |     |     |     |     | S.M.A.R.T temperature                                                    |
-|                     | [0].smartData         | X     |     |     | X   |     | full S.M.A.R.T data from smartctl<br>requires at least smartmontools 7.0 |
-| si.blockDevices(cb) | [{...}]               | X     |     | X   | X   |     | returns array of disks, partitions,<br>raids and roms                    |
-|                     | [0].name              | X     |     | X   | X   |     | name                                                                     |
-|                     | [0].type              | X     |     | X   | X   |     | type                                                                     |
-|                     | [0].fstype            | X     |     | X   | X   |     | file system type (e.g. ext4)                                             |
-|                     | [0].mount             | X     |     | X   | X   |     | mount point                                                              |
-|                     | [0].size              | X     |     | X   | X   |     | size in bytes                                                            |
-|                     | [0].physical          | X     |     | X   | X   |     | physical type (HDD, SSD, CD/DVD)                                         |
-|                     | [0].uuid              | X     |     | X   | X   |     | UUID                                                                     |
-|                     | [0].label             | X     |     | X   | X   |     | label                                                                    |
-|                     | [0].model             | X     |     | X   |     |     | model                                                                    |
-|                     | [0].serial            | X     |     |     | X   |     | serial                                                                   |
-|                     | [0].removable         | X     |     | X   | X   |     | serial                                                                   |
-|                     | [0].protocol          | X     |     | X   |     |     | protocol (SATA, PCI-Express, ...)                                        |
-|                     | [0].group             | X     |     |     |     |     | Raid group member (e.g. md1)                                             |
-|                     | [0].device            | X     |     | X   | X   |     | physical device mapped to (e.g. /dev/sda)                                |
-| si.disksIO(cb)      | {...}                 | X     |     | X   |     |     | current transfer stats                                                   |
-|                     | rIO                   | X     |     | X   |     |     | read IOs on all mounted drives                                           |
-|                     | wIO                   | X     |     | X   |     |     | write IOs on all mounted drives                                          |
-|                     | tIO                   | X     |     | X   |     |     | write IOs on all mounted drives                                          |
-|                     | rIO_sec               | X     |     | X   |     |     | read IO per sec (* see notes)                                            |
-|                     | wIO_sec               | X     |     | X   |     |     | write IO per sec (* see notes)                                           |
-|                     | tIO_sec               | X     |     | X   |     |     | total IO per sec (* see notes)                                           |
-|                     | rWaitTime             | X     |     |     |     |     | read IO request time (* see notes)                                       |
-|                     | wWaitTime             | X     |     |     |     |     | write IO request time (* see notes)                                      |
-|                     | tWaitTime             | X     |     |     |     |     | total IO request time (* see notes)                                      |
-|                     | rWaitPercent          | X     |     |     |     |     | read IO request time percent (* see notes)                               |
-|                     | wWaitPercent          | X     |     |     |     |     | write IO request time percent (* see notes)                              |
-|                     | tWaitPercent          | X     |     |     |     |     | total IO request time percent (* see notes)                              |
-|                     | ms                    | X     |     | X   |     |     | interval length (for per second values)                                  |
-| si.fsSize(cb)       | [{...}]               | X     | X   | X   | X   |     | returns array of mounted file systems                                    |
-|                     | [0].fs                | X     | X   | X   | X   |     | name of file system                                                      |
-|                     | [0].type              | X     | X   | X   | X   |     | type of file system                                                      |
-|                     | [0].size              | X     | X   | X   | X   |     | sizes in bytes                                                           |
-|                     | [0].used              | X     | X   | X   | X   |     | used in bytes                                                            |
-|                     | [0].available         | X     | X   | X   | X   |     | used in bytes                                                            |
-|                     | [0].use               | X     | X   | X   | X   |     | used in %                                                                |
-|                     | [0].mount             | X     | X   | X   | X   |     | mount point                                                              |
-|                     | [0].rw                | X     | X   | X   | X   |     | read and write (false if read only)                                      |
-| si.fsOpenFiles(cb)  | {...}                 | X     | X   | X   |     |     | count max/allocated file descriptors                                     |
-|                     | max                   | X     | X   | X   |     |     | max file descriptors                                                     |
-|                     | allocated             | X     | X   | X   |     |     | current open files count                                                 |
-|                     | available             | X     | X   | X   |     |     | count available                                                          |
-| si.fsStats(cb)      | {...}                 | X     |     | X   |     |     | current transfer stats                                                   |
-|                     | rx                    | X     |     | X   |     |     | bytes read since startup                                                 |
-|                     | wx                    | X     |     | X   |     |     | bytes written since startup                                              |
-|                     | tx                    | X     |     | X   |     |     | total bytes read + written since startup                                 |
-|                     | rx_sec                | X     |     | X   |     |     | bytes read / second (* see notes)                                        |
-|                     | wx_sec                | X     |     | X   |     |     | bytes written / second (* see notes)                                     |
-|                     | tx_sec                | X     |     | X   |     |     | total bytes reads + written / second                                     |
-|                     | ms                    | X     |     | X   |     |     | interval length (for per second values)                                  |
+| Function             | Result object         | Linux | BSD | Mac | Win | Sun | Comments                                                                 |
+| -------------------- | --------------------- | ----- | --- | --- | --- | --- | ------------------------------------------------------------------------ |
+| si.diskLayout(cb)    | [{...}]               | X     |     | X   | X   |     | physical disk layout (array)                                             |
+|                      | [0].device            | X     |     | X   |     |     | e.g. /dev/sda                                                            |
+|                      | [0].type              | X     |     | X   | X   |     | HD, SSD, NVMe                                                            |
+|                      | [0].name              | X     |     | X   | X   |     | disk name                                                                |
+|                      | [0].vendor            | X     |     |     | X   |     | vendor/producer                                                          |
+|                      | [0].size              | X     |     | X   | X   |     | size in bytes                                                            |
+|                      | [0].bytesPerSector    |       |     |     | X   |     | bytes per sector                                                         |
+|                      | [0].totalCylinders    |       |     |     | X   |     | total cylinders                                                          |
+|                      | [0].totalHeads        |       |     |     | X   |     | total heads                                                              |
+|                      | [0].totalSectors      |       |     |     | X   |     | total sectors                                                            |
+|                      | [0].totalTracks       |       |     |     | X   |     | total tracks                                                             |
+|                      | [0].tracksPerCylinder |       |     |     | X   |     | tracks per cylinder                                                      |
+|                      | [0].sectorsPerTrack   |       |     |     | X   |     | sectors per track                                                        |
+|                      | [0].firmwareRevision  | X     |     | X   | X   |     | firmware revision                                                        |
+|                      | [0].serialNum         | X     |     | X   | X   |     | serial number                                                            |
+|                      | [0].interfaceType     | X     |     |     | X   |     | SATA, PCIe, ...                                                          |
+|                      | [0].smartStatus       | X     |     | X   | X   |     | S.M.A.R.T Status (see Known Issues)                                      |
+|                      | [0].temperature       | X     |     |     |     |     | S.M.A.R.T temperature                                                    |
+|                      | [0].smartData         | X     |     |     | X   |     | full S.M.A.R.T data from smartctl<br>requires at least smartmontools 7.0 |
+| si.blockDevices(cb)  | [{...}]               | X     |     | X   | X   |     | returns array of disks, partitions,<br>raids and roms                    |
+|                      | [0].name              | X     |     | X   | X   |     | name                                                                     |
+|                      | [0].type              | X     |     | X   | X   |     | type                                                                     |
+|                      | [0].fstype            | X     |     | X   | X   |     | file system type (e.g. ext4)                                             |
+|                      | [0].mount             | X     |     | X   | X   |     | mount point                                                              |
+|                      | [0].size              | X     |     | X   | X   |     | size in bytes                                                            |
+|                      | [0].physical          | X     |     | X   | X   |     | physical type (HDD, SSD, CD/DVD)                                         |
+|                      | [0].uuid              | X     |     | X   | X   |     | UUID                                                                     |
+|                      | [0].label             | X     |     | X   | X   |     | label                                                                    |
+|                      | [0].model             | X     |     | X   |     |     | model                                                                    |
+|                      | [0].serial            | X     |     |     | X   |     | serial                                                                   |
+|                      | [0].removable         | X     |     | X   | X   |     | serial                                                                   |
+|                      | [0].protocol          | X     |     | X   |     |     | protocol (SATA, PCI-Express, ...)                                        |
+|                      | [0].group             | X     |     |     |     |     | Raid group member (e.g. md1)                                             |
+|                      | [0].device            | X     |     | X   | X   |     | physical device mapped to (e.g. /dev/sda)                                |
+| si.disksIO(cb)       | {...}                 | X     |     | X   |     |     | current transfer stats                                                   |
+|                      | rIO                   | X     |     | X   |     |     | read IOs on all mounted drives                                           |
+|                      | wIO                   | X     |     | X   |     |     | write IOs on all mounted drives                                          |
+|                      | tIO                   | X     |     | X   |     |     | write IOs on all mounted drives                                          |
+|                      | rIO_sec               | X     |     | X   |     |     | read IO per sec (* see notes)                                            |
+|                      | wIO_sec               | X     |     | X   |     |     | write IO per sec (* see notes)                                           |
+|                      | tIO_sec               | X     |     | X   |     |     | total IO per sec (* see notes)                                           |
+|                      | rWaitTime             | X     |     |     |     |     | read IO request time (* see notes)                                       |
+|                      | wWaitTime             | X     |     |     |     |     | write IO request time (* see notes)                                      |
+|                      | tWaitTime             | X     |     |     |     |     | total IO request time (* see notes)                                      |
+|                      | rWaitPercent          | X     |     |     |     |     | read IO request time percent (* see notes)                               |
+|                      | wWaitPercent          | X     |     |     |     |     | write IO request time percent (* see notes)                              |
+|                      | tWaitPercent          | X     |     |     |     |     | total IO request time percent (* see notes)                              |
+|                      | ms                    | X     |     | X   |     |     | interval length (for per second values)                                  |
+| si.fsSize(drive, cb) | [{...}]               | X     | X   | X   | X   |     | returns array of mounted file systems<br>drive param is optional         |
+|                      | [0].fs                | X     | X   | X   | X   |     | name of file system                                                      |
+|                      | [0].type              | X     | X   | X   | X   |     | type of file system                                                      |
+|                      | [0].size              | X     | X   | X   | X   |     | sizes in bytes                                                           |
+|                      | [0].used              | X     | X   | X   | X   |     | used in bytes                                                            |
+|                      | [0].available         | X     | X   | X   | X   |     | used in bytes                                                            |
+|                      | [0].use               | X     | X   | X   | X   |     | used in %                                                                |
+|                      | [0].mount             | X     | X   | X   | X   |     | mount point                                                              |
+|                      | [0].rw                | X     | X   | X   | X   |     | read and write (false if read only)                                      |
+| si.fsOpenFiles(cb)   | {...}                 | X     | X   | X   |     |     | count max/allocated file descriptors                                     |
+|                      | max                   | X     | X   | X   |     |     | max file descriptors                                                     |
+|                      | allocated             | X     | X   | X   |     |     | current open files count                                                 |
+|                      | available             | X     | X   | X   |     |     | count available                                                          |
+| si.fsStats(cb)       | {...}                 | X     |     | X   |     |     | current transfer stats                                                   |
+|                      | rx                    | X     |     | X   |     |     | bytes read since startup                                                 |
+|                      | wx                    | X     |     | X   |     |     | bytes written since startup                                              |
+|                      | tx                    | X     |     | X   |     |     | total bytes read + written since startup                                 |
+|                      | rx_sec                | X     |     | X   |     |     | bytes read / second (* see notes)                                        |
+|                      | wx_sec                | X     |     | X   |     |     | bytes written / second (* see notes)                                     |
+|                      | tx_sec                | X     |     | X   |     |     | total bytes reads + written / second                                     |
+|                      | ms                    | X     |     | X   |     |     | interval length (for per second values)                                  |
 
 #### 10. USB
 
