@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.18.1  | 2023-06-07 | `networkInterfaces()` cleaned up testVirtualNic                                                     |
 | 5.18.0  | 2023-06-06 | `fsSize()` added optional drive parameter                                                           |
 | 5.17.17 | 2023-06-03 | `osInfo()` improved fqdn (linux)                                                                    |
 | 5.17.16 | 2023-05-30 | `usb()` fix parsing JSON (mac OS)                                                                   |
