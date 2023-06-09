@@ -73,7 +73,7 @@ We had to make **several interface changes** to keep systeminformation as consis
 
 #### Test Full Version 5 Functionality
 
-If you want to see all function results on your machine, please head over to (Testing section)[https://systeminformation.io/tests.html]. We implemented a tiny test suite where you can easily go through all functions and test resuls on your machine without coding.
+If you want to see all function results on your machine, please head over to [Testing section](https://systeminformation.io/tests.html). We implemented a tiny test suite where you can easily go through all functions and test resuls on your machine without coding.
 
 
 For major (breaking) changes - **version 4, 3 and 2** - see end of page.
@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.18.3  | 2023-06-09 | `tests` improved key handling, updated docs                                                         |
 | 5.18.2  | 2023-06-08 | `fsSize()` improved error handling (linux alpine)                                                   |
 | 5.18.1  | 2023-06-07 | `networkInterfaces()` cleaned up testVirtualNic                                                     |
 | 5.18.0  | 2023-06-06 | `fsSize()` added optional drive parameter                                                           |

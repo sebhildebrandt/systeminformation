@@ -56,7 +56,7 @@ function test(f) {
       else if (f === ',') { si.getStaticData().then((data) => { if (data !== null) { resolve({ data, title: 'All Static Data' }); } else { resolve('not_supported'); } }); }
       else if (f === '.') { si.getDynamicData('apache2, postgres, wsearch').then((data) => { if (data !== null) { resolve({ data, title: 'All Dynamic Data' }); } else { resolve('not_supported'); } }); }
       else if (f === '/') { si.getAllData('apache2, postgres, wsearch').then((data) => { if (data !== null) { resolve({ data, title: 'All Data' }); } else { resolve('not_supported'); } }); }
-      else if (f === '?') {
+      else if (f === 'getObj') {
         const valueObject = {
           cpu: '*',
           osInfo: 'platform, release',

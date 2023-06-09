@@ -79,6 +79,7 @@ process.stdin.on('keypress', (key, data) => {
     console.time(['Time to complete']);
     startDots();
     const siPath = path.join(__dirname, 'si.js');
+    if (key === '?') { key = 'getObj'; }
     const sanitizedKey = utils.sanitizeShellString(key);
     exec(`node ${siPath} '${sanitizedKey}'`, { timeout: 30000 }, (error, stdout) => {
       waiting = false;
