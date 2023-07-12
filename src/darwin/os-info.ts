@@ -30,6 +30,8 @@ export const darwinOsInfo = async () => {
       case result.release.indexOf('10.15') > -1: result.codename = 'macOS Catalina'; break;
       case result.release.startsWith('11.'): result.codename = 'macOS Big Sur'; break;
       case result.release.startsWith('12.'): result.codename = 'macOS Monterey'; break;
+      case result.release.startsWith('13.'): result.codename = "macOS Ventura"; break;
+      case result.release.startsWith('14.'): result.codename = "macOS Sonoma"; break;
       default: result.codename = 'macOS';
     }
     result.uefi = true;
