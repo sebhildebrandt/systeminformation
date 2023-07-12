@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.18.7  | 2023-06-28 | `osInfo()` added macOS Sonoma code name (mac OS)                                                    |
 | 5.18.6  | 2023-06-28 | `graphics()` fixed catched errors (mac OS)                                                          |
 | 5.18.5  | 2023-06-26 | `cpu()` fixed parsing (mac OS)                                                                      |
 | 5.18.4  | 2023-06-22 | `graphics()` fixed parsing (mac OS)                                                                 |

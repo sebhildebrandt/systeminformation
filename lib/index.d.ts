@@ -2,6 +2,8 @@
 // Project: https://github.com/sebhildebrandt/systeminformation
 // Definitions by: sebhildebrandt <https://github.com/sebhildebrandt>
 
+/// <reference types="node" />
+
 export namespace Systeminformation {
 
   // 1. General
