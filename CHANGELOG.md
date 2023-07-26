@@ -82,7 +82,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.18.7  | 2023-07-25 | `cpu()` added AMD ZEN 4 base frequencies                                                            |
+| 5.18.9  | 2023-07-26 | `fsSize()` fixed missing rw property (windows)                                                      |
+| 5.18.8  | 2023-07-25 | `cpu()` added AMD ZEN 4 base frequencies                                                            |
 | 5.18.7  | 2023-07-12 | `osInfo()` added macOS Sonoma code name (mac OS)                                                    |
 | 5.18.6  | 2023-06-28 | `graphics()` fixed catched errors (mac OS)                                                          |
 | 5.18.5  | 2023-06-26 | `cpu()` fixed parsing (mac OS)                                                                      |
