@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.18.11 | 2023-08-04 | `bluetooth()` improved parsing, macOS Sonoma detection                                              |
 | 5.18.10 | 2023-07-28 | `cpu()` fixed cache sizes, extended sockets (windows)                                               |
 | 5.18.9  | 2023-07-26 | `fsSize()` fixed missing rw property (windows)                                                      |
 | 5.18.8  | 2023-07-25 | `cpu()` added AMD ZEN 4 base frequencies                                                            |
