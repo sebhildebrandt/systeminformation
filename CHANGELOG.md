@@ -82,6 +82,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.18.14 | 2023-08-09 | `fsSIze()` fixed syntax error                                                                       |
 | 5.18.13 | 2023-08-08 | `mem()` fixed error handling                                                                        |
 | 5.18.12 | 2023-08-05 | `fsSize()` rw /snap/ issue fixed (linux)                                                            |
 | 5.18.11 | 2023-08-04 | `bluetooth()` improved parsing, macOS Sonoma detection                                              |
