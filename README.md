@@ -31,11 +31,15 @@
 ## The Systeminformation Project
 This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 600 versions published, up to 6 mio downloads per month, > 150 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
 
+## Please support this project ... ☕️
+
+Over the past few years I spent **over 2.000 hours** working on this project and invested in hardware to be able to test on different platforms. Currently I am working very hard on the next **new version 6.0** completely rewritten in TypeScript and with a lot of new features. Any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo).
+
+**Your contribution** make it possible for me to keep working on this project, add new features and support more platforms. Thank you in advance!
+
 ## New Version 5.0
 
-The new Version 5 is here - I spent several weeks finalizing this new version. Any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)
-
-This next major version release 5.0 comes with new functionality and several improvements and changes (some of them are breaking changes!):
+The new Version 5 is here - this next major version release 5.0 comes with new functionality and several improvements and changes (some of them are breaking changes!):
 
 - added audio: get detailed audio device information
 - added bluetooth: get detailed bluetooth device information
@@ -75,8 +79,21 @@ npm install systeminformation --save
 or simpler
 
 ```bash
-npm install systeminformation
+npm i systeminformation
 ```
+
+### Give it a try with `npx`?
+
+You just want to give it a try - right from your command line without installing it? Here is how you can call it with `npx`:
+
+```
+# get basic system info (System, OS, CPU)
+npx systeminformation info
+
+# obtain all static data - may take up to 30 seconds
+npx systeminformation
+```
+
 
 #### Still need Version 4?
 
