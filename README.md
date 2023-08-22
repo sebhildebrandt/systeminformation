@@ -128,6 +128,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.19.0: `currentLoad()` added steal and guest time (linux)
 - Version 5.18.0: `fsSize()` added optional drive parameter
 - Version 5.17.0: `graphics()` added positionX, positionY (mac OS)
 - Version 5.16.0: `fsSize()` added rw property

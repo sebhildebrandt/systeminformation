@@ -48,6 +48,7 @@ We had to make **several interface changes** to keep systeminformation as consis
 - `cpu()`: added virtualization if cpu supports virtualization
 - `cpu()`: now flags are part of this function
 - `cpuTemperature()` added socket and chipset temp (linux)
+- `currentLoad()` added steal and guest time (linux)
 - `disksIO()` added wait time (linux)
 - `diskLayout()`: added USB drives (mac OS)
 - `diskLayout()`: added S.M.R.R.T. (win)
@@ -82,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.19.0  | 2023-08-22 | `currentLoad()` added steal and guest time (linux)                                                  |
 | 5.18.15 | 2023-08-10 | `npm` command extended                                                                              |
 | 5.18.14 | 2023-08-09 | `fsSIze()` fixed syntax error                                                                       |
 | 5.18.13 | 2023-08-08 | `mem()` fixed error handling                                                                        |

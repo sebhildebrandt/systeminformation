@@ -145,7 +145,27 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>CPU load system in %</td>
+                      <td>CPU load hardware interrupts in %</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>currentLoadSteal</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Time stolen by other OS running in VMs in %</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>currentLoadGuest</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>Time spent for running virtual CPU in %</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -188,6 +208,8 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
   rawCurrentLoadNice: 0,
   rawCurrentLoadIdle: 7740,
   rawCurrentLoadIrq: 0,
+  rawCurrentLoadSteal: 0,
+  rawCurrentLoadGuest: 0,
   cpus: [
     {
       load: 13.725490196078432,
@@ -196,12 +218,16 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
       loadNice: 0,
       loadIdle: 86.27450980392157,
       loadIrq: 0,
+      loadSteal: 0,
+      loadGuest: 0,
       rawLoad: 140,
       rawLoadUser: 80,
       rawLoadSystem: 60,
       rawLoadNice: 0,
       rawLoadIdle: 880,
       rawLoadIrq: 0
+      rawLoadSteal: 0
+      rawLoadGuest: 0
     },
     ...
   ]
