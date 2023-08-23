@@ -130,11 +130,11 @@ si.cpu()
 
 - Version 5.19.0: `currentLoad()` added steal and guest time (linux)
 - Version 5.18.0: `fsSize()` added optional drive parameter
-- Version 5.17.0: `graphics()` added positionX, positionY (mac OS)
+- Version 5.17.0: `graphics()` added positionX, positionY (macOS)
 - Version 5.16.0: `fsSize()` added rw property
 - Version 5.15.0: `blockDevices()` added device
 - Version 5.14.0: `blockDevices()` added raid group member (linux)
-- Version 5.13.0: `networkConnections()` added process name (mac OS)
+- Version 5.13.0: `networkConnections()` added process name (macOS)
 - Version 5.12.0: `cpu()` added performance and efficiency cores
 - Version 5.11.0: `networkInterfaces()` added default property and default parameter
 - Version 5.10.0: basic `android` support

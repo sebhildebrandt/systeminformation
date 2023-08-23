@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.19.1  | 2023-08-23 | `wifiNetworks()` improved SSID parsing (macOS)                                                      |
 | 5.19.0  | 2023-08-22 | `currentLoad()` added steal and guest time (linux)                                                  |
 | 5.18.15 | 2023-08-10 | `npm` command extended                                                                              |
 | 5.18.14 | 2023-08-09 | `fsSIze()` fixed syntax error                                                                       |
