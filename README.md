@@ -128,6 +128,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.20.0: `mem()` added writeback and dirty (linux)
 - Version 5.19.0: `currentLoad()` added steal and guest time (linux)
 - Version 5.18.0: `fsSize()` added optional drive parameter
 - Version 5.17.0: `graphics()` added positionX, positionY (macOS)
@@ -283,6 +284,8 @@ Full function reference with examples can be found at [https://systeminformation
 |                  | swaptotal             | X     | X   | X   | X   | X   |                                        |
 |                  | swapused              | X     | X   | X   | X   | X   |                                        |
 |                  | swapfree              | X     | X   | X   | X   | X   |                                        |
+|                  | writeback             | X     |     |     |     |     |                                        |
+|                  | dirty                 | X     |     |     |     |     |                                        |
 | si.memLayout(cb) | [{...}]               | X     | X   | X   | X   |     | Memory Layout (array)                  |
 |                  | [0].size              | X     | X   | X   | X   |     | size in bytes                          |
 |                  | [0].bank              | X     | X   |     | X   |     | memory bank                            |

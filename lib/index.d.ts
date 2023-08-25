@@ -126,6 +126,8 @@ export namespace Systeminformation {
     swaptotal: number;
     swapused: number;
     swapfree: number;
+    writeback: number | null;
+    dirty: number | null;
   }
 
   interface MemLayoutData {
