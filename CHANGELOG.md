@@ -83,7 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.20.1  | 2023-08-28 | `graphics()` improved vendor, model parsing (linux) `memLayout()` DDR5 detection (windows)          |
+| 5.21.0  | 2023-08-28 | `graphics()` added subvendor (linux) `memLayout()` DDR5 detection (windows)                         |
 | 5.20.0  | 2023-08-25 | `mem()` added writenack and dirty (linux)                                                           |
 | 5.19.1  | 2023-08-23 | `wifiNetworks()` improved SSID parsing (macOS)                                                      |
 | 5.19.0  | 2023-08-22 | `currentLoad()` added steal and guest time (linux)                                                  |

@@ -328,7 +328,8 @@ Full function reference with examples can be found at [https://systeminformation
 | --------------- | ------------------------- | ----- | --- | --- | --- | --- | ------------------------------------------- |
 | si.graphics(cb) | {...}                     | X     |     | X   | X   |     | arrays of graphics controllers and displays |
 |                 | controllers[]             | X     |     | X   | X   |     | graphics controllers array                  |
-|                 | ...[0].vendor             | X     |     | X   | X   |     | e.g. ATI                                    |
+|                 | ...[0].vendor             | X     |     | X   | X   |     | e.g. NVIDIA                                 |
+|                 | ...[0].subvendor          | X     |     |     |     |     | e.g. Gigabyte                               |
 |                 | ...[0].vendorId           |       |     | X   |     |     | vendor ID                                   |
 |                 | ...[0].model              | X     |     | X   | X   |     | graphics controller model                   |
 |                 | ...[0].deviceId           |       |     | X   |     |     | device ID                                   |
