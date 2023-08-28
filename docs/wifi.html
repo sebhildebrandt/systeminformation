@@ -393,10 +393,10 @@ si.wifiInterfaces().then(data => console.log(data));</code></pre class="example"
                       <td>[0].bssid</td>
                       <td>X</td>
                       <td></td>
-                      <td>X</td>
+                      <td>(X)</td>
                       <td>X</td>
                       <td></td>
-                      <td>BSSID (mac)</td>
+                      <td>BSSID (mac) - macOS only on older os versions</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -472,7 +472,7 @@ si.wifiConnections().then(data => console.log(data));</code></pre class="example
     name: 'AirPort',
     model: 'AirPort',
     ssid: 'my-own-internet',
-    bssid: '01:23:45:67:89:0a',
+    bssid: '01:23:45:67:89:0a',  // no longer supported on newer macOS versions
     channel: 36,
     frequency: 5180,
     type: '802.11',

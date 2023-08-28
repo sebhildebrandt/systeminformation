@@ -306,7 +306,7 @@ export namespace Systeminformation {
 
   interface GraphicsControllerData {
     vendor: string;
-    subvendor?: string;
+    subVendor?: string;
     vendorId?: string;
     model: string;
     deviceId?: string;

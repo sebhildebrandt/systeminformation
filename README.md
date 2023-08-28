@@ -128,6 +128,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.21.0: `graphics()` added subVendor (linux)
 - Version 5.20.0: `mem()` added writeback and dirty (linux)
 - Version 5.19.0: `currentLoad()` added steal and guest time (linux)
 - Version 5.18.0: `fsSize()` added optional drive parameter
@@ -329,7 +330,7 @@ Full function reference with examples can be found at [https://systeminformation
 | si.graphics(cb) | {...}                     | X     |     | X   | X   |     | arrays of graphics controllers and displays |
 |                 | controllers[]             | X     |     | X   | X   |     | graphics controllers array                  |
 |                 | ...[0].vendor             | X     |     | X   | X   |     | e.g. NVIDIA                                 |
-|                 | ...[0].subvendor          | X     |     |     |     |     | e.g. Gigabyte                               |
+|                 | ...[0].subVendor          | X     |     |     |     |     | e.g. Gigabyte                               |
 |                 | ...[0].vendorId           |       |     | X   |     |     | vendor ID                                   |
 |                 | ...[0].model              | X     |     | X   | X   |     | graphics controller model                   |
 |                 | ...[0].deviceId           |       |     | X   |     |     | device ID                                   |
@@ -635,38 +636,38 @@ Full function reference with examples can be found at [https://systeminformation
 
 #### 14. Wifi
 
-| Function               | Result object   | Linux | BSD | Mac | Win | Sun | Comments                          |
-| ---------------------- | --------------- | ----- | --- | --- | --- | --- | --------------------------------- |
-| si.wifiNetworks(cb)    | [{...}]         | X     |     | X   | X   |     | array of available wifi networks  |
-|                        | [0].ssid        | X     |     | X   | X   |     | Wifi network SSID                 |
-|                        | [0].bssid       | X     |     | X   | X   |     | BSSID (mac)                       |
-|                        | [0].mode        | X     |     |     |     |     | mode                              |
-|                        | [0].channel     | X     |     | X   | X   |     | channel                           |
-|                        | [0].frequency   | X     |     | X   | X   |     | frequency in MHz                  |
-|                        | [0].signalLevel | X     |     | X   | X   |     | signal level in dB                |
-|                        | [0].quality     | X     |     | X   | X   |     | quality in %                      |
-|                        | [0].security    | X     |     | X   | X   |     | array e.g. WPA, WPA-2             |
-|                        | [0].wpaFlags    | X     |     | X   | X   |     | array of WPA flags                |
-|                        | [0].rsnFlags    | X     |     |     |     |     | array of RDN flags                |
-| si.wifiInterfaces(cb)  | [{...}]         | X     |     | X   | X   |     | array of detected wifi interfaces |
-|                        | [0].id          | X     |     | X   | X   |     | ID                                |
-|                        | [0].iface       | X     |     | X   | X   |     | interface                         |
-|                        | [0].model       | X     |     | X   | X   |     | model                             |
-|                        | [0].vendor      | X     |     | X   | X   |     | vendor                            |
-|                        | [0].mac         | X     |     | X   | X   |     | MAC address                       |
-| si.wifiConnections(cb) | [{...}]         | X     |     | X   | X   |     | array of active wifi connections  |
-|                        | [0].id          | X     |     | X   | X   |     | ID                                |
-|                        | [0].iface       | X     |     | X   | X   |     | interface                         |
-|                        | [0].name        | X     |     | X   | X   |     | name                              |
-|                        | [0].mode        | X     |     | X   | X   |     | model                             |
-|                        | [0].bssid       | X     |     | X   | X   |     | BSSID (mac)                       |
-|                        | [0].mode        | X     |     |     |     |     | mode                              |
-|                        | [0].channel     | X     |     | X   | X   |     | channel                           |
-|                        | [0].frequency   | X     |     | X   | X   |     | frequency in MHz                  |
-|                        | [0].signalLevel | X     |     | X   | X   |     | signal level in dB                |
-|                        | [0].quality     | X     |     | X   | X   |     | quality in %                      |
-|                        | [0].security    | X     |     | X   | X   |     | array e.g. WPA, WPA-2             |
-|                        | [0].txRate      | X     |     | X   | X   |     | transfer rate MBit/s              |
+| Function               | Result object   | Linux | BSD | Mac | Win | Sun | Comments                                      |
+| ---------------------- | --------------- | ----- | --- | --- | --- | --- | --------------------------------------------- |
+| si.wifiNetworks(cb)    | [{...}]         | X     |     | X   | X   |     | array of available wifi networks              |
+|                        | [0].ssid        | X     |     | X   | X   |     | Wifi network SSID                             |
+|                        | [0].bssid       | X     |     | X   | X   |     | BSSID (mac)                                   |
+|                        | [0].mode        | X     |     |     |     |     | mode                                          |
+|                        | [0].channel     | X     |     | X   | X   |     | channel                                       |
+|                        | [0].frequency   | X     |     | X   | X   |     | frequency in MHz                              |
+|                        | [0].signalLevel | X     |     | X   | X   |     | signal level in dB                            |
+|                        | [0].quality     | X     |     | X   | X   |     | quality in %                                  |
+|                        | [0].security    | X     |     | X   | X   |     | array e.g. WPA, WPA-2                         |
+|                        | [0].wpaFlags    | X     |     | X   | X   |     | array of WPA flags                            |
+|                        | [0].rsnFlags    | X     |     |     |     |     | array of RDN flags                            |
+| si.wifiInterfaces(cb)  | [{...}]         | X     |     | X   | X   |     | array of detected wifi interfaces             |
+|                        | [0].id          | X     |     | X   | X   |     | ID                                            |
+|                        | [0].iface       | X     |     | X   | X   |     | interface                                     |
+|                        | [0].model       | X     |     | X   | X   |     | model                                         |
+|                        | [0].vendor      | X     |     | X   | X   |     | vendor                                        |
+|                        | [0].mac         | X     |     | X   | X   |     | MAC address                                   |
+| si.wifiConnections(cb) | [{...}]         | X     |     | X   | X   |     | array of active wifi connections              |
+|                        | [0].id          | X     |     | X   | X   |     | ID                                            |
+|                        | [0].iface       | X     |     | X   | X   |     | interface                                     |
+|                        | [0].name        | X     |     | X   | X   |     | name                                          |
+|                        | [0].mode        | X     |     | X   | X   |     | model                                         |
+|                        | [0].bssid       | X     |     | (X) | X   |     | BSSID (mac) - macOS only on older os versions |
+|                        | [0].mode        | X     |     |     |     |     | mode                                          |
+|                        | [0].channel     | X     |     | X   | X   |     | channel                                       |
+|                        | [0].frequency   | X     |     | X   | X   |     | frequency in MHz                              |
+|                        | [0].signalLevel | X     |     | X   | X   |     | signal level in dB                            |
+|                        | [0].quality     | X     |     | X   | X   |     | quality in %                                  |
+|                        | [0].security    | X     |     | X   | X   |     | array e.g. WPA, WPA-2                         |
+|                        | [0].txRate      | X     |     | X   | X   |     | transfer rate MBit/s                          |
 
 #### 15. Bluetooth
 
