@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.21.3  | 2023-08-31 | `cpuTemperature()` improved parsing for AMD (linux)                                                 |
 | 5.21.2  | 2023-08-30 | `cpuTemperature()` improved parsing for AMD (linux)                                                 |
 | 5.21.1  | 2023-08-28 | `graphics()` subVendor fix (linux)                                                                  |
 | 5.21.0  | 2023-08-28 | `graphics()` added subVendor (linux) `memLayout()` DDR5 detection (windows)                         |
