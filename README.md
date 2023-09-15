@@ -29,11 +29,11 @@
   [![MIT license][license-img]][license-url]
 
 ## The Systeminformation Project
-This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 600 versions published, up to 6 mio downloads per month, > 150 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 600 versions published, up to 8 mio downloads per month, > 200 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
 
 ## Please support this project ... ☕️
 
-Over the past few years I spent **over 2.000 hours** working on this project and invested in hardware to be able to test on different platforms. Currently I am working very hard on the next **new version 6.0** completely rewritten in TypeScript and with a lot of new features. Any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo).
+Over the past few years I spent **more than 2.000 hours** working on this project and invested in hardware to be able to test on different platforms. Currently I am working very hard on the next **new version 6.0** completely rewritten in TypeScript and with a lot of new features. Any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo).
 
 **Your contribution** make it possible for me to keep working on this project, add new features and support more platforms. Thank you in advance!
 

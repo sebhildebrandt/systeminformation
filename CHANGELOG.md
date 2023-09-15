@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.21.5  | 2023-09-15 | `chassis()`, `baseboard()` improved parsing (windows)                                               |
 | 5.21.4  | 2023-09-02 | `wifiConnections()` fixed when no wifi chip (macOS)                                                 |
 | 5.21.3  | 2023-08-31 | `cpuTemperature()` improved parsing for AMD (linux)                                                 |
 | 5.21.2  | 2023-08-30 | `cpuTemperature()` improved parsing for AMD (linux)                                                 |
