@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.21.8  | 2023-09-20 | `battery()` fixed parsing (linux)                                                                   |
 | 5.21.7  | 2023-09-19 | `wifiConnections()` `wifiNetworks()` fixed security issue (linux)                                   |
 | 5.21.6  | 2023-09-18 | `baseboard()` improved parsing (windows)                                                            |
 | 5.21.5  | 2023-09-15 | `chassis()`, `baseboard()` improved parsing (windows)                                               |
