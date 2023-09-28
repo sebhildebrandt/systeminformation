@@ -60,7 +60,7 @@
                 <p>We had an issue that there was a possibility to perform a potential command injection possibility by crafting detected SSIDs in <span class="code">wifiConnections()</span>, <span class="code">wifiNetworks()</span>.</p>
 
                 <h4>Patch</h4>
-                <p>Problem was fixed with parameter checking. Please upgrade to version >= 5.7.21 (or >= 4.34.22 if you are using version 4).</p>
+                <p>Problem was fixed with parameter checking. If you are using version 5, please upgrade to version >= 5.7.21 (version 4 is not affected).</p>
 
                 <h4>Workaround</h4>
                 <p>If you cannot upgrade, be sure to check or sanitize parameter strings that are passed to <span class="code">wifiConnections()</span>, <span class="code">wifiNetworks()</span> (string only)</p>
