@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.21.12 | 2023-10-17 | `system()` raspberry CM4S detection                                                                 |
 | 5.21.11 | 2023-10-05 | `osInfo()` fix getLogoFile (BSD)                                                                    |
 | 5.21.10 | 2023-10-04 | `wifiNetworks()` improved parsing (macOS)                                                           |
 | 5.21.9  | 2023-09-25 | `general` code cleanup                                                                              |
