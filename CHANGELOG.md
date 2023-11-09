@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.21.16 | 2023-11-09 | `currentLoad()` improved parsing (linux)                                                            |
 | 5.21.15 | 2023-10-27 | `wifiConnections()` improved parsing (linux)                                                        |
 | 5.21.14 | 2023-10-26 | `execSync()` added explicit encoding (linux)                                                        |
 | 5.21.13 | 2023-10-21 | `system()` Raspberry Pi 5 detection                                                                 |

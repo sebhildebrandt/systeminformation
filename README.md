@@ -29,7 +29,7 @@
   [![MIT license][license-img]][license-url]
 
 ## The Systeminformation Project
-This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 600 versions published, up to 8 mio downloads per month, > 200 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 600 versions published, up to 8 mio downloads per month, > 220 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
 
 ## Please support this project ... ☕️
 
@@ -50,7 +50,7 @@ The new Version 5 is here - this next major version release 5.0 comes with new f
 - better uuid function to get unique hardware and OS UUIDs
 - better/extended cpu info detection
 - better/extended system info detection
-- Apple Silicon M1 support
+- Apple Silicon M1/M2/M3 support
 - better Raspberry-PI detection
 - systeminformation website updated and extended with full documentation and examples [systeminformation.io][systeminformation-url]
 - lot of minor improvements
@@ -935,7 +935,7 @@ To be able to measure temperature on macOS I created a little additional package
 in NPM with `optionalDependencies` I unfortunately was getting unexpected warnings on other platforms.
 So I decided to drop this optional dependency for macOS - so by default, you will not get correct values.
 
-This additional package is now also supporting Apple Silicon M1 machines.
+This additional package is now also supporting Apple Silicon M1/M2/M3 machines.
 
 But if you need to detect macOS temperature just run the following additional
 installation command:
