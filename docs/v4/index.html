@@ -63,8 +63,8 @@
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          var package = JSON.parse(this.responseText);
-          document.getElementById("version").innerHTML = package.version;
+          var packageVersion = JSON.parse(this.responseText);
+          document.getElementById("version").innerHTML = packageVersion.version;
         }
       };
       xhttp.open("GET", "https://registry.npmjs.org/systeminformation/latest", true);
@@ -78,9 +78,9 @@
         backDelay: 1200,
 
       };
-      var typed = new Typed('#typed', options);
+      return new Typed('#typed', options);
     }
-    function scrollIt(destination, duration = 200, easing = 'linear', callback) {
+    function scrollIt(destination, duration, easing, callback) {
 
       const easings = {
         linear(t) {
