@@ -48,24 +48,20 @@ h4 {
 .bg-image-full {
   background-color: #1a1f30; /* For browsers that do not support gradients */
   background-image: linear-gradient(210deg, #2a2d66, #060520); /* Standard syntax (must be last) */
+  background-image: url("assets/cpu.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("assets/cpu.jpg");
-  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
   -o-background-size: cover;
-  height: 100vh;
+  height: 100svh;
   opacity: 0.95;
   display: flex;
   justify-content: center;
   text-align: center;
   width: 100% !important;
   flex-direction: column;
-}
-@media only screen and (max-width: 480px) {
-  .bg-image-full {
-    height: calc(var(--vh, 1vh) * 100);
-  }
 }
 @media only screen and (min-height: 1100px) {
   .bg-image-full {

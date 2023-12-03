@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.21.19 | 2023-12-03 | fix typescript typings                                                                              |
 | 5.21.18 | 2023-11-24 | `networkConnections()` fix truncated ip6 addr (macOS)                                               |
 | 5.21.17 | 2023-11-11 | `system()` Raspberry Pi 5 name fix                                                                  |
 | 5.21.16 | 2023-11-09 | `currentLoad()` improved parsing (linux)                                                            |

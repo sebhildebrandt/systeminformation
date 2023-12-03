@@ -37,17 +37,12 @@ h4 {
   background-image: linear-gradient(210deg, #4b2313, #2c0c0a); /* Standard syntax (must be last) */
   background-size: cover;
   -o-background-size: cover;
-  height: 100vh;
+  height: 100svh;
   opacity: 0.95;
   display: flex;
   justify-content: center;
   text-align: center;
   flex-direction: column;
-}
-@media only screen and (max-width: 480px) {
-  .bg-image-full {
-    height: calc(var(--vh, 1vh) * 100);
-  }
 }
 @media only screen and (min-height: 1100px) {
   .bg-image-full {

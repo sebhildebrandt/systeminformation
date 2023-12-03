@@ -38,24 +38,17 @@ h4 {
   padding-bottom: 30px;
 }
 .bg-image-full {
-  // background: no-repeat center center scroll;
   background-color: #1a1f30; /* For browsers that do not support gradients */
   background-image: linear-gradient(210deg, #2a2d66, #060520); /* Standard syntax (must be last) */
-
+  background-image: url("assets/cpu.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("assets/cpu.jpg");
 
   -webkit-background-size: cover;
   -moz-background-size: cover;
-  background-size: cover;
   -o-background-size: cover;
-  height: 100vh; //calc(100vh);
-  // height: calc(var(--vh, 1vh) * 100);
-  @media only screen and (max-width: 480px) {
-    height: calc(var(--vh, 1vh) * 100);
-  }
+  height: 100svh;
 
   @media only screen and (min-height: 1100px) {
     max-height: 900px;
@@ -70,7 +63,6 @@ h4 {
   justify-content: center;
   text-align: center;
   width: 100% !important;
-  // align-items: center;
   flex-direction: column;
   .top-container {
     text-align: center;
@@ -242,13 +234,6 @@ h4 {
   }
 }
 
-// a[ id="quickstart" ]:target ~ #main div.row {
-//     transform: translateY( -500px );
-// }
-
-// #quickstart {
-//   background-color: #ff3333;
-// }
 .nav {
   background: no-repeat center center scroll;
   background-color: #1a1f30; /* For browsers that do not support gradients */
