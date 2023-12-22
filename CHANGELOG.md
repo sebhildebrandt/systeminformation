@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.21.22 | 2023-12-22 | `README.md` updated docs and HTML                                                                   |
 | 5.21.21 | 2023-12-21 | added end of year message                                                                           |
 | 5.21.20 | 2023-12-03 | `powerShell()` fix invalid pattern (windows)                                                        |
 | 5.21.19 | 2023-12-03 | fix typescript typings                                                                              |
