@@ -28,28 +28,6 @@
   [![Caretaker][caretaker-image]][caretaker-url]
   [![MIT license][license-img]][license-url]
 
-### Merry Christmas and Happy new year
-
-```
-                                                    .''.
-                        .''.      .        *''*    :_\/_:
-                       :_\/_:   _\(/_  .:.*_\/_*   : /\ :
-                   .''.: /\ :   ./)\   ':'* /\ * :  '..'.
-                  :_\/_:'.:::.    ' *''*    * '.\'/.' _\(/_
-                  : /\ : :::::     *_\/_*     -= o =-  /)\
-                   '..'  ':::'     * /\ *     .'/.\'.   '
-                                    *..*         :
-             *
-     *      /.\   *       *           .   *
-  .        /..'\     .     .     * .
-          */'.'\*       . .          .     *   *
-      *   /.''.'\    *     .  .     .   *
-.        */.'.'.\*
-...".""""/'.''.'.\""."."...
-         ^^^[_]^^^*
-```
-I wish you all a Merry Christmas and a peaceful New Year 2024.
-
 ## The Systeminformation Project
 This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 600 versions published, up to 8 mio downloads per month, > 220 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
 
@@ -1077,7 +1055,7 @@ All other trademarks are the property of their respective owners.
 
 >The [`MIT`][license-url] License (MIT)
 >
->Copyright &copy; 2014-2023 Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com).
+>Copyright &copy; 2014-2024 Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com).
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy
 >of this software and associated documentation files (the "Software"), to deal
