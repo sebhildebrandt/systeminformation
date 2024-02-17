@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.21.25 | 2024-02-17 | `wifiConnections()` fixed signal strength (windows)                                                 |
 | 5.21.24 | 2024-01-21 | `osInfo()` improved release version parsing (linux)                                                 |
 | 5.21.23 | 2024-01-20 | `cpu()` improved CPU speed parsing (linux)                                                          |
 | 5.21.22 | 2023-12-22 | `README.md` updated docs and HTML                                                                   |
