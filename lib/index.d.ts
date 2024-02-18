@@ -576,10 +576,11 @@ export namespace Systeminformation {
     ssid: string;
     bssid: string;
     channel: number;
+    frequency: number;
     type: string;
     security: string;
-    frequency: number;
     signalLevel: number;
+    quality: number;
     txRate: number;
   }
 

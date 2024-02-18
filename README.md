@@ -128,6 +128,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.22.0: `wifiConnections()` added signal quality
 - Version 5.21.0: `graphics()` added subVendor (linux)
 - Version 5.20.0: `mem()` added writeback and dirty (linux)
 - Version 5.19.0: `currentLoad()` added steal and guest time (linux)
@@ -658,15 +659,15 @@ Full function reference with examples can be found at [https://systeminformation
 | si.wifiConnections(cb) | [{...}]         | X     |     | X   | X   |     | array of active wifi connections              |
 |                        | [0].id          | X     |     | X   | X   |     | ID                                            |
 |                        | [0].iface       | X     |     | X   | X   |     | interface                                     |
-|                        | [0].name        | X     |     | X   | X   |     | name                                          |
-|                        | [0].mode        | X     |     | X   | X   |     | model                                         |
+|                        | [0].model       | X     |     | X   | X   |     | model                                         |
+|                        | [0].ssid        | X     |     | X   | X   |     | SSID                                          |
 |                        | [0].bssid       | X     |     | (X) | X   |     | BSSID (mac) - macOS only on older os versions |
-|                        | [0].mode        | X     |     |     |     |     | mode                                          |
 |                        | [0].channel     | X     |     | X   | X   |     | channel                                       |
 |                        | [0].frequency   | X     |     | X   | X   |     | frequency in MHz                              |
+|                        | [0].type        | X     |     | X   | X   |     | e.g. 802.11                                   |
+|                        | [0].security    | X     |     | X   | X   |     | array e.g. WPA, WPA-2                         |
 |                        | [0].signalLevel | X     |     | X   | X   |     | signal level in dB                            |
 |                        | [0].quality     | X     |     | X   | X   |     | quality in %                                  |
-|                        | [0].security    | X     |     | X   | X   |     | array e.g. WPA, WPA-2                         |
 |                        | [0].txRate      | X     |     | X   | X   |     | transfer rate MBit/s                          |
 
 #### 15. Bluetooth
