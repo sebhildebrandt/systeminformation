@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.22.4  | 2024-03-16 | `uuid()` improved parsing machine id (linux)                                                        |
 | 5.22.3  | 2024-03-15 | `chassis()` improved parsing memory bank (windows)                                                  |
 | 5.22.2  | 2024-03-14 | `chassis()` type, assetTag, sku improved parsing (macOS)                                            |
 | 5.22.1  | 2024-03-12 | `wifiConnections()` patch for mac OS Sonome 14.4 (macOS)                                            |
