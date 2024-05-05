@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.22.8  | 2024-05-05 | `utils()` replaces deprecated util._extend()                                                        |
 | 5.22.7  | 2024-04-02 | `battery()` fixed designed capacity issue (windows)                                                 |
 | 5.22.6  | 2024-03-20 | `networkInterfaces()` fixed speed of not connected interfaces (windows)                             |
 | 5.22.5  | 2024-03-19 | `wifiConnections()` fixed formatting bssid (macOS)                                                  |
