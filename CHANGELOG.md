@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.22.9  | 2024-05-31 | `powerShellStart()` fixed kill issue                                                                |
 | 5.22.9  | 2024-05-13 | `memLayout()` fixed typo manufacturer                                                               |
 | 5.22.8  | 2024-05-05 | `utils()` replaces deprecated util._extend()                                                        |
 | 5.22.7  | 2024-04-02 | `battery()` fixed designed capacity issue (windows)                                                 |
