@@ -545,7 +545,7 @@ Full function reference with examples can be found at [https://systeminformation
 |            | [0].manufacturer | X     |     | X   | X   |     | manufacturer             |
 |            | [0].maxPower     | X     |     |     |     |     | max power                |
 |            | [0].default      | X     |     | X   | X   |     | is default printer       |
-|            | [0].serialNumber |       |     | X   |     |     | serial number            |
+|            | [0].serialNumber | X     |     | X   |     |     | serial number            |
 
 #### 11. Printer
 
