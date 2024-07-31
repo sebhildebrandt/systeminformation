@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.23.1  | 2024-07-31 | `disklayout()` updated docs (macOS)                                                                 |
 | 5.23.0  | 2024-07-31 | `usb()` added serialNumber (linux)                                                                  |
 | 5.22.11 | 2024-06-10 | `osInfo()` added macOS Sequoia                                                                      |
 | 5.22.10 | 2024-05-31 | `powerShellStart()` fixed kill issue                                                                |

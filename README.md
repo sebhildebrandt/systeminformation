@@ -29,7 +29,7 @@
   [![MIT license][license-img]][license-url]
 
 ## The Systeminformation Project
-This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 600 versions published, up to 8 mio downloads per month, > 220 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
+This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 600 versions published, up to 8 mio downloads per month, > 300 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
 
 ## Please support this project ... ☕️
 
@@ -475,7 +475,7 @@ Full function reference with examples can be found at [https://systeminformation
 |                      | [0].sectorsPerTrack   |       |     |     | X   |     | sectors per track                                                        |
 |                      | [0].firmwareRevision  | X     |     | X   | X   |     | firmware revision                                                        |
 |                      | [0].serialNum         | X     |     | X   | X   |     | serial number                                                            |
-|                      | [0].interfaceType     | X     |     |     | X   |     | SATA, PCIe, ...                                                          |
+|                      | [0].interfaceType     | X     |     | X   | X   |     | SATA, PCIe, ...                                                          |
 |                      | [0].smartStatus       | X     |     | X   | X   |     | S.M.A.R.T Status (see Known Issues)                                      |
 |                      | [0].temperature       | X     |     |     |     |     | S.M.A.R.T temperature                                                    |
 |                      | [0].smartData         | X     |     |     | X   |     | full S.M.A.R.T data from smartctl<br>requires at least smartmontools 7.0 |
