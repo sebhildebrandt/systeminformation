@@ -128,6 +128,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.23.0: `usb()` added serial number (linux)
 - Version 5.22.0: `wifiConnections()` added signal quality
 - Version 5.21.0: `graphics()` added subVendor (linux)
 - Version 5.20.0: `mem()` added writeback and dirty (linux)
