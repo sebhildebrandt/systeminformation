@@ -83,6 +83,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.23.3  | 2024-08-02 | `usb()` fixed duplicate entries (windows)                                                           |
 | 5.23.2  | 2024-08-01 | `execSync()` fixed EFAULT (linux)                                                                   |
 | 5.23.1  | 2024-07-31 | `disklayout()` updated docs (macOS)                                                                 |
 | 5.23.0  | 2024-07-31 | `usb()` added serialNumber (linux)                                                                  |
