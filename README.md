@@ -478,8 +478,8 @@ Full function reference with examples can be found at [https://systeminformation
 |                      | [0].serialNum         | X     |     | X   | X   |     | serial number                                                            |
 |                      | [0].interfaceType     | X     |     | X   | X   |     | SATA, PCIe, ...                                                          |
 |                      | [0].smartStatus       | X     |     | X   | X   |     | S.M.A.R.T Status (see Known Issues)                                      |
-|                      | [0].temperature       | X     |     |     |     |     | S.M.A.R.T temperature                                                    |
-|                      | [0].smartData         | X     |     |     | X   |     | full S.M.A.R.T data from smartctl<br>requires at least smartmontools 7.0 |
+|                      | [0].temperature       | X     |     | X   |     |     | S.M.A.R.T temperature                                                    |
+|                      | [0].smartData         | X     |     | X   | X   |     | full S.M.A.R.T data from smartctl<br>requires at least smartmontools 7.0 |
 | si.blockDevices(cb)  | [{...}]               | X     |     | X   | X   |     | returns array of disks, partitions,<br>raids and roms                    |
 |                      | [0].name              | X     |     | X   | X   |     | name                                                                     |
 |                      | [0].type              | X     |     | X   | X   |     | type                                                                     |
@@ -960,9 +960,9 @@ In some cases we also discovered that `get-WmiObject` returned incorrect tempera
 In some cases you need to install the Linux `sensors` package to be able to measure temperature
 e.g. on DEBIAN based systems by running `sudo apt-get install lm-sensors`
 
-#### Linux S.M.A.R.T. Status
+#### Linux/macOS S.M.A.R.T. Status
 
-To be able to detect S.M.A.R.T. status on Linux you need to install `smartmontools`. On DEBIAN based Linux distributions you can install it by running `sudo apt-get install smartmontools`
+To be able to detect S.M.A.R.T. status on Linux or macOS you need to install `smartmontools`. On DEBIAN based Linux distributions you can install it by running `sudo apt-get install smartmontools`.  On macOS you can install it via Homebrew by running `brew install smartmontools`.
 
 #### Windows Encoding Issues
 I now reimplemented all windows functions to avoid encoding problems (special chacarters). And as Windows 11 now dropped `wmic` support, I had to move completely to `powershell`. Be sure that powershell version 5+ is installed on your machine. On older Windows versions (7, 8) you might still see encoding problems due to the old powershell version.
