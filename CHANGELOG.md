@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.23.7  | 2024-12-09 | `networkInterfaces()` sanitizing SSID names (windows)                                               |
 | 5.23.6  | 2024-12-08 | `system()` added Raspberry CM5 detection                                                            |
 | 5.23.5  | 2024-08-21 | `processLoad()` fixed * process list (linux)                                                        |
 | 5.23.4  | 2024-08-06 | `baseboard()` `chassis()` cleaned defaults (linux)                                                  |
