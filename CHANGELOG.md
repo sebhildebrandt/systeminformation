@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.23.9  | 2024-12-11 | `typings` added definitions with overload                                                           |
 | 5.23.8  | 2024-12-10 | `system()` added Raspberry 500 detection                                                            |
 | 5.23.7  | 2024-12-09 | `networkInterfaces()` sanitizing SSID names (windows)                                               |
 | 5.23.6  | 2024-12-08 | `system()` added Raspberry CM5 detection                                                            |
