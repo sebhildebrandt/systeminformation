@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.23.11 | 2024-12-13 | `networkConnections()` fixed wrond PID parsing (macOS)                                              |
 | 5.23.10 | 2024-12-12 | `time()` changed retrieval of timezones (linux, macOS)                                              |
 | 5.23.9  | 2024-12-11 | `typings` added definitions with overload                                                           |
 | 5.23.8  | 2024-12-10 | `system()` added Raspberry 500 detection                                                            |
