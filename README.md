@@ -19,31 +19,64 @@
   <a href="https://github.com/sebhildebrandt/systeminformation/blob/master/CHANGELOG.md">Changelog</a>
 </p>
 
-  [![NPM Version][npm-image]][npm-url]
-  [![NPM Downloads][downloads-image]][downloads-url]
-  [![Git Issues][issues-img]][issues-url]
-  [![Closed Issues][closed-issues-img]][closed-issues-url]
-  <img src="docs/assets/no-dependencies.svg" alt="no dependencies">
-  [![Sponsoring][sponsor-badge]][sponsor-url]
-  [![Caretaker][caretaker-image]][caretaker-url]
-  [![MIT license][license-img]][license-url]
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Git Issues][issues-img]][issues-url]
+[![Closed Issues][closed-issues-img]][closed-issues-url]
+<img src="docs/assets/no-dependencies.svg" alt="no dependencies">
+[![Sponsoring][sponsor-badge]][sponsor-url]
+[![Caretaker][caretaker-image]][caretaker-url]
+[![MIT license][license-img]][license-url]
 
 ## The Systeminformation Project
-This is amazing. Started as a small project just for myself, it now has > 15,000 lines of code, > 600 versions published, up to 8 mio downloads per month, > 300 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who contributed to this project!
+
+```
+                                                          .''.
+                              .''.      .        *''*    :_\/_:
+                             :_\/_:   _\(/_  .:.*_\/_*   : /\ :
+                         .''.: /\ :   ./)\   ':'* /\ * :  '..'.
+                        :_\/_:'.:::.    ' *''*    * '.\'/.' _\(/_
+                        : /\ : :::::     *_\/_*     -= o =-  /)\
+                         '..'  ':::'     * /\ *     .'/.\'.   '
+                                          *..*         :
+                   *
+           *      /.\   *       *           .   *
+        .        /..'\     .     .     * .
+                */'.'\*       . .          .     *   *
+            *   /.''.'\    *     .  .     .   *
+      .        */.'.'.\*
+.........".""""/'.''.'.\""."."........".".".......................
+               ^^^[_]^^^*
+```
+
+I wish you all a Merry Christmas and a peaceful New Year 2025.
+
+This is amazing. Started as a small project just for myself, it now has > 15,000
+lines of code, > 650 versions published, up to 8 mio downloads per month, > 330
+mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who
+contributed to this project!
 
 ## Please support this project ... ☕️
 
-Over the past few years I spent **more than 2.000 hours** working on this project and invested in hardware to be able to test on different platforms. Currently I am working very hard on the next **new version 6.0** completely rewritten in TypeScript and with a lot of new features. Any support is highly appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo).
+Over the past few years I spent **more than 3.000 hours** working on this
+project and invested in hardware to be able to test on different platforms.
+Currently I am working very hard on the next **new version 6.0** completely
+rewritten in TypeScript and with a lot of new features. Any support is highly
+appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo).
 
-**Your contribution** make it possible for me to keep working on this project, add new features and support more platforms. Thank you in advance!
+**Your contribution** make it possible for me to keep working on this project,
+add new features and support more platforms. Thank you in advance!
 
 ## New Version 5.0
 
-The new Version 5 is here - this next major version release 5.0 comes with new functionality and several improvements and changes (some of them are breaking changes!):
+The new Version 5 is here - this next major version release 5.0 comes with new
+functionality and several improvements and changes (some of them are breaking
+changes!):
 
 - added audio: get detailed audio device information
 - added bluetooth: get detailed bluetooth device information
-- added dockerImages, dockerVolumes: get detailed information about docker images and volumes
+- added dockerImages, dockerVolumes: get detailed information about docker
+  images and volumes
 - added printer: get information from detected printers
 - added usb: get detailed usb controller and device information
 - added wifi interfaces and connections: extended wifi information
@@ -52,23 +85,32 @@ The new Version 5 is here - this next major version release 5.0 comes with new f
 - better/extended system info detection
 - Apple Silicon M1/M2/M3 support
 - better Raspberry-PI detection
-- systeminformation website updated and extended with full documentation and examples [systeminformation.io][systeminformation-url]
+- systeminformation website updated and extended with full documentation and
+  examples [systeminformation.io][systeminformation-url]
 - lot of minor improvements
 
-Breaking Changes in version 5: you will see several breaking changes for the sake of a more consistent API interface and to be future proof. Read the [detailed version 5 changes][changes5-url].
+Breaking Changes in version 5: you will see several breaking changes for the
+sake of a more consistent API interface and to be future proof. Read the
+[detailed version 5 changes][changes5-url].
 
-I did a lot of testing on different platforms and machines but of course there might be some issues that I am not aware of. I would be happy if you inform me when you discover any issues. Issues can be [opened here][new-issue].
+I did a lot of testing on different platforms and machines but of course there
+might be some issues that I am not aware of. I would be happy if you inform me
+when you discover any issues. Issues can be [opened here][new-issue].
 
 ## Quick Start
 
-Lightweight collection of 50+ functions to retrieve detailed hardware, system and OS information.
+Lightweight collection of 50+ functions to retrieve detailed hardware, system
+and OS information.
 
 - simple to use
-- get detailed information about system, cpu, baseboard, battery, memory, disks/filesystem, network, docker, software, services and processes
-- supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD, SunOS and Android support
+- get detailed information about system, cpu, baseboard, battery, memory,
+  disks/filesystem, network, docker, software, services and processes
+- supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD, SunOS and
+  Android support
 - no npm dependencies
 
-**Attention**: this is a `node.js` library. It is supposed to be used as a backend/server-side library and will definitely not work within a browser.
+**Attention**: this is a `node.js` library. It is supposed to be used as a
+backend/server-side library and will definitely not work within a browser.
 
 ### Installation
 
@@ -84,7 +126,8 @@ npm i systeminformation
 
 ### Give it a try with `npx`?
 
-You just want to give it a try - right from your command line without installing it? Here is how you can call it with `npx`:
+You just want to give it a try - right from your command line without installing
+it? Here is how you can call it with `npx`:
 
 ```
 # get basic system info (System, OS, CPU)
@@ -94,10 +137,10 @@ npx systeminformation info
 npx systeminformation
 ```
 
-
 #### Still need Version 4?
 
-If you need version 4 (for compatibility reasons), you can install version 4 (latest release) like this
+If you need version 4 (for compatibility reasons), you can install version 4
+(latest release) like this
 
 ```bash
 npm install systeminformation@4 —save
@@ -111,15 +154,16 @@ npm install systeminformation@4
 
 ### Usage
 
-All functions (except `version` and `time`) are implemented as asynchronous functions. Here a small example how to use them:
+All functions (except `version` and `time`) are implemented as asynchronous
+functions. Here a small example how to use them:
 
 ```js
-const si = require('systeminformation');
+const si = require("systeminformation");
 
 // promises style - new since version 3
 si.cpu()
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));
 ```
 
 ## News and Changes
@@ -140,7 +184,8 @@ si.cpu()
 - Version 5.14.0: `blockDevices()` added raid group member (linux)
 - Version 5.13.0: `networkConnections()` added process name (macOS)
 - Version 5.12.0: `cpu()` added performance and efficiency cores
-- Version 5.11.0: `networkInterfaces()` added default property and default parameter
+- Version 5.11.0: `networkInterfaces()` added default property and default
+  parameter
 - Version 5.10.0: basic `android` support
 - Version 5.9.0: `graphics()` added properties (macOS)
 - Version 5.8.0: `disksIO()` added waitTime, waitPercent (linux)
@@ -150,29 +195,41 @@ si.cpu()
 - Version 5.4.0: `dockerImages()` added
 - Version 5.3.0: `osInfo()` added remoteSession (win only)
 - Version 5.2.0: `wifiInterfaces()` and `wifiConnections()` added
-- Version 5.1.0: `memLayout()` added ECC flag, `bios()` added language, features (linux)
-- Version 5.0.0: new version 5 - attention there are some breaking changes. See [detailed version 5 changes here][changes5-url].
+- Version 5.1.0: `memLayout()` added ECC flag, `bios()` added language, features
+  (linux)
+- Version 5.0.0: new version 5 - attention there are some breaking changes. See
+  [detailed version 5 changes here][changes5-url].
 - ...
 
 You can find all changes here: [detailed changelog][changelog-url]
 
 ## Core concept
 
-[Node.js][nodejs-url] comes with some basic OS information, but I always wanted a little more. So I came up to write this little library. This library is still a work in progress. It is supposed to be used as a backend/server-side library (it will definitely not work within a browser). It requires node.js version 4.0 and above.
+[Node.js][nodejs-url] comes with some basic OS information, but I always wanted
+a little more. So I came up to write this little library. This library is still
+a work in progress. It is supposed to be used as a backend/server-side library
+(it will definitely not work within a browser). It requires node.js version 4.0
+and above.
 
-I was able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra, Mojave, Catalina, Big Sur) and some Windows 7, Windows 8, Windows 10, FreeBSD, OpenBSD, NetBSD and SunOS machines. Not all functions are supported on all operating systems. Have a look at the function reference in the docs to get further details.
+I was able to test it on several Debian, Raspbian, Ubuntu distributions as well
+as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra, Mojave,
+Catalina, Big Sur) and some Windows 7, Windows 8, Windows 10, FreeBSD, OpenBSD,
+NetBSD and SunOS machines. Not all functions are supported on all operating
+systems. Have a look at the function reference in the docs to get further
+details.
 
 If you have comments, suggestions & reports, please feel free to contact me!
 
-
-I also created a nice little command line tool called [mmon][mmon-github-url] (micro-monitor) for Linux and macOS, also available via [github][mmon-github-url] and [npm][mmon-npm-url]
-
+I also created a nice little command line tool called [mmon][mmon-github-url]
+(micro-monitor) for Linux and macOS, also available via
+[github][mmon-github-url] and [npm][mmon-npm-url]
 
 ## Reference
 
 ### Function Reference and OS Support
 
-Full function reference with examples can be found at [https://systeminformation.io][systeminformation-url].
+Full function reference with examples can be found at
+[https://systeminformation.io][systeminformation-url].
 
 #### 1. General
 
@@ -323,7 +380,8 @@ Full function reference with examples can be found at [https://systeminformation
 |                | manufacturer     | X     |     | X   |     |     | manufacturer                      |
 |                | serial           | X     |     | X   |     |     | battery serial                    |
 
-* See known issues if you have a problem with macOS temperature or windows temperature
+- See known issues if you have a problem with macOS temperature or windows
+  temperature
 
 #### 6. Graphics
 
@@ -800,7 +858,7 @@ Full function reference with examples can be found at [https://systeminformation
 |                                     | [0].rss             | X                                   | X   | X   | X   | X   | resident set size                                                                                             |
 |                                     | [0].vsz             | X                                   | X   | X   | X   | X   | virtual size in Kbytes                                                                                        |
 |                                     | [0].command         | X                                   | X   | X   | X   | X   | command and arguments                                                                                         |
-| si.dockerVolumes(cb)                | [{...}]             | returns array of all docker volumes |
+| si.dockerVolumes(cb)                | [{...}]             | returns array of all docker volumes |     |     |     |     |                                                                                                               |
 |                                     | [0].name            | X                                   | X   | X   | X   | X   | volume name                                                                                                   |
 |                                     | [0].driver          | X                                   | X   | X   | X   | X   | driver                                                                                                        |
 |                                     | [0].labels          | X                                   | X   | X   | X   | X   | labels object                                                                                                 |
@@ -857,74 +915,78 @@ Full function reference with examples can be found at [https://systeminformation
 | Function                            | Result object | Linux | BSD | Mac | Win | Sun | Comments                                                                                                                                                                                                    |
 | ----------------------------------- | ------------- | ----- | --- | --- | --- | --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | si.getStaticData(cb)                | {...}         | X     | X   | X   | X   | X   | all static data at once                                                                                                                                                                                     |
-| si.getDynamicData(srv,iface,cb)     | {...}         | X     | X   | X   | X   | X   | all dynamic data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "*" for ALL services (linux/win only)<br>Pass "*" for ALL network interfaces |
-| si.getAllData(srv,iface,cb)         | {...}         | X     | X   | X   | X   | X   | all data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "*" for ALL services (linux/win only)<br>Pass "*" for ALL network interfaces         |
+| si.getDynamicData(srv,iface,cb)     | {...}         | X     | X   | X   | X   | X   | all dynamic data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "_" for ALL services (linux/win only)<br>Pass "_" for ALL network interfaces |
+| si.getAllData(srv,iface,cb)         | {...}         | X     | X   | X   | X   | X   | all data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "_" for ALL services (linux/win only)<br>Pass "_" for ALL network interfaces         |
 | si.get(valueObject,cb)              | {...}         | X     | X   | X   | X   | X   | get partial system info data at once<br>In valueObject you can define<br>all values, you want to get back <br>(see documentation for details)                                                               |
 | si.observe(valueObject,interval,cb) | -             | X     | X   | X   | X   | X   | Observe a defined value object<br>call callback on changes<br>polling interval in milliseconds                                                                                                              |
 
 ### cb: Asynchronous Function Calls (callback)
 
-Remember: all functions (except `version` and `time`) are implemented as asynchronous functions! There are now three ways to consume them:
+Remember: all functions (except `version` and `time`) are implemented as
+asynchronous functions! There are now three ways to consume them:
 
 **Callback Style**
 
 ```js
-const si = require('systeminformation');
+const si = require("systeminformation");
 
-si.cpu(function(data) {
-  console.log('CPU Information:');
-  console.log('- manufacturer: ' + data.manufacturer);
-  console.log('- brand: ' + data.brand);
-  console.log('- speed: ' + data.speed);
-  console.log('- cores: ' + data.cores);
-  console.log('- physical cores: ' + data.physicalCores);
-  console.log('...');
-})
+si.cpu(function (data) {
+  console.log("CPU Information:");
+  console.log("- manufacturer: " + data.manufacturer);
+  console.log("- brand: " + data.brand);
+  console.log("- speed: " + data.speed);
+  console.log("- cores: " + data.cores);
+  console.log("- physical cores: " + data.physicalCores);
+  console.log("...");
+});
 ```
 
 ### Promises
 
 **Promises Style** is new in version 3.0.
 
-When omitting callback parameter (cb), then you can use all function in a promise oriented way. All functions (except of `version` and `time`) are returning a promise, that you can consume:
+When omitting callback parameter (cb), then you can use all function in a
+promise oriented way. All functions (except of `version` and `time`) are
+returning a promise, that you can consume:
 
 ```js
-const si = require('systeminformation');
+const si = require("systeminformation");
 
 si.cpu()
-  .then(data => {
-    console.log('CPU Information:');
-    console.log('- manufacturer: ' + data.manufacturer);
-    console.log('- brand: ' + data.brand);
-    console.log('- speed: ' + data.speed);
-    console.log('- cores: ' + data.cores);
-    console.log('- physical cores: ' + data.physicalCores);
-    console.log('...');
+  .then((data) => {
+    console.log("CPU Information:");
+    console.log("- manufacturer: " + data.manufacturer);
+    console.log("- brand: " + data.brand);
+    console.log("- speed: " + data.speed);
+    console.log("- cores: " + data.cores);
+    console.log("- physical cores: " + data.physicalCores);
+    console.log("...");
   })
-  .catch(error => console.error(error));
+  .catch((error) => console.error(error));
 ```
 
 ### Async / Await
 
 **Using async / await** (available since node v7.6)
 
-Since node v7.6 you can also use the `async` / `await` pattern. The above example would then look like this:
+Since node v7.6 you can also use the `async` / `await` pattern. The above
+example would then look like this:
 
 ```js
-const si = require('systeminformation');
+const si = require("systeminformation");
 
 async function cpuData() {
   try {
     const data = await si.cpu();
-    console.log('CPU Information:');
-    console.log('- manufacturer: ' + data.manufacturer);
-    console.log('- brand: ' + data.brand);
-    console.log('- speed: ' + data.speed);
-    console.log('- cores: ' + data.cores);
-    console.log('- physical cores: ' + data.physicalCores);
-    console.log('...');
+    console.log("CPU Information:");
+    console.log("- manufacturer: " + data.manufacturer);
+    console.log("- brand: " + data.brand);
+    console.log("- speed: " + data.speed);
+    console.log("- cores: " + data.cores);
+    console.log("- physical cores: " + data.physicalCores);
+    console.log("...");
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 }
 ```
@@ -933,9 +995,11 @@ async function cpuData() {
 
 #### macOS - Temperature Sensor
 
-To be able to measure temperature on macOS I created a little additional package. Due to some difficulties
-in NPM with `optionalDependencies` I unfortunately was getting unexpected warnings on other platforms.
-So I decided to drop this optional dependency for macOS - so by default, you will not get correct values.
+To be able to measure temperature on macOS I created a little additional
+package. Due to some difficulties in NPM with `optionalDependencies` I
+unfortunately was getting unexpected warnings on other platforms. So I decided
+to drop this optional dependency for macOS - so by default, you will not get
+correct values.
 
 This additional package is now also supporting Apple Silicon M1/M2/M3 machines.
 
@@ -946,57 +1010,71 @@ installation command:
 $ npm install osx-temperature-sensor --save
 ```
 
-`systeminformation` will then detect this additional library and return the temperature when calling systeminformations standard function `cpuTemperature()`
+`systeminformation` will then detect this additional library and return the
+temperature when calling systeminformations standard function `cpuTemperature()`
 
 #### Windows Temperature, Battery, ...
 
-`get-WmiObject` - which is used to determine temperature and battery sometimes needs to be run with admin
-privileges. So if you do not get any values, try to run it again with according
-privileges. If you still do not get any values, your system might not support this feature.
-In some cases we also discovered that `get-WmiObject` returned incorrect temperature values.
+`get-WmiObject` - which is used to determine temperature and battery sometimes
+needs to be run with admin privileges. So if you do not get any values, try to
+run it again with according privileges. If you still do not get any values, your
+system might not support this feature. In some cases we also discovered that
+`get-WmiObject` returned incorrect temperature values.
 
 #### Linux Temperature
 
-In some cases you need to install the Linux `sensors` package to be able to measure temperature
-e.g. on DEBIAN based systems by running `sudo apt-get install lm-sensors`
+In some cases you need to install the Linux `sensors` package to be able to
+measure temperature e.g. on DEBIAN based systems by running
+`sudo apt-get install lm-sensors`
 
 #### Linux S.M.A.R.T. Status
 
-To be able to detect S.M.A.R.T. status on Linux you need to install `smartmontools`. On DEBIAN based Linux distributions you can install it by running `sudo apt-get install smartmontools`
+To be able to detect S.M.A.R.T. status on Linux you need to install
+`smartmontools`. On DEBIAN based Linux distributions you can install it by
+running `sudo apt-get install smartmontools`
 
 #### Windows Encoding Issues
-I now reimplemented all windows functions to avoid encoding problems (special chacarters). And as Windows 11 now dropped `wmic` support, I had to move completely to `powershell`. Be sure that powershell version 5+ is installed on your machine. On older Windows versions (7, 8) you might still see encoding problems due to the old powershell version.
+
+I now reimplemented all windows functions to avoid encoding problems (special
+chacarters). And as Windows 11 now dropped `wmic` support, I had to move
+completely to `powershell`. Be sure that powershell version 5+ is installed on
+your machine. On older Windows versions (7, 8) you might still see encoding
+problems due to the old powershell version.
+
 ## *: Additional Notes
 
-In `fsStats()`, `disksIO()` and `networkStats()` the results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning
-with the second call of the function. It is determined by calculating the difference of transferred bytes / IOs
-divided by the time between two calls of the function.
+In `fsStats()`, `disksIO()` and `networkStats()` the results / sec. values
+(rx_sec, IOPS, ...) are calculated correctly beginning with the second call of
+the function. It is determined by calculating the difference of transferred
+bytes / IOs divided by the time between two calls of the function.
 
-The first time you are calling one of these functions, you will get `null` for transfer rates. The second time, you should then get statistics based on the time between the two calls ...
+The first time you are calling one of these functions, you will get `null` for
+transfer rates. The second time, you should then get statistics based on the
+time between the two calls ...
 
-So basically, if you e.g. need a value for network stats every second, your code should look like this:
+So basically, if you e.g. need a value for network stats every second, your code
+should look like this:
 
 ```js
-const si = require('systeminformation');
+const si = require("systeminformation");
 
-setInterval(function() {
-  si.networkStats().then(data => {
+setInterval(function () {
+  si.networkStats().then((data) => {
     console.log(data);
-  })
-}, 1000)
+  });
+}, 1000);
 ```
 
 Beginning with the second call, you get network transfer values per second.
 
 ## Finding new issues
 
-I am happy to discuss any comments and suggestions. Please feel free to contact me if you see any possibility of improvement!
-
+I am happy to discuss any comments and suggestions. Please feel free to contact
+me if you see any possibility of improvement!
 
 ## Comments
 
 If you have ideas or comments, please do not hesitate to contact me.
-
 
 Happy monitoring!
 
@@ -1006,7 +1084,8 @@ Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com)
 
 ## Credits
 
-Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebrandt)
+Written by Sebastian Hildebrandt
+[sebhildebrandt](https://github.com/sebhildebrandt)
 
 #### Contributors
 
@@ -1028,66 +1107,70 @@ Written by Sebastian Hildebrandt [sebhildebrandt](https://github.com/sebhildebra
 - Ricardo Polo [ricardopolo](https://github.com/ricardopolo)
 - Miłosz Dźwigała [mily20001](https://github.com/mily20001)
 - cconley717 [cconley717](https://github.com/cconley717)
-- Maria Camila Cubides [MariaCamilaCubides](https://github.com/MariaCamilaCubides)
+- Maria Camila Cubides
+  [MariaCamilaCubides](https://github.com/MariaCamilaCubides)
 - Aleksander Krasnicki [plakak](https://github.com/plakak)
 - Alexis Tyler [OmgImAlexis](https://github.com/OmgImAlexis)
 - Simon Smith [si458](https://github.com/si458)
 
 OSX Temperature: credits here are going to:
 
-- Frank Stock [pcafstockf](https://github.com/pcafstockf) - for his work on [smc-code][smc-code-url]
+- Frank Stock [pcafstockf](https://github.com/pcafstockf) - for his work on
+  [smc-code][smc-code-url]
 
 ## Copyright Information
 
-Linux is a registered trademark of Linus Torvalds. Apple, macOS, OS X are registered trademarks of Apple Inc.,
-Windows is a registered trademark of Microsoft Corporation. Node.js is a trademark of Joyent Inc.,
-Intel is a trademark of Intel Corporation, AMD is a trademark of Advanced Micro Devices Inc.,
-Raspberry Pi is a trademark of the Raspberry Pi Foundation, Debian is a trademark owned by Software in the Public Interest, Inc.,
-Ubuntu is a trademark of Canonical Ltd., FreeBSD is a registered trademark of The FreeBSD Foundation,
-NetBSD is a registered trademark of The NetBSD Foundation, Docker is a trademark of Docker, Inc., Sun,
-Solaris, OpenSolaris and registered trademarks of Sun Microsystems, VMware is a trademark of VMware Inc,
-Virtual Box is a trademark of Oracle Corporation, Xen is a registered trademark of Xen Project,
-QEMU is a trademark of Fabrice Bellard, bochs is a trademark of The Bochs Project, USB and USB Logo
-are trademarks of USB Implementation Forum, Bluetooth and Bluetooth Logo are trademarks of Bluetooth SIG,
-Android is a trademark of Google LLC, Parallels is a trademarks of Parallels International GmbH.
+Linux is a registered trademark of Linus Torvalds. Apple, macOS, OS X are
+registered trademarks of Apple Inc., Windows is a registered trademark of
+Microsoft Corporation. Node.js is a trademark of Joyent Inc., Intel is a
+trademark of Intel Corporation, AMD is a trademark of Advanced Micro Devices
+Inc., Raspberry Pi is a trademark of the Raspberry Pi Foundation, Debian is a
+trademark owned by Software in the Public Interest, Inc., Ubuntu is a trademark
+of Canonical Ltd., FreeBSD is a registered trademark of The FreeBSD Foundation,
+NetBSD is a registered trademark of The NetBSD Foundation, Docker is a trademark
+of Docker, Inc., Sun, Solaris, OpenSolaris and registered trademarks of Sun
+Microsystems, VMware is a trademark of VMware Inc, Virtual Box is a trademark of
+Oracle Corporation, Xen is a registered trademark of Xen Project, QEMU is a
+trademark of Fabrice Bellard, bochs is a trademark of The Bochs Project, USB and
+USB Logo are trademarks of USB Implementation Forum, Bluetooth and Bluetooth
+Logo are trademarks of Bluetooth SIG, Android is a trademark of Google LLC,
+Parallels is a trademarks of Parallels International GmbH.
 
 All other trademarks are the property of their respective owners.
 
 ## License [![MIT license][license-img]][license-url]
 
->The [`MIT`][license-url] License (MIT)
+> The [`MIT`][license-url] License (MIT)
 >
->Copyright &copy; 2014-2024 Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com).
+> Copyright &copy; 2014-2024 Sebastian Hildebrandt,
+> [+innovations](http://www.plus-innovations.com).
 >
->Permission is hereby granted, free of charge, to any person obtaining a copy
->of this software and associated documentation files (the "Software"), to deal
->in the Software without restriction, including without limitation the rights
->to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
->copies of the Software, and to permit persons to whom the Software is
->furnished to do so, subject to the following conditions:
+> Permission is hereby granted, free of charge, to any person obtaining a copy
+> of this software and associated documentation files (the "Software"), to deal
+> in the Software without restriction, including without limitation the rights
+> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+> copies of the Software, and to permit persons to whom the Software is
+> furnished to do so, subject to the following conditions:
 >
->The above copyright notice and this permission notice shall be included in
->all copies or substantial portions of the Software.
+> The above copyright notice and this permission notice shall be included in all
+> copies or substantial portions of the Software.
 >
->THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
->IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
->FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
->AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
->LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
->OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
->THE SOFTWARE.
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+> SOFTWARE.
 >
->Further details see [LICENSE](LICENSE) file.
-
+> Further details see [LICENSE](LICENSE) file.
 
 [npm-image]: https://img.shields.io/npm/v/systeminformation.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/systeminformation
 [downloads-image]: https://img.shields.io/npm/dm/systeminformation.svg?style=flat-square
 [downloads-url]: https://npmjs.org/package/systeminformation
-
 [sponsor-badge]: https://img.shields.io/badge/Support-Buy%20me%20a%20coffee-brightgreen?style=flat-square
 [sponsor-url]: https://www.buymeacoffee.com/systeminfo
-
 [license-url]: https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE
 [license-img]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
 [npmjs-license]: https://img.shields.io/npm/l/systeminformation.svg?style=flat-square
@@ -1095,22 +1178,16 @@ All other trademarks are the property of their respective owners.
 [changes5-url]: https://systeminformation.io/changes.html
 [caretaker-url]: https://github.com/sebhildebrandt
 [caretaker-image]: https://img.shields.io/badge/caretaker-sebhildebrandt-blue.svg?style=flat-square
-
 [nodejs-url]: https://nodejs.org/en/
 [docker-url]: https://www.docker.com/
 [systeminformation-url]: https://systeminformation.io
-
 [daviddm-img]: https://img.shields.io/david/sebhildebrandt/systeminformation.svg?style=flat-square
 [daviddm-url]: https://david-dm.org/sebhildebrandt/systeminformation
-
 [issues-img]: https://img.shields.io/github/issues/sebhildebrandt/systeminformation.svg?style=flat-square
 [issues-url]: https://github.com/sebhildebrandt/systeminformation/issues
 [closed-issues-img]: https://img.shields.io/github/issues-closed-raw/sebhildebrandt/systeminformation.svg?style=flat-square&color=brightgreen
 [closed-issues-url]: https://github.com/sebhildebrandt/systeminformation/issues?q=is%3Aissue+is%3Aclosed
-
 [new-issue]: https://github.com/sebhildebrandt/systeminformation/issues/new/choose
-
 [mmon-npm-url]: https://npmjs.org/package/mmon
 [mmon-github-url]: https://github.com/sebhildebrandt/mmon
-
 [smc-code-url]: https://github.com/pcafstockf/smc-reader
