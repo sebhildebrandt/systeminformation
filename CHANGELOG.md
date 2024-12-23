@@ -90,7 +90,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.23.16 | 2024-12-13 | `networkConnections()` refactored PID parsing (macOS)                                               |
+| 5.23.17 | 2024-12-23 | `wifiConnections()` refactored - Sequoia compatibel (macOS)                                         |
+| 5.23.16 | 2024-12-22 | `networkConnections()` refactored PID parsing (macOS)                                               |
 | 5.23.15 | 2024-12-21 | `users()`, `wifiNetworks()` fixed parsing (macOS Seguoia)                                           |
 | 5.23.14 | 2024-12-18 | `chassis()` new chassis detection (macOS)                                                           |
 | 5.23.13 | 2024-12-14 | `wifiConnections()` improved BSSID parsing (windows)                                                |
