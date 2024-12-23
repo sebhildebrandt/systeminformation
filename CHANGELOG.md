@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.23.18 | 2024-12-24 | `cpu()` Handle RISC-V CPU Manufacturer and Brand                                                    |
 | 5.23.17 | 2024-12-23 | `wifiConnections()` refactored - Sequoia compatibel (macOS)                                         |
 | 5.23.16 | 2024-12-22 | `networkConnections()` refactored PID parsing (macOS)                                               |
 | 5.23.15 | 2024-12-21 | `users()`, `wifiNetworks()` fixed parsing (macOS Seguoia)                                           |
