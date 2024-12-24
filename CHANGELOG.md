@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.23.21 | 2024-12-24 | `osInfo()` fix fqdn                                                                                 |
 | 5.23.20 | 2024-12-24 | `cpu()` fix timeout                                                                                 |
 | 5.23.19 | 2024-12-24 | `cpu()` refactored using internal node functions                                                    |
 | 5.23.18 | 2024-12-24 | `cpu()` Handle RISC-V CPU Manufacturer and Brand                                                    |
