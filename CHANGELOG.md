@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.23.23 | 2024-12-25 | `bluetoothDevices()` added parsing vendor ID (macOS)                                                |
 | 5.23.22 | 2024-12-25 | `osInfo()` fix manufacturer Apple Silicon (macOS)                                                   |
 | 5.23.21 | 2024-12-24 | `osInfo()` fix fqdn                                                                                 |
 | 5.23.20 | 2024-12-24 | `cpu()` fix timeout                                                                                 |
