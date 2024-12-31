@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.24.0  | 2024-12-31 | `versions()` added deno and bun                                                                     |
 | 5.23.25 | 2024-12-30 | `system()` adapted model and version (macOS)                                                        |
 | 5.23.24 | 2024-12-29 | `osInfo()` improved logofile detection                                                              |
 | 5.23.23 | 2024-12-25 | `bluetoothDevices()` added parsing vendor ID (macOS)                                                |
