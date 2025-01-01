@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.24.2  | 2025-01-01 | `versions()` fixed node version                                                                     |
 | 5.24.1  | 2024-12-31 | `versions()` fixed deno and bun                                                                     |
 | 5.24.0  | 2024-12-31 | `versions()` added deno and bun                                                                     |
 | 5.23.25 | 2024-12-30 | `system()` adapted model and version (macOS)                                                        |
