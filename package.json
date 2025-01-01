@@ -6,12 +6,14 @@
   "author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com> (https://plus-innovations.com)",
   "homepage": "https://systeminformation.io",
   "main": "./lib/index.js",
+  "type": "commonjs",
   "bin": {
     "systeminformation": "lib/cli.js"
   },
   "types": "./lib/index.d.ts",
   "scripts": {
-    "test": "node ./test/test.js"
+    "test": "node ./test/test.js",
+    "testDeno": "deno run -A ./test/test.js"
   },
   "files": [
     "lib/"
