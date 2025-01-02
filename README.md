@@ -1186,7 +1186,7 @@ All other trademarks are the property of their respective owners.
 [daviddm-url]: https://david-dm.org/sebhildebrandt/systeminformation
 [issues-img]: https://img.shields.io/github/issues/sebhildebrandt/systeminformation.svg?style=flat-square
 [issues-url]: https://github.com/sebhildebrandt/systeminformation/issues
-[closed-issues-img]: https://img.shields.io/github/issues-closed-raw/sebhildebrandt/systeminformation.svg?style=flat-square&color=brightgreen
+[closed-issues-img]: https://img.shields.io/github/issues-search?query=repo%3Asebhildebrandt/systeminformation+is%3Aclosed&style=flat-square&color=brightgreen&label=Issues+closed
 [closed-issues-url]: https://github.com/sebhildebrandt/systeminformation/issues?q=is%3Aissue+is%3Aclosed
 [new-issue]: https://github.com/sebhildebrandt/systeminformation/issues/new/choose
 [mmon-npm-url]: https://npmjs.org/package/mmon
