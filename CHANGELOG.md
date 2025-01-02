@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.24.7  | 2025-01-03 | `system()` chassis type parsing improved (macOS)                                                    |
 | 5.24.6  | 2025-01-02 | `cpu()` clean brand string (linux)                                                                  |
 | 5.24.5  | 2025-01-02 | `users()` improved date parsing (macOS)                                                             |
 | 5.24.4  | 2025-01-02 | `__proto__` added prototypes                                                                        |
