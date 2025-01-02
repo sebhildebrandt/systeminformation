@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.24.5  | 2025-01-02 | `users()` improved date parsing (macOS)                                                             |
 | 5.24.4  | 2025-01-02 | `__proto__` added prototypes                                                                        |
 | 5.24.3  | 2025-01-01 | `__proto__` deno compatibility                                                                      |
 | 5.24.2  | 2025-01-01 | `versions()` fixed node version                                                                     |
