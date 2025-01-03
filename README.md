@@ -1129,7 +1129,7 @@ OSX Temperature: credits here are going to:
 
 Linux is a registered trademark of Linus Torvalds. Apple, macOS, OS X are
 registered trademarks of Apple Inc., Windows is a registered trademark of
-Microsoft Corporation. Node.js is a trademark of Joyent Inc., Intel is a
+Microsoft Corporation. Node.js is a trademark of OpenJS Foundation, Intel is a
 trademark of Intel Corporation, AMD is a trademark of Advanced Micro Devices
 Inc., Raspberry Pi is a trademark of the Raspberry Pi Foundation, Debian is a
 trademark owned by Software in the Public Interest, Inc., Ubuntu is a trademark
@@ -1141,7 +1141,8 @@ Oracle Corporation, Xen is a registered trademark of Xen Project, QEMU is a
 trademark of Fabrice Bellard, bochs is a trademark of The Bochs Project, USB and
 USB Logo are trademarks of USB Implementation Forum, Bluetooth and Bluetooth
 Logo are trademarks of Bluetooth SIG, Android is a trademark of Google LLC,
-Parallels is a trademarks of Parallels International GmbH.
+Parallels is a trademarks of Parallels International GmbH. Bun is a trademark of
+Codeblog Corp. Deno is a trademark of Deno Land Inc.
 
 All other trademarks are the property of their respective owners.
 
@@ -1149,7 +1150,7 @@ All other trademarks are the property of their respective owners.
 
 > The [`MIT`][license-url] License (MIT)
 >
-> Copyright &copy; 2014-2024 Sebastian Hildebrandt,
+> Copyright &copy; 2014-2025 Sebastian Hildebrandt,
 > [+innovations](http://www.plus-innovations.com).
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy
