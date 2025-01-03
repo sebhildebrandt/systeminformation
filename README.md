@@ -67,6 +67,15 @@ appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo).
 **Your contribution** make it possible for me to keep working on this project,
 add new features and support more platforms. Thank you in advance!
 
+## Node.js ✅, Bun ✅ and Deno ✅
+
+I tested this library with Node.js, Bun and Deno (V2.x) with no issues. There is
+currently only one problem on Denos side: os.freemem() pollyfill is currently
+not correct (version 2.1.4) bus there is already a fix (not yet published).
+
+**Attention**: This library is supposed to be used as a backend/server-side
+library and **will definitely not work within a browser**.
+
 ## New Version 5.0
 
 The new Version 5 is here - this next major version release 5.0 comes with new
@@ -108,9 +117,6 @@ and OS information.
 - supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD, SunOS and
   Android support
 - no npm dependencies
-
-**Attention**: this is a `node.js` library. It is supposed to be used as a
-backend/server-side library and will definitely not work within a browser.
 
 ### Installation
 
