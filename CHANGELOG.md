@@ -90,6 +90,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.25.0  | 2025-01-05 | `versions()` added homebrew                                                                         |
+| 5.24.9  | 2025-01-04 | `checkWebsite()` reestablished certificate validation                                               |
 | 5.24.9  | 2025-01-04 | `checkWebsite()` reestablished certificate validation                                               |
 | 5.24.8  | 2025-01-03 | `powerShell()` detect default installation path (windows)                                           |
 | 5.24.7  | 2025-01-03 | `system()` chassis type parsing improved (macOS)                                                    |
