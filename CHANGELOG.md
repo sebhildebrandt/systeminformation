@@ -90,7 +90,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.25.2  | 2025-01-05 | `battery()` improved serial and model parsing                                                       |
+| 5.25.3  | 2025-01-05 | `memLayout()` improved speed parsing (windows)                                                      |
+| 5.25.2  | 2025-01-05 | `battery()` improved serial and model parsing (macOS)                                               |
 | 5.25.1  | 2025-01-05 | `cpuCurrentSpeed()` Deno CPU speed workarround (linux)                                              |
 | 5.25.0  | 2025-01-05 | `versions()` added homebrew                                                                         |
 | 5.24.9  | 2025-01-04 | `checkWebsite()` reestablished certificate validation                                               |
