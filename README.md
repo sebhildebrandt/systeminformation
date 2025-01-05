@@ -178,7 +178,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
-- Version 5.24.0: `versions()` added homebrew
+- Version 5.25.0: `versions()` added homebrew
 - Version 5.24.0: `versions()` added bun and deno
 - Version 5.23.0: `usb()` added serial number (linux)
 - Version 5.22.0: `wifiConnections()` added signal quality
