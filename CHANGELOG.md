@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.25.5  | 2025-01-07 | `shell()` detect powerShell (windows)                                                               |
 | 5.25.4  | 2025-01-06 | `versions()` improved powerShell parsing (windows)                                                  |
 | 5.25.3  | 2025-01-05 | `memLayout()` improved speed parsing (windows)                                                      |
 | 5.25.2  | 2025-01-05 | `battery()` improved serial and model parsing (macOS)                                               |
