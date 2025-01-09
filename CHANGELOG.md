@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.25.8  | 2025-01-09 | `graphics()` improved for Raspberry PI                                                              |
 | 5.25.7  | 2025-01-09 | `baseboard()`, `memLayout()` improved for Raspberry PI                                              |
 | 5.25.6  | 2025-01-08 | `system()` raspberry PI detection improved                                                          |
 | 5.25.5  | 2025-01-07 | `shell()` detect powerShell (windows)                                                               |
