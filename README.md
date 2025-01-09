@@ -89,6 +89,7 @@ changes!):
 - added printer: get information from detected printers
 - added usb: get detailed usb controller and device information
 - added wifi interfaces and connections: extended wifi information
+- **added rocm-smi support**: get detailed information about AMD GPUs using ROCm
 - better uuid function to get unique hardware and OS UUIDs
 - better/extended cpu info detection
 - better/extended system info detection
