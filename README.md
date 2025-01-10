@@ -48,9 +48,9 @@ add new features and support more platforms. Thank you in advance!
 
 ## Node.js ✅, Bun ✅ and Deno ✅
 
-I tested this library with Node.js, Bun and Deno (V2.x) with no issues. There is
-currently only one problem on Denos side: os.freemem() pollyfill is currently
-not correct (version 2.1.4) but there is already a fix (not yet published).
+I tested this library with Node.js, Bun and Deno (V2.x) with no issues. There
+was only one problem on Denos side in version <= 2.1.4: os.freemem() pollyfill
+was not correct but this is now fixed with Deno >= 2.1.5.
 
 **Attention**: This library is supposed to be used as a backend/server-side
 library and **will definitely not work within a browser**.
