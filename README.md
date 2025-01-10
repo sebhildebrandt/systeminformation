@@ -30,27 +30,6 @@
 
 ## The Systeminformation Project
 
-```
-                                                          .''.
-                              .''.      .        *''*    :_\/_:
-                             :_\/_:   _\(/_  .:.*_\/_*   : /\ :
-                         .''.: /\ :   ./)\   ':'* /\ * :  '..'.
-                        :_\/_:'.:::.    ' *''*    * '.\'/.' _\(/_
-                        : /\ : :::::     *_\/_*     -= o =-  /)\
-                         '..'  ':::'     * /\ *     .'/.\'.   '
-                                          *..*         :
-                   *
-           *      /.\   *       *           .   *
-        .        /..'\     .     .     * .
-                */'.'\*       . .          .     *   *
-            *   /.''.'\    *     .  .     .   *
-      .        */.'.'.\*
-.........".""""/'.''.'.\""."."........".".".......................
-               ^^^[_]^^^*
-```
-
-I wish you all a Merry Christmas and a peaceful New Year 2025.
-
 This is amazing. Started as a small project just for myself, it now has > 17,000
 lines of code, > 650 versions published, up to 8 mio downloads per month, > 330
 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who
