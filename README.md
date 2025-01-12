@@ -35,6 +35,11 @@ lines of code, > 650 versions published, up to 8 mio downloads per month, > 330
 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who
 contributed to this project!
 
+> **Upcoming Version 6**
+>
+> With a lot of new features, improvements and a cleaned up API where will also
+> be some breaking changes. We will release the first beta soon.
+
 ## Please support this project ... ☕️
 
 Over the past few years I spent **more than 3.000 hours** working on this
