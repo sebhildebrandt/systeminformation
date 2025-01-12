@@ -37,8 +37,9 @@ contributed to this project!
 
 > **Upcoming Version 6**
 >
-> With a lot of new features, improvements and a cleaned up API where will also
-> be some breaking changes. We will release the first beta soon.
+> The upcoming version 6 of this package (written completely in typescript) will
+> come with a lot of new features and improvements. I also cleaned up the API so
+> there will also be some breaking changes. I will release the first beta soon.
 
 ## Please support this project ... ☕️
 
