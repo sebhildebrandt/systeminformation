@@ -35,19 +35,19 @@ lines of code, > 650 versions published, up to 8 mio downloads per month, > 330
 mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who
 contributed to this project!
 
-> **Upcoming Version 6**
+> **Upcoming Version 6** ⭐️⭐️⭐️
 >
-> The upcoming version 6 of this package (written completely in typescript) will
+> The upcoming version 6 of this package (written completely in TypeScript) will
 > come with a lot of new features and improvements. I also cleaned up the API so
 > there will also be some breaking changes. I will release the first beta soon.
 
 ## Please support this project ... ☕️
 
-Over the past few years I spent **more than 3.000 hours** working on this
-project and invested in hardware to be able to test on different platforms.
+Over the past few years I spent **more than 3.000 hours** working 💻 😓 ☕️ on
+this project and invested in hardware to be able to test on different platforms.
 Currently I am working very hard on the next **new version 6.0** completely
 rewritten in TypeScript and with a lot of new features. Any support is highly
-appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo).
+appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)... ☕️
 
 **Your contribution** make it possible for me to keep working on this project,
 add new features and support more platforms. Thank you in advance!
