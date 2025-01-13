@@ -61,9 +61,9 @@ was not correct but this is now fixed with Deno >= 2.1.5.
 **Attention**: This library is supposed to be used as a backend/server-side
 library and **will definitely not work within a browser**.
 
-## New Version 5.0
+## Current Version 5.0
 
-The new Version 5 is here - this next major version release 5.0 comes with new
+The current Version 5 - this major version release 5.0 - came with new
 functionality and several improvements and changes (some of them are breaking
 changes!):
 
@@ -83,9 +83,9 @@ changes!):
   examples [systeminformation.io][systeminformation-url]
 - lot of minor improvements
 
-Breaking Changes in version 5: you will see several breaking changes for the
-sake of a more consistent API interface and to be future proof. Read the
-[detailed version 5 changes][changes5-url].
+Breaking Changes in version 5 (compared to version 4.x): you will see several
+breaking changes for the sake of a more consistent API interface and to be
+future proof. Read the [detailed version 5 changes][changes5-url].
 
 I did a lot of testing on different platforms and machines but of course there
 might be some issues that I am not aware of. I would be happy if you inform me
