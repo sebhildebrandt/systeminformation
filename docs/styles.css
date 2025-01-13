@@ -22,9 +22,22 @@ h4 {
   font-weight: 500;
 }
 
+.banner {
+  background-color: rgb(242, 244, 246) !important;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
 .warning {
   font-weight: 500;
   color: rgb(156, 1, 1);
+}
+
+.success {
+  font-weight: 500;
+  color: rgb(1, 156, 1);
 }
 
 .larger {

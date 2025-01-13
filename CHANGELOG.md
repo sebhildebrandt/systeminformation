@@ -15,9 +15,13 @@
 
 #### Breaking Changes
 
-**Be aware**, that the new version 5.x **is NOT fully backward compatible** to version 4.x ...
+**Be aware**, that the new version 5.x **is NOT fully backward compatible** to
+version 4.x ...
 
-We had to make **several interface changes** to keep systeminformation as consistent as possible. We highly [recommend to go through the complete list](https://systeminformation.io/changes.html) and adapt your own code to be again compatible to the new version 5.
+We had to make **several interface changes** to keep systeminformation as
+consistent as possible. We highly
+[recommend to go through the complete list](https://systeminformation.io/changes.html)
+and adapt your own code to be again compatible to the new version 5.
 
 | Function                                              | Old                                                                                                                                            | New (V5)                                                                                                                                 | Comments                                                                            |
 | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
@@ -54,7 +58,8 @@ We had to make **several interface changes** to keep systeminformation as consis
 - `diskLayout()`: added S.M.R.R.T. (win)
 - `fsSize()`: added available
 - `fsSize()`: improved calculation of used
-- `getData()`: support for passing parameters and filters (see section General / getData)
+- `getData()`: support for passing parameters and filters (see section General /
+  getData)
 - `graphics()`: extended properties (mac OS)
 - `graphics()`: extended nvidia-smi parsing
 - `networkInterfaces()`: type detection improved (win - wireless)
@@ -74,8 +79,10 @@ We had to make **several interface changes** to keep systeminformation as consis
 
 #### Test Full Version 5 Functionality
 
-If you want to see all function results on your machine, please head over to [Testing section](https://systeminformation.io/tests.html). We implemented a tiny test suite where you can easily go through all functions and test resuls on your machine without coding.
-
+If you want to see all function results on your machine, please head over to
+[Testing section](https://systeminformation.io/tests.html). We implemented a
+tiny test suite where you can easily go through all functions and test resuls on
+your machine without coding.
 
 For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
@@ -83,6 +90,49 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.25.11 | 2025-01-11 | `docs` updated                                                                                      |
+| 5.25.10 | 2025-01-10 | `graphics()` improvement Raspberry Ubuntu                                                           |
+| 5.25.9  | 2025-01-10 | `memLayout()` improvement Raspberry PI 5                                                            |
+| 5.25.8  | 2025-01-09 | `graphics()` improved for Raspberry PI                                                              |
+| 5.25.7  | 2025-01-09 | `baseboard()`, `memLayout()` improved for Raspberry PI                                              |
+| 5.25.6  | 2025-01-08 | `system()` raspberry PI detection improved                                                          |
+| 5.25.5  | 2025-01-07 | `shell()` detect powerShell (windows)                                                               |
+| 5.25.4  | 2025-01-06 | `versions()` improved powerShell parsing (windows)                                                  |
+| 5.25.3  | 2025-01-05 | `memLayout()` improved speed parsing (windows)                                                      |
+| 5.25.2  | 2025-01-05 | `battery()` improved serial and model parsing (macOS)                                               |
+| 5.25.1  | 2025-01-05 | `cpuCurrentSpeed()` Deno CPU speed workarround (linux)                                              |
+| 5.25.0  | 2025-01-05 | `versions()` added homebrew                                                                         |
+| 5.24.9  | 2025-01-04 | `checkWebsite()` reestablished certificate validation                                               |
+| 5.24.9  | 2025-01-04 | `checkWebsite()` reestablished certificate validation                                               |
+| 5.24.8  | 2025-01-03 | `powerShell()` detect default installation path (windows)                                           |
+| 5.24.7  | 2025-01-03 | `system()` chassis type parsing improved (macOS)                                                    |
+| 5.24.6  | 2025-01-02 | `cpu()` clean brand string (linux)                                                                  |
+| 5.24.5  | 2025-01-02 | `users()` improved date parsing (macOS)                                                             |
+| 5.24.4  | 2025-01-02 | `__proto__` added prototypes                                                                        |
+| 5.24.3  | 2025-01-01 | `__proto__` deno compatibility                                                                      |
+| 5.24.2  | 2025-01-01 | `versions()` fixed node version                                                                     |
+| 5.24.1  | 2024-12-31 | `versions()` fixed deno and bun                                                                     |
+| 5.24.0  | 2024-12-31 | `versions()` added deno and bun                                                                     |
+| 5.23.25 | 2024-12-30 | `system()` adapted model and version (macOS)                                                        |
+| 5.23.24 | 2024-12-29 | `osInfo()` improved logofile detection                                                              |
+| 5.23.23 | 2024-12-25 | `bluetoothDevices()` added parsing vendor ID (macOS)                                                |
+| 5.23.22 | 2024-12-25 | `osInfo()` fix manufacturer Apple Silicon (macOS)                                                   |
+| 5.23.21 | 2024-12-24 | `osInfo()` fix fqdn                                                                                 |
+| 5.23.20 | 2024-12-24 | `cpu()` fix timeout                                                                                 |
+| 5.23.19 | 2024-12-24 | `cpu()` refactored using internal node functions                                                    |
+| 5.23.18 | 2024-12-24 | `cpu()` Handle RISC-V CPU Manufacturer and Brand                                                    |
+| 5.23.17 | 2024-12-23 | `wifiConnections()` refactored - Sequoia compatibel (macOS)                                         |
+| 5.23.16 | 2024-12-22 | `networkConnections()` refactored PID parsing (macOS)                                               |
+| 5.23.15 | 2024-12-21 | `users()`, `wifiNetworks()` fixed parsing (macOS Seguoia)                                           |
+| 5.23.14 | 2024-12-18 | `chassis()` new chassis detection (macOS)                                                           |
+| 5.23.13 | 2024-12-14 | `wifiConnections()` improved BSSID parsing (windows)                                                |
+| 5.23.12 | 2024-12-13 | `networkConnections()` fixed wrong PID parsing (macOS)                                              |
+| 5.23.11 | 2024-12-13 | `networkConnections()` fixed wrong PID parsing (macOS)                                              |
+| 5.23.10 | 2024-12-12 | `time()` changed retrieval of timezones (linux, macOS)                                              |
+| 5.23.9  | 2024-12-11 | `typings` added definitions with overload                                                           |
+| 5.23.8  | 2024-12-10 | `system()` added Raspberry 500 detection                                                            |
+| 5.23.7  | 2024-12-09 | `networkInterfaces()` sanitizing SSID names (windows)                                               |
+| 5.23.6  | 2024-12-08 | `system()` added Raspberry CM5 detection                                                            |
 | 5.23.5  | 2024-08-21 | `processLoad()` fixed * process list (linux)                                                        |
 | 5.23.4  | 2024-08-06 | `baseboard()` `chassis()` cleaned defaults (linux)                                                  |
 | 5.23.3  | 2024-08-02 | `usb()` fixed duplicate entries (windows)                                                           |
@@ -254,7 +304,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.9.5   | 2021-10-08 | `battery()` fixed isCharging (windows)                                                              |
 | 5.9.4   | 2021-09-23 | `processes()` fixed memVsz, Memrss (macOS M1)                                                       |
 | 5.9.3   | 2021-09-17 | `cpuTemperature()` improved tdie detection (linux)                                                  |
-| 5.9.2   | 2021-09-16 | `graohics()` (macOS),  `memLayout()` (win) improvements                                             |
+| 5.9.2   | 2021-09-16 | `graohics()` (macOS), `memLayout()` (win) improvements                                              |
 | 5.9.1   | 2021-09-15 | `diskLayout()` fix size (macOS)                                                                     |
 | 5.9.0   | 2021-09-15 | `graphics()` new XML parser, added properties (macOS)                                               |
 | 5.8.9   | 2021-09-13 | `battery()` fix linux                                                                               |
@@ -735,35 +785,57 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 **Breaking Changes**
 
-- `networkStats()`: will provide an **array** of stats for all given interfaces. In previous versions only one interface was provided as a parameter. Pass '*' for all interfaces
+- `networkStats()`: will provide an **array** of stats for all given interfaces.
+  In previous versions only one interface was provided as a parameter. Pass '*'
+  for all interfaces
 - `networkStats()`: `rx` and `tx` changed to `rx_bytes` and `tx_bytes`
-- `dockerContainerStats()`: will provide an **array** of stats for all given docker containers. In previous versions only one interface was provided as a parameter. Pass '*' for all docker containers
+- `dockerContainerStats()`: will provide an **array** of stats for all given
+  docker containers. In previous versions only one interface was provided as a
+  parameter. Pass '*' for all docker containers
 
 **Other Changes**
 
-- `system()` optimized system detection (e.g. new Raspberry Pi models, ...), additional flags
+- `system()` optimized system detection (e.g. new Raspberry Pi models, ...),
+  additional flags
 - `system()`, `bios()`, `baseboard()` information also as non-root (linux)
 - `graphics()` better controller and display detection, fixes
 - `versions()` optimization, fixes
-- `networkInterfaces()` added `operstate`, `type`, `duplex`, `mtu`, `speed`, `carrierChanges`
+- `networkInterfaces()` added `operstate`, `type`, `duplex`, `mtu`, `speed`,
+  `carrierChanges`
 - `networkStats()` added stats for `errors`, `dropped`
 - added TypeScript definitions
 
-**Be aware**, that the new version 4.x is **NOT fully backward compatible** to version 3.x ...
+**Be aware**, that the new version 4.x is **NOT fully backward compatible** to
+version 3.x ...
+
 ### Major (breaking) Changes - Version 3
 
-- works only with [node.js][nodejs-url] **v4.0.0** and above (using now internal ES6 promise function, arrow functions, ...)
-- **Promises**. As you can see in the documentation, you can now also use it in a promise oriented way. But callbacks are still supported.
-- **Async/Await**. Due to the promises support, systeminformation also works perfectly with the `async/await` pattern (available in [node.js][nodejs-url] **v7.6.0** and above). See example in the docs.
-- `cpuCurrentspeed`: now returns an object with current minimal, maximal and average CPU frequencies of all cores.
-- `mem`: now supports also newer versions of `free` (Version 3.3.10 and above); extended information `avaliable` (potentially available memory)
-- `fsStats`: added information sum bytes read + write (tx) and sum transfer rate/sec (tx_sec)
-- `networkInterfaces`: now providing one more detail: internal - true if this is an internal interface like "lo"
-- `networkConnections`: instead of only counting sockets, you now get an array of objects with connection details for each socket (protocol, local and peer address, state)
-- `users`: now provides an array of objects with users online including detailed session information (login date/time, ip address, terminal, command)
-- `inetLatency`: now you can provide a host against which you want to test latency (default is 8.8.8.8)
-- `getDynamicData`: changed order of parameters (callback - if provided - is now the last one): `getDynamicData(srv, network, callback)`
-- `getAllData`: changed order of parameters (callback - if provided - is now the last one): `getAllData(srv, network, callback)`
+- works only with [node.js][nodejs-url] **v4.0.0** and above (using now internal
+  ES6 promise function, arrow functions, ...)
+- **Promises**. As you can see in the documentation, you can now also use it in
+  a promise oriented way. But callbacks are still supported.
+- **Async/Await**. Due to the promises support, systeminformation also works
+  perfectly with the `async/await` pattern (available in [node.js][nodejs-url]
+  **v7.6.0** and above). See example in the docs.
+- `cpuCurrentspeed`: now returns an object with current minimal, maximal and
+  average CPU frequencies of all cores.
+- `mem`: now supports also newer versions of `free` (Version 3.3.10 and above);
+  extended information `avaliable` (potentially available memory)
+- `fsStats`: added information sum bytes read + write (tx) and sum transfer
+  rate/sec (tx_sec)
+- `networkInterfaces`: now providing one more detail: internal - true if this is
+  an internal interface like "lo"
+- `networkConnections`: instead of only counting sockets, you now get an array
+  of objects with connection details for each socket (protocol, local and peer
+  address, state)
+- `users`: now provides an array of objects with users online including detailed
+  session information (login date/time, ip address, terminal, command)
+- `inetLatency`: now you can provide a host against which you want to test
+  latency (default is 8.8.8.8)
+- `getDynamicData`: changed order of parameters (callback - if provided - is now
+  the last one): `getDynamicData(srv, network, callback)`
+- `getAllData`: changed order of parameters (callback - if provided - is now the
+  last one): `getAllData(srv, network, callback)`
 
 New Functions
 
@@ -773,42 +845,60 @@ New Functions
 - Windows support: for some basic functions (new in version 3.17 ff)
 - `cpuCache`: returns CPU cache (L1, L2, L3) sizes (new in version 3.14)
 - `cpuFlags`: returns CPU flags (new in version 3.14)
-- `currentLoad.cpus`: returns current load per cpu/core in an array (new in version 3.14)
+- `currentLoad.cpus`: returns current load per cpu/core in an array (new in
+  version 3.14)
 - `shell`: returns standard shell e.g. /bin/bash (new in version 3.13)
-- `blockDevices`: returns array of block devices like disks, partitions, raids, roms (new in version 3.10)
-- `dockerContainerProcesses`: returns processes for a specific docker container (new in version 3.8)
-- `versions`: returns object of versions - kernel, ssl, node, npm, ...(new in version 3.6)
-- `graphics`: returns arrays of graphics controllers and displays (new in version 3.5)
-- `networkInterfaceDefault`: returns default network interface (new in version 3.4)
-- `processes`: now returns also a process list with all process details (new in version 3.3)
+- `blockDevices`: returns array of block devices like disks, partitions, raids,
+  roms (new in version 3.10)
+- `dockerContainerProcesses`: returns processes for a specific docker container
+  (new in version 3.8)
+- `versions`: returns object of versions - kernel, ssl, node, npm, ...(new in
+  version 3.6)
+- `graphics`: returns arrays of graphics controllers and displays (new in
+  version 3.5)
+- `networkInterfaceDefault`: returns default network interface (new in version
+  3.4)
+- `processes`: now returns also a process list with all process details (new in
+  version 3.3)
 - `battery`: retrieves battery status and charging level (new in version 3.2)
-- `dockerContainers`: returns a list of all docker containers (new in version 3.1)
-- `dockerContainerStats`: returns statistics for a specific docker container (new in version 3.1)
-- `dockerAll`: returns a list of all docker containers including their stats (new in version 3.1)
-- `disksIO`: returns overall diskIO and IOPS values for all mounted volumes (new in version 3.0)
+- `dockerContainers`: returns a list of all docker containers (new in version
+  3.1)
+- `dockerContainerStats`: returns statistics for a specific docker container
+  (new in version 3.1)
+- `dockerAll`: returns a list of all docker containers including their stats
+  (new in version 3.1)
+- `disksIO`: returns overall diskIO and IOPS values for all mounted volumes (new
+  in version 3.0)
 
 Bug Fixes / improvements
 
 - improvement `cpuTemperature` - works now also on Raspberry Pi
 - bugfix `disksIO` - on OSX read and write got mixed up
-- several bug fixes (like assess errors in `cpuCurrentspeed`, potentially incorrect results in `users`, ...)
+- several bug fixes (like assess errors in `cpuCurrentspeed`, potentially
+  incorrect results in `users`, ...)
 - testet on even more platforms and linux distributions
 
-**Be aware**, that the new version 3.x is **NOT fully backward compatible** to version 2.x ...
+**Be aware**, that the new version 3.x is **NOT fully backward compatible** to
+version 2.x ...
 
 ### Major (breaking) Changes - Version 2
 
-There had been a lot of changes in version 2 of systeminformation! Here is a quick overview (for those who come from version 1):
+There had been a lot of changes in version 2 of systeminformation! Here is a
+quick overview (for those who come from version 1):
 
 New Functions
 
 - `version`: returns systeminformation version (semver) of this library
-- `system`: hardware info (manufacturer, product/model name, version, serial, uuid)
+- `system`: hardware info (manufacturer, product/model name, version, serial,
+  uuid)
 - `networkConnections`: number of active connections
 - `inetLatency`: latency in ms to external resource (internet)
-- `getStaticData`: returns on json object with static data at once (OS, CPU, Network Interfaces - they should not change until restarted)
-- `getDynamicData`: returns on json object with all dynamic data at once (e.g. for monitoring agents)
-- `getAllData`: returns on json object with all data (static and dynamic) at once
+- `getStaticData`: returns on json object with static data at once (OS, CPU,
+  Network Interfaces - they should not change until restarted)
+- `getDynamicData`: returns on json object with all dynamic data at once (e.g.
+  for monitoring agents)
+- `getAllData`: returns on json object with all data (static and dynamic) at
+  once
 
 Renamed Functions (now all camelCase)
 
@@ -827,13 +917,18 @@ Renamed Functions (now all camelCase)
 
 Function Changes
 
-- `cpu_temperature`/`cpuTemperature`: -1 is new default (and indicates that non sensors are installed)
-- `cpu_temperature`/`cpuTemperature`: new result `max` which returns max temperature of all cores
+- `cpu_temperature`/`cpuTemperature`: -1 is new default (and indicates that non
+  sensors are installed)
+- `cpu_temperature`/`cpuTemperature`: new result `max` which returns max
+  temperature of all cores
 - `cpu_currentspeed`/`cpuCurrentspeed`: now in GHz
 - `cpu`: splitted `manufacturer` (e.g. Intel) and `brand` (e.g. Core 2 Duo)
-- `network_speed`/`networkStats`: now better support for OS X (also support for `operstate`)
-- `network_speed`/`networkStats`: overall received and transferred bytes (rx, tx)
-- `mem`: now better support for OS X (also support for `swaptotal`, `swapused`, `swapfree`)
+- `network_speed`/`networkStats`: now better support for OS X (also support for
+  `operstate`)
+- `network_speed`/`networkStats`: overall received and transferred bytes (rx,
+  tx)
+- `mem`: now better support for OS X (also support for `swaptotal`, `swapused`,
+  `swapfree`)
 - `fs_size`/`fsSize`: use-values now in % (0 - 100% instead of 0 - 1)
 - `fs_speed`/`fsStats`: now also full support for OS X
 - `checksite`/`inetChecksite`: new result structure - see command reference
@@ -843,6 +938,7 @@ Other changes
 
 - osx-temperature-sensor: now added as an optional dependency
 - no more external dependencies: `request` is not longer needed
-- where possible results are now integer or float values (instead of strings) because it is easier to calculate with numbers ;-)
+- where possible results are now integer or float values (instead of strings)
+  because it is easier to calculate with numbers ;-)
 
 [nodejs-url]: https://nodejs.org/en/

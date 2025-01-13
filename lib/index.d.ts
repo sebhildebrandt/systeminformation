@@ -963,6 +963,7 @@ export function chassis(cb?: (data: Systeminformation.ChassisData) => any): Prom
 export function time(): Systeminformation.TimeData;
 export function osInfo(cb?: (data: Systeminformation.OsData) => any): Promise<Systeminformation.OsData>;
 export function versions(apps?: string, cb?: (data: Systeminformation.VersionData) => any): Promise<Systeminformation.VersionData>;
+export function versions(cb?: (data: Systeminformation.VersionData) => any): Promise<Systeminformation.VersionData>;
 export function shell(cb?: (data: string) => any): Promise<string>;
 export function uuid(cb?: (data: Systeminformation.UuidData) => any): Promise<Systeminformation.UuidData>;
 
@@ -981,6 +982,7 @@ export function battery(cb?: (data: Systeminformation.BatteryData) => any): Prom
 export function graphics(cb?: (data: Systeminformation.GraphicsData) => any): Promise<Systeminformation.GraphicsData>;
 
 export function fsSize(drive?: string, cb?: (data: Systeminformation.FsSizeData[]) => any): Promise<Systeminformation.FsSizeData[]>;
+export function fsSize(cb?: (data: Systeminformation.FsSizeData[]) => any): Promise<Systeminformation.FsSizeData[]>;
 export function fsOpenFiles(cb?: (data: Systeminformation.FsOpenFilesData[]) => any): Promise<Systeminformation.FsOpenFilesData[]>;
 export function blockDevices(cb?: (data: Systeminformation.BlockDevicesData[]) => any): Promise<Systeminformation.BlockDevicesData[]>;
 export function fsStats(cb?: (data: Systeminformation.FsStatsData) => any): Promise<Systeminformation.FsStatsData>;
@@ -999,9 +1001,11 @@ export function networkInterfaces(
 ): Promise<Systeminformation.NetworkInterfacesData[] | Systeminformation.NetworkInterfacesData>;
 
 export function networkStats(ifaces?: string, cb?: (data: Systeminformation.NetworkStatsData[]) => any): Promise<Systeminformation.NetworkStatsData[]>;
+export function networkStats(cb?: (data: Systeminformation.NetworkStatsData[]) => any): Promise<Systeminformation.NetworkStatsData[]>;
 export function networkConnections(cb?: (data: Systeminformation.NetworkConnectionsData[]) => any): Promise<Systeminformation.NetworkConnectionsData[]>;
 export function inetChecksite(url: string, cb?: (data: Systeminformation.InetChecksiteData) => any): Promise<Systeminformation.InetChecksiteData>;
 export function inetLatency(host?: string, cb?: (data: number) => any): Promise<number>;
+export function inetLatency(cb?: (data: number) => any): Promise<number>;
 
 export function wifiNetworks(cb?: (data: Systeminformation.WifiNetworkData[]) => any): Promise<Systeminformation.WifiNetworkData[]>;
 export function wifiInterfaces(cb?: (data: Systeminformation.WifiInterfaceData[]) => any): Promise<Systeminformation.WifiInterfaceData[]>;
@@ -1015,9 +1019,13 @@ export function services(serviceName: string, cb?: (data: Systeminformation.Serv
 
 export function dockerInfo(cb?: (data: Systeminformation.DockerInfoData) => any): Promise<Systeminformation.DockerInfoData>;
 export function dockerImages(all?: boolean, cb?: (data: Systeminformation.DockerImageData[]) => any): Promise<Systeminformation.DockerImageData[]>;
+export function dockerImages(cb?: (data: Systeminformation.DockerImageData[]) => any): Promise<Systeminformation.DockerImageData[]>;
 export function dockerContainers(all?: boolean, cb?: (data: Systeminformation.DockerContainerData[]) => any): Promise<Systeminformation.DockerContainerData[]>;
+export function dockerContainers(cb?: (data: Systeminformation.DockerContainerData[]) => any): Promise<Systeminformation.DockerContainerData[]>;
 export function dockerContainerStats(id?: string, cb?: (data: Systeminformation.DockerContainerStatsData[]) => any): Promise<Systeminformation.DockerContainerStatsData[]>;
+export function dockerContainerStats(cb?: (data: Systeminformation.DockerContainerStatsData[]) => any): Promise<Systeminformation.DockerContainerStatsData[]>;
 export function dockerContainerProcesses(id?: string, cb?: (data: any) => any): Promise<Systeminformation.DockerContainerProcessData[]>;
+export function dockerContainerProcesses(cb?: (data: any) => any): Promise<Systeminformation.DockerContainerProcessData[]>;
 export function dockerVolumes(cb?: (data: Systeminformation.DockerVolumeData[]) => any): Promise<Systeminformation.DockerVolumeData[]>;
 export function dockerAll(cb?: (data: any) => any): Promise<any>;
 
