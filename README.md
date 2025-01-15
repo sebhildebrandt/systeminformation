@@ -196,6 +196,10 @@ si.cpu()
 
 You can find all changes here: [detailed changelog][changelog-url]
 
+## Activity
+
+![Alt](https://repobeats.axiom.co/api/embed/60a4334f5dc5502fd04eba46892fa009d157fc5e.svg "Repobeats analytics image")
+
 ## Core concept
 
 [Node.js][nodejs-url] comes with some basic OS information, but I always wanted
