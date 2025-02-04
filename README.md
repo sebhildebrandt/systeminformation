@@ -1084,7 +1084,7 @@ Sebastian Hildebrandt, [+innovations](http://www.plus-innovations.com)
 Written by Sebastian Hildebrandt
 [sebhildebrandt](https://github.com/sebhildebrandt)
 
-#### Contributors
+### Contributors
 
 - Guillaume Legrain [glegrain](https://github.com/glegrain)
 - Riccardo Novaglia [richy24](https://github.com/richy24)
@@ -1114,6 +1114,10 @@ OSX Temperature: credits here are going to:
 
 - Frank Stock [pcafstockf](https://github.com/pcafstockf) - for his work on
   [smc-code][smc-code-url]
+
+### Powered by
+
+[![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg | width=100)](https://jb.gg/OpenSourceSupport)
 
 ## Copyright Information
 
