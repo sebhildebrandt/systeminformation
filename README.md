@@ -1117,7 +1117,7 @@ OSX Temperature: credits here are going to:
 
 ### Powered by
 
-<a href="https://jb.gg/OpenSourceSupport"><img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg" alt="Alt Text" width="140"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://jb.gg/OpenSourceSupport"><img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg" alt="Alt Text" width="160"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://plus-innovations.com"><img src="https://www.plus-innovations.com/wp-content/themes/bootstrap3/img/logo1000.png" alt="Alt Text" width="150" style="margin-bottom: 8px"></a>
 
 ## Copyright Information
