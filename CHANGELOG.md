@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.26.0  | 2025-05-21 | `getStatic()` added audio, usb, bluetooth, printer                                                  |
 | 5.25.11 | 2025-01-11 | `docs` updated                                                                                      |
 | 5.25.10 | 2025-01-10 | `graphics()` improvement Raspberry Ubuntu                                                           |
 | 5.25.9  | 2025-01-10 | `memLayout()` improvement Raspberry PI 5                                                            |
