@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.26.2  | 2025-05-23 | `memLayout()` manufacturers reference updated                                                       |
 | 5.26.1  | 2025-05-22 | `inetChecksite()` fix timeout                                                                       |
 | 5.26.0  | 2025-05-21 | `getStatic()` added audio, usb, bluetooth, printer                                                  |
 | 5.25.11 | 2025-01-11 | `docs` updated                                                                                      |
