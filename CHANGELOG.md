@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.27.0  | 2025-05-24 | `mem()` added reclaimable (Linux, macOS)                                                            |
 | 5.26.2  | 2025-05-23 | `memLayout()` manufacturers reference updated                                                       |
 | 5.26.1  | 2025-05-22 | `inetChecksite()` fix timeout                                                                       |
 | 5.26.0  | 2025-05-21 | `getStatic()` added audio, usb, bluetooth, printer                                                  |

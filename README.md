@@ -31,9 +31,9 @@
 ## The Systeminformation Project
 
 This is amazing. Started as a small project just for myself, it now has > 17,000
-lines of code, > 650 versions published, up to 8 mio downloads per month, > 330
-mio downloads overall. #1 NPM ranking for backend packages. Thank you to all who
-contributed to this project!
+lines of code, > 650 versions published, up to 8 mio downloads per month, > 350
+mio downloads overall. Top 10 NPM ranking for backend packages. Thank you to all
+who contributed to this project!
 
 > **Upcoming Version 6** ⭐️⭐️⭐️
 >
@@ -163,6 +163,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.27.0: `mem()` added reclaimable memory
 - Version 5.26.0: `getStatic()`, `getAll()` added usb, audio, bluetooth, printer
 - Version 5.25.0: `versions()` added homebrew
 - Version 5.24.0: `versions()` added bun and deno
@@ -338,6 +339,7 @@ Full function reference with examples can be found at
 |                  | buffers               | X     |     |     |     |     | used by buffers                        |
 |                  | cached                | X     |     |     |     |     | used by cache                          |
 |                  | slab                  | X     |     |     |     |     | used by slab                           |
+|                  | reclaimable           | X     |     | X   |     |     | reclaimable (SReclaimable)             |
 |                  | available             | X     | X   | X   | X   | X   | potentially available (total - active) |
 |                  | swaptotal             | X     | X   | X   | X   | X   |                                        |
 |                  | swapused              | X     | X   | X   | X   | X   |                                        |
