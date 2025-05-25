@@ -69,6 +69,11 @@ function test(f) {
   });
 }
 
+if (process.argv.length < 3) {
+  console.log("error - a test key is required");
+  process.exit(1);
+}
+
 const key = process.argv[2];
 
 test(key).then((data) => {
