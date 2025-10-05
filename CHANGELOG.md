@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.27.11 | 2025-10-05 | `system()` added latest mac studio versions (macOS)                                                 |
 | 5.27.10 | 2025-09-16 | `powerShell()` adapted params (windows)                                                             |
 | 5.27.9  | 2025-09-13 | `typings` fsOpenFiles typings fixed                                                                 |
 | 5.27.8  | 2025-08-25 | `disklayout()` fixed catch error (macOS)                                                            |
