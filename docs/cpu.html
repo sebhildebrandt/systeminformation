@@ -332,8 +332,8 @@
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.cpu().then(data => console.log(data));</code></pre class="example">
-                      <pre class="example">
+si.cpu().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 {
     manufacturer: 'Intel®',
     brand: 'Core™ i9-9900',
@@ -355,6 +355,7 @@ si.cpu().then(data => console.log(data));</code></pre class="example">
     virtualization: true,
     cache: { l1d: 262144, l1i: 262144, l2: 2097152, l3: 16777216 }
 }</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.cpuFlags(cb)</td>
@@ -371,10 +372,11 @@ si.cpu().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.cpuFlags().then(data => console.log(data));</code></pre class="example">
-    <pre class="example">
+si.cpuFlags().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge
 </pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.cpuCache(cb)</td>
@@ -431,10 +433,11 @@ fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.cpuCache().then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+si.cpuCache().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 { l1d: 262144, l1i: 262144, l2: 2097152, l3: 16777216 }
 </pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.cpuCurrentSpeed(cb)</td>
@@ -491,8 +494,8 @@ si.cpuCache().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.cpuCurrentSpeed().then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+si.cpuCurrentSpeed().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 {
   min: 0.86,
   max: 1.77,
@@ -505,6 +508,7 @@ si.cpuCurrentSpeed().then(data => console.log(data));</code></pre class="example
   ]
 }
 </pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.cpuTemperature(cb)</td>
@@ -571,8 +575,8 @@ si.cpuCurrentSpeed().then(data => console.log(data));</code></pre class="example
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.cpuTemperature().then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+si.cpuTemperature().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 {
   main: 34,
   cores: [
@@ -584,6 +588,7 @@ si.cpuTemperature().then(data => console.log(data));</code></pre class="example"
   chipset: 49
 }
 </pre>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -611,8 +616,7 @@ si.cpuTemperature().then(data => console.log(data));</code></pre class="example"
           </div>
         </div>
       </div>
-  </div>
-  </section>
+    </section>
   </div>
   <footer class="container-fluid footer">
     <div class="container">

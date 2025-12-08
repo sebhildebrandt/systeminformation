@@ -169,8 +169,8 @@ valueObject = {
   system: 'model, manufacturer'
 }
 
-si.get(valueObject).then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+si.get(valueObject).then(data => console.log(data));</code></pre>
+                      <pre class="example">
 {
   cpu: {
     manufacturer: 'Intel®',
@@ -203,8 +203,8 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
   }
 }
 </pre>
+                    </td>
                   </tr>
-                  </tbody>
                 </table>
                 <p>The key names of the <span class="code">valueObject</span> must be exactly the same as the representing function within systeminformation.</p>
                 <h3>Providing parameters to the get() function</h3>
@@ -245,8 +245,8 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
 valueObject = {
   processLoad: '(postgres) pids, cpu'
 }
-si.get(valueObject).then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+si.get(valueObject).then(data => console.log(data));</code></pre>
+                      <pre class="example">
 {
   processLoad: {
   pids: [
@@ -258,8 +258,8 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
   }
 }
 </pre>
+                    </td>
                   </tr>
-                  </tbody>
                 </table>
                 <h3>Filter results in get() function</h3>
                 <p>You can get even further: if the desired result object is an array, you can filter the object to get only the wanted array item: have a look at the following example:</p>
@@ -299,8 +299,8 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
 valueObject = {
   networkInterfaces: 'iface, ip4 | iface:en0'
 }
-si.get(valueObject).then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+si.get(valueObject).then(data => console.log(data));</code></pre>
+                      <pre class="example">
 {
   networkInterfaces: [
     {
@@ -310,8 +310,8 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
   ]
 }
               </pre>
+                    </td>
                   </tr>
-                  </tbody>
                 </table>
                 <h2>Get All At Once</h2>
                 <p>The following three functions <span class="code">si.getStaticData()</span>, <span class="code">si.getDynamicData()</span> and <span class="code">si.getAllData()</span> will return most of the available data in a single result object:</p>
@@ -370,8 +370,7 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
           </div>
         </div>
       </div>
-  </div>
-  </section>
+    </section>
   </div>
   <footer class="container-fluid footer">
     <div class="container">

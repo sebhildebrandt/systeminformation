@@ -171,8 +171,8 @@
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.currentLoad().then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+si.currentLoad().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 {
   avgload: 0.23,
   currentload: 4.326328800988875,
@@ -205,6 +205,7 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
     ...
   ]
 }</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.fullLoad(cb)</td>
@@ -471,8 +472,8 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.processes().then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+si.processes().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 {
   all: 258,
   running: 1,
@@ -503,6 +504,7 @@ si.processes().then(data => console.log(data));</code></pre class="example">
     ...
   ]
 }</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.processLoad('nginx',cb)</td>
@@ -569,8 +571,8 @@ si.processes().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.processLoad('nginx').then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+si.processLoad('nginx').then(data => console.log(data));</code></pre>
+                        <pre class="example">
 {
   proc: 'nginx',
   pid: 11267,
@@ -585,6 +587,7 @@ si.processLoad('nginx').then(data => console.log(data));</code></pre class="exam
   cpu: 0.01,
   mem: 0
 }</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.services('mysql, apache2', cb)</td>
@@ -661,8 +664,8 @@ si.processLoad('nginx').then(data => console.log(data));</code></pre class="exam
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.services('mysql, postgres').then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+si.services('mysql, postgres').then(data => console.log(data));</code></pre>
+                        <pre class="example">
 [
   {
     name: 'mysql',
@@ -681,6 +684,7 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre clas
     pmem: 0
   },
 ]</pre>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -708,8 +712,7 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre clas
           </div>
         </div>
       </div>
-  </div>
-  </section>
+    </section>
   </div>
   <footer class="container-fluid footer">
     <div class="container">

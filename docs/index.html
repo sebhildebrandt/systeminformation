@@ -22,7 +22,7 @@
 
   <title>systeminformation</title>
   <script>
-    let vh = window.innerHeight * 0.01;
+    const vh = window.innerHeight * 0.01;
     // Then we set the value in the --vh custom property to the root of the document
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 
@@ -34,12 +34,12 @@
     // });
     function init() {
       typed();
-      document.querySelector('.down').addEventListener('click', function () {
+      document.querySelector('.down').addEventListener('click', () => {
         scrollIt(
           document.querySelector('.quickstart'),
           600,
           'easeOutQuad',
-          function () {
+          () => {
             console.log('READY');
           }
         );
@@ -52,8 +52,8 @@
     function getDownloads() {
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          var downloads = JSON.parse(this.responseText);
+        if (this.readyState === 4 && this.status === 200) {
+          const downloads = JSON.parse(this.responseText);
           document.getElementById("downloads").innerHTML = numberWithCommas(downloads.downloads);
         }
       };
@@ -63,8 +63,8 @@
     function getVersion() {
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          var packageVersion = JSON.parse(this.responseText);
+        if (this.readyState === 4 && this.status === 200) {
+          const packageVersion = JSON.parse(this.responseText);
           document.getElementById("version").innerHTML = packageVersion.version;
         }
       };
@@ -126,7 +126,7 @@
       };
 
       const start = window.pageYOffset;
-      const startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
+      const startTime = 'now' in window.performance ? performance.now() : Date.now();
 
       const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
       const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
@@ -142,7 +142,7 @@
       }
 
       function scroll() {
-        const now = 'now' in window.performance ? performance.now() : new Date().getTime();
+        const now = 'now' in window.performance ? performance.now() : Date.now();
         const time = Math.min(1, ((now - startTime) / duration));
         const timeFunction = easings[easing](time);
         window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
@@ -170,7 +170,7 @@
       <img class="logo" src="assets/logo.png" alt="logo">
       <div class="title">systeminformation</div>
       <div class="subtitle"><span id="typed"></span>&nbsp;</div>
-      3<div class="version">New Version: <span id="version">5.27.11</span></div>
+      <div class="version">New Version: <span id="version">5.27.12</span></div>
       <button class="btn btn-light" onclick="location.href='https://github.com/sebhildebrandt/systeminformation'">View on Github <i class=" fab fa-github"></i></button>
     </div>
     <div class="down">
@@ -212,7 +212,7 @@
           <div class="title">Downloads last month</div>
         </div>
         <div class="col-xl-4 col-lg-4 col-md-4 col-12">
-          <div class="numbers">865</div>
+          <div class="numbers">901</div>
           <div class="title">Dependents</div>
         </div>
       </div>
@@ -395,9 +395,7 @@
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script>
-    window.onload = function (e) {
-      init();
-    }
+    window.onload = init;
   </script>
 </body>
 

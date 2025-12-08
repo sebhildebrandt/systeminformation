@@ -262,8 +262,8 @@
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.diskLayout().then(data => console.log(data));</code></pre class="example">
-                      <pre class="example">
+si.diskLayout().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 [
   {
     device: '/dev/nvme0n1',
@@ -295,6 +295,7 @@ si.diskLayout().then(data => console.log(data));</code></pre class="example">
     ...
   }
 ]</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.blockDevices(cb)</td>
@@ -451,8 +452,8 @@ si.diskLayout().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.blockDevices().then(data => console.log(data));</code></pre class="example">
-                      <pre class="example">
+si.blockDevices().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 [
   {
     name: 'nvme0n1',
@@ -474,6 +475,7 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
     ...
   }
 ]</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.disksIO(cb)</td>
@@ -624,8 +626,8 @@ setInterval(function() {
   si.disksIO().then(data => {
     console.log(data);
   })
-}, 1000)</code></pre class="example">
-                      <pre class="example">
+}, 1000)</code></pre>
+                        <pre class="example">
 {                           // first call
   rIO: 899825,
   wIO: 932331,
@@ -644,6 +646,7 @@ setInterval(function() {
   tIO_sec: 38.5395537525355,
   ms: 986
 }...</pre>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -757,8 +760,8 @@ setInterval(function() {
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.fsSize().then(data => console.log(data));</code></pre class="example">
-                      <pre class="example">
+si.fsSize().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 [
   {
     fs: '/dev/md2',
@@ -774,6 +777,7 @@ si.fsSize().then(data => console.log(data));</code></pre class="example">
     ...
   }
 ]</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.fsOpenFiles(cb)</td>
@@ -820,13 +824,14 @@ si.fsSize().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.fsOpenFiles().then(data => console.log(data));</code></pre class="example">
-                      <pre class="example">
+si.fsOpenFiles().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 {
   max: 6566555,
   allocated: 1856,
   available: 0
 }</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.fsStats(cb)</td>
@@ -917,8 +922,8 @@ setInterval(function() {
   si.fsStats().then(data => {
     console.log(data);
   })
-}, 1000)</code></pre class="example">
-                      <pre class="example">
+}, 1000)</code></pre>
+                        <pre class="example">
 {                             // first call
   rx: 14015849472,
   wx: 15316003328,
@@ -937,6 +942,7 @@ setInterval(function() {
   tx_sec: 4083.748753738784,
   ms: 1003
 }...</pre>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -964,8 +970,7 @@ setInterval(function() {
           </div>
         </div>
       </div>
-  </div>
-  </section>
+    </section>
   </div>
   <footer class="container-fluid footer">
     <div class="container">

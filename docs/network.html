@@ -282,8 +282,8 @@
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.networkInterfaces().then(data => console.log(data));</code></pre class="example">
-                      <pre class="example">
+si.networkInterfaces().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 [
   {
     iface: 'lo0',
@@ -333,8 +333,8 @@ si.networkInterfaces().then(data => console.log(data));</code></pre class="examp
                         <h5>Get Default Interface only</h5>
                         <p>&nbsp;&nbsp;With the 'default' parameter this function returns only the default interface</p>
                         <pre><code class="js">const si = require('systeminformation');
-si.networkInterfaces('default').then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+si.networkInterfaces('default').then(data => console.log(data));</code></pre>
+                        <pre class="example">
 {
   iface: 'en0',
   ifaceName: 'en0',
@@ -357,6 +357,7 @@ si.networkInterfaces('default').then(data => console.log(data));</code></pre cla
   ieee8021xState: '',
   carrierChanges: 0
 }</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.networkInterfaceDefault(cb)</td>
@@ -373,9 +374,10 @@ si.networkInterfaces('default').then(data => console.log(data));</code></pre cla
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.networkInterfaceDefault().then(data => console.log(data));</code></pre class="example">
-                      <pre class="example">
+si.networkInterfaceDefault().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 eth0</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.networkGatewayDefault(cb)</td>
@@ -392,9 +394,10 @@ eth0</pre>
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.networkGatewayDefault().then(data => console.log(data));</code></pre class="example">
-                      <pre class="example">
+si.networkGatewayDefault().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 192.168.0.1</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.networkStats(iface,cb)</td>
@@ -525,8 +528,8 @@ setInterval(function() {
   si.networkStats().then(data => {
     console.log(data);
   })
-}, 1000)</code></pre class="example">
-                      <pre class="example">
+}, 1000)</code></pre>
+                        <pre class="example">
 [
   {                                 // first call
     iface: 'en0',
@@ -557,6 +560,7 @@ setInterval(function() {
     ms: 985
   }
 ]...</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.networkConnections(cb)</td>
@@ -653,8 +657,8 @@ setInterval(function() {
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.networkConnections().then(data => console.log(data));</code></pre class="example">
-                      <pre class="example">
+si.networkConnections().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 [
   {
     protocol: 'tcp4',
@@ -678,6 +682,7 @@ si.networkConnections().then(data => console.log(data));</code></pre class="exam
   },
   ...
 ]</pre>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -751,14 +756,15 @@ si.networkConnections().then(data => console.log(data));</code></pre class="exam
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.inetChecksite('google.com').then(data => console.log(data));</code></pre class="example">
-                      <pre class="example">
+si.inetChecksite('google.com').then(data => console.log(data));</code></pre>
+                        <pre class="example">
 {
   url: 'google.com',
   ok: true,
   status: 301,
   ms: 82
 }</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.inetLatency(host, cb)</td>
@@ -775,14 +781,15 @@ si.inetChecksite('google.com').then(data => console.log(data));</code></pre clas
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.inetLatency().then(data => console.log(data));</code></pre class="example">
-                      <pre class="example">
+si.inetLatency().then(data => console.log(data));</code></pre>
+                        <pre class="example">
 13.484</pre>
                         <pre><code class="js">// Example with given host IP address
 const si = require('systeminformation');
-si.inetLatency('216.58.207.142').then(data => console.log(data));</code></pre class="example">
-                      <pre class="example">
+si.inetLatency('216.58.207.142').then(data => console.log(data));</code></pre>
+                        <pre class="example">
 11.291</pre>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -810,8 +817,7 @@ setInterval(function() {
           </div>
         </div>
       </div>
-  </div>
-  </section>
+    </section>
   </div>
   <footer class="container-fluid footer">
     <div class="container">

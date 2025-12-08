@@ -66,134 +66,133 @@
                       <th>Comments</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>si.currentLoad(cb)</td>
-                      <td>{...}</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>CPU-Load</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>avgLoad</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>average load</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>currentLoad</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>CPU load in %</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>currentLoadUser</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>CPU load user in %</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>currentLoadSystem</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>CPU load system in %</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>currentLoadNice</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>CPU load nice in %</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>currentLoadIdle</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>CPU load idle in %</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>currentLoadIrq</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>CPU load hardware interrupts in %</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>currentLoadSteal</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>Time stolen by other OS running in VMs in %</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>currentLoadGuest</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>Time spent for running virtual CPU in %</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>rawCurrentLoad...</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>CPU load raw values (ticks)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>cpus[]</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>current loads per CPU in % + raw ticks</td>
-                    </tr>
-                    <tr class="example">
-                      <td></td>
-                      <td colspan="7">
-                        <h5>Example</h5>
-                        <pre><code class="js">const si = require('systeminformation');
-si.currentLoad().then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+                  <tr>
+                    <td>si.currentLoad(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU-Load</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>avgLoad</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>average load</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentLoad</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentLoadUser</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load user in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentLoadSystem</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load system in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentLoadNice</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load nice in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentLoadIdle</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load idle in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentLoadIrq</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load hardware interrupts in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentLoadSteal</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Time stolen by other OS running in VMs in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>currentLoadGuest</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Time spent for running virtual CPU in %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>rawCurrentLoad...</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>CPU load raw values (ticks)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>cpus[]</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>current loads per CPU in % + raw ticks</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.currentLoad().then(data => console.log(data));</code></pre>
+                      <pre class="example">
 {
   avgLoad: 0.23,
   currentLoad: 4.326328800988875,
@@ -232,274 +231,275 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
     ...
   ]
 }</pre>
-                    </tr>
-                    <tr>
-                      <td>si.fullLoad(cb)</td>
-                      <td>: integer</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>CPU full load since bootup in %</td>
-                    </tr>
-                    <tr>
-                      <td>si.processes(cb)</td>
-                      <td>{...}</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td># running processes</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>all</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td># of all processes</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>running</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td># of all processes running</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>blocked</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td># of all processes blocked</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>sleeping</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td># of all processes sleeping</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>unknown</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td># of all processes unknown status</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>list[]</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>list of all processes incl. details</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].pid</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>process PID</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].parentPid</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>parent process PID</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].name</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>process name</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].cpu</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>process % CPU usage</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].cpuu</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>process % CPU usage (user)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].cpus</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>process % CPU usage (system)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].mem</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>process memory %</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].priority</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>process priority</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].memVsz</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>process virtual memory size</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].memRss</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>process mem resident set size</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].nice</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>process nice value</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].started</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>process start time</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].state</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>process state (e.g. sleeping)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].tty</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>tty from which process was started</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].user</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>user who started process</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].command</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>process starting command</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].params</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>process params</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>...[0].path</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>process path</td>
-                    </tr>
-                    <tr class="example">
-                      <td></td>
-                      <td colspan="7">
-                        <h5>Example</h5>
-                        <pre><code class="js">const si = require('systeminformation');
-si.processes().then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>si.fullLoad(cb)</td>
+                    <td>: integer</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>CPU full load since bootup in %</td>
+                  </tr>
+                  <tr>
+                    <td>si.processes(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td># running processes</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>all</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td># of all processes</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>running</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td># of all processes running</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>blocked</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td># of all processes blocked</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>sleeping</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td># of all processes sleeping</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>unknown</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td># of all processes unknown status</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>list[]</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>list of all processes incl. details</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].pid</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process PID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].parentPid</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>parent process PID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].name</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].cpu</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process % CPU usage</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].cpuu</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>process % CPU usage (user)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].cpus</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>process % CPU usage (system)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].mem</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process memory %</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].priority</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process priority</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].memVsz</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process virtual memory size</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].memRss</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process mem resident set size</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].nice</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>process nice value</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].started</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process start time</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].state</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process state (e.g. sleeping)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].tty</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>tty from which process was started</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].user</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>user who started process</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].command</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process starting command</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].params</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>process params</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>...[0].path</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>process path</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.processes().then(data => console.log(data));</code></pre>
+                      <pre class="example">
 {
   all: 258,
   running: 1,
@@ -530,74 +530,75 @@ si.processes().then(data => console.log(data));</code></pre class="example">
     ...
   ]
 }</pre>
-                    </tr>
-                    <tr>
-                      <td>si.processLoad('nginx, ssl',cb)</td>
-                      <td>[{...}]</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>detailed information about given processes<br>pass comma separated list or<br>'*' for all processes</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].proc</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>process name</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].pid</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>PID</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].pids</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>additional pids</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].cpu</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>process % CPU</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].mem</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>process % MEM</td>
-                    </tr>
-                    <tr class="example">
-                      <td></td>
-                      <td colspan="7">
-                        <h5>Example</h5>
-                        <pre><code class="js">const si = require('systeminformation');
-si.processLoad('nginx, postgres').then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>si.processLoad('nginx, ssl',cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>detailed information about given processes<br>pass comma separated list or<br>'*' for all processes</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].proc</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>process name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].pid</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>PID</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].pids</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>additional pids</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].cpu</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>process % CPU</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].mem</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>process % MEM</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.processLoad('nginx, postgres').then(data => console.log(data));</code></pre>
+                      <pre class="example">
 [
 {
   proc: 'nginx',
@@ -625,84 +626,85 @@ si.processLoad('nginx, postgres').then(data => console.log(data));</code></pre c
     mem: 0
   },
 ]</pre>
-                    </tr>
-                    <tr>
-                      <td>si.services('mysql, apache2', cb)</td>
-                      <td>[{...}]</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>pass comma separated string of services<br />pass &quot;*&quot; for ALL services (linux/win only)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].name</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>name of service</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].running</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>true / false</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].startmode</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>manual, automatic, ...</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].pids</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>pids</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].cpu</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>process % CPU</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].mem</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>process % MEM</td>
-                    </tr>
-                    <tr class="example">
-                      <td></td>
-                      <td colspan="7">
-                        <h5>Example</h5>
-                        <pre><code class="js">const si = require('systeminformation');
-si.services('mysql, postgres').then(data => console.log(data));</code></pre class="example">
-<pre class="example">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>si.services('mysql, apache2', cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>pass comma separated string of services<br />pass &quot;*&quot; for ALL services (linux/win only)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].name</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>name of service</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].running</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>true / false</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].startmode</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>manual, automatic, ...</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].pids</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>pids</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].cpu</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>process % CPU</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].mem</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                    <td>process % MEM</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.services('mysql, postgres').then(data => console.log(data));</code></pre>
+                      <pre class="example">
 [
   {
     name: 'mysql',
@@ -721,8 +723,8 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre clas
     mem: 0
   },
 ]</pre>
-                    </tr>
-                  </tbody>
+                    </td>
+                  </tr>
                 </table>
                 <h4>Getting correct stats values</h4>
 
@@ -748,8 +750,7 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre clas
           </div>
         </div>
       </div>
-  </div>
-  </section>
+    </section>
   </div>
   <footer class="container-fluid footer">
     <div class="container">

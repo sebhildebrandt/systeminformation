@@ -51,8 +51,8 @@
     function getDownloads() {
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          var downloads = JSON.parse(this.responseText);
+        if (this.readyState === 4 && this.status === 200) {
+          let downloads = JSON.parse(this.responseText);
           document.getElementById("downloads").innerHTML = numberWithCommas(downloads.downloads);
         }
       };
@@ -62,8 +62,8 @@
     function getVersion() {
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          var packageVersion = JSON.parse(this.responseText);
+        if (this.readyState === 4 && this.status === 200) {
+          const packageVersion = JSON.parse(this.responseText);
           document.getElementById("version").innerHTML = packageVersion.version;
         }
       };
@@ -71,7 +71,7 @@
       xhttp.send();
     }
     function typed() {
-      var options = {
+      const options = {
         strings: ["System and OS information library for node.js", "Get detailed hardware, system &amp; OS information.", "For Linux, macOS, Windows, FreeBSD, OpenBSD, NetBSD, SunOS"],
         typeSpeed: 60,
         loop: false,
