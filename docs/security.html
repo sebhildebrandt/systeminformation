@@ -44,6 +44,21 @@
             <div class="col-12 sectionheader">
               <div class="title">Security Advisories</div>
               <div class="text">
+                <h2>fsSize Command Injection Vulnerability</h2>
+                <p><span class="bold">Affected versions:</span>
+                  &lt; 5.23.14<br>
+                  <span class="bold">Date:</span> 2025-12-16<br>
+                  <span class="bold">CVE indentifier</span> CVE-???
+                </p>
+
+                <h4>Impact</h4>
+                <p>We had an issue that there was a possibility to perform a potential command injection possibility by manipulating Win32_logicaldisk input in <span class="code">fsSize()</span> on windows machines.</p>
+
+                <h4>Patch</h4>
+                <p>Problem was fixed with parameter checking. If you are using version 5, please upgrade to version >= 5.27.14.</p>
+                <hr>
+                <br>
+
                 <h2>SSID Command Injection Vulnerability</h2>
                 <p><span class="bold">Affected versions:</span>
                   &lt; 5.23.7<br>
