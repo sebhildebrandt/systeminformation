@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.27.15 | 2025-12-22 | Updated docs                                                                                        |
 | 5.27.14 | 2025-12-15 | `fsSize()` fix drive sanitation (windows)                                                           |
 | 5.27.13 | 2025-12-10 | `cpuCurrentSpeed()` fix hasOwnProperty                                                              |
 | 5.27.12 | 2025-12-09 | `networkConnections()` fix pid issue (macOS)                                                        |
