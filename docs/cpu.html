@@ -595,15 +595,14 @@ si.cpuTemperature().then(data => console.log(data));</code></pre>
                 <h2>Known issues</h2>
                 <h4>macOS - Temperature</h4>
 
-                <p>To be able to measure temperature on macOS I created a little additional package. Due to some difficulties in NPM with <span class="code">optionalDependencies</span>
+                <p>To be able to measure temperature on macOS I created twu little additional packages. Due to some difficulties in NPM with <span class="code">optionalDependencies</span>
                   I unfortunately was getting unexpected warnings on other platforms. So I decided to drop this optional dependency for macOS - so by default,
                   you will not get correct values.</p>
 
-                <p>This additional package is now also suppprting Apple Silicon M1 machines.</p>
+                <p>But if you need to detect macOS temperature just run the following additional installation command. Wether you have Intel or Apple Silicon machines, install one of the following packages:</p>
 
-                <p>But if you need to detect macOS temperature just run the following additional installation command:</p>
-
-                <pre>$ npm install osx-temperature-sensor --save</pre>
+                <pre>$ npm install osx-temperature-sensor      # deprecated - for intel based machines</pre>
+                <pre>$ npm install macos-temperature-sensor    # for apple silicon machines</pre>
                 <p>systeminformation will then detect this additional library and return the temperature when calling systeminformations standard function <span class="code">cpuTemperature()</span></p>
 
                 <h4>Windows Temperature</h4>

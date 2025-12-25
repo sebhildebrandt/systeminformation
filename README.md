@@ -185,6 +185,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.28.0: `mem()` added suppurt for macos-temperature-sensor (macOS)
 - Version 5.27.0: `mem()` added reclaimable memory
 - Version 5.26.0: `getStatic()`, `getAll()` added usb, audio, bluetooth, printer
 - Version 5.25.0: `versions()` added homebrew
@@ -346,7 +347,7 @@ Full function reference with examples can be found at
 |                        | cores            | X     | X   | X   | X   |     | array of temperatures               |
 |                        | max              | X     | X   | X   | X   |     | max temperature                     |
 |                        | socket           | X     |     |     |     |     | array socket temperatures           |
-|                        | chipset          | X     |     |     |     |     | chipset temperature                 |
+|                        | chipset          | X     |     | X   |     |     | chipset temperature                 |
 
 #### 4. Memory
 
