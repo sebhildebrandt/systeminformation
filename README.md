@@ -235,10 +235,10 @@ and above.
 
 I was able to test it on several Debian, Raspbian, Ubuntu distributions as well
 as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra, Mojave,
-Catalina, Big Sur) and some Windows 7, Windows 8, Windows 10, FreeBSD, OpenBSD,
-NetBSD and SunOS machines. Not all functions are supported on all operating
-systems. Have a look at the function reference in the docs to get further
-details.
+Catalina, Big Sur, Monterey, Ventura, Sonoma, Sequoia, Tahoe) and some Windows 7,
+Windows 8, Windows 10, Windows 11, FreeBSD, OpenBSD, NetBSD and SunOS machines.
+Not all functions are supported on all operating systems. Have a look at the
+function reference in the docs to get further details.
 
 If you have comments, suggestions & reports, please feel free to contact me!
 
@@ -1018,19 +1018,25 @@ async function cpuData() {
 
 #### macOS - Temperature Sensor
 
-To be able to measure temperature on macOS I created a little additional
-package. Due to some difficulties in NPM with `optionalDependencies` I
+To be able to measure temperature on macOS I created two little additional
+packages. Due to some difficulties in NPM with `optionalDependencies` I
 unfortunately was getting unexpected warnings on other platforms. So I decided
 to drop this optional dependency for macOS - so by default, you will not get
 correct values.
 
-This additional package is now also supporting Apple Silicon M1/M2/M3 machines.
-
 But if you need to detect macOS temperature just run the following additional
 installation command:
 
+For Intel based machines (deprecated lib) install
+
 ```bash
 $ npm install osx-temperature-sensor --save
+```
+
+For Apple Silicon (ARM) based machines install
+
+```bash
+$ npm install macos-temperature-sensor --save
 ```
 
 `systeminformation` will then detect this additional library and return the
@@ -1163,7 +1169,7 @@ trademark of Fabrice Bellard, bochs is a trademark of The Bochs Project, USB and
 USB Logo are trademarks of USB Implementation Forum, Bluetooth and Bluetooth
 Logo are trademarks of Bluetooth SIG, Android is a trademark of Google LLC,
 Parallels is a trademarks of Parallels International GmbH. Bun is a trademark of
-Codeblog Corp. Deno is a trademark of Deno Land Inc.
+Codeblog Corp. Deno is a trademark of Deno Land Inc. Arm is a trademark of Arm Limited.
 
 All other trademarks are the property of their respective owners.
 
