@@ -185,7 +185,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
-- Version 5.28.0: `couPemperature()` added suppurt for macos-temperature-sensor (macOS)
+- Version 5.28.0: `cpuTemperature()` added suppurt for macos-temperature-sensor (macOS)
 - Version 5.27.0: `mem()` added reclaimable memory
 - Version 5.26.0: `getStatic()`, `getAll()` added usb, audio, bluetooth, printer
 - Version 5.25.0: `versions()` added homebrew
