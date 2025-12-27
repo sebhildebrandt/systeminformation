@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.28.2  | 2025-12-27 | `networkConnections()` fix missing PIDs ss command (linux)                                          |
 | 5.28.1  | 2025-12-26 | `networkInterface()` fix secondary and link-local ip (linux, macOS)                                 |
 | 5.28.0  | 2025-12-25 | `cpuTemperature()` added suppurt for macos-temperature-sensor (macOS)                               |
 | 5.27.17 | 2025-12-24 | `graphics()` fix nvidia-smi candidateDir (windows)                                                  |
