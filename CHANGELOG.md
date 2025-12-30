@@ -74,7 +74,7 @@ and adapt your own code to be again compatible to the new version 5.
 - `uuid()`: better value support
 - `uuid()`: added MACs
 - `uuid()`: better Raspberry Pi hardware ID
-- `Apple M1 Silicon extended support
+- `Apple Silicon (M1-M5) extended support
 - `updated TypeScript definitions
 
 #### Test Full Version 5 Functionality

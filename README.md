@@ -99,7 +99,7 @@ changes!):
 - better uuid function to get unique hardware and OS UUIDs
 - better/extended cpu info detection
 - better/extended system info detection
-- Apple Silicon M1/M2/M3 support
+- Apple Silicon M1/M2/M3/M4/M5 support
 - better Raspberry-PI detection
 - systeminformation website updated and extended with full documentation and
   examples [systeminformation.io][systeminformation-url]
