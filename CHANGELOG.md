@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.28.5  | 2025-12-30 | `cpuCurrentSpeed()` fix cpu loop issue                                                              |
 | 5.28.4  | 2025-12-29 | `powerShell()` Windows 7 fix compatibility issues (windows)                                         |
 | 5.28.3  | 2025-12-28 | `processes()`, `processLoad()` fix command line parsing (windows)                                   |
 | 5.28.2  | 2025-12-27 | `networkConnections()` fix missing PIDs ss command (linux)                                          |
