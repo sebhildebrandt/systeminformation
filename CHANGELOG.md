@@ -90,7 +90,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.28.8  | 2026-01-01 | `bluetooth()` `battery()`  improved enomeration (windows)                                           |
+| 5.28.0  | 2026-01-02 | `fsSize()` fix df parsing missing mount points (linux)                                              |
+| 5.28.8  | 2026-01-01 | `bluetooth()` `battery()` improved enumeration (windows)                                            |
 | 5.28.7  | 2026-12-31 | `networkInterfaces()` fix wireless speed (linux)                                                    |
 | 5.28.6  | 2025-12-31 | `npx systeminformation` improved output                                                             |
 | 5.28.5  | 2025-12-30 | `cpuCurrentSpeed()` fix cpu loop issue                                                              |
