@@ -1177,7 +1177,7 @@ All other trademarks are the property of their respective owners.
 
 > The [`MIT`][license-url] License (MIT)
 >
-> Copyright &copy; 2014-2025 Sebastian Hildebrandt,
+> Copyright &copy; 2014-2026 Sebastian Hildebrandt,
 > [+innovations](http://www.plus-innovations.com).
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy
