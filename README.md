@@ -185,6 +185,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.29.0: `osInfo()` added OS code name (windows)
 - Version 5.28.0: `cpuTemperature()` added suppurt for macos-temperature-sensor (macOS)
 - Version 5.27.0: `mem()` added reclaimable memory
 - Version 5.26.0: `getStatic()`, `getAll()` added usb, audio, bluetooth, printer
@@ -453,7 +454,7 @@ Full function reference with examples can be found at
 |                       | platform      | X     | X   | X   | X   | X   | 'linux', 'darwin', 'Windows', ...                                                                                                                  |
 |                       | distro        | X     | X   | X   | X   | X   |                                                                                                                                                    |
 |                       | release       | X     | X   | X   | X   | X   |                                                                                                                                                    |
-|                       | codename      | X     |     | X   |     |     |                                                                                                                                                    |
+|                       | codename      | X     |     | X   | X    |     |   |
 |                       | kernel        | X     | X   | X   | X   | X   | kernel release - same as os.release()                                                                                                              |
 |                       | arch          | X     | X   | X   | X   | X   | same as os.arch()                                                                                                                                  |
 |                       | hostname      | X     | X   | X   | X   | X   | same as os.hostname()                                                                                                                              |
