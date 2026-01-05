@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.29.1  | 2026-01-05 | `fsSize()` support network attached storage (linux)                                                 |
 | 5.29.0  | 2026-01-04 | `osInfo()` added OS code name (windows)                                                             |
 | 5.28.10 | 2026-01-03 | `graphics()` fix logging nvidia-smi error (windows)                                                 |
 | 5.28.9  | 2026-01-02 | `fsSize()` fix df parsing missing mount points (linux)                                              |
@@ -103,7 +104,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.28.1  | 2025-12-26 | `networkInterface()` fix secondary and link-local ip (linux, macOS)                                 |
 | 5.28.0  | 2025-12-25 | `cpuTemperature()` added suppurt for macos-temperature-sensor (macOS)                               |
 | 5.27.17 | 2025-12-24 | `graphics()` fix nvidia-smi candidateDir (windows)                                                  |
-| 5.27.16 | 2025-12-23 | `cpuTemperature()` fix sensors parsingg AMD (linux)                                                 |
+| 5.27.16 | 2025-12-23 | `cpuTemperature()` fix sensors parsing AMD (linux)                                                  |
 | 5.27.15 | 2025-12-22 | Updated docs                                                                                        |
 | 5.27.14 | 2025-12-15 | `fsSize()` fix drive sanitation (windows)                                                           |
 | 5.27.13 | 2025-12-10 | `cpuCurrentSpeed()` fix hasOwnProperty                                                              |
