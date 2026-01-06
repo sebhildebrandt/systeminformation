@@ -185,6 +185,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.30.0: `processes()` added user (windows)
 - Version 5.29.0: `osInfo()` added OS code name (windows)
 - Version 5.28.0: `cpuTemperature()` added suppurt for macos-temperature-sensor (macOS)
 - Version 5.27.0: `mem()` added reclaimable memory

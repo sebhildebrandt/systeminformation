@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.30.0  | 2026-01-06 | `processes()` added user (windows)                                                                  |
 | 5.29.1  | 2026-01-05 | `fsSize()` support network attached storage (linux)                                                 |
 | 5.29.0  | 2026-01-04 | `osInfo()` added OS code name (windows)                                                             |
 | 5.28.10 | 2026-01-03 | `graphics()` fix logging nvidia-smi error (windows)                                                 |
