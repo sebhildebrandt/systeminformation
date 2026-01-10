@@ -379,6 +379,7 @@ export namespace Systeminformation {
     uefi: boolean | null;
     hypervizor?: boolean;
     remoteSession?: boolean;
+    displayServer: string;
   }
 
   interface UuidData {
