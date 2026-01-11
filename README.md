@@ -30,28 +30,6 @@
 
 ## The Systeminformation Project
 
-### Merry Christmas and Happy new year
-
-```
-                                                          .''.
-                              .''.      .        *''*    :_\/_:
-                             :_\/_:   _\(/_  .:.*_\/_*   : /\ :
-                         .''.: /\ :   ./)\   ':'* /\ * :  '..'.
-                        :_\/_:'.:::.    ' *''*    * '.\'/.' _\(/_
-                        : /\ : :::::     *_\/_*     -= o =-  /)\
-                         '..'  ':::'     * /\ *     .'/.\'.   '
-                                          *..*         :
-                   *
-           *      /.\   *       *           .   *
-        .        /..'\     .     .     * .
-                */'.'\*       . .          .     *   *
-            *   /.''.'\    *     .  .     .   *
-      .        */.'.'.\*
-.........".""""/'.''.'.\""."."........".".".......................
-               ^^^[_]^^^*
-```
-I wish you all a Merry Christmas and a peaceful New Year 2026.
-
 This is amazing. Started as a small project just for myself, it now has > 19,000
 lines of code, > 700 versions published, up to 15 mio downloads per month, > 450
 mio downloads overall. Top 10 NPM ranking for backend packages. Thank you to all
