@@ -90,6 +90,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.30.6  | 2026-01-22 | `graphics()` improved nvidia-smi detection (windows)                                                |
 | 5.30.5  | 2026-01-16 | `networkInterfaces()` fix uppercase iface names (linux)                                             |
 | 5.30.4  | 2026-01-15 | `powerShell()` fix UTF8 output (windows)                                                            |
 | 5.30.3  | 2026-01-11 | Updated docs, code cleanup                                                                          |
