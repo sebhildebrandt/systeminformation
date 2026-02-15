@@ -54,16 +54,17 @@ and adapt your own code to be again compatible to the new version 5.
 - `cpuTemperature()` added socket and chipset temp (linux)
 - `currentLoad()` added steal and guest time (linux)
 - `disksIO()` added wait time (linux)
-- `diskLayout()`: added USB drives (mac OS)
+- `diskLayout()`: added USB drives (macOS)
 - `diskLayout()`: added S.M.R.R.T. (win)
+- `diskLayout()`: added S.M.R.R.T. (macOS)
 - `fsSize()`: added available
 - `fsSize()`: improved calculation of used
 - `getData()`: support for passing parameters and filters (see section General /
   getData)
-- `graphics()`: extended properties (mac OS)
+- `graphics()`: extended properties (macOS)
 - `graphics()`: extended nvidia-smi parsing
 - `networkInterfaces()`: type detection improved (win - wireless)
-- `networkConnections()`: added process name (mac OS)
+- `networkConnections()`: added process name (macOS)
 - `memLayout()`: extended manufacturer list (decoding)
 - `memLayout()`: added ECC flag
 - `osInfo()`: better fqdn (win)
@@ -90,6 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.31.0  | 2026-02-15 | `diskLayout()` added smartmontools support (macOS)                                                  |
 | 5.30.8  | 2026-02-14 | `wifiNetworks()` fixed CWE-78 command injection issue (linux)                                       |
 | 5.30.7  | 2026-01-31 | `networkInterfaces()` fixed getWindowsIEEE8021x issue (windows)                                     |
 | 5.30.6  | 2026-01-22 | `graphics()` improved nvidia-smi detection (windows)                                                |
@@ -192,7 +194,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.22.4  | 2024-03-16 | `uuid()` improved parsing machine id (linux)                                                        |
 | 5.22.3  | 2024-03-15 | `chassis()` improved parsing memory bank (windows)                                                  |
 | 5.22.2  | 2024-03-14 | `chassis()` type, assetTag, sku improved parsing (macOS)                                            |
-| 5.22.1  | 2024-03-12 | `wifiConnections()` patch for mac OS Sonome 14.4 (macOS)                                            |
+| 5.22.1  | 2024-03-12 | `wifiConnections()` patch for macOS Sonome 14.4 (macOS)                                             |
 | 5.22.0  | 2024-02-18 | `wifiConnections()` added signal quality attribute                                                  |
 | 5.21.25 | 2024-02-17 | `wifiConnections()` fixed signal strength (windows)                                                 |
 | 5.21.24 | 2024-01-21 | `osInfo()` improved release version parsing (linux)                                                 |
@@ -231,18 +233,18 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.18.10 | 2023-07-28 | `cpu()` fixed cache sizes, extended sockets (windows)                                               |
 | 5.18.9  | 2023-07-26 | `fsSize()` fixed missing rw property (windows)                                                      |
 | 5.18.8  | 2023-07-25 | `cpu()` added AMD ZEN 4 base frequencies                                                            |
-| 5.18.7  | 2023-07-12 | `osInfo()` added macOS Sonoma code name (mac OS)                                                    |
-| 5.18.6  | 2023-06-28 | `graphics()` fixed catched errors (mac OS)                                                          |
-| 5.18.5  | 2023-06-26 | `cpu()` fixed parsing (mac OS)                                                                      |
-| 5.18.4  | 2023-06-22 | `graphics()` fixed parsing (mac OS)                                                                 |
+| 5.18.7  | 2023-07-12 | `osInfo()` added macOS Sonoma code name (macOS)                                                     |
+| 5.18.6  | 2023-06-28 | `graphics()` fixed catched errors (macOS)                                                           |
+| 5.18.5  | 2023-06-26 | `cpu()` fixed parsing (macOS)                                                                       |
+| 5.18.4  | 2023-06-22 | `graphics()` fixed parsing (macOS)                                                                  |
 | 5.18.3  | 2023-06-09 | `tests` improved key handling, updated docs                                                         |
 | 5.18.2  | 2023-06-08 | `fsSize()` improved error handling (linux alpine)                                                   |
 | 5.18.1  | 2023-06-07 | `networkInterfaces()` cleaned up testVirtualNic                                                     |
 | 5.18.0  | 2023-06-06 | `fsSize()` added optional drive parameter                                                           |
 | 5.17.17 | 2023-06-03 | `osInfo()` improved fqdn (linux)                                                                    |
-| 5.17.16 | 2023-05-30 | `usb()` fix parsing JSON (mac OS)                                                                   |
+| 5.17.16 | 2023-05-30 | `usb()` fix parsing JSON (macOS)                                                                    |
 | 5.17.15 | 2023-05-29 | `powershell()` added NoProfile to speed up powershell (windows)                                     |
-| 5.17.14 | 2023-05-29 | `diskLayout()`, `osInfo()` fix parsing issues (mac OS)                                              |
+| 5.17.14 | 2023-05-29 | `diskLayout()`, `osInfo()` fix parsing issues (macOS)                                               |
 | 5.17.13 | 2023-05-24 | `typings` fix typings dynamicData, networkInterfaceDatass                                           |
 | 5.17.12 | 2023-02-28 | `uuid()` fix unique mac address issue (Android)                                                     |
 | 5.17.11 | 2023-02-27 | `blockDevices()` raid added label, uuid (linux)                                                     |
@@ -255,10 +257,10 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.17.4  | 2023-01-24 | `networkInterfaces()` sanitizing networkInterfaces device names                                     |
 | 5.17.3  | 2023-01-10 | `processes()` fix elapsed time parsing (linux)                                                      |
 | 5.17.2  | 2023-01-10 | `utils` fix killing powershell (windows)                                                            |
-| 5.17.1  | 2023-01-06 | `graphics()` positionX, positionY Ventura fix (mac OS)                                              |
-| 5.17.0  | 2023-01-06 | `graphics()` added positionX, positionY (mac OS)                                                    |
+| 5.17.1  | 2023-01-06 | `graphics()` positionX, positionY Ventura fix (macOS)                                               |
+| 5.17.0  | 2023-01-06 | `graphics()` added positionX, positionY (macOS)                                                     |
 | 5.16.9  | 2022-12-27 | updated docs                                                                                        |
-| 5.16.8  | 2022-12-22 | `processes()` params truncated fix (mac OS)                                                         |
+| 5.16.8  | 2022-12-22 | `processes()` params truncated fix (macOS)                                                          |
 | 5.16.7  | 2022-12-22 | `processes()` commandLine missing spaces fix (windows)                                              |
 | 5.16.6  | 2022-12-12 | `processes()` time format fix (linux)                                                               |
 | 5.16.5  | 2022-12-09 | `inetLatency()` fix for alpine (linux)                                                              |
@@ -266,9 +268,9 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.16.3  | 2022-12-08 | `users()` fix when multiple explorer.exe (windows)                                                  |
 | 5.16.2  | 2022-12-08 | `dockerContainerStats()` improved calculation cpuPercent                                            |
 | 5.16.1  | 2022-12-04 | code cleanup, moved from lgtm to GitHub Code Scan                                                   |
-| 5.16.0  | 2022-12-01 | `fsSize()` added rw (win, linux, mac OS, BSD)                                                       |
+| 5.16.0  | 2022-12-01 | `fsSize()` added rw (win, linux, macOS, BSD)                                                        |
 | 5.15.1  | 2022-11-29 | fix typescript typings                                                                              |
-| 5.15.0  | 2022-11-29 | `blockDevices()` added device (win, linux, mac OS)                                                  |
+| 5.15.0  | 2022-11-29 | `blockDevices()` added device (win, linux, macOS)                                                   |
 | 5.14.4  | 2022-11-21 | `osInfo()` improved uefi parsing (FreeBSD)                                                          |
 | 5.14.3  | 2022-11-20 | `graphics()` multi monitor refresh rate (windows)                                                   |
 | 5.14.2  | 2022-11-20 | `osInfo()` improved parsing (FreeBSD)                                                               |
@@ -279,20 +281,20 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.13.3  | 2022-11-18 | `cpuTemperature()` fix main temp (linux)                                                            |
 | 5.13.2  | 2022-11-18 | `cpuTemperature()` fix main temp (linux)                                                            |
 | 5.13.1  | 2022-11-18 | `processLoad()` fix main pid (linux)                                                                |
-| 5.13.0  | 2022-11-17 | `networkConnections()` addedd process name (mac OS)                                                 |
-| 5.12.15 | 2022-11-16 | `networkConnections()` adapted parsing to reflect also UDP (mac OS)                                 |
+| 5.13.0  | 2022-11-17 | `networkConnections()` addedd process name (macOS)                                                  |
+| 5.12.15 | 2022-11-16 | `networkConnections()` adapted parsing to reflect also UDP (macOS)                                  |
 | 5.12.14 | 2022-11-11 | restored `powershell` compatibility for version 7.3 (windows)                                       |
 | 5.12.13 | 2022-11-06 | updated docs                                                                                        |
 | 5.12.12 | 2022-11-03 | fix typescript typings                                                                              |
 | 5.12.11 | 2022-10-27 | `wifiInterfaces()`, `wifiConnections` improved parsing (linux)                                      |
-| 5.12.10 | 2022-10-25 | `bluetooth()` adapted parsing to accept also new profile (mac OS)                                   |
+| 5.12.10 | 2022-10-25 | `bluetooth()` adapted parsing to accept also new profile (macOS)                                    |
 | 5.12.9  | 2022-10-24 | fix typescript typings, code cleanup, docs updated                                                  |
 | 5.12.8  | 2022-10-23 | `processes()` fix truncated commands (windows)                                                      |
 | 5.12.7  | 2022-10-15 | `versions()` fix postgres                                                                           |
 | 5.12.6  | 2022-08-18 | `networkConnections()` fix UDP (windows)                                                            |
-| 5.12.5  | 2022-08-11 | `cpu()` virtualization fix (mac OS)                                                                 |
+| 5.12.5  | 2022-08-11 | `cpu()` virtualization fix (macOS)                                                                  |
 | 5.12.4  | 2022-08-09 | `cpuTemperature()` fix main (linux)                                                                 |
-| 5.12.3  | 2022-08-04 | `networkInterfaces()` operstate fix (mac OS)                                                        |
+| 5.12.3  | 2022-08-04 | `networkInterfaces()` operstate fix (macOS)                                                         |
 | 5.12.2  | 2022-08-01 | `services()` Ubuntu 22.04 fix                                                                       |
 | 5.12.1  | 2022-07-14 | `cpuTemperature()` Apple Silicon support (see docs)                                                 |
 | 5.12.0  | 2022-07-12 | `cpu()` added performance and efficiency cores (linux)                                              |
@@ -300,7 +302,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.11.25 | 2022-07-11 | `fsSize()` fix issue filtering (linux)                                                              |
 | 5.11.24 | 2022-07-10 | `fsSize()` fix parsing linux (df)                                                                   |
 | 5.11.23 | 2022-07-09 | `fsSize()` fixes (linux), `baseboard()` fix (windows), `cpuTemperatur()` fix linux                  |
-| 5.11.22 | 2022-06-24 | `processes()` improved parsing (linux, mac OS)                                                      |
+| 5.11.22 | 2022-06-24 | `processes()` improved parsing (linux, macOS)                                                       |
 | 5.11.21 | 2022-06-17 | `fsSize()` fix parsing linux (df)                                                                   |
 | 5.11.20 | 2022-06-13 | `diskLayout()` fix parsing linux (JSON)                                                             |
 | 5.11.19 | 2022-06-13 | `diskLayout()` optimized parsing linux (JSON)                                                       |
@@ -309,8 +311,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.11.16 | 2022-05-30 | `docs` updated, `tests` added node 18                                                               |
 | 5.11.15 | 2022-05-11 | `audio()` fix typescript typings                                                                    |
 | 5.11.14 | 2022-04-22 | `netforkInterfaces()` node 18 compatibility                                                         |
-| 5.11.13 | 2022-04-21 | `networkStats()` improved scanning (mac OS)                                                         |
-| 5.11.12 | 2022-04-19 | `battery()` improved M1 support (mac OS)                                                            |
+| 5.11.13 | 2022-04-21 | `networkStats()` improved scanning (macOS)                                                          |
+| 5.11.12 | 2022-04-19 | `battery()` improved M1 support (macOS)                                                             |
 | 5.11.11 | 2022-04-19 | `networkInterfaces()` improved parsing (windows)                                                    |
 | 5.11.10 | 2022-04-18 | updated docs                                                                                        |
 | 5.11.9  | 2022-03-20 | `diskLayout()` fixed issue smartStatus (linux)                                                      |
@@ -331,11 +333,11 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.10.2  | 2022-01-17 | `uuid()` fix results (windows)                                                                      |
 | 5.10.1  | 2022-01-17 | `cpu()` fix manufacturer                                                                            |
 | 5.10.0  | 2022-01-09 | basic `Android` support                                                                             |
-| 5.9.18  | 2022-01-08 | `wifiConections()` fix empty issue (mac OS)                                                         |
-| 5.9.17  | 2021-12-07 | `wifiNetworks()` fix empty issue (mac OS)                                                           |
-| 5.9.16  | 2021-12-05 | `wifiNetworks()` adaption for Apple silicon (mac OS)                                                |
+| 5.9.18  | 2022-01-08 | `wifiConections()` fix empty issue (macOS)                                                          |
+| 5.9.17  | 2021-12-07 | `wifiNetworks()` fix empty issue (macOS)                                                            |
+| 5.9.16  | 2021-12-05 | `wifiNetworks()` adaption for Apple silicon (macOS)                                                 |
 | 5.9.15  | 2021-11-19 | `cpuCache()` fix (windows)                                                                          |
-| 5.9.14  | 2021-11-17 | `versions()` python 2 monterey (deprecated warning) fix (mac OS)                                    |
+| 5.9.14  | 2021-11-17 | `versions()` python 2 monterey (deprecated warning) fix (macOS)                                     |
 | 5.9.13  | 2021-11-14 | `time()` timezone name, `l1 cache` improvements                                                     |
 | 5.9.12  | 2021-11-13 | `users()` fix data check (windows)                                                                  |
 | 5.9.11  | 2021-11-12 | `fsStats()` fix null result (bsd)                                                                   |
@@ -410,7 +412,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.2.6   | 2021-02-12 | `inetLatency()` fixed possible DOS intrusion                                                        |
 | 5.2.5   | 2021-02-11 | `processes()` fixed truncated params (linux)                                                        |
 | 5.2.4   | 2021-02-11 | `currentLoad()` fixed issue                                                                         |
-| 5.2.3   | 2021-02-11 | `diskLayout()` added USB drives (mac OS)                                                            |
+| 5.2.3   | 2021-02-11 | `diskLayout()` added USB drives (macOS)                                                             |
 | 5.2.2   | 2021-02-11 | code cleanup, updated docs                                                                          |
 | 5.2.1   | 2021-02-10 | `system()` fixed issue virtual detect (linux)                                                       |
 | 5.2.0   | 2021-02-10 | `wifiInterfces()` and `wifiConnections()` added                                                     |
@@ -419,7 +421,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.1.0   | 2021-02-08 | `memLayout()` added ECC flag, `bios()` added language, features (linux)                             |
 | 5.0.11  | 2021-02-07 | `fsSize()` fixed windows WSL issue                                                                  |
 | 5.0.10  | 2021-02-06 | `getDynamicData()` fixed windows WSL issue                                                          |
-| 5.0.9   | 2021-02-02 | `fsSize()` fixed parsing edge case issue mac OS                                                     |
+| 5.0.9   | 2021-02-02 | `fsSize()` fixed parsing edge case issue macOS                                                      |
 | 5.0.8   | 2021-01-30 | typescript typings fix cpuCurrentSpeed                                                              |
 | 5.0.7   | 2021-01-29 | `fsSize()` available fixed windows and typescript typings                                           |
 | 5.0.6   | 2021-01-28 | `osinfo()` added hypervisor (win only)                                                              |
@@ -446,7 +448,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 4.33.4  | 2020-12-28 | `typescript` typings fix                                                                            |
 | 4.33.3  | 2020-12-27 | `graphics()` updated docs                                                                           |
 | 4.33.2  | 2020-12-27 | `graphics()` fixed issue (nvidia-smi)                                                               |
-| 4.33.1  | 2020-12-22 | `versions()` fixed issue (mac OS)                                                                   |
+| 4.33.1  | 2020-12-22 | `versions()` fixed issue (macOS)                                                                    |
 | 4.33.0  | 2020-12-21 | `graphics()` nvidia-smi support (linux, windows)                                                    |
 | 4.32.0  | 2020-12-14 | `graphics()` clinfo support (linux)                                                                 |
 | 4.31.2  | 2020-12-14 | `graphics()` Windows 7 Graphics Fixes (Multi Monitor)                                               |
@@ -455,7 +457,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 4.30.11 | 2020-12-02 | `cpu()` bug fix speed parsing                                                                       |
 | 4.30.10 | 2020-12-01 | `cpu()` handled speed parsing error (Apple Silicon)                                                 |
 | 4.30.9  | 2020-12-01 | `cpu()` corrected processor names (Raspberry Pi)                                                    |
-| 4.30.8  | 2020-11-30 | `fsSize()` catch error (mac OS)                                                                     |
+| 4.30.8  | 2020-11-30 | `fsSize()` catch error (macOS)                                                                      |
 | 4.30.7  | 2020-11-29 | `cpuTemperature()` rewrite hwmon parsing                                                            |
 | 4.30.6  | 2020-11-27 | wmic added default windows path (windows)                                                           |
 | 4.30.5  | 2020-11-26 | adapted security update (prototype pollution prevention)                                            |
@@ -535,7 +537,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 4.18.3  | 2020-01-10 | `fsSize()` fix excluding loop/snap devices                                                          |
 | 4.18.2  | 2020-01-10 | `memLayout()` fix memsize linux (modules >= 32 GB)                                                  |
 | 4.18.1  | 2020-01-07 | updated docs                                                                                        |
-| 4.18.0  | 2020-01-07 | `networkInterfaces()` added dhcp for mac os, added dhcp linux fallback                              |
+| 4.18.0  | 2020-01-07 | `networkInterfaces()` added dhcp for macOS, added dhcp linux fallback                               |
 | 4.17.3  | 2020-01-05 | code cleanup                                                                                        |
 | 4.17.2  | 2020-01-05 | `cpu().speed` AMD base frequency and fix (0.00)                                                     |
 | 4.17.1  | 2020-01-04 | `fsSize()` alpine linux support                                                                     |

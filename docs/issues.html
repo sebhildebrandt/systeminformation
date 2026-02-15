@@ -73,10 +73,14 @@
                 <p><span class="code">node.js</span> and <span class="code">get-WmiObject</span> are not able to determine correct CPU current speed on windows and macOS.
                   This means, you will have constant values here on both platforms for all processor cores in <span class="code">cpuCurrentSpeed()</span>.</p>
 
-                <h4>Linux S.M.A.R.T. Status</h4>
+                <h4>Linux, Windows, macOS - S.M.A.R.T. Status</h4>
 
-                <p>To be able to detect S.M.A.R.T. status on Linux you need to install <span class="code">smartmontools</span>. On DEBIAN based linux distributions you can install it by running:</p>
+                <p>To be able to detect S.M.A.R.T. status on macOS, Windows and Linux you need to install <span class="code">smartmontools</span>.</p>
+                <p>On DEBIAN based linux distributions you can install it by running:</p>
                 <pre>$ sudo apt-get install smartmontools</pre>
+                <p>On macOS you can install it using <span class="code">brew</span>:</p>
+                <pre>$ brew install smartmontools</pre>
+                <p>On windows you can download it from <a href="https://www.smartmontools.org/">https://www.smartmontools.org/</a></p>
                 <p>If you have smartmontools version >= 7.0 then you will get also full smart data in diskLayout()</p>
 
                 <h4>Stats Functions</h4>

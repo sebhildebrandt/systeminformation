@@ -539,8 +539,8 @@ Full function reference with examples can be found at
 |                      | [0].serialNum         | X     |     | X   | X   |     | serial number                                                            |
 |                      | [0].interfaceType     | X     |     | X   | X   |     | SATA, PCIe, ...                                                          |
 |                      | [0].smartStatus       | X     |     | X   | X   |     | S.M.A.R.T Status (see Known Issues)                                      |
-|                      | [0].temperature       | X     |     |     |     |     | S.M.A.R.T temperature                                                    |
-|                      | [0].smartData         | X     |     |     | X   |     | full S.M.A.R.T data from smartctl<br>requires at least smartmontools 7.0 |
+|                      | [0].temperature       | X     |     | X   | X   |     | S.M.A.R.T temperature                                                    |
+|                      | [0].smartData         | X     |     | X   | X   |     | full S.M.A.R.T data from smartctl<br>requires at least smartmontools 7.0 |
 | si.blockDevices(cb)  | [{...}]               | X     |     | X   | X   |     | returns array of disks, partitions,<br>raids and roms                    |
 |                      | [0].name              | X     |     | X   | X   |     | name                                                                     |
 |                      | [0].type              | X     |     | X   | X   |     | type                                                                     |
