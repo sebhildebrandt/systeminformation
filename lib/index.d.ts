@@ -583,6 +583,7 @@ export namespace Systeminformation {
     signalLevel: number;
     quality: number;
     txRate: number;
+    password?: string;
   }
 
   // 7. Current Load, Processes & Services
