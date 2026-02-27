@@ -542,6 +542,12 @@ export namespace Systeminformation {
     process: string;
   }
 
+  interface IpAddressData {
+    ip4: string;
+    ip6: string;
+    iface: string;
+  }
+
   interface InetChecksiteData {
     url: string;
     ok: boolean;
@@ -945,6 +951,7 @@ export namespace Systeminformation {
     cpuTemperature: CpuTemperatureData;
     networkStats: NetworkStatsData[];
     networkConnections: NetworkConnectionsData[];
+    ethernetConnected: boolean;
     mem: MemData;
     battery: BatteryData;
     services: ServicesData[];
@@ -964,6 +971,7 @@ export function chassis(cb?: (data: Systeminformation.ChassisData) => any): Prom
 
 export function time(): Systeminformation.TimeData;
 export function osInfo(cb?: (data: Systeminformation.OsData) => any): Promise<Systeminformation.OsData>;
+export function systemLanguage(cb?: (data: string) => any): Promise<string>;
 export function versions(apps?: string, cb?: (data: Systeminformation.VersionData) => any): Promise<Systeminformation.VersionData>;
 export function versions(cb?: (data: Systeminformation.VersionData) => any): Promise<Systeminformation.VersionData>;
 export function shell(cb?: (data: string) => any): Promise<string>;
@@ -1008,6 +1016,8 @@ export function networkInterfaces(
 export function networkStats(ifaces?: string, cb?: (data: Systeminformation.NetworkStatsData[]) => any): Promise<Systeminformation.NetworkStatsData[]>;
 export function networkStats(cb?: (data: Systeminformation.NetworkStatsData[]) => any): Promise<Systeminformation.NetworkStatsData[]>;
 export function networkConnections(cb?: (data: Systeminformation.NetworkConnectionsData[]) => any): Promise<Systeminformation.NetworkConnectionsData[]>;
+export function ethernetConnected(cb?: (data: boolean) => any): Promise<boolean>;
+export function getIpAddress(cb?: (data: Systeminformation.IpAddressData) => any): Promise<Systeminformation.IpAddressData>;
 export function inetChecksite(url: string, cb?: (data: Systeminformation.InetChecksiteData) => any): Promise<Systeminformation.InetChecksiteData>;
 export function inetLatency(host?: string, cb?: (data: number) => any): Promise<number>;
 export function inetLatency(cb?: (data: number) => any): Promise<number>;

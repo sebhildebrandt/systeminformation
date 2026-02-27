@@ -18,6 +18,8 @@ function test(f) {
       else if (f === 'g') { si.graphics().then((data) => { if (data !== null) { resolve({ data, title: 'Graphics' }); } else { resolve('not_supported'); } }); }
       else if (f === 'h') { si.bluetoothDevices().then((data) => { if (data !== null) { resolve({ data, title: 'Bluetooth' }); } else { resolve('not_supported'); } }); }
       else if (f === 'i') { si.inetLatency().then((data) => { if (data !== null) { resolve({ data, title: 'Internet Latency' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'k') { si.systemLanguage().then((data) => { if (data !== null) { resolve({ data, title: 'System Language' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'n') { si.ethernetConnected().then((data) => { if (data !== null) { resolve({ data, title: 'Ethernet Connected' }); } else { resolve('not_supported'); } }); }
       else if (f === 'I') { si.inetChecksite('https://systeminformation.io').then((data) => { if (data !== null) { resolve({ data, title: 'Internet Check Site' }); } else { resolve('not_supported'); } }); }
       else if (f === 'j') { si.cpuCurrentSpeed().then((data) => { if (data !== null) { resolve({ data, title: 'CPU Current Speed' }); } else { resolve('not_supported'); } }); }
       else if (f === 'l') { si.currentLoad().then((data) => { if (data !== null) { resolve({ data, title: 'CPU Current Load' }); } else { resolve('not_supported'); } }); }
@@ -42,25 +44,26 @@ function test(f) {
       else if (f === 'y') { si.system().then((data) => { if (data !== null) { resolve({ data, title: 'System' }); } else { resolve('not_supported'); } }); }
       else if (f === 'Y') { si.battery().then((data) => { if (data !== null) { resolve({ data, title: 'Battery' }); } else { resolve('not_supported'); } }); }
       else if (f === 'z') { si.users().then((data) => { if (data !== null) { resolve({ data, title: 'Users' }); } else { resolve('not_supported'); } }); }
-      else if (f === '1') { si.networkInterfaceDefault().then((data) => { if (data !== null) { resolve({ data, title: 'NET Iface Default' }); } else { resolve('not_supported'); } }); }
-      else if (f === '2') { si.networkGatewayDefault().then((data) => { if (data !== null) { resolve({ data, title: 'NET Gateway Default' }); } else { resolve('not_supported'); } }); }
-      else if (f === '3') { si.networkInterfaces().then((data) => { if (data !== null) { resolve({ data, title: 'NET Interfaces' }); } else { resolve('not_supported'); } }); }
-      else if (f === '4') { si.networkStats().then((data) => { if (data !== null) { resolve({ data, title: 'NET Stats' }); } else { resolve('not_supported'); } }); }
-      else if (f === '5') { si.networkConnections().then((data) => { if (data !== null) { resolve({ data, title: 'NET Connections' }); } else { resolve('not_supported'); } }); }
-      else if (f === '6') { si.dockerInfo().then((data) => { if (data !== null) { resolve({ data, title: 'Docker Info' }); } else { resolve('not_supported'); } }); }
-      else if (f === '7') { si.dockerImages().then((data) => { if (data !== null) { resolve({ data, title: 'Docker Images' }); } else { resolve('not_supported'); } }); }
-      else if (f === '8') { si.dockerContainers(true).then((data) => { if (data !== null) { resolve({ data, title: 'Docker Containers' }); } else { resolve('not_supported'); } }); }
-      else if (f === '9') { si.dockerContainerStats('*').then((data) => { if (data !== null) { resolve({ data, title: 'Docker Cont Stats' }); } else { resolve('not_supported'); } }); }
-      else if (f === '0') { si.dockerContainerProcesses('*').then((data) => { if (data !== null) { resolve({ data, title: 'Docker Cont Processes' }); } else { resolve('not_supported'); } }); }
-      else if (f === '+') { si.dockerVolumes().then((data) => { if (data !== null) { resolve({ data, title: 'Docker Volumes' }); } else { resolve('not_supported'); } }); }
-      else if (f === ',') { si.getStaticData().then((data) => { if (data !== null) { resolve({ data, title: 'All Static Data' }); } else { resolve('not_supported'); } }); }
-      else if (f === '.') { si.getDynamicData('apache2, postgres, wsearch').then((data) => { if (data !== null) { resolve({ data, title: 'All Dynamic Data' }); } else { resolve('not_supported'); } }); }
-      else if (f === '/') { si.getAllData('apache2, postgres, wsearch').then((data) => { if (data !== null) { resolve({ data, title: 'All Data' }); } else { resolve('not_supported'); } }); }
+      else if (f === '10') { si.networkInterfaceDefault().then((data) => { if (data !== null) { resolve({ data, title: 'NET Iface Default' }); } else { resolve('not_supported'); } }); }
+      else if (f === '11') { si.networkGatewayDefault().then((data) => { if (data !== null) { resolve({ data, title: 'NET Gateway Default' }); } else { resolve('not_supported'); } }); }
+      else if (f === '12') { si.networkInterfaces().then((data) => { if (data !== null) { resolve({ data, title: 'NET Interfaces' }); } else { resolve('not_supported'); } }); }
+      else if (f === '13') { si.networkStats().then((data) => { if (data !== null) { resolve({ data, title: 'NET Stats' }); } else { resolve('not_supported'); } }); }
+      else if (f === '14') { si.networkConnections().then((data) => { if (data !== null) { resolve({ data, title: 'NET Connections' }); } else { resolve('not_supported'); } }); }
+      else if (f === '15') { si.getIpAddress().then((data) => { if (data !== null) { resolve({ data, title: 'Get IP Address' }); } else { resolve('not_supported'); } }); }
+      else if (f === '21') { si.dockerInfo().then((data) => { if (data !== null) { resolve({ data, title: 'Docker Info' }); } else { resolve('not_supported'); } }); }
+      else if (f === '22') { si.dockerImages().then((data) => { if (data !== null) { resolve({ data, title: 'Docker Images' }); } else { resolve('not_supported'); } }); }
+      else if (f === '23') { si.dockerContainers(true).then((data) => { if (data !== null) { resolve({ data, title: 'Docker Containers' }); } else { resolve('not_supported'); } }); }
+      else if (f === '24') { si.dockerContainerStats('*').then((data) => { if (data !== null) { resolve({ data, title: 'Docker Cont Stats' }); } else { resolve('not_supported'); } }); }
+      else if (f === '25') { si.dockerContainerProcesses('*').then((data) => { if (data !== null) { resolve({ data, title: 'Docker Cont Processes' }); } else { resolve('not_supported'); } }); }
+      else if (f === '26') { si.dockerVolumes().then((data) => { if (data !== null) { resolve({ data, title: 'Docker Volumes' }); } else { resolve('not_supported'); } }); }
+      else if (f === '0') { si.getStaticData().then((data) => { if (data !== null) { resolve({ data, title: 'All Static Data' }); } else { resolve('not_supported'); } }); }
+      else if (f === '1') { si.getDynamicData('apache2, postgres, wsearch').then((data) => { if (data !== null) { resolve({ data, title: 'All Dynamic Data' }); } else { resolve('not_supported'); } }); }
+      else if (f === '2') { si.getAllData('apache2, postgres, wsearch').then((data) => { if (data !== null) { resolve({ data, title: 'All Data' }); } else { resolve('not_supported'); } }); }
       else if (f === 'getObj') {
         const valueObject = {
           cpu: '*',
           osInfo: 'platform, release',
-          system: 'model, manufacturer'
+          system: 'model, manufacturer',
         };
         si.get(valueObject).then((data) => resolve({ data, title: 'Get Object' }));
       }
@@ -70,7 +73,7 @@ function test(f) {
 }
 
 if (process.argv.length < 3) {
-  console.log("error - a test key is required");
+  console.log('error - a test key is required');
   process.exit(1);
 }
 
