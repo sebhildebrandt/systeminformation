@@ -31,7 +31,7 @@
 ## The Systeminformation Project
 
 This is amazing. Started as a small project just for myself, it now has > 19,000
-lines of code, > 700 versions published, up to 20 mio downloads per month, > 480
+lines of code, > 700 versions published, up to 20 mio downloads per month, > 490
 mio downloads overall. Top 10 NPM ranking for backend packages. Thank you to all
 who contributed to this project!
 
@@ -163,6 +163,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.31.0: `diskLayout()` added smartmontools support (macOS)
 - Version 5.30.0: `processes()` added user (windows) - needed to be reverted
 - Version 5.29.0: `osInfo()` added OS code name (windows)
 - Version 5.28.0: `cpuTemperature()` added suppurt for macos-temperature-sensor (macOS)
