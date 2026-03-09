@@ -91,6 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.31.3  | 2026-03-04 | `diskLayout()` USB tahoe compatibility  (mac OS)                                                    |
 | 5.31.3  | 2026-03-04 | `system()` updated Mac 2026 mopdel numbers (mac OS)                                                 |
 | 5.31.2  | 2026-03-03 | `system()` updated Mac mopdel numbers (mac OS)                                                      |
 | 5.31.1  | 2026-02-17 | `docs` updated (security advisory)                                                                  |
