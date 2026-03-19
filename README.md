@@ -30,7 +30,7 @@
 
 ## The Systeminformation Project
 
-This is amazing. Started as a small project just for myself, it now has > 19,000
+This is amazing. Started as a small project just for myself, it now has > 20,000
 lines of code, > 700 versions published, up to 20 mio downloads per month, > 500
 mio downloads overall. Top 10 NPM ranking for backend packages. Thank you to all
 who contributed to this project!
@@ -1130,8 +1130,7 @@ OSX Temperature: credits here are going to:
 
 ### Powered by
 
-<a href="https://jb.gg/OpenSourceSupport"><img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg" alt="Alt Text" width="160"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://plus-innovations.com"><img src="https://www.plus-innovations.com/wp-content/themes/bootstrap3/img/logo1000.png" alt="Alt Text" width="150" style="margin-bottom: 8px"></a>
+<a href="https://plus-innovations.com"><img src="https://www.plus-innovations.com/wp-content/themes/bootstrap3/img/logo1000.png" alt="Alt Text" width="200" style="margin-bottom: 8px"></a>
 
 ## Copyright Information
 
