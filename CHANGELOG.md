@@ -91,6 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.31.6  | 2026-05-07 | `networkInterfaces()` fix unsanitized command (linux)                                               |
 | 5.31.5  | 2026-03-19 | `netStats()` netstat command adaption (mac OS)                                                      |
 | 5.31.4  | 2026-03-09 | `diskLayout()` USB tahoe compatibility  (mac OS)                                                    |
 | 5.31.3  | 2026-03-04 | `system()` updated Mac 2026 mopdel numbers (mac OS)                                                 |
