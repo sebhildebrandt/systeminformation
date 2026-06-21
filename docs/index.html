@@ -1,402 +1,442 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css"
+      integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="roboto/css/roboto.css" />
+    <link rel="stylesheet" href="styles.css?a=112123" />
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous">
-  <link rel="stylesheet" href="roboto/css/roboto.css">
-  <link rel="stylesheet" href="styles.css?a=112123">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"
+      integrity="sha512-3J8teBiHrSyaaRBajZyIEtpDsXdPq1gsznKWIVb5CnorQuFhjWGhWe54z8YNnHHr7MZuExb9m5kvf964HiT1Sw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" integrity="sha512-3J8teBiHrSyaaRBajZyIEtpDsXdPq1gsznKWIVb5CnorQuFhjWGhWe54z8YNnHHr7MZuExb9m5kvf964HiT1Sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>systeminformation</title>
+    <script>
+      const vh = window.innerHeight * 0.01;
+      // Then we set the value in the --vh custom property to the root of the document
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
 
-  <title>systeminformation</title>
-  <script>
-    const vh = window.innerHeight * 0.01;
-    // Then we set the value in the --vh custom property to the root of the document
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-    // We listen to the resize event
-    // window.addEventListener('resize', () => {
-    //   // We execute the same script as before
-    //   let vh = window.innerHeight * 0.01;
-    //   document.documentElement.style.setProperty('--vh', `${vh}px`);
-    // });
-    function init() {
-      typed();
-      document.querySelector('.down').addEventListener('click', () => {
-        scrollIt(
-          document.querySelector('.quickstart'),
-          600,
-          'easeOutQuad',
-          () => {
-            console.log('READY');
-          }
-        );
-      });
-      getDownloads();
-    }
-    function numberWithCommas(x) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-    function getDownloads() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-          const downloads = JSON.parse(this.responseText);
-          document.getElementById("downloads").innerHTML = numberWithCommas(downloads.downloads);
-        }
-      };
-      xhttp.open("GET", "https://api.npmjs.org/downloads/point/last-month/systeminformation", true);
-      xhttp.send();
-    }
-    function getVersion() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-          const packageVersion = JSON.parse(this.responseText);
-          document.getElementById("version").innerHTML = packageVersion.version;
-        }
-      };
-      xhttp.open("GET", "https://registry.npmjs.org/systeminformation/latest", true);
-      xhttp.send();
-    }
-    function typed() {
-      var options = {
-        strings: ["System and OS information library for node.js", "Get detailed hardware, system &amp; OS information.", "For Linux, macOS, Windows, FreeBSD, OpenBSD, NetBSD, SunOS, Android"],
-        typeSpeed: 60,
-        loop: false,
-        backDelay: 1200,
-
-      };
-      return new Typed('#typed', options);
-    }
-    function scrollIt(destination, duration, easing, callback) {
-
-      const easings = {
-        linear(t) {
-          return t;
-        },
-        easeInQuad(t) {
-          return t * t;
-        },
-        easeOutQuad(t) {
-          return t * (2 - t);
-        },
-        easeInOutQuad(t) {
-          return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-        },
-        easeInCubic(t) {
-          return t * t * t;
-        },
-        easeOutCubic(t) {
-          return (--t) * t * t + 1;
-        },
-        easeInOutCubic(t) {
-          return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-        },
-        easeInQuart(t) {
-          return t * t * t * t;
-        },
-        easeOutQuart(t) {
-          return 1 - (--t) * t * t * t;
-        },
-        easeInOutQuart(t) {
-          return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
-        },
-        easeInQuint(t) {
-          return t * t * t * t * t;
-        },
-        easeOutQuint(t) {
-          return 1 + (--t) * t * t * t * t;
-        },
-        easeInOutQuint(t) {
-          return t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t;
-        }
-      };
-
-      const start = window.pageYOffset;
-      const startTime = 'now' in window.performance ? performance.now() : Date.now();
-
-      const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
-      const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
-      const destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
-      const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
-
-      if ('requestAnimationFrame' in window === false) {
-        window.scroll(0, destinationOffsetToScroll);
-        if (callback) {
-          callback();
-        }
-        return;
+      // We listen to the resize event
+      // window.addEventListener('resize', () => {
+      //   // We execute the same script as before
+      //   let vh = window.innerHeight * 0.01;
+      //   document.documentElement.style.setProperty('--vh', `${vh}px`);
+      // });
+      function init() {
+        typed();
+        document.querySelector(".down").addEventListener("click", () => {
+          scrollIt(document.querySelector(".quickstart"), 600, "easeOutQuad", () => {
+            console.log("READY");
+          });
+        });
+        getDownloads();
       }
+      function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+      function getDownloads() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState === 4 && this.status === 200) {
+            const downloads = JSON.parse(this.responseText);
+            document.getElementById("downloads").innerHTML = numberWithCommas(downloads.downloads);
+          }
+        };
+        xhttp.open("GET", "https://api.npmjs.org/downloads/point/last-month/systeminformation", true);
+        xhttp.send();
+      }
+      function getVersion() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState === 4 && this.status === 200) {
+            const packageVersion = JSON.parse(this.responseText);
+            document.getElementById("version").innerHTML = packageVersion.version;
+          }
+        };
+        xhttp.open("GET", "https://registry.npmjs.org/systeminformation/latest", true);
+        xhttp.send();
+      }
+      function typed() {
+        var options = {
+          strings: ["System and OS information library for node.js", "Get detailed hardware, system &amp; OS information.", "For Linux, macOS, Windows, FreeBSD, OpenBSD, NetBSD, SunOS, Android"],
+          typeSpeed: 60,
+          loop: false,
+          backDelay: 1200,
+        };
+        return new Typed("#typed", options);
+      }
+      function scrollIt(destination, duration, easing, callback) {
+        const easings = {
+          linear(t) {
+            return t;
+          },
+          easeInQuad(t) {
+            return t * t;
+          },
+          easeOutQuad(t) {
+            return t * (2 - t);
+          },
+          easeInOutQuad(t) {
+            return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+          },
+          easeInCubic(t) {
+            return t * t * t;
+          },
+          easeOutCubic(t) {
+            return --t * t * t + 1;
+          },
+          easeInOutCubic(t) {
+            return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+          },
+          easeInQuart(t) {
+            return t * t * t * t;
+          },
+          easeOutQuart(t) {
+            return 1 - --t * t * t * t;
+          },
+          easeInOutQuart(t) {
+            return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t;
+          },
+          easeInQuint(t) {
+            return t * t * t * t * t;
+          },
+          easeOutQuint(t) {
+            return 1 + --t * t * t * t * t;
+          },
+          easeInOutQuint(t) {
+            return t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * --t * t * t * t * t;
+          },
+        };
 
-      function scroll() {
-        const now = 'now' in window.performance ? performance.now() : Date.now();
-        const time = Math.min(1, ((now - startTime) / duration));
-        const timeFunction = easings[easing](time);
-        window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
+        const start = window.pageYOffset;
+        const startTime = "now" in window.performance ? performance.now() : Date.now();
 
-        if (window.pageYOffset === destinationOffsetToScroll) {
+        const documentHeight = Math.max(
+          document.body.scrollHeight,
+          document.body.offsetHeight,
+          document.documentElement.clientHeight,
+          document.documentElement.scrollHeight,
+          document.documentElement.offsetHeight,
+        );
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName("body")[0].clientHeight;
+        const destinationOffset = typeof destination === "number" ? destination : destination.offsetTop;
+        const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
+
+        if ("requestAnimationFrame" in window === false) {
+          window.scroll(0, destinationOffsetToScroll);
           if (callback) {
             callback();
           }
           return;
         }
 
-        requestAnimationFrame(scroll);
+        function scroll() {
+          const now = "now" in window.performance ? performance.now() : Date.now();
+          const time = Math.min(1, (now - startTime) / duration);
+          const timeFunction = easings[easing](time);
+          window.scroll(0, Math.ceil(timeFunction * (destinationOffsetToScroll - start) + start));
+
+          if (window.pageYOffset === destinationOffsetToScroll) {
+            if (callback) {
+              callback();
+            }
+            return;
+          }
+
+          requestAnimationFrame(scroll);
+        }
+
+        scroll();
       }
+    </script>
+  </head>
 
-      scroll();
-    }
-  </script>
+  <body>
+    <header class="bg-image-full">
+      <div class="top-container">
+        <a href="security.html" class="recommendation">Security advisory:<br />Update to v5.31.7</a>
+        <img class="logo" src="assets/logo.png" alt="logo" />
+        <div class="title">systeminformation</div>
+        <div class="subtitle"><span id="typed"></span>&nbsp;</div>
+        <div class="version">New Version: <span id="version">5.31.8</span></div>
+        <button class="btn btn-light" onclick="location.href = 'https://github.com/sebhildebrandt/systeminformation'">View on Github <i class="fab fa-github"></i></button>
+      </div>
+      <div class="down">
+        <button class="btn btn-primary mb-2" onclick="location.href = 'https://www.buymeacoffee.com/systeminfo'">Buy me a coffee&nbsp;&nbsp;<i class="far fa-mug-hot"></i></button>
+        <br />Read Documentation<br />
+        <i class="fal fa-caret-down caret"></i>
+      </div>
+    </header>
 
-</head>
-
-<body>
-  <header class="bg-image-full">
-    <div class="top-container">
-      <a href="security.html" class="recommendation">Security advisory:<br>Update to v5.31.7</a>
-      <img class="logo" src="assets/logo.png" alt="logo">
-      <div class="title">systeminformation</div>
-      <div class="subtitle"><span id="typed"></span>&nbsp;</div>
-      <div class="version">New Version: <span id="version">5.31.7</span></div>
-      <button class="btn btn-light" onclick="location.href='https://github.com/sebhildebrandt/systeminformation'">View on Github <i class=" fab fa-github"></i></button>
+    <div class="container-fluid">
+      <section class="container quickstart">
+        <div class="row">
+          <div class="col-12 sectionheader index">
+            <div class="title">Overview</div>
+            <div class="subtitle">
+              Node.js system information package. Lightweight collection of 50+ functions to retrieve detailed hardware, system and OS information. For Linux, macOS, partial Windows, FreeBSD, OpenBSD,
+              NetBSD, SunOS and Android support. Dependency free. Works with <span class="bold">Node.js</span>, <span class="bold">Bun</span> and <span class="bold">Deno</span>
+            </div>
+            <div class="banner text larger">
+              <span class="bold success">Version 6</span> will arrive soon with a lot of new features and improvements. There will also be some breaking changes (for a more consistent API)
+            </div>
+            <div class="npmicons">
+              <a href="https://npmjs.org/package/systeminformation" rel="nofollow"
+                ><img
+                  src="https://img.shields.io/npm/v/systeminformation.svg?style=flat-square"
+                  alt="NPM Version"
+                  data-canonical-src="https://img.shields.io/npm/v/systeminformation.svg?style=flat-square"
+                  style="max-width: 100%"
+              /></a>
+              <a href="https://systeminformation.io" rel="nofollow"><img src="assets/no-dependencies.svg" alt="no dependencies" /></a>
+              <a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"
+                ><img
+                  src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square"
+                  alt="MIT license"
+                  data-canonical-src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square"
+                  style="max-width: 100%"
+              /></a>
+            </div>
+            <div class="text larger"><span class="warning">Security issues:</span> Please have a look at our <a href="../security.html">security advisories</a>.</div>
+          </div>
+        </div>
+        <div class="row justify-content-center sectionheader index">
+          <div class="col-8">
+            <hr />
+          </div>
+        </div>
+        <div class="row number-section">
+          <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+            <div class="numbers">20,122</div>
+            <div class="title">Lines of code</div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+            <div id="downloads" class="numbers">...</div>
+            <div class="title">Downloads last month</div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+            <div class="numbers">1130</div>
+            <div class="title">Dependents</div>
+          </div>
+        </div>
+        <div class="row justify-content-center sectionheader index">
+          <div class="col-8">
+            <hr />
+          </div>
+        </div>
+        <div class="row" id="docs">
+          <div class="col-12 sectionheader index">
+            <div class="title">Documentation</div>
+            <div class="subtitle">Detailed documentation and reference for version 5.x.x</div>
+            <div class="title-small">Breaking Changes - Version 5</div>
+            <div class="text">
+              We made a lot of improvements and changes in the new version. <span class="bold">Version 5 is NOT fully backward compatible to version 4!</span> Be aware, there are some breaking
+              changes. Please refer to the <a href="changes.html">Version 5 - Changes</a> page to see a full documentation of all changes you should have a look on.
+            </div>
+            <div class="text larger"><span class="bold">Version 4 documentation</span> can be found <a href="v4/index.html">here</a>.</div>
+          </div>
+        </div>
+        <div class="row index">
+          <a href="gettingstarted.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-download"></i></div>
+              <div class="icontitle">Quick Start</div>
+            </div>
+          </a>
+          <a href="general.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-th-list"></i></div>
+              <div class="icontitle">General</div>
+            </div>
+          </a>
+          <a href="system.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-server"></i></div>
+              <div class="icontitle">System</div>
+            </div>
+          </a>
+          <a href="cpu.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-microchip"></i></div>
+              <div class="icontitle">CPU</div>
+            </div>
+          </a>
+          <a href="memory.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-memory"></i></div>
+              <div class="icontitle">Memory</div>
+            </div>
+          </a>
+          <a href="battery.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-battery-half"></i></div>
+              <div class="icontitle">Battery</div>
+            </div>
+          </a>
+          <a href="graphics.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-desktop"></i></div>
+              <div class="icontitle">Graphics</div>
+            </div>
+          </a>
+          <a href="os.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-window"></i></div>
+              <div class="icontitle">OS</div>
+            </div>
+          </a>
+          <a href="processes.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-chart-line"></i></div>
+              <div class="icontitle">Process/Service</div>
+            </div>
+          </a>
+          <a href="filesystem.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-hdd"></i></div>
+              <div class="icontitle">Disks / FS</div>
+            </div>
+          </a>
+          <a href="usb.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fab fa-usb"></i></div>
+              <div class="icontitle">USB</div>
+            </div>
+          </a>
+          <a href="printer.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-print"></i></div>
+              <div class="icontitle">Printer</div>
+            </div>
+          </a>
+          <a href="audio.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-volume"></i></div>
+              <div class="icontitle">Audio</div>
+            </div>
+          </a>
+          <a href="network.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-network-wired"></i></div>
+              <div class="icontitle">Network</div>
+            </div>
+          </a>
+          <a href="wifi.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-wifi"></i></div>
+              <div class="icontitle">Wifi</div>
+            </div>
+          </a>
+          <a href="bluetooth.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fab fa-bluetooth"></i></div>
+              <div class="icontitle">Bluetooth</div>
+            </div>
+          </a>
+          <a href="docker.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fab fa-docker"></i></div>
+              <div class="icontitle">Docker</div>
+            </div>
+          </a>
+          <a href="vbox.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
+            <div class="inner">
+              <div class="icons"><i class="fal fa-box-open"></i></div>
+              <div class="icontitle">Virtual Box</div>
+            </div>
+          </a>
+        </div>
+        <div class="row justify-content-center sectionheader index">
+          <div class="col-8">
+            <hr />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 sectionheader index">
+            <div class="title-small">Issues</div>
+            <div class="text"><span class="warning">Security issues:</span> We highly recommend to have a look at our <a href="security.html">security advisories</a></div>
+            <div class="text">
+              <span class="bold">Having an issue</span>: If you run into problems, please check out <a href="issues.html">known issues page</a> first.<br />If you still have problems, please feel free
+              to open an issue on our <a href="https://github.com/sebhildebrandt/systeminformation/issues">github page</a>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-    <div class="down">
-      <button class="btn btn-primary mb-2" onclick="location.href='https://www.buymeacoffee.com/systeminfo'">Buy me a coffee&nbsp;&nbsp;<i class="far fa-mug-hot"></i></button>
-      <br>Read Documentation<br>
-      <i class="fal fa-caret-down caret"></i>
-    </div>
-  </header>
 
-  <div class="container-fluid">
+    <footer class="container-fluid footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-12">
+            <ul class="list-unstyled">
+              <li><a href="." class="medium home">Home</a></li>
+              <li>&nbsp;</li>
+              <li>
+                <a href="security.html">Security Advisories&nbsp;&nbsp;<i class="fas fa-shield-check"></i></a>
+              </li>
+              <li>
+                <a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a>
+              </li>
+              <li>&nbsp;</li>
+              <li>
+                <a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-12">
+            <ul class="list-unstyled">
+              <li><a href="gettingstarted.html">Quick Start</a></li>
+              <li><a href="changes.html">Version 5 Changes</a></li>
+              <li><a href="history.html">Full Version History</a></li>
+              <li><a href="tests.html">Testing</a></li>
+              <li><a href="issues.html">Known Issues</a></li>
+              <li><a href="statsfunctions.html">Stats Functions</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-12">
+            <ul class="list-unstyled">
+              <li><a href="contributors.html">Contributors</a></li>
+              <li><a href="trademarks.html">Trademarks</a></li>
+              <li>&nbsp;</li>
+              <li>
+                <a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a>
+              </li>
+              <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
+              <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
 
-    <section class="container quickstart">
-      <div class="row">
-        <div class="col-12 sectionheader index">
-          <div class="title">Overview</div>
-          <div class="subtitle">Node.js system information package. Lightweight collection of 50+ functions to retrieve detailed hardware, system and OS information. For Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD, SunOS and Android support. Dependency free. Works with <span class="bold">Node.js</span>, <span class="bold">Bun</span> and <span class="bold">Deno</span></div>
-          <div class="banner text larger"><span class="bold success">Version 6</span> will arrive soon with a lot of new features and improvements. There will also be some breaking changes (for a more consistent API)</div>
-          <div class="npmicons">
-            <a href="https://npmjs.org/package/systeminformation" rel="nofollow"><img src="https://img.shields.io/npm/v/systeminformation.svg?style=flat-square" alt="NPM Version" data-canonical-src="https://img.shields.io/npm/v/systeminformation.svg?style=flat-square" style="max-width:100%;"></a>
-            <a href="https://systeminformation.io" rel="nofollow"><img src="assets/no-dependencies.svg" alt="no dependencies"></a>
-            <a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" data-canonical-src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" style="max-width:100%;"></a>
-          </div>
-          <div class="text larger"><span class="warning">Security issues:</span> Please have a look at our <a href="../security.html">security advisories</a>.</div>
-
-        </div>
-      </div>
-      <div class="row justify-content-center sectionheader index">
-        <div class="col-8">
-          <hr>
-        </div>
-      </div>
-      <div class="row number-section">
-        <div class="col-xl-4 col-lg-4 col-md-4 col-12">
-          <div class="numbers">20,122</div>
-          <div class="title">Lines of code</div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-4 col-12">
-          <div id="downloads" class="numbers">...</div>
-          <div class="title">Downloads last month</div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-4 col-12">
-          <div class="numbers">1105</div>
-          <div class="title">Dependents</div>
-        </div>
-      </div>
-      <div class="row justify-content-center sectionheader index">
-        <div class="col-8">
-          <hr>
-        </div>
-      </div>
-      <div class="row" id="docs">
-        <div class="col-12 sectionheader index">
-          <div class="title">Documentation</div>
-          <div class="subtitle">Detailed documentation and reference for version 5.x.x</div>
-          <div class="title-small">Breaking Changes - Version 5</div>
-          <div class="text">We made a lot of improvements and changes in the new version. <span class="bold">Version 5 is NOT fully backward compatible to version 4!</span> Be aware, there are some breaking changes. Please refer to the <a href="changes.html">Version 5 - Changes</a> page to see a full documentation of all changes you should have a look on.</div>
-          <div class="text larger"><span class="bold">Version 4 documentation</span> can be found <a href="v4/index.html">here</a>.</div>
-        </div>
-      </div>
-      <div class="row index">
-        <a href="gettingstarted.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-download"></i></div>
-            <div class="icontitle">Quick Start</div>
-          </div>
-        </a>
-        <a href="general.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-th-list"></i></div>
-            <div class="icontitle">General</div>
-          </div>
-        </a>
-        <a href="system.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-server"></i></div>
-            <div class="icontitle">System</div>
-          </div>
-        </a>
-        <a href="cpu.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-microchip"></i></div>
-            <div class="icontitle">CPU</div>
-          </div>
-        </a>
-        <a href="memory.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-memory"></i></div>
-            <div class="icontitle">Memory</div>
-          </div>
-        </a>
-        <a href="battery.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-battery-half"></i></div>
-            <div class="icontitle">Battery</div>
-          </div>
-        </a>
-        <a href="graphics.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-desktop"></i></div>
-            <div class="icontitle">Graphics</div>
-          </div>
-        </a>
-        <a href="os.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-window"></i></div>
-            <div class="icontitle">OS</div>
-          </div>
-        </a>
-        <a href="processes.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-chart-line"></i></div>
-            <div class="icontitle">Process/Service</div>
-          </div>
-        </a>
-        <a href="filesystem.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-hdd"></i></div>
-            <div class="icontitle">Disks / FS</div>
-          </div>
-        </a>
-        <a href="usb.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fab fa-usb"></i></div>
-            <div class="icontitle">USB</div>
-          </div>
-        </a>
-        <a href="printer.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-print"></i></div>
-            <div class="icontitle">Printer</div>
-          </div>
-        </a>
-        <a href="audio.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-volume"></i></div>
-            <div class="icontitle">Audio</div>
-          </div>
-        </a>
-        <a href="network.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-network-wired"></i></div>
-            <div class="icontitle">Network</div>
-          </div>
-        </a>
-        <a href="wifi.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-wifi"></i></div>
-            <div class="icontitle">Wifi</div>
-          </div>
-        </a>
-        <a href="bluetooth.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fab fa-bluetooth"></i></div>
-            <div class="icontitle">Bluetooth</div>
-          </div>
-        </a>
-        <a href="docker.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fab fa-docker"></i></div>
-            <div class="icontitle">Docker</div>
-          </div>
-        </a>
-        <a href="vbox.html" class="col-xl-3 col-lg-3 col-md-4 col-6 features">
-          <div class="inner">
-            <div class="icons"><i class="fal fa-box-open"></i></div>
-            <div class="icontitle">Virtual Box</div>
-          </div>
-        </a>
-      </div>
-      <div class="row justify-content-center sectionheader index">
-        <div class="col-8">
-          <hr>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 sectionheader index">
-          <div class="title-small">Issues</div>
-          <div class="text"><span class="warning">Security issues:</span> We highly recommend to have a look at our <a href="security.html">security advisories</a></div>
-          <div class="text"><span class="bold">Having an issue</span>: If you run into problems, please check out <a href="issues.html">known issues page</a> first.<br>If you still have problems, please feel free to open an issue on our <a href="https://github.com/sebhildebrandt/systeminformation/issues">github page</a></div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <footer class="container-fluid footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 col-12">
-          <ul class="list-unstyled">
-            <li><a href="." class="medium home">Home</a></li>
-            <li>&nbsp;</li>
-            <li><a href="security.html">Security Advisories&nbsp;&nbsp;<i class="fas fa-shield-check"></i></a></li>
-            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
-            <li>&nbsp;</li>
-            <li><a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-4 col-12">
-          <ul class="list-unstyled">
-            <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 5 Changes</a></li>
-            <li><a href="history.html">Full Version History</a></li>
-            <li><a href="tests.html">Testing</a></li>
-            <li><a href="issues.html">Known Issues</a></li>
-            <li><a href="statsfunctions.html">Stats Functions</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-4 col-12">
-          <ul class="list-unstyled">
-            <li><a href="contributors.html">Contributors</a></li>
-            <li><a href="trademarks.html">Trademarks</a></li>
-            <li>&nbsp;</li>
-            <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
-            <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script>
-    window.onload = init;
-  </script>
-</body>
-
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+      window.onload = init;
+    </script>
+  </body>
 </html>
