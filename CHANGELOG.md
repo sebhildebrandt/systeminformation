@@ -91,6 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.31.9  | 2026-06-22 | `baseboard()` fix parsing (macOS)                                                                   |
 | 5.31.8  | 2026-06-21 | `cpu()` fix efficiency cores detection (macOS > M5)                                                 |
 | 5.31.7  | 2026-05-29 | `networkInterfaces()` fix unsanitized command (linux)                                               |
 | 5.31.6  | 2026-05-07 | `networkInterfaces()` fix unsanitized command (linux)                                               |
