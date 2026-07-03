@@ -91,6 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.31.12 | 2026-07-03 | `cpuTemperature()` fix parsing improvments cpuThermal (linux)                                       |
 | 5.31.11 | 2026-06-25 | `graphics()` fix vram parsing with correct units (linux)                                            |
 | 5.31.10 | 2026-06-24 | `memory()` fix acive mem (macOS)                                                                    |
 | 5.31.9  | 2026-06-22 | `baseboard()` fix parsing (macOS)                                                                   |
@@ -98,7 +99,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.31.7  | 2026-05-29 | `networkInterfaces()` fix unsanitized command (linux)                                               |
 | 5.31.6  | 2026-05-07 | `networkInterfaces()` fix unsanitized command (linux)                                               |
 | 5.31.5  | 2026-03-19 | `netStats()` netstat command adaption (mac OS)                                                      |
-| 5.31.4  | 2026-03-09 | `diskLayout()` USB tahoe compatibility  (mac OS)                                                    |
+| 5.31.4  | 2026-03-09 | `diskLayout()` USB tahoe compatibility (mac OS)                                                     |
 | 5.31.3  | 2026-03-04 | `system()` updated Mac 2026 mopdel numbers (mac OS)                                                 |
 | 5.31.2  | 2026-03-03 | `system()` updated Mac mopdel numbers (mac OS)                                                      |
 | 5.31.1  | 2026-02-17 | `docs` updated (security advisory)                                                                  |
