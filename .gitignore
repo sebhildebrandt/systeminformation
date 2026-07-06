@@ -67,37 +67,22 @@ src/
 tsconfig.json
 typings.d.ts
 
-# --- AI / Coding-Assistant Dateien ---
-# Claude / Claude Code
-CLAUDE.md
-CLAUDE.local.md
+# AI assistants
 .claude/
-
-# Cursor
 .cursor/
-.cursorrules
-.cursorignore
-
-# OpenCode
+.copilot/
 .opencode/
-opencode.json
-AGENTS.md
-
-# GitHub Copilot
-.github/copilot-instructions.md
-
-# Windsurf / Codeium
-.windsurf/
-.windsurfrules
-.codeium/
-
-# Aider
-.aider*
-CONVENTIONS.md
-
-# Gemini CLI
-GEMINI.md
 .gemini/
 
-# Continue
-.continue/
+# AI prompt/rule files
+**/.rules/
+**/.instructions/
+**/.prompts/
+.github/copilot-instructions.md
+
+# Common AI markdown/config files
+**/AGENTS.md
+**/CLAUDE.md
+**/GEMINI.md
+**/COPILOT.md
+**/AI.md
