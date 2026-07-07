@@ -91,6 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.31.14 | 2026-07-07 | `diskLayout()` fix USB drives fallbask (macOS)                                                      |
 | 5.31.13 | 2026-07-05 | `baseboard()` fix latest Mac itentifier keys (macOS)                                                |
 | 5.31.12 | 2026-07-03 | `cpuTemperature()` fix parsing improvments cpuThermal (linux)                                       |
 | 5.31.11 | 2026-06-25 | `graphics()` fix vram parsing with correct units (linux)                                            |
