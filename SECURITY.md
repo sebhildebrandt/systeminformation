@@ -29,6 +29,20 @@ involving the following steps:
   * Prepare fixes for all releases still under maintenance. These fixes will be
     released as fast as possible to npm.
 
+## Caller Responsibility: SSRF
+
+The functions `inetChecksite(url)` and `inetLatency(host)` perform network
+requests to the target you pass in. They do **not** restrict the destination
+to public hosts — internal or link-local addresses (e.g. `http://127.0.0.1`,
+`http://169.254.169.254/` cloud metadata endpoints) are reachable. Only the
+`file:`, `gopher:`, `telnet:`, `mailto:`, `news:` and `nntp:` schemes are
+blocked, and redirects are not followed.
+
+If you call these functions with untrusted, user-supplied URLs or hosts in a
+server-side context, you are responsible for validating them first (e.g.
+denying private/loopback/link-local IP ranges). Never forward raw client input
+to these functions without such a check.
+
 ## Comments on this Policy
 
 If you have suggestions on how this process could be improved please submit a
