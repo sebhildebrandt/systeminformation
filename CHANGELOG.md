@@ -91,6 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.31.16 | 2026-07-10 | `currentLoad` changed calculation (windows)                                                         |
 | 5.31.15 | 2026-07-08 | code refacroting, hardening                                                                         |
 | 5.31.14 | 2026-07-07 | `diskLayout()` fix USB drives fallbask (macOS)                                                      |
 | 5.31.13 | 2026-07-05 | `baseboard()` fix latest Mac itentifier keys (macOS)                                                |
