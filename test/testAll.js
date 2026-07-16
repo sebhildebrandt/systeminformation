@@ -29,9 +29,9 @@ const ARGS = {
 
 // side-effecting / control functions that must not be called blindly
 const SKIP = {
-  observe: 'startet ein Intervall (Seiteneffekt)',
-  powerShellStart: 'startet persistenten PowerShell-Prozess',
-  powerShellRelease: 'beendet PowerShell-Prozess'
+  observe: 'starts an interval (side effect)',
+  powerShellStart: 'starts a persistent PowerShell process',
+  powerShellRelease: 'stops the PowerShell process'
 };
 
 const SLOW = new Set(['getStaticData', 'getDynamicData', 'getAllData', 'inetChecksite', 'inetLatency']);
@@ -66,7 +66,7 @@ function runOne(name) {
       resolve({ name, ok, detail });
     };
 
-    const timer = setTimeout(() => done(false, `Timeout nach ${timeoutMs / 1000}s (Hang)`), timeoutMs);
+    const timer = setTimeout(() => done(false, `timeout after ${timeoutMs / 1000}s (hang)`), timeoutMs);
     currentReject = (err) => done(false, err && err.message ? err.message : String(err));
 
     try {
@@ -89,7 +89,7 @@ async function regressions() {
   // get() with a non-string value must not crash the process
   checks.push(
     withTimeout(si.get({ cpu: 5 }), 10000).then((r) => ({
-      name: "get({cpu:5}) kein Crash",
+      name: "get({cpu:5}) does not crash",
       ok: !r.hang && !r.e,
       detail: r.hang ? 'HANG' : r.e ? r.e.message : ''
     }))
@@ -97,7 +97,7 @@ async function regressions() {
   // get() must ignore control functions (no setInterval leak / crash)
   checks.push(
     withTimeout(si.get({ observe: 'x' }), 10000).then((r) => ({
-      name: "get({observe}) blockiert",
+      name: "get({observe}) is blocked",
       ok: !r.hang && !r.e,
       detail: r.hang ? 'HANG' : r.e ? r.e.message : ''
     }))
@@ -105,7 +105,7 @@ async function regressions() {
   // versions() single-key must resolve, not hang
   checks.push(
     withTimeout(si.versions('kernel'), 10000).then((r) => ({
-      name: "versions('kernel') resolvt",
+      name: "versions('kernel') resolves",
       ok: !r.hang && !r.e,
       detail: r.hang ? 'HANG' : r.e ? r.e.message : ''
     }))
@@ -113,7 +113,7 @@ async function regressions() {
   // processLoad() with the pollution sentinel must resolve
   checks.push(
     withTimeout(si.processLoad('------'), 15000).then((r) => ({
-      name: "processLoad('------') resolvt",
+      name: "processLoad('------') resolves",
       ok: !r.hang && !r.e,
       detail: r.hang ? 'HANG' : r.e ? r.e.message : ''
     }))
@@ -141,22 +141,22 @@ async function regressions() {
     results.push(res);
   }
 
-  console.log('\n--- Regressionschecks (gefixte Bugs) ---');
+  console.log('\n--- Regression checks (fixed bugs) ---');
   const reg = await regressions();
   reg.forEach((r) => console.log(`  ${r.ok ? 'PASS' : 'FAIL'}  ${r.name}${r.ok ? '' : '  (' + r.detail + ')'}`));
 
   const failed = results.filter((r) => !r.ok).concat(reg.filter((r) => !r.ok));
   console.log('\n----------------------------------------');
-  console.log(`Funktionen: ${results.length}  PASS: ${results.filter((r) => r.ok).length}  FAIL: ${results.filter((r) => !r.ok).length}  SKIP: ${skipped.length}`);
-  console.log(`Regressionschecks: ${reg.length}  PASS: ${reg.filter((r) => r.ok).length}  FAIL: ${reg.filter((r) => !r.ok).length}`);
+  console.log(`Functions: ${results.length}  PASS: ${results.filter((r) => r.ok).length}  FAIL: ${results.filter((r) => !r.ok).length}  SKIP: ${skipped.length}`);
+  console.log(`Regression checks: ${reg.length}  PASS: ${reg.filter((r) => r.ok).length}  FAIL: ${reg.filter((r) => !r.ok).length}`);
   if (skipped.length) {
-    console.log('Übersprungen: ' + skipped.map((s) => `${s.name} (${s.reason})`).join(', '));
+    console.log('Skipped: ' + skipped.map((s) => `${s.name} (${s.reason})`).join(', '));
   }
   if (failed.length) {
-    console.log('\nFEHLGESCHLAGEN:');
+    console.log('\nFAILED:');
     failed.forEach((r) => console.log(`  - ${r.name}: ${r.detail}`));
     process.exit(1);
   }
-  console.log('\nAlle Tests bestanden.');
+  console.log('\nAll tests passed.');
   process.exit(0);
 })();
