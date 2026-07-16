@@ -762,6 +762,7 @@ export namespace Systeminformation {
     restartCount: number;
     platform: string;
     driver: string;
+    labels: { [key: string]: string };
     ports: number[];
     mounts: DockerContainerMountData[];
   }

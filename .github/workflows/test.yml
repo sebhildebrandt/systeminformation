@@ -1,17 +1,13 @@
-
 name: Test
 
-on: [
-  pull_request,
-  push
-]
+on: [pull_request, push]
 
 jobs:
   build:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [16.x, 17.x, 18.x, 19.x, 20.x]
+        node-version: [16.x, 17.x, 18.x, 19.x, 20.x, 22.x, 24.x]
         include:
           - os: macos-latest
             node-version: 16.x
@@ -35,3 +31,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: node test/ci.js
+      - run: node test/testAll.js
