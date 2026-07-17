@@ -404,14 +404,15 @@ Full function reference with examples can be found at
 |                 | ...[0].external           |       |     | X   |     |     | is external GPU                             |
 |                 | ...[0].cores              |       |     | X   |     |     | Apple silicon only                          |
 |                 | ...[0].metalVersion       |       |     | X   |     |     | Apple Metal Version                         |
+|                 | ...[0].temperatureGpu     | X     |     | X   | X   |     | GPU temperature (see notes below)           |
 |                 | displays[]                | X     |     | X   | X   |     | monitor/display array                       |
 |                 | ...[0].vendor             |       |     |     | X   |     | monitor/display vendor                      |
 |                 | ...[0].vendorId           |       |     | X   |     |     | vendor ID                                   |
 |                 | ...[0].deviceName         |       |     |     | X   |     | e.g. \\\\.\\DISPLAY1                        |
 |                 | ...[0].model              | X     |     | X   | X   |     | monitor/display model                       |
-|                 | ...[0].productionYear     |       |     | X   |     |     | production year                             |
-|                 | ...[0].serial             |       |     | X   |     |     | serial number                               |
-|                 | ...[0].displayId          |       |     | X   |     |     | display ID                                  |
+|                 | ...[0].productionYear     |       |     | X   | X   |     | production year                             |
+|                 | ...[0].serial             |       |     | X   | X   |     | serial number                               |
+|                 | ...[0].displayId          |       |     | X   | X   |     | display ID                                  |
 |                 | ...[0].main               | X     |     | X   | X   |     | true if main monitor                        |
 |                 | ...[0].builtin            | X     |     | X   |     |     | true if built-in monitor                    |
 |                 | ...[0].connection         | X     |     | X   | X   |     | e.g. DisplayPort or HDMI                    |
@@ -422,8 +423,8 @@ Full function reference with examples can be found at
 |                 | ...[0].resolutionY        | X     |     | X   | X   |     | pixel vertical                              |
 |                 | ...[0].currentResX        | X     |     | X   | X   |     | current pixel horizontal                    |
 |                 | ...[0].currentResY        | X     |     | X   | X   |     | current pixel vertical                      |
-|                 | ...[0].positionX          |       |     | X   | X   |     | display position X                          |
-|                 | ...[0].positionY          |       |     | X   | X   |     | display position Y                          |
+|                 | ...[0].positionX          | X     |     | X   | X   |     | display position X                          |
+|                 | ...[0].positionY          | X     |     | X   | X   |     | display position Y                          |
 |                 | ...[0].currentRefreshRate | X     |     | X   | X   |     | current screen refresh rate                 |
 
 #### 7. Operating System
@@ -1022,7 +1023,9 @@ $ npm install macos-temperature-sensor --save
 ```
 
 `systeminformation` will then detect this additional library and return the
-temperature when calling systeminformations standard function `cpuTemperature()`
+temperature when calling systeminformations standard function `cpuTemperature()`.
+On Apple Silicon machines `macos-temperature-sensor` also enables the GPU
+temperature (`temperatureGpu`) in the `graphics()` controllers
 
 #### Windows Temperature, Battery, ...
 
