@@ -216,6 +216,16 @@
                       <td></td>
                       <td>OS uses UEFI on startup</td>
                     </tr>
+                    <tr>
+                      <td></td>
+                      <td>displayServer</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>display server: wayland, x11, quartz, dwm, tty</td>
+                    </tr>
                     <tr class="example">
                       <td></td>
                       <td colspan="7">
@@ -237,7 +247,8 @@ si.osInfo().then(data => console.log(data));</code></pre>
   serial: 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX',
   build: '19D76',
   servicepack: '',
-  uefi: true
+  uefi: true,
+  displayServer: 'quartz'
 }</pre>
                       </td>
                     </tr>
