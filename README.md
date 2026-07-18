@@ -163,6 +163,7 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
+- Version 5.32.0: `graphics()` added temperature values (macOS), `dockerContainer()` addes labels
 - Version 5.31.0: `diskLayout()` added smartmontools support (macOS)
 - Version 5.30.0: `processes()` added user (windows) - needed to be reverted
 - Version 5.29.0: `osInfo()` added OS code name (windows)
@@ -435,7 +436,7 @@ Full function reference with examples can be found at
 |                       | platform      | X     | X   | X   | X   | X   | 'linux', 'darwin', 'Windows', ...                                                                                                                  |
 |                       | distro        | X     | X   | X   | X   | X   |                                                                                                                                                    |
 |                       | release       | X     | X   | X   | X   | X   |                                                                                                                                                    |
-|                       | codename      | X     |     | X   | X    |     |   |
+|                       | codename      | X     |     | X   | X   |     |                                                                                                                                                    |
 |                       | kernel        | X     | X   | X   | X   | X   | kernel release - same as os.release()                                                                                                              |
 |                       | arch          | X     | X   | X   | X   | X   | same as os.arch()                                                                                                                                  |
 |                       | hostname      | X     | X   | X   | X   | X   | same as os.hostname()                                                                                                                              |
