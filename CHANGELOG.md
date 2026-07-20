@@ -91,6 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.33.0  | 2026-07-20 | `dockerContainers()` added status (healthy, ..)                                                     |
 | 5.32.0  | 2026-07-17 | fixes for #764, #853, #855, #866, #888, #940, #997, code refactoring                                |
 | 5.31.17 | 2026-07-13 | `fsSize()` fixed parsing - spaces (linux)                                                           |
 | 5.31.16 | 2026-07-10 | `currentLoad` changed calculation (windows)                                                         |

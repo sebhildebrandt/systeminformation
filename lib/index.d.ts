@@ -5,7 +5,6 @@
 /// <reference types="node" />
 
 export namespace Systeminformation {
-
   // 1. General
 
   interface TimeData {
@@ -225,7 +224,7 @@ export namespace Systeminformation {
     nvme_pci_vendor?: {
       id: number;
       subsystem_id: number;
-    },
+    };
     nvme_smart_health_information_log?: {
       critical_warning?: number;
       temperature?: number;
@@ -245,11 +244,11 @@ export namespace Systeminformation {
       warning_temp_time?: number;
       critical_comp_time?: number;
       temperature_sensors?: number[];
-    },
+    };
     user_capacity?: {
       blocks: number;
       bytes: number;
-    },
+    };
     logical_block_size?: number;
     temperature: {
       current: number;
@@ -758,6 +757,7 @@ export namespace Systeminformation {
     createdAt: string;
     startedAt: string;
     finishedAt: string;
+    status: string;
     state: string;
     restartCount: number;
     platform: string;
@@ -997,10 +997,7 @@ export function networkInterfaces(): Promise<Systeminformation.NetworkInterfaces
 export function networkInterfaces(defaultString: 'default'): Promise<Systeminformation.NetworkInterfacesData>;
 export function networkInterfaces(rescan: boolean): Promise<Systeminformation.NetworkInterfacesData[]>;
 export function networkInterfaces(
-  cb:
-    | ((data: Systeminformation.NetworkInterfacesData[] | Systeminformation.NetworkInterfacesData) => any)
-    | boolean
-    | string,
+  cb: ((data: Systeminformation.NetworkInterfacesData[] | Systeminformation.NetworkInterfacesData) => any) | boolean | string,
   rescan?: boolean,
   defaultString?: string
 ): Promise<Systeminformation.NetworkInterfacesData[] | Systeminformation.NetworkInterfacesData>;

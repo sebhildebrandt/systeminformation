@@ -163,7 +163,8 @@ si.cpu()
 
 (last 7 major and minor version releases)
 
-- Version 5.32.0: `graphics()` added temperature values (macOS), `dockerContainer()` addes labels
+- Version 5.33.0: `dockerContainer()` added status (healtthy, ...)
+- Version 5.32.0: `graphics()` added temperature values (macOS), `dockerContainers()` added labels
 - Version 5.31.0: `diskLayout()` added smartmontools support (macOS)
 - Version 5.30.0: `processes()` added user (windows) - needed to be reverted
 - Version 5.29.0: `osInfo()` added OS code name (windows)
