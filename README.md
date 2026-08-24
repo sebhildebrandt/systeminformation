@@ -31,8 +31,8 @@
 ## The Systeminformation Project
 
 This is amazing. Started as a small project just for myself, it now has > 20,000
-lines of code, > 750 versions published, up to 30 mio downloads per month, > 600
-mio downloads overall. Top 10 NPM ranking for backend packages. Thank you to all
+lines of code, > 750 versions published, up to 50 mio downloads per month, > 700
+mio downloads overall. Top 5 NPM ranking for backend packages. Thank you to all
 who contributed to this project!
 
 > **Upcoming Version 6** ⭐️⭐️⭐️
