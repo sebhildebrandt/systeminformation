@@ -1,9 +1,10 @@
+import { plistParser } from './../common/darwin';
 import { nextTick } from '../common';
-import { execCmd } from '../common/exec';
+import { exec } from '../common/exec';
 import { PrinterData } from '../common/types';
 
-const parsePrinters = (printerObject: any, id: number): PrinterData => {
-  const uriParts = printerObject.uri.split('/');
+const parsePrinterObject = (printerObject: any, id: number): PrinterData => {
+  const uriParts = printerObject.uri ? printerObject.uri.split('/') : [];
   return {
     id: id,
     name: printerObject._name,
@@ -19,22 +20,25 @@ const parsePrinters = (printerObject: any, id: number): PrinterData => {
   };
 };
 
-export const darwinPrinter = async () => {
+const parsePrinter = (data: string) => {
   const result: PrinterData[] = [];
-  const stdout = await execCmd('system_profiler SPPrintersDataType -json');
-  try {
-    const outObj = JSON.parse(stdout.toString());
-    if (outObj.SPPrintersDataType && outObj.SPPrintersDataType.length) {
-      for (let i = 0; i < outObj.SPPrintersDataType.length; i++) {
-        const printer = parsePrinters(outObj.SPPrintersDataType[i], i);
+  const outObj = plistParser(data);
+  if (outObj.length) {
+    for (let i = 0; i < outObj.length; i++) {
+      const printer = parsePrinterObject(outObj[i], i);
+      if (printer.status !== 'no_info_found') {
         result.push(printer);
       }
     }
-  } catch { }
-  return (result);
+  }
+  return result;
 };
 
 export const printer = async () => {
   await nextTick();
-  return darwinPrinter();
+  let stdout = '';
+  try {
+    ({ stdout } = await exec('system_profiler SPPrintersDataType -xml'));
+  } catch {}
+  return parsePrinter(stdout);
 };

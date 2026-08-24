@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous">
+  <link rel="stylesheet" href="../roboto/css/roboto.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../assets/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>systeminformation</title>
+
+
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="container">
+      <a href="."><img class="logo float-left" src="../assets/logo.png" alt="logo">
+        <div class="title float-left">systeminformation - Version 5</div>
+      </a>
+      <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
+      <div class="text float-right todocs"><a href="./#docs">Docs Overview</a></div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <section class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+        </div>
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+          <div class="row">
+            <div class="col-12 sectionheader">
+              <div class="title">OS</div>
+              <div class="text">
+                <p>In this section you will learn how to get information about the installed operating system, versions of installed development specific software packages, shell and users online:</p>
+                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                <pre><code class="js">const si = require('systeminformation');</code></pre>
+                <h2>Operating System, Shell, Versions, Users</h2>
+                <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+                <table class="table table-sm table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Function</th>
+                      <th>Result object</th>
+                      <th>Linux</th>
+                      <th>BSD</th>
+                      <th>Mac</th>
+                      <th>Win</th>
+                      <th>Sun</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
+                  <tr>
+                    <td>si.osInfo(cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>OS information</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>platform</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>'linux', 'darwin', 'Windows', ...</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>distro</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>release</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>codename</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>kernel</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>kernel release - same as os.release()</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>arch</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>same as os.arch()</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>hostname</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>same as os.hostname()</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>fqdn</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>fully qualfied domain name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>codepage</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>OS build version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>logofile</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>e.g. 'apple', 'debian', 'fedora', ...</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>serial</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>OS/Host serial number</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>build</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>OS build version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>servicepack</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>service pack version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>uefi</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>OS uses UEFI on startup</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>hypervizor</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>hyper-v detected (win only)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>remoteSession</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>X</td>
+                    <td></td>
+                    <td>runs in remote session (win only)</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.osInfo().then(data => console.log(data));</code></pre>
+                      <pre class="example">
+{
+  platform: 'darwin',
+  distro: 'Mac OS X',
+  release: '10.15.3',
+  codename: 'macOS Catalina',
+  kernel: '19.3.0',
+  arch: 'x64',
+  hostname: 'hostname.local',
+  fqdn: 'hostname.local',
+  codepage: 'UTF-8',
+  logofile: 'apple',
+  serial: 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX',
+  build: '19D76',
+  servicepack: '',
+  uefi: true
+}</pre>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>si.shell(cb)</td>
+                    <td>: string</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>standard shell</td>
+                  </tr>
+                  <tr>
+                    <td>si.versions(apps, cb)</td>
+                    <td>{...}</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>version information of<br>node and dev software packages<br>optional apps param (string, <br>comma or space seperated)<br>only those apps are detected</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>kernel</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>kernel version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>apache</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>apache version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>bash</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>bash version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>bun</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>bun version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>deno</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>deno version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>docker</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>docker version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>dotnet</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>dotnet version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>fish</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>fish version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>gcc</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>gcc version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>git</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>git version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>grunt</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>grunt version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>gulp</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>gulp version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>homebrew</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>homebrew version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>java</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>java version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>mongodb</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>mongodb version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>mysql</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>mysql version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>nginx</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>nginx version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>node</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>node version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>npm</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>npm version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>openssl</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>openssl version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>perl</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>perl version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>php</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>php version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>pip3</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>pip3 version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>pip</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>pip version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>pm2</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>pm2 version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>postfix</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>postfix version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>postgresql</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>postgresql version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>powershell</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>powershell version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>python3</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>python3 version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>python</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>python version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>redis</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>redis version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>systemOpenssl</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>systemOpenssl version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>systemOpensslLib</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>systemOpensslLib version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>tsc</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>tsc version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>v8</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>v8 version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>virtualbox</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>virtualbox version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>yarn</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>yarn version</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>zsh</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>zsh version</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.versions().then(data => console.log(data));</code></pre>
+                      <pre class="example">
+{
+  kernel: '23.6.0',
+  apache: '2.4.62',
+  bash: '3.2.57',
+  bun: '1.1.21',
+  deno: '2.1.4',
+  docker: '26.1.1',
+  dotnet: '',
+  fish: '',
+  gcc: '15.0.0',
+  git: '2.39.3',
+  grunt: '',
+  gulp: '',
+  homebrew: '4.4.14',
+  java: '17.0.2',
+  mongodb: '',
+  mysql: '9.0.1',
+  nginx: '',
+  node: '22.12.0',
+  npm: '10.9.0',
+  openssl: '3.0.15+quic',
+  perl: '5.34.1',
+  php: '8.3.6',
+  pip3: '24.2',
+  pip: '20.3.4',
+  pm2: '5.1.2',
+  postfix: '3.2.2',
+  postgresql: '16.4',
+  powershell: '',
+  python3: '3.12.5',
+  python: '',
+  redis: '',
+  systemOpenssl: '3.3.1',
+  systemOpensslLib: 'OpenSSL',
+  tsc: '5.2.2',
+  v8: '12.4.254.21-node.21',
+  virtualbox: '',
+  yarn: '1.22.17',
+  zsh: '5.9''
+}</pre>
+                      <h5>Example 2</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.versions('npm, php, postgresql').then(data => console.log(data));</code></pre>
+                      <pre class="example">
+{
+  npm: '6.13.6',
+  php: '7.3.11',
+  postgresql: '12.1'
+}</pre>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>si.users(cb)</td>
+                    <td>[{...}]</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>array of users online</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].user</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>user name</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].tty</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>terminal</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].date</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>login date</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].time</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>login time</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].ip</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>ip address (remote login)</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>[0].command</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td></td>
+                    <td>X</td>
+                    <td>last command or shell</td>
+                  </tr>
+                  <tr class="example">
+                    <td></td>
+                    <td colspan="7">
+                      <h5>Example</h5>
+                      <pre><code class="js">const si = require('systeminformation');
+si.users().then(data => console.log(data));</code></pre>
+                      <pre class="example">
+[
+  {
+    user: 'yourname',
+    tty: 'ttys006',
+    date: '2020-02-01',
+    time: '21:20',
+    ip: '',
+    command: 'w -ih'
+  },
+  {
+    user: 'othername',
+    tty: 'ttys008',
+    date: '2020-02-01',
+    time: '21:20',
+    ip: '',
+    command: '-bash'
+  }
+]</pre>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <footer class="container-fluid footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="." class="medium home">Home</a></li>
+            <li>&nbsp;</li>
+            <li><a href="security.html">Security Advisories&nbsp;&nbsp;<i class="fas fa-shield-check"></i></a></li>
+            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
+            <li>&nbsp;</li>
+            <li><a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="gettingstarted.html">Quick Start</a></li>
+            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="history.html">Full Version History</a></li>
+            <li><a href="tests.html">Testing</a></li>
+            <li><a href="issues.html">Known Issues</a></li>
+            <li><a href="statsfunctions.html">Stats Functions</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <ul class="list-unstyled">
+            <li><a href="contributors.html">Contributors</a></li>
+            <li><a href="trademarks.html">Trademarks</a></li>
+            <li>&nbsp;</li>
+            <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.onload = function (e) {
+      createMenu();
+    }
+  </script>
+</body>
+
+</html>

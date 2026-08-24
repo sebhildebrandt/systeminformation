@@ -1,27 +1,30 @@
-import { EOL } from 'os';
-import { powerShell } from '../common/exec';
+import { EOL } from 'node:os';
 import { nextTick, toInt } from '../common';
-import { WifiNetworkData } from '../common/types';
 import { wifiDBFromQuality, wifiFrequencyFromChannel } from '../common/network';
+import type { WifiNetworkData } from '../common/types';
+import { ps } from '../common/windows';
 
-export const windowsWifiNetwork = async () => {
+export const wifiNetworks = async () => {
+  await nextTick();
   const result: WifiNetworkData[] = [];
-  const stdout = await powerShell('netsh wlan show networks mode=Bssid');
-  const ssidParts = stdout.toString().split(EOL + EOL + 'SSID ');
-  ssidParts.shift();
+  let stdout = '';
+  try {
+    stdout = String((await ps.exec('netsh wlan show networks mode=Bssid')) || '');
+  } catch {
+    return result;
+  }
+  const ssidParts = stdout.split(`${EOL + EOL}SSID `).splice(1);
 
   ssidParts.forEach((ssidPart: string) => {
     const ssidLines = ssidPart.split(EOL);
     if (ssidLines && ssidLines.length >= 8 && ssidLines[0].indexOf(':') >= 0) {
-      const bssidsParts = ssidPart.split(' BSSID');
-      bssidsParts.shift();
+      const bssidsParts = ssidPart.split(' BSSID').splice(1);
 
       bssidsParts.forEach((bssidPart) => {
         const bssidLines = bssidPart.split(EOL);
-        const bssidLine = bssidLines[0].split(':');
-        bssidLine.shift();
+        const bssidLine = bssidLines[0].split(':').splice(1);
         const bssid = bssidLine.join(':').trim().toLowerCase();
-        if (bssidLines && bssidLines.length > 3) {
+        if (bssid && bssidLines && bssidLines.length > 3) {
           const channel = toInt((bssidLines[3].split(':').pop() || '').trim());
           const quality = (bssidLines[1].split(':').pop() || '').trim();
           const securityStr = (ssidLines[2].split(':').pop() || '').trim();
@@ -45,9 +48,4 @@ export const windowsWifiNetwork = async () => {
   });
 
   return result;
-};
-
-export const wifiNetworks = async () => {
-  await nextTick();
-  return windowsWifiNetwork();
 };

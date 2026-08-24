@@ -1,12 +1,13 @@
-import { promises as fs } from 'fs';
-import { execCmd } from '../common/exec';
+import { readFile } from 'fs/promises';
+import { exec } from '../common/exec';
 import { getValue, nextTick } from '../common';
+import { execOptsLinux } from '../common/const';
 
-export const linuxCpuFlags = async () => {
+export const cpuFlags = async () => {
+  await nextTick();
   let result = '';
   try {
-
-    let stdout = (await execCmd('export LC_ALL=C; lscpu; unset LC_ALL')).toString();
+    let { stdout } = await exec('export LC_ALL=C; lscpu; unset LC_ALL', execOptsLinux);
     const lines = stdout.toString().split('\n');
     lines.forEach((line: string) => {
       if (line.split(':')[0].toUpperCase().indexOf('FLAGS') !== -1) {
@@ -14,7 +15,7 @@ export const linuxCpuFlags = async () => {
       }
     });
     if (!result) {
-      stdout = (await fs.readFile('/proc/cpuinfo')).toString();
+      stdout = (await readFile('/proc/cpuinfo')).toString();
       const lines = stdout.toString().split('\n');
       result = getValue(lines, 'features', ':', true).toLowerCase();
       return result;
@@ -24,9 +25,4 @@ export const linuxCpuFlags = async () => {
   } catch (e) {
     return result;
   }
-};
-
-export const cpuFlags = async () => {
-  await nextTick();
-  return linuxCpuFlags();
 };

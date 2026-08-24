@@ -1,19 +1,13 @@
-import { nixSystem } from './linux/system';
-import { darwinSystem } from './darwin/system';
-import { windowsSystem } from './windows/system';
-
-import { DARWIN, LINUX, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
 
 export const system = async () => {
-  await nextTick();
   switch (true) {
-    case LINUX:
-      return nixSystem();
+    case LINUX || ANDROID:
+      return (await import('./linux/system.js')).system();
     case DARWIN:
-      return darwinSystem();
+      return (await import('./darwin/system.js')).system();
     case WINDOWS:
-      return windowsSystem();
+      return (await import('./windows/system.js')).system();
     default:
       return null;
   }

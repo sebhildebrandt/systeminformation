@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 
   <title>systeminformation</title>
@@ -30,7 +30,7 @@
 <body>
   <nav class="nav">
     <div class="container">
-      <a href="."><img class="logo float-left" src="assets/logo.png">
+      <a href="."><img class="logo float-left" src="assets/logo.png" alt="logo">
         <div class="title float-left">systeminformation</div>
       </a>
       <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
@@ -52,7 +52,7 @@
                 <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
                 <pre><code class="js">const si = require('systeminformation');</code></pre>
                 <h2>Lib-Version and Time/Timezone</h2>
-                <p>The first two functions just give back systeminformation library version number and time/timezone information of your machine. These are the only two functions not returning a promise (so they are not async functions):</p>
+                <p>The first two functions just give back systeminformation library version number and time/timezone information of your machine. In version 6 both are async functions returning a promise (in version 5 they were synchronous):</p>
                 <table class="table table-sm table-bordered table-striped">
                   <thead>
                     <tr>
@@ -75,7 +75,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>lib version (no callback/promise)</td>
+                      <td>lib version</td>
                     </tr>
                     <tr>
                       <td>si.time()</td>
@@ -85,7 +85,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>object (no callback/promise) with:</td>
+                      <td>object with:</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -127,11 +127,30 @@
                       <td>X</td>
                       <td>e.g. CEST</td>
                     </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
+si.version().then(data => console.log(data));
+si.time().then(data => console.log(data));</code></pre>
+                      <pre class="example">
+'6.0.0-beta.0'
+
+{
+  current: 1784058460174,
+  uptime: 55743,
+  timezone: 'CEST+0200',
+  timezoneName: 'Europe/Vienna'
+}</pre>
+                    </td>
+                    </tr>
                   </tbody>
                 </table>
                 <p>Keep in mind, that there is another function <span class="code">si.versions()</span> that will return versions of other system libraries and software packages</p>
                 <h2>Get Defined Result Object</h2>
                 <p>Normally you would call each of the functions (where you want to get detailed system information) seperately. The docs pages contain a full reference (with examples) for each available function. But there is also another really handy way to get a self-defined result object in one single call:</p>
+                <p class="bold">Note: <span class="code">si.get()</span>, <span class="code">si.getStaticData()</span>, <span class="code">si.getDynamicData()</span> and <span class="code">si.getAllData()</span> are not yet available in version 6 (beta). The following sections describe the version 5 behavior.</p>
                 <p>The <span class="code">si.get()</span> function is an alternative, where you can obtain several system information data in one call. You can define a json object which represents the data structure you are expecting and the <span class="code">si.get()</span> call will then return all of the requested data in a single result object</p>
                 <table class="table table-sm table-bordered table-striped">
                   <thead>
@@ -169,7 +188,7 @@ valueObject = {
   system: 'model, manufacturer'
 }
 
-si.get(valueObject).then(data => console.log(data));</code></pre class="example">
+si.get(valueObject).then(data => console.log(data));</code></pre>
 <pre class="example">
 {
   cpu: {
@@ -203,6 +222,7 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
   }
 }
 </pre>
+                  </td>
                   </tr>
                   </tbody>
                 </table>
@@ -245,7 +265,7 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
 valueObject = {
   processLoad: '(postgres) pids, cpu'
 }
-si.get(valueObject).then(data => console.log(data));</code></pre class="example">
+si.get(valueObject).then(data => console.log(data));</code></pre>
 <pre class="example">
 {
   processLoad: {
@@ -258,6 +278,7 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
   }
 }
 </pre>
+                  </td>
                   </tr>
                   </tbody>
                 </table>
@@ -299,7 +320,7 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
 valueObject = {
   networkInterfaces: 'iface, ip4 | iface:en0'
 }
-si.get(valueObject).then(data => console.log(data));</code></pre class="example">
+si.get(valueObject).then(data => console.log(data));</code></pre>
 <pre class="example">
 {
   networkInterfaces: [
@@ -310,6 +331,7 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
   ]
 }
               </pre>
+                  </td>
                   </tr>
                   </tbody>
                 </table>
@@ -364,7 +386,7 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
                 <p><strong>Static data</strong> is all hardware related (or more or less constant) data like system, baseboard, bios, OS, versions, cpu, network interfces, memory and disk layout</p>
                 <p><strong>Dynamic data</strong> will return user, cpu-speed, load, processes, services, temperature, file system, network and disk stats, ... </p>
                 <p>As not all funtions are supported in each operating system the result object might be different in each OS.</p>
-                <p><strong>ATTENTION</strong>: Use this only if you really need ALL information. Especially on Windows this can take really long (up to 20 seconds) because the underlying <span class="code">WMIC</span> command is very slow when using it the first time.</p>
+                <p><strong>ATTENTION</strong>: Use this only if you really need ALL information. Especially on Windows this can take really long (up to 20 seconds) because the underlying <span class="code">get-WmiObject</span> command is very slow when using it the first time.</p>
               </div>
             </div>
           </div>
@@ -389,7 +411,7 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
             <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="changes.html">Version 6 Changes</a></li>
             <li><a href="history.html">Full Version History</a></li>
             <li><a href="tests.html">Testing</a></li>
             <li><a href="issues.html">Known Issues</a></li>
@@ -402,7 +424,7 @@ si.get(valueObject).then(data => console.log(data));</code></pre class="example"
             <li><a href="trademarks.html">Trademarks</a></li>
             <li>&nbsp;</li>
             <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
             <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
           </ul>
         </div>

@@ -1,19 +1,13 @@
-import { nixBios } from './linux/bios';
-import { darwinBios } from './darwin/bios';
-import { windowsBios } from './windows/bios';
-
-import { DARWIN, LINUX, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
 
 export const bios = async () => {
-  await nextTick();
   switch (true) {
-    case LINUX:
-      return nixBios();
+    case LINUX || ANDROID:
+      return (await import('./linux/bios.js')).bios();
     case DARWIN:
-      return darwinBios();
+      return (await import('./darwin/bios.js')).bios();
     case WINDOWS:
-      return windowsBios();
+      return (await import('./windows/bios.js')).bios();
     default:
       return null;
   }

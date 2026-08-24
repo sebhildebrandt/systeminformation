@@ -1,28 +1,26 @@
 import { cloneObj, nextTick } from '../common';
-import { execCmd } from '../common/exec';
+import { exec } from '../common/exec';
 import { initCpuTemperature } from '../common/defaults';
 
-export const bsdCpuTemperature = async () => {
+export const cpuTemperature = async () => {
+  await nextTick();
   const result = cloneObj(initCpuTemperature);
-  const stdout = (await execCmd('sysctl dev.cpu | grep temp')).toString();
+  const { stdout } = await exec('/sbin/sysctl -i dev.cpu | grep temp');
   const lines = stdout.toString().split('\n');
   let sum = 0;
   lines.forEach((line) => {
     const parts = line.split(':');
     if (parts.length > 1) {
       const temp = parseFloat(parts[1].replace(',', '.'));
-      if (!result.max || temp > result.max) { result.max = temp; }
+      if (!result.max || temp > result.max) {
+        result.max = temp;
+      }
       sum = sum + temp;
       result.cores.push(temp);
     }
   });
   if (result.cores.length) {
-    result.main = Math.round(sum / result.cores.length * 100) / 100;
+    result.main = Math.round((sum / result.cores.length) * 100) / 100;
   }
   return result;
-};
-
-export const cpuTemperature = async () => {
-  await nextTick();
-  return bsdCpuTemperature();
 };

@@ -1,84 +1,68 @@
-import { getValue, nextTick } from '../common';
-import { MemLayoutData } from '../common/types';
-import { execCmd } from '../common/exec';
-import { getManufacturerDarwin } from '../common/mappings';
+import { totalmem } from 'node:os';
+import { nextTick, toInt } from '../common';
+import { plistParser } from './../common/darwin';
+import { exec } from '../common/exec';
+import { getMemManufacturer } from '../common/mappings';
+import type { MemLayoutData } from '../common/types';
 
-export const darwinMemLayout = async () => {
-  const result: MemLayoutData[] = [];
-  try {
-    const stdout = await execCmd('system_profiler SPMemoryDataType');
-    const allLines = stdout.toString().split('\n');
-    const eccStatus = getValue(allLines, 'ecc', ':', true).toLowerCase();
-    let devices = stdout.toString().split('        BANK ');
-    let hasBank = true;
-    if (devices.length === 1) {
-      devices = stdout.toString().split('        DIMM');
-      hasBank = false;
-    }
-    devices.shift();
-    devices.forEach((device: string) => {
-      const lines = device.split('\n');
-      const bank = (hasBank ? 'BANK ' : 'DIMM') + lines[0].trim().split('/')[0];
-      const size = parseInt(getValue(lines, '          Size'));
-      if (size) {
-        result.push({
-          size: size * 1024 * 1024 * 1024,
-          bank: bank,
-          type: getValue(lines, '          Type:'),
-          ecc: eccStatus ? eccStatus === 'enabled' : null,
-          clockSpeed: parseInt(getValue(lines, '          Speed:'), 10),
-          formFactor: '',
-          manufacturer: getManufacturerDarwin(getValue(lines, '          Manufacturer:')),
-          partNum: getValue(lines, '          Part Number:'),
-          serialNum: getValue(lines, '          Serial Number:'),
-          voltageConfigured: null,
-          voltageMin: null,
-          voltageMax: null,
-        });
-      } else {
-        result.push({
-          size: 0,
-          bank: bank,
-          type: 'Empty',
-          ecc: null,
-          clockSpeed: 0,
-          formFactor: '',
-          manufacturer: '',
-          partNum: '',
-          serialNum: '',
-          voltageConfigured: null,
-          voltageMin: null,
-          voltageMax: null,
-        });
-      }
-    });
-    if (!result.length) {
-      const lines = stdout.toString().split('\n');
-      const size = parseInt(getValue(lines, '      Memory:'));
-      const type = getValue(lines, '      Type:');
-      if (size && type) {
-        result.push({
-          size: size * 1024 * 1024 * 1024,
-          bank: '0',
-          type,
-          ecc: false,
-          clockSpeed: 0,
-          formFactor: '',
-          manufacturer: 'Apple',
-          partNum: '',
-          serialNum: '',
-          voltageConfigured: null,
-          voltageMin: null,
-          voltageMax: null,
-        });
-      }
-    }
-
-  } catch { }
-  return result;
+type DarwinMemObject = {
+  _name: string;
+  dimm_size: string;
+  dimm_type: string;
+  dimm_speed: string;
+  dimm_part_number: string;
+  dimm_serial_number: string;
+  dimm_manufacturer: string;
 };
 
 export const memLayout = async () => {
   await nextTick();
-  return darwinMemLayout();
+  const result: MemLayoutData[] = [];
+  try {
+    const { stdout } = await exec('system_profiler SPMemoryDataType -xml');
+    const memData = plistParser(stdout);
+    if (memData && memData[0] && memData[0]._items) {
+      const eccStatus = memData[0].global_ecc_state ? memData[0].global_ecc_state.indexOf('enabled') >= 0 : false;
+      memData[0]._items.forEach((item: DarwinMemObject) => {
+        const sizeString = (item.dimm_size || '').toLowerCase();
+        const sizeUnit = sizeString.indexOf('mb') >= 0 ? 1024 * 1024 : sizeString.indexOf('tb') >= 0 ? 1024 * 1024 * 1024 * 1024 : 1024 * 1024 * 1024;
+        const size = toInt(item.dimm_size) * sizeUnit;
+        const name = item._name.trim();
+        result.push({
+          size: size,
+          bank: name.split('/')[0],
+          channel: name.split('/')[1] ? name.split('/')[1] : '',
+          type: item.dimm_type || 'empty',
+          ecc: eccStatus,
+          clockSpeed: toInt(item.dimm_speed),
+          formFactor: '',
+          manufacturer: getMemManufacturer(item.dimm_manufacturer),
+          partNum: item.dimm_part_number || '',
+          serialNum: item.dimm_serial_number || '',
+          voltageConfigured: null,
+          voltageMin: null,
+          voltageMax: null
+        });
+      });
+    }
+
+    if (!result.length) {
+      result.push({
+        size: totalmem(),
+        bank: null,
+        channel: null,
+        type: memData[0].dimm_type || 'SOC',
+        ecc: false,
+        clockSpeed: null,
+        formFactor: 'SOC',
+        manufacturer: memData[0].dimm_manufacturer || 'Apple',
+        partNum: '',
+        serialNum: '',
+        voltageConfigured: null,
+        voltageMin: null,
+        voltageMax: null
+      });
+    }
+  } catch {}
+  return result;
 };

@@ -1,19 +1,14 @@
-import { nixAudio } from './linux/audio';
-import { darwinAudio } from './darwin/audio';
-import { windowsAudio } from './windows/audio';
-
-import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS, ANDROID } from './common/const';
 
 export const audio = async () => {
-  await nextTick();
+  const newLocal = LINUX || FREEBSD || NETBSD || OPENBSD || ANDROID;
   switch (true) {
-    case LINUX || FREEBSD || NETBSD:
-      return nixAudio();
+    case newLocal:
+      return (await import('./linux/audio.js')).audio();
     case DARWIN:
-      return darwinAudio();
+      return (await import('./darwin/audio.js')).audio();
     case WINDOWS:
-      return windowsAudio();
+      return (await import('./windows/audio.js')).audio();
     default:
       return null;
   }

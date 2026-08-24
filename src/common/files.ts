@@ -1,23 +1,34 @@
-import { lstatSync, readdirSync, existsSync } from 'fs';
+import { constants } from 'fs';
+import { access, lstat, readdir } from 'fs/promises';
 import { join } from 'path';
 
-const isDirectory = (source: string) => lstatSync(source).isDirectory();
-const isFile = (source: string) => lstatSync(source).isFile();
-const getDirectories = (source: string) => readdirSync(source).map((name) => join(source, name)).filter(isDirectory);
-const getFiles = (source: string) => readdirSync(source).map((name) => join(source, name)).filter(isFile);
-const getFilesRecursively = (source: string): string[] => {
+export const getFilesInPath = async (source: string) => {
+  const fetchedFiles = [];
   try {
-    const dirs = getDirectories(source);
-    const files = dirs
-      .map(dir => getFilesRecursively(dir))
-      .reduce((a, b) => a.concat(b), []);
-    return files.concat(getFiles(source));
-  } catch {
-    return [];
-  }
+    const files = await readdir(source);
+
+    for (const file of files) {
+      try {
+        const filepath = join(source, file);
+        const stats = await lstat(filepath);
+        if (stats.isFile()) {
+          fetchedFiles.push(filepath);
+        }
+        if (stats.isDirectory()) {
+          const childFiles = await readdir(filepath);
+          files.push(...childFiles.map((f) => join(file, f)));
+        }
+      } catch {}
+    }
+  } catch {}
+  return fetchedFiles;
 };
 
-export const getFilesInPath = (source: string) => {
-  if (!existsSync(source)) { return []; }
-  return getFilesRecursively(source);
+export const fileExists = async (file: string) => {
+  try {
+    await access(file, constants.F_OK);
+    return true;
+  } catch {
+    return false;
+  }
 };

@@ -1,0 +1,14 @@
+{
+  "unstable": ["sloppy-imports"],
+  "imports": {
+    "child_process": "node:child_process",
+    "fs": "node:fs",
+    "fs/promises": "node:fs/promises",
+    "http": "node:http",
+    "https": "node:https",
+    "net": "node:net",
+    "os": "node:os",
+    "path": "node:path",
+    "util": "node:util"
+  }
+}

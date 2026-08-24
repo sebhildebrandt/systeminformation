@@ -1,23 +1,27 @@
+import { BiosData } from './../common/types';
 import { cloneObj, getValue, nextTick } from '../common';
 import { initBios } from '../common/defaults';
 import { parseDateTime } from '../common/datetime';
-import { execCmd } from '../common/exec';
+import { exec } from '../common/exec';
+import { execOptsLinux } from '../common/const';
 
-export const nixBios = async () => {
-  const result = cloneObj(initBios);
+export const bios = async () => {
+  await nextTick();
+  const result: BiosData = cloneObj(initBios);
   let cmd = '';
   if (process.arch === 'arm') {
     cmd = 'cat /proc/cpuinfo | grep Serial';
   } else {
     cmd = 'export LC_ALL=C; dmidecode -t bios 2>/dev/null; unset LC_ALL';
   }
-  const stdout = await execCmd(cmd);
+  const { stdout } = await exec(cmd, execOptsLinux);
   let lines = stdout.toString().split('\n');
   result.vendor = getValue(lines, 'Vendor');
   result.version = getValue(lines, 'Version');
   let datetime = getValue(lines, 'Release Date');
   result.releaseDate = parseDateTime(datetime).date;
   result.revision = getValue(lines, 'BIOS Revision');
+  result.serial = getValue(lines, 'SerialNumber');
   const language = getValue(lines, 'Currently Installed Language').split('|')[0];
   if (language) {
     result.language = language;
@@ -37,16 +41,12 @@ export const nixBios = async () => {
             echo -n "bios_vendor: "; cat /sys/devices/virtual/dmi/id/bios_vendor 2>/dev/null; echo;
             echo -n "bios_version: "; cat /sys/devices/virtual/dmi/id/bios_version 2>/dev/null; echo;`;
   try {
-    lines = await execCmd(cmd).toString().split('\n');
+    const { stdout } = await exec(cmd, execOptsLinux);
+    lines = stdout.split('\n');
     result.vendor = !result.vendor ? getValue(lines, 'bios_vendor') : result.vendor;
     result.version = !result.version ? getValue(lines, 'bios_version') : result.version;
     datetime = getValue(lines, 'bios_date');
     result.releaseDate = !result.releaseDate ? parseDateTime(datetime).date : result.releaseDate;
-  } catch { }
+  } catch {}
   return result;
-};
-
-export const bios = async () => {
-  await nextTick();
-  return nixBios();
 };

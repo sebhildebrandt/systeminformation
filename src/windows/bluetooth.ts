@@ -1,15 +1,15 @@
-import { powerShell } from '../common/exec';
-import { getValue, nextTick } from '../common';
+import { nextTick } from '../common';
 import { bluetoothTypeLabel } from '../common/mappings';
-import { BluetoothObject } from '../common/types';
+import type { BluetoothObject } from '../common/types';
+import { ps, psArray } from '../common/windows';
 
-const parseBluetoothDevices = (lines: string[]): BluetoothObject => {
-  const name = getValue(lines, 'name', ':');
+const parseBluetoothDevices = (device: any): BluetoothObject => {
+  const name = device.Name || '';
 
   return {
     device: null,
     name,
-    manufacturer: getValue(lines, 'manufacturer', ':'),
+    manufacturer: device.Manufacturer || null,
     macDevice: null,
     macHost: null,
     batteryPercent: null,
@@ -18,19 +18,16 @@ const parseBluetoothDevices = (lines: string[]): BluetoothObject => {
   };
 };
 
-export const windowsBluetooth = async () => {
-  const result: BluetoothObject[] = [];
-  const stdout = await powerShell('Get-WmiObject Win32_PNPEntity | fl *');
-  const parts = stdout.toString().split(/\n\s*\n/);
-  for (let i = 0; i < parts.length; i++) {
-    if (getValue(parts[i].split('\n'), 'PNPClass', ':') === 'Bluetooth') {
-      result.push(parseBluetoothDevices(parts[i].split('\n')));
-    }
-  }
-  return result;
-};
-
 export const bluetoothDevices = async () => {
   await nextTick();
-  return windowsBluetooth();
+  const result: BluetoothObject[] = [];
+  const pnpDevices = psArray(
+    await ps.exec('Get-CimInstance Win32_PNPEntity | select PNPClass, Name, Manufacturer, Status, Service, ConfigManagerErrorCode, Present | ConvertTo-Json -Depth 5 -Compress')
+  );
+  pnpDevices.forEach((device: any) => {
+    if ((device.PNPClass || '').toLowerCase() === 'bluetooth' && Number(device.ConfigManagerErrorCode) === 0 && !device.Service) {
+      result.push(parseBluetoothDevices(device));
+    }
+  });
+  return result;
 };

@@ -1,22 +1,15 @@
-import { linuxBattery } from './linux/battery';
-import { darwinBattery } from './darwin/battery';
-import { windowsBattery } from './windows/battery';
-import { bsdBattery } from './bsd/battery';
-
-import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 
 export const battery = async () => {
-  await nextTick();
   switch (true) {
-    case LINUX:
-      return linuxBattery();
-    case FREEBSD || NETBSD:
-      return bsdBattery();
+    case LINUX || ANDROID:
+      return (await import('./linux/battery.js')).battery();
+    case FREEBSD || NETBSD || OPENBSD:
+      return (await import('./bsd/battery.js')).battery();
     case DARWIN:
-      return darwinBattery();
+      return (await import('./darwin/battery.js')).battery();
     case WINDOWS:
-      return windowsBattery();
+      return (await import('./windows/battery.js')).battery();
     default:
       return null;
   }

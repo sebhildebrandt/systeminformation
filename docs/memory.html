@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 
   <title>systeminformation</title>
@@ -30,7 +30,7 @@
 <body>
   <nav class="nav">
     <div class="container">
-      <a href="."><img class="logo float-left" src="assets/logo.png">
+      <a href="."><img class="logo float-left" src="assets/logo.png" alt="logo">
         <div class="title float-left">systeminformation</div>
       </a>
       <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
@@ -74,7 +74,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>Memory information (object)</td>
                     </tr>
                     <tr>
@@ -84,7 +84,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>total memory in bytes</td>
                     </tr>
                     <tr>
@@ -94,7 +94,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>not used in bytes</td>
                     </tr>
                     <tr>
@@ -104,7 +104,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>used (incl. buffers/cache)</td>
                     </tr>
                     <tr>
@@ -114,7 +114,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>used actively (excl. buffers/cache)</td>
                     </tr>
                     <tr>
@@ -124,7 +124,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td></td>
-                      <td>X</td>
+                      <td></td>
                       <td>used by buffers+cache</td>
                     </tr>
                     <tr>
@@ -164,7 +164,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>potentially available (total - active)</td>
                     </tr>
                     <tr>
@@ -174,7 +174,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td></td>
                     </tr>
                     <tr>
@@ -184,7 +184,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td></td>
                     </tr>
                     <tr>
@@ -194,7 +194,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td></td>
                     </tr>
                     <tr class="example">
@@ -202,7 +202,7 @@
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.mem().then(data => console.log(data));</code></pre class="example">
+si.mem().then(data => console.log(data));</code></pre>
 <pre class="example">
 {
   total: 67092135936,
@@ -219,6 +219,7 @@ si.mem().then(data => console.log(data));</code></pre class="example">
   swapfree: 8589930496
 }
 </pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.memLayout(cb)</td>
@@ -355,7 +356,7 @@ si.mem().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.memLayout().then(data => console.log(data));</code></pre class="example">
+si.memLayout().then(data => console.log(data));</code></pre>
 <pre class="example">
 [
   {
@@ -388,6 +389,7 @@ si.memLayout().then(data => console.log(data));</code></pre class="example">
   }
 ]
 </pre>
+                    </td>
                     </tr>
                   </tbody>
                 </table>
@@ -415,7 +417,7 @@ si.memLayout().then(data => console.log(data));</code></pre class="example">
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
             <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="changes.html">Version 6 Changes</a></li>
             <li><a href="history.html">Full Version History</a></li>
             <li><a href="tests.html">Testing</a></li>
             <li><a href="issues.html">Known Issues</a></li>
@@ -428,7 +430,7 @@ si.memLayout().then(data => console.log(data));</code></pre class="example">
             <li><a href="trademarks.html">Trademarks</a></li>
             <li>&nbsp;</li>
             <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
             <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
           </ul>
         </div>

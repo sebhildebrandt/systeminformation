@@ -1,20 +1,26 @@
 function createMenu() {
-  var menu = [
+  let menu = [
     [0, './#docs', 'Documentation'],
     [1, 'gettingstarted', 'Getting Started'],
     [1, 'general', 'General'],
     [1, 'system', 'System'],
     [1, 'cpu', 'CPU'],
     [1, 'memory', 'Memory'],
-    [1, 'battery', 'Battery'],
     [1, 'graphics', 'Graphics'],
+    [1, 'filesystem', 'Disks / FS'],
+    [1, 'printer', 'Printer'],
+    [1, 'battery', 'Battery'],
+    [1, 'audio', 'Audio'],
+    [1, 'camera', 'Camera'],
+    [1, 'keyboard', 'Keyboard'],
+    [1, 'mouse', 'Mouse'],
     [1, 'os', 'OS'],
     [1, 'processes', 'Processes / Services'],
-    [1, 'filesystem', 'Disks / FS'],
-    [1, 'usb', 'USB'],
-    [1, 'printer', 'Printer'],
-    [1, 'audio', 'Audio'],
+    [1, 'software', 'Software'],
     [1, 'network', 'Network'],
+    [1, 'usb', 'USB'],
+    [1, 'thunderbold', 'Thunderbold'],
+    [1, 'pci', 'PCI'],
     [1, 'wifi', 'Wifi'],
     [1, 'bluetooth', 'Bluetooth'],
     [1, 'docker', 'Docker'],
@@ -23,7 +29,7 @@ function createMenu() {
     [0, '', 'More'],
     [1, 'security', 'Security Advisories'],
     [1, 'issues', 'Known Issues'],
-    [1, 'changes', 'Version 5 Changes'],
+    [1, 'changes', 'Version 6 Changes'],
     [1, 'v4/index', 'Version 4 Docs'],
     [1, 'history', 'Version History'],
     [1, 'tests', 'Testing'],
@@ -32,15 +38,15 @@ function createMenu() {
     [1, 'trademarks', 'Trademarks'],
   ];
 
-  var path = window.location.pathname;
-  var page = path.split('/').pop().replace('.html', '');
+  let path = window.location.pathname;
+  let page = path.split('/').pop().replace('.html', '');
 
-  var menuParent = document.getElementById('menu');
-  var titleElement;
-  var titleLink;
-  var ulElement;
-  var liElement;
-  var aElement;
+  let menuParent = document.getElementById('menu');
+  let titleElement;
+  let titleLink;
+  let ulElement;
+  let liElement;
+  let aElement;
   for (let item of menu) {
     if (item[0] === 0) {
       titleElement = document.createElement('div');
@@ -59,8 +65,6 @@ function createMenu() {
         titleLink.innerText = item[2];
       }
       titleElement.appendChild(titleLink);
-      // hrElement = document.createElement('hr');
-      // titleElement.appendChild(hrElement);
       ulElement = document.createElement('ul');
       titleElement.appendChild(ulElement);
     } else {

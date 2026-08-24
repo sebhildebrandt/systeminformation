@@ -1,19 +1,13 @@
-import { linuxUsb } from './linux/usb';
-import { darwinUsb } from './darwin/usb';
-import { windowsUsb } from './windows/usb';
-
-import { DARWIN, LINUX, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
 
 export const usb = async () => {
-  await nextTick();
   switch (true) {
-    case LINUX:
-      return linuxUsb();
+    case LINUX || ANDROID:
+      return (await import('./linux/usb.js')).usb();
     case DARWIN:
-      return darwinUsb();
+      return (await import('./darwin/usb.js')).usb();
     case WINDOWS:
-      return windowsUsb();
+      return (await import('./windows/usb.js')).usb();
     default:
       return null;
   }

@@ -1,19 +1,13 @@
-import { nixChassis } from './linux/chassis';
-import { darwinChassis } from './darwin/chassis';
-import { windowsChassis } from './windows/chassis';
-
-import { DARWIN, LINUX, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
 
 export const chassis = async () => {
-  await nextTick();
   switch (true) {
-    case LINUX:
-      return nixChassis();
+    case LINUX || ANDROID:
+      return (await import('./linux/chassis.js')).chassis();
     case DARWIN:
-      return darwinChassis();
+      return (await import('./darwin/chassis.js')).chassis();
     case WINDOWS:
-      return windowsChassis();
+      return (await import('./windows/chassis.js')).chassis();
     default:
       return null;
   }

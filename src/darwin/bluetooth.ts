@@ -1,16 +1,22 @@
+import { plistParser } from './../common/darwin';
 import { nextTick } from '../common';
-import { execCmd } from '../common/exec';
-import { bluetoothTypeLabel } from '../common/mappings';
+import { exec } from '../common/exec';
+import { bluetoothManufacturer, bluetoothTypeLabel, parseBluetoothVendor } from '../common/mappings';
 import { BluetoothObject } from '../common/types';
 
-const parseBluetoothDevices = (bluetoothObject: any, macAddr2: string | null): BluetoothObject => {
-  const typeStr = ((bluetoothObject.device_minorClassOfDevice_string || bluetoothObject.device_majorClassOfDevice_string || '') + (bluetoothObject.device_name || '')).toLowerCase();
+const deviceId = (id: string) => {
+  return id.split(' &lt; ')[0];
+};
 
+const parseBluetoothObjects = (bluetoothObject: any, macAddr2: string | null): BluetoothObject => {
+  const typeStr = (
+    (bluetoothObject.device_minorClassOfDevice_string || bluetoothObject.device_majorClassOfDevice_string || bluetoothObject.device_minorType || '') + (bluetoothObject.device_name || '')
+  ).toLowerCase();
   return {
-    device: bluetoothObject.device_services || '',
+    device: deviceId(bluetoothObject.device_productID || ''),
     name: bluetoothObject.device_name || '',
-    manufacturer: bluetoothObject.device_manufacturer || '',
-    macDevice: (bluetoothObject.device_addr || '').toLowerCase().replace(/-/g, ':'),
+    manufacturer: bluetoothObject.device_manufacturer || parseBluetoothVendor(bluetoothObject.device_vendorID) || bluetoothManufacturer(bluetoothObject.device_name || '') || '',
+    macDevice: (bluetoothObject.device_addr || bluetoothObject.device_address || '').toLowerCase().replace(/-/g, ':'),
     macHost: macAddr2,
     batteryPercent: bluetoothObject.device_batteryPercent || null,
     type: bluetoothTypeLabel(typeStr),
@@ -18,34 +24,65 @@ const parseBluetoothDevices = (bluetoothObject: any, macAddr2: string | null): B
   };
 };
 
-export const darwinBluetooth = async () => {
+export const parseBluetooth = (outObj: any): BluetoothObject[] => {
   const result: BluetoothObject[] = [];
-  try {
-    const stdout = await execCmd('system_profiler SPBluetoothDataType -json');
-    const outObj = JSON.parse(stdout.toString());
-    if (outObj.SPBluetoothDataType && outObj.SPBluetoothDataType.length && outObj.SPBluetoothDataType[0] && outObj.SPBluetoothDataType[0]['device_title'] && outObj.SPBluetoothDataType[0]['device_title'].length) {
-      // missing: host BT Adapter macAddr ()
-      let macAddr2 = null;
-      if (outObj.SPBluetoothDataType[0]['local_device_title'] && outObj.SPBluetoothDataType[0].local_device_title.general_address) {
-        macAddr2 = outObj.SPBluetoothDataType[0].local_device_title.general_address.toLowerCase().replace(/-/g, ':');
-      }
-
-      for (let i = 0; i < outObj.SPBluetoothDataType[0]['device_title'].length; i++) {
-        const obj = outObj.SPBluetoothDataType[0]['device_title'][i];
-        const objKey = Object.keys(obj);
-        if (objKey && objKey.length === 1) {
-          const innerObject = obj[objKey[0]];
-          innerObject.device_name = objKey[0];
-          const bluetoothDevice = parseBluetoothDevices(innerObject, macAddr2);
-          result.push(bluetoothDevice);
-        }
-      }
+  if (outObj.length && outObj[0] && outObj[0]['device_title'] && outObj[0]['device_title'].length) {
+    // missing: host BT Adapter macAddr ()
+    let macAddr2: string | null = null;
+    if (outObj[0]['local_device_title'] && outObj[0].local_device_title.general_address) {
+      macAddr2 = outObj[0].local_device_title.general_address.toLowerCase().replace(/-/g, ':');
     }
-  } catch { }
+
+    outObj[0]['device_title'].forEach((element: any) => {
+      const obj = element;
+      const objKey = Object.keys(obj);
+      if (objKey && objKey.length === 1) {
+        const innerObject = obj[objKey[0]];
+        innerObject.device_name = objKey[0];
+        const bluetoothDevice = parseBluetoothObjects(innerObject, macAddr2);
+        result.push(bluetoothDevice);
+      }
+    });
+  }
+  if (outObj?.length && outObj[0] && outObj[0]['device_connected'] && outObj[0]['device_connected'].length) {
+    const macAddr2 = outObj[0].controller_properties?.controller_address ? outObj[0].controller_properties.controller_address.toLowerCase().replace(/-/g, ':') : null;
+    outObj[0]['device_connected'].forEach((element: any) => {
+      const obj = element;
+      const objKey = Object.keys(obj);
+      if (objKey && objKey.length === 1) {
+        const innerObject = obj[objKey[0]];
+        innerObject.device_name = objKey[0];
+        innerObject.device_isconnected = 'attrib_Yes';
+        const bluetoothDevice = parseBluetoothObjects(innerObject, macAddr2);
+        result.push(bluetoothDevice);
+      }
+    });
+  }
+  if (outObj?.length && outObj[0] && outObj[0]['device_not_connected'] && outObj[0]['device_not_connected'].length) {
+    const macAddr2 = outObj[0].controller_properties?.controller_address ? outObj[0].controller_properties.controller_address.toLowerCase().replace(/-/g, ':') : null;
+    outObj[0]['device_not_connected'].forEach((element: any) => {
+      const obj = element;
+      const objKey = Object.keys(obj);
+      if (objKey && objKey.length === 1) {
+        const innerObject = obj[objKey[0]];
+        innerObject.device_name = objKey[0];
+        innerObject.device_isconnected = 'attrib_No';
+        const bluetoothDevice = parseBluetoothObjects(innerObject, macAddr2);
+        result.push(bluetoothDevice);
+      }
+    });
+  }
   return result;
 };
 
-export const bluetoothDevices = async () => {
+export const bluetoothDevices = async (): Promise<BluetoothObject[]> => {
   await nextTick();
-  return darwinBluetooth();
+
+  try {
+    const { stdout } = await exec('system_profiler SPBluetoothDataType -xml');
+    const data = plistParser(stdout);
+    return parseBluetooth(data);
+  } catch {
+    return [];
+  }
 };

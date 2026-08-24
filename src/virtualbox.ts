@@ -1,16 +1,16 @@
+import { EOL } from 'node:os';
 import { getValue, nextTick } from './common';
 import { VBOXMANAGE } from './common/const';
-import { execCmd } from './common/exec';
-import { VboxInfoData } from './common/types';
-import { EOL } from 'os';
+import { exec } from './common/exec';
+import type { VboxInfoData } from './common/types';
 
-const getVboxInfo = async () => {
+export const vboxInfo = async () => {
+  await nextTick();
   const result: VboxInfoData[] = [];
   try {
-    const stdout = await execCmd(VBOXMANAGE + ' list vms --long');
-    const parts = (EOL + stdout.toString()).split(EOL + 'Name:');
-    parts.shift();
-    parts.forEach(part => {
+    const { stdout } = await exec(VBOXMANAGE + ' list vms --long');
+    const parts = (EOL + stdout.toString()).split(EOL + 'Name:').splice(1);
+    parts.forEach((part) => {
       const lines = ('Name:' + part).split(EOL);
       const state = getValue(lines, 'State');
       const running = state.startsWith('running');
@@ -19,19 +19,25 @@ const getVboxInfo = async () => {
       try {
         if (running) {
           const sinceDateObj = new Date(runningSinceString);
-          const offset = sinceDateObj.getTimezoneOffset();
-          runningSince = Math.round((Date.now() - sinceDateObj.getTime()) / 1000) + offset * 60;
+          const parsed = sinceDateObj.getTime();
+          if (!Number.isNaN(parsed)) {
+            const offset = sinceDateObj.getTimezoneOffset();
+            runningSince = Math.round((Date.now() - parsed) / 1000) + offset * 60;
+          }
         }
-      } catch { }
+      } catch {}
       const stoppedSinceString = !running ? state.replace('powered off (since', '').replace(')', '').trim() : '';
       let stoppedSince = 0;
       try {
         if (!running) {
           const sinceDateObj = new Date(stoppedSinceString);
-          const offset = sinceDateObj.getTimezoneOffset();
-          stoppedSince = Math.round((Date.now() - sinceDateObj.getTime()) / 1000) + offset * 60;
+          const parsed = sinceDateObj.getTime();
+          if (!Number.isNaN(parsed)) {
+            const offset = sinceDateObj.getTimezoneOffset();
+            stoppedSince = Math.round((Date.now() - parsed) / 1000) + offset * 60;
+          }
         }
-      } catch { }
+      } catch {}
       result.push({
         id: getValue(lines, 'UUID'),
         name: getValue(lines, 'Name'),
@@ -68,15 +74,11 @@ const getVboxInfo = async () => {
         bootDevice3: getValue(lines, 'Boot Device 3'),
         bootDevice4: getValue(lines, 'Boot Device 4'),
         timeOffset: getValue(lines, 'Time offset'),
-        rtc: getValue(lines, 'RTC'),
+        rtc: getValue(lines, 'RTC')
       });
     });
     return result;
   } catch (e) {
     return result;
   }
-};
-export const vboxInfo = async () => {
-  await nextTick();
-  return getVboxInfo();
 };

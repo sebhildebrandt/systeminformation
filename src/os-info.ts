@@ -1,25 +1,17 @@
-import { linuxOsInfo } from './linux/os-info';
-import { bsdOsInfo } from './bsd/os-info';
-import { darwinOsInfo } from './darwin/os-info';
-import { sunOsInfo } from './sun/os-info';
-import { windowsOsInfo } from './windows/os-info';
-
-import { DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, SUNOS, WINDOWS } from './common/const';
 
 export const osInfo = async () => {
-  await nextTick();
   switch (true) {
-    case LINUX:
-      return linuxOsInfo();
-    case NETBSD || FREEBSD:
-      return bsdOsInfo();
+    case LINUX || ANDROID:
+      return (await import('./linux/os-info.js')).osInfo();
+    case NETBSD || FREEBSD || OPENBSD:
+      return (await import('./bsd/os-info.js')).osInfo();
     case DARWIN:
-      return darwinOsInfo();
+      return (await import('./darwin/os-info.js')).osInfo();
     case SUNOS:
-      return sunOsInfo();
+      return (await import('./sun/os-info.js')).osInfo();
     case WINDOWS:
-      return windowsOsInfo();
+      return (await import('./windows/os-info.js')).osInfo();
     default:
       return null;
   }

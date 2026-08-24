@@ -1,24 +1,27 @@
-import { execCmd } from '../common/exec';
+import { cloneObj, getValue, nextTick } from '../common';
 import { initUUID } from '../common/defaults';
-import { UuidData } from '../common/types';
-import { getValue, nextTick } from '../common';
-
-export const bsdUuid = async () => {
-  const result: UuidData = initUUID;
-  try {
-    const cmd = `echo -n "os: "; sysctl -n kern.hostid; echo;
-echo -n "hardware: "; sysctl -n kern.hostuuid; echo;`;
-    const stdout = await execCmd(cmd);
-    const lines = stdout.toString().split('\n');
-    result.os = getValue(lines, 'os').toLowerCase();
-    result.hardware = getValue(lines, 'hardware').toLowerCase();
-    if (result.os.indexOf('unknown') >= 0) { result.os = ''; }
-    if (result.hardware.indexOf('unknown') >= 0) { result.hardware = ''; }
-  } catch { }
-  return result;
-};
+import { execSave } from '../common/exec';
+import type { UuidData } from '../common/types';
 
 export const uuid = async () => {
   await nextTick();
-  return bsdUuid();
+  const defaults: UuidData = cloneObj(initUUID);
+  try {
+    const { stdout } = await execSave('/sbin/sysctl -i kern.hostid kern.hostuuid');
+    const lines = stdout.split('\n');
+    let hardware = getValue(lines, 'kern.hostid', ':').toLowerCase();
+    let os = getValue(lines, 'kern.hostuuid', ':').toLowerCase();
+    if (os.indexOf('unknown') >= 0) {
+      os = '';
+    }
+    if (hardware.indexOf('unknown') >= 0) {
+      hardware = '';
+    }
+    return {
+      ...defaults,
+      os,
+      hardware
+    };
+  } catch {}
+  return defaults;
 };

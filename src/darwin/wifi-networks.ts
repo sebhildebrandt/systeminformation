@@ -1,54 +1,55 @@
-import { EOL } from 'os';
-import { execCmd } from '../common/exec';
-import { nextTick, toInt } from '../common';
-import { WifiNetworkData } from '../common/types';
-import { parseHead } from '../common/parse';
-import { wifiQualityFromDB, wifiFrequencyFromChannel } from '../common/network';
+import { nextTick } from '../common';
+import { plistParser } from '../common/darwin';
+import { exec } from '../common/exec';
+import { wifiFrequencyFromChannel, wifiQualityFromDB } from '../common/network';
+import type { WifiNetworkData } from '../common/types';
 
-export const darwinWifiNetwork = async () => {
+const parseWifiNetworks = (wifiObj: any) => {
   const result: WifiNetworkData[] = [];
-  const stdout = await execCmd('/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s');
-  const lines = stdout.toString().split(EOL);
-  if (lines && lines.length > 1) {
-    const parsedhead = parseHead(lines[0], 1);
-    if (parsedhead.length >= 7) {
-      lines.shift();
-      lines.forEach((line: string) => {
-        if (line.trim()) {
-          const channelStr = line.substring(parsedhead[3].from, parsedhead[3].to).trim();
-          const channel = channelStr ? parseInt(channelStr, 10) : null;
-          const signalLevel = toInt(line.substring(parsedhead[2].from, parsedhead[2].to).trim()) || null;
-          const securityAll = line.substring(parsedhead[6].from, 1000).trim().split(' ');
-          const security: string[] = [];
-          let wpaFlags: string[] = [];
-          securityAll.forEach((securitySingle: string) => {
-            if (securitySingle.indexOf('(') > 0) {
-              const parts = securitySingle.split('(');
-              security.push(parts[0]);
-              wpaFlags = wpaFlags.concat(parts[1].replace(')', '').split(','));
-            }
-          });
-          wpaFlags = Array.from(new Set(wpaFlags));
-          result.push({
-            ssid: line.substring(parsedhead[0].from, parsedhead[0].to).trim(),
-            bssid: line.substring(parsedhead[1].from, parsedhead[1].to).trim().toLowerCase(),
-            mode: '',
-            channel,
-            frequency: wifiFrequencyFromChannel(channel || 0),
-            signalLevel,
-            quality: wifiQualityFromDB(signalLevel || 0),
-            security,
-            wpaFlags,
-            rsnFlags: []
-          });
-        }
+  try {
+    wifiObj = wifiObj[0].spairport_airport_interfaces[0].spairport_airport_other_local_wireless_networks;
+    wifiObj.forEach((wifiItem: any) => {
+      const security: string[] = [];
+      const sm = wifiItem.spairport_security_mode || '';
+      if (sm === 'spairport_security_mode_wep') {
+        security.push('WEP');
+      } else if (sm === 'spairport_security_mode_wpa2_personal') {
+        security.push('WPA2');
+      } else if (sm.startsWith('spairport_security_mode_wpa2_enterprise')) {
+        security.push('WPA2 EAP');
+      } else if (sm.startsWith('pairport_security_mode_wpa3_transition')) {
+        security.push('WPA2/WPA3');
+      } else if (sm.startsWith('pairport_security_mode_wpa3')) {
+        security.push('WPA3');
+      }
+      const channel = Number.parseInt(`${wifiItem.spairport_network_channel}`.split(' ')[0], 10) || 0;
+      const signalLevel = wifiItem.spairport_signal_noise || null;
+
+      result.push({
+        ssid: wifiItem._name || '',
+        bssid: wifiItem.spairport_network_bssid || null,
+        mode: wifiItem.spairport_network_phymode,
+        channel,
+        frequency: wifiFrequencyFromChannel(channel),
+        signalLevel: signalLevel ? Number.parseInt(signalLevel, 10) : null,
+        quality: wifiQualityFromDB(signalLevel),
+        security,
+        wpaFlags: [],
+        rsnFlags: []
       });
-    }
+    });
+    return result;
+  } catch {
+    return result;
   }
-  return result;
 };
 
 export const wifiNetworks = async () => {
   await nextTick();
-  return darwinWifiNetwork();
+  const result: WifiNetworkData[] = [];
+  try {
+    const { stdout } = await exec('system_profiler SPAirPortDataType -xml');
+    return parseWifiNetworks(plistParser(stdout));
+  } catch {}
+  return result;
 };

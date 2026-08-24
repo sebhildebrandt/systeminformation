@@ -1,17 +1,22 @@
-import { powerShell } from '../common/exec';
-import { toInt, getValue, nextTick } from '../common';
-import { WifiConnectionData } from '../common/types';
-import { wifiFrequencyFromChannel } from '../common/network';
+import { getValue, nextTick, toInt } from '../common';
+import { wifiDBFromQuality, wifiFrequencyFromChannel } from '../common/network';
+import type { WifiConnectionData } from '../common/types';
+import { ps } from '../common/windows';
 
-export const windowsWifiConnections = async () => {
+export const wifiConnections = async () => {
+  await nextTick();
   const result: WifiConnectionData[] = [];
-  const stdout = await powerShell('netsh wlan show interfaces');
-  const allLines = stdout.toString().split('\r\n');
+  let stdout = '';
+  try {
+    stdout = String((await ps.exec('netsh wlan show interfaces')) || '');
+  } catch {
+    return result;
+  }
+  const allLines = stdout.split('\r\n');
   for (let i = 0; i < allLines.length; i++) {
     allLines[i] = allLines[i].trim();
   }
-  const parts = allLines.join('\r\n').split(':\r\n\r\n');
-  parts.shift();
+  const parts = allLines.join('\r\n').split(':\r\n\r\n').splice(1);
   parts.forEach((part: string) => {
     const lines = part.split('\r\n');
     if (lines.length >= 5) {
@@ -19,8 +24,9 @@ export const windowsWifiConnections = async () => {
       const model = lines[1].indexOf(':') >= 0 ? lines[1].split(':')[1].trim() : '';
       const id = lines[2].indexOf(':') >= 0 ? lines[2].split(':')[1].trim() : '';
       const ssid = getValue(lines, 'SSID', ':', true);
-      const bssid = getValue(lines, 'BSSID', ':', true);
-      const signalLevel = getValue(lines, 'Signal', ':', true);
+      const bssid = getValue(lines, 'BSSID', ':', true) || getValue(lines, 'AP BSSID', ':', true);
+      const quality = getValue(lines, 'Signal', ':', true);
+      const signalLevel = wifiDBFromQuality(quality);
       const type = getValue(lines, 'Radio type', ':', true) || getValue(lines, 'Type de radio', ':', true) || getValue(lines, 'Funktyp', ':', true) || null;
       const security = getValue(lines, 'authentication', ':', true) || getValue(lines, 'Authentification', ':', true) || getValue(lines, 'Authentifizierung', ':', true) || null;
       const channel = toInt(getValue(lines, 'Channel', ':', true) || getValue(lines, 'Canal', ':', true) || getValue(lines, 'Kanal', ':', true)) || null;
@@ -36,16 +42,12 @@ export const windowsWifiConnections = async () => {
           frequency: channel ? wifiFrequencyFromChannel(channel) : null,
           type,
           security,
-          signalLevel: parseFloat(signalLevel) || null,
+          signalLevel,
+          quality: quality ? parseInt(quality, 10) : null,
           txRate: toInt(txRate) || null
         });
       }
     }
   });
   return result;
-};
-
-export const wifiConnections = async () => {
-  await nextTick();
-  return windowsWifiConnections();
 };

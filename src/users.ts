@@ -1,25 +1,17 @@
-import { bsdUsers } from './bsd/users';
-import { sunUsers } from './sun/users';
-import { linuxUsers } from './linux/users';
-import { darwinUsers } from './darwin/users';
-import { windowsUsers } from './windows/users';
-
-import { DARWIN, FREEBSD, LINUX, NETBSD, SUNOS, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, SUNOS, WINDOWS } from './common/const';
 
 export const users = async () => {
-  await nextTick();
   switch (true) {
     case LINUX:
-      return linuxUsers();
-    case NETBSD || FREEBSD:
-      return bsdUsers();
+      return (await import('./linux/users.js')).users();
+    case NETBSD || FREEBSD || OPENBSD:
+      return (await import('./darwin/users.js')).users();
     case SUNOS:
-      return sunUsers();
+      return (await import('./sun/users.js')).users();
     case DARWIN:
-      return darwinUsers();
+      return (await import('./darwin/users.js')).users();
     case WINDOWS:
-      return windowsUsers();
+      return (await import('./windows/users.js')).users();
     default:
       return null;
   }

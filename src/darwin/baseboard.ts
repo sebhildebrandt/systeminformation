@@ -1,39 +1,48 @@
-import { arch, totalmem } from 'os';
+import { arch, totalmem } from 'node:os';
 import { cloneObj, getValue, nextTick } from '../common';
-import { execCmd } from '../common/exec';
+import { plistParser } from './../common/darwin';
 import { initBaseboard } from '../common/defaults';
+import { exec } from '../common/exec';
+import { getAppleModel } from '../common/mappings';
 
-export const darwinBaseboard = async () => {
-  const result = cloneObj(initBaseboard);
-  const workload = [];
-  workload.push(execCmd('ioreg -c IOPlatformExpertDevice -d 2'));
-  workload.push(execCmd('system_profiler SPMemoryDataType'));
-  const data = await Promise.allSettled(workload).then(results => results.map(result => result.status === 'fulfilled' ? result.value : null));
-  const lines = data[0] ? data[0].toString().replace(/[<>"]/g, '').split('\n') : [''];
-  result.manufacturer = getValue(lines, 'manufacturer', '=', true);
-  result.model = getValue(lines, 'model', '=', true);
-  result.version = getValue(lines, 'version', '=', true);
-  result.serial = getValue(lines, 'ioplatformserialnumber', '=', true);
-  result.assetTag = getValue(lines, 'board-id', '=', true);
+const parseBaseboardObject = (platformData: string, memoryData: string) => {
+  const defaults = cloneObj(initBaseboard);
 
-  // mem
-  let devices = data[1] ? data[1].toString().split('        BANK ') : [''];
-  if (devices.length === 1) {
-    devices = data[1] ? data[1].toString().split('        DIMM') : [''];
+  let memSlots = 1;
+  let isUpgradable = true;
+  if (memoryData) {
+    const memDataObject = plistParser(memoryData);
+    if (memDataObject && memDataObject[0] && memDataObject[0]._items) {
+      memSlots = memDataObject[0]._items.length;
+    }
+    if (memDataObject && memDataObject[0] && memDataObject[0].is_memory_upgradeable) {
+      isUpgradable = memDataObject[0].is_memory_upgradeable === 'Yes';
+    }
   }
-  devices.shift();
-  result.memSlots = devices.length;
-
   if (arch() === 'arm64') {
-    result.memSlots = 0;
-    result.memMax = totalmem();
+    memSlots = 0;
   }
+  const lines = platformData.replace(/[<>"]/g, '').split('\n');
+  const model = getAppleModel(getValue(lines, 'model', '=', true));
 
-  return result;
+  return {
+    ...defaults,
+    manufacturer: getValue(lines, 'manufacturer', '=', true),
+    model: model.model,
+    version: model.version,
+    serial: getValue(lines, 'ioplatformserialnumber', '=', true),
+    assetTag: getValue(lines, 'board-id', '=', true),
+    sku: model.key,
+    memSlots,
+    memMax: arch() === 'arm64' || !isUpgradable ? totalmem() : null
+  };
 };
 
 export const baseboard = async () => {
   await nextTick();
-  return darwinBaseboard();
+  const workload = [];
+  workload.push(exec('ioreg -c IOPlatformExpertDevice -d 2'));
+  workload.push(exec('system_profiler SPMemoryDataType -xml'));
+  const data = await Promise.allSettled(workload).then((results) => results.map((result) => (result.status === 'fulfilled' ? result.value : { stdout: '', stderr: '' })));
+  return parseBaseboardObject(data[0].stdout, data[1].stdout);
 };
-

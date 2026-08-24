@@ -1,13 +1,25 @@
-export { vboxInfo } from '../virtualbox';
-export { fullLoad } from '../cpu-full-load';
 export { currentLoad } from '../cpu-current-load';
-export { dockerInfo, dockerImages, dockerContainers, dockerContainerStats, dockerContainerProcesses, dockerVolumes, dockerAll } from '../docker';
-export { users } from './users';
-export { inetChecksite } from '../linux/inet-checksite';
-export { inetLatency } from './inet-latency';
-export { time } from '../time';
-export { shell } from '../shell';
-export { versions } from '../versions';
-export { osInfo } from './os-info';
 export { cpuCurrentSpeed } from '../cpu-current-speed';
-
+export { fullLoad } from '../cpu-full-load';
+export { networkInterfaceDefault } from '../darwin/network-interface-default';
+export {
+  dockerAll,
+  dockerContainerProcesses,
+  dockerContainers,
+  dockerContainerStats,
+  dockerImages,
+  dockerInfo,
+  dockerVolumes
+} from '../docker';
+export { inetChecksite } from '../inet-checksite';
+export { processLoad } from '../linux/process-load';
+export { processes } from '../linux/processes';
+export { npm } from '../npm';
+export { shell } from '../shell';
+export { time } from '../time';
+export { version } from '../version';
+export { versions } from '../versions';
+export { vboxInfo } from '../virtualbox';
+export { inetLatency } from './inet-latency';
+export { osInfo } from './os-info';
+export { users } from './users';

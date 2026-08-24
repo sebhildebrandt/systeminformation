@@ -1,7 +1,9 @@
-import { cpus } from 'os';
+import { cpus } from 'node:os';
 import { nextTick } from './common';
+import { WINDOWS } from './common/const';
 
-const getFullLoad = () => {
+export const fullLoad = async () => {
+  await nextTick();
 
   const oscpus = cpus();
   let totalUser = 0;
@@ -16,21 +18,14 @@ const getFullLoad = () => {
     for (let i = 0, len = oscpus.length; i < len; i++) {
       const cpu = oscpus[i].times;
       totalUser += cpu.user;
-      totalSystem += cpu.sys;
+      // windows: sys (kernel time) already includes irq time — avoid double counting
+      totalSystem += WINDOWS ? Math.max(0, cpu.sys - cpu.irq) : cpu.sys;
       totalNice += cpu.nice;
       totalIrq += cpu.irq;
       totalIdle += cpu.idle;
     }
     const totalTicks = totalIdle + totalIrq + totalNice + totalSystem + totalUser;
-    result = (totalTicks - totalIdle) / totalTicks * 100.0;
-
-  } else {
-    result = 0;
+    result = ((totalTicks - totalIdle) / totalTicks) * 100.0;
   }
   return result;
-};
-
-export const fullLoad = async () => {
-  await nextTick();
-  return getFullLoad();
 };

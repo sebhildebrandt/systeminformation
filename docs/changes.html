@@ -26,7 +26,7 @@
 <body>
   <nav class="nav">
     <div class="container">
-      <a href="."><img class="logo float-left" src="assets/logo.png">
+      <a href="."><img class="logo float-left" src="assets/logo.png" alt="logo">
         <div class="title float-left">systeminformation</div>
       </a>
       <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
@@ -44,6 +44,31 @@
             <div class="col-12 sectionheader">
               <div class="title">Major and Breaking Changes</div>
               <div class="text">
+                <h2>Major Changes - Version 6</h2>
+                <h4>New Functions</h4>
+                <ul>
+                  <li><span class="code">gpu()</span> graphics controllers (replaces the controllers part of <span class="code">graphics()</span>)</li>
+                  <li><span class="code">displays()</span> monitors / displays (replaces the displays part of <span class="code">graphics()</span>)</li>
+                </ul>
+                <h4>Breaking Changes</h4>
+                <table class="table table-sm table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Function</th>
+                      <th>Old</th>
+                      <th>New (V6)</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="code">graphics()</span></td>
+                      <td><span class="code">{ controllers, displays }</span></td>
+                      <td><span class="code">gpu()<br>displays()</span></td>
+                      <td>graphics() was removed and split into two functions,<br>each returning a plain array.<br>get() returns a migration hint for the removed graphics key</td>
+                    </tr>
+                  </tbody>
+                </table>
                 <h2>Major Changes - Version 5</h2>
                 <h4>New Functions</h4>
                 <ul>
@@ -192,7 +217,7 @@
                   <li><span class="code">uuid()</span>: added MACs</li>
                   <li><span class="code">uuid()</span>: better Raspberry Pi hardware ID</li>
                   <li><span class="code">versions()</span>: added bash, zsh, fish, powershell, dotnet</li>
-                  <li><span class="code">Apple M1 Silicon</span> extended support (now everything supported except of cpu temperature)</li>
+                  <li><span class="code">Apple M1 Silicon</span> extended support</li>
                   <li>updated TypeScript definitions </li>
                 </ul>
                 <h4>Test Full Version 5 Functionality</h4>
@@ -255,7 +280,7 @@
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
             <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="changes.html">Version 6 Changes</a></li>
             <li><a href="history.html">Full Version History</a></li>
             <li><a href="tests.html">Testing</a></li>
             <li><a href="issues.html">Known Issues</a></li>
@@ -268,7 +293,7 @@
             <li><a href="trademarks.html">Trademarks</a></li>
             <li>&nbsp;</li>
             <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
             <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
           </ul>
         </div>

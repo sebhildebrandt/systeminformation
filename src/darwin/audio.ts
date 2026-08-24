@@ -1,12 +1,12 @@
 import { nextTick } from '../common';
-import { execCmd } from '../common/exec';
+import { exec } from '../common/exec';
 import { audioDarwinChannelLabel, audioTypeLabel } from '../common/mappings';
-import { AudioObject, DarwinAudioObject } from '../common/types';
+import type { AudioData, DarwinAudioData } from '../common/types';
+import { plistParser } from './../common/darwin';
 
-const parseAudio = (audioObject: DarwinAudioObject, id: string): AudioObject => {
+const parseAudioObject = (audioObject: DarwinAudioData, id: string): AudioData => {
   const name = audioObject._name;
   const channelStr = ((audioObject.coreaudio_device_transport || '') + ' ' + (audioObject._name || '')).toLowerCase();
-
   return {
     id,
     name,
@@ -18,26 +18,28 @@ const parseAudio = (audioObject: DarwinAudioObject, id: string): AudioObject => 
     type: audioTypeLabel(name, Boolean(audioObject.coreaudio_device_input || ''), Boolean(audioObject.coreaudio_device_output || '')),
     in: Boolean(audioObject.coreaudio_device_input || ''),
     out: Boolean(audioObject.coreaudio_device_output || ''),
-    status: 'online',
+    status: 'online'
   };
 };
 
-export const darwinAudio = async () => {
-  const result = [];
-  try {
-    const stdout = await execCmd('system_profiler SPAudioDataType -json');
-    const outObj = JSON.parse(stdout.toString());
-    if (outObj.SPAudioDataType && outObj.SPAudioDataType.length && outObj.SPAudioDataType[0] && outObj.SPAudioDataType[0]['_items'] && outObj.SPAudioDataType[0]['_items'].length) {
-      for (let i = 0; i < outObj.SPAudioDataType[0]['_items'].length; i++) {
-        const audio = parseAudio(outObj.SPAudioDataType[0]['_items'][i], String(i));
-        result.push(audio);
-      }
+const parseAudio = (data: string) => {
+  const result: AudioData[] = [];
+  const outObj = plistParser(data.toString());
+  if (outObj?.length && outObj[0] && outObj[0]._items && outObj[0]._items.length) {
+    for (let i = 0; i < outObj[0]._items.length; i++) {
+      const audio = parseAudioObject(outObj[0]._items[i], String(i));
+      result.push(audio);
     }
-  } catch { }
+  }
   return result;
 };
 
-export const audio = async () => {
-  await nextTick();
-  return darwinAudio();
+export const audio = async (): Promise<AudioData[]> => {
+  try {
+    await nextTick();
+    const { stdout } = await exec('system_profiler SPAudioDataType -xml');
+    return parseAudio(stdout);
+  } catch {
+    return [];
+  }
 };

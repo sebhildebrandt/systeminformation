@@ -1,19 +1,13 @@
-import { linuxWifiNetwork } from './linux/wifi-networks';
-import { darwinWifiNetwork } from './darwin/wifi-networks';
-import { windowsWifiNetwork } from './windows/wifi-networks';
-
-import { DARWIN, LINUX, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
 
 export const wifiNetworks = async () => {
-  await nextTick();
   switch (true) {
-    case LINUX:
-      return linuxWifiNetwork();
+    case LINUX || ANDROID:
+      return (await import('./linux/wifi-networks.js')).wifiNetworks();
     case DARWIN:
-      return darwinWifiNetwork();
+      return (await import('./darwin/wifi-networks.js')).wifiNetworks();
     case WINDOWS:
-      return windowsWifiNetwork();
+      return (await import('./windows/wifi-networks.js')).wifiNetworks();
     default:
       return null;
   }

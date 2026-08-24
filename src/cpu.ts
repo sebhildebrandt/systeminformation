@@ -1,22 +1,15 @@
-import { linuxCpu } from './linux/cpu';
-import { darwinCpu } from './darwin/cpu';
-import { windowsCpu } from './windows/cpu';
-import { bsdCpu } from './bsd/cpu';
-
-import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 
 export const cpu = async () => {
-  await nextTick();
   switch (true) {
     case LINUX:
-      return linuxCpu();
-    case FREEBSD || NETBSD:
-      return bsdCpu();
+      return (await import('./linux/cpu.js')).cpu();
+    case FREEBSD || NETBSD || OPENBSD:
+      return (await import('./bsd/cpu.js')).cpu();
     case DARWIN:
-      return darwinCpu();
+      return (await import('./darwin/cpu.js')).cpu();
     case WINDOWS:
-      return windowsCpu();
+      return (await import('./windows/cpu.js')).cpu();
     default:
       return null;
   }

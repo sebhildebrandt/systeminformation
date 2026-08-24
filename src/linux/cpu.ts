@@ -1,91 +1,143 @@
-import { cpus } from 'os';
-import { promises as fs } from 'fs';
-import { execCmd } from '../common/exec';
-import { cloneObj, getValue, nextTick } from '../common';
-import { decodePiCpuinfo } from '../common/raspberry';
-import { getAMDSpeed, cpuBrandManufacturer } from '../common/mappings';
-import { cpuFlags } from './cpu-flags';
-import { getCpuCurrentSpeed } from '../cpu-current-speed';
+import { readFile } from 'node:fs/promises';
+import { cpus } from 'node:os';
+import { cleanString, cloneObj, getValue, nextTick, toInt } from '../common';
+import { execOptsLinux } from '../common/const';
+import { setCpuSpeed } from '../common/cpu';
 import { initCpuCacheResult, initCpuResult } from '../common/defaults';
+import { exec } from '../common/exec';
+import { cpuBrandManufacturer, cpuManufacturer, getAMDSpeed } from '../common/mappings';
+import { kFactor } from '../common/parse';
+import { isRaspberry } from './../common/raspberry';
+import { decodePiCpuinfo } from '../common/raspberry';
+import { getCpuCurrentSpeed } from '../cpu-current-speed';
+import { cpuFlags } from './cpu-flags';
 
-let _cpu_speed = 0;
-
-export const linuxCpu = async () => {
-  let result = cloneObj(initCpuResult);
-  const flags = await cpuFlags();
-  result.flags = flags;
-  result.virtualization = flags.indexOf('vmx') > -1 || flags.indexOf('svm') > -1;
-  let modelline = '';
-  if (cpus()[0] && cpus()[0].model) { modelline = cpus()[0].model; }
-  let stdout = await execCmd('export LC_ALL=C; lscpu; echo -n "Governor: "; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 2>/dev/null; echo; unset LC_ALL');
-  let lines = stdout.toString().split('\n');
-  modelline = getValue(lines, 'model name') || modelline;
-  const modellineParts = modelline.split('@');
-  result.brand = modellineParts[0].trim();
-  result.speed = modellineParts[1] ? parseFloat(modellineParts[1].trim()) : 0;
-  if (result.speed === 0 && (result.brand.indexOf('AMD') > -1 || result.brand.toLowerCase().indexOf('ryzen') > -1)) {
-    result.speed = getAMDSpeed(result.brand);
-  }
-  if (result.speed === 0) {
-    const current = getCpuCurrentSpeed();
-    if (current.avg !== 0) { result.speed = current.avg; }
-  }
-  _cpu_speed = result.speed;
-  result.speedMin = Math.round(parseFloat(getValue(lines, 'cpu min mhz').replace(/,/g, '.')) / 10.0) / 100;
-  result.speedMax = Math.round(parseFloat(getValue(lines, 'cpu max mhz').replace(/,/g, '.')) / 10.0) / 100;
-
-  result = cpuBrandManufacturer(result);
-  result.vendor = getValue(lines, 'vendor id');
-  // if (!result.vendor) { result.vendor = getValue(lines, 'anbieterkennung'); }
-
-  result.family = getValue(lines, 'cpu family');
-  // if (!result.family) { result.family = getValue(lines, 'prozessorfamilie'); }
-  result.model = getValue(lines, 'model:');
-  // if (!result.model) { result.model = getValue(lines, 'modell:'); }
-  result.stepping = getValue(lines, 'stepping');
-  result.revision = getValue(lines, 'cpu revision');
-  result.cache = initCpuCacheResult;
-  const l1d = getValue(lines, 'l1d cache');
-  if (l1d) { result.cache.l1d = parseInt(l1d) * (l1d.indexOf('M') !== -1 ? 1024 * 1024 : (l1d.indexOf('K') !== -1 ? 1024 : 1)); }
-  const l1i = getValue(lines, 'l1i cache');
-  if (l1i) { result.cache.l1i = parseInt(l1i) * (l1i.indexOf('M') !== -1 ? 1024 * 1024 : (l1i.indexOf('K') !== -1 ? 1024 : 1)); }
-  const l2 = getValue(lines, 'l2 cache');
-  if (l2) { result.cache.l2 = parseInt(l2) * (l2.indexOf('M') !== -1 ? 1024 * 1024 : (l2.indexOf('K') !== -1 ? 1024 : 1)); }
-  const l3 = getValue(lines, 'l3 cache');
-  if (l3) { result.cache.l3 = parseInt(l3) * (l3.indexOf('M') !== -1 ? 1024 * 1024 : (l3.indexOf('K') !== -1 ? 1024 : 1)); }
-
-  const threadsPerCore = getValue(lines, 'thread(s) per core') || '1';
-  // const coresPerSocketInt = parseInt(getValue(lines, 'cores(s) per socket') || '1', 10);
-  const processors = getValue(lines, 'socket(s)') || '1';
-  const threadsPerCoreInt = parseInt(threadsPerCore, 10);
-  const processorsInt = parseInt(processors, 10);
-  result.physicalCores = result.cores / threadsPerCoreInt;
-  result.processors = processorsInt;
-  result.governor = getValue(lines, 'governor') || '';
-
-  // Test Raspberry
-  if (result.vendor === 'ARM') {
-    const linesRpi = (await fs.readFile('/proc/cpuinfo')).toString().split('\n');
-    const rPIRevision = decodePiCpuinfo(linesRpi);
-    if (rPIRevision.model.toLowerCase().indexOf('raspberry') >= 0) {
-      result.family = result.manufacturer;
-      result.manufacturer = rPIRevision.manufacturer;
-      result.brand = rPIRevision.processor;
-      result.revision = rPIRevision.revisionCode;
-      result.socket = 'SOC';
-    }
-  }
-
-  // socket type
-  stdout = await execCmd('export LC_ALL=C; dmidecode –t 4 2>/dev/null | grep "Upgrade: Socket"; unset LC_ALL');
-  lines = stdout.toString().split('\n');
-  if (lines && lines.length) {
-    result.socket = getValue(lines, 'Upgrade').replace('Socket', '').trim() || result.socket;
-  }
-  return result;
-};
+setCpuSpeed(0);
 
 export const cpu = async () => {
   await nextTick();
-  return linuxCpu();
+  const defaults = cloneObj(initCpuResult);
+  const cores = defaults.cores;
+  const flags = await cpuFlags();
+  const virtualization = flags.indexOf('vmx') > -1 || flags.indexOf('svm') > -1;
+  let modelline = '';
+  if (cpus()[0] && cpus()[0].model) {
+    modelline = cpus()[0].model;
+  }
+  let { stdout } = await exec('export LC_ALL=C; lscpu; echo -n "Governor: "; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 2>/dev/null; echo; unset LC_ALL', execOptsLinux);
+  let lines = stdout.toString().split('\n');
+  modelline = getValue(lines, 'model name') || modelline;
+  modelline = getValue(lines, 'bios model name') || modelline;
+  modelline = cleanString(modelline);
+  const modellineParts = modelline.split('@');
+  let brand = modellineParts[0].trim();
+  if (brand.indexOf('Unknown') >= 0) {
+    brand = brand.split('Unknown')[0].trim();
+  }
+
+  let speed = modellineParts[1] ? parseFloat(modellineParts[1].trim()) : 0;
+  if (speed === 0 && (brand.indexOf('AMD') > -1 || brand.toLowerCase().indexOf('ryzen') > -1)) {
+    speed = getAMDSpeed(brand);
+  }
+  if (speed === 0) {
+    const current = await getCpuCurrentSpeed();
+    if (current.avg !== 0) {
+      speed = current.avg;
+    }
+  }
+  setCpuSpeed(speed);
+  const speedMin = Math.round(parseFloat(getValue(lines, 'cpu min mhz').replace(/,/g, '.')) / 10.0) / 100 || defaults.speedMin;
+  const speedMax = Math.round(parseFloat(getValue(lines, 'cpu max mhz').replace(/,/g, '.')) / 10.0) / 100 || defaults.speedMax;
+
+  const brandManufacturer = cpuBrandManufacturer(brand);
+  brand = brandManufacturer.brand;
+  let manufacturer = brandManufacturer.manufacturer;
+  const vendor = cpuManufacturer(getValue(lines, 'vendor id'));
+  let family = getValue(lines, 'cpu family');
+  const model = getValue(lines, 'model:');
+  const stepping = getValue(lines, 'stepping');
+  let revision = getValue(lines, 'cpu revision');
+  const cache = initCpuCacheResult;
+  const l1d = getValue(lines, 'l1d cache');
+  if (l1d) {
+    cache.l1d = toInt(l1d) * (l1d.indexOf('M') !== -1 ? 1024 * 1024 : kFactor(l1d));
+  }
+  const l1i = getValue(lines, 'l1i cache');
+  if (l1i) {
+    cache.l1i = toInt(l1i) * (l1i.indexOf('M') !== -1 ? 1024 * 1024 : kFactor(l1i));
+  }
+  const l2 = getValue(lines, 'l2 cache');
+  if (l2) {
+    cache.l2 = toInt(l2) * (l2.indexOf('M') !== -1 ? 1024 * 1024 : kFactor(l2));
+  }
+  const l3 = getValue(lines, 'l3 cache');
+  if (l3) {
+    cache.l3 = toInt(l3) * (l3.indexOf('M') !== -1 ? 1024 * 1024 : kFactor(l3));
+  }
+
+  const threadsPerCore = getValue(lines, 'thread(s) per core') || '1';
+
+  let processors = toInt(getValue(lines, 'socket(s)')) || 1;
+  const threadsPerCoreInt = toInt(threadsPerCore);
+  const processorsInt = toInt(processors);
+  const coresPerSocket = toInt(getValue(lines, 'core(s) per socket')); // number of cores (e.g. 16 on i12900)
+  const physicalCores = coresPerSocket ? coresPerSocket * processorsInt : cores / threadsPerCoreInt;
+  const performanceCores = threadsPerCoreInt > 1 ? cores - physicalCores : cores;
+  const efficiencyCores = threadsPerCoreInt > 1 ? cores - threadsPerCoreInt * performanceCores : 0;
+
+  processors = processorsInt;
+  const governor = getValue(lines, 'governor') || '';
+  let socket = vendor === 'ARM' ? 'SOC' : defaults.socket;
+
+  // Test Raspberry
+  if (vendor === 'ARM' && (await isRaspberry())) {
+    const rPIRevision = decodePiCpuinfo();
+    family = manufacturer;
+    manufacturer = rPIRevision.manufacturer;
+    brand = rPIRevision.processor;
+    revision = rPIRevision.revisionCode;
+    socket = 'SOC';
+  }
+
+  // Test RISC-V
+  if (getValue(lines, 'architecture') === 'riscv64') {
+    try {
+      const linesRiscV = (await readFile('/proc/cpuinfo')).toString().split('\n');
+      const uarch = getValue(linesRiscV, 'uarch') || '';
+      if (uarch.indexOf(',') > -1) {
+        const split = uarch.split(',');
+        manufacturer = cpuManufacturer(split[0]);
+        brand = split[1];
+      }
+    } catch {}
+  }
+
+  // socket type
+  ({ stdout } = await exec('export LC_ALL=C; dmidecode -t 4 2>/dev/null | grep "Upgrade: Socket"; unset LC_ALL', execOptsLinux));
+  lines = stdout.toString().split('\n');
+  if (lines && lines.length) {
+    socket = getValue(lines, 'Upgrade').replace('Socket', '').trim() || socket;
+  }
+  return {
+    ...defaults,
+    manufacturer,
+    brand,
+    vendor,
+    family,
+    model,
+    stepping,
+    revision,
+    speed,
+    speedMin,
+    speedMax,
+    governor,
+    physicalCores,
+    performanceCores,
+    efficiencyCores,
+    processors,
+    socket,
+    flags,
+    virtualization,
+    cache
+  };
 };

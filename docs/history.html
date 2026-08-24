@@ -26,7 +26,7 @@
 <body>
   <nav class="nav">
     <div class="container">
-      <a href="."><img class="logo float-left" src="assets/logo.png">
+      <a href="."><img class="logo float-left" src="assets/logo.png" alt="logo">
         <div class="title float-left">systeminformation</div>
       </a>
       <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
@@ -52,11 +52,606 @@
                   <thead>
                     <tr>
                       <th scope="col">Version</th>
-                      <th scope="col" width="12%">Date</th>
+                      <th scope="col" style="width: 12%;">Date</th>
                       <th scope="col">Comment</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <tr>
+                      <th scope="row">5.19.0</th>
+                      <td>2023-08-21</td>
+                      <td><span class="code">currentLoad()</span> new properties steal and guest time (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.15</th>
+                      <td>2023-08-10</td>
+                      <td><span class="code">npx()</span> command extended</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.14</th>
+                      <td>2023-08-09</td>
+                      <td><span class="code">fsSize()</span> fixed syntax error</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.13</th>
+                      <td>2023-08-08</td>
+                      <td><span class="code">mem()</span> fixed error handling</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.12</th>
+                      <td>2023-08-05</td>
+                      <td><span class="code">fsSize()</span> rw /snap/ issue fixed (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.11</th>
+                      <td>2023-08-04</td>
+                      <td><span class="code">bluetooth()</span> improved parsing</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.10</th>
+                      <td>2023-07-28</td>
+                      <td><span class="code">cpu()</span> fixed chach sizes, extended sockets (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.9</th>
+                      <td>2023-07-26</td>
+                      <td><span class="code">fsSize()</span> fixed missing rw property (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.8</th>
+                      <td>2023-07-25</td>
+                      <td><span class="code">cpu()</span> added AMD ZEN 4 base frequencies</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.7</th>
+                      <td>2023-07-12</td>
+                      <td><span class="code">osInfo()</span> added macOS Sonoma code name (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.6</th>
+                      <td>2023-06-28</td>
+                      <td><span class="code">graphics()</span> fixed catch errors (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.5</th>
+                      <td>2023-06-26</td>
+                      <td><span class="code">cpu()</span> fix parsing amd (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.4</th>
+                      <td>2023-06-22</td>
+                      <td><span class="code">graphics()</span> fixed parsing (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.3</th>
+                      <td>2023-06-09</td>
+                      <td><span class="code">tests</span> improved key handling, updated docs</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.2</th>
+                      <td>2023-06-08</td>
+                      <td><span class="code">fsSize()</span> improved error handling (alpine linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.1</th>
+                      <td>2023-06-07</td>
+                      <td><span class="code">networkInterfaces()</span> cleaned up testVirtualNic</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.18.0</th>
+                      <td>2023-06-06</td>
+                      <td><span class="code">fssize()</span> added optional drive parameter</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.17</th>
+                      <td>2023-06-03</td>
+                      <td><span class="code">osInfo()</span> improved fqdn (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.16</th>
+                      <td>2023-05-30</td>
+                      <td><span class="code">usb()</span> fix parsing JSON (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.15</th>
+                      <td>2023-05-29</td>
+                      <td><span class="code">powerShell()</span> added NoProfile attribute (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.14</th>
+                      <td>2023-05-29</td>
+                      <td><span class="code">diskLayout()</span> <span class="code">osInfo()</span>fix parsing issue (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.13</th>
+                      <td>2023-05-24</td>
+                      <td><span class="code">typings</span> fix typings dynamicData, networkInterfaceData</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.12</th>
+                      <td>2023-02-28</td>
+                      <td><span class="code">uuid()</span> fix unique mac address issue (Android)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.11</th>
+                      <td>2023-02-27</td>
+                      <td><span class="code">blockDevices()</span> raid added label, uuid (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.10</th>
+                      <td>2023-02-23</td>
+                      <td><span class="code">blockDevices()</span> fixed parsing raids (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.9</th>
+                      <td>2023-02-11</td>
+                      <td><span class="code">system()</span> fix model Apple Silicon</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.8</th>
+                      <td>2023-01-30</td>
+                      <td><span class="code">system()</span> improved virtual host detection for Parallels</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.7</th>
+                      <td>2023-01-29</td>
+                      <td><span class="code">processes()</span> fixed CPU usage info (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.6</th>
+                      <td>2023-01-29</td>
+                      <td><span class="code">processes()</span> fixed Node Version 8 compatibility issues</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.5</th>
+                      <td>2023-01-29</td>
+                      <td><span class="code">processes()</span> improved parsing of all services (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.4</th>
+                      <td>2023-01-24</td>
+                      <td><span class="code">networkInterfaces()</span> sanitizing interface names</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.3</th>
+                      <td>2023-01-10</td>
+                      <td><span class="code">processes()</span> fix elapsed time parsing (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.2</th>
+                      <td>2023-01-10</td>
+                      <td><span class="code">utils</span> fix killing powershell (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.1</th>
+                      <td>2023-01-06</td>
+                      <td><span class="code">graphics()</span> positionX, positionY Ventura fix (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.17.0</th>
+                      <td>2023-01-06</td>
+                      <td><span class="code">graphics()</span> added positionX, positionY (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.16.9</th>
+                      <td>2022-12-27</td>
+                      <td>updated docs</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.16.8</th>
+                      <td>2022-12-22</td>
+                      <td><span class="code">processes()</span> params truncated fix (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.16.7</th>
+                      <td>2022-12-22</td>
+                      <td><span class="code">processes()</span> commandLine missing spaces fix (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.16.6</th>
+                      <td>2022-12-12</td>
+                      <td><span class="code">processes()</span> time format fix (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.16.5</th>
+                      <td>2022-12-09</td>
+                      <td><span class="code">inetLatency()</span> fix for alpine (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.16.4</th>
+                      <td>2022-12-09</td>
+                      <td><span class="code">processes()</span> fix started (linux alpine)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.16.3</th>
+                      <td>2022-12-08</td>
+                      <td><span class="code">users()</span> fix when multiple exporer.exe opened (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.16.2</th>
+                      <td>2022-12-08</td>
+                      <td><span class="code">dockerContainerStats()</span> improved calculation cpuPercent</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.16.1</th>
+                      <td>2022-12-04</td>
+                      <td>code cleanup, moved from lgtm to GitHub Code Scan</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.16.0</th>
+                      <td>2022-12-01</td>
+                      <td><span class="code">fsSize()</span> added rw attribute (win, linux, mac OS, BSD)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.15.1</th>
+                      <td>2022-11-29</td>
+                      <td><span class="code">typings</span> fixed typo</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.15.0</th>
+                      <td>2022-11-29</td>
+                      <td><span class="code">blockDevices()</span> added device (win, linux, mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.14.4</th>
+                      <td>2022-11-21</td>
+                      <td><span class="code">osInfo()</span> improved uefi parsing (FreeBSD)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.14.3</th>
+                      <td>2022-11-20</td>
+                      <td><span class="code">graphics()</span> multi monitor current refresh rate (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.14.2</th>
+                      <td>2022-11-20</td>
+                      <td><span class="code">osInfo()</span> improved parsing (FreeBSD)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.14.1</th>
+                      <td>2022-11-20</td>
+                      <td><span class="code">mamLayout()</span> bank descriptor cleanup (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.14.0</th>
+                      <td>2022-11-19</td>
+                      <td><span class="code">blockDevices()</span> added raid group (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.13.5</th>
+                      <td>2022-11-18</td>
+                      <td><span class="code">users()</span> fix pasring issue (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.13.4</th>
+                      <td>2022-11-18</td>
+                      <td><span class="code">users()</span> fix issue (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.13.3</th>
+                      <td>2022-11-18</td>
+                      <td><span class="code">cpuTemperature()</span> fix main temp (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.13.2</th>
+                      <td>2022-11-18</td>
+                      <td><span class="code">cpuTemperature()</span> fix main temp (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.13.1</th>
+                      <td>2022-11-18</td>
+                      <td><span class="code">processLoad()</span> fix main pid (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.13.0</th>
+                      <td>2022-11-17</td>
+                      <td><span class="code">networkConnections()</span> added process name (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.15</th>
+                      <td>2022-11-16</td>
+                      <td><span class="code">networkConnections()</span> adapted parsing to reflect also UDP (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.14</th>
+                      <td>2022-11-11</td>
+                      <td>Restored <span class="code">powershell</span> compatibility for version 7.3 (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.13</th>
+                      <td>2022-11-06</td>
+                      <td>updated docs</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.12</th>
+                      <td>2022-11-03</td>
+                      <td>fix typescript typings</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.11</th>
+                      <td>2022-10-27</td>
+                      <td><span class="code">wifiInterfaces()</span>, <span class="code">wifiConnections()</span> improved parsing (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.10</th>
+                      <td>2022-10-25</td>
+                      <td><span class="code">bluetoothDevices()</span> adapted to new profile (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.9</th>
+                      <td>2022-10-24</td>
+                      <td>fix typescript typings, code cleanup, docs updated</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.8</th>
+                      <td>2022-10-23</td>
+                      <td><span class="code">processes()</span> fix truncated command (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.7</th>
+                      <td>2022-10-15</td>
+                      <td><span class="code">versions()</span> fix postgres</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.6</th>
+                      <td>2022-08-18</td>
+                      <td><span class="code">networkConnections()</span> udp fix (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.5</th>
+                      <td>2022-08-11</td>
+                      <td><span class="code">cpu()</span> virtualization fix (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.4</th>
+                      <td>2022-08-09</td>
+                      <td><span class="code">cpuTemperture()</span> fix main (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.3</th>
+                      <td>2022-08-04</td>
+                      <td><span class="code">networkInterfaces()</span> operstate fix (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.2</th>
+                      <td>2022-08-01</td>
+                      <td><span class="code">services()</span> Ubuntu 22.04 fix</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.1</th>
+                      <td>2022-07-14</td>
+                      <td><span class="code">cpuTemperature()</span> Apple Silicon support (see docs)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.12.0</th>
+                      <td>2022-07-12</td>
+                      <td><span class="code">cpu()</span> added performance and efficiency cores</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.26</th>
+                      <td>2022-07-12</td>
+                      <td><span class="code">cpu()</span> fix issue parsing physical cores (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.25</th>
+                      <td>2022-07-11</td>
+                      <td><span class="code">fsSize()</span> fix issue filtering (df)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.24</th>
+                      <td>2022-07-10</td>
+                      <td><span class="code">fsSize()</span> fix parsing linux (df)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.23</th>
+                      <td>2022-07-09</td>
+                      <td><span class="code">fsSize()</span>,<span class="code">basebard()</span>,<span class="code">cpuTemeratur()</span> fixes</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.22</th>
+                      <td>2022-06-24</td>
+                      <td><span class="code">processes()</span> improved parsing (linux, mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.21</th>
+                      <td>2022-06-17</td>
+                      <td><span class="code">fsSize()</span> fix parsing linux (df)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.20</th>
+                      <td>2022-06-13</td>
+                      <td><span class="code">diskLayout()</span> fix parsing linux (JSON)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.19</th>
+                      <td>2022-06-13</td>
+                      <td><span class="code">diskLayout()</span> optimized parsing linux (JSON)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.18</th>
+                      <td>2022-06-13</td>
+                      <td><span class="code">diskLayout()</span> fix parsing linux (JSON)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.17</th>
+                      <td>2022-06-13</td>
+                      <td><span class="code">diskLayout()</span> fix parsing linux (JSON)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.16</th>
+                      <td>2022-05-30</td>
+                      <td><span class="code">docs</span> updated <span class="code">tests</span> added node 18</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.15</th>
+                      <td>2022-05-11</td>
+                      <td><span class="code">audio()</span> fix typescript typings</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.14</th>
+                      <td>2022-04-22</td>
+                      <td><span class="code">networkInterfaces()</span> node 18 compatibility</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.13</th>
+                      <td>2022-04-21</td>
+                      <td><span class="code">networkStats()</span> improved scanning (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.12</th>
+                      <td>2022-04-19</td>
+                      <td><span class="code">battery()</span> improved M1 support (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.11</th>
+                      <td>2022-04-19</td>
+                      <td><span class="code">networkInterfaces()</span> improved parsing (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.10</th>
+                      <td>2022-04-18</td>
+                      <td>updated docs</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.9</th>
+                      <td>2022-03-20</td>
+                      <td><span class="code">diskLayout()</span> fixed issue smartStatus (linux)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.8</th>
+                      <td>2022-03-11</td>
+                      <td><span class="code">cpu()</span> improved socket detection by name (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.7</th>
+                      <td>2022-03-10</td>
+                      <td><span class="code">cpuTemperature()</span> fix NaN issue (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.6</th>
+                      <td>2022-03-01</td>
+                      <td>typescript typings fix <span class="code">diskLayout()</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.5</th>
+                      <td>2022-02-26</td>
+                      <td>fixed parsing issues (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.4</th>
+                      <td>2022-02-20</td>
+                      <td><span class="code">powerShell</span> execution policy fix</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.3</th>
+                      <td>2022-02-14</td>
+                      <td>updated docs</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.2</th>
+                      <td>2022-02-05</td>
+                      <td><span class="code">powerShell</span> speed improvements (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.1</th>
+                      <td>2022-02-03</td>
+                      <td><span class="code">osInfo()</span> fixed issue fqdn (openBSD)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.11.0</th>
+                      <td>2022-01-26</td>
+                      <td><span class="code">networkInterfaces()</span> added default property and parameter</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.10.7</th>
+                      <td>2022-01-21</td>
+                      <td><span class="code">processes()</span> reverted PR #56ß (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.10.6</th>
+                      <td>2022-01-21</td>
+                      <td><span class="code">usb()</span> fix, <span class="code">users()</span> fix tty (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.10.5</th>
+                      <td>2022-01-19</td>
+                      <td><span class="code">processes()</span> fix calculation (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.10.4</th>
+                      <td>2022-01-18</td>
+                      <td><span class="code">battery()</span> fix detection (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.10.3</th>
+                      <td>2022-01-17</td>
+                      <td><span class="code">system()</span> improved virtual detection (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.10.2</th>
+                      <td>2022-01-17</td>
+                      <td><span class="code">uuid()</span> fix return values (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.10.1</th>
+                      <td>2022-01-17</td>
+                      <td><span class="code">cpu()</span> fix manufacturer</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.10.0</th>
+                      <td>2022-01-09</td>
+                      <td>Basic <span class="code">Android</span> support</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.9.18</th>
+                      <td>2022-01-08</td>
+                      <td><span class="code">wifiConnections()</span> fix empty issue (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.9.17</th>
+                      <td>2021-12-07</td>
+                      <td><span class="code">wifiNetworks()</span> fix empty issue (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.9.16</th>
+                      <td>2021-12-05</td>
+                      <td><span class="code">wifiNetworks()</span> adaption for Apple silicon (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.9.15</th>
+                      <td>2021-11-19</td>
+                      <td><span class="code">cpuCache()</span> fix (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.9.14</th>
+                      <td>2021-11-17</td>
+                      <td><span class="code">versions()</span> python 2 monterey (deprecated warning) fix (mac OS)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.9.13</th>
+                      <td>2021-11-14</td>
+                      <td><span class="code">time()</span> timezone name, <span class="code">cpu()</span> l1 cache improvement</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.9.12</th>
+                      <td>2021-11-13</td>
+                      <td><span class="code">users()</span> fix data check (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.9.11</th>
+                      <td>2021-11-12</td>
+                      <td><span class="code">fsStats()</span> fix null result (bsd)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.9.10</th>
+                      <td>2021-11-11</td>
+                      <td><span class="code">powerShell</span> transition, replacing wmic (windows)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5.9.9</th>
+                      <td>2021-10-27</td>
+                      <td><span class="code">graphics</span> fixed screen resolution issue (windows)</td>
+                    </tr>
                     <tr>
                       <th scope="row">5.9.8</th>
                       <td>2021-10-22</td>
@@ -2470,7 +3065,7 @@
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
             <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="changes.html">Version 6 Changes</a></li>
             <li><a href="history.html">Full Version History</a></li>
             <li><a href="tests.html">Testing</a></li>
             <li><a href="issues.html">Known Issues</a></li>
@@ -2483,7 +3078,7 @@
             <li><a href="trademarks.html">Trademarks</a></li>
             <li>&nbsp;</li>
             <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
             <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
           </ul>
         </div>

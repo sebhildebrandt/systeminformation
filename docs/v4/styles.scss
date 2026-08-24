@@ -23,6 +23,17 @@ h4 {
   font-weight: 500;
   color: rgb(156, 1, 1);
 }
+.inline {
+  display: inline-block;
+
+  .fal {
+    margin-left: 8px;
+  }
+
+  .fab {
+    margin-left: 8px;
+  }
+}
 .container-fluid {
   background-color: rgb(255, 255, 255);
   padding-bottom: 30px;
@@ -36,14 +47,19 @@ h4 {
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-  height: 100vh; //calc(100vh);
-  height: calc(var(--vh, 1vh) * 100);
-  opacity: 0.95;
+  height: 100svh;
+
+  @media only screen and (min-height: 1100px) {
+    max-height: 900px;
+  }
+
+  @media only screen and (min-height: 1900px) {
+    max-height: 1260px;
+  }  opacity: 0.95;
   display: flex;
   justify-content: center;
   text-align: center;
 
-  // align-items: center;
   flex-direction: column;
   .container {
     text-align: center;
@@ -87,81 +103,144 @@ h4 {
     padding-top: 10px;
     font-size: 1.8rem;
     margin-bottom: 10px;
+    font-weight: 500;
+
+    @media only screen and (min-width: 374px) {
+        font-size: 2.1rem;
+      }
+
     @media only screen and (min-width: 420px) {
       font-size: 2.4rem;
     }
-    @media only screen and (min-width: 768px) {
-      font-size: 3.2rem;
+
+    @media only screen and (min-width: 767px) {
+      font-size: 3.5rem;
     }
+
     @media only screen and (min-width: 1024px) {
       font-size: 4rem;
+    }
+
+    @media only screen and (min-width: 1200px) {
+      font-size: 5rem;
+    }
+
+    @media only screen and (min-width: 1900px) {
+      font-size: 6rem;
     }
   }
   .logo {
     width: 100px;
+
     @media only screen and (min-width: 420px) {
       width: 120px;
     }
-    @media only screen and (min-width: 768px) {
+
+    @media only screen and (min-width: 767px) {
       width: 160px;
     }
+
     @media only screen and (min-width: 1024px) {
       width: 200px;
     }
+
+    @media only screen and (min-width: 1900px) {
+      width: 250px;
+    }
   }
+
   .subtitle {
     text-align: center;
     color: #bbb;
     font-size: 0.78rem;
+
     @media only screen and (min-width: 375px) {
       font-size: 0.9rem;
     }
+
     @media only screen and (min-width: 420px) {
       font-size: 1rem;
     }
-    @media only screen and (min-width: 768px) {
+
+    @media only screen and (min-width: 767px) {
       font-size: 1.1rem;
     }
+
     @media only screen and (min-width: 1024px) {
       font-size: 1.3rem;
     }
+
+    @media only screen and (min-width: 1200px) {
+      font-size: 1.4rem;
+    }
+
+    @media only screen and (min-width: 1900px) {
+      font-size: 1.6rem;
+    }
   }
-  .text > a {
+
+  .text>a {
     text-align: center;
     color: #fff;
     font-size: 0.9rem;
+
     &:hover {
       color: #aaa;
       text-decoration: none;
     }
+
     @media only screen and (min-width: 375px) {
       font-size: 0.9rem;
     }
+
     @media only screen and (min-width: 420px) {
       font-size: 1rem;
     }
-    @media only screen and (min-width: 768px) {
+
+    @media only screen and (min-width: 767px) {
       font-size: 1rem;
     }
+
     @media only screen and (min-width: 1024px) {
       font-size: 1.1rem;
     }
+
+    @media only screen and (min-width: 1200px) {
+      font-size: 1.2rem;
+    }
+
+    @media only screen and (min-width: 1900px) {
+      font-size: 1.5rem;
+    }
   }
+
   .version {
     text-align: center;
     margin-bottom: 10px;
     color: #fff;
     font-size: 0.9rem;
+
     @media only screen and (min-width: 420px) {
       font-size: 0.9rem;
     }
+
     @media only screen and (min-width: 768px) {
       font-size: 1rem;
     }
+
     @media only screen and (min-width: 1024px) {
       font-size: 1.1rem;
     }
+
+    @media only screen and (min-width: 1200px) {
+      font-size: 1.2rem;
+    }
+
+    @media only screen and (min-width: 1900px) {
+      font-size: 1.5rem;
+    }
   }
+
   .down {
     text-align: center;
     color: #fff;
@@ -169,23 +248,15 @@ h4 {
     line-height: 1;
     margin-bottom: 15px;
     cursor: pointer;
+
     .caret {
       font-size: 3rem;
     }
   }
 }
 
-// a[ id="quickstart" ]:target ~ #main div.row {
-//     transform: translateY( -500px );
-// }
-
-// #quickstart {
-//   background-color: #ff3333;
-// }
 .nav {
   background: no-repeat center center scroll;
-  // background-color: #1A1F30; /* For browsers that do not support gradients */
-  // background-image: linear-gradient(210deg, #2A2D66, #060520); /* Standard syntax (must be last) */
   background-color: #4b2313; /* For browsers that do not support gradients */
   background-image: linear-gradient(210deg, #4b2313, #2c0c0a); /* Standard syntax (must be last) */
   -webkit-background-size: cover;

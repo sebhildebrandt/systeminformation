@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 
   <title>systeminformation</title>
@@ -30,7 +30,7 @@
 <body>
   <nav class="nav">
     <div class="container">
-      <a href="."><img class="logo float-left" src="assets/logo.png">
+      <a href="."><img class="logo float-left" src="assets/logo.png" alt="logo">
         <div class="title float-left">systeminformation</div>
       </a>
       <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
@@ -262,7 +262,7 @@
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.diskLayout().then(data => console.log(data));</code></pre class="example">
+si.diskLayout().then(data => console.log(data));</code></pre>
                       <pre class="example">
 [
   {
@@ -295,6 +295,7 @@ si.diskLayout().then(data => console.log(data));</code></pre class="example">
     ...
   }
 ]</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.blockDevices(cb)</td>
@@ -426,12 +427,32 @@ si.diskLayout().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>protocol (SATA, PCI-Express, ...)</td>
                     </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].group</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Raid group member (e.g. md1)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[1].device</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>Physical device mapped to (e.g. /dev/sda)</td>
+                    </tr>
                     <tr class="example">
                       <td></td>
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.blockDevices().then(data => console.log(data));</code></pre class="example">
+si.blockDevices().then(data => console.log(data));</code></pre>
                       <pre class="example">
 [
   {
@@ -447,20 +468,22 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
     serial: '... serial ...',
     removable: false,
     protocol: 'nvme',
-    group: undefined
+    group: '',
+    device: 'nvme0n1'
   },
   {
     ...
   }
 ]</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.disksIO(cb)</td>
                       <td>{...}</td>
                       <td>X</td>
-                      <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
                       <td></td>
                       <td>current transfer stats</td>
                     </tr>
@@ -468,9 +491,9 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>rIO</td>
                       <td>X</td>
-                      <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
                       <td></td>
                       <td>read IOs on all mounted drives</td>
                     </tr>
@@ -478,9 +501,9 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>wIO</td>
                       <td>X</td>
-                      <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
                       <td></td>
                       <td>write IOs on all mounted drives</td>
                     </tr>
@@ -488,9 +511,9 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>tIO</td>
                       <td>X</td>
-                      <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
                       <td></td>
                       <td>write IOs on all mounted drives</td>
                     </tr>
@@ -498,9 +521,9 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>rIO_sec</td>
                       <td>X</td>
-                      <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
                       <td></td>
                       <td>read IO per sec (* see notes)</td>
                     </tr>
@@ -508,9 +531,9 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>wIO_sec</td>
                       <td>X</td>
-                      <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
                       <td></td>
                       <td>write IO per sec (* see notes)</td>
                     </tr>
@@ -518,9 +541,9 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>tIO_sec</td>
                       <td>X</td>
-                      <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
                       <td></td>
                       <td>total IO per sec (* see notes)</td>
                     </tr>
@@ -528,7 +551,7 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>rWaitTime</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -538,7 +561,7 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>wWaitTime</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -548,7 +571,7 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>tWaitTime</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -558,7 +581,7 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>rWaitPercent</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -568,7 +591,7 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>wWaitPercent</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -578,7 +601,7 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>tWaitPercent</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -588,9 +611,9 @@ si.blockDevices().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>ms</td>
                       <td>X</td>
-                      <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
                       <td></td>
                       <td>interval length (for per second values)</td>
                     </tr>
@@ -603,7 +626,7 @@ setInterval(function() {
   si.disksIO().then(data => {
     console.log(data);
   })
-}, 1000)</code></pre class="example">
+}, 1000)</code></pre>
                       <pre class="example">
 {                           // first call
   rIO: 899825,
@@ -623,6 +646,7 @@ setInterval(function() {
   tIO_sec: 38.5395537525355,
   ms: 986
 }...</pre>
+                    </td>
                     </tr>
                   </tbody>
                 </table>
@@ -642,14 +666,14 @@ setInterval(function() {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>si.fsSize(cb)</td>
+                      <td>si.fsSize(drive, cb)</td>
                       <td>[{...}]</td>
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
-                      <td>returns array of mounted file systems</td>
+                      <td>returns array of mounted file systems<br>drive parameter is optional</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -721,12 +745,22 @@ setInterval(function() {
                       <td></td>
                       <td>mount point</td>
                     </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].rw</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>Read/Write (false if read only)</td>
+                    </tr>
                     <tr class="example">
                       <td></td>
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.fsSize().then(data => console.log(data));</code></pre class="example">
+si.fsSize().then(data => console.log(data));</code></pre>
                       <pre class="example">
 [
   {
@@ -736,12 +770,14 @@ si.fsSize().then(data => console.log(data));</code></pre class="example">
     used: 59142635520,
     available: 913434726400,
     use: 6.08,
-    mount: '/'
+    mount: '/',
+    rw: true
   },
   {
     ...
   }
 ]</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.fsOpenFiles(cb)</td>
@@ -749,7 +785,7 @@ si.fsSize().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td>count max/allocated file descriptors</td>
                     </tr>
@@ -769,7 +805,7 @@ si.fsSize().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td>count allocated</td>
                     </tr>
@@ -788,13 +824,14 @@ si.fsSize().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.fsOpenFiles().then(data => console.log(data));</code></pre class="example">
+si.fsOpenFiles().then(data => console.log(data));</code></pre>
                       <pre class="example">
 {
   max: 6566555,
   allocated: 1856,
   available: 0
 }</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.fsStats(cb)</td>
@@ -802,7 +839,7 @@ si.fsOpenFiles().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td>current transfer stats</td>
                     </tr>
@@ -812,7 +849,7 @@ si.fsOpenFiles().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td>bytes read since startup</td>
                     </tr>
@@ -822,7 +859,7 @@ si.fsOpenFiles().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td>bytes written since startup</td>
                     </tr>
@@ -832,7 +869,7 @@ si.fsOpenFiles().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td>total bytes read + written since startup</td>
                     </tr>
@@ -842,7 +879,7 @@ si.fsOpenFiles().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td>bytes read / second (* see notes)</td>
                     </tr>
@@ -852,7 +889,7 @@ si.fsOpenFiles().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td>bytes written / second (* see notes)</td>
                     </tr>
@@ -862,7 +899,7 @@ si.fsOpenFiles().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td>total bytes reads + written / second</td>
                     </tr>
@@ -872,7 +909,7 @@ si.fsOpenFiles().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td></td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td>interval length (for per second values)</td>
                     </tr>
@@ -885,7 +922,7 @@ setInterval(function() {
   si.fsStats().then(data => {
     console.log(data);
   })
-}, 1000)</code></pre class="example">
+}, 1000)</code></pre>
                       <pre class="example">
 {                             // first call
   rx: 14015849472,
@@ -905,6 +942,7 @@ setInterval(function() {
   tx_sec: 4083.748753738784,
   ms: 1003
 }...</pre>
+                    </td>
                     </tr>
                   </tbody>
                 </table>
@@ -951,7 +989,7 @@ setInterval(function() {
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
             <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="changes.html">Version 6 Changes</a></li>
             <li><a href="history.html">Full Version History</a></li>
             <li><a href="tests.html">Testing</a></li>
             <li><a href="issues.html">Known Issues</a></li>
@@ -964,7 +1002,7 @@ setInterval(function() {
             <li><a href="trademarks.html">Trademarks</a></li>
             <li>&nbsp;</li>
             <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
             <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
           </ul>
         </div>

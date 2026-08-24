@@ -1,71 +1,25 @@
-import { EOL } from 'os';
-import { exec, spawn, ExecException } from 'child_process';
+import { execFile as execFileFunction, exec as execFunction, spawn } from 'node:child_process';
+import { promisify } from 'node:util';
 
-export const execCmd = (cmd: string) => {
-  return new Promise<string>((resolve) => {
-    exec(cmd, (error: ExecException | null, stdout: string, stderr: string) => {
-      if (error) {
-        resolve('');
-      }
-      resolve(stdout ? stdout : stderr);
-    });
-  });
+export const exec = promisify(execFunction);
+export const execFile = promisify(execFileFunction);
+
+// share the result of concurrent identical calls (e.g. gpu() and displays() both
+// query the same expensive base command when run in parallel via getStaticData)
+const _inflight = new Map<string, Promise<any>>();
+export const shareInflight = <T>(key: string, fn: () => Promise<T>): Promise<T> => {
+  if (!_inflight.has(key)) {
+    _inflight.set(
+      key,
+      fn().finally(() => {
+        _inflight.delete(key);
+      })
+    );
+  }
+  return _inflight.get(key) as Promise<T>;
 };
 
-export const powerShell = (cmd: string) => {
-
-  let result = '';
-  const toUTF8 = '$OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8 ; ';
-
-  return new Promise<string>((resolve) => {
-    process.nextTick(() => {
-      try {
-        const child = spawn('powershell.exe', ['-NoLogo', '-InputFormat', 'Text', '-NoExit', '-ExecutionPolicy', 'Unrestricted', '-Command', '-'], {
-          stdio: 'pipe',
-          windowsHide: true,
-          env: Object.assign({}, process.env, { LANG: 'en_US.UTF-8' })
-        });
-
-        if (child && !child.pid) {
-          child.on('error', function () {
-            resolve(result);
-          });
-        }
-        if (child && child.pid) {
-          child.stdout.on('data', function (data) {
-            result = result + data.toString('utf8');
-          });
-          child.stderr.on('data', function () {
-            child.kill();
-            resolve(result);
-          });
-          child.on('close', function () {
-            child.kill();
-            resolve(result);
-          });
-          child.on('error', function () {
-            child.kill();
-            resolve(result);
-          });
-          try {
-            child.stdin.write(toUTF8 + cmd + EOL);
-            child.stdin.write('exit' + EOL);
-            child.stdin.end();
-          } catch (e) {
-            child.kill();
-            resolve(result);
-          }
-        } else {
-          resolve(result);
-        }
-      } catch (e) {
-        resolve(result);
-      }
-    });
-  });
-};
-
-export const execSafe = (cmd: string, args: any, options?: any) => {
+export const execSecure = (cmd: string, args: any, options?: any) => {
   let result = '';
   options = options || {};
 
@@ -75,26 +29,26 @@ export const execSafe = (cmd: string, args: any, options?: any) => {
         const child = spawn(cmd, args, options);
 
         if (child && !child.pid) {
-          child.on('error', function () {
+          child.on('error', () => {
             resolve(result);
           });
         }
-        if (child && child.pid) {
-          child.stdout.on('data', function (data) {
+        if (child?.pid) {
+          child.stdout.on('data', (data) => {
             result += data.toString();
           });
-          child.on('close', function () {
+          child.on('close', () => {
             child.kill();
             resolve(result);
           });
-          child.on('error', function () {
+          child.on('error', () => {
             child.kill();
             resolve(result);
           });
         } else {
           resolve(result);
         }
-      } catch (e) {
+      } catch {
         resolve(result);
       }
     });
@@ -102,5 +56,17 @@ export const execSafe = (cmd: string, args: any, options?: any) => {
 };
 
 export const timeout = (ms: number) => {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+export const execSave = async (cmd: string, options: any = {}): Promise<{ stdout: string; stderr: string }> => {
+  // includes try catch ... to avoid needing it for every exec call
+  let stdout: Buffer;
+  let stderr: Buffer;
+  try {
+    ({ stdout, stderr } = await exec(cmd, options));
+    return { stdout: stdout.toString(), stderr: stderr.toString() };
+  } catch (e: any) {
+    return { stdout: e.stdout, stderr: e.stderr };
+  }
 };

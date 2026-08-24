@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 
   <title>systeminformation</title>
@@ -30,7 +30,7 @@
 <body>
   <nav class="nav">
     <div class="container">
-      <a href="."><img class="logo float-left" src="assets/logo.png">
+      <a href="."><img class="logo float-left" src="assets/logo.png" alt="logo">
         <div class="title float-left">systeminformation</div>
       </a>
       <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
@@ -52,13 +52,13 @@
                 <ul>
                   <li>simple to use</li>
                   <li>get detailed information about system, cpu, baseboard, battery, memory, disks/filesystem, network, docker, software, services and processes</li>
-                  <li>supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD and SunOS support</li>
+                  <li>supports Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD, SunOS and Android support</li>
                   <li>no npm dependencies</li>
                 </ul>
 
                 <h2>Core Concept</h2>
                 <p><a href="https://nodejs.org/en/" rel="nofollow">Node.js</a> comes with some basic OS information, but I always wanted a little more. So I came up to write this
-                  little library. This library is still work in progress. It requires node.js version 4.0 and above.</p>
+                  little library. This library is still a work in progress. It requires node.js version 4.0 and above.</p>
 
                 <p>I was able to test it on several Debian, Raspbian, Ubuntu distributions as well as macOS (Mavericks, Yosemite, El Captain, Sierra, High Sierra, Mojave, Catalina, Big Sur) and some Windows 7, Windows 8, Windows 10, FreeBSD, OpenBSD, NetBSD and SunOS machines.
                   Not all functions are supported on all operating systems. Have a look at the function reference in the docs to get further details.</p>
@@ -69,7 +69,9 @@
                 <p>This library is supposed to be used as a <a href="https://nodejs.org/en/" rel="nofollow">node.js</a> backend/server-side library and will definitely not work within a browser.</p>
 
                 <h2>Installation</h2>
-                <pre>$ npm install systeminformation --save</pre>
+                <pre>$ npm install systeminformation --save</pre>
+                <p>or simpler:</p>
+                <pre>$ npm install systeminformation</pre>
                 <h2>Usage</h2>
                 <p>All functions (except <span class="code">version</span> and <span class="code">time</span>) are implemented as asynchronous functions. Here a small example how to use them:</p>
                 <pre><code class="js">const si = require('systeminformation');
@@ -86,7 +88,7 @@ si.cpu()
 
 si.cpu(function(data) {
     console.log('CPU Information:');
-    console.log('- manufucturer: ' + data.manufacturer);
+    console.log('- manufacturer: ' + data.manufacturer);
     console.log('- brand: ' + data.brand);
     console.log('- speed: ' + data.speed);
     console.log('- cores: ' + data.cores);
@@ -101,7 +103,7 @@ si.cpu(function(data) {
 si.cpu()
     .then(data => {
         console.log('CPU Information:');
-        console.log('- manufucturer: ' + data.manufacturer);
+        console.log('- manufacturer: ' + data.manufacturer);
         console.log('- brand: ' + data.brand);
         console.log('- speed: ' + data.speed);
         console.log('- cores: ' + data.cores);
@@ -117,7 +119,7 @@ async function cpuData() {
     try {
         const data = await si.cpu();
         console.log('CPU Information:');
-        console.log('- manufucturer: ' + data.manufacturer);
+        console.log('- manufacturer: ' + data.manufacturer);
         console.log('- brand: ' + data.brand);
         console.log('- speed: ' + data.speed);
         console.log('- cores: ' + data.cores);
@@ -153,7 +155,7 @@ async function cpuData() {
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
             <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="changes.html">Version 6 Changes</a></li>
             <li><a href="history.html">Full Version History</a></li>
             <li><a href="tests.html">Testing</a></li>
             <li><a href="issues.html">Known Issues</a></li>
@@ -166,7 +168,7 @@ async function cpuData() {
             <li><a href="trademarks.html">Trademarks</a></li>
             <li>&nbsp;</li>
             <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
             <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
           </ul>
         </div>

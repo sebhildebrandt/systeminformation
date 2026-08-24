@@ -1,26 +1,12 @@
-// ==================================================================================
-// docker.ts
-// ----------------------------------------------------------------------------------
-// Description:   System Information - library
-//                for Node.js
-// Copyright:     (c) 2014 - 2021
-// Author:        Sebastian Hildebrandt
-// ----------------------------------------------------------------------------------
-// License:       MIT
-// ==================================================================================
-// 13. Docker
-// ----------------------------------------------------------------------------------
-
-import { WINDOWS } from './common/const';
-import { DockerContainerData, DockerContainerStatsData, DockerContainerProcessData, DockerVolumeData } from './common/types';
-import { DockerSocket } from './docker-socket';
-import { sanitizeShellString, isPrototypePolluted, stringReplace, stringToLower, stringTrim, mathMin } from './common/security';
-import { nanoSeconds } from './common/datetime';
 import { nextTick } from './common';
+import { WINDOWS } from './common/const';
+import { nanoSeconds } from './common/datetime';
+import { isPrototypePolluted, sanitizeContainerID, sanitizeImageID } from './common/security';
+import type { DockerContainerData, DockerContainerProcessData, DockerContainerStatsData, DockerVolumeData } from './common/types';
+import { DockerSocket } from './docker-socket';
 
-const _docker_container_stats: { [index: string]: any; } = {};
+const _docker_cpu_last_read: { [index: string]: number } = {};
 let _docker_socket: DockerSocket;
-let _docker_last_read = 0;
 
 // --------------------------
 // get docker info
@@ -31,58 +17,61 @@ export const dockerInfo = async () => {
     _docker_socket = new DockerSocket();
   }
   const data: any = await _docker_socket.getInfo();
-  return {
-    id: data.ID,
-    containers: data.Containers,
-    containersRunning: data.ContainersRunning,
-    containersPaused: data.ContainersPaused,
-    containersStopped: data.ContainersStopped,
-    images: data.Images,
-    driver: data.Driver,
-    memoryLimit: data.MemoryLimit,
-    swapLimit: data.SwapLimit,
-    kernelMemory: data.KernelMemory,
-    cpuCfsPeriod: data.CpuCfsPeriod,
-    cpuCfsQuota: data.CpuCfsQuota,
-    cpuShares: data.CPUShares,
-    cpuSet: data.CPUSet,
-    ipv4Forwarding: data.IPv4Forwarding,
-    bridgeNfIptables: data.BridgeNfIptables,
-    bridgeNfIp6tables: data.BridgeNfIp6tables,
-    debug: data.Debug,
-    nfd: data.NFd,
-    oomKillDisable: data.OomKillDisable,
-    ngoroutines: data.NGoroutines,
-    systemTime: data.SystemTime,
-    loggingDriver: data.LoggingDriver,
-    cgroupDriver: data.CgroupDriver,
-    nEventsListener: data.NEventsListener,
-    kernelVersion: data.KernelVersion,
-    operatingSystem: data.OperatingSystem,
-    osType: data.OSType,
-    architecture: data.Architecture,
-    ncpu: data.NCPU,
-    memTotal: data.MemTotal,
-    dockerRootDir: data.DockerRootDir,
-    httpProxy: data.HttpProxy,
-    httpsProxy: data.HttpsProxy,
-    noProxy: data.NoProxy,
-    name: data.Name,
-    labels: data.Labels,
-    experimentalBuild: data.ExperimentalBuild,
-    serverVersion: data.ServerVersion,
-    clusterStore: data.ClusterStore,
-    clusterAdvertise: data.ClusterAdvertise,
-    defaultRuntime: data.DefaultRuntime,
-    liveRestoreEnabled: data.LiveRestoreEnabled,
-    isolation: data.Isolation,
-    initBinary: data.InitBinary,
-    productLicense: data.ProductLicense,
-  };
+  if (data) {
+    return {
+      id: data.ID,
+      containers: data.Containers,
+      containersRunning: data.ContainersRunning,
+      containersPaused: data.ContainersPaused,
+      containersStopped: data.ContainersStopped,
+      images: data.Images,
+      driver: data.Driver,
+      memoryLimit: data.MemoryLimit,
+      swapLimit: data.SwapLimit,
+      kernelMemory: data.KernelMemory,
+      cpuCfsPeriod: data.CpuCfsPeriod,
+      cpuCfsQuota: data.CpuCfsQuota,
+      cpuShares: data.CPUShares,
+      cpuSet: data.CPUSet,
+      ipv4Forwarding: data.IPv4Forwarding,
+      bridgeNfIptables: data.BridgeNfIptables,
+      bridgeNfIp6tables: data.BridgeNfIp6tables,
+      debug: data.Debug,
+      nfd: data.NFd,
+      oomKillDisable: data.OomKillDisable,
+      ngoroutines: data.NGoroutines,
+      systemTime: data.SystemTime,
+      loggingDriver: data.LoggingDriver,
+      cgroupDriver: data.CgroupDriver,
+      nEventsListener: data.NEventsListener,
+      kernelVersion: data.KernelVersion,
+      operatingSystem: data.OperatingSystem,
+      osType: data.OSType,
+      architecture: data.Architecture,
+      ncpu: data.NCPU,
+      memTotal: data.MemTotal,
+      dockerRootDir: data.DockerRootDir,
+      httpProxy: data.HttpProxy,
+      httpsProxy: data.HttpsProxy,
+      noProxy: data.NoProxy,
+      name: data.Name,
+      labels: data.Labels,
+      experimentalBuild: data.ExperimentalBuild,
+      serverVersion: data.ServerVersion,
+      clusterStore: data.ClusterStore,
+      clusterAdvertise: data.ClusterAdvertise,
+      defaultRuntime: data.DefaultRuntime,
+      liveRestoreEnabled: data.LiveRestoreEnabled,
+      isolation: data.Isolation,
+      initBinary: data.InitBinary,
+      productLicense: data.ProductLicense
+    };
+  } else {
+    return {};
+  }
 };
 
 export const dockerImages = async (all = false) => {
-
   await nextTick();
   if (!_docker_socket) {
     _docker_socket = new DockerSocket();
@@ -94,11 +83,13 @@ export const dockerImages = async (all = false) => {
   try {
     dockerImages = data;
     if (dockerImages && Object.prototype.toString.call(dockerImages) === '[object Array]' && dockerImages.length > 0) {
-      dockerImages.forEach(function (element: any) {
+      dockerImages.forEach((element: any) => {
         if (element.Names && Object.prototype.toString.call(element.Names) === '[object Array]' && element.Names.length > 0) {
           element.Name = element.Names[0].replace(/^\/|\/$/g, '');
         }
-        workload.push(dockerImagesInspect(element.Id.trim(), element));
+        if (element.Id && typeof element.Id === 'string') {
+          workload.push(dockerImagesInspect(element.Id.trim(), element));
+        }
       });
       if (workload.length) {
         const res = await Promise.all(workload);
@@ -123,14 +114,14 @@ const dockerImagesInspect = async (imageID: string, payload: any) => {
   if (typeof imageID !== 'string') {
     return null;
   }
-  const imageIDSanitized = (isPrototypePolluted() ? '' : sanitizeShellString(imageID, true)).trim();
+  const imageIDSanitized = isPrototypePolluted() ? '' : sanitizeImageID(imageID);
   if (imageIDSanitized) {
     if (!_docker_socket) {
       _docker_socket = new DockerSocket();
     }
 
     try {
-      const data: any = await _docker_socket.getInspect(imageIDSanitized.trim());
+      const data: any = await _docker_socket.inspectImage(imageIDSanitized);
       return {
         id: payload.Id,
         container: data.Container,
@@ -146,10 +137,10 @@ const dockerImagesInspect = async (imageID: string, payload: any) => {
         created: data.Created ? Math.round(new Date(data.Created).getTime() / 1000) : 0,
         containerConfig: data.ContainerConfig ? data.ContainerConfig : {},
         graphDriver: data.GraphDriver ? data.GraphDriver : {},
-        repoDigests: data.RepoDigests ? data.RepoDigests : {},
-        repoTags: data.RepoTags ? data.RepoTags : {},
+        repoDigests: data.RepoDigests ? data.RepoDigests : [],
+        repoTags: data.RepoTags ? data.RepoTags : [],
         config: data.Config ? data.Config : {},
-        rootFS: data.RootFS ? data.RootFS : {},
+        rootFS: data.RootFS ? data.RootFS : {}
       };
     } catch (err) {
       return null;
@@ -159,17 +150,9 @@ const dockerImagesInspect = async (imageID: string, payload: any) => {
   }
 };
 
-export const dockerContainers = async (all = false): Promise<DockerContainerData[]> => {
-
+export const dockerContainers = async (all = true): Promise<DockerContainerData[]> => {
   const inContainers = (containers: any, id: string) => {
-    const filtered = containers.filter((obj: any) => {
-      /**
-       * @namespace
-       * @property {string}  Id
-       */
-      return (obj.Id && (obj.Id === id));
-    });
-    return (filtered.length > 0);
+    return containers.some((obj: any) => obj.Id && obj.Id.indexOf(id) === 0);
   };
 
   const result: DockerContainerData[] = [];
@@ -179,24 +162,27 @@ export const dockerContainers = async (all = false): Promise<DockerContainerData
   }
   const workload: any[] = [];
 
-  const data: any = _docker_socket.listContainers(all);
+  const data: any = await _docker_socket.listContainers(all);
   let docker_containers: any[] = [];
   try {
     docker_containers = data;
     if (docker_containers && Object.prototype.toString.call(docker_containers) === '[object Array]' && docker_containers.length > 0) {
-      // GC in _docker_container_stats
-      for (const key in _docker_container_stats) {
-        if (Object.keys(_docker_container_stats).includes(key)) {
-          if (!inContainers(docker_containers, key)) { delete _docker_container_stats[key]; }
+      // GC in _docker_cpu_last_read
+      for (const key in _docker_cpu_last_read) {
+        if (Object.keys(_docker_cpu_last_read).includes(key)) {
+          if (!inContainers(docker_containers, key)) {
+            delete _docker_cpu_last_read[key];
+          }
         }
       }
 
-      docker_containers.forEach(function (element) {
-
+      docker_containers.forEach((element) => {
         if (element.Names && Object.prototype.toString.call(element.Names) === '[object Array]' && element.Names.length > 0) {
           element.Name = element.Names[0].replace(/^\/|\/$/g, '');
         }
-        workload.push(dockerContainerInspect(element.Id.trim(), element));
+        if (element.Id && typeof element.Id === 'string') {
+          workload.push(dockerContainerInspect(element.Id.trim(), element));
+        }
       });
       if (workload.length) {
         const data = await Promise.all(workload);
@@ -207,14 +193,7 @@ export const dockerContainers = async (all = false): Promise<DockerContainerData
     } else {
       return result;
     }
-  } catch (err) {
-    // GC in _docker_container_stats
-    for (const key in _docker_container_stats) {
-      if (Object.keys(_docker_container_stats).includes(key)) {
-        if (!inContainers(docker_containers, key)) { delete _docker_container_stats[key]; }
-      }
-    }
-  }
+  } catch (err) {}
   return result;
 };
 
@@ -227,15 +206,14 @@ const dockerContainerInspect = async (containerID: string, payload: any) => {
   if (typeof containerID !== 'string') {
     return null;
   }
-  const containerIdSanitized = (isPrototypePolluted() ? '' : sanitizeShellString(containerID, true)).trim();
+  const containerIdSanitized = isPrototypePolluted() ? '' : sanitizeContainerID(containerID);
   if (containerIdSanitized) {
-
     if (!_docker_socket) {
       _docker_socket = new DockerSocket();
     }
 
     try {
-      const data: any = await _docker_socket.getInspect(containerIdSanitized.trim());
+      const data: any = await _docker_socket.getInspect(containerIdSanitized);
       return {
         id: payload.Id,
         name: payload.Name,
@@ -248,14 +226,14 @@ const dockerContainerInspect = async (containerID: string, payload: any) => {
         createdAt: data.Created ? data.Created : '',
         startedAt: data.State && data.State.StartedAt ? data.State.StartedAt : '',
         finishedAt: data.State && data.State.FinishedAt && !data.State.FinishedAt.startsWith('0001-01-01') ? data.State.FinishedAt : '',
+        status: data.State && data.State.Health && data.State.Health.Status ? data.State.Health.Status : '',
         state: payload.State,
         restartCount: data.RestartCount || 0,
         platform: data.Platform || '',
         driver: data.Driver || '',
+        labels: data.Config && data.Config.Labels ? data.Config.Labels : {},
         ports: payload.Ports,
-        mounts: payload.Mounts,
-        // hostconfig: payload.HostConfig,
-        // network: payload.NetworkSettings
+        mounts: payload.Mounts
       };
     } catch (err) {
       return null;
@@ -268,32 +246,41 @@ const dockerContainerInspect = async (containerID: string, payload: any) => {
 // --------------------------
 // helper functions for calculation of docker stats
 
-const docker_calcCPUPercent = (cpu_stats: any, precpu_stats: any) => {
+const docker_calcCPUPercent = (cpu_stats: any, precpu_stats: any, id: string) => {
+  if (!cpu_stats || !cpu_stats.cpu_usage || !precpu_stats) {
+    return 0;
+  }
+  const precpuTotal = precpu_stats.cpu_usage && precpu_stats.cpu_usage.total_usage ? precpu_stats.cpu_usage.total_usage : 0;
 
   if (!WINDOWS) {
     let cpuPercent = 0.0;
     // calculate the change for the cpu usage of the container in between readings
-    const cpuDelta = cpu_stats.cpu_usage.total_usage - precpu_stats.cpu_usage.total_usage;
+    const cpuDelta = cpu_stats.cpu_usage.total_usage - precpuTotal;
     // calculate the change for the entire system between readings
-    const systemDelta = cpu_stats.system_cpu_usage - precpu_stats.system_cpu_usage;
+    const systemDelta = cpu_stats.system_cpu_usage - (precpu_stats.system_cpu_usage || 0);
 
     if (systemDelta > 0.0 && cpuDelta > 0.0) {
       // calculate the change for the cpu usage of the container in between readings
-      cpuPercent = (cpuDelta / systemDelta) * cpu_stats.cpu_usage.percpu_usage.length * 100.0;
+      if (precpu_stats.online_cpus) {
+        cpuPercent = (cpuDelta / systemDelta) * precpu_stats.online_cpus * 100.0;
+      } else if (cpu_stats.cpu_usage.percpu_usage && cpu_stats.cpu_usage.percpu_usage.length) {
+        cpuPercent = (cpuDelta / systemDelta) * cpu_stats.cpu_usage.percpu_usage.length * 100.0;
+      }
     }
 
     return cpuPercent;
   } else {
     const nanoSecNow = nanoSeconds();
     let cpuPercent = 0.0;
-    if (_docker_last_read > 0) {
-      const possIntervals = (nanoSecNow - _docker_last_read); //  / 100 * os.cpus().length;
-      const intervalsUsed = cpu_stats.cpu_usage.total_usage - precpu_stats.cpu_usage.total_usage;
+    const lastRead = _docker_cpu_last_read[id] || 0;
+    if (lastRead > 0) {
+      const possIntervals = nanoSecNow - lastRead;
+      const intervalsUsed = cpu_stats.cpu_usage.total_usage - precpuTotal;
       if (possIntervals > 0) {
-        cpuPercent = 100.0 * intervalsUsed / possIntervals;
+        cpuPercent = (100.0 * intervalsUsed) / possIntervals;
       }
     }
-    _docker_last_read = nanoSecNow;
+    _docker_cpu_last_read[id] = nanoSecNow;
     return cpuPercent;
   }
 };
@@ -303,7 +290,9 @@ const docker_calcNetworkIO = (networks: any) => {
   let wx = 0;
   for (const key in networks) {
     // skip loop if the property is from prototype
-    if (!Object.keys(networks).includes(key)) { continue; }
+    if (!Object.keys(networks).includes(key)) {
+      continue;
+    }
 
     /**
      * @namespace
@@ -330,7 +319,12 @@ const docker_calcBlockIO = (blkio_stats: any) => {
    * @namespace
    * @property {Array}  io_service_bytes_recursive
    */
-  if (blkio_stats && blkio_stats.io_service_bytes_recursive && Object.prototype.toString.call(blkio_stats.io_service_bytes_recursive) === '[object Array]' && blkio_stats.io_service_bytes_recursive.length > 0) {
+  if (
+    blkio_stats &&
+    blkio_stats.io_service_bytes_recursive &&
+    Object.prototype.toString.call(blkio_stats.io_service_bytes_recursive) === '[object Array]' &&
+    blkio_stats.io_service_bytes_recursive.length > 0
+  ) {
     blkio_stats.io_service_bytes_recursive.forEach((element: any) => {
       /**
        * @namespace
@@ -350,7 +344,6 @@ const docker_calcBlockIO = (blkio_stats: any) => {
 };
 
 export const dockerContainerStats = async (containerIDs = '*') => {
-
   let containerArray: string[] = [];
   await nextTick();
 
@@ -358,56 +351,39 @@ export const dockerContainerStats = async (containerIDs = '*') => {
   if (typeof containerIDs !== 'string') {
     return [];
   }
-  let containerIDsSanitized: any = '';
-  containerIDsSanitized.__proto__.toLowerCase = stringToLower;
-  containerIDsSanitized.__proto__.replace = stringReplace;
-  containerIDsSanitized.__proto__.trim = stringTrim;
 
-  containerIDsSanitized = containerIDs;
-  containerIDsSanitized = containerIDsSanitized.trim();
+  let containerIDsSanitized = containerIDs.trim();
   if (containerIDsSanitized !== '*') {
-    containerIDsSanitized = '';
-    const s: any = (isPrototypePolluted() ? '' : sanitizeShellString(containerIDs, true)).trim();
-    for (let i = 0; i <= mathMin(s.length, 2000); i++) {
-      if (!(s[i] === undefined)) {
-        s[i].__proto__.toLowerCase = stringToLower;
-        const sl = s[i].toLowerCase();
-        if (sl && sl[0] && !sl[1]) {
-          containerIDsSanitized = containerIDsSanitized + sl[0];
-        }
+    containerIDsSanitized = isPrototypePolluted() ? '' : sanitizeContainerID(containerIDs);
+  }
+  containerArray = containerIDsSanitized
+    .trim()
+    .toLowerCase()
+    .replace(/,+/g, '|')
+    .split('|')
+    .filter((item) => item.trim());
+  if (containerArray.length && containerIDsSanitized.trim() === '*') {
+    containerArray = [];
+    const allContainers = await dockerContainers();
+    for (const container of (allContainers || []).filter(Boolean)) {
+      if (container && container.id && container.state === 'running') {
+        containerArray.push(container.id.substring(0, 12));
       }
     }
   }
-
-  containerIDsSanitized = containerIDsSanitized.trim().toLowerCase().replace(/,+/g, '|');
-  containerArray = containerIDsSanitized.split('|');
-
   const result: DockerContainerStatsData[] = [];
-
+  // console.log(containerArray);
   const workload = [];
-  if (containerArray.length && containerArray[0].trim() === '*') {
-    containerArray = [];
-    const allContainers = await dockerContainers();
-    for (const container of allContainers) {
-      containerArray.push(container.id);
-    }
-    if (containerArray.length) {
-      dockerContainerStats(containerArray.join(',')).then(result => {
-        return result;
-      });
-    } else {
-      return result;
-    }
+  for (const containerID of containerArray) {
+    workload.push(dockerContainerStatsSingle(containerID.trim()));
+  }
+  if (workload.length) {
+    const data: any = (await Promise.all(workload)).filter((data: any) => {
+      return data !== null;
+    });
+    return data;
   } else {
-    for (const containerID of containerArray) {
-      workload.push(dockerContainerStatsSingle(containerID.trim()));
-    }
-    if (workload.length) {
-      const data: any = await Promise.all(workload);
-      return data;
-    } else {
-      return result;
-    }
+    return result;
   }
 };
 
@@ -435,11 +411,10 @@ const dockerContainerStatsSingle = async (containerID: string) => {
     cpuStats: {},
     precpuStats: {},
     memoryStats: {},
-    networks: {},
+    networks: {}
   };
   await nextTick();
   if (containerID) {
-
     if (!_docker_socket) {
       _docker_socket = new DockerSocket();
     }
@@ -449,29 +424,29 @@ const dockerContainerStatsSingle = async (containerID: string) => {
       const data: any = await _docker_socket.getStats(containerID);
       try {
         const stats = data;
-
         if (!stats.message) {
-          result.memUsage = (stats.memory_stats && stats.memory_stats.usage ? stats.memory_stats.usage : 0);
-          result.memLimit = (stats.memory_stats && stats.memory_stats.limit ? stats.memory_stats.limit : 0);
-          result.memPercent = (stats.memory_stats && stats.memory_stats.usage && stats.memory_stats.limit ? stats.memory_stats.usage / stats.memory_stats.limit * 100.0 : 0);
-          result.cpuPercent = (stats.cpu_stats && stats.precpu_stats ? docker_calcCPUPercent(stats.cpu_stats, stats.precpu_stats) : 0);
-          result.pids = (stats.pids_stats && stats.pids_stats.current ? stats.pids_stats.current : 0);
-          result.restartCount = (dataInspect.RestartCount ? dataInspect.RestartCount : 0);
-          if (stats.networks) { result.netIO = docker_calcNetworkIO(stats.networks); }
-          if (stats.blkio_stats) { result.blockIO = docker_calcBlockIO(stats.blkio_stats); }
-          result.cpuStats = (stats.cpu_stats ? stats.cpu_stats : {});
-          result.precpuStats = (stats.precpu_stats ? stats.precpu_stats : {});
-          result.memoryStats = (stats.memory_stats ? stats.memory_stats : {});
-          result.networks = (stats.networks ? stats.networks : {});
+          return {
+            ...result,
+            id: data.id ? data.id : containerID,
+            memUsage: stats.memory_stats && stats.memory_stats.usage ? stats.memory_stats.usage : 0,
+            memLimit: stats.memory_stats && stats.memory_stats.limit ? stats.memory_stats.limit : 0,
+            memPercent: stats.memory_stats && stats.memory_stats.usage && stats.memory_stats.limit ? (stats.memory_stats.usage / stats.memory_stats.limit) * 100.0 : 0,
+            cpuPercent: stats.cpu_stats && stats.precpu_stats ? docker_calcCPUPercent(stats.cpu_stats, stats.precpu_stats, containerID) : 0,
+            pids: stats.pids_stats && stats.pids_stats.current ? stats.pids_stats.current : 0,
+            restartCount: dataInspect.RestartCount ? dataInspect.RestartCount : 0,
+            netIO: stats.networks ? docker_calcNetworkIO(stats.networks) : result.netIO,
+            blockIO: stats.blkio_stats ? docker_calcBlockIO(stats.blkio_stats) : result.blockIO,
+            cpuStats: stats.cpu_stats ? stats.cpu_stats : {},
+            precpuStats: stats.precpu_stats ? stats.precpu_stats : {},
+            memoryStats: stats.memory_stats ? stats.memory_stats : {},
+            networks: stats.networks ? stats.networks : {}
+          };
         }
-      } catch (err) {
-      }
-      // }
-    } catch (err) {
-    }
-    return result;
+      } catch {}
+    } catch {}
+    return null;
   } else {
-    return result;
+    return null;
   }
 };
 
@@ -485,10 +460,9 @@ export const dockerContainerProcesses = async (containerID: string) => {
   if (typeof containerID !== 'string') {
     return result;
   }
-  const containerIdSanitized = (isPrototypePolluted() ? '' : sanitizeShellString(containerID, true)).trim();
+  const containerIdSanitized = isPrototypePolluted() ? '' : sanitizeContainerID(containerID);
 
   if (containerIdSanitized) {
-
     if (!_docker_socket) {
       _docker_socket = new DockerSocket();
     }
@@ -516,25 +490,24 @@ export const dockerContainerProcesses = async (containerID: string) => {
 
         data.Processes.forEach((process: any) => {
           result.push({
-            pidHost: (pos_pid >= 0 ? process[pos_pid] : ''),
-            ppid: (pos_ppid >= 0 ? process[pos_ppid] : ''),
-            pgid: (pos_pgid >= 0 ? process[pos_pgid] : ''),
-            user: (pos_user >= 0 ? process[pos_user] : ''),
-            ruser: (pos_ruser >= 0 ? process[pos_ruser] : ''),
-            group: (pos_group >= 0 ? process[pos_group] : ''),
-            rgroup: (pos_rgroup >= 0 ? process[pos_rgroup] : ''),
-            stat: (pos_stat >= 0 ? process[pos_stat] : ''),
-            time: (pos_time >= 0 ? process[pos_time] : ''),
-            elapsed: (pos_elapsed >= 0 ? process[pos_elapsed] : ''),
-            nice: (pos_ni >= 0 ? process[pos_ni] : ''),
-            rss: (pos_rss >= 0 ? process[pos_rss] : ''),
-            vsz: (pos_vsz >= 0 ? process[pos_vsz] : ''),
-            command: (pos_command >= 0 ? process[pos_command] : '')
+            pidHost: pos_pid >= 0 ? process[pos_pid] : '',
+            ppid: pos_ppid >= 0 ? process[pos_ppid] : '',
+            pgid: pos_pgid >= 0 ? process[pos_pgid] : '',
+            user: pos_user >= 0 ? process[pos_user] : '',
+            ruser: pos_ruser >= 0 ? process[pos_ruser] : '',
+            group: pos_group >= 0 ? process[pos_group] : '',
+            rgroup: pos_rgroup >= 0 ? process[pos_rgroup] : '',
+            stat: pos_stat >= 0 ? process[pos_stat] : '',
+            time: pos_time >= 0 ? process[pos_time] : '',
+            elapsed: pos_elapsed >= 0 ? process[pos_elapsed] : '',
+            nice: pos_ni >= 0 ? process[pos_ni] : '',
+            rss: pos_rss >= 0 ? process[pos_rss] : '',
+            vsz: pos_vsz >= 0 ? process[pos_vsz] : '',
+            command: pos_command >= 0 ? process[pos_command] : ''
           });
         });
       }
-    } catch (err) {
-    }
+    } catch (err) {}
     return result;
   } else {
     return result;
@@ -542,7 +515,6 @@ export const dockerContainerProcesses = async (containerID: string) => {
 };
 
 export const dockerVolumes = async () => {
-
   const result: DockerVolumeData[] = [];
   await nextTick();
   if (!_docker_socket) {
@@ -553,9 +525,7 @@ export const dockerVolumes = async () => {
   try {
     dockerVolumes = data;
     if (dockerVolumes && dockerVolumes.Volumes && Object.prototype.toString.call(dockerVolumes.Volumes) === '[object Array]' && dockerVolumes.Volumes.length > 0) {
-
       dockerVolumes.Volumes.forEach((element: any) => {
-
         result.push({
           name: element.Name,
           driver: element.Driver,
@@ -563,7 +533,7 @@ export const dockerVolumes = async () => {
           mountpoint: element.Mountpoint,
           options: element.Options,
           scope: element.Scope,
-          created: element.CreatedAt ? Math.round(new Date(element.CreatedAt).getTime() / 1000) : 0,
+          created: element.CreatedAt ? Math.round(new Date(element.CreatedAt).getTime() / 1000) : 0
         });
       });
       return result;

@@ -1,22 +1,15 @@
-import { linuxMem } from './linux/mem';
-import { bsdMem } from './bsd/mem';
-import { darwinMem } from './darwin/mem';
-import { windowsMem } from './windows/mem';
-
-import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 
 export const mem = async () => {
-  await nextTick();
   switch (true) {
-    case LINUX:
-      return linuxMem();
-    case NETBSD || FREEBSD:
-      return bsdMem();
+    case LINUX || ANDROID:
+      return (await import('./linux/mem.js')).mem();
+    case NETBSD || FREEBSD || OPENBSD:
+      return (await import('./bsd/mem.js')).mem();
     case DARWIN:
-      return darwinMem();
+      return (await import('./darwin/mem.js')).mem();
     case WINDOWS:
-      return windowsMem();
+      return (await import('./windows/mem.js')).mem();
     default:
       return null;
   }

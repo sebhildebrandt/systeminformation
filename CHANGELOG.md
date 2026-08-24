@@ -1,566 +1,890 @@
 # Changelog
 
-## Major Changes - Version 5
+## Major Changes - Version 6
+
+Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed declarations (`.d.ts`) for every function while keeping a consistent, promise-based API. It remains a zero-dependency `node.js` backend/server-side library (it will not run in a browser).
 
 #### New Functions
 
-- `audio()` detailed audio information
-- `bluetoothDevices()` detailed information detected bluetooth devices
-- `dockerImages()` detailed information docker images
-- `dockerVolumes()` detailed information docker volumes
-- `printers()` detailed printer information
-- `usb()` detailed USB information
-- `wifiInterfaces()` detected Wi-Fi interfaces
-- `wifiConnections()` active Wi-Fi connections
+- `camera()` detected cameras
+- `keyboard()` detected keyboards
+- `mouse()` detected pointing devices
+- `thunderbolt()` Thunderbolt controllers and devices
+- `pci()` PCI devices (experimental)
+- `npu()` detected NPUs / AI accelerators (experimental)
+- `software()` installed software / applications
+- `npm()` globally installed npm packages
+- `gpu()` graphics controllers (replaces the controllers part of `graphics()`)
+- `displays()` monitors / displays (replaces the displays part of `graphics()`)
+
+#### New Attributes
+
+- `osInfo()` added `installDate` (operating system installation date)
+- `osInfo()` added `displayServer` (wayland, x11, quartz, dwm, surfaceflinger or '' when headless)
+- `bios()` added `iBridge` (Apple iBridge / security chip: modelName, build, bootUuid, secureBoot - macOS only)
+- `displays()` added `serial`, `displayId` and `productionYear` on Windows (previously macOS only)
+- `displays()` added `RDP` as connection type for remote desktop / indirect displays (Windows)
+- `gpu()` added `temperatureGpu` on Apple Silicon (optional `macos-temperature-sensor` package)
+- `cpuTemperature()` added support for the `macos-temperature-sensor` package (Apple Silicon, incl. `chipset` / SoC temperature)
+
+#### Extended Windows Support
+
+- `disksIO()`, `fsStats()`, `fsOpenFiles()` and `thunderbolt()` are now also available on Windows
+
+#### Fixes (open version 5 issues resolved in version 6)
+
+- `displays()` EDID parsing with multiple monitors - all displays reported the first monitor's model, resolution and size (Linux, [#997](https://github.com/sebhildebrandt/systeminformation/issues/997))
+- `displays()` display positions (`positionX` / `positionY`) are now parsed from xrandr (Linux, [#866](https://github.com/sebhildebrandt/systeminformation/issues/866))
+- `displays()` per-display refresh rate instead of copying the primary monitor's rate to all displays (Windows, [#853](https://github.com/sebhildebrandt/systeminformation/issues/853))
+- `displays()` monitor data (connection type, size) is now correlated by `InstanceName` - fixes swapped values on multi-GPU setups (Windows, [#764](https://github.com/sebhildebrandt/systeminformation/issues/764))
+- `displays()` mirrored/duplicated monitors are now reported as separate physical displays; monitors that are attached but inactive (e.g. "PC screen only") are not listed (Windows, [#940](https://github.com/sebhildebrandt/systeminformation/issues/940))
+- `displays()` and `gpu()` share the result of their common base query when called in parallel (e.g. via `getStaticData()`) - the expensive `system_profiler` (macOS) / `win32_VideoController` (Windows) call runs only once
+- `displays()` vendor/model fallback from `Win32_DesktopMonitor` is now matched per display via `PNPDeviceID` - previously only the first entry was considered (Windows, idea from [#855](https://github.com/sebhildebrandt/systeminformation/pull/855))
+- `get()` returns a migration hint for the removed `graphics` key instead of silently dropping it
 
 #### Breaking Changes
 
-**Be aware**, that the new version 5.x **is NOT fully backward compatible** to version 4.x ...
+**Be aware**, that the new version 6.x is **NOT fully backward compatible** to version 5.x.
 
-We had to make **several interface changes** to keep systeminformation as consistent as possible. We highly [recommend to go through the complete list](https://systeminformation.io/changes.html) and adapt your own code to be again compatible to the new version 5.
+We modernized the library with a full TypeScript rewrite and made a few interface changes. Please review the list below and adapt your code.
 
-| Function        | Old                | New (V5)           | Comments           |
-| --------------- | ------------------ | ------------------ | ------------------ |
-| unsupported values |	-1	           | null	            | values which are unknown or<br>unsupported on platform |
-| `battery()`	      | hasbattery<br>cyclecount<br>ischarging<br>designedcapacity<br>maxcapacity<br>acconnected<br>timeremaining | hasBattery<br>cycleCount<br>isCharging<br>designedCapacity<br>maxCapacity<br>acConnected<br>timeRemaining | pascalCase conformity |
-| `blockDevices()`  | fstype             | fsType             | pascalCase conformity |
-| `cpu()`           | speedmin<br>speedmax | speedMin<br>speedMax | pascalCase conformity |
-| `cpu().speed`<br>`cpu().speedMin`<br>`cpu().speedMax` | string values | now returning<br>numerical values | better value handling |
-| `cpuCurrentspeed()` |                  | cpuCurrentSpeed()  | function name changed<br>pascalCase conformity |
-| `currentLoad()`   | avgload<br>currentload<br>currentload_user<br>currentload_system<br>currentload_nice<br>currentload_idle<br>currentload_irq<br>raw_currentload | avgLoad<br>currentLoad<br>currentLoadUser<br>currentLoadSystem<br>currentLoadNice<br>currentLoadIdle<br>currentLoadIrq<br>rawCurrentLoad | pascalCase conformity |
-| `dockerContainerStats()` | mem_usage<br>mem_limit<br>mem_percent<br>cpu_percent<br>cpu_stats<br>precpu_stats<br>memory_stats | memUsage<br>memLimit<br>memPercent<br>cpuPercent<br>cpuStats<br>precpuStats<br>memoryStats | pascalCase conformity |
-| `dockerContainerProcesses()` | pid_host | pidHost | pascalCase conformity |
-| `graphics().display` | pixeldepth<br>resolutionx<br>resolutiony<br>sizex<br>sizey | pixelDepth<br>resolutionX<br>resolutionY<br>sizeX<br>sizeY | pascalCase conformity |
-| `networkConnections()` | localaddress<br>localport<br>peeraddress<br>peerport | localAddress<br>localPort<br>peerAddress<br>peerPort | pascalCase conformity |
-| `networkInterfaces()` | carrier_changes | carrierChanges | pascalCase conformity |
-| `processes()` | mem_vsz<br>mem_rss<br>pcpu<br>pcpuu<br>pcpus<br>pmem | memVsz<br>memRss<br>cpu<br>cpuu<br>cpus<br>mem | pascalCase conformity<br>renamed attributes |
-| `processLoad()` | result as object | result as array of objects | function now allows to provide more than<br>one process (as a comma separated list) |
-| `services()` | pcpu<br>pmem | cpu<br>mem | renamed attributes |
-| `vbox()` | HPET<br>PAE<br>APIC<br>X2APIC<br>ACPI<br>IOAPIC<br>biosAPICmode<br>TRC | hpet<br>pae<br>apic<br>x2Apic<br>acpi<br>ioApic<br>biosApicMode<br>rtc | pascalCase conformity |
+| Topic             | Old (V5)                        | New (V6)                                   | Comments                                                                 |
+| ----------------- | ------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------- |
+| `time()`          | synchronous                     | `await si.time()`                          | `time()` is now **asynchronous** and returns a promise                   |
+| `version()`       | synchronous                     | `await si.version()`                       | `version()` is now **asynchronous** too - **all** functions are now async |
+| callbacks         | `si.cpu(data => {...})`         | removed                                    | **callbacks are no longer available** - use `async / await` (preferred) or promises |
+| `graphics()`      | `{ controllers, displays }`     | `si.gpu()`, `si.displays()`                | `graphics()` was **removed** and split into two functions, each returning a plain array |
+| language          | JavaScript                      | TypeScript                                 | typed `.d.ts` declarations are now shipped for every function            |
+| module resolution | deep `require('.../dist/...')`  | `exports` map (both `require` and `import`) | only documented entry points are importable; deep `dist/...` paths gone  |
+| Node.js           | older versions                  | **>= 20.0**                                | minimum Node.js version is now 20.0                                      |
 
-#### Other Improvements and Changes
+#### Modular Imports (new)
 
-- `baseboard()`: added memMax, memSlots
-- `bios()`: added language and features (linux)
-- `cpu()`: extended AMD processor list
-- `cpu()`: extended socket list (win)
-- `cpu()`: added virtualization if cpu supports virtualization
-- `cpu()`: now flags are part of this function
-- `cpuTemperature()` added added socket and chipset temp (linux)
-- `disksIO()` added wait time (linux)
-- `diskLayout()`: added USB drives (mac OS)
-- `diskLayout()`: added S.M.R.R.T. (win)
-- `fsSize()`: added available
-- `fsSize()`: improved calculation of used
-- `getData()`: support for passing parameters and filters (see section General / getData)
-- `graphics()`: extended properties (mac OS)
-- `graphics()`: extended nvidia-smi parsing
-- `networkInterfaces()`: type detection improved (win - wireless)
-- `memLayout()`: extended manufacturer list (decoding)
-- `memLayout()`: added ECC flag
-- `osInfo()`: better fqdn (win)
-- `osinfo()`: added hypervizor if hyper-v is enabled (win only)
-- `osInfo()`: added remoteSession (win only)
-- `system()`: better Raspberry PI detection
-- `system()`: added virtual and virtualHost (if system is virtual instance)
-- `uuid()`: better value support
-- `uuid()`: added MACs
-- `uuid()`: better Raspberry Pi hardware ID
-- `Apple M1 Silicon extended support (now everything supported except of cpu temperature)
-- `updated TypeScript definitions
+The whole library, a single operating system, or a single function can now be imported individually:
 
-#### Test Full Version 5 Functionality
+- `require('systeminformation')` - whole library (all functions, all platforms)
+- `require('systeminformation/cpu')` - a single function (platform detected at runtime)
+- `require('systeminformation/linux')` - a whole operating system (`/darwin`, `/windows`, `/bsd`, `/sun`)
+- `require('systeminformation/linux/cpu')` - a single function of a single operating system
 
-If you want to see all function results on your machine, please head over to (Testing section)[https://systeminformation.io/tests.html]. We implemented a tiny test suite where you can easily go through all functions and test resuls on your machine without coding.
+This keeps bundles small: unused operating-system implementations can be tree-shaken away.
 
+#### Test Full Version 6 Functionality
 
-For major (breaking) changes - **version 4, 3 and 2** - see end of page.
+If you want to see all function results on your machine, please head over to (Testing section)[https://systeminformation.io/tests.html].
+
+For major (breaking) changes - **version 6, 5, 4, 3 and 2** - see end of page.
 
 ## Version History
 
-| Version        | Date           | Comment  |
-| -------------- | -------------- | -------- |
-| 5.9.8          | 2021-10-22     | `wmic` fixed code page issues (windows) |
-| 5.9.7          | 2021-10-09     | `battery()` fixed typo seperator (windows) |
-| 5.9.6          | 2021-10-08     | `system()` fixed virtual on WSL2 |
-| 5.9.5          | 2021-10-08     | `battery()` fixed isCharging (windows) |
-| 5.9.4          | 2021-09-23     | `processes()` fixed memVsz, Memrss (macOS M1) |
-| 5.9.3          | 2021-09-17     | `cpuTemperature()` improved tdie detection (linux) |
-| 5.9.2          | 2021-09-16     | `graohics()` (macOS),  `memLayout()` (win) improvements |
-| 5.9.1          | 2021-09-15     | `diskLayout()` fix size (macOS) |
-| 5.9.0          | 2021-09-15     | `graphics()` new XML parser, added properties (macOS) |
-| 5.8.9          | 2021-09-13     | `battery()` fix linux |
-| 5.8.8          | 2021-09-11     | `wifiConnections()`, `wifiInterfaces()`, `wifiNetworks()` fix windows |
-| 5.8.7          | 2021-09-01     | `processes()` fix alpine linux |
-| 5.8.6          | 2021-08-26     | `cpu()` improved detection (win) |
-| 5.8.5          | 2021-08-26     | `osInfo()` hyper-v detection fix (win VM) |
-| 5.8.4          | 2021-08-26     | `graphics()` added vendor (macOS) |
-| 5.8.3          | 2021-08-26     | `graphics()` fix empty controller (macOS) |
-| 5.8.2          | 2021-08-24     | `baseboard()`, `getDefaultNetworkInterface()` fix catch error |
-| 5.8.1          | 2021-08-24     | `battery()` fix capacity |
-| 5.8.0          | 2021-08-02     | `disksIO()` added waitTime, waitPercent (linux) |
-| 5.7.14         | 2021-08-01     | `cpu()` cache calculation fix (linux) |
-| 5.7.13         | 2021-07-28     | `osInfo()` fix uefi detection (win) |
-| 5.7.12         | 2021-07-27     | `osInfo()` fix uefi detection (win) |
-| 5.7.11         | 2021-07-27     | typescript typings fix `bluetoothDevices()` |
-| 5.7.10         | 2021-07-26     | typescript typings fix `processLoad()` |
-| 5.7.9          | 2021-07-25     | `uuid()` better regedit path detection (win) |
-| 5.7.8          | 2021-07-16     | `battery()` fix designedCapacity (win, linux), fix catch error |
-| 5.7.7          | 2021-06-15     | `graphics()` improved detection screen resolution (macOS) |
-| 5.7.6          | 2021-06-09     | `battery()` improved detection (additional batteries windows) |
-| 5.7.5          | 2021-06-08     | `memLayout()` improved clock speed detection (windows) |
-| 5.7.4          | 2021-05-27     | `osInfo()`, `cpu()` improved hypervisor, virtualization detection (windows) |
-| 5.7.3          | 2021-05-26     | `osInfo()` improved UEFI detection (windows) |
-| 5.7.2          | 2021-05-24     | `system()` virtual detection improvement |
-| 5.7.1          | 2021-05-20     | `graphics()` Check for qwMemorySize on Windows |
-| 5.7.0          | 2021-05-20     | `diskLayout()` added smartdata for win (if istalled) |
-| 5.6.22         | 2021-05-18     | `diskLayout()` fixed to small buffer smartdata (linux) |
-| 5.6.21         | 2021-05-14     | `graphics()` fixed dual gpu issue (macOS) |
-| 5.6.20         | 2021-05-07     | `system()` fixed vm detection (linux) |
-| 5.6.19         | 2021-05-06     | `services()` modified service listing (linux) |
-| 5.6.18         | 2021-05-06     | `processes()` fixed Windows mem bug (naming conform to all platforms) |
-| 5.6.17         | 2021-05-05     | `networkInterfaces()` fixed Windows XP bug (WMIC NetEnabled) |
-| 5.6.16         | 2021-05-05     | `graphics()` fixed compare bug |
-| 5.6.15         | 2021-05-05     | restored Node 4.x compatibility |
-| 5.6.14         | 2021-05-04     | `networkGatewayDefault()` macOS improvement for active VPN |
-| 5.6.13         | 2021-05-04     | `dockerImagesInspect()`, `dockerContainerInspect()`, `dockerContainerProcesses()` security updates |
-| 5.6.12         | 2021-04-09     | `networkinterfaces()` windows detection fix |
-| 5.6.11         | 2021-04-08     | `versions()` parameter sanitation |
-| 5.6.10         | 2021-03-29     | `vboxInfo()` fixed windows bug |
-| 5.6.9          | 2021-03-28     | `graphics()` fixed nvidia-smi compare bug |
-| 5.6.8          | 2021-03-22     | typescript definitions fix `wifiInterfces()`, `wifiConnections()` |
-| 5.6.7          | 2021-03-16     | `inetLatency()` `ineChecksite()` schema validation |
-| 5.6.6          | 2021-03-16     | code refactoring |
-| 5.6.5          | 2021-03-15     | `cpuTemperature()` fix (linux) |
-| 5.6.4          | 2021-03-15     | `sanitizeShellString()` and other security improvements |
-| 5.6.3          | 2021-03-14     | `sanitizeShellString()` improvement |
-| 5.6.2          | 2021-03-10     | `networkInterfaces()` `cpu()` improvement (win) |
-| 5.6.1          | 2021-03-03     | `get()` fixed issue boolean parameters |
-| 5.6.0          | 2021-03-03     | `cpuTemperature()` added socket and chipset temp (linux) |
-| 5.5.0          | 2021-02-25     | `dockerVolumes()` added |
-| 5.4.0          | 2021-02-24     | `dockerImages()` added |
-| 5.3.5          | 2021-02-23     | `dockerContainerStats()` fixed parameter * |
-| 5.3.4          | 2021-02-20     | `sanitizeShellString()` optimized strict sanitation |
-| 5.3.3          | 2021-02-15     | `dockerContainerStats()` fixed ID splitting |
-| 5.3.2          | 2021-02-15     | `inetLatency()` `ineChecksite()` fixed possible security issue (file://) |
-| 5.3.1          | 2021-02-14     | `inetLatency()` `ineChecksite()` `servcices()` `processes()` fixed possible security issue (arrays) |
-| 5.3.0          | 2021-02-12     | `osInfo()` added remoteSession (windows) |
-| 5.2.7          | 2021-02-12     | `fsStats()`, `blockDevices()` improved linux |
-| 5.2.6          | 2021-02-12     | `inetLatency()` fixed possible DOS intrusion |
-| 5.2.5          | 2021-02-11     | `processes()` fixed truncated params (linux) |
-| 5.2.4          | 2021-02-11     | `currentLoad()` fixed issue |
-| 5.2.3          | 2021-02-11     | `diskLayout()` added USB drives (mac OS) |
-| 5.2.2          | 2021-02-11     | code cleanup, updated docs |
-| 5.2.1          | 2021-02-10     | `system()` fixed issue virtual detect (linux) |
-| 5.2.0          | 2021-02-10     | `wifiInterfces()` and `wifiConnections()` added |
-| 5.1.2          | 2021-02-08     | fixed node 4 compatibility issue |
-| 5.1.1          | 2021-02-08     | `baseboard()` added memMax, memSlots, smaller improvements Raspberry |
-| 5.1.0          | 2021-02-08     | `memLayout()` added ECC flag, `bios()` added language, features (linux) |
-| 5.0.11         | 2021-02-07     | `fsSize()` fixed windows WSL issue |
-| 5.0.10         | 2021-02-06     | `getDynamicData()` fixed windows WSL issue |
-| 5.0.9          | 2021-02-02     | `fsSize()` fixed parsing edge case issue mac OS |
-| 5.0.8          | 2021-01-30     | typescript typings fix cpuCurrentSpeed |
-| 5.0.7          | 2021-01-29     | `fsSize()` available fixed windows and typescript typings |
-| 5.0.6          | 2021-01-28     | `osinfo()` added hypervisor (win only) |
-| 5.0.5          | 2021-01-27     | `networkInterfaces()` type detection improved (win) |
-| 5.0.4          | 2021-01-27     | `cpu()` improved manufacturer decoding (linux) |
-| 5.0.3          | 2021-01-27     | `cpu()` fix virtualization, `wifi()` fix raspberry  |
-| 5.0.2          | 2021-01-26     | updated typescript typings  |
-| 5.0.1          | 2021-01-26     | code cleanup |
-| 5.0.0          | 2021-01-26     | new major version 5 release |
-| 4.34.9         | 2021-01-25     | `graphics()` virtual controller vram value fix (win) |
-| 4.34.8         | 2021-01-25     | `graphics()` controller subDeviceId fix (win) |
-| 4.34.7         | 2021-01-13     | `services()` improved service discovery (linux) |
-| 4.34.6         | 2021-01-12     | `networkInterfaces()` catch errors |
-| 4.34.5         | 2021-01-07     | `networkInterfaceDefault()` fixed CMD popup (windows) |
-| 4.34.4         | 2021-01-06     | `system()` fixed vitrual catch error |
-| 4.34.3         | 2021-01-06     | `graphics()` fixed non nvidia-smi controllers (win) |
-| 4.34.2         | 2021-01-05     | `system()` uuid lowercase as in uuid() |
-| 4.34.1         | 2021-01-05     | `graphics()` nvidia-smi detection improved |
-| 4.34.0         | 2021-01-05     | `system()` added flag virtual |
-| 4.33.8         | 2021-01-04     | `virtualBox()` fix issue windows host |
-| 4.33.7         | 2021-01-04     | `graphics()` nvidia-smi detection improved |
-| 4.33.6         | 2021-01-02     | `dockerContainerStats()` fix `tx` changed to `wx` as documented |
-| 4.33.5         | 2020-12-30     | `graphics()` vram (nvidia-smi) |
-| 4.33.4         | 2020-12-28     | `typescript` typings fix |
-| 4.33.3         | 2020-12-27     | `graphics()` updated docs |
-| 4.33.2         | 2020-12-27     | `graphics()` fixed issue (nvidia-smi) |
-| 4.33.1         | 2020-12-22     | `versions()` fixed issue (mac OS) |
-| 4.33.0         | 2020-12-21     | `graphics()` nvidia-smi support (linux, windows) |
-| 4.32.0         | 2020-12-14     | `graphics()` clinfo support (linux) |
-| 4.31.2         | 2020-12-14     | `graphics()` Windows 7 Graphics Fixes (Multi Monitor) |
-| 4.31.1         | 2020-12-11     | `inetLatency()` command injection vulnaribility fix |
-| 4.31.0         | 2020-12-06     | `osInfo()` added FQDN |
-| 4.30.11        | 2020-12-02     | `cpu()` bug fix speed parsing |
-| 4.30.10        | 2020-12-01     | `cpu()` handled speed parsing error (Apple Silicon) |
-| 4.30.9         | 2020-12-01     | `cpu()` corrected processor names (Raspberry Pi) |
-| 4.30.8         | 2020-11-30     | `fsSize()` catch error (mac OS) |
-| 4.30.7         | 2020-11-29     | `cpuTemperature()` rewrite hwmon parsing |
-| 4.30.6         | 2020-11-27     | wmic added default windows path (windows) |
-| 4.30.5         | 2020-11-26     | adapted security update (prototype pollution prevention) |
-| 4.30.4         | 2020-11-25     | reverted Object.freeze because it broke some projects |
-| 4.30.3         | 2020-11-25     | security update (prototype pollution prevention) Object.freeze |
-| 4.30.2         | 2020-11-25     | security update (prototype pollution prevention) |
-| 4.30.1         | 2020-11-12     | updated docs |
-| 4.30.0         | 2020-11-12     | `get()` possibility to provide params |
-| 4.29.3         | 2020-11-09     | `blockdevices()` catch errors adapted for just one line |
-| 4.29.2         | 2020-11-09     | `blockdevices()` catch errors |
-| 4.29.1         | 2020-11-08     | `cpu()`, `system()` better parsing Raspberry Pi revision codes |
-| 4.29.0         | 2020-11-08     | `fsSize()` correct fs type detection macOS (HFS, APFS, NFS) |
-| 4.28.1         | 2020-11-05     | code cleanup, removing debug console.log() |
-| 4.28.0         | 2020-11-04     | `graphics()` added deviceName (windows) |
-| 4.27.11        | 2020-10-26     | `inetChecksite()` fixed vulnerability: command injection |
-| 4.27.10        | 2020-10-16     | `dockerContainers()` resolved hanging issue |
-| 4.27.9         | 2020-10-13     | `networkInterfaces()` loopback internal detection (windows) |
-| 4.27.8         | 2020-10-08     | windows codepages partial fix |
-| 4.27.7         | 2020-10-05     | updated typescript typings, minor fixes |
-| 4.27.6         | 2020-10-02     | `get()` fixed when results are in arrays |
-| 4.27.5         | 2020-09-18     | `cpuTemperature()` fix try catch (linux) |
-| 4.27.4         | 2020-09-16     | `networkInterfaceDefault()` optimization (macOS) |
-| 4.27.3         | 2020-08-26     | updated typescript typings |
-| 4.27.2         | 2020-08-26     | fixed issue breaking node v4 compatibility |
-| 4.27.1         | 2020-08-25     | `networkStats()` fixed packages dropped (linux) |
-| 4.27.0         | 2020-08-24     | `observe()` added function to observe/watch system parameters |
-| 4.26.12        | 2020-08-21     | `versions()` fixed issue windows |
-| 4.26.11        | 2020-08-20     | `cpuTemperature()` fixed issue windows |
-| 4.26.10        | 2020-07-16     | `networkStats()` fixed issue blocking windows |
-| 4.26.9         | 2020-06-06     | `networkStats()` fixed comparison issue windows |
-| 4.26.8         | 2020-06-06     | `networkInterfaces()` fixed caching issue |
-| 4.26.7         | 2020-06-06     | `cpuTemperature()` fixed raspberry pi sensors issue |
-| 4.26.6         | 2020-06-03     | `diskLayout()` fixed issue linux |
-| 4.26.5         | 2020-05-27     | `cpuTemperature()` optimizes scanning AMD linux sensors |
-| 4.26.4         | 2020-05-21     | `cpuTemperature()` fix (BSD), code cleanup |
-| 4.26.3         | 2020-05-20     | updated documentation (macOS temperature) |
-| 4.26.2         | 2020-05-19     | `processes()` memory leak fix |
-| 4.26.1         | 2020-05-13     | code cleanup |
-| 4.26.0         | 2020-05-12     | `diskLayout()` added full smart data where supported |
-| 4.25.2         | 2020-05-12     | `getDynamicData()` added wifiNetworks() |
-| 4.25.1         | 2020-05-07     | `get()` minor bounds test fix, updated docs |
-| 4.25.0         | 2020-05-07     | `get()` added function to get partial system info |
-| 4.24.2         | 2020-05-06     | `cpu()` fix (BSD), `networkStats()` fix BSD |
-| 4.24.1         | 2020-05-03     | `processes()` fix parsing command and params |
-| 4.24.0         | 2020-05-01     | `networkInterfaces()` added subnet mask ip4 and ip6 |
-| 4.23.10        | 2020-05-01     | `cpuTemperature()` optimized parsing linux |
-| 4.23.9         | 2020-04-29     | `currentLoad()` workaround for no os.cpus info |
-| 4.23.8         | 2020-04-26     | `getMacAddresses()` fix added try catch |
-| 4.23.7         | 2020-04-26     | `getCpuCurrentSpeedSync()` workaround fix |
-| 4.23.6         | 2020-04-25     | `networkGatewayDefault()` bug fix no interfaces |
-| 4.23.5         | 2020-04-20     | updated docs |
-| 4.23.4         | 2020-04-20     | `users()` optimized parseDateTime function |
-| 4.23.3         | 2020-04-09     | refactored to avoid `cat` |
-| 4.23.2         | 2020-04-08     | `cpu()` fixed getting base frequency for AMD Ryzen |
-| 4.23.1         | 2020-03-11     | `diskLayout()` optimized detection linux |
-| 4.23.0         | 2020-03-08     | `versions()` added param to specify which program/lib versions to detect |
-| 4.22.7         | 2020-03-08     | `diskLayout()` fixed linux |
-| 4.22.6         | 2020-03-08     | `network()` fixed DHCP linux|
-| 4.22.5         | 2020-03-04     | `graphics()` fixed vram macOS |
-| 4.22.4         | 2020-03-01     | `versions()` added dotnet, typings fix |
-| 4.22.3         | 2020-02-20     | `memLayout()` code cleanup |
-| 4.22.2         | 2020-02-19     | `memLayout()` raspberry PI mem voltage fix |
-| 4.22.1         | 2020-02-17     | `memLayout()` raspberry PI support |
-| 4.22.0         | 2020-02-17     | `services()` added pids (windows) |
-| 4.21.3         | 2020-02-16     | `versions()` fixed mysql version (macOS) |
-| 4.21.2         | 2020-02-11     | `networkConnections()` fixed linux (debian) issue |
-| 4.21.1         | 2020-01-31     | `networkGatewayDefault()` fixed windows 7 issue |
-| 4.21.0         | 2020-01-27     | `npx` compatibility |
-| 4.20.1         | 2020-01-26     | `battery()` code refactoring, cleanup, updated docs |
-| 4.20.1         | 2020-01-26     | `battery()` code refactoring, cleanup, updated docs |
-| 4.20.0         | 2020-01-25     | `battery()` added designCapacity, voltage, unit |
-| 4.19.4         | 2020-01-24     | `mem()` prevent log messages, `memgetDefaultNetworkInterface()` catch errors |
-| 4.19.3         | 2020-01-24     | `memLayout()` bank info fix macOS |
-| 4.19.2         | 2020-01-19     | `cpu()` muli-processor fix windows |
-| 4.19.1         | 2020-01-14     | `osInfo()` uefi fix windows |
-| 4.19.0         | 2020-01-12     | `osInfo()` added uefi |
-| 4.18.3         | 2020-01-10     | `fsSize()` fix excluding loop/snap devices |
-| 4.18.2         | 2020-01-10     | `memLayout()` fix memsize linux (modules >= 32 GB) |
-| 4.18.1         | 2020-01-07     | updated docs |
-| 4.18.0         | 2020-01-07     | `networkInterfaces()` added dhcp for mac os, added dhcp linux fallback |
-| 4.17.3         | 2020-01-05     | code cleanup |
-| 4.17.2         | 2020-01-05     | `cpu().speed` AMD base frequency and fix (0.00) |
-| 4.17.1         | 2020-01-04     | `fsSize()` alpine linux support |
-| 4.17.0         | 2020-01-04     | `networkInterfaces()` added dhcp, dnsSuffix, ieee8021xAuth, ieee8021xState |
-| 4.16.1         | 2020-01-02     | `networkInterfaces()` bug fix (osx) |
-| 4.16.0         | 2019-11-27     | `networkGatewayDefault()` added |
-| 4.15.3         | 2019-11-10     | type definitions and docs update |
-| 4.15.2         | 2019-11-10     | `mem()` improved calculation linux |
-| 4.15.1         | 2019-11-10     | `diskLayout()` added support for older lsblk versions (linux) |
-| 4.15.0         | 2019-11-10     | `cpu()` added governor (linux) |
-| 4.14.17        | 2019-10-22     | `graphics()` improved display detection (windows) |
-| 4.14.16        | 2019-10-19     | `graphics()` improved display detection (windows) |
-| 4.14.15        | 2019-10-18     | `graphics()` fallback display detection (windows) |
-| 4.14.14        | 2019-10-18     | `powerShell()` fixed error handling (windows) |
-| 4.14.13        | 2019-10-15     | `networkConnections()` fixed parsing (linux) |
-| 4.14.12        | 2019-10-14     | `getCpu()` fixed multi socket detection (linux) |
-| 4.14.11        | 2019-10-01     | type definitions fix dockerInfo |
-| 4.14.10        | 2019-10-01     | type definitions fix memLayout |
-| 4.14.9         | 2019-10-01     | `processLoad()` fix windows |
-| 4.14.8         | 2019-08-22     | `parseDateTime()` fix coding error |
-| 4.14.7         | 2019-08-22     | `battery()` windows acconnected improvement |
-| 4.14.6         | 2019-08-22     | `users()` improved date time parsing |
-| 4.14.5         | 2019-08-22     | `fsSize()` fix windows result as number |
-| 4.14.4         | 2019-07-20     | `verions()` fix pip, pip3 |
-| 4.14.3         | 2019-07-09     | `system()` sku fix windows |
-| 4.14.2         | 2019-07-07     | `networkConnections()` pid linux fix NAN |
-| 4.14.1         | 2019-07-04     | `graphics()` added display position windows |
-| 4.14.0         | 2019-07-03     | `processes()` added process path and params |
-| 4.13.2         | 2019-07-02     | `versions()` fix getting all versions |
-| 4.13.1         | 2019-07-01     | `versions()` gcc fix macos |
-| 4.13.0         | 2019-07-01     | `networkConnections()` added PID and process |
-| 4.12.2         | 2019-06-24     | `system()` added Raspberry PI 4 detection |
-| 4.12.1         | 2019-06-24     | `networkInterface()` virtual interfaces macos, `networkInterfaceDefault()` |
-| 4.12.0         | 2019-06-21     | `networkInterface()` added property virtual |
-| 4.11.6         | 2019-06-19     | `util` bug fix |
-| 4.11.5         | 2019-06-19     | `dockerAll()` bug fix |
-| 4.11.4         | 2019-06-17     | type definitions bug fix |
-| 4.11.3         | 2019-06-16     | `graphics()` optimization windows |
-| 4.11.2         | 2019-06-16     | `wifiNetworks()` bug fixes |
-| 4.11.1         | 2019-06-15     | updated docs |
-| 4.11.0         | 2019-06-14     | `wifiNetworks()` added available wifi networks |
-| 4.10.0         | 2019-06-14     | `graphics()` windows multiple display support |
-| 4.9.2          | 2019-06-12     | type definitions bug fix |
-| 4.9.1          | 2019-06-11     | `networkStats()` bug fix windows |
-| 4.9.0          | 2019-06-03     | `graphics()` added vendor, refresh rate, current res |
-| 4.8.4          | 2019-06-03     | `vboxInfo()` fixed call parameters |
-| 4.8.3          | 2019-06-01     | `vboxInfo()` added stoppedSince, started, stopped |
-| 4.8.2          | 2019-05-31     | `dockerInfo()` changed property naming style |
-| 4.8.1          | 2019-05-31     | updated docs |
-| 4.8.0          | 2019-05-31     | added `vboxInfo()` detailed virtual box info |
-| 4.7.3          | 2019-05-30     | updated typescript typings |
-| 4.7.2          | 2019-05-30     | `versions()` added virtualbox, java popup fix macos |
-| 4.7.1          | 2019-05-29     | `memLayout()` fix macos mojave  |
-| 4.7.0          | 2019-05-29     | partial netBSD support  |
-| 4.6.1          | 2019-05-29     | get wmic path - fic windows  |
-| 4.6.0          | 2019-05-27     | added `dockerInfo()` |
-| 4.5.1          | 2019-05-17     | updated docs |
-| 4.5.0          | 2019-05-17     | `fsOpenFiles()` added open file descriptor count |
-| 4.4.1          | 2019-05-11     | updated docs |
-| 4.4.0          | 2019-05-11     | `dockerContainers()` added started, finished time |
-| 4.3.0          | 2019-05-09     | `dockerContainers()` `dockerStats()` added restartCount |
-| 4.2.1          | 2019-05-09     | `networkInterfaceDefault()` time delay fix (linux) |
-| 4.2.0          | 2019-05-09     | `osInfo()` extended service pack version (windows) |
-| 4.1.8          | 2019-05-09     | `graphics()` resolve on error (windows) |
-| 4.1.7          | 2019-05-09     | `users()` parsing fix (windows) |
-| 4.1.6          | 2019-04-24     | `memory()` swap used fix (linux) |
-| 4.1.5          | 2019-04-19     | refactored `wmic` calls to work also on Windows XP |
-| 4.1.4          | 2019-03-26     | `networkInterfaces()` speed bug (windows) |
-| 4.1.3          | 2019-03-24     | wmic path detection (windows) |
-| 4.1.2          | 2019-03-23     | updated docs |
-| 4.1.1          | 2019-03-13     | updated typescript typings |
-| 4.1.0          | 2019-03-13     | `versions()` added pip, pip3 |
-| 4.0.16         | 2019-03-12     | Happy birthday - 5th aniversary |
-| 4.0.15         | 2019-03-02     | `versions()` added java, python3, optimized gcc |
-| 4.0.14         | 2019-03-01     | updated typescript typings |
-| 4.0.13         | 2019-03-01     | `diskLayout()` added device (/dev/sda...) linux, mac |
-| 4.0.12         | 2019-03-01     | `diskLayout()` linux rewritten - better detection |
-| 4.0.11         | 2019-02-23     | `users()` fix windows (time), added @ts-check |
-| 4.0.10         | 2019-02-10     | `networkInterfaceDefault()` fix windows  |
-| 4.0.9          | 2019-02-08     | `cpu()` fix, code cleanup  |
-| 4.0.8          | 2019-02-05     | `inetLatency()` Windows fix parse chinese output |
-| 4.0.7          | 2019-02-05     | `inetLatency()` Windows fix |
-| 4.0.6          | 2019-02-04     | powershell catch error |
-| 4.0.5          | 2019-02-03     | updated docs |
-| 4.0.4          | 2019-02-03     | code cleanup, updated docs |
-| 4.0.3          | 2019-02-03     | `networkInterfaces(), chassis()` fixed two more issues |
-| 4.0.2          | 2019-02-03     | `networkInterfaces(), chassis()` fixed smaller issues |
-| 4.0.1          | 2019-02-02     | updated docs |
-| 4.0.0          | 2019-02-02     | new major version |
-| 3.54.0         | 2018-12-30     | added TypeScript type definitions |
-| 3.53.1         | 2018-12-29     | `versions()` bug fix nginx version |
-| 3.53.0         | 2018-12-29     | `versions()` added perl, python, gcc |
-| 3.52.7         | 2018-12-29     | `versions()` bug fix macOS detection |
-| 3.52.6         | 2018-12-28     | `versions()` bug fix macOS |
-| 3.52.5         | 2018-12-28     | preparing automated tests, travis-ci integration, added dev-dependencies |
-| 3.52.4         | 2018-12-27     | `graphics().controllers` bugfix linux |
-| 3.52.3         | 2018-12-27     | `os().codepage` bugfix |
-| 3.52.2         | 2018-12-17     | code cleanup |
-| 3.52.1         | 2018-12-17     | `inetChecksite()` bugfix windows |
-| 3.52.0         | 2018-12-15     | `cpu()` added physical cores, processors, socket type |
-| 3.51.4         | 2018-12-05     | `versions()` bugfix, optimization postgres |
-| 3.51.3         | 2018-11-27     | `mem()` refactoring parsing linux, code cleanup |
-| 3.51.2         | 2018-11-26     | `mem()` bugfix parsing `free` output linux |
-| 3.51.1         | 2018-11-26     | `processLoad()` bugfix windows |
-| 3.51.0         | 2018-11-25     | `processLoad()` added for windows |
-| 3.50.3         | 2018-11-25     | `processLoad()`, `services()` fixed cpu data (linux) |
-| 3.50.2         | 2018-11-23     | network mac adresses: ip support fix |
-| 3.50.1         | 2018-11-23     | `services()` added possibility to specify ALL services "*" for win |
-| 3.50.0         | 2018-11-23     | `services()` added possibility to specify ALL services "*" for linux |
-| 3.49.4         | 2018-11-21     | `battery()` timeremaining optimization (linux) thanks to Jorai Rijsdijk |
-| 3.49.3         | 2018-11-20     | `memLayout()` optimized parsing (win) |
-| 3.49.2         | 2018-11-19     | code cleanup |
-| 3.49.1         | 2018-11-19     | `cpu().brand` removed extra spaces, tabs |
-| 3.49.0         | 2018-11-19     | added system `uuid()` (os specific), `versions()` added postgresql |
-| 3.48.4         | 2018-11-18     | windows: garbled output because of codepage |
-| 3.48.3         | 2018-11-18     | `dockerContainerStats()` fixed issue `cpu_percent` win |
-| 3.48.2         | 2018-11-18     | `dockerContainerStats()` fixed issue `cpu_percent`, win exec |
-| 3.48.1         | 2018-11-17     | `docker...()` fixed issue parsing docker socket JSON |
-| 3.48.0         | 2018-11-17     | `diskLayout()` better interface detection (WIN), `osInfo()` added build, serial |
-| 3.47.0         | 2018-11-06     | `versions()` added docker, postfix |
-| 3.46.0         | 2018-11-05     | fixed issue `versions()`, added system openssl version |
-| 3.45.10        | 2018-11-03     | fixed issue `battery()`, modified `package.json` - files |
-| 3.45.9         | 2018-10-22     | fixed node 4 incompatibility |
-| 3.45.8         | 2018-10-22     | `system()` fix Raspberry Pi detection |
-| 3.45.7         | 2018-10-05     | fixed typos |
-| 3.45.6         | 2018-09-12     | `mem()` bug parsing linux in other languages |
-| 3.45.5         | 2018-09-07     | `diskLayout()` tiny bug S.M.A.R.T status windows |
-| 3.45.4         | 2018-09-06     | added icon to README.md |
-| 3.45.3         | 2018-09-06     | `diskLayout()` optimized media type detection (HD, SSD) on Windows |
-| 3.45.2         | 2018-09-05     | updated imags shields icons |
-| 3.45.1         | 2018-09-05     | updated documentation |
-| 3.45.0         | 2018-09-04     | `diskLayout()` added smartStatus |
-| 3.44.2         | 2018-08-28     | added code quality badges |
-| 3.44.1         | 2018-08-28     | code cleanup |
-| 3.44.0         | 2018-08-25     | `battery()` bugfix & added type, model, manufacturer, serial |
-| 3.43.0         | 2018-08-25     | `cpuCurrentspeed()` added cpu speed for all cores |
-| 3.42.10        | 2018-08-25     | `processes()` optimized start time parsing |
-| 3.42.9         | 2018-08-08     | `cpuTemperature()` optimized parsing |
-| 3.42.8         | 2018-08-03     | updated docs |
-| 3.42.7         | 2018-08-03     | `processes()` optimized parsing ps name |
-| 3.42.6         | 2018-08-03     | `processes()` bugfix parsing ps linux |
-| 3.42.5         | 2018-08-03     | `processes()` bugfix parsing ps linux |
-| 3.42.4         | 2018-07-09     | `cpuTemperature()` bugfix parsing negative values |
-| 3.42.3         | 2018-07-05     | `services()` bugfix not finding services with capital letters |
-| 3.42.2         | 2018-07-03     | `users()` optimized results if lack of permissions |
-| 3.42.1         | 2018-07-03     | `versions()` bugfix git version macOS |
-| 3.42.0         | 2018-06-01     | `processes()` added parent process PID |
-| 3.41.4         | 2018-05-28     | windows exec WMIC path detection (windows) in try catch |
-| 3.41.3         | 2018-05-13     | improved SunOS support `getStaticData()`, `getDynamicData()` |
-| 3.41.2         | 2018-05-13     | bugfix `system()` and `flags()` Raspberry Pi |
-| 3.41.1         | 2018-05-11     | updated docs |
-| 3.41.0         | 2018-05-11     | `system()` Raspberry Pi bugfix and extended detection, added partial `SunOS` support |
-| 3.40.1         | 2018-05-10     | bugfix `system().sku` (windows) |
-| 3.40.0         | 2018-04-29     | extended `versions()` (php, redis, mongodb) |
-| 3.39.0         | 2018-04-29     | added `versions().mysql` and `versions().nginx`, starting `SunOS` support (untested) |
-| 3.38.0         | 2018-04-06     | added `battery().acconnected` |
-| 3.37.12        | 2018-04-05     | another optimization `battery().ischarging` for macOS |
-| 3.37.11        | 2018-04-05     | another optimization `battery().ischarging` for macOS |
-| 3.37.10        | 2018-04-05     | `battery().ischarging` optimized for macOS |
-| 3.37.9         | 2018-04-03     | optimized `processes()`, bugfix `networkInterfaceDefault()` |
-| 3.37.8         | 2018-03-25     | optimized `networkDefaultInterface()` detection, fixed network `operstate` MacOS |
-| 3.37.7         | 2018-03-13     | celebrating 4th birthday |
-| 3.37.6         | 2018-03-12     | updated docs: fixed `diskLayout`and `mamlayout` |
-| 3.37.5         | 2018-03-12     | added support for `ip` instead of `ifconfig` |
-| 3.37.4         | 2018-02-22     | bugfix windows `processes()`, `disklayout()` |
-| 3.37.3         | 2018-02-19     | added windows exec `windowsHide` option |
-| 3.37.2         | 2018-02-15     | fixed bug `battery().percent` for macOS |
-| 3.37.1         | 2018-02-13     | fixed bug `battery().ischarging` for macOS |
-| 3.37.0         | 2018-02-11     | extended FreeBSD support `networkStats()` |
-| 3.36.
-0         | 2018-02-11     | extended FreeBSD support `networkConnections()` |
-| 3.35.0         | 2018-02-11     | extended FreeBSD support `processLoad()` |
-| 3.34.1         | 2018-02-11     | updated docs |
-| 3.34.0         | 2018-02-10     | first partial FreeBSD support |
-| 3.33.15        | 2018-01-21     | optimized OSX battery |
-| 3.33.14        | 2018-01-17     | bugfix `diskLayout()` (Windows) |
-| 3.33.13        | 2018-01-12     | bugfix `memLayout()` (Windows) |
-| 3.33.12        | 2017-12-25     | fixed typos |
-| 3.33.11        | 2017-12-17     | updated docs |
-| 3.33.10        | 2017-12-14     | bugfix WMIC path detection (windows) blockDevice parse (Windows 7) |
-| 3.33.9         | 2017-12-14     | bugfix WMIC path detection (windows) not found (Windows) |
-| 3.33.8         | 2017-12-02     | bugfix diskLayout().size (OSX) |
-| 3.33.7         | 2017-11-28     | bugfix diskLayout().size |
-| 3.33.6         | 2017-11-16     | bugfix diskLayout().size |
-| 3.33.5         | 2017-11-09     | code cleanup |
-| 3.33.4         | 2017-11-09     | bugfix graphics controller win (bytes) |
-| 3.33.3         | 2017-11-08     | bugfix cpu speed arm - type |
-| 3.33.2         | 2017-11-08     | bugfix cpu speed arm |
-| 3.33.1         | 2017-11-07     | improved bios and main board information |
-| 3.33.0         | 2017-11-07     | added bios and main board information |
-| 3.32.4         | 2017-11-02     | AMD cpu base frequencies table also for windows |
-| 3.32.3         | 2017-11-02     | code cleanup, AMD cpu base frequencies table |
-| 3.32.2         | 2017-11-01     | bugfix JSON.parse error `blockDevices()` |
-| 3.32.1         | 2017-10-23     | updated docs |
-| 3.32.0         | 2017-10-23     | extended `memLayout()` - added manufacturer |
-| 3.31.4         | 2017-10-21     | updated `README.md` |
-| 3.31.3         | 2017-10-21     | bugfix `graphics()`, fixed typo `README.md` |
-| 3.31.2         | 2017-10-16     | bugfix `graphics()` vendor and model parsing linux VGA/3D |
-| 3.31.1         | 2017-10-16     | bugfix `graphics()` vendor and model parsing linux |
-| 3.31.0         | 2017-10-15     | extended windows support `cpuFlags()` (partially) |
-| 3.30.6         | 2017-10-05     | updated community profile |
-| 3.30.5         | 2017-10-05     | bugfix `users()` - parsing values on windows |
-| 3.30.4         | 2017-10-03     | bugfix `cpuTemperature()` - parsing values on windows |
-| 3.30.3         | 2017-10-03     | bugfix `cpuTemperature()` - max value on windows |
-| 3.30.2         | 2017-09-26     | bugfix `networkInterfaces()` - optimized ip6 address selection |
-| 3.30.1         | 2017-09-21     | bugfix/typo `inetChecksite()` |
-| 3.30.0         | 2017-09-21     | extended `versions()` (added `yarn`, `gulp`, `grunt`, `tsc`, `git`) |
-| 3.29.0         | 2017-09-15     | extended windows support `services()`, optimized `diskLayout()` (OSX), bugfixes |
-| 3.28.0         | 2017-09-14     | extended windows support `processes()` |
-| 3.27.1         | 2017-09-13     | updated Raspberry version detection `system()` (Pi 3, Zero) |
-| 3.27.0         | 2017-09-12     | added raw data to `currentLoad()`, fixed `networkInterfaces()` MAC problem node 8.x |
-| 3.26.2         | 2017-09-01     | removed redundant code |
-| 3.26.1         | 2017-08-23     | fixed `cpu().speed` windows / AMD, updated docs |
-| 3.26.0         | 2017-08-21     | extended `getDynamicData()` (windows), updated docs |
-| 3.25.1         | 2017-08-07     | updated docs  |
-| 3.25.0         | 2017-08-07     | improved windows support `networkStats()`, `cpuCache()`, bug fix `getStaticData()` |
-| 3.24.0         | 2017-08-05     | extended windows support `networkStats()`, `networkConnections()` |
-| 3.23.7         | 2017-07-11     | bug fix `diskLayout()` |
-| 3.23.6         | 2017-07-11     | added `cpuFlags()` to `getStaticData()`, bug fix `graphics()` (Win) |
-| 3.23.5         | 2017-06-29     | bug fix `inetChecksite()` |
-| 3.23.4         | 2017-06-24     | bug fix `getDynamicData(), getAllData() - mem` |
-| 3.23.3         | 2017-06-23     | updated docs |
-| 3.23.2         | 2017-06-23     | bug fix `battery` (windows) |
-| 3.23.1         | 2017-06-22     | updated docs |
-| 3.23.0         | 2017-06-22     | added `memLayout`, `diskLayout`, extended windows support (`inetChecksite`)|
-| 3.22.0         | 2017-06-19     | extended windows support (`users`, `inetLatency`) |
-| 3.21.0         | 2017-06-18     | extended time (timezone), extended windows support (battery, getAll...) |
-| 3.20.1         | 2017-06-17     | updated docs |
-| 3.20.0         | 2017-06-16     | extend WIN support (cpu, cpuCache, cpuCurrentspeed, mem, networkInterfaces, docker) |
-| 3.19.0         | 2017-06-12     | OSX temperature now an optional dependency  |
-| 3.18.0         | 2017-05-27     | extended `cpu` info (vendor, family, model, stepping, revision, cache, speedmin/max) |
-| 3.17.3         | 2017-04-29     | minor fix (blockDevices data array, Windows) |
-| 3.17.2         | 2017-04-24     | minor fix (removed console.log) |
-| 3.17.1         | 2017-04-23     | fixed bugs fsSize(win), si.processes (command), si.osinfo(win) |
-| 3.17.0         | 2017-02-19     | windows support for some first functions, extended process list (linux)|
-| 3.16.0         | 2017-01-19     | blockDevices: added removable attribute + fix |
-| 3.15.1         | 2017-01-17     | minor cpuTemperature fix (OSX) |
-| 3.15.0         | 2017-01-15     | added cpuTemperature also for OSX |
-| 3.14.0         | 2017-01-14     | added currentLoad per cpu/core, cpu cache and cpu flags |
-| 3.13.0         | 2016-11-23     | added shell (returns standard shell) |
-| 3.12.0         | 2016-11-17     | refactoring and extended currentLoad |
-| 3.11.2         | 2016-11-16     | blockDevices: improved for older lsblk versions |
-| 3.11.1         | 2016-11-16     | fixed small bug in blockDevices |
-| 3.11.0         | 2016-11-15     | blockDevices for OSX and extended blockDevices |
-| 3.10.2         | 2016-11-14     | bug fix fsSize on OSX |
-| 3.10.1         | 2016-11-14     | optimization fsStats, disksIO, networkStats |
-| 3.10.0         | 2016-11-12     | added blockDevices, fixed fsSize, added file system type |
-| 3.9.0          | 2016-11-11     | added MAC address to networkInterfaces, fixed currentLoad |
-| 3.8.1          | 2016-11-04     | updated docs |
-| 3.8.0          | 2016-11-04     | added dockerContainerProcesses |
-| 3.7.1          | 2016-11-03     | code refactoring |
-| 3.7.0          | 2016-11-02     | extended docker stats, and no longer relying on curl |
-| 3.6.0          | 2016-09-14     | added versions (kernel, ssl, node, npm, pm2, ...) |
-| 3.5.1          | 2016-09-14     | bugfix graphics info |
-| 3.5.0          | 2016-09-14     | added graphics info (controller, display) |
-| 3.4.4          | 2016-09-02     | tiny fixes system.model, getDefaultNetworkInterface |
-| 3.4.3          | 2016-09-02     | tiny bug fix fsStats, disksIO OSX |
-| 3.4.2          | 2016-09-01     | improved default network interface |
-| 3.4.1          | 2016-08-30     | updated docs |
-| 3.4.0          | 2016-08-30     | rewritten processes current cpu usage |
-| 3.3.0          | 2016-08-24     | process list added to processes |
-| 3.2.1          | 2016-08-19     | updated docs, improvement system |
-| 3.2.0          | 2016-08-19     | added battery information |
-| 3.1.1          | 2016-08-18     | improved system and os detection (vm, ...), bugfix disksIO |
-| 3.1.0          | 2016-08-18     | added Docker stats |
-| 3.0.1          | 2016-08-17     | Bug-Fix disksIO, users, updated docs |
-| 3.0.0          | 2016-08-03     | new major version 3.0 |
-| 2.0.5          | 2016-03-02     | changed .gitignore |
-| 2.0.4          | 2016-02-22     | tiny correction - removed double quotes CPU brand, ... |
-| 2.0.3          | 2016-02-22     | optimized cpuCurrentspeed |
-| 2.0.2          | 2016-02-22     | added CoreOS identification |
-| 2.0.1          | 2016-01-07     | minor patch |
-| 2.0.0          | 2016-01-07     | new major version 2.0 |
-| 1.0.7          | 2015-11-27     | fixed: si.network_speed() |
-| 1.0.6          | 2015-09-17     | fixed: si.users() |
-| 1.0.5          | 2015-09-14     | updated dependencies |
-| 1.0.4          | 2015-07-18     | updated docs |
-| 1.0.3          | 2015-07-18     | bugfix cpu cores |
-| 1.0.2          | 2015-07-18     | bugfix cpu_currentspeed, cpu_temperature |
-| 1.0.1          | 2015-07-18     | documentation update |
-| 1.0.0          | 2015-07-18     | bug-fixes, version bump, published as npm component |
-| 0.0.3          | 2014-04-14     | bug-fix (cpu_speed) |
-| 0.0.2          | 2014-03-14     | Optimization FS-Speed & CPU current speed |
-| 0.0.1          | 2014-03-13     | initial release |
+| Version | Date       | Comment                                                                                             |
+| ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.31.13 | 2026-07-05 | `baseboard()` fix latest Mac itentifier keys (macOS)                                                |
+| 5.31.12 | 2026-07-03 | `cpuTemperature()` fix parsing improvments cpuThermal (linux)                                       |
+| 5.31.11 | 2026-06-25 | `graphics()` fix vram parsing with correct units (linux)                                            |
+| 5.31.10 | 2026-06-24 | `memory()` fix acive mem (macOS)                                                                    |
+| 5.31.9  | 2026-06-22 | `baseboard()` fix parsing (macOS)                                                                   |
+| 5.31.8  | 2026-06-21 | `cpu()` fix efficiency cores detection (macOS > M5)                                                 |
+| 5.31.7  | 2026-05-29 | `networkInterfaces()` fix unsanitized command (linux)                                               |
+| 5.31.6  | 2026-05-07 | `networkInterfaces()` fix unsanitized command (linux)                                               |
+| 5.31.5  | 2026-03-19 | `netStats()` netstat command adaption (mac OS)                                                      |
+| 5.31.4  | 2026-03-09 | `diskLayout()` USB tahoe compatibility (mac OS)                                                     |
+| 5.31.3  | 2026-03-04 | `system()` updated Mac 2026 mopdel numbers (mac OS)                                                 |
+| 5.31.2  | 2026-03-03 | `system()` updated Mac mopdel numbers (mac OS)                                                      |
+| 5.31.1  | 2026-02-17 | `docs` updated (security advisory)                                                                  |
+| 5.31.0  | 2026-02-15 | `diskLayout()` added smartmontools support (macOS), `versions()` command injection issue (linux)    |
+| 5.30.8  | 2026-02-14 | `wifiNetworks()` fixed CWE-78 command injection issue (linux)                                       |
+| 5.30.7  | 2026-01-31 | `networkInterfaces()` fixed getWindowsIEEE8021x issue (windows)                                     |
+| 5.30.6  | 2026-01-22 | `graphics()` improved nvidia-smi detection (windows)                                                |
+| 5.30.5  | 2026-01-16 | `networkInterfaces()` fix uppercase iface names (linux)                                             |
+| 5.30.4  | 2026-01-15 | `powerShell()` fix UTF8 output (windows)                                                            |
+| 5.30.3  | 2026-01-11 | Updated docs, code cleanup                                                                          |
+| 5.30.2  | 2026-01-08 | `processes()` revert added user (windows)                                                           |
+| 5.30.1  | 2026-01-07 | `networkInterfaces()`, `users()` improved date parsing (linux)                                      |
+| 5.30.0  | 2026-01-06 | `processes()` added user (windows)                                                                  |
+| 5.29.1  | 2026-01-05 | `fsSize()` support network attached storage (linux)                                                 |
+| 5.29.0  | 2026-01-04 | `osInfo()` added OS code name (windows)                                                             |
+| 5.28.10 | 2026-01-03 | `graphics()` fix logging nvidia-smi error (windows)                                                 |
+| 5.28.9  | 2026-01-02 | `fsSize()` fix df parsing missing mount points (linux)                                              |
+| 5.28.8  | 2026-01-01 | `bluetooth()` `battery()` improved enumeration (windows)                                            |
+| 5.28.7  | 2026-12-31 | `networkInterfaces()` fix wireless speed (linux)                                                    |
+| 5.28.6  | 2025-12-31 | `npx systeminformation` improved output                                                             |
+| 5.28.5  | 2025-12-30 | `cpuCurrentSpeed()` fix cpu loop issue                                                              |
+| 5.28.4  | 2025-12-29 | `powerShell()` Windows 7 fix compatibility issues (windows)                                         |
+| 5.28.3  | 2025-12-28 | `processes()`, `processLoad()` fix command line parsing (windows)                                   |
+| 5.28.2  | 2025-12-27 | `networkConnections()` fix missing PIDs ss command (linux)                                          |
+| 5.28.1  | 2025-12-26 | `networkInterface()` fix secondary and link-local ip (linux, macOS)                                 |
+| 5.28.0  | 2025-12-25 | `cpuTemperature()` added suppurt for macos-temperature-sensor (macOS)                               |
+| 5.27.17 | 2025-12-24 | `graphics()` fix nvidia-smi candidateDir (windows)                                                  |
+| 5.27.16 | 2025-12-23 | `cpuTemperature()` fix sensors parsing AMD (linux)                                                  |
+| 5.27.15 | 2025-12-22 | Updated docs                                                                                        |
+| 5.27.14 | 2025-12-15 | `fsSize()` fix drive sanitation (windows)                                                           |
+| 5.27.13 | 2025-12-10 | `cpuCurrentSpeed()` fix hasOwnProperty                                                              |
+| 5.27.12 | 2025-12-09 | `networkConnections()` fix pid issue (macOS)                                                        |
+| 5.27.11 | 2025-10-05 | `system()` added latest mac studio versions (macOS)                                                 |
+| 5.27.10 | 2025-09-16 | `powerShell()` adapted params (windows)                                                             |
+| 5.27.9  | 2025-09-13 | `typings` fsOpenFiles typings fixed                                                                 |
+| 5.27.8  | 2025-08-25 | `disklayout()` fixed catch error (macOS)                                                            |
+| 5.27.7  | 2025-06-28 | `time()` fixed Intl issue                                                                           |
+| 5.27.6  | 2025-06-20 | `system()` added model (freebsd)                                                                    |
+| 5.27.5  | 2025-06-19 | `system()` added serial, uuid, virtual (freebsd)                                                    |
+| 5.27.4  | 2025-06-19 | `uuid()` fixed os, hardware uuids (freebsd)                                                         |
+| 5.27.3  | 2025-06-17 | `osInfo()` added macOS Tahoe detection                                                              |
+| 5.27.2  | 2025-06-16 | `services()` extended matching service names                                                        |
+| 5.27.1  | 2025-05-24 | `wifiConnections()`, `wifiNetworks()` fix security mode parsing (macOS)                             |
+| 5.27.0  | 2025-05-24 | `mem()` added reclaimable (Linux, macOS)                                                            |
+| 5.26.2  | 2025-05-23 | `memLayout()` manufacturers reference updated                                                       |
+| 5.26.1  | 2025-05-22 | `inetChecksite()` fix timeout                                                                       |
+| 5.26.0  | 2025-05-21 | `getStatic()` added audio, usb, bluetooth, printer                                                  |
+| 5.25.11 | 2025-01-11 | `docs` updated                                                                                      |
+| 5.25.10 | 2025-01-10 | `graphics()` improvement Raspberry Ubuntu                                                           |
+| 5.25.9  | 2025-01-10 | `memLayout()` improvement Raspberry PI 5                                                            |
+| 5.25.8  | 2025-01-09 | `graphics()` improved for Raspberry PI                                                              |
+| 5.25.7  | 2025-01-09 | `baseboard()`, `memLayout()` improved for Raspberry PI                                              |
+| 5.25.6  | 2025-01-08 | `system()` raspberry PI detection improved                                                          |
+| 5.25.5  | 2025-01-07 | `shell()` detect powerShell (windows)                                                               |
+| 5.25.4  | 2025-01-06 | `versions()` improved powerShell parsing (windows)                                                  |
+| 5.25.3  | 2025-01-05 | `memLayout()` improved speed parsing (windows)                                                      |
+| 5.25.2  | 2025-01-05 | `battery()` improved serial and model parsing (macOS)                                               |
+| 5.25.1  | 2025-01-05 | `cpuCurrentSpeed()` Deno CPU speed workarround (linux)                                              |
+| 5.25.0  | 2025-01-05 | `versions()` added homebrew                                                                         |
+| 5.24.9  | 2025-01-04 | `checkWebsite()` reestablished certificate validation                                               |
+| 5.24.9  | 2025-01-04 | `checkWebsite()` reestablished certificate validation                                               |
+| 5.24.8  | 2025-01-03 | `powerShell()` detect default installation path (windows)                                           |
+| 5.24.7  | 2025-01-03 | `system()` chassis type parsing improved (macOS)                                                    |
+| 5.24.6  | 2025-01-02 | `cpu()` clean brand string (linux)                                                                  |
+| 5.24.5  | 2025-01-02 | `users()` improved date parsing (macOS)                                                             |
+| 5.24.4  | 2025-01-02 | `__proto__` added prototypes                                                                        |
+| 5.24.3  | 2025-01-01 | `__proto__` deno compatibility                                                                      |
+| 5.24.2  | 2025-01-01 | `versions()` fixed node version                                                                     |
+| 5.24.1  | 2024-12-31 | `versions()` fixed deno and bun                                                                     |
+| 5.24.0  | 2024-12-31 | `versions()` added deno and bun                                                                     |
+| 5.23.25 | 2024-12-30 | `system()` adapted model and version (macOS)                                                        |
+| 5.23.24 | 2024-12-29 | `osInfo()` improved logofile detection                                                              |
+| 5.23.23 | 2024-12-25 | `bluetoothDevices()` added parsing vendor ID (macOS)                                                |
+| 5.23.22 | 2024-12-25 | `osInfo()` fix manufacturer Apple Silicon (macOS)                                                   |
+| 5.23.21 | 2024-12-24 | `osInfo()` fix fqdn                                                                                 |
+| 5.23.20 | 2024-12-24 | `cpu()` fix timeout                                                                                 |
+| 5.23.19 | 2024-12-24 | `cpu()` refactored using internal node functions                                                    |
+| 5.23.18 | 2024-12-24 | `cpu()` Handle RISC-V CPU Manufacturer and Brand                                                    |
+| 5.23.17 | 2024-12-23 | `wifiConnections()` refactored - Sequoia compatibel (macOS)                                         |
+| 5.23.16 | 2024-12-22 | `networkConnections()` refactored PID parsing (macOS)                                               |
+| 5.23.15 | 2024-12-21 | `users()`, `wifiNetworks()` fixed parsing (macOS Seguoia)                                           |
+| 5.23.14 | 2024-12-18 | `chassis()` new chassis detection (macOS)                                                           |
+| 5.23.13 | 2024-12-14 | `wifiConnections()` improved BSSID parsing (windows)                                                |
+| 5.23.12 | 2024-12-13 | `networkConnections()` fixed wrong PID parsing (macOS)                                              |
+| 5.23.11 | 2024-12-13 | `networkConnections()` fixed wrong PID parsing (macOS)                                              |
+| 5.23.10 | 2024-12-12 | `time()` changed retrieval of timezones (linux, macOS)                                              |
+| 5.23.9  | 2024-12-11 | `typings` added definitions with overload                                                           |
+| 5.23.8  | 2024-12-10 | `system()` added Raspberry 500 detection                                                            |
+| 5.23.7  | 2024-12-09 | `networkInterfaces()` sanitizing SSID names (windows)                                               |
+| 5.23.6  | 2024-12-08 | `system()` added Raspberry CM5 detection                                                            |
+| 5.23.5  | 2024-08-21 | `processLoad()` fixed * process list (linux)                                                        |
+| 5.23.4  | 2024-08-06 | `baseboard()` `chassis()` cleaned defaults (linux)                                                  |
+| 5.23.3  | 2024-08-02 | `usb()` fixed duplicate entries (windows)                                                           |
+| 5.23.2  | 2024-08-01 | `execSync()` fixed EFAULT (linux)                                                                   |
+| 5.23.1  | 2024-07-31 | `disklayout()` updated docs (macOS)                                                                 |
+| 5.23.0  | 2024-07-31 | `usb()` added serialNumber (linux)                                                                  |
+| 5.22.11 | 2024-06-10 | `osInfo()` added macOS Sequoia                                                                      |
+| 5.22.10 | 2024-05-31 | `powerShellStart()` fixed kill issue                                                                |
+| 5.22.9  | 2024-05-13 | `memLayout()` fixed typo manufacturer                                                               |
+| 5.22.8  | 2024-05-05 | `utils()` replaces deprecated util._extend()                                                        |
+| 5.22.7  | 2024-04-02 | `battery()` fixed designed capacity issue (windows)                                                 |
+| 5.22.6  | 2024-03-20 | `networkInterfaces()` fixed speed of not connected interfaces (windows)                             |
+| 5.22.5  | 2024-03-19 | `wifiConnections()` fixed formatting bssid (macOS)                                                  |
+| 5.22.4  | 2024-03-16 | `uuid()` improved parsing machine id (linux)                                                        |
+| 5.22.3  | 2024-03-15 | `chassis()` improved parsing memory bank (windows)                                                  |
+| 5.22.2  | 2024-03-14 | `chassis()` type, assetTag, sku improved parsing (macOS)                                            |
+| 5.22.1  | 2024-03-12 | `wifiConnections()` patch for macOS Sonome 14.4 (macOS)                                             |
+| 5.22.0  | 2024-02-18 | `wifiConnections()` added signal quality attribute                                                  |
+| 5.21.25 | 2024-02-17 | `wifiConnections()` fixed signal strength (windows)                                                 |
+| 5.21.24 | 2024-01-21 | `osInfo()` improved release version parsing (linux)                                                 |
+| 5.21.23 | 2024-01-20 | `cpu()` improved CPU speed parsing (linux)                                                          |
+| 5.21.22 | 2023-12-22 | `README.md` updated docs and HTML                                                                   |
+| 5.21.21 | 2023-12-21 | added end of year message                                                                           |
+| 5.21.20 | 2023-12-03 | `powerShell()` fix invalid pattern (windows)                                                        |
+| 5.21.19 | 2023-12-03 | fix typescript typings                                                                              |
+| 5.21.18 | 2023-11-24 | `networkConnections()` fix truncated ip6 addr (macOS)                                               |
+| 5.21.17 | 2023-11-11 | `system()` Raspberry Pi 5 name fix                                                                  |
+| 5.21.16 | 2023-11-09 | `currentLoad()` improved parsing (linux)                                                            |
+| 5.21.15 | 2023-10-27 | `wifiConnections()` improved parsing (linux)                                                        |
+| 5.21.14 | 2023-10-26 | `execSync()` added explicit encoding (linux)                                                        |
+| 5.21.13 | 2023-10-21 | `system()` Raspberry Pi 5 detection                                                                 |
+| 5.21.12 | 2023-10-17 | `system()` Raspberry CM4S detection                                                                 |
+| 5.21.11 | 2023-10-05 | `osInfo()` fix getLogoFile (BSD)                                                                    |
+| 5.21.10 | 2023-10-04 | `wifiNetworks()` improved parsing (macOS)                                                           |
+| 5.21.9  | 2023-09-25 | `general` code cleanup                                                                              |
+| 5.21.8  | 2023-09-20 | `battery()` fixed parsing (linux)                                                                   |
+| 5.21.7  | 2023-09-19 | `wifiConnections()` `wifiNetworks()` fixed security issue (linux)                                   |
+| 5.21.6  | 2023-09-18 | `baseboard()` improved parsing (windows)                                                            |
+| 5.21.5  | 2023-09-15 | `chassis()`, `baseboard()` improved parsing (windows)                                               |
+| 5.21.4  | 2023-09-02 | `wifiConnections()` fixed when no wifi chip (macOS)                                                 |
+| 5.21.3  | 2023-08-31 | `cpuTemperature()` improved parsing for AMD (linux)                                                 |
+| 5.21.2  | 2023-08-30 | `cpuTemperature()` improved parsing for AMD (linux)                                                 |
+| 5.21.1  | 2023-08-28 | `graphics()` subVendor fix (linux)                                                                  |
+| 5.21.0  | 2023-08-28 | `graphics()` added subVendor (linux) `memLayout()` DDR5 detection (windows)                         |
+| 5.20.0  | 2023-08-25 | `mem()` added writenack and dirty (linux)                                                           |
+| 5.19.1  | 2023-08-23 | `wifiNetworks()` improved SSID parsing (macOS)                                                      |
+| 5.19.0  | 2023-08-22 | `currentLoad()` added steal and guest time (linux)                                                  |     | 5.18.15 | 2023-08-10 | `npm` command extended |
+| 5.18.14 | 2023-08-09 | `fsSIze()` fixed syntax error                                                                       |
+| 5.18.13 | 2023-08-08 | `mem()` fixed error handling                                                                        |
+| 5.18.12 | 2023-08-05 | `fsSize()` rw /snap/ issue fixed (linux)                                                            |
+| 5.18.11 | 2023-08-04 | `bluetooth()` improved parsing, macOS Sonoma detection                                              |
+| 5.18.10 | 2023-07-28 | `cpu()` fixed cache sizes, extended sockets (windows)                                               |
+| 5.18.9  | 2023-07-26 | `fsSize()` fixed missing rw property (windows)                                                      |
+| 5.18.8  | 2023-07-25 | `cpu()` added AMD ZEN 4 base frequencies                                                            |
+| 5.18.7  | 2023-07-12 | `osInfo()` added macOS Sonoma code name (mac OS)                                                    |
+| 5.18.6  | 2023-06-28 | `graphics()` fixed catched errors (mac OS)                                                          |
+| 5.18.5  | 2023-06-26 | `cpu()` fixed parsing (mac OS)                                                                      |
+| 5.18.4  | 2023-06-22 | `graphics()` fixed parsing (mac OS)                                                                 |
+| 5.18.3  | 2023-06-09 | `tests` improved key handling, updated docs                                                         |
+| 5.18.2  | 2023-06-08 | `fsSize()` improved error handling (linux alpine)                                                   |
+| 5.18.1  | 2023-06-07 | `networkInterfaces()` cleaned up testVirtualNic                                                     |
+| 5.18.0  | 2023-06-06 | `fsSize()` added optional drive parameter                                                           |
+| 5.17.17 | 2023-06-03 | `osInfo()` improved fqdn (linux)                                                                    |
+| 5.17.16 | 2023-05-30 | `usb()` fix parsing JSON (mac OS)                                                                   |
+| 5.17.15 | 2023-05-29 | `powershell()` added NoProfile to speed up powershell (windows)                                     |
+| 5.17.14 | 2023-05-29 | `diskLayout()`, `osInfo()` fix parsing issues (mac OS)                                              |
+| 5.17.13 | 2023-05-24 | `typings` fix typings dynamicData, networkInterfaceDatass                                           |
+| 5.17.12 | 2023-02-28 | `uuid()` fix unique mac address issue (Android)                                                     |
+| 5.17.11 | 2023-02-27 | `blockDevices()` raid added label, uuid (linux)                                                     |
+| 5.17.10 | 2023-02-23 | `blockDevices()` fixed parsing raids (linux)                                                        |
+| 5.17.9  | 2023-02-11 | `system()` fixed model Apple Silicon                                                                |
+| 5.17.8  | 2023-01-30 | `system()` improved virtual host detection for Parallels                                            |
+| 5.17.7  | 2023-01-29 | `processes()` fixed CPU usage info (windows)                                                        |
+| 5.17.6  | 2023-01-29 | `processes()` fixed Node Version 8 compatibility issue                                              |
+| 5.17.5  | 2023-01-29 | `processes()` improved parsing of all services (linux)                                              |
+| 5.17.4  | 2023-01-24 | `networkInterfaces()` sanitizing networkInterfaces device names                                     |
+| 5.17.3  | 2023-01-10 | `processes()` fix elapsed time parsing (linux)                                                      |
+| 5.17.2  | 2023-01-10 | `utils` fix killing powershell (windows)                                                            |
+| 5.17.1  | 2023-01-06 | `graphics()` positionX, positionY Ventura fix (mac OS)                                              |
+| 5.17.0  | 2023-01-06 | `graphics()` added positionX, positionY (mac OS)                                                    |
+| 5.16.9  | 2022-12-27 | updated docs                                                                                        |
+| 5.16.8  | 2022-12-22 | `processes()` params truncated fix (mac OS)                                                         |
+| 5.16.7  | 2022-12-22 | `processes()` commandLine missing spaces fix (windows)                                              |
+| 5.16.6  | 2022-12-12 | `processes()` time format fix (linux)                                                               |
+| 5.16.5  | 2022-12-09 | `inetLatency()` fix for alpine (linux)                                                              |
+| 5.16.4  | 2022-12-09 | `processes()` fix started (linux alpine)                                                            |
+| 5.16.3  | 2022-12-08 | `users()` fix when multiple explorer.exe (windows)                                                  |
+| 5.16.2  | 2022-12-08 | `dockerContainerStats()` improved calculation cpuPercent                                            |
+| 5.16.1  | 2022-12-04 | code cleanup, moved from lgtm to GitHub Code Scan                                                   |
+| 5.16.0  | 2022-12-01 | `fsSize()` added rw (win, linux, mac OS, BSD)                                                       |
+| 5.15.1  | 2022-11-29 | fix typescript typings                                                                              |
+| 5.15.0  | 2022-11-29 | `blockDevices()` added device (win, linux, mac OS)                                                  |
+| 5.14.4  | 2022-11-21 | `osInfo()` improved uefi parsing (FreeBSD)                                                          |
+| 5.14.3  | 2022-11-20 | `graphics()` multi monitor refresh rate (windows)                                                   |
+| 5.14.2  | 2022-11-20 | `osInfo()` improved parsing (FreeBSD)                                                               |
+| 5.14.1  | 2022-11-20 | `memLayout()` bank descriptor cleanup (linux)                                                       |
+| 5.14.0  | 2022-11-19 | `blockDevices()` added raid group member (linux)                                                    |
+| 5.13.5  | 2022-11-18 | `users()` fix parsing issue (windows)                                                               |
+| 5.13.4  | 2022-11-18 | `users()` fix Get-CimInstance issue (windows)                                                       |
+| 5.13.3  | 2022-11-18 | `cpuTemperature()` fix main temp (linux)                                                            |
+| 5.13.2  | 2022-11-18 | `cpuTemperature()` fix main temp (linux)                                                            |
+| 5.13.1  | 2022-11-18 | `processLoad()` fix main pid (linux)                                                                |
+| 5.13.0  | 2022-11-17 | `networkConnections()` addedd process name (mac OS)                                                 |
+| 5.12.15 | 2022-11-16 | `networkConnections()` adapted parsing to reflect also UDP (mac OS)                                 |
+| 5.12.14 | 2022-11-11 | restored `powershell` compatibility for version 7.3 (windows)                                       |
+| 5.12.13 | 2022-11-06 | updated docs                                                                                        |
+| 5.12.12 | 2022-11-03 | fix typescript typings                                                                              |
+| 5.12.11 | 2022-10-27 | `wifiInterfaces()`, `wifiConnections` improved parsing (linux)                                      |
+| 5.12.10 | 2022-10-25 | `bluetooth()` adapted parsing to accept also new profile (mac OS)                                   |
+| 5.12.9  | 2022-10-24 | fix typescript typings, code cleanup, docs updated                                                  |
+| 5.12.8  | 2022-10-23 | `processes()` fix truncated commands (windows)                                                      |
+| 5.12.7  | 2022-10-15 | `versions()` fix postgres                                                                           |
+| 5.12.6  | 2022-08-18 | `networkConnections()` fix UDP (windows)                                                            |
+| 5.12.5  | 2022-08-11 | `cpu()` virtualization fix (mac OS)                                                                 |
+| 5.12.4  | 2022-08-09 | `cpuTemperature()` fix main (linux)                                                                 |
+| 5.12.3  | 2022-08-04 | `networkInterfaces()` operstate fix (mac OS)                                                        |
+| 5.12.2  | 2022-08-01 | `services()` Ubuntu 22.04 fix                                                                       |
+| 5.12.1  | 2022-07-14 | `cpuTemperature()` Apple Silicon support (see docs)                                                 |
+| 5.12.0  | 2022-07-12 | `cpu()` added performance and efficiency cores (linux)                                              |
+| 5.11.26 | 2022-07-12 | `cpu()` fix iussue parsing physical cores (linux)                                                   |
+| 5.11.25 | 2022-07-11 | `fsSize()` fix issue filtering (linux)                                                              |
+| 5.11.24 | 2022-07-10 | `fsSize()` fix parsing linux (df)                                                                   |
+| 5.11.23 | 2022-07-09 | `fsSize()` fixes (linux), `baseboard()` fix (windows), `cpuTemperatur()` fix linux                  |
+| 5.11.22 | 2022-06-24 | `processes()` improved parsing (linux, mac OS)                                                      |
+| 5.11.21 | 2022-06-17 | `fsSize()` fix parsing linux (df)                                                                   |
+| 5.11.20 | 2022-06-13 | `diskLayout()` fix parsing linux (JSON)                                                             |
+| 5.11.19 | 2022-06-13 | `diskLayout()` optimized parsing linux (JSON)                                                       |
+| 5.11.18 | 2022-06-13 | `diskLayout()` fix parsing linux (JSON)                                                             |
+| 5.11.17 | 2022-06-13 | `diskLayout()` fix parsing linux (JSON)                                                             |
+| 5.11.16 | 2022-05-30 | `docs` updated, `tests` added node 18                                                               |
+| 5.11.15 | 2022-05-11 | `audio()` fix typescript typings                                                                    |
+| 5.11.14 | 2022-04-22 | `netforkInterfaces()` node 18 compatibility                                                         |
+| 5.11.13 | 2022-04-21 | `networkStats()` improved scanning (mac OS)                                                         |
+| 5.11.12 | 2022-04-19 | `battery()` improved M1 support (mac OS)                                                            |
+| 5.11.11 | 2022-04-19 | `networkInterfaces()` improved parsing (windows)                                                    |
+| 5.11.10 | 2022-04-18 | updated docs                                                                                        |
+| 5.11.9  | 2022-03-20 | `diskLayout()` fixed issue smartStatus (linux)                                                      |
+| 5.11.8  | 2022-03-11 | `cpu()` improved socket detection by name (windows)                                                 |
+| 5.11.7  | 2022-03-10 | `cpuTemperature()` fix NaN issue (windows)                                                          |
+| 5.11.6  | 2022-03-01 | typescript typings fix `diskLayout()`                                                               |
+| 5.11.5  | 2022-02-26 | fixed parsing issues (windows)                                                                      |
+| 5.11.4  | 2022-02-20 | `powerShell` execution policy fix (windows)                                                         |
+| 5.11.3  | 2022-02-14 | updated docs                                                                                        |
+| 5.11.2  | 2022-02-05 | `powerShell` speed improvements (windows)                                                           |
+| 5.11.1  | 2022-02-03 | `osInfo()` fixed issue fqdn (openBSD)                                                               |
+| 5.11.0  | 2022-01-26 | `networkInterfaces()` added default property and parameter                                          |
+| 5.10.7  | 2022-01-21 | `processes()` reverted PR #560 (windows)                                                            |
+| 5.10.6  | 2022-01-21 | `usb()` fix `users()` fix tty (windows)                                                             |
+| 5.10.5  | 2022-01-19 | `processes()` fix calculation (windows)                                                             |
+| 5.10.4  | 2022-01-18 | `battery()` fix detection (windows)                                                                 |
+| 5.10.3  | 2022-01-17 | `system()` improved virtual detection (windows)                                                     |
+| 5.10.2  | 2022-01-17 | `uuid()` fix results (windows)                                                                      |
+| 5.10.1  | 2022-01-17 | `cpu()` fix manufacturer                                                                            |
+| 5.10.0  | 2022-01-09 | basic `Android` support                                                                             |
+| 5.9.18  | 2022-01-08 | `wifiConnections()` fix empty issue (mac OS)                                                        |
+| 5.9.17  | 2021-12-07 | `wifiNetworks()` fix empty issue (mac OS)                                                           |
+| 5.9.16  | 2021-12-05 | `wifiNetworks()` adaption for Apple silicon (mac OS)                                                |
+| 5.9.15  | 2021-11-19 | `cpuCache()` fix (windows)                                                                          |
+| 5.9.14  | 2021-11-17 | `versions()` python 2 monterey (deprecated warning) fix (mac OS)                                    |
+| 5.9.13  | 2021-11-14 | `time()` timezone name, `l1 cache` improvements                                                     |
+| 5.9.12  | 2021-11-13 | `users()` fix data check (windows)                                                                  |
+| 5.9.11  | 2021-11-12 | `fsStats()` fix null result (bsd)                                                                   |
+| 5.9.10  | 2021-11-11 | `powerShell` transition from `wmic` (windows)                                                       |
+| 5.9.9   | 2021-10-27 | `graphics()` fixed screen resolution issue (windows)                                                |
+| 5.9.8   | 2021-10-22 | `wmic` fixed code page issues (windows)                                                             |
+| 5.9.7   | 2021-10-09 | `battery()` fixed typo seperator (windows)                                                          |
+| 5.9.6   | 2021-10-08 | `system()` fixed virtual on WSL2                                                                    |
+| 5.9.5   | 2021-10-08 | `battery()` fixed isCharging (windows)                                                              |
+| 5.9.4   | 2021-09-23 | `processes()` fixed memVsz, Memrss (macOS M1)                                                       |
+| 5.9.3   | 2021-09-17 | `cpuTemperature()` improved tdie detection (linux)                                                  |
+| 5.9.2   | 2021-09-16 | `graohics()` (macOS), `memLayout()` (win) improvements                                              |
+| 5.9.1   | 2021-09-15 | `diskLayout()` fix size (macOS)                                                                     |
+| 5.9.0   | 2021-09-15 | `graphics()` new XML parser, added properties (macOS)                                               |
+| 5.8.9   | 2021-09-13 | `battery()` fix linux                                                                               |
+| 5.8.8   | 2021-09-11 | `wifiConnections()`, `wifiInterfaces()`, `wifiNetworks()` fix windows                               |
+| 5.8.7   | 2021-09-01 | `processes()` fix alpine linux                                                                      |
+| 5.8.6   | 2021-08-26 | `cpu()` improved detection (win)                                                                    |
+| 5.8.5   | 2021-08-26 | `osInfo()` hyper-v detection fix (win VM)                                                           |
+| 5.8.4   | 2021-08-26 | `graphics()` added vendor (macOS)                                                                   |
+| 5.8.3   | 2021-08-26 | `graphics()` fix empty controller (macOS)                                                           |
+| 5.8.2   | 2021-08-24 | `baseboard()`, `getDefaultNetworkInterface()` fix catch error                                       |
+| 5.8.1   | 2021-08-24 | `battery()` fix capacity                                                                            |
+| 5.8.0   | 2021-08-02 | `disksIO()` added waitTime, waitPercent (linux)                                                     |
+| 5.7.14  | 2021-08-01 | `cpu()` cache calculation fix (linux)                                                               |
+| 5.7.13  | 2021-07-28 | `osInfo()` fix uefi detection (win)                                                                 |
+| 5.7.12  | 2021-07-27 | `osInfo()` fix uefi detection (win)                                                                 |
+| 5.7.11  | 2021-07-27 | typescript typings fix `bluetoothDevices()`                                                         |
+| 5.7.10  | 2021-07-26 | typescript typings fix `processLoad()`                                                              |
+| 5.7.9   | 2021-07-25 | `uuid()` better regedit path detection (win)                                                        |
+| 5.7.8   | 2021-07-16 | `battery()` fix designedCapacity (win, linux), fix catch error                                      |
+| 5.7.7   | 2021-06-15 | `graphics()` improved detection screen resolution (macOS)                                           |
+| 5.7.6   | 2021-06-09 | `battery()` improved detection (additional batteries windows)                                       |
+| 5.7.5   | 2021-06-08 | `memLayout()` improved clock speed detection (windows)                                              |
+| 5.7.4   | 2021-05-27 | `osInfo()`, `cpu()` improved hypervisor, virtualization detection (windows)                         |
+| 5.7.3   | 2021-05-26 | `osInfo()` improved UEFI detection (windows)                                                        |
+| 5.7.2   | 2021-05-24 | `system()` virtual detection improvement                                                            |
+| 5.7.1   | 2021-05-20 | `graphics()` Check for qwMemorySize on Windows                                                      |
+| 5.7.0   | 2021-05-20 | `diskLayout()` added smartdata for win (if istalled)                                                |
+| 5.6.22  | 2021-05-18 | `diskLayout()` fixed to small buffer smartdata (linux)                                              |
+| 5.6.21  | 2021-05-14 | `graphics()` fixed dual gpu issue (macOS)                                                           |
+| 5.6.20  | 2021-05-07 | `system()` fixed vm detection (linux)                                                               |
+| 5.6.19  | 2021-05-06 | `services()` modified service listing (linux)                                                       |
+| 5.6.18  | 2021-05-06 | `processes()` fixed Windows mem bug (naming conform to all platforms)                               |
+| 5.6.17  | 2021-05-05 | `networkInterfaces()` fixed Windows XP bug (WMIC NetEnabled)                                        |
+| 5.6.16  | 2021-05-05 | `graphics()` fixed compare bug                                                                      |
+| 5.6.15  | 2021-05-05 | restored Node 4.x compatibility                                                                     |
+| 5.6.14  | 2021-05-04 | `networkGatewayDefault()` macOS improvement for active VPN                                          |
+| 5.6.13  | 2021-05-04 | `dockerImagesInspect()`, `dockerContainerInspect()`, `dockerContainerProcesses()` security updates  |
+| 5.6.12  | 2021-04-09 | `networkinterfaces()` windows detection fix                                                         |
+| 5.6.11  | 2021-04-08 | `versions()` parameter sanitation                                                                   |
+| 5.6.10  | 2021-03-29 | `vboxInfo()` fixed windows bug                                                                      |
+| 5.6.9   | 2021-03-28 | `graphics()` fixed nvidia-smi compare bug                                                           |
+| 5.6.8   | 2021-03-22 | typescript definitions fix `wifiInterfces()`, `wifiConnections()`                                   |
+| 5.6.7   | 2021-03-16 | `inetLatency()` `ineChecksite()` schema validation                                                  |
+| 5.6.6   | 2021-03-16 | code refactoring                                                                                    |
+| 5.6.5   | 2021-03-15 | `cpuTemperature()` fix (linux)                                                                      |
+| 5.6.4   | 2021-03-15 | `sanitizeShellString()` and other security improvements                                             |
+| 5.6.3   | 2021-03-14 | `sanitizeShellString()` improvement                                                                 |
+| 5.6.2   | 2021-03-10 | `networkInterfaces()` `cpu()` improvement (win)                                                     |
+| 5.6.1   | 2021-03-03 | `get()` fixed issue boolean parameters                                                              |
+| 5.6.0   | 2021-03-03 | `cpuTemperature()` added socket and chipset temp (linux)                                            |
+| 5.5.0   | 2021-02-25 | `dockerVolumes()` added                                                                             |
+| 5.4.0   | 2021-02-24 | `dockerImages()` added                                                                              |
+| 5.3.5   | 2021-02-23 | `dockerContainerStats()` fixed parameter *                                                          |
+| 5.3.4   | 2021-02-20 | `sanitizeShellString()` optimized strict sanitation                                                 |
+| 5.3.3   | 2021-02-15 | `dockerContainerStats()` fixed ID splitting                                                         |
+| 5.3.2   | 2021-02-15 | `inetLatency()` `ineChecksite()` fixed possible security issue (file://)                            |
+| 5.3.1   | 2021-02-14 | `inetLatency()` `ineChecksite()` `servcices()` `processes()` fixed possible security issue (arrays) |
+| 5.3.0   | 2021-02-12 | `osInfo()` added remoteSession (windows)                                                            |
+| 5.2.7   | 2021-02-12 | `fsStats()`, `blockDevices()` improved linux                                                        |
+| 5.2.6   | 2021-02-12 | `inetLatency()` fixed possible DOS intrusion                                                        |
+| 5.2.5   | 2021-02-11 | `processes()` fixed truncated params (linux)                                                        |
+| 5.2.4   | 2021-02-11 | `currentLoad()` fixed issue                                                                         |
+| 5.2.3   | 2021-02-11 | `diskLayout()` added USB drives (mac OS)                                                            |
+| 5.2.2   | 2021-02-11 | code cleanup, updated docs                                                                          |
+| 5.2.1   | 2021-02-10 | `system()` fixed issue virtual detect (linux)                                                       |
+| 5.2.0   | 2021-02-10 | `wifiInterfces()` and `wifiConnections()` added                                                     |
+| 5.1.2   | 2021-02-08 | fixed node 4 compatibility issue                                                                    |
+| 5.1.1   | 2021-02-08 | `baseboard()` added memMax, memSlots, smaller improvements Raspberry                                |
+| 5.1.0   | 2021-02-08 | `memLayout()` added ECC flag, `bios()` added language, features (linux)                             |
+| 5.0.11  | 2021-02-07 | `fsSize()` fixed windows WSL issue                                                                  |
+| 5.0.10  | 2021-02-06 | `getDynamicData()` fixed windows WSL issue                                                          |
+| 5.0.9   | 2021-02-02 | `fsSize()` fixed parsing edge case issue mac OS                                                     |
+| 5.0.8   | 2021-01-30 | typescript typings fix cpuCurrentSpeed                                                              |
+| 5.0.7   | 2021-01-29 | `fsSize()` available fixed windows and typescript typings                                           |
+| 5.0.6   | 2021-01-28 | `osinfo()` added hypervisor (win only)                                                              |
+| 5.0.5   | 2021-01-27 | `networkInterfaces()` type detection improved (win)                                                 |
+| 5.0.4   | 2021-01-27 | `cpu()` improved manufacturer decoding (linux)                                                      |
+| 5.0.3   | 2021-01-27 | `cpu()` fix virtualization, `wifi()` fix raspberry                                                  |
+| 5.0.2   | 2021-01-26 | updated typescript typings                                                                          |
+| 5.0.1   | 2021-01-26 | code cleanup                                                                                        |
+| 5.0.0   | 2021-01-26 | new major version 5 release                                                                         |
+| 4.34.9  | 2021-01-25 | `graphics()` virtual controller vram value fix (win)                                                |
+| 4.34.8  | 2021-01-25 | `graphics()` controller subDeviceId fix (win)                                                       |
+| 4.34.7  | 2021-01-13 | `services()` improved service discovery (linux)                                                     |
+| 4.34.6  | 2021-01-12 | `networkInterfaces()` catch errors                                                                  |
+| 4.34.5  | 2021-01-07 | `networkInterfaceDefault()` fixed CMD popup (windows)                                               |
+| 4.34.4  | 2021-01-06 | `system()` fixed vitrual catch error                                                                |
+| 4.34.3  | 2021-01-06 | `graphics()` fixed non nvidia-smi controllers (win)                                                 |
+| 4.34.2  | 2021-01-05 | `system()` uuid lowercase as in uuid()                                                              |
+| 4.34.1  | 2021-01-05 | `graphics()` nvidia-smi detection improved                                                          |
+| 4.34.0  | 2021-01-05 | `system()` added flag virtual                                                                       |
+| 4.33.8  | 2021-01-04 | `virtualBox()` fix issue windows host                                                               |
+| 4.33.7  | 2021-01-04 | `graphics()` nvidia-smi detection improved                                                          |
+| 4.33.6  | 2021-01-02 | `dockerContainerStats()` fix `tx` changed to `wx` as documented                                     |
+| 4.33.5  | 2020-12-30 | `graphics()` vram (nvidia-smi)                                                                      |
+| 4.33.4  | 2020-12-28 | `typescript` typings fix                                                                            |
+| 4.33.3  | 2020-12-27 | `graphics()` updated docs                                                                           |
+| 4.33.2  | 2020-12-27 | `graphics()` fixed issue (nvidia-smi)                                                               |
+| 4.33.1  | 2020-12-22 | `versions()` fixed issue (mac OS)                                                                   |
+| 4.33.0  | 2020-12-21 | `graphics()` nvidia-smi support (linux, windows)                                                    |
+| 4.32.0  | 2020-12-14 | `graphics()` clinfo support (linux)                                                                 |
+| 4.31.2  | 2020-12-14 | `graphics()` Windows 7 Graphics Fixes (Multi Monitor)                                               |
+| 4.31.1  | 2020-12-11 | `inetLatency()` command injection vulnaribility fix                                                 |
+| 4.31.0  | 2020-12-06 | `osInfo()` added FQDN                                                                               |
+| 4.30.11 | 2020-12-02 | `cpu()` bug fix speed parsing                                                                       |
+| 4.30.10 | 2020-12-01 | `cpu()` handled speed parsing error (Apple Silicon)                                                 |
+| 4.30.9  | 2020-12-01 | `cpu()` corrected processor names (Raspberry Pi)                                                    |
+| 4.30.8  | 2020-11-30 | `fsSize()` catch error (mac OS)                                                                     |
+| 4.30.7  | 2020-11-29 | `cpuTemperature()` rewrite hwmon parsing                                                            |
+| 4.30.6  | 2020-11-27 | wmic added default windows path (windows)                                                           |
+| 4.30.5  | 2020-11-26 | adapted security update (prototype pollution prevention)                                            |
+| 4.30.4  | 2020-11-25 | reverted Object.freeze because it broke some projects                                               |
+| 4.30.3  | 2020-11-25 | security update (prototype pollution prevention) Object.freeze                                      |
+| 4.30.2  | 2020-11-25 | security update (prototype pollution prevention)                                                    |
+| 4.30.1  | 2020-11-12 | updated docs                                                                                        |
+| 4.30.0  | 2020-11-12 | `get()` possibility to provide params                                                               |
+| 4.29.3  | 2020-11-09 | `blockdevices()` catch errors adapted for just one line                                             |
+| 4.29.2  | 2020-11-09 | `blockdevices()` catch errors                                                                       |
+| 4.29.1  | 2020-11-08 | `cpu()`, `system()` better parsing Raspberry Pi revision codes                                      |
+| 4.29.0  | 2020-11-08 | `fsSize()` correct fs type detection macOS (HFS, APFS, NFS)                                         |
+| 4.28.1  | 2020-11-05 | code cleanup, removing debug console.log()                                                          |
+| 4.28.0  | 2020-11-04 | `graphics()` added deviceName (windows)                                                             |
+| 4.27.11 | 2020-10-26 | `inetChecksite()` fixed vulnerability: command injection                                            |
+| 4.27.10 | 2020-10-16 | `dockerContainers()` resolved hanging issue                                                         |
+| 4.27.9  | 2020-10-13 | `networkInterfaces()` loopback internal detection (windows)                                         |
+| 4.27.8  | 2020-10-08 | windows codepages partial fix                                                                       |
+| 4.27.7  | 2020-10-05 | updated typescript typings, minor fixes                                                             |
+| 4.27.6  | 2020-10-02 | `get()` fixed when results are in arrays                                                            |
+| 4.27.5  | 2020-09-18 | `cpuTemperature()` fix try catch (linux)                                                            |
+| 4.27.4  | 2020-09-16 | `networkInterfaceDefault()` optimization (macOS)                                                    |
+| 4.27.3  | 2020-08-26 | updated typescript typings                                                                          |
+| 4.27.2  | 2020-08-26 | fixed issue breaking node v4 compatibility                                                          |
+| 4.27.1  | 2020-08-25 | `networkStats()` fixed packages dropped (linux)                                                     |
+| 4.27.0  | 2020-08-24 | `observe()` added function to observe/watch system parameters                                       |
+| 4.26.12 | 2020-08-21 | `versions()` fixed issue windows                                                                    |
+| 4.26.11 | 2020-08-20 | `cpuTemperature()` fixed issue windows                                                              |
+| 4.26.10 | 2020-07-16 | `networkStats()` fixed issue blocking windows                                                       |
+| 4.26.9  | 2020-06-06 | `networkStats()` fixed comparison issue windows                                                     |
+| 4.26.8  | 2020-06-06 | `networkInterfaces()` fixed caching issue                                                           |
+| 4.26.7  | 2020-06-06 | `cpuTemperature()` fixed raspberry pi sensors issue                                                 |
+| 4.26.6  | 2020-06-03 | `diskLayout()` fixed issue linux                                                                    |
+| 4.26.5  | 2020-05-27 | `cpuTemperature()` optimizes scanning AMD linux sensors                                             |
+| 4.26.4  | 2020-05-21 | `cpuTemperature()` fix (BSD), code cleanup                                                          |
+| 4.26.3  | 2020-05-20 | updated documentation (macOS temperature)                                                           |
+| 4.26.2  | 2020-05-19 | `processes()` memory leak fix                                                                       |
+| 4.26.1  | 2020-05-13 | code cleanup                                                                                        |
+| 4.26.0  | 2020-05-12 | `diskLayout()` added full smart data where supported                                                |
+| 4.25.2  | 2020-05-12 | `getDynamicData()` added wifiNetworks()                                                             |
+| 4.25.1  | 2020-05-07 | `get()` minor bounds test fix, updated docs                                                         |
+| 4.25.0  | 2020-05-07 | `get()` added function to get partial system info                                                   |
+| 4.24.2  | 2020-05-06 | `cpu()` fix (BSD), `networkStats()` fix BSD                                                         |
+| 4.24.1  | 2020-05-03 | `processes()` fix parsing command and params                                                        |
+| 4.24.0  | 2020-05-01 | `networkInterfaces()` added subnet mask ip4 and ip6                                                 |
+| 4.23.10 | 2020-05-01 | `cpuTemperature()` optimized parsing linux                                                          |
+| 4.23.9  | 2020-04-29 | `currentLoad()` workaround for no os.cpus info                                                      |
+| 4.23.8  | 2020-04-26 | `getMacAddresses()` fix added try catch                                                             |
+| 4.23.7  | 2020-04-26 | `getCpuCurrentSpeedSync()` workaround fix                                                           |
+| 4.23.6  | 2020-04-25 | `networkGatewayDefault()` bug fix no interfaces                                                     |
+| 4.23.5  | 2020-04-20 | updated docs                                                                                        |
+| 4.23.4  | 2020-04-20 | `users()` optimized parseDateTime function                                                          |
+| 4.23.3  | 2020-04-09 | refactored to avoid `cat`                                                                           |
+| 4.23.2  | 2020-04-08 | `cpu()` fixed getting base frequency for AMD Ryzen                                                  |
+| 4.23.1  | 2020-03-11 | `diskLayout()` optimized detection linux                                                            |
+| 4.23.0  | 2020-03-08 | `versions()` added param to specify which program/lib versions to detect                            |
+| 4.22.7  | 2020-03-08 | `diskLayout()` fixed linux                                                                          |
+| 4.22.6  | 2020-03-08 | `network()` fixed DHCP linux                                                                        |
+| 4.22.5  | 2020-03-04 | `graphics()` fixed vram macOS                                                                       |
+| 4.22.4  | 2020-03-01 | `versions()` added dotnet, typings fix                                                              |
+| 4.22.3  | 2020-02-20 | `memLayout()` code cleanup                                                                          |
+| 4.22.2  | 2020-02-19 | `memLayout()` raspberry PI mem voltage fix                                                          |
+| 4.22.1  | 2020-02-17 | `memLayout()` raspberry PI support                                                                  |
+| 4.22.0  | 2020-02-17 | `services()` added pids (windows)                                                                   |
+| 4.21.3  | 2020-02-16 | `versions()` fixed mysql version (macOS)                                                            |
+| 4.21.2  | 2020-02-11 | `networkConnections()` fixed linux (debian) issue                                                   |
+| 4.21.1  | 2020-01-31 | `networkGatewayDefault()` fixed windows 7 issue                                                     |
+| 4.21.0  | 2020-01-27 | `npx` compatibility                                                                                 |
+| 4.20.1  | 2020-01-26 | `battery()` code refactoring, cleanup, updated docs                                                 |
+| 4.20.1  | 2020-01-26 | `battery()` code refactoring, cleanup, updated docs                                                 |
+| 4.20.0  | 2020-01-25 | `battery()` added designCapacity, voltage, unit                                                     |
+| 4.19.4  | 2020-01-24 | `mem()` prevent log messages, `memgetDefaultNetworkInterface()` catch errors                        |
+| 4.19.3  | 2020-01-24 | `memLayout()` bank info fix macOS                                                                   |
+| 4.19.2  | 2020-01-19 | `cpu()` muli-processor fix windows                                                                  |
+| 4.19.1  | 2020-01-14 | `osInfo()` uefi fix windows                                                                         |
+| 4.19.0  | 2020-01-12 | `osInfo()` added uefi                                                                               |
+| 4.18.3  | 2020-01-10 | `fsSize()` fix excluding loop/snap devices                                                          |
+| 4.18.2  | 2020-01-10 | `memLayout()` fix memsize linux (modules >= 32 GB)                                                  |
+| 4.18.1  | 2020-01-07 | updated docs                                                                                        |
+| 4.18.0  | 2020-01-07 | `networkInterfaces()` added dhcp for mac os, added dhcp linux fallback                              |
+| 4.17.3  | 2020-01-05 | code cleanup                                                                                        |
+| 4.17.2  | 2020-01-05 | `cpu().speed` AMD base frequency and fix (0.00)                                                     |
+| 4.17.1  | 2020-01-04 | `fsSize()` alpine linux support                                                                     |
+| 4.17.0  | 2020-01-04 | `networkInterfaces()` added dhcp, dnsSuffix, ieee8021xAuth, ieee8021xState                          |
+| 4.16.1  | 2020-01-02 | `networkInterfaces()` bug fix (osx)                                                                 |
+| 4.16.0  | 2019-11-27 | `networkGatewayDefault()` added                                                                     |
+| 4.15.3  | 2019-11-10 | type definitions and docs update                                                                    |
+| 4.15.2  | 2019-11-10 | `mem()` improved calculation linux                                                                  |
+| 4.15.1  | 2019-11-10 | `diskLayout()` added support for older lsblk versions (linux)                                       |
+| 4.15.0  | 2019-11-10 | `cpu()` added governor (linux)                                                                      |
+| 4.14.17 | 2019-10-22 | `graphics()` improved display detection (windows)                                                   |
+| 4.14.16 | 2019-10-19 | `graphics()` improved display detection (windows)                                                   |
+| 4.14.15 | 2019-10-18 | `graphics()` fallback display detection (windows)                                                   |
+| 4.14.14 | 2019-10-18 | `powerShell()` fixed error handling (windows)                                                       |
+| 4.14.13 | 2019-10-15 | `networkConnections()` fixed parsing (linux)                                                        |
+| 4.14.12 | 2019-10-14 | `getCpu()` fixed multi socket detection (linux)                                                     |
+| 4.14.11 | 2019-10-01 | type definitions fix dockerInfo                                                                     |
+| 4.14.10 | 2019-10-01 | type definitions fix memLayout                                                                      |
+| 4.14.9  | 2019-10-01 | `processLoad()` fix windows                                                                         |
+| 4.14.8  | 2019-08-22 | `parseDateTime()` fix coding error                                                                  |
+| 4.14.7  | 2019-08-22 | `battery()` windows acconnected improvement                                                         |
+| 4.14.6  | 2019-08-22 | `users()` improved date time parsing                                                                |
+| 4.14.5  | 2019-08-22 | `fsSize()` fix windows result as number                                                             |
+| 4.14.4  | 2019-07-20 | `verions()` fix pip, pip3                                                                           |
+| 4.14.3  | 2019-07-09 | `system()` sku fix windows                                                                          |
+| 4.14.2  | 2019-07-07 | `networkConnections()` pid linux fix NAN                                                            |
+| 4.14.1  | 2019-07-04 | `graphics()` added display position windows                                                         |
+| 4.14.0  | 2019-07-03 | `processes()` added process path and params                                                         |
+| 4.13.2  | 2019-07-02 | `versions()` fix getting all versions                                                               |
+| 4.13.1  | 2019-07-01 | `versions()` gcc fix macos                                                                          |
+| 4.13.0  | 2019-07-01 | `networkConnections()` added PID and process                                                        |
+| 4.12.2  | 2019-06-24 | `system()` added Raspberry PI 4 detection                                                           |
+| 4.12.1  | 2019-06-24 | `networkInterface()` virtual interfaces macos, `networkInterfaceDefault()`                          |
+| 4.12.0  | 2019-06-21 | `networkInterface()` added property virtual                                                         |
+| 4.11.6  | 2019-06-19 | `util` bug fix                                                                                      |
+| 4.11.5  | 2019-06-19 | `dockerAll()` bug fix                                                                               |
+| 4.11.4  | 2019-06-17 | type definitions bug fix                                                                            |
+| 4.11.3  | 2019-06-16 | `graphics()` optimization windows                                                                   |
+| 4.11.2  | 2019-06-16 | `wifiNetworks()` bug fixes                                                                          |
+| 4.11.1  | 2019-06-15 | updated docs                                                                                        |
+| 4.11.0  | 2019-06-14 | `wifiNetworks()` added available wifi networks                                                      |
+| 4.10.0  | 2019-06-14 | `graphics()` windows multiple display support                                                       |
+| 4.9.2   | 2019-06-12 | type definitions bug fix                                                                            |
+| 4.9.1   | 2019-06-11 | `networkStats()` bug fix windows                                                                    |
+| 4.9.0   | 2019-06-03 | `graphics()` added vendor, refresh rate, current res                                                |
+| 4.8.4   | 2019-06-03 | `vboxInfo()` fixed call parameters                                                                  |
+| 4.8.3   | 2019-06-01 | `vboxInfo()` added stoppedSince, started, stopped                                                   |
+| 4.8.2   | 2019-05-31 | `dockerInfo()` changed property naming style                                                        |
+| 4.8.1   | 2019-05-31 | updated docs                                                                                        |
+| 4.8.0   | 2019-05-31 | added `vboxInfo()` detailed virtual box info                                                        |
+| 4.7.3   | 2019-05-30 | updated typescript typings                                                                          |
+| 4.7.2   | 2019-05-30 | `versions()` added virtualbox, java popup fix macos                                                 |
+| 4.7.1   | 2019-05-29 | `memLayout()` fix macos mojave                                                                      |
+| 4.7.0   | 2019-05-29 | partial netBSD support                                                                              |
+| 4.6.1   | 2019-05-29 | get wmic path - fic windows                                                                         |
+| 4.6.0   | 2019-05-27 | added `dockerInfo()`                                                                                |
+| 4.5.1   | 2019-05-17 | updated docs                                                                                        |
+| 4.5.0   | 2019-05-17 | `fsOpenFiles()` added open file descriptor count                                                    |
+| 4.4.1   | 2019-05-11 | updated docs                                                                                        |
+| 4.4.0   | 2019-05-11 | `dockerContainers()` added started, finished time                                                   |
+| 4.3.0   | 2019-05-09 | `dockerContainers()` `dockerStats()` added restartCount                                             |
+| 4.2.1   | 2019-05-09 | `networkInterfaceDefault()` time delay fix (linux)                                                  |
+| 4.2.0   | 2019-05-09 | `osInfo()` extended service pack version (windows)                                                  |
+| 4.1.8   | 2019-05-09 | `graphics()` resolve on error (windows)                                                             |
+| 4.1.7   | 2019-05-09 | `users()` parsing fix (windows)                                                                     |
+| 4.1.6   | 2019-04-24 | `memory()` swap used fix (linux)                                                                    |
+| 4.1.5   | 2019-04-19 | refactored `wmic` calls to work also on Windows XP                                                  |
+| 4.1.4   | 2019-03-26 | `networkInterfaces()` speed bug (windows)                                                           |
+| 4.1.3   | 2019-03-24 | wmic path detection (windows)                                                                       |
+| 4.1.2   | 2019-03-23 | updated docs                                                                                        |
+| 4.1.1   | 2019-03-13 | updated typescript typings                                                                          |
+| 4.1.0   | 2019-03-13 | `versions()` added pip, pip3                                                                        |
+| 4.0.16  | 2019-03-12 | Happy birthday - 5th aniversary                                                                     |
+| 4.0.15  | 2019-03-02 | `versions()` added java, python3, optimized gcc                                                     |
+| 4.0.14  | 2019-03-01 | updated typescript typings                                                                          |
+| 4.0.13  | 2019-03-01 | `diskLayout()` added device (/dev/sda...) linux, mac                                                |
+| 4.0.12  | 2019-03-01 | `diskLayout()` linux rewritten - better detection                                                   |
+| 4.0.11  | 2019-02-23 | `users()` fix windows (time), added @ts-check                                                       |
+| 4.0.10  | 2019-02-10 | `networkInterfaceDefault()` fix windows                                                             |
+| 4.0.9   | 2019-02-08 | `cpu()` fix, code cleanup                                                                           |
+| 4.0.8   | 2019-02-05 | `inetLatency()` Windows fix parse chinese output                                                    |
+| 4.0.7   | 2019-02-05 | `inetLatency()` Windows fix                                                                         |
+| 4.0.6   | 2019-02-04 | powershell catch error                                                                              |
+| 4.0.5   | 2019-02-03 | updated docs                                                                                        |
+| 4.0.4   | 2019-02-03 | code cleanup, updated docs                                                                          |
+| 4.0.3   | 2019-02-03 | `networkInterfaces(), chassis()` fixed two more issues                                              |
+| 4.0.2   | 2019-02-03 | `networkInterfaces(), chassis()` fixed smaller issues                                               |
+| 4.0.1   | 2019-02-02 | updated docs                                                                                        |
+| 4.0.0   | 2019-02-02 | new major version                                                                                   |
+| 3.54.0  | 2018-12-30 | added TypeScript type definitions                                                                   |
+| 3.53.1  | 2018-12-29 | `versions()` bug fix nginx version                                                                  |
+| 3.53.0  | 2018-12-29 | `versions()` added perl, python, gcc                                                                |
+| 3.52.7  | 2018-12-29 | `versions()` bug fix macOS detection                                                                |
+| 3.52.6  | 2018-12-28 | `versions()` bug fix macOS                                                                          |
+| 3.52.5  | 2018-12-28 | preparing automated tests, travis-ci integration, added dev-dependencies                            |
+| 3.52.4  | 2018-12-27 | `graphics().controllers` bugfix linux                                                               |
+| 3.52.3  | 2018-12-27 | `os().codepage` bugfix                                                                              |
+| 3.52.2  | 2018-12-17 | code cleanup                                                                                        |
+| 3.52.1  | 2018-12-17 | `inetChecksite()` bugfix windows                                                                    |
+| 3.52.0  | 2018-12-15 | `cpu()` added physical cores, processors, socket type                                               |
+| 3.51.4  | 2018-12-05 | `versions()` bugfix, optimization postgres                                                          |
+| 3.51.3  | 2018-11-27 | `mem()` refactoring parsing linux, code cleanup                                                     |
+| 3.51.2  | 2018-11-26 | `mem()` bugfix parsing `free` output linux                                                          |
+| 3.51.1  | 2018-11-26 | `processLoad()` bugfix windows                                                                      |
+| 3.51.0  | 2018-11-25 | `processLoad()` added for windows                                                                   |
+| 3.50.3  | 2018-11-25 | `processLoad()`, `services()` fixed cpu data (linux)                                                |
+| 3.50.2  | 2018-11-23 | network mac adresses: ip support fix                                                                |
+| 3.50.1  | 2018-11-23 | `services()` added possibility to specify ALL services "*" for win                                  |
+| 3.50.0  | 2018-11-23 | `services()` added possibility to specify ALL services "*" for linux                                |
+| 3.49.4  | 2018-11-21 | `battery()` timeremaining optimization (linux) thanks to Jorai Rijsdijk                             |
+| 3.49.3  | 2018-11-20 | `memLayout()` optimized parsing (win)                                                               |
+| 3.49.2  | 2018-11-19 | code cleanup                                                                                        |
+| 3.49.1  | 2018-11-19 | `cpu().brand` removed extra spaces, tabs                                                            |
+| 3.49.0  | 2018-11-19 | added system `uuid()` (os specific), `versions()` added postgresql                                  |
+| 3.48.4  | 2018-11-18 | windows: garbled output because of codepage                                                         |
+| 3.48.3  | 2018-11-18 | `dockerContainerStats()` fixed issue `cpu_percent` win                                              |
+| 3.48.2  | 2018-11-18 | `dockerContainerStats()` fixed issue `cpu_percent`, win exec                                        |
+| 3.48.1  | 2018-11-17 | `docker...()` fixed issue parsing docker socket JSON                                                |
+| 3.48.0  | 2018-11-17 | `diskLayout()` better interface detection (WIN), `osInfo()` added build, serial                     |
+| 3.47.0  | 2018-11-06 | `versions()` added docker, postfix                                                                  |
+| 3.46.0  | 2018-11-05 | fixed issue `versions()`, added system openssl version                                              |
+| 3.45.10 | 2018-11-03 | fixed issue `battery()`, modified `package.json` - files                                            |
+| 3.45.9  | 2018-10-22 | fixed node 4 incompatibility                                                                        |
+| 3.45.8  | 2018-10-22 | `system()` fix Raspberry Pi detection                                                               |
+| 3.45.7  | 2018-10-05 | fixed typos                                                                                         |
+| 3.45.6  | 2018-09-12 | `mem()` bug parsing linux in other languages                                                        |
+| 3.45.5  | 2018-09-07 | `diskLayout()` tiny bug S.M.A.R.T status windows                                                    |
+| 3.45.4  | 2018-09-06 | added icon to README.md                                                                             |
+| 3.45.3  | 2018-09-06 | `diskLayout()` optimized media type detection (HD, SSD) on Windows                                  |
+| 3.45.2  | 2018-09-05 | updated imags shields icons                                                                         |
+| 3.45.1  | 2018-09-05 | updated documentation                                                                               |
+| 3.45.0  | 2018-09-04 | `diskLayout()` added smartStatus                                                                    |
+| 3.44.2  | 2018-08-28 | added code quality badges                                                                           |
+| 3.44.1  | 2018-08-28 | code cleanup                                                                                        |
+| 3.44.0  | 2018-08-25 | `battery()` bugfix & added type, model, manufacturer, serial                                        |
+| 3.43.0  | 2018-08-25 | `cpuCurrentspeed()` added cpu speed for all cores                                                   |
+| 3.42.10 | 2018-08-25 | `processes()` optimized start time parsing                                                          |
+| 3.42.9  | 2018-08-08 | `cpuTemperature()` optimized parsing                                                                |
+| 3.42.8  | 2018-08-03 | updated docs                                                                                        |
+| 3.42.7  | 2018-08-03 | `processes()` optimized parsing ps name                                                             |
+| 3.42.6  | 2018-08-03 | `processes()` bugfix parsing ps linux                                                               |
+| 3.42.5  | 2018-08-03 | `processes()` bugfix parsing ps linux                                                               |
+| 3.42.4  | 2018-07-09 | `cpuTemperature()` bugfix parsing negative values                                                   |
+| 3.42.3  | 2018-07-05 | `services()` bugfix not finding services with capital letters                                       |
+| 3.42.2  | 2018-07-03 | `users()` optimized results if lack of permissions                                                  |
+| 3.42.1  | 2018-07-03 | `versions()` bugfix git version macOS                                                               |
+| 3.42.0  | 2018-06-01 | `processes()` added parent process PID                                                              |
+| 3.41.4  | 2018-05-28 | windows exec WMIC path detection (windows) in try catch                                             |
+| 3.41.3  | 2018-05-13 | improved SunOS support `getStaticData()`, `getDynamicData()`                                        |
+| 3.41.2  | 2018-05-13 | bugfix `system()` and `flags()` Raspberry Pi                                                        |
+| 3.41.1  | 2018-05-11 | updated docs                                                                                        |
+| 3.41.0  | 2018-05-11 | `system()` Raspberry Pi bugfix and extended detection, added partial `SunOS` support                |
+| 3.40.1  | 2018-05-10 | bugfix `system().sku` (windows)                                                                     |
+| 3.40.0  | 2018-04-29 | extended `versions()` (php, redis, mongodb)                                                         |
+| 3.39.0  | 2018-04-29 | added `versions().mysql` and `versions().nginx`, starting `SunOS` support (untested)                |
+| 3.38.0  | 2018-04-06 | added `battery().acconnected`                                                                       |
+| 3.37.12 | 2018-04-05 | another optimization `battery().ischarging` for macOS                                               |
+| 3.37.11 | 2018-04-05 | another optimization `battery().ischarging` for macOS                                               |
+| 3.37.10 | 2018-04-05 | `battery().ischarging` optimized for macOS                                                          |
+| 3.37.9  | 2018-04-03 | optimized `processes()`, bugfix `networkInterfaceDefault()`                                         |
+| 3.37.8  | 2018-03-25 | optimized `networkDefaultInterface()` detection, fixed network `operstate` MacOS                    |
+| 3.37.7  | 2018-03-13 | celebrating 4th birthday                                                                            |
+| 3.37.6  | 2018-03-12 | updated docs: fixed `diskLayout`and `mamlayout`                                                     |
+| 3.37.5  | 2018-03-12 | added support for `ip` instead of `ifconfig`                                                        |
+| 3.37.4  | 2018-02-22 | bugfix windows `processes()`, `disklayout()`                                                        |
+| 3.37.3  | 2018-02-19 | added windows exec `windowsHide` option                                                             |
+| 3.37.2  | 2018-02-15 | fixed bug `battery().percent` for macOS                                                             |
+| 3.37.1  | 2018-02-13 | fixed bug `battery().ischarging` for macOS                                                          |
+| 3.37.0  | 2018-02-11 | extended FreeBSD support `networkStats()`                                                           |
+| 3.36.   |
+| 0       | 2018-02-11 | extended FreeBSD support `networkConnections()`                                                     |
+| 3.35.0  | 2018-02-11 | extended FreeBSD support `processLoad()`                                                            |
+| 3.34.1  | 2018-02-11 | updated docs                                                                                        |
+| 3.34.0  | 2018-02-10 | first partial FreeBSD support                                                                       |
+| 3.33.15 | 2018-01-21 | optimized OSX battery                                                                               |
+| 3.33.14 | 2018-01-17 | bugfix `diskLayout()` (Windows)                                                                     |
+| 3.33.13 | 2018-01-12 | bugfix `memLayout()` (Windows)                                                                      |
+| 3.33.12 | 2017-12-25 | fixed typos                                                                                         |
+| 3.33.11 | 2017-12-17 | updated docs                                                                                        |
+| 3.33.10 | 2017-12-14 | bugfix WMIC path detection (windows) blockDevice parse (Windows 7)                                  |
+| 3.33.9  | 2017-12-14 | bugfix WMIC path detection (windows) not found (Windows)                                            |
+| 3.33.8  | 2017-12-02 | bugfix diskLayout().size (OSX)                                                                      |
+| 3.33.7  | 2017-11-28 | bugfix diskLayout().size                                                                            |
+| 3.33.6  | 2017-11-16 | bugfix diskLayout().size                                                                            |
+| 3.33.5  | 2017-11-09 | code cleanup                                                                                        |
+| 3.33.4  | 2017-11-09 | bugfix graphics controller win (bytes)                                                              |
+| 3.33.3  | 2017-11-08 | bugfix cpu speed arm - type                                                                         |
+| 3.33.2  | 2017-11-08 | bugfix cpu speed arm                                                                                |
+| 3.33.1  | 2017-11-07 | improved bios and main board information                                                            |
+| 3.33.0  | 2017-11-07 | added bios and main board information                                                               |
+| 3.32.4  | 2017-11-02 | AMD cpu base frequencies table also for windows                                                     |
+| 3.32.3  | 2017-11-02 | code cleanup, AMD cpu base frequencies table                                                        |
+| 3.32.2  | 2017-11-01 | bugfix JSON.parse error `blockDevices()`                                                            |
+| 3.32.1  | 2017-10-23 | updated docs                                                                                        |
+| 3.32.0  | 2017-10-23 | extended `memLayout()` - added manufacturer                                                         |
+| 3.31.4  | 2017-10-21 | updated `README.md`                                                                                 |
+| 3.31.3  | 2017-10-21 | bugfix `graphics()`, fixed typo `README.md`                                                         |
+| 3.31.2  | 2017-10-16 | bugfix `graphics()` vendor and model parsing linux VGA/3D                                           |
+| 3.31.1  | 2017-10-16 | bugfix `graphics()` vendor and model parsing linux                                                  |
+| 3.31.0  | 2017-10-15 | extended windows support `cpuFlags()` (partially)                                                   |
+| 3.30.6  | 2017-10-05 | updated community profile                                                                           |
+| 3.30.5  | 2017-10-05 | bugfix `users()` - parsing values on windows                                                        |
+| 3.30.4  | 2017-10-03 | bugfix `cpuTemperature()` - parsing values on windows                                               |
+| 3.30.3  | 2017-10-03 | bugfix `cpuTemperature()` - max value on windows                                                    |
+| 3.30.2  | 2017-09-26 | bugfix `networkInterfaces()` - optimized ip6 address selection                                      |
+| 3.30.1  | 2017-09-21 | bugfix/typo `inetChecksite()`                                                                       |
+| 3.30.0  | 2017-09-21 | extended `versions()` (added `yarn`, `gulp`, `grunt`, `tsc`, `git`)                                 |
+| 3.29.0  | 2017-09-15 | extended windows support `services()`, optimized `diskLayout()` (OSX), bugfixes                     |
+| 3.28.0  | 2017-09-14 | extended windows support `processes()`                                                              |
+| 3.27.1  | 2017-09-13 | updated Raspberry version detection `system()` (Pi 3, Zero)                                         |
+| 3.27.0  | 2017-09-12 | added raw data to `currentLoad()`, fixed `networkInterfaces()` MAC problem node 8.x                 |
+| 3.26.2  | 2017-09-01 | removed redundant code                                                                              |
+| 3.26.1  | 2017-08-23 | fixed `cpu().speed` windows / AMD, updated docs                                                     |
+| 3.26.0  | 2017-08-21 | extended `getDynamicData()` (windows), updated docs                                                 |
+| 3.25.1  | 2017-08-07 | updated docs                                                                                        |
+| 3.25.0  | 2017-08-07 | improved windows support `networkStats()`, `cpuCache()`, bug fix `getStaticData()`                  |
+| 3.24.0  | 2017-08-05 | extended windows support `networkStats()`, `networkConnections()`                                   |
+| 3.23.7  | 2017-07-11 | bug fix `diskLayout()`                                                                              |
+| 3.23.6  | 2017-07-11 | added `cpuFlags()` to `getStaticData()`, bug fix `graphics()` (Win)                                 |
+| 3.23.5  | 2017-06-29 | bug fix `inetChecksite()`                                                                           |
+| 3.23.4  | 2017-06-24 | bug fix `getDynamicData(), getAllData() - mem`                                                      |
+| 3.23.3  | 2017-06-23 | updated docs                                                                                        |
+| 3.23.2  | 2017-06-23 | bug fix `battery` (windows)                                                                         |
+| 3.23.1  | 2017-06-22 | updated docs                                                                                        |
+| 3.23.0  | 2017-06-22 | added `memLayout`, `diskLayout`, extended windows support (`inetChecksite`)                         |
+| 3.22.0  | 2017-06-19 | extended windows support (`users`, `inetLatency`)                                                   |
+| 3.21.0  | 2017-06-18 | extended time (timezone), extended windows support (battery, getAll...)                             |
+| 3.20.1  | 2017-06-17 | updated docs                                                                                        |
+| 3.20.0  | 2017-06-16 | extend WIN support (cpu, cpuCache, cpuCurrentspeed, mem, networkInterfaces, docker)                 |
+| 3.19.0  | 2017-06-12 | OSX temperature now an optional dependency                                                          |
+| 3.18.0  | 2017-05-27 | extended `cpu` info (vendor, family, model, stepping, revision, cache, speedmin/max)                |
+| 3.17.3  | 2017-04-29 | minor fix (blockDevices data array, Windows)                                                        |
+| 3.17.2  | 2017-04-24 | minor fix (removed console.log)                                                                     |
+| 3.17.1  | 2017-04-23 | fixed bugs fsSize(win), si.processes (command), si.osinfo(win)                                      |
+| 3.17.0  | 2017-02-19 | windows support for some first functions, extended process list (linux)                             |
+| 3.16.0  | 2017-01-19 | blockDevices: added removable attribute + fix                                                       |
+| 3.15.1  | 2017-01-17 | minor cpuTemperature fix (OSX)                                                                      |
+| 3.15.0  | 2017-01-15 | added cpuTemperature also for OSX                                                                   |
+| 3.14.0  | 2017-01-14 | added currentLoad per cpu/core, cpu cache and cpu flags                                             |
+| 3.13.0  | 2016-11-23 | added shell (returns standard shell)                                                                |
+| 3.12.0  | 2016-11-17 | refactoring and extended currentLoad                                                                |
+| 3.11.2  | 2016-11-16 | blockDevices: improved for older lsblk versions                                                     |
+| 3.11.1  | 2016-11-16 | fixed small bug in blockDevices                                                                     |
+| 3.11.0  | 2016-11-15 | blockDevices for OSX and extended blockDevices                                                      |
+| 3.10.2  | 2016-11-14 | bug fix fsSize on OSX                                                                               |
+| 3.10.1  | 2016-11-14 | optimization fsStats, disksIO, networkStats                                                         |
+| 3.10.0  | 2016-11-12 | added blockDevices, fixed fsSize, added file system type                                            |
+| 3.9.0   | 2016-11-11 | added MAC address to networkInterfaces, fixed currentLoad                                           |
+| 3.8.1   | 2016-11-04 | updated docs                                                                                        |
+| 3.8.0   | 2016-11-04 | added dockerContainerProcesses                                                                      |
+| 3.7.1   | 2016-11-03 | code refactoring                                                                                    |
+| 3.7.0   | 2016-11-02 | extended docker stats, and no longer relying on curl                                                |
+| 3.6.0   | 2016-09-14 | added versions (kernel, ssl, node, npm, pm2, ...)                                                   |
+| 3.5.1   | 2016-09-14 | bugfix graphics info                                                                                |
+| 3.5.0   | 2016-09-14 | added graphics info (controller, display)                                                           |
+| 3.4.4   | 2016-09-02 | tiny fixes system.model, getDefaultNetworkInterface                                                 |
+| 3.4.3   | 2016-09-02 | tiny bug fix fsStats, disksIO OSX                                                                   |
+| 3.4.2   | 2016-09-01 | improved default network interface                                                                  |
+| 3.4.1   | 2016-08-30 | updated docs                                                                                        |
+| 3.4.0   | 2016-08-30 | rewritten processes current cpu usage                                                               |
+| 3.3.0   | 2016-08-24 | process list added to processes                                                                     |
+| 3.2.1   | 2016-08-19 | updated docs, improvement system                                                                    |
+| 3.2.0   | 2016-08-19 | added battery information                                                                           |
+| 3.1.1   | 2016-08-18 | improved system and os detection (vm, ...), bugfix disksIO                                          |
+| 3.1.0   | 2016-08-18 | added Docker stats                                                                                  |
+| 3.0.1   | 2016-08-17 | Bug-Fix disksIO, users, updated docs                                                                |
+| 3.0.0   | 2016-08-03 | new major version 3.0                                                                               |
+| 2.0.5   | 2016-03-02 | changed .gitignore                                                                                  |
+| 2.0.4   | 2016-02-22 | tiny correction - removed double quotes CPU brand, ...                                              |
+| 2.0.3   | 2016-02-22 | optimized cpuCurrentspeed                                                                           |
+| 2.0.2   | 2016-02-22 | added CoreOS identification                                                                         |
+| 2.0.1   | 2016-01-07 | minor patch                                                                                         |
+| 2.0.0   | 2016-01-07 | new major version 2.0                                                                               |
+| 1.0.7   | 2015-11-27 | fixed: si.network_speed()                                                                           |
+| 1.0.6   | 2015-09-17 | fixed: si.users()                                                                                   |
+| 1.0.5   | 2015-09-14 | updated dependencies                                                                                |
+| 1.0.4   | 2015-07-18 | updated docs                                                                                        |
+| 1.0.3   | 2015-07-18 | bugfix cpu cores                                                                                    |
+| 1.0.2   | 2015-07-18 | bugfix cpu_currentspeed, cpu_temperature                                                            |
+| 1.0.1   | 2015-07-18 | documentation update                                                                                |
+| 1.0.0   | 2015-07-18 | bug-fixes, version bump, published as npm component                                                 |
+| 0.0.3   | 2014-04-14 | bug-fix (cpu_speed)                                                                                 |
+| 0.0.2   | 2014-03-14 | Optimization FS-Speed & CPU current speed                                                           |
+| 0.0.1   | 2014-03-13 | initial release                                                                                     |
 
-### Major C`hanges - Version 4
+### Major (breaking) Changes - Version 6
+
+**New Functions**
+
+- `camera()`: detected cameras
+- `keyboard()`: detected keyboards
+- `mouse()`: detected pointing devices
+- `thunderbolt()`: Thunderbolt controllers and devices
+- `pci()`: PCI devices (experimental)
+- `software()`: installed software / applications
+- `npm()`: globally installed npm packages
+
+**Breaking Changes**
+
+- complete rewrite in **TypeScript**; typed `.d.ts` declarations are now shipped for every function
+- `time()` and `version()` are now **asynchronous** and return a promise (both were synchronous in version 5) - since version 6 **all** functions are async
+- `async / await` is the preferred calling style, promises as an alternative
+- **callbacks are no longer available** (the former `si.cpu(data => ...)` style has been removed)
+- minimum **Node.js** version is now **20.0**
+- new `exports` map: only documented entry points are importable (deep `dist/...` paths are no longer part of the public API). The whole library, a single operating system (`systeminformation/linux`, `/darwin`, `/windows`, `/bsd`, `/sun`) or a single function (`systeminformation/cpu`) can now be imported individually
+
+**Be aware**, that version 6.x is **NOT fully backward compatible** to version 5.x
+
+### Major (breaking) Changes - Version 5
+
+**New Functions**
+
+- `audio()`: detailed audio device information
+- `bluetoothDevices()`: detailed bluetooth device information
+- `dockerImages()`, `dockerVolumes()`: detailed docker images and volumes information
+- `printer()`: detected printer information
+- `usb()`: detailed USB controller and device information
+- `wifiInterfaces()`, `wifiConnections()`: extended Wi-Fi information
+
+**Breaking Changes**
+
+- unknown or unsupported values now return `null` instead of `-1`
+- many result properties renamed to **pascalCase**: `battery()`, `blockDevices().fsType`, `cpu().speedMin/speedMax`, `currentLoad()` (e.g. `currentLoadUser`, `rawCurrentLoad`), `dockerContainerStats()` (e.g. `memUsage`, `cpuPercent`), `dockerContainerProcesses().pidHost`, `graphics().display` (e.g. `pixelDepth`, `resolutionX`), `networkConnections()` (e.g. `localAddress`, `peerPort`), `networkInterfaces().carrierChanges`, `processes()` (e.g. `memVsz`, `memRss`), `vbox()` (e.g. `hpet`, `apic`, `rtc`)
+- `cpu().speed` / `speedMin` / `speedMax` now return numeric values instead of strings
+- `cpuCurrentspeed()` renamed to `cpuCurrentSpeed()`
+- `processLoad()` now returns an array of objects (allows more than one, comma-separated process)
+- `services()` and `processes()`: renamed `pcpu` / `pmem` to `cpu` / `mem`
+
+**Other Changes**
+
+- `baseboard()`: added `memMax`, `memSlots`
+- `bios()`: added `language` and `features` (linux)
+- `cpu()`: flags are now part of this function; added virtualization support; extended AMD processor and socket lists
+- `cpuTemperature()`: added socket and chipset temp (linux)
+- `disksIO()`: added wait time (linux)
+- `diskLayout()`: added USB drives (macOS) and S.M.A.R.T. (win)
+- `fsSize()`: added `available`, improved `used` calculation
+- `graphics()`: extended properties (macOS) and nvidia-smi parsing
+- `memLayout()`: added ECC flag, extended manufacturer decoding
+- `osInfo()`: better fqdn, added hypervisor and `remoteSession` (win)
+- `system()`: better Raspberry Pi detection; added `virtual` / `virtualHost`
+- `uuid()`: added MACs, better value and Raspberry Pi hardware ID support
+- Apple Silicon M1 extended support; updated TypeScript definitions
+
+**Be aware**, that version 5.x is **NOT fully backward compatible** to version 4.x. See the full property-by-property list at https://systeminformation.io/changes.html
+
+### Major Changes - Version 4
 
 **New Functions**
 
@@ -583,6 +907,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 - added TypeScript definitions
 
 **Be aware**, that the new version 4.x is **NOT fully backward compatible** to version 3.x ...
+
 ### Major (breaking) Changes - Version 3
 
 - works only with [node.js][nodejs-url] **v4.0.0** and above (using now internal ES6 promise function, arrow functions, ...)

@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 
   <title>systeminformation</title>
@@ -30,7 +30,7 @@
 <body>
   <nav class="nav">
     <div class="container">
-      <a href="."><img class="logo float-left" src="assets/logo.png">
+      <a href="."><img class="logo float-left" src="assets/logo.png" alt="logo">
         <div class="title float-left">systeminformation</div>
       </a>
       <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
@@ -71,7 +71,7 @@
                       <td>si.currentLoad(cb)</td>
                       <td>{...}</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
@@ -81,7 +81,7 @@
                       <td></td>
                       <td>avgLoad</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>X</td>
                       <td></td>
                       <td>X</td>
@@ -91,7 +91,7 @@
                       <td></td>
                       <td>currentLoad</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
@@ -101,7 +101,7 @@
                       <td></td>
                       <td>currentLoadUser</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
@@ -111,7 +111,7 @@
                       <td></td>
                       <td>currentLoadSystem</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
@@ -121,7 +121,7 @@
                       <td></td>
                       <td>currentLoadNice</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
@@ -131,7 +131,7 @@
                       <td></td>
                       <td>currentLoadIdle</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
@@ -141,17 +141,37 @@
                       <td></td>
                       <td>currentLoadIrq</td>
                       <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>CPU load hardware interrupts in %</td>
+                    </tr>
+                    <tr>
                       <td></td>
+                      <td>currentLoadSteal</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Time stolen by other OS running in VMs in %</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>currentLoadGuest</td>
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>CPU load system in %</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>Time spent for running virtual CPU in %</td>
                     </tr>
                     <tr>
                       <td></td>
                       <td>rawCurrentLoad...</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
@@ -161,7 +181,7 @@
                       <td></td>
                       <td>cpus[]</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
@@ -172,7 +192,7 @@
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.currentLoad().then(data => console.log(data));</code></pre class="example">
+si.currentLoad().then(data => console.log(data));</code></pre>
 <pre class="example">
 {
   avgLoad: 0.23,
@@ -188,6 +208,8 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
   rawCurrentLoadNice: 0,
   rawCurrentLoadIdle: 7740,
   rawCurrentLoadIrq: 0,
+  rawCurrentLoadSteal: 0,
+  rawCurrentLoadGuest: 0,
   cpus: [
     {
       load: 13.725490196078432,
@@ -196,26 +218,41 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
       loadNice: 0,
       loadIdle: 86.27450980392157,
       loadIrq: 0,
+      loadSteal: 0,
+      loadGuest: 0,
       rawLoad: 140,
       rawLoadUser: 80,
       rawLoadSystem: 60,
       rawLoadNice: 0,
       rawLoadIdle: 880,
       rawLoadIrq: 0
+      rawLoadSteal: 0
+      rawLoadGuest: 0
     },
     ...
   ]
 }</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.fullLoad(cb)</td>
                       <td>: integer</td>
                       <td>X</td>
-                      <td></td>
                       <td>X</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
                       <td>CPU full load since bootup in %</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
+si.fullLoad().then(data => console.log(data));</code></pre>
+                      <pre class="example">
+4.2087723705022335</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.processes(cb)</td>
@@ -365,7 +402,7 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>process priotity</td>
+                      <td>process priority</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -472,7 +509,7 @@ si.currentLoad().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.processes().then(data => console.log(data));</code></pre class="example">
+si.processes().then(data => console.log(data));</code></pre>
 <pre class="example">
 {
   all: 258,
@@ -504,6 +541,7 @@ si.processes().then(data => console.log(data));</code></pre class="example">
     ...
   ]
 }</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.processLoad('nginx, ssl',cb)</td>
@@ -512,7 +550,7 @@ si.processes().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>detailed information about given processes<br>pass comma separated list or<br>'*' for all processes</td>
                     </tr>
                     <tr>
@@ -522,7 +560,7 @@ si.processes().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>process name</td>
                     </tr>
                     <tr>
@@ -532,7 +570,7 @@ si.processes().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>PID</td>
                     </tr>
                     <tr>
@@ -542,7 +580,7 @@ si.processes().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>additional pids</td>
                     </tr>
                     <tr>
@@ -552,7 +590,7 @@ si.processes().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>process % CPU</td>
                     </tr>
                     <tr>
@@ -562,7 +600,7 @@ si.processes().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td>process % MEM</td>
                     </tr>
                     <tr class="example">
@@ -570,7 +608,7 @@ si.processes().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.processLoad('nginx, postgres').then(data => console.log(data));</code></pre class="example">
+si.processLoad('nginx, postgres').then(data => console.log(data));</code></pre>
 <pre class="example">
 [
 {
@@ -599,6 +637,7 @@ si.processLoad('nginx, postgres').then(data => console.log(data));</code></pre c
     mem: 0
   },
 ]</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.services('mysql, apache2', cb)</td>
@@ -675,7 +714,7 @@ si.processLoad('nginx, postgres').then(data => console.log(data));</code></pre c
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.services('mysql, postgres').then(data => console.log(data));</code></pre class="example">
+si.services('mysql, postgres').then(data => console.log(data));</code></pre>
 <pre class="example">
 [
   {
@@ -695,6 +734,7 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre clas
     mem: 0
   },
 ]</pre>
+                    </td>
                     </tr>
                   </tbody>
                 </table>
@@ -741,7 +781,7 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre clas
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
             <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="changes.html">Version 6 Changes</a></li>
             <li><a href="history.html">Full Version History</a></li>
             <li><a href="tests.html">Testing</a></li>
             <li><a href="issues.html">Known Issues</a></li>
@@ -754,7 +794,7 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre clas
             <li><a href="trademarks.html">Trademarks</a></li>
             <li>&nbsp;</li>
             <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
             <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
           </ul>
         </div>

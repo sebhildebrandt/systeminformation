@@ -1,11 +1,10 @@
 import { getValue, nextTick } from '../common';
-import { powerShell } from '../common/exec';
-import { PrinterData } from '../common/types';
 import { winPrinterStatus } from '../common/mappings';
+import type { PrinterData } from '../common/types';
+import { ps } from '../common/windows';
 
 const parsePrinters = (lines: string[], id: number): PrinterData => {
-  const status = parseInt(
-    getValue(lines, 'PrinterStatus', ':'), 10);
+  const status = parseInt(getValue(lines, 'PrinterStatus', ':'), 10);
   return {
     id: id,
     name: getValue(lines, 'name', ':'),
@@ -21,20 +20,16 @@ const parsePrinters = (lines: string[], id: number): PrinterData => {
   };
 };
 
-export const windowsPrinter = async () => {
+export const printer = async () => {
+  await nextTick();
   const result: PrinterData[] = [];
-  const stdout = await powerShell('Get-WmiObject Win32_Printer | fl *');
+  const stdout = await ps.exec('Get-CimInstance Win32_Printer | select PrinterStatus,Name,DriverName,Local,Default,Shared | fl');
   const parts = stdout.toString().split(/\n\s*\n/);
   for (let i = 0; i < parts.length; i++) {
     const printer = parsePrinters(parts[i].split('\n'), i);
     if (printer.name || printer.model) {
-      result.push(parsePrinters(parts[i].split('\n'), i));
+      result.push(printer);
     }
   }
-  return (result);
-};
-
-export const printer = async () => {
-  await nextTick();
-  return windowsPrinter();
+  return result;
 };

@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 
   <title>systeminformation</title>
@@ -30,7 +30,7 @@
 <body>
   <nav class="nav">
     <div class="container">
-      <a href="."><img class="logo float-left" src="assets/logo.png">
+      <a href="."><img class="logo float-left" src="assets/logo.png" alt="logo">
         <div class="title float-left">systeminformation</div>
       </a>
       <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
@@ -54,7 +54,7 @@
                   results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning with the <strong>second</strong> call of the function.
                   It is determined by calculating the difference of transferred bytes / IOs divided by the time between two calls of the function.</p>
 
-                <p>The first time you are calling one of this functions, you will get <span class="code">-1</span> for transfer rates.
+                <p>The first time you are calling one of this functions, you will get <span class="code">null</span> for transfer rates.
                   The second time, you should then get statistics based on the time between the two calls ...</p>
 
                 <p>So basically, if you e.g. need a values for network stats every second, your code should look like this:</p>
@@ -68,6 +68,7 @@ setInterval(function() {
 }, 1000)</code></pre>
                 <p>Beginning with the second call, you get network transfer values per second.</p>
                 <h2>Observe System Parameters</h2>
+                <p class="bold">Note: <span class="code">si.observe()</span> and <span class="code">si.get()</span> are not yet available in version 6 (beta). The following section describes the version 5 behavior.</p>
                 <p>systeminformation now allows you to easily observe system parameters: First you define a result object of system parameters you want to observe (see also decription of the <a href="general.html"><span class="code">si.get()</span> function here</a>):</p>
                 <p>Then you just call an <span class="code">si.observe()</span> function with three parameters: your result object, the polling interval (in milliseconds) and a callback function. systeminformation will now observe the result object. Every time the result changes, your callback function is called. This callback function also gets the current value the observed system parameters object.</p>
                 <table class="table table-sm table-bordered table-striped">
@@ -114,7 +115,8 @@ let observer = si.observe(valueObject, 1000, usersCallback);
 // In this example we stop our observer function after 30 seconds
 setTimeout(() => {
   clearInterval(observer)
-}, 30000);</code></pre class="example">
+}, 30000);</code></pre>
+                              </td>
                               </tr>
                               </tbody>
                             </table>
@@ -144,7 +146,7 @@ setTimeout(() => {
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
             <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="changes.html">Version 6 Changes</a></li>
             <li><a href="history.html">Full Version History</a></li>
             <li><a href="tests.html">Testing</a></li>
             <li><a href="issues.html">Known Issues</a></li>
@@ -157,7 +159,7 @@ setTimeout(() => {
             <li><a href="trademarks.html">Trademarks</a></li>
             <li>&nbsp;</li>
             <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
             <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
           </ul>
         </div>

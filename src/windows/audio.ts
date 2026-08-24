@@ -1,42 +1,21 @@
-import { EOL } from 'os';
-import { execCmd } from '../common/exec';
-import { getValue, nextTick } from '../common';
-import { audioTypeLabel } from '../common/mappings';
-import { AudioObject } from '../common/types';
+import { cloneObj, nextTick } from '../common';
+import { initAudioResult } from '../common/defaults';
+import { audioTypeLabel, audioWindowsStatus } from '../common/mappings';
+import type { AudioData } from '../common/types';
+import { ps, psArray } from '../common/windows';
 
-
-const parseAudio = (lines: string[]): AudioObject => {
-  const status = getValue(lines, 'StatusInfo', ':');
-  const name = getValue(lines, 'name', ':');
-
-  return {
-    id: getValue(lines, 'DeviceID', ':'),
-    name: getValue(lines, 'name', ':'),
-    manufacturer: getValue(lines, 'manufacturer', ':'),
-    revision: null,
-    driver: null,
-    default: null,
-    channel: null,
-    type: audioTypeLabel(name),
-    in: null,
-    out: null,
-    status: status,
-  };
-};
-
-export const windowsAudio = async () => {
-  const stdout = await execCmd('path Win32_SoundDevice get /value');
-  const parts = stdout.toString().split(/\n\s*\n/);
-  const result = [];
-  for (let i = 0; i < parts.length; i++) {
-    if (getValue(parts[i].split(EOL), 'name', '=')) {
-      result.push(parseAudio(parts[i].split('\n')));
-    }
-  }
-  return result;
-};
-
-export const audio = async () => {
+export const audio = async (): Promise<AudioData[]> => {
   await nextTick();
-  return windowsAudio();
+  const defaults = cloneObj(initAudioResult);
+  const devices = psArray(await ps.exec('Get-CimInstance Win32_SoundDevice | Select-Object DeviceID,StatusInfo,Name,Manufacturer | ConvertTo-Json -Depth 5'));
+  return devices
+    .filter((data: any) => data?.Name)
+    .map((data: any) => ({
+      ...defaults,
+      id: data.DeviceID || '',
+      name: data.Name,
+      manufacturer: (data.Manufacturer || '').trim(),
+      type: audioTypeLabel(data.Name),
+      status: audioWindowsStatus(data.StatusInfo)
+    }));
 };

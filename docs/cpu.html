@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 
   <title>systeminformation</title>
@@ -30,7 +30,7 @@
 <body>
   <nav class="nav">
     <div class="container">
-      <a href="."><img class="logo float-left" src="assets/logo.png">
+      <a href="."><img class="logo float-left" src="assets/logo.png" alt="logo">
         <div class="title float-left">systeminformation</div>
       </a>
       <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
@@ -159,23 +159,23 @@
                     </tr>
                     <tr>
                       <td></td>
-                      <td>efficiencyCores</td>
-                      <td></td>
+                      <td>performanceCores</td>
+                      <td>X</td>
                       <td></td>
                       <td>X</td>
                       <td></td>
                       <td></td>
-                      <td># efficiency cores (ARM only)</td>
+                      <td># performance cores</td>
                     </tr>
                     <tr>
                       <td></td>
-                      <td>performanceCores</td>
-                      <td></td>
+                      <td>efficiencyCores</td>
+                      <td>X</td>
                       <td></td>
                       <td>X</td>
                       <td></td>
                       <td></td>
-                      <td># performance cores (ARM only)</td>
+                      <td># efficiency cores</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -332,7 +332,7 @@
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.cpu().then(data => console.log(data));</code></pre class="example">
+si.cpu().then(data => console.log(data));</code></pre>
                       <pre class="example">
 {
     manufacturer: 'Intel®',
@@ -355,6 +355,7 @@ si.cpu().then(data => console.log(data));</code></pre class="example">
     virtualization: true,
     cache: { l1d: 262144, l1i: 262144, l2: 2097152, l3: 16777216 }
 }</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.cpuFlags(cb)</td>
@@ -371,10 +372,11 @@ si.cpu().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.cpuFlags().then(data => console.log(data));</code></pre class="example">
+si.cpuFlags().then(data => console.log(data));</code></pre>
     <pre class="example">
 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge
 </pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.cpuCache(cb)</td>
@@ -431,10 +433,11 @@ fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.cpuCache().then(data => console.log(data));</code></pre class="example">
+si.cpuCache().then(data => console.log(data));</code></pre>
 <pre class="example">
 { l1d: 262144, l1i: 262144, l2: 2097152, l3: 16777216 }
 </pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.cpuCurrentSpeed(cb)</td>
@@ -491,7 +494,7 @@ si.cpuCache().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.cpuCurrentSpeed().then(data => console.log(data));</code></pre class="example">
+si.cpuCurrentSpeed().then(data => console.log(data));</code></pre>
 <pre class="example">
 {
   min: 0.86,
@@ -505,6 +508,7 @@ si.cpuCurrentSpeed().then(data => console.log(data));</code></pre class="example
   ]
 }
 </pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.cpuTemperature(cb)</td>
@@ -514,7 +518,7 @@ si.cpuCurrentSpeed().then(data => console.log(data));</code></pre class="example
                       <td>X*</td>
                       <td>X</td>
                       <td></td>
-                      <td>CPU temperature (if supported)</td>
+                      <td>CPU temperature in Celsius<br>(if supported)</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -571,39 +575,139 @@ si.cpuCurrentSpeed().then(data => console.log(data));</code></pre class="example
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.cpuTemperature().then(data => console.log(data));</code></pre class="example">
+si.cpuTemperature().then(data => console.log(data));</code></pre>
 <pre class="example">
 {
-  main: 42,
+  main: 34,
   cores: [
     34, 35, 33, 32,
     37, 32, 35, 33
   ],
-  max: 42,
+  max: 37,
   socket: [ 16.8, 27.8 ],
   chipset: 49
 }
 </pre>
+                    </td>
+                    </tr>
+                    <tr>
+                      <td>si.npu(cb)</td>
+                      <td>[{...}]</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>detected NPUs / AI accelerators</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>vendor</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>e.g. 'Apple', 'Intel', 'AMD'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>name</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>e.g. 'Apple Neural Engine'</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>model</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>chip model</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>cores</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>number of NPU cores</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>vendorId</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>PCI vendor id</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>deviceId</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>PCI device id</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>driver</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>kernel driver / service in use</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
+si.npu().then(data => console.log(data));</code></pre>
+                      <pre class="example">
+[
+  {
+    vendor: 'Apple',
+    name: 'Apple Neural Engine',
+    model: 'Apple M4',
+    cores: 16,
+    vendorId: '',
+    deviceId: '',
+    driver: ''
+  }
+]</pre>
+                    </td>
                     </tr>
                   </tbody>
                 </table>
                 <h2>Known issues</h2>
                 <h4>macOS - Temperature</h4>
 
-                <p>To be able to measure temperature on macOS I created a little additional package. Due to some difficulties in NPM with <span class="code">optionalDependencies</span>
+                <p>To be able to measure temperature on macOS I created two little additional packages. Due to some difficulties in NPM with <span class="code">optionalDependencies</span>
                   I unfortunately was getting unexpected warnings on other platforms. So I decided to drop this optional dependency for macOS - so by default,
                   you will not get correct values.</p>
 
-                <p>This additional package will unfortunately not work on Apple Silicon M1 machines.</p>
+                <p>But if you need to detect macOS temperature just run the following additional installation command. Wether you have Intel or Apple Silicon machines, install one of the following packages:</p>
 
-                <p>But if you need to detect macOS temperature just run the following additional installation command:</p>
-
-                <pre>$ npm install osx-temperature-sensor --save</pre>
-                <p>systeminformation will then detect this additional library and return the temperature when calling systeminformations standard function <span class="code">cpuTemperature()</span></p>
+                <pre>$ npm install osx-temperature-sensor      # deprecated - for intel based machines</pre>
+                <pre>$ npm install macos-temperature-sensor    # for apple silicon machines</pre>
+                <p>systeminformation will then detect this additional library and return the temperature when calling systeminformations standard function <span class="code">cpuTemperature()</span>. On Apple Silicon machines <span class="code">macos-temperature-sensor</span> also enables the GPU temperature (<span class="code">temperatureGpu</span>) in <span class="code">gpu()</span>.</p>
 
                 <h4>Windows Temperature</h4>
 
-                <p><span class="code">wmic</span> - which is used to determine battery sometimes needs to be run with admin
+                <p><span class="code">get-WmiObject</span> - which is used to determine battery sometimes needs to be run with admin
                   privileges. So if you do not get any values, try to run it again with according privileges. If you still do not get any
                   values, your system might not support this feature. </p>
               </div>
@@ -630,7 +734,7 @@ si.cpuTemperature().then(data => console.log(data));</code></pre class="example"
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
             <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="changes.html">Version 6 Changes</a></li>
             <li><a href="history.html">Full Version History</a></li>
             <li><a href="tests.html">Testing</a></li>
             <li><a href="issues.html">Known Issues</a></li>
@@ -643,7 +747,7 @@ si.cpuTemperature().then(data => console.log(data));</code></pre class="example"
             <li><a href="trademarks.html">Trademarks</a></li>
             <li>&nbsp;</li>
             <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
             <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
           </ul>
         </div>

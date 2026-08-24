@@ -1,41 +1,63 @@
-import { totalmem, freemem } from 'os';
-import { promises as fs } from 'fs';
-import { cloneObj, getValue, nextTick } from '../common';
+import { readFile } from 'node:fs/promises';
+import { freemem, totalmem } from 'node:os';
+import { cloneObj, getValue, nextTick, toInt } from '../common';
 import { initMemData } from '../common/defaults';
+import type { MemData } from '../common/types';
 
-export const linuxMem = async () => {
-  const result = cloneObj(initMemData);
-  try {
-    const stdout = await fs.readFile('/proc/meminfo');
-    const lines = stdout.toString().split('\n');
-    result.total = parseInt(getValue(lines, 'memtotal'), 10);
-    result.total = result.total ? result.total * 1024 : totalmem();
-    result.free = parseInt(getValue(lines, 'memfree'), 10);
-    result.free = result.free ? result.free * 1024 : freemem();
-    result.used = result.total - result.free;
-
-    result.buffers = parseInt(getValue(lines, 'buffers'), 10);
-    result.buffers = result.buffers ? result.buffers * 1024 : 0;
-    result.cached = parseInt(getValue(lines, 'cached'), 10);
-    result.cached = result.cached ? result.cached * 1024 : 0;
-    result.slab = parseInt(getValue(lines, 'slab'), 10);
-    result.slab = result.slab ? result.slab * 1024 : 0;
-    result.buffcache = result.buffers + result.cached + result.slab;
-
-    const available = parseInt(getValue(lines, 'memavailable'), 10);
-    result.available = available ? available * 1024 : result.free + result.buffcache;
-    result.active = result.total - result.available;
-
-    result.swaptotal = parseInt(getValue(lines, 'swaptotal'), 10);
-    result.swaptotal = result.swaptotal ? result.swaptotal * 1024 : 0;
-    result.swapfree = parseInt(getValue(lines, 'swapfree'), 10);
-    result.swapfree = result.swapfree ? result.swapfree * 1024 : 0;
-    result.swapused = result.swaptotal - result.swapfree;
-  } catch { }
-  return result;
-};
-
-export const mem = async () => {
+export const mem = async (): Promise<MemData> => {
   await nextTick();
-  return linuxMem();
+  const defaults = cloneObj(initMemData);
+  try {
+    const stdout = await readFile('/proc/meminfo');
+    const lines = stdout.toString().split('\n');
+    let total = toInt(getValue(lines, 'memtotal'));
+    total = total ? total * 1024 : totalmem();
+    let free = toInt(getValue(lines, 'memfree'));
+    free = free ? free * 1024 : freemem();
+    const used = total - free;
+
+    let buffers = toInt(getValue(lines, 'buffers'));
+    buffers = buffers ? buffers * 1024 : 0;
+    let cached = toInt(getValue(lines, 'cached'));
+    cached = cached ? cached * 1024 : 0;
+    let slab = toInt(getValue(lines, 'slab'));
+    slab = slab ? slab * 1024 : 0;
+    const buffcache = buffers + cached + slab;
+
+    let available = toInt(getValue(lines, 'memavailable'));
+    available = available ? available * 1024 : free + buffcache;
+    const active = total - available;
+
+    let swaptotal = toInt(getValue(lines, 'swaptotal'));
+    swaptotal = swaptotal ? swaptotal * 1024 : 0;
+    let swapfree = toInt(getValue(lines, 'swapfree'));
+    swapfree = swapfree ? swapfree * 1024 : 0;
+    const swapused = swaptotal - swapfree;
+    let writeback = toInt(getValue(lines, 'writeback'));
+    writeback = writeback ? writeback * 1024 : 0;
+    let dirty = toInt(getValue(lines, 'dirty'));
+    dirty = dirty ? dirty * 1024 : 0;
+
+    let reclaimable = toInt(getValue(lines, 'sreclaimable'));
+    reclaimable = reclaimable ? reclaimable * 1024 : 0;
+
+    return {
+      total,
+      free,
+      used,
+      active,
+      available,
+      buffers,
+      cached,
+      slab,
+      buffcache,
+      reclaimable,
+      swaptotal,
+      swapused,
+      swapfree,
+      writeback,
+      dirty
+    };
+  } catch {}
+  return defaults;
 };

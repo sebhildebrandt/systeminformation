@@ -1,19 +1,13 @@
-import { linuxBluetooth } from './linux/bluetooth';
-import { darwinBluetooth } from './darwin/bluetooth';
-import { windowsBluetooth } from './windows/bluetooth';
-
-import { DARWIN, LINUX, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
 
 export const bluetoothDevices = async () => {
-  await nextTick();
   switch (true) {
-    case LINUX:
-      return linuxBluetooth();
+    case LINUX || ANDROID:
+      return (await import('./linux/bluetooth.js')).bluetoothDevices();
     case DARWIN:
-      return darwinBluetooth();
+      return (await import('./darwin/bluetooth.js')).bluetoothDevices();
     case WINDOWS:
-      return windowsBluetooth();
+      return (await import('./windows/bluetooth.js')).bluetoothDevices();
     default:
       return null;
   }

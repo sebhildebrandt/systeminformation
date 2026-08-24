@@ -1,22 +1,15 @@
-import { linuxCpuCache } from './linux/cpu-cache';
-import { darwinCpuCache } from './darwin/cpu-cache';
-import { windowsCpuCache } from './windows/cpu-cache';
-import { bsdCpuCache } from './bsd/cpu-cache';
-
-import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 
 export const cpuCache = async () => {
-  await nextTick();
   switch (true) {
     case LINUX:
-      return linuxCpuCache();
-    case FREEBSD || NETBSD:
-      return bsdCpuCache();
+      return (await import('./linux/cpu-cache.js')).cpuCache();
+    case FREEBSD || NETBSD || OPENBSD:
+      return (await import('./bsd/cpu-cache.js')).cpuCache();
     case DARWIN:
-      return darwinCpuCache();
+      return (await import('./darwin/cpu-cache.js')).cpuCache();
     case WINDOWS:
-      return windowsCpuCache();
+      return (await import('./windows/cpu-cache.js')).cpuCache();
     default:
       return null;
   }

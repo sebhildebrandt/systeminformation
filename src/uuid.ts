@@ -1,22 +1,15 @@
-import { linuxUuid } from './linux/uuid';
-import { bsdUuid } from './bsd/uuid';
-import { darwinUuid } from './darwin/uuid';
-import { windowsUuid } from './windows/uuid';
-
-import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 
 export const uuid = async () => {
-  await nextTick();
   switch (true) {
     case LINUX:
-      return linuxUuid();
-    case NETBSD || FREEBSD:
-      return bsdUuid();
+      return (await import('./linux/uuid.js')).uuid();
+    case NETBSD || FREEBSD || OPENBSD:
+      return (await import('./bsd/uuid.js')).uuid();
     case DARWIN:
-      return darwinUuid();
+      return (await import('./darwin/uuid.js')).uuid();
     case WINDOWS:
-      return windowsUuid();
+      return (await import('./windows/uuid.js')).uuid();
     default:
       return null;
   }

@@ -1,33 +1,100 @@
-
 name: Test
 
-on: [
-  pull_request,
-  push
-]
+on: [pull_request, push]
 
 jobs:
-  build:
+  node:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        node-version: [10.x, 11.x, 12.x, 13.x, 14.x, 15.x, 16.x]
+        node-version: [18.x, 20.x, 22.x, 24.x]
         include:
           - os: macos-latest
-            node-version: 14.x
-          - os: macos-latest
-            node-version: 16.x
+            node-version: 24.x
           - os: windows-latest
-            node-version: 14.x
-          - os: windows-latest
-            node-version: 16.x
+            node-version: 24.x
 
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: node test/ci.js
+      - run: npm ci
+      - run: npm run build
+      - run: node test/ci.cjs
+
+  # Bun/Deno run the TS source (src/) directly, no build step.
+  bun:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun test/ci.ts
+
+  deno:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: deno run -A test/ci.ts
+
+  # Faithful release check: pack the module, install it as a real dependency, then
+  # import it by name and run the smoke suite under node/bun/deno — the way consumers use it.
+  consumer:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        runtime: [node, bun, deno]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - if: matrix.runtime == 'bun'
+        uses: oven-sh/setup-bun@v2
+      - if: matrix.runtime == 'deno'
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Build & pack
+        run: |
+          npm ci
+          npm run build
+          npm pack
+      - name: Install into consumer project
+        run: |
+          mkdir -p "$RUNNER_TEMP/consumer"
+          cp test/consumer.mjs test/ci-run.cjs "$RUNNER_TEMP/consumer/"
+          cd "$RUNNER_TEMP/consumer"
+          npm init -y
+          npm install "$GITHUB_WORKSPACE"/systeminformation-*.tgz
+      - name: Smoke test (node)
+        if: matrix.runtime == 'node'
+        working-directory: ${{ runner.temp }}/consumer
+        run: node consumer.mjs
+      - name: Smoke test (bun)
+        if: matrix.runtime == 'bun'
+        working-directory: ${{ runner.temp }}/consumer
+        run: bun consumer.mjs
+      - name: Smoke test (deno)
+        if: matrix.runtime == 'deno'
+        working-directory: ${{ runner.temp }}/consumer
+        run: deno run -A --node-modules-dir=manual consumer.mjs

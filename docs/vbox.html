@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 
   <title>systeminformation</title>
@@ -30,7 +30,7 @@
 <body>
   <nav class="nav">
     <div class="container">
-      <a href="."><img class="logo float-left" src="assets/logo.png">
+      <a href="."><img class="logo float-left" src="assets/logo.png" alt="logo">
         <div class="title float-left">systeminformation</div>
       </a>
       <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
@@ -437,6 +437,55 @@
                       <td>X</td>
                       <td>RTC</td>
                     </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
+si.vboxInfo().then(data => console.log(data));</code></pre>
+                      <pre class="example">
+[
+  {
+    id: 'e2b0e6c6-0c1e-4b3f-9d2a-7a4c9e1f5b28',
+    name: 'Ubuntu Server',
+    running: true,
+    started: '2026-07-14T08:21:10.000Z',
+    runningSince: 7530,
+    stopped: '',
+    stoppedSince: 0,
+    guestOS: 'Ubuntu (64-bit)',
+    hardwareUUID: 'e2b0e6c6-0c1e-4b3f-9d2a-7a4c9e1f5b28',
+    memory: 4096,
+    vram: 16,
+    cpus: 2,
+    cpuExepCap: '100',
+    cpuProfile: 'host',
+    chipset: 'piix3',
+    firmware: 'BIOS',
+    pageFusion: false,
+    configFile: '/Users/user/VirtualBox VMs/Ubuntu Server/Ubuntu Server.vbox',
+    snapshotFolder: '/Users/user/VirtualBox VMs/Ubuntu Server/Snapshots',
+    logFolder: '/Users/user/VirtualBox VMs/Ubuntu Server/Logs',
+    hpet: false,
+    pae: false,
+    longMode: true,
+    tripleFaultReset: false,
+    apic: true,
+    x2Apic: true,
+    acpi: true,
+    ioApic: true,
+    biosApicMode: 'apic',
+    bootMenuMode: 'message and menu',
+    bootDevice1: 'floppy',
+    bootDevice2: 'dvd',
+    bootDevice3: 'disk',
+    bootDevice4: 'none',
+    timeOffset: '0',
+    rtc: 'utc'
+  }
+]</pre>
+                    </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -463,7 +512,7 @@
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
             <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="changes.html">Version 6 Changes</a></li>
             <li><a href="history.html">Full Version History</a></li>
             <li><a href="tests.html">Testing</a></li>
             <li><a href="issues.html">Known Issues</a></li>
@@ -476,7 +525,7 @@
             <li><a href="trademarks.html">Trademarks</a></li>
             <li>&nbsp;</li>
             <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2024 Sebastian Hildebrandt</a></li>
             <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
           </ul>
         </div>

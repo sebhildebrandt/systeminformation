@@ -1,6 +1,6 @@
 {
   "name": "systeminformation",
-  "version": "5.9.7",
+  "version": "6.0.0-beta.0",
   "description": "Advanced, lightweight system and OS information library",
   "license": "MIT",
   "author": "Sebastian Hildebrandt <hildebrandt@plus-innovations.com> (https://plus-innovations.com)",
@@ -10,11 +10,32 @@
     "systeminformation": "dist/cli.js"
   },
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./linux": { "types": "./dist/linux/index.d.ts", "default": "./dist/linux/index.js" },
+    "./darwin": { "types": "./dist/darwin/index.d.ts", "default": "./dist/darwin/index.js" },
+    "./windows": { "types": "./dist/windows/index.d.ts", "default": "./dist/windows/index.js" },
+    "./bsd": { "types": "./dist/bsd/index.d.ts", "default": "./dist/bsd/index.js" },
+    "./sun": { "types": "./dist/sun/index.d.ts", "default": "./dist/sun/index.js" },
+    "./package.json": "./package.json",
+    "./*": { "types": "./dist/*.d.ts", "default": "./dist/*.js" }
+  },
   "scripts": {
-    "test": "node ./test/test.js",
+    "test": "node ./test/test.cjs",
+    "testDeno": "SI_RUNNER='deno run -A ./test/si.ts' node ./test/test.cjs",
+    "testBun": "SI_RUNNER='bun ./test/si.ts' node ./test/test.cjs",
+    "ci": "node ./test/ci.cjs",
+    "ciDeno": "deno run -A ./test/ci.ts",
+    "ciBun": "bun ./test/ci.ts",
+    "smoke": "bash ./test/smoke.sh",
     "dev": "tsup src",
-    "build": "tsup src/index.ts --dts",
-    "watch": "tsup src --watch src"
+    "proto": "tsup ./src/prototest.ts",
+    "buildMin": "tsup src/index.ts --dts",
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "watch": "tsup src --watch src",
+    "info": "node ./test/info.js",
+    "format": "npx @biomejs/biome format --write ./src"
   },
   "tsup": {
     "splitting": false,
@@ -81,7 +102,17 @@
     "backend",
     "hardware",
     "BIOS",
-    "chassis"
+    "chassis",
+    "keyboard",
+    "mouse",
+    "pci",
+    "thunderbolt",
+    "software",
+    "installed software",
+    "machine id",
+    "unique platform id",
+    "node platform id",
+    "uuid"
   ],
   "repository": {
     "type": "git",
@@ -98,17 +129,16 @@
     "freebsd",
     "openbsd",
     "netbsd",
-    "sunos"
+    "sunos",
+    "android"
   ],
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=20.0.0"
   },
   "devDependencies": {
-    "@types/node": "^16.11.1",
-    "@typescript-eslint/eslint-plugin": "^5.2.0",
-    "@typescript-eslint/parser": "^5.2.0",
-    "eslint": "^8.1.0",
-    "tsup": "^5.5.0",
-    "typescript": "^4.4.4"
+    "@swc/core": "^1.15.33",
+    "@types/node": "^25.6.0",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3"
   }
 }

@@ -1,55 +1,75 @@
-import { release } from 'os';
-import { existsSync } from 'fs';
-import { getValue } from './common';
+import { release } from 'node:os';
+import { getValue, semverCompare } from './common';
 import { DARWIN, LINUX, VBOXMANAGE, WINDOWS } from './common/const';
 import { darwinXcodeExists } from './common/darwin';
-import { execCmd, powerShell } from './common/exec';
-import { VersionData } from './common/types';
+import { exec, execSave } from './common/exec';
+import { fileExists } from './common/files';
+import { ps } from './common/windows';
+import type { VersionData } from './common/types';
 
 export const versions = async (apps?: string | string[]) => {
-  const versionObject: { [index: string]: any; } = {
+  const versionObject: { [index: string]: any } = {
     kernel: release(),
     openssl: '',
     systemOpenssl: '',
     systemOpensslLib: '',
-    node: process.versions.node,
+    node: '',
     v8: process.versions.v8,
-    npm: '',
-    yarn: '',
-    pm2: '',
-    gulp: '',
-    grunt: '',
-    git: '',
-    tsc: '',
-    mysql: '',
-    redis: '',
-    mongodb: '',
+    angular: '',
     apache: '',
-    nginx: '',
-    php: '',
+    bash: '',
+    bun: '',
+    cargo: '',
+    composer: '',
+    curl: '',
+    deno: '',
     docker: '',
+    dockerCompose: '',
+    dotnet: '',
+    fish: '',
+    gcc: '',
+    git: '',
+    go: '',
+    gradle: '',
+    grunt: '',
+    gulp: '',
+    herd: '',
+    homebrew: '',
+    java: '',
+    laravel: '',
+    maven: '',
+    mongodb: '',
+    mysql: '',
+    nginx: '',
+    npm: '',
+    perl: '',
+    php: '',
+    pip3: '',
+    pip: '',
+    pm2: '',
+    podman: '',
     postfix: '',
     postgresql: '',
-    perl: '',
-    python: '',
-    python3: '',
-    pip: '',
-    pip3: '',
-    java: '',
-    gcc: '',
-    virtualbox: '',
-    bash: '',
-    zsh: '',
-    fish: '',
     powershell: '',
-    dotnet: ''
+    python3: '',
+    python: '',
+    redis: '',
+    ruby: '',
+    rust: '',
+    sqlite3: '',
+    tsc: '',
+    virtualbox: '',
+    vi: '',
+    vue: '',
+    yarn: '',
+    zsh: ''
   };
 
   const checkVersionParam = (apps: string | string[] = '') => {
     if (apps === '*') {
       return {
         versions: versionObject,
-        counter: 30
+        counter: Object.keys(versionObject).length - 4
       };
     }
     if (!Array.isArray(apps)) {
@@ -60,7 +80,7 @@ export const versions = async (apps?: string | string[]) => {
       versions: {},
       counter: 0
     };
-    apps.forEach(el => {
+    apps.forEach((el) => {
       if (el) {
         for (const key in versionObject) {
           if (Object.keys(versionObject).includes(key)) {
@@ -70,7 +90,9 @@ export const versions = async (apps?: string | string[]) => {
                 result.versions.systemOpenssl = '';
                 result.versions.systemOpensslLib = '';
               }
-              if (!result.versions[key]) { result.counter++; }
+              if (!result.versions[key]) {
+                result.counter++;
+              }
             }
           }
         }
@@ -85,247 +107,352 @@ export const versions = async (apps?: string | string[]) => {
       const appsObj = checkVersionParam(apps);
       let totalFunctions = appsObj.counter;
 
-      const functionProcessed = (function () {
-        return function () {
-          if (--totalFunctions === 0) {
-            resolve(appsObj.versions);
-          }
-        };
+      if (totalFunctions <= 0) {
+        return resolve(appsObj.versions);
+      }
+
+      const functionProcessed = (() => () => {
+        if (--totalFunctions === 0) {
+          resolve(appsObj.versions);
+        }
       })();
 
       let cmd = '';
       try {
         if (Object.keys(appsObj.versions).includes('openssl')) {
           appsObj.versions.openssl = process.versions.openssl;
-          execCmd('openssl version').then((stdout: string) => {
-            if (stdout) {
-              const openssl_string = stdout.toString().split('\n')[0].trim();
-              const openssl = openssl_string.split(' ');
-              appsObj.versions.systemOpenssl = openssl.length > 0 ? openssl[1] : openssl[0];
-              appsObj.versions.systemOpensslLib = openssl.length > 0 ? openssl[0] : 'openssl';
-            }
-            functionProcessed();
-          });
+          exec('openssl version')
+            .then((res) => {
+              if (res.stdout) {
+                const openssl_string = res.stdout.split('\n')[0].trim();
+                const openssl = openssl_string.split(' ');
+                appsObj.versions.systemOpenssl = openssl.length > 0 ? openssl[1] : openssl[0];
+                appsObj.versions.systemOpensslLib = openssl.length > 0 ? openssl[0] : 'openssl';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('npm')) {
-          execCmd('npm -v').then((stdout: string) => {
-            if (stdout) {
-              appsObj.versions.npm = stdout.toString().split('\n')[0];
-            }
-            functionProcessed();
-          });
+          exec('npm -v')
+            .then((res) => {
+              if (res.stdout) {
+                appsObj.versions.npm = res.stdout.split('\n')[0];
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('pm2')) {
           cmd = 'pm2';
           if (WINDOWS) {
             cmd += '.cmd';
           }
-          execCmd(`${cmd} -v`).then((stdout: string) => {
-            if (stdout) {
-              const pm2 = stdout.toString().split('\n')[0].trim();
-              if (!pm2.startsWith('[PM2]')) {
-                appsObj.versions.pm2 = pm2;
+          exec(`${cmd} -v`)
+            .then((res) => {
+              if (res.stdout) {
+                const lines = res.stdout.split('\n').slice(0, -1);
+                const pm2 = lines[lines.length - 1];
+                if (!pm2.startsWith('[PM2]')) {
+                  appsObj.versions.pm2 = pm2;
+                }
               }
-            }
-            functionProcessed();
-          });
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('yarn')) {
-          execCmd('yarn --version').then((stdout: string) => {
-            if (stdout) {
-              appsObj.versions.yarn = stdout.toString().split('\n')[0];
-            }
-            functionProcessed();
-          });
+          exec('yarn --version')
+            .then((res) => {
+              if (res.stdout) {
+                appsObj.versions.yarn = res.stdout.split('\n')[0];
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('gulp')) {
           cmd = 'gulp';
           if (WINDOWS) {
             cmd += '.cmd';
           }
-          execCmd(`${cmd} --version`).then((stdout: string) => {
-            if (stdout) {
-              const gulp = stdout.toString().split('\n')[0] || '';
-              appsObj.versions.gulp = (gulp.toLowerCase().split('version')[1] || '').trim();
-            }
-            functionProcessed();
-          });
+          exec(`${cmd} --version`)
+            .then((res) => {
+              if (res.stdout) {
+                const gulp = res.stdout.split('\n')[0] || '';
+                appsObj.versions.gulp = (gulp.toLowerCase().split('version')[1] || '').trim();
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('homebrew')) {
+          cmd = 'brew';
+          exec(`${cmd} --version`)
+            .then((res) => {
+              if (res.stdout) {
+                const brew = res.stdout.split('\n')[0] || '';
+                appsObj.versions.homebrew = (brew.toLowerCase().split(' ')[1] || '').trim();
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('tsc')) {
           cmd = 'tsc';
           if (WINDOWS) {
             cmd += '.cmd';
           }
-          execCmd(`${cmd} --version`).then((stdout: string) => {
-            if (stdout) {
-              const tsc = stdout.toString().split('\n')[0] || '';
-              appsObj.versions.tsc = (tsc.toLowerCase().split('version')[1] || '').trim();
-            }
-            functionProcessed();
-          });
+          exec(`${cmd} --version`)
+            .then((res) => {
+              if (res.stdout) {
+                const tsc = res.stdout.split('\n')[0] || '';
+                appsObj.versions.tsc = (tsc.toLowerCase().split('version')[1] || '').trim();
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('grunt')) {
           cmd = 'grunt';
           if (WINDOWS) {
             cmd += '.cmd';
           }
-          execCmd(`${cmd} --version`).then((stdout: string) => {
-            if (stdout) {
-              const grunt = stdout.toString().split('\n')[0] || '';
-              appsObj.versions.grunt = (grunt.toLowerCase().split('cli v')[1] || '').trim();
-            }
-            functionProcessed();
-          });
+          exec(`${cmd} --version`)
+            .then((res) => {
+              if (res.stdout) {
+                const grunt = res.stdout.split('\n')[0] || '';
+                appsObj.versions.grunt = (grunt.toLowerCase().split('cli v')[1] || '').trim();
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('git')) {
           if (DARWIN) {
-            const gitHomebrewExists = existsSync('/usr/local/Cellar/git');
-            if (await await darwinXcodeExists() || gitHomebrewExists) {
-              execCmd('git --version').then((stdout: string) => {
-                if (stdout) {
-                  let git = stdout.toString().split('\n')[0] || '';
-                  git = (git.toLowerCase().split('version')[1] || '').trim();
-                  appsObj.versions.git = (git.split(' ')[0] || '').trim();
-                }
-                functionProcessed();
-              });
+            const gitHomebrewExists = (await fileExists('/usr/local/Cellar/git')) || (await fileExists('/opt/homebrew/bin/git'));
+            if ((await darwinXcodeExists()) || gitHomebrewExists) {
+              exec('git --version')
+                .then((res) => {
+                  if (res.stdout) {
+                    let git = res.stdout.split('\n')[0] || '';
+                    git = (git.toLowerCase().split('version')[1] || '').trim();
+                    appsObj.versions.git = (git.split(' ')[0] || '').trim();
+                  }
+                  functionProcessed();
+                })
+                .catch(() => {
+                  functionProcessed();
+                });
             } else {
               functionProcessed();
             }
           } else {
-            execCmd('git --version').then((stdout: string) => {
-              if (stdout) {
-                let git = stdout.toString().split('\n')[0] || '';
-                git = (git.toLowerCase().split('version')[1] || '').trim();
-                appsObj.versions.git = (git.split(' ')[0] || '').trim();
-              }
-              functionProcessed();
-            });
+            exec('git --version')
+              .then((res) => {
+                if (res.stdout) {
+                  let git = res.stdout.split('\n')[0] || '';
+                  git = (git.toLowerCase().split('version')[1] || '').trim();
+                  appsObj.versions.git = (git.split(' ')[0] || '').trim();
+                }
+                functionProcessed();
+              })
+              .catch(() => {
+                functionProcessed();
+              });
           }
         }
         if (Object.keys(appsObj.versions).includes('apache')) {
-          execCmd('apachectl -v 2>&1').then((stdout: string) => {
-            if (stdout) {
-              const apache = (stdout.toString().split('\n')[0] || '').split(':');
-              appsObj.versions.apache = (apache.length > 1 ? apache[1].replace('Apache', '').replace('/', '').split('(')[0].trim() : '');
-            }
-            functionProcessed();
-          });
+          exec('apachectl -v 2>&1')
+            .then((res) => {
+              if (res.stdout) {
+                const apache = (res.stdout.split('\n')[0] || '').split(':');
+                appsObj.versions.apache = apache.length > 1 ? apache[1].replace('Apache', '').replace('/', '').split('(')[0].trim() : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('nginx')) {
-          execCmd('nginx -v 2>&1').then((stdout: string) => {
-            if (stdout) {
-              const nginx = stdout.toString().split('\n')[0] || '';
-              appsObj.versions.nginx = (nginx.toLowerCase().split('/')[1] || '').trim();
-            }
-            functionProcessed();
-          });
+          exec('nginx -v 2>&1')
+            .then((res) => {
+              if (res.stdout) {
+                const nginx = res.stdout.split('\n')[0] || '';
+                appsObj.versions.nginx = (nginx.toLowerCase().split('/')[1] || '').trim();
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('mysql')) {
-          execCmd('mysql -V').then((stdout: string) => {
-            if (stdout) {
-              let mysql = stdout.toString().split('\n')[0] || '';
-              mysql = mysql.toLowerCase();
-              if (mysql.indexOf(',') > -1) {
-                mysql = (mysql.split(',')[0] || '').trim();
-                const parts = mysql.split(' ');
-                appsObj.versions.mysql = (parts[parts.length - 1] || '').trim();
-              } else {
-                if (mysql.indexOf(' ver ') > -1) {
-                  mysql = mysql.split(' ver ')[1];
-                  appsObj.versions.mysql = mysql.split(' ')[0];
+          exec('mysql -V')
+            .then((res) => {
+              if (res.stdout) {
+                let mysql = res.stdout.split('\n')[0] || '';
+                mysql = mysql.toLowerCase();
+                if (mysql.indexOf(',') > -1) {
+                  mysql = (mysql.split(',')[0] || '').trim();
+                  const parts = mysql.split(' ');
+                  appsObj.versions.mysql = (parts[parts.length - 1] || '').trim();
+                } else {
+                  if (mysql.indexOf(' ver ') > -1) {
+                    mysql = mysql.split(' ver ')[1];
+                    appsObj.versions.mysql = mysql.split(' ')[0];
+                  }
                 }
               }
-            }
-            functionProcessed();
-          });
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('php')) {
-          execCmd('php -v').then((stdout: string) => {
-            if (stdout) {
-              const php = stdout.toString().split('\n')[0] || '';
-              let parts = php.split('(');
-              if (parts[0].indexOf('-')) {
-                parts = parts[0].split('-');
+          exec('php -v')
+            .then((res) => {
+              if (res.stdout) {
+                const php = res.stdout.split('\n')[0] || '';
+                let parts = php.split('(');
+                if (parts[0].indexOf('-')) {
+                  parts = parts[0].split('-');
+                }
+                appsObj.versions.php = parts[0].replace(/[^0-9.]/g, '');
               }
-              appsObj.versions.php = parts[0].replace(/[^0-9.]/g, '');
-            }
-            functionProcessed();
-          });
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('redis')) {
-          execCmd('redis-server --version').then((stdout: string) => {
-            if (stdout) {
-              const redis = stdout.toString().split('\n')[0] || '';
-              const parts = redis.split(' ');
-              appsObj.versions.redis = getValue(parts, 'v', '=', true);
-            }
-            functionProcessed();
-          });
+          exec('redis-server --version')
+            .then((res) => {
+              if (res.stdout) {
+                const redis = res.stdout.split('\n')[0] || '';
+                const parts = redis.split(' ');
+                appsObj.versions.redis = getValue(parts, 'v', '=', true);
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('docker')) {
-          execCmd('docker --version').then((stdout: string) => {
-            if (stdout) {
-              const docker = stdout.toString().split('\n')[0] || '';
-              const parts = docker.split(' ');
-              appsObj.versions.docker = parts.length > 2 && parts[2].endsWith(',') ? parts[2].slice(0, -1) : '';
-            }
-            functionProcessed();
-          });
+          exec('docker --version')
+            .then((res) => {
+              if (res.stdout) {
+                const docker = res.stdout.split('\n')[0] || '';
+                const parts = docker.split(' ');
+                appsObj.versions.docker = parts.length > 2 && parts[2].endsWith(',') ? parts[2].slice(0, -1) : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('podman')) {
+          exec('podman --version')
+            .then((res) => {
+              if (res.stdout) {
+                const podman = res.stdout.split('\n')[0] || '';
+                const parts = podman.split(' ');
+                appsObj.versions.podman = parts.length > 2 ? parts[2] : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('postfix')) {
-          execCmd('postconf -d | grep mail_version').then((stdout: string) => {
-            if (stdout) {
-              const postfix = stdout.toString().split('\n') || [];
-              appsObj.versions.postfix = getValue(postfix, 'mail_version', '=', true);
-            }
-            functionProcessed();
-          });
+          exec('postconf -d | grep mail_version')
+            .then((res) => {
+              if (res.stdout) {
+                const postfix = res.stdout.split('\n') || [];
+                appsObj.versions.postfix = getValue(postfix, 'mail_version', '=', true);
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('mongodb')) {
-          execCmd('mongod --version').then((stdout: string) => {
-            if (stdout) {
-              const mongodb = stdout.toString().split('\n')[0] || '';
-              appsObj.versions.mongodb = (mongodb.toLowerCase().split(',')[0] || '').replace(/[^0-9.]/g, '');
-            }
-            functionProcessed();
-          });
+          exec('mongod --version')
+            .then((res) => {
+              if (res.stdout) {
+                const mongodb = res.stdout.split('\n')[0] || '';
+                appsObj.versions.mongodb = (mongodb.toLowerCase().split(',')[0] || '').replace(/[^0-9.]/g, '');
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('postgresql')) {
           if (LINUX) {
-            execCmd('locate bin/postgres').then((stdout: string) => {
-              if (stdout) {
-                const postgresqlBin = stdout.toString().split('\n').sort();
+            exec('locate bin/postgres')
+              .then((res) => {
+                const postgresqlBin = res.stdout.split('\n').sort();
                 if (postgresqlBin.length) {
-                  execCmd(postgresqlBin[postgresqlBin.length - 1] + ' -V').then((stdout: string) => {
-                    if (stdout) {
-                      const postgresql = stdout.toString().split('\n')[0].split(' ') || [];
-                      appsObj.versions.postgresql = postgresql.length ? postgresql[postgresql.length - 1] : '';
-                    }
-                    functionProcessed();
-                  });
+                  exec(postgresqlBin[postgresqlBin.length - 1] + ' -V')
+                    .then((res) => {
+                      if (res.stdout) {
+                        const postgresql = res.stdout.split('\n')[0].split(' ') || [];
+                        appsObj.versions.postgresql = postgresql.length ? postgresql[postgresql.length - 1] : '';
+                      }
+                      functionProcessed();
+                    })
+                    .catch(() => {
+                      functionProcessed();
+                    });
                 } else {
                   functionProcessed();
                 }
-              } else {
-                execCmd('psql -V').then((stdout: string) => {
-                  if (stdout) {
-                    const postgresql = stdout.toString().split('\n')[0].split(' ') || [];
+              })
+              .catch(() => {
+                exec('psql -V')
+                  .then((res) => {
+                    const postgresql = res.stdout.split('\n')[0].split(' ') || [];
+
                     appsObj.versions.postgresql = postgresql.length ? postgresql[postgresql.length - 1] : '';
                     appsObj.versions.postgresql = appsObj.versions.postgresql.split('-')[0];
-                  }
-                  functionProcessed();
-                });
-                functionProcessed();
-              }
-            });
+                    functionProcessed();
+                  })
+                  .catch(() => {
+                    functionProcessed();
+                  });
+              });
           } else {
             if (WINDOWS) {
-              powerShell('Get-WmiObject Win32_Service | fl *').then((stdout) => {
-                const serviceSections = stdout.split(/\n\s*\n/);
-                for (let i = 0; i < serviceSections.length; i++) {
-                  if (serviceSections[i].trim() !== '') {
-                    const lines = serviceSections[i].trim().split('\r\n');
+              ps.exec('Get-CimInstance Win32_Service | select caption | fl')
+                .then((stdout: any) => {
+                  const serviceSections = (stdout ? stdout.toString() : '').split(/\n\s*\n/);
+                  serviceSections.forEach((item: string) => {
+                    const lines = item.trim().split('\r\n');
                     const srvCaption = getValue(lines, 'caption', ':', true).toLowerCase();
                     if (srvCaption.indexOf('postgresql') > -1) {
                       const parts = srvCaption.split(' server ');
@@ -333,261 +460,648 @@ export const versions = async (apps?: string | string[]) => {
                         appsObj.versions.postgresql = parts[1];
                       }
                     }
-                  }
-                }
-                functionProcessed();
-              });
+                  });
+                  functionProcessed();
+                })
+                .catch(() => {
+                  functionProcessed();
+                });
             } else {
-              execCmd('postgres -V').then((stdout: string) => {
-                if (stdout) {
-                  const postgresql = stdout.toString().split('\n')[0].split(' ') || [];
-                  appsObj.versions.postgresql = postgresql.length ? postgresql[postgresql.length - 1] : '';
-                }
-                functionProcessed();
-              });
+              exec('postgres -V')
+                .then((res) => {
+                  if (res.stdout) {
+                    const postgresql = res.stdout.split('\n')[0].split(' ') || [];
+                    appsObj.versions.postgresql = postgresql.length ? postgresql[postgresql.length - 1] : '';
+                    if (appsObj.versions.postgresql.includes('(') && postgresql.length >= 2 && !postgresql[postgresql.length - 2].includes('(')) {
+                      appsObj.versions.postgresql = postgresql[postgresql.length - 2];
+                    }
+                  }
+                  functionProcessed();
+                })
+                .catch(() => {
+                  exec('pg_config --version 2> /dev/null')
+                    .then((res) => {
+                      if (res.stdout) {
+                        const postgresql = res.stdout.toString().split('\n')[0].split(' ') || [];
+                        appsObj.versions.postgresql = postgresql.length ? postgresql[postgresql.length - 1] : '';
+                        if (appsObj.versions.postgresql.includes('(') && postgresql.length >= 2 && !postgresql[postgresql.length - 2].includes('(')) {
+                          appsObj.versions.postgresql = postgresql[postgresql.length - 2];
+                        }
+                      }
+                    })
+                    .catch(() => {})
+                    .finally(() => {
+                      functionProcessed();
+                    });
+                });
             }
           }
         }
         if (Object.keys(appsObj.versions).includes('perl')) {
-          execCmd('perl -v').then((stdout: string) => {
-            if (stdout) {
-              const perl = stdout.toString().split('\n') || '';
-              while (perl.length > 0 && perl[0].trim() === '') {
-                perl.shift();
+          exec('perl -v')
+            .then((res) => {
+              if (res.stdout) {
+                let perl = res.stdout.split('\n') || '';
+                while (perl.length > 0 && perl[0].trim() === '') {
+                  perl = perl.splice(1);
+                }
+                if (perl.length > 0) {
+                  appsObj.versions.perl = (perl[0].split('(').pop() || '').split(')')[0].replace('v', '');
+                }
               }
-              if (perl.length > 0) {
-                appsObj.versions.perl = (perl[0].split('(').pop() || '').split(')')[0].replace('v', '');
-              }
-            }
-            functionProcessed();
-          });
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('python')) {
           if (DARWIN) {
-            const gitHomebrewExists = existsSync('/usr/local/Cellar/python');
-            if (await darwinXcodeExists() || gitHomebrewExists) {
-              execCmd('python -V 2>&1').then((stdout: string) => {
-                if (stdout) {
-                  const python = stdout.toString().split('\n')[0] || '';
-                  appsObj.versions.python = python.toLowerCase().replace('python', '').trim();
-                }
-                functionProcessed();
-              });
+            const { stdout } = await execSave('sw_vers');
+            const lines = stdout.split('\n');
+            const osVersion = getValue(lines, 'ProductVersion', ':');
+
+            const pythonHomebrewExists1 = await fileExists('/usr/local/Cellar/python');
+            const pythonHomebrewExists2 = await fileExists('/opt/homebrew/bin/python');
+            if (((await darwinXcodeExists()) && semverCompare('12.0.1', osVersion) < 0) || pythonHomebrewExists1 || pythonHomebrewExists2) {
+              const cmd = pythonHomebrewExists1 ? '/usr/local/Cellar/python -V 2>&1' : pythonHomebrewExists2 ? '/opt/homebrew/bin/python -V 2>&1' : 'python -V 2>&1';
+              exec(cmd)
+                .then((res) => {
+                  if (res.stdout) {
+                    const python = res.stdout.split('\n')[0] || '';
+                    appsObj.versions.python = python.toLowerCase().replace('python', '').trim();
+                  }
+                  functionProcessed();
+                })
+                .catch(() => {
+                  functionProcessed();
+                });
             } else {
               functionProcessed();
             }
           } else {
-            execCmd('python -V 2>&1').then((stdout: string) => {
-              if (stdout) {
-                const python = stdout.toString().split('\n')[0] || '';
-                appsObj.versions.python = python.toLowerCase().replace('python', '').trim();
-              }
-              functionProcessed();
-            });
+            exec('python -V 2>&1')
+              .then((res) => {
+                if (res.stdout) {
+                  const python = res.stdout.split('\n')[0] || '';
+                  appsObj.versions.python = python.toLowerCase().replace('python', '').trim();
+                }
+                functionProcessed();
+              })
+              .catch(() => {
+                functionProcessed();
+              });
           }
         }
         if (Object.keys(appsObj.versions).includes('python3')) {
           if (DARWIN) {
-            const gitHomebrewExists = existsSync('/usr/local/Cellar/python3');
-            if (await darwinXcodeExists() || gitHomebrewExists) {
-              execCmd('python3 -V 2>&1').then((stdout: string) => {
-                if (stdout) {
-                  const python = stdout.toString().split('\n')[0] || '';
-                  appsObj.versions.python3 = python.toLowerCase().replace('python', '').trim();
-                }
-                functionProcessed();
-              });
+            const pythonHomebrewExists = (await fileExists('/usr/local/Cellar/python3')) || (await fileExists('/opt/homebrew/bin/python3'));
+            if ((await darwinXcodeExists()) || pythonHomebrewExists) {
+              exec('python3 -V 2>&1')
+                .then((res) => {
+                  if (res.stdout) {
+                    const python = res.stdout.split('\n')[0] || '';
+                    appsObj.versions.python3 = python.toLowerCase().replace('python', '').trim();
+                  }
+                  functionProcessed();
+                })
+                .catch(() => {
+                  functionProcessed();
+                });
             } else {
               functionProcessed();
             }
           } else {
-            execCmd('python3 -V 2>&1').then((stdout: string) => {
-              if (stdout) {
-                const python = stdout.toString().split('\n')[0] || '';
-                appsObj.versions.python3 = python.toLowerCase().replace('python', '').trim();
-              }
-              functionProcessed();
-            });
+            exec('python3 -V 2>&1')
+              .then((res) => {
+                if (res.stdout) {
+                  const python = res.stdout.split('\n')[0] || '';
+                  appsObj.versions.python3 = python.toLowerCase().replace('python', '').trim();
+                }
+                functionProcessed();
+              })
+              .catch(() => {
+                functionProcessed();
+              });
           }
         }
         if (Object.keys(appsObj.versions).includes('pip')) {
           if (DARWIN) {
-            const gitHomebrewExists = existsSync('/usr/local/Cellar/pip');
-            if (await darwinXcodeExists() || gitHomebrewExists) {
-              execCmd('pip -V 2>&1').then((stdout: string) => {
-                if (stdout) {
-                  const pip = stdout.toString().split('\n')[0] || '';
+            const pipHomebrewExists = (await fileExists('/usr/local/Cellar/pip')) || (await fileExists('/opt/homebrew/bin/pip'));
+            if ((await darwinXcodeExists()) || pipHomebrewExists) {
+              exec('pip -V 2>&1')
+                .then((res) => {
+                  if (res.stdout) {
+                    const pip = res.stdout.split('\n')[0] || '';
+                    const parts = pip.split(' ');
+                    appsObj.versions.pip = parts.length >= 2 ? parts[1] : '';
+                  }
+                  functionProcessed();
+                })
+                .catch(() => {
+                  functionProcessed();
+                });
+            } else {
+              functionProcessed();
+            }
+          } else {
+            exec('pip -V 2>&1')
+              .then((res) => {
+                if (res.stdout) {
+                  const pip = res.stdout.split('\n')[0] || '';
                   const parts = pip.split(' ');
                   appsObj.versions.pip = parts.length >= 2 ? parts[1] : '';
                 }
                 functionProcessed();
+              })
+              .catch(() => {
+                functionProcessed();
               });
-            } else {
-              functionProcessed();
-            }
-          } else {
-            execCmd('pip -V 2>&1').then((stdout: string) => {
-              if (stdout) {
-                const pip = stdout.toString().split('\n')[0] || '';
-                const parts = pip.split(' ');
-                appsObj.versions.pip = parts.length >= 2 ? parts[1] : '';
-              }
-              functionProcessed();
-            });
           }
         }
         if (Object.keys(appsObj.versions).includes('pip3')) {
           if (DARWIN) {
-            const gitHomebrewExists = existsSync('/usr/local/Cellar/pip3');
-            if (await darwinXcodeExists() || gitHomebrewExists) {
-              execCmd('pip3 -V 2>&1').then((stdout: string) => {
-                if (stdout) {
-                  const pip = stdout.toString().split('\n')[0] || '';
-                  const parts = pip.split(' ');
-                  appsObj.versions.pip3 = parts.length >= 2 ? parts[1] : '';
-                }
-                functionProcessed();
-              });
+            const pipHomebrewExists = (await fileExists('/usr/local/Cellar/pip3')) || (await fileExists('/opt/homebrew/bin/pip3'));
+            if ((await darwinXcodeExists()) || pipHomebrewExists) {
+              exec('pip3 -V 2>&1')
+                .then((res) => {
+                  if (res.stdout) {
+                    const pip = res.stdout.split('\n')[0] || '';
+                    const parts = pip.split(' ');
+                    appsObj.versions.pip3 = parts.length >= 2 ? parts[1] : '';
+                  }
+                  functionProcessed();
+                })
+                .catch(() => {
+                  functionProcessed();
+                });
             } else {
               functionProcessed();
             }
           } else {
-            execCmd('pip3 -V 2>&1').then((stdout: string) => {
-              if (stdout) {
-                const pip = stdout.toString().split('\n')[0] || '';
-                const parts = pip.split(' ');
-                appsObj.versions.pip3 = parts.length >= 2 ? parts[1] : '';
-              }
-              functionProcessed();
-            });
+            exec('pip3 -V 2>&1')
+              .then((res) => {
+                if (res.stdout) {
+                  const pip = res.stdout.split('\n')[0] || '';
+                  const parts = pip.split(' ');
+                  appsObj.versions.pip3 = parts.length >= 2 ? parts[1] : '';
+                }
+                functionProcessed();
+              })
+              .catch(() => {
+                functionProcessed();
+              });
           }
         }
         if (Object.keys(appsObj.versions).includes('java')) {
           if (DARWIN) {
             // check if any JVM is installed but avoid dialog box that Java needs to be installed
-            execCmd('/usr/libexec/java_home -V 2>&1').then((stdout: string) => {
-              if (stdout && stdout.toString().toLowerCase().indexOf('no java runtime') === -1) {
-                // now this can be done savely
-                execCmd('java -version 2>&1').then((stdout: string) => {
-                  if (stdout) {
-                    const java = stdout.toString().split('\n')[0] || '';
-                    const parts = java.split('"');
-                    appsObj.versions.java = parts.length === 3 ? parts[1].trim() : '';
-                  }
+            exec('/usr/libexec/java_home -V 2>&1')
+              .then((res) => {
+                if (res.stdout && res.stdout.toLowerCase().indexOf('no java runtime') === -1) {
+                  // now this can be done savely
+                  exec('java -version 2>&1')
+                    .then((res) => {
+                      if (res.stdout) {
+                        const java = res.stdout.split('\n')[0] || '';
+                        const parts = java.split('"');
+                        appsObj.versions.java = parts.length === 3 ? parts[1].trim() : '';
+                      }
+                      functionProcessed();
+                    })
+                    .catch(() => {
+                      functionProcessed();
+                    });
+                } else {
                   functionProcessed();
-                });
-              } else {
+                }
+              })
+              .catch(() => {
                 functionProcessed();
-              }
-            });
+              });
           } else {
-            execCmd('java -version 2>&1').then((stdout: string) => {
-              if (stdout) {
-                const java = stdout.toString().split('\n')[0] || '';
-                const parts = java.split('"');
-                appsObj.versions.java = parts.length === 3 ? parts[1].trim() : '';
-              }
-              functionProcessed();
-            });
+            exec('java -version 2>&1')
+              .then((res) => {
+                if (res.stdout) {
+                  const java = res.stdout.split('\n')[0] || '';
+                  const parts = java.split('"');
+                  appsObj.versions.java = parts.length === 3 ? parts[1].trim() : '';
+                }
+                functionProcessed();
+              })
+              .catch(() => {
+                functionProcessed();
+              });
           }
         }
         if (Object.keys(appsObj.versions).includes('gcc')) {
-          if ((DARWIN && await darwinXcodeExists()) || !DARWIN) {
-            execCmd('gcc -dumpversion').then((stdout: string) => {
-              if (stdout) {
-                appsObj.versions.gcc = stdout.toString().split('\n')[0].trim() || '';
-              }
-              if (appsObj.versions.gcc.indexOf('.') > -1) {
-                functionProcessed();
-              } else {
-                execCmd('gcc --version').then((stdout: string) => {
-                  if (stdout) {
-                    const gcc = stdout.toString().split('\n')[0].trim();
-                    if (gcc.indexOf('gcc') > -1 && gcc.indexOf(')') > -1) {
-                      const parts = gcc.split(')');
-                      appsObj.versions.gcc = parts[1].trim() || appsObj.versions.gcc;
-                    }
-                  }
+          if ((DARWIN && (await darwinXcodeExists())) || !DARWIN) {
+            exec('gcc -dumpversion')
+              .then((res) => {
+                if (res.stdout) {
+                  appsObj.versions.gcc = res.stdout.split('\n')[0].trim() || '';
+                }
+                if (appsObj.versions.gcc.indexOf('.') > -1) {
                   functionProcessed();
-                });
-              }
-            });
+                } else {
+                  exec('gcc --version')
+                    .then((res) => {
+                      if (res.stdout) {
+                        const gcc = res.stdout.split('\n')[0].trim();
+                        if (gcc.indexOf('gcc') > -1 && gcc.indexOf(')') > -1) {
+                          const parts = gcc.split(')');
+                          appsObj.versions.gcc = parts[1].trim() || appsObj.versions.gcc;
+                        }
+                      }
+                      functionProcessed();
+                    })
+                    .catch(() => {
+                      functionProcessed();
+                    });
+                }
+              })
+              .catch(() => {
+                functionProcessed();
+              });
           } else {
             functionProcessed();
           }
         }
         if (Object.keys(appsObj.versions).includes('virtualbox')) {
-          execCmd(VBOXMANAGE + ' -v 2>&1').then((stdout: string) => {
-            if (stdout) {
-              const vbox = stdout.toString().split('\n')[0] || '';
-              const parts = vbox.split('r');
-              appsObj.versions.virtualbox = parts[0];
-            }
-            functionProcessed();
-          });
+          exec(VBOXMANAGE + ' -v 2>&1')
+            .then((res) => {
+              if (res.stdout) {
+                const vbox = res.stdout.split('\n')[0] || '';
+                const parts = vbox.split('r');
+                appsObj.versions.virtualbox = parts[0];
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('bash')) {
-          execCmd('bash --version').then((stdout: string) => {
-            if (stdout) {
-              const line = stdout.toString().split('\n')[0];
-              const parts = line.split(' version ');
-              if (parts.length > 1) {
-                appsObj.versions.bash = parts[1].split(' ')[0].split('(')[0];
+          exec('bash --version')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split(' version ');
+                if (parts.length > 1) {
+                  appsObj.versions.bash = parts[1].split(' ')[0].split('(')[0];
+                }
               }
-            }
-            functionProcessed();
-          });
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('zsh')) {
-          execCmd('zsh --version').then((stdout: string) => {
-            if (stdout) {
-              const line = stdout.toString().split('\n')[0];
-              const parts = line.split('zsh ');
-              if (parts.length > 1) {
-                appsObj.versions.zsh = parts[1].split(' ')[0];
+          exec('zsh --version')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split('zsh ');
+                if (parts.length > 1) {
+                  appsObj.versions.zsh = parts[1].split(' ')[0];
+                }
               }
-            }
-            functionProcessed();
-          });
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('fish')) {
-          execCmd('fish --version').then((stdout: string) => {
-            if (stdout) {
-              const line = stdout.toString().split('\n')[0];
-              const parts = line.split(' version ');
-              if (parts.length > 1) {
-                appsObj.versions.fish = parts[1].split(' ')[0];
+          exec('fish --version')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split(' version ');
+                if (parts.length > 1) {
+                  appsObj.versions.fish = parts[1].split(' ')[0];
+                }
               }
-            }
-            functionProcessed();
-          });
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
         if (Object.keys(appsObj.versions).includes('powershell')) {
           if (WINDOWS) {
-            powerShell('$PSVersionTable').then((stdout) => {
-              const lines = stdout.toString().split('\n').map(line => line.replace(/ +/g, ' ').replace(/ +/g, ':'));
-              appsObj.versions.powershell = getValue(lines, 'psversion');
-              functionProcessed();
-            });
+            ps.exec('$PSVersionTable')
+              .then((stdout: any) => {
+                const lines = (stdout ? stdout.toString() : '')
+                  .toLowerCase()
+                  .split('\n')
+                  .map((line: string) => line.replace(/ +/g, ' ').replace(/ +/g, ':'));
+                appsObj.versions.powershell = getValue(lines, 'psversion');
+                functionProcessed();
+              })
+              .catch(() => {
+                functionProcessed();
+              });
           } else {
             functionProcessed();
           }
         }
         if (Object.keys(appsObj.versions).includes('dotnet')) {
-          powerShell('gci "HKLM:\\SOFTWARE\\Microsoft\\NET Framework Setup\\NDP" -recurse | gp -name Version,Release -EA 0 | where { $_.PSChildName -match "^(?!S)\\p{L}"} | select PSChildName, Version, Release').then(stdout => {
-            const lines = stdout.toString().split('\r\n');
-            let dotnet = '';
-            lines.forEach(line => {
-              line = line.replace(/ +/g, ' ');
-              const parts = line.split(' ');
-              dotnet = dotnet || ((parts[0].toLowerCase().startsWith('client') && parts.length > 2 ? parts[1].trim() : (parts[0].toLowerCase().startsWith('full') && parts.length > 2 ? parts[1].trim() : '')));
-            });
-            appsObj.versions.dotnet = dotnet.trim();
+          if (WINDOWS) {
+            ps.exec('gci "HKLM:\\SOFTWARE\\Microsoft\\NET Framework Setup\\NDP" -recurse | gp -name Version,Release -EA 0 | where { $_.PSChildName -match "^(?!S)\\p{L}"} | select PSChildName, Version, Release')
+              .then((stdout: any) => {
+                const lines: string[] = (stdout ? stdout.toString() : '').split('\r\n');
+                let dotnet = '';
+                lines.forEach((line) => {
+                  line = line.replace(/ +/g, ' ');
+                  const parts = line.split(' ');
+                  dotnet =
+                    dotnet ||
+                    (parts[0].toLowerCase().startsWith('client') && parts.length > 2 ? parts[1].trim() : parts[0].toLowerCase().startsWith('full') && parts.length > 2 ? parts[1].trim() : '');
+                });
+                appsObj.versions.dotnet = dotnet.trim();
+                functionProcessed();
+              })
+              .catch(() => {
+                functionProcessed();
+              });
+          } else {
             functionProcessed();
-          });
+          }
+        }
+        if (Object.keys(appsObj.versions).includes('vue')) {
+          exec('vue --version')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split(' ');
+                if (parts.length > 1) {
+                  appsObj.versions.vue = parts[1];
+                }
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('angular')) {
+          exec('ng version')
+            .then((res) => {
+              if (res.stdout) {
+                const lines = res.stdout.split('\n');
+                lines.forEach((line) => {
+                  if (line.toLowerCase().startsWith('angular cli')) {
+                    const parts = line.split(':');
+                    if (parts.length > 1) {
+                      appsObj.versions.angular = parts[1].trim();
+                    }
+                  }
+                });
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('rust')) {
+          exec('rustc --version')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split(' ');
+                if (parts.length > 1) {
+                  appsObj.versions.rust = parts[1].trim();
+                }
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('go')) {
+          exec('go version')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split(' ');
+                if (parts.length > 2) {
+                  appsObj.versions.go = parts[2].trim();
+                }
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('maven')) {
+          exec('mvn --version')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split(' ');
+                if (parts.length > 2) {
+                  appsObj.versions.maven = parts[2].trim();
+                }
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('gradle')) {
+          exec('gradle -v')
+            .then((res) => {
+              if (res.stdout) {
+                const lines = res.stdout.split('\n');
+                lines.forEach((line) => {
+                  if (line.toLowerCase().startsWith('gradle')) {
+                    const parts = line.split(' ');
+                    if (parts.length >= 2) {
+                      appsObj.versions.gradle = parts[1].trim();
+                    }
+                  }
+                });
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('dockerCompose')) {
+          exec('docker-compose -v')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split('version ');
+                appsObj.versions.dockerCompose = parts.length > 1 ? parts[1].trim() : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('bun')) {
+          exec('bun -v')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                appsObj.versions.bun = line.trim();
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('deno')) {
+          exec('deno -v')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split(' ');
+                appsObj.versions.deno = line.length > 1 ? parts[1].trim() : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('curl')) {
+          exec('curl -V')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split(' ');
+                appsObj.versions.curl = line.length > 1 ? parts[1].trim() : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('ruby')) {
+          exec('ruby -v')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split(' ');
+                appsObj.versions.ruby = line.length > 1 ? parts[1].trim() : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('cargo')) {
+          exec('cargo -V')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split(' ');
+                appsObj.versions.cargo = line.length > 1 ? parts[1].trim() : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('sqlite3')) {
+          exec('sqlite3 --version')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split(' ');
+                appsObj.versions.sqlite3 = line.length > 1 ? parts[0].trim() : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('vi')) {
+          exec('vi --version')
+            .then((res) => {
+              if (res.stdout) {
+                const line = res.stdout.split('\n')[0];
+                const parts = line.split('(');
+                appsObj.versions.vi = line.length > 1 ? parts[0].trim() : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('node')) {
+          exec('node -v')
+            .then((res) => {
+              if (res.stdout) {
+                let line = res.stdout.split('\n')[0].trim();
+                if (line.startsWith('v')) {
+                  line = line.slice(1);
+                }
+                appsObj.versions.node = line;
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('composer')) {
+          exec('composer --version')
+            .then((res) => {
+              if (res.stdout) {
+                const parts = res.stdout.split('\n')[0].trim().split(' ');
+                appsObj.versions.composer = parts.length >= 3 ? parts[2].trim() : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('herd')) {
+          exec('herd --version')
+            .then((res) => {
+              if (res.stdout) {
+                const parts = res.stdout.split('\n')[0].trim().split(' ');
+                appsObj.versions.herd = parts.length >= 2 ? parts[1].trim() : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('laravel')) {
+          exec('laravel --version')
+            .then((res) => {
+              if (res.stdout) {
+                const parts = res.stdout.split('\n')[0].trim().split(' ');
+                appsObj.versions.laravel = parts.length >= 3 ? parts[2].trim() : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
         }
       } catch (e) {
-        return (appsObj.versions);
+        return appsObj.versions;
       }
     });
   });

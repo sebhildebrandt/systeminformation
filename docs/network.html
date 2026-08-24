@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 
   <title>systeminformation</title>
@@ -30,7 +30,7 @@
 <body>
   <nav class="nav">
     <div class="container">
-      <a href="."><img class="logo float-left" src="assets/logo.png">
+      <a href="."><img class="logo float-left" src="assets/logo.png" alt="logo">
         <div class="title float-left">systeminformation</div>
       </a>
       <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
@@ -74,7 +74,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>array of network interfaces (objects)</td>
                     </tr>
                     <tr>
@@ -84,7 +84,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>interface</td>
                     </tr>
                     <tr>
@@ -94,8 +94,18 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>interface name (differs on Windows)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].default</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>true if this is the default interface</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -104,7 +114,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>ip4 address</td>
                     </tr>
                     <tr>
@@ -114,7 +124,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>ip4 subnet mask</td>
                     </tr>
                     <tr>
@@ -124,7 +134,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>ip6 address</td>
                     </tr>
                     <tr>
@@ -134,7 +144,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>ip6 subnet mask</td>
                     </tr>
                     <tr>
@@ -144,7 +154,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>MAC address</td>
                     </tr>
                     <tr>
@@ -154,7 +164,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>true if internal interface</td>
                     </tr>
                     <tr>
@@ -164,7 +174,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>true if virtual interface</td>
                     </tr>
                     <tr>
@@ -205,7 +215,7 @@
                       <td>X</td>
                       <td></td>
                       <td></td>
-                      <td>MUT maximum transmission unit</td>
+                      <td>MTU maximum transmission unit</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -272,12 +282,13 @@
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.networkInterfaces().then(data => console.log(data));</code></pre class="example">
+si.networkInterfaces().then(data => console.log(data));</code></pre>
                       <pre class="example">
 [
   {
     iface: 'lo0',
     ifaceName: 'lo0',
+    default: false,
     ip4: '127.0.0.1',
     ip4subnet: '255.0.0.0',
     ip6: '::1',
@@ -299,6 +310,7 @@ si.networkInterfaces().then(data => console.log(data));</code></pre class="examp
   {
     iface: 'en0',
     ifaceName: 'en0',
+    default: true,
     ip4: '192.168.0.27',
     ip4subnet: '255.255.255.0',
     ip6: 'fe80::134a:1e43:abc5:d413',
@@ -318,6 +330,34 @@ si.networkInterfaces().then(data => console.log(data));</code></pre class="examp
     carrierChanges: 0
   }, ...
 ]</pre>
+                        <h5>Get Default Interface only</h5>
+                        <p>&nbsp;&nbsp;With the 'default' parameter this function returns only the default interface</p>
+                        <pre><code class="js">const si = require('systeminformation');
+si.networkInterfaces('default').then(data => console.log(data));</code></pre>
+<pre class="example">
+{
+  iface: 'en0',
+  ifaceName: 'en0',
+  default: true,
+  ip4: '192.168.0.27',
+  ip4subnet: '255.255.255.0',
+  ip6: 'fe80::134a:1e43:abc5:d413',
+  ip6subnet: 'ffff:ffff:ffff:ffff::',
+  mac: 'xx:xx:xx:xx:xx:xx',
+  internal: false,
+  virtual: false,
+  operstate: 'up',
+  type: 'wired',
+  duplex: 'full',
+  mtu: 1500,
+  speed: 1000,
+  dhcp: true,
+  dnsSuffix: '',
+  ieee8021xAuth: '',
+  ieee8021xState: '',
+  carrierChanges: 0
+}</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.networkInterfaceDefault(cb)</td>
@@ -334,9 +374,10 @@ si.networkInterfaces().then(data => console.log(data));</code></pre class="examp
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.networkInterfaceDefault().then(data => console.log(data));</code></pre class="example">
+si.networkInterfaceDefault().then(data => console.log(data));</code></pre>
                       <pre class="example">
 eth0</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.networkGatewayDefault(cb)</td>
@@ -345,7 +386,7 @@ eth0</pre>
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>get default network gateway</td>
                     </tr>
                     <tr class="example">
@@ -353,9 +394,10 @@ eth0</pre>
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.networkGatewayDefault().then(data => console.log(data));</code></pre class="example">
+si.networkGatewayDefault().then(data => console.log(data));</code></pre>
                       <pre class="example">
 192.168.0.1</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.networkStats(iface,cb)</td>
@@ -486,7 +528,7 @@ setInterval(function() {
   si.networkStats().then(data => {
     console.log(data);
   })
-}, 1000)</code></pre class="example">
+}, 1000)</code></pre>
                       <pre class="example">
 [
   {                                 // first call
@@ -518,6 +560,7 @@ setInterval(function() {
     ms: 985
   }
 ]...</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.networkConnections(cb)</td>
@@ -604,7 +647,7 @@ setInterval(function() {
                       <td>[0].process</td>
                       <td>X</td>
                       <td>X</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td></td>
                       <td>process name</td>
@@ -614,7 +657,7 @@ setInterval(function() {
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.networkConnections().then(data => console.log(data));</code></pre class="example">
+si.networkConnections().then(data => console.log(data));</code></pre>
                       <pre class="example">
 [
   {
@@ -639,6 +682,7 @@ si.networkConnections().then(data => console.log(data));</code></pre class="exam
   },
   ...
 ]</pre>
+                    </td>
                     </tr>
                   </tbody>
                 </table>
@@ -712,7 +756,7 @@ si.networkConnections().then(data => console.log(data));</code></pre class="exam
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.inetChecksite('google.com').then(data => console.log(data));</code></pre class="example">
+si.inetChecksite('google.com').then(data => console.log(data));</code></pre>
                       <pre class="example">
 {
   url: 'google.com',
@@ -720,6 +764,7 @@ si.inetChecksite('google.com').then(data => console.log(data));</code></pre clas
   status: 301,
   ms: 82
 }</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.inetLatency(host, cb)</td>
@@ -736,14 +781,15 @@ si.inetChecksite('google.com').then(data => console.log(data));</code></pre clas
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.inetLatency().then(data => console.log(data));</code></pre class="example">
+si.inetLatency().then(data => console.log(data));</code></pre>
                       <pre class="example">
 13.484</pre>
                         <pre><code class="js">// Example with given host IP address
 const si = require('systeminformation');
-si.inetLatency('216.58.207.142').then(data => console.log(data));</code></pre class="example">
+si.inetLatency('216.58.207.142').then(data => console.log(data));</code></pre>
                       <pre class="example">
 11.291</pre>
+                    </td>
                     </tr>
                   </tbody>
                 </table>
@@ -790,7 +836,7 @@ setInterval(function() {
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
             <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="changes.html">Version 6 Changes</a></li>
             <li><a href="history.html">Full Version History</a></li>
             <li><a href="tests.html">Testing</a></li>
             <li><a href="issues.html">Known Issues</a></li>
@@ -803,7 +849,7 @@ setInterval(function() {
             <li><a href="trademarks.html">Trademarks</a></li>
             <li>&nbsp;</li>
             <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
             <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
           </ul>
         </div>

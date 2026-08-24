@@ -1,19 +1,13 @@
-import { nixPrinter } from './linux/printer';
-import { darwinPrinter } from './darwin/printer';
-import { windowsPrinter } from './windows/printer';
-
-import { DARWIN, FREEBSD, LINUX, NETBSD, WINDOWS } from './common/const';
-import { nextTick } from './common';
+import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 
 export const printer = async () => {
-  await nextTick();
   switch (true) {
-    case LINUX || FREEBSD || NETBSD:
-      return nixPrinter();
+    case LINUX || FREEBSD || NETBSD || OPENBSD || ANDROID:
+      return (await import('./linux/printer.js')).printer();
     case DARWIN:
-      return darwinPrinter();
+      return (await import('./darwin/printer.js')).printer();
     case WINDOWS:
-      return windowsPrinter();
+      return (await import('./windows/printer.js')).printer();
     default:
       return null;
   }

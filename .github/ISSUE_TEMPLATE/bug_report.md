@@ -28,5 +28,11 @@ A clear and concise description of what you expected to happen.
  - OS: [e.g. macOS]
  - Hardware [e.g. MacBook Pro 13]
 
+To get all needed environment information, please run the following command:
+
+```
+  npx systeminformation info
+```
+
 **Additional context**
 Add any other context about the problem here.

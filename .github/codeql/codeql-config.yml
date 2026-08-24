@@ -1,0 +1,8 @@
+name: "systeminformation CodeQL config"
+
+paths:
+  - src
+paths-ignore:
+  - node_modules
+  - dist
+  - test

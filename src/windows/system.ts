@@ -1,11 +1,12 @@
 import { cloneObj, getValue, nextTick } from '../common';
-import { powerShell } from '../common/exec';
 import { initSystem } from '../common/defaults';
+import { ps } from '../common/windows';
 
-export const windowsSystem = async () => {
+export const system = async () => {
+  await nextTick();
   const result = cloneObj(initSystem);
   try {
-    let stdout = (await powerShell('Get-WmiObject Win32_ComputerSystemProduct | fl *')).toString();
+    let stdout = (await ps.exec('Get-CimInstance Win32_ComputerSystemProduct | select Name,Vendor,Version,IdentifyingNumber,UUID | fl')).toString();
     if (stdout) {
       let lines = stdout.split('\r\n');
       result.manufacturer = getValue(lines, 'vendor', ':');
@@ -14,43 +15,60 @@ export const windowsSystem = async () => {
       result.serial = getValue(lines, 'identifyingnumber', ':');
       result.uuid = getValue(lines, 'uuid', ':').toLowerCase();
       // detect virtual (1)
-      if (result.model.toLowerCase() === 'virtualbox' || result.model.toLowerCase() === 'kvm' || result.model.toLowerCase() === 'virtual machine' || result.model.toLowerCase() === 'bochs' || result.model.toLowerCase().startsWith('vmware')) {
+      const model = result.model.toLowerCase();
+      if (model === 'virtualbox' || model === 'kvm' || model === 'virtual machine' || model === 'bochs' || model.startsWith('vmware') || model.startsWith('qemu') || model.startsWith('parallels')) {
         result.virtual = true;
-        switch (result.model.toLowerCase()) {
-          case 'virtualbox':
-            result.virtualHost = 'VirtualBox';
-            break;
-          case 'vmware':
-            result.virtualHost = 'VMware';
-            break;
-          case 'kvm':
-            result.virtualHost = 'KVM';
-            break;
-          case 'bochs':
-            result.virtualHost = 'bochs';
-            break;
+        if (model.startsWith('virtualbox')) {
+          result.virtualHost = 'VirtualBox';
+        }
+        if (model.startsWith('vmware')) {
+          result.virtualHost = 'VMware';
+        }
+        if (model.startsWith('kvm')) {
+          result.virtualHost = 'KVM';
+        }
+        if (model.startsWith('bochs')) {
+          result.virtualHost = 'bochs';
+        }
+        if (model.startsWith('qemu')) {
+          result.virtualHost = 'KVM';
+        }
+        if (model.startsWith('parallels')) {
+          result.virtualHost = 'Parallels';
         }
       }
-      if (result.manufacturer.toLowerCase().startsWith('vmware') || result.manufacturer.toLowerCase() === 'xen') {
+      const manufacturer = result.manufacturer.toLowerCase();
+      if (manufacturer.startsWith('vmware') || manufacturer.startsWith('qemu') || manufacturer === 'xen' || manufacturer.startsWith('parallels')) {
         result.virtual = true;
-        switch (result.manufacturer.toLowerCase()) {
-          case 'vmware':
-            result.virtualHost = 'VMware';
-            break;
-          case 'xen':
-            result.virtualHost = 'Xen';
-            break;
+        if (manufacturer.startsWith('vmware')) {
+          result.virtualHost = 'VMware';
+        }
+        if (manufacturer.startsWith('xen')) {
+          result.virtualHost = 'Xen';
+        }
+        if (manufacturer.startsWith('qemu')) {
+          result.virtualHost = 'KVM';
+        }
+        if (manufacturer.startsWith('parallels')) {
+          result.virtualHost = 'Parallels';
         }
       }
-      stdout = (await powerShell('Get-WmiObject MS_Systeminformation -Namespace "root/wmi" | fl *')).toString();
+      stdout = (await ps.exec('Get-CimInstance MS_Systeminformation -Namespace "root/wmi" | select systemsku | fl')).toString();
       if (stdout) {
         lines = stdout.split('\r\n');
         result.sku = getValue(lines, 'systemsku', ':');
       }
       if (!result.virtual) {
-        stdout = (await powerShell('Get-WmiObject Win32_bios | select Version, SerialNumber, SMBIOSBIOSVersion')).toString();
+        stdout = (await ps.exec('Get-CimInstance Win32_bios | select Version, SerialNumber, SMBIOSBIOSVersion')).toString();
         if (stdout) {
-          if (stdout.indexOf('VRTUAL') >= 0 || stdout.indexOf('A M I ') >= 0 || stdout.indexOf('VirtualBox') >= 0 || stdout.indexOf('VMWare') >= 0 || stdout.indexOf('Xen') >= 0) {
+          if (
+            stdout.indexOf('VRTUAL') >= 0 ||
+            stdout.indexOf('A M I ') >= 0 ||
+            stdout.indexOf('VirtualBox') >= 0 ||
+            stdout.indexOf('VMWare') >= 0 ||
+            stdout.indexOf('Xen') >= 0 ||
+            stdout.indexOf('Parallels') >= 0
+          ) {
             result.virtual = true;
             if (stdout.indexOf('VirtualBox') >= 0 && !result.virtualHost) {
               result.virtualHost = 'VirtualBox';
@@ -67,16 +85,13 @@ export const windowsSystem = async () => {
             if (stdout.indexOf('A M I') >= 0 && !result.virtualHost) {
               result.virtualHost = 'Virtual PC';
             }
+            if (stdout.indexOf('Parallels') >= 0 && !result.virtualHost) {
+              result.virtualHost = 'Parallels';
+            }
           }
         }
       }
     }
-  } catch { }
+  } catch {}
   return result;
 };
-
-export const system = async () => {
-  await nextTick();
-  return windowsSystem();
-};
-

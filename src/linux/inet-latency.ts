@@ -1,29 +1,29 @@
-import { execSafe } from '../common/exec';
+import { execSecure } from '../common/exec';
 import { sanitizeUrl } from '../common/security';
-import { DARWIN, FREEBSD, LINUX, NETBSD } from '../common/const';
+import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD } from '../common/const';
 import { nextTick } from '../common';
 
-export const nixInetLatency = async (host: string) => {
+export const inetLatency = async (host: string) => {
+  await nextTick();
   let hostSanitized = sanitizeUrl(host);
   hostSanitized = hostSanitized || '8.8.8.8';
   let params: string[] = [];
-  let filt = '';
   if (LINUX) {
     params = ['-c', '2', '-w', '3', hostSanitized];
-    filt = 'rtt';
   }
-  if (NETBSD || FREEBSD) {
+  if (NETBSD || FREEBSD || OPENBSD) {
     params = ['-c', '2', '-t', '3', hostSanitized];
-    filt = 'round-trip';
   }
   if (DARWIN) {
     params = ['-c2', '-t3', hostSanitized];
-    filt = 'avg';
   }
-  const stdout = await execSafe('ping', params);
+  const stdout = await execSecure('ping', params);
   let result = null;
   if (stdout) {
-    const lines = stdout.split('\n').filter((line: string) => line.indexOf(filt) >= 0).join('\n');
+    const lines = stdout
+      .split('\n')
+      .filter((line) => line.indexOf('rtt') >= 0 || line.indexOf('round-trip') >= 0 || line.indexOf('avg') >= 0)
+      .join('\n');
 
     const line = lines.split('=');
     if (line.length > 1) {
@@ -34,9 +34,4 @@ export const nixInetLatency = async (host: string) => {
     }
   }
   return result;
-};
-
-export const inetLatency = async (url: string) => {
-  await nextTick();
-  return nixInetLatency(url);
 };

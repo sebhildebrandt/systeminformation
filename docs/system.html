@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 
   <title>systeminformation</title>
@@ -30,7 +30,7 @@
 <body>
   <nav class="nav">
     <div class="container">
-      <a href="."><img class="logo float-left" src="assets/logo.png">
+      <a href="."><img class="logo float-left" src="assets/logo.png" alt="logo">
         <div class="title float-left">systeminformation</div>
       </a>
       <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
@@ -71,7 +71,7 @@
                       <td>si.system(cb)</td>
                       <td>{...}</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -81,7 +81,7 @@
                       <td></td>
                       <td>manufacturer</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -91,7 +91,7 @@
                       <td></td>
                       <td>model</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -101,7 +101,7 @@
                       <td></td>
                       <td>version</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -111,7 +111,7 @@
                       <td></td>
                       <td>serial</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -121,7 +121,7 @@
                       <td></td>
                       <td>uuid</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -131,7 +131,7 @@
                       <td></td>
                       <td>sku</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -141,7 +141,7 @@
                       <td></td>
                       <td>virtual</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td></td>
                       <td>X</td>
                       <td></td>
@@ -151,7 +151,7 @@
                       <td></td>
                       <td>virtualHost</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td></td>
                       <td>X</td>
                       <td></td>
@@ -172,7 +172,7 @@
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.system().then(data => console.log(data));</code></pre class="example">
+si.system().then(data => console.log(data));</code></pre>
 <pre class="example">
 {
   manufacturer: 'Apple Inc.',
@@ -184,6 +184,7 @@ si.system().then(data => console.log(data));</code></pre class="example">
   virtual: false,
 }
 </pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.uuid(cb)</td>
@@ -192,7 +193,7 @@ si.system().then(data => console.log(data));</code></pre class="example">
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>object of several UUIDs</td>
                     </tr>
                     <tr>
@@ -230,7 +231,7 @@ si.system().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.uuid().then(data => console.log(data));</code></pre class="example">
+si.uuid().then(data => console.log(data));</code></pre>
 <pre class="example">
 {
   os: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
@@ -242,12 +243,13 @@ si.uuid().then(data => console.log(data));</code></pre class="example">
   ]
 }
 </pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.bios(cb)</td>
                       <td>{...}</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -257,7 +259,7 @@ si.uuid().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>vendor</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -267,7 +269,7 @@ si.uuid().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>version</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -277,7 +279,7 @@ si.uuid().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>releaseDate</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td></td>
                       <td>X</td>
                       <td></td>
@@ -287,11 +289,21 @@ si.uuid().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>revision</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td></td>
                       <td>X</td>
                       <td></td>
                       <td>revision</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>serial</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>X</td>
+                      <td></td>
+                      <td>serial</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -318,7 +330,7 @@ si.uuid().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.bios().then(data => console.log(data));</code></pre class="example">
+si.bios().then(data => console.log(data));</code></pre>
 <pre class="example">
 {
   vendor: 'American Megatrends Inc.',
@@ -339,12 +351,13 @@ si.bios().then(data => console.log(data));</code></pre class="example">
     'UEFI'
   ]
 }</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.baseboard(cb)</td>
                       <td>{...}</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -354,7 +367,7 @@ si.bios().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>manufacturer</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -364,7 +377,7 @@ si.bios().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>model</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -374,7 +387,7 @@ si.bios().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>version</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -384,7 +397,7 @@ si.bios().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>serial</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -394,7 +407,7 @@ si.bios().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>assetTag</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -414,7 +427,7 @@ si.bios().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>memSlots</td>
                       <td></td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -425,7 +438,7 @@ si.bios().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.baseboard().then(data => console.log(data));</code></pre class="example">
+si.baseboard().then(data => console.log(data));</code></pre>
 <pre class="example">
 {
   manufacturer: 'ASRock',
@@ -436,12 +449,13 @@ si.baseboard().then(data => console.log(data));</code></pre class="example">
   memMax: 68719476736
   memSlots: 2
 }</pre>
+                    </td>
                     </tr>
                     <tr>
                       <td>si.chassis(cb)</td>
                       <td>{...}</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -451,7 +465,7 @@ si.baseboard().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>manufacturer</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -461,7 +475,7 @@ si.baseboard().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>model</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -471,7 +485,7 @@ si.baseboard().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>type</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -481,7 +495,7 @@ si.baseboard().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>version</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -491,7 +505,7 @@ si.baseboard().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>serial</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -501,7 +515,7 @@ si.baseboard().then(data => console.log(data));</code></pre class="example">
                       <td></td>
                       <td>assetTag</td>
                       <td>X</td>
-                      <td>X</td>
+                      <td></td>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
@@ -522,7 +536,7 @@ si.baseboard().then(data => console.log(data));</code></pre class="example">
                       <td colspan="7">
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
-si.chassis().then(data => console.log(data));</code></pre class="example">
+si.chassis().then(data => console.log(data));</code></pre>
 <pre class="example">
 {
   manufacturer: 'Apple Inc.',
@@ -533,6 +547,7 @@ si.chassis().then(data => console.log(data));</code></pre class="example">
   assetTag: 'Mac-99878xxxx...',
   sku: ''
 }</pre>
+                    </td>
                     </tr>
                   </tbody>
                 </table>
@@ -560,7 +575,7 @@ si.chassis().then(data => console.log(data));</code></pre class="example">
         <div class="col-lg-4 col-12">
           <ul class="list-unstyled">
             <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 5 Changes</a></li>
+            <li><a href="changes.html">Version 6 Changes</a></li>
             <li><a href="history.html">Full Version History</a></li>
             <li><a href="tests.html">Testing</a></li>
             <li><a href="issues.html">Known Issues</a></li>
@@ -573,7 +588,7 @@ si.chassis().then(data => console.log(data));</code></pre class="example">
             <li><a href="trademarks.html">Trademarks</a></li>
             <li>&nbsp;</li>
             <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2021 Sebastian Hildebrandt</a></li>
+            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
             <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
           </ul>
         </div>
