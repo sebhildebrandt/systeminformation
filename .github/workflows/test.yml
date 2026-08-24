@@ -81,8 +81,9 @@ jobs:
           npm pack
       - name: Install into consumer project
         run: |
-          mkdir -p "$RUNNER_TEMP/consumer"
-          cp test/consumer.mjs test/ci-run.cjs "$RUNNER_TEMP/consumer/"
+          mkdir -p "$RUNNER_TEMP/consumer/test"
+          cp test/consumer.mjs "$RUNNER_TEMP/consumer/"
+          cp test/ci-run.cjs "$RUNNER_TEMP/consumer/test/"
           cd "$RUNNER_TEMP/consumer"
           npm init -y
           npm install "$GITHUB_WORKSPACE"/systeminformation-*.tgz
