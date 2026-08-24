@@ -139,8 +139,9 @@ async function runCi(si) {
       }
       printResultLine(name, describe(res), true, Date.now() - t);
     } catch (e) {
-      printResultLine(name, '-', false, Date.now() - t, (e && e.message) || e);
-      failed.push(name);
+      const detail = (e && e.message) || String(e);
+      printResultLine(name, '-', false, Date.now() - t, detail);
+      failed.push({ name, detail });
     }
   }
 
@@ -152,9 +153,15 @@ async function runCi(si) {
   );
   if (failed.length) {
     boxSep();
-    boxLine('Failed: ' + failed.join(', '), red);
+    boxLine('Failed: ' + failed.map((f) => f.name).join(', '), red);
   }
   boxBottom();
+  if (failed.length && process.env.GITHUB_ACTIONS) {
+    // surface failures as annotations (visible in the run summary / checks API)
+    for (const f of failed) {
+      console.log(`::error title=CI ${f.name}::${f.detail.replace(/\r?\n/g, ' ')}`);
+    }
+  }
   process.exit(failed.length ? 1 : 0);
 }
 
