@@ -1,5 +1,3 @@
-const lib_version = require('../package.json').version;
-
 const withTimeout = (fn, ms = 20000) =>
   Promise.race([
     Promise.resolve().then(fn),
@@ -121,6 +119,7 @@ function buildTests(si) {
 const SLOW = new Set(['getStaticData', 'getDynamicData', 'getAllData', 'inetChecksite', 'inetLatency']);
 
 async function runCi(si) {
+  const lib_version = String(await si.version());
   const tests = buildTests(si);
   const failed = [];
   const names = Object.keys(tests);

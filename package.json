@@ -160,8 +160,8 @@
     "esbuild": "^0.28.1"
   },
   "devDependencies": {
-    "@swc/core": "^1.15.33",
-    "@types/node": "^25.6.0",
+    "@swc/core": "^1.16.1",
+    "@types/node": "^25.9.5",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3"
   }
