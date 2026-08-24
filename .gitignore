@@ -58,7 +58,6 @@ npm-debug.log
 .hg
 CVS
 .eslintrc.json
-package-lock.json
 yarn.lock
 
 dist/
