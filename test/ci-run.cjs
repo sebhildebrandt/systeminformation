@@ -116,7 +116,8 @@ function buildTests(si) {
   };
 }
 
-const SLOW = new Set(['getStaticData', 'getDynamicData', 'getAllData', 'inetChecksite', 'inetLatency']);
+// ponytail: versions probes ~50 tools; JVM cold starts (gradle/maven) push it past 20s on windows runners
+const SLOW = new Set(['versions', 'getStaticData', 'getDynamicData', 'getAllData', 'inetChecksite', 'inetLatency']);
 
 async function runCi(si) {
   const lib_version = String(await si.version());

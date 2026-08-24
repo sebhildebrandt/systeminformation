@@ -4,13 +4,9 @@ import { initCpuTemperature } from '../common/defaults';
 export const cpuTemperature = async () => {
   await nextTick();
   let result = cloneObj(initCpuTemperature);
-  let osxTemp = null;
   try {
-    osxTemp = require('osx-temperature-sensor');
-  } catch (er) {
-    osxTemp = null;
-  }
-  if (osxTemp) {
+    // native binding is required lazily inside cpuTemperature() and may be missing
+    const osxTemp = require('osx-temperature-sensor');
     result = osxTemp.cpuTemperature();
     // round to 2 digits
     if (result.main) {
@@ -24,7 +20,7 @@ export const cpuTemperature = async () => {
         result.cores[i] = Math.round(result.cores[i] * 100) / 100;
       }
     }
-  }
+  } catch {}
   try {
     // Apple Silicon - optional macos-temperature-sensor dependency
     const macosTemp = require('macos-temperature-sensor');
