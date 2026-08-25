@@ -1,5 +1,5 @@
 function createMenu() {
-  let menu = [
+  const menu = [
     [0, './#docs', 'Documentation'],
     [1, 'gettingstarted', 'Getting Started'],
     [1, 'general', 'General'],
@@ -30,24 +30,24 @@ function createMenu() {
     [1, 'security', 'Security Advisories'],
     [1, 'issues', 'Known Issues'],
     [1, 'changes', 'Version 6 Changes'],
-    [1, 'v4/index', 'Version 4 Docs'],
+    [1, '../index', 'Version 5 Docs'],
     [1, 'history', 'Version History'],
     [1, 'tests', 'Testing'],
     [1, 'copyright', 'Copyright & License'],
     [1, 'contributors', 'Contributors'],
-    [1, 'trademarks', 'Trademarks'],
+    [1, 'trademarks', 'Trademarks']
   ];
 
-  let path = window.location.pathname;
-  let page = path.split('/').pop().replace('.html', '');
+  const path = window.location.pathname;
+  const page = path.split('/').pop().replace('.html', '');
 
-  let menuParent = document.getElementById('menu');
+  const menuParent = document.getElementById('menu');
   let titleElement;
   let titleLink;
   let ulElement;
   let liElement;
   let aElement;
-  for (let item of menu) {
+  for (const item of menu) {
     if (item[0] === 0) {
       titleElement = document.createElement('div');
       titleElement.classList.add('title');
@@ -80,4 +80,3 @@ function createMenu() {
     }
   }
 }
-
