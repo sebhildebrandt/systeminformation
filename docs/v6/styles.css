@@ -29,7 +29,12 @@ h4 {
 
 .larger {
   margin-top: 10px;
-  font-size: 1.5rem !important;
+  font-size: 1.3rem !important;
+}
+@media only screen and (min-width: 767px) {
+  .larger {
+    font-size: 1.5rem !important;
+  }
 }
 
 .medium {
@@ -333,6 +338,12 @@ h4 {
   .nav .title {
     font-size: 1.5rem;
   }
+}
+.nav .title-version {
+  color: #aaa;
+  margin-left: 15px;
+  margin-top: 23px;
+  font-weight: 400;
 }
 .nav .text {
   margin-top: 18px;
