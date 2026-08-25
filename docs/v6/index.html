@@ -21,7 +21,7 @@
 
     <title>systeminformation</title>
     <script>
-    let vh = window.innerHeight * 0.01;
+    const vh = window.innerHeight * 0.01;
     // Then we set the value in the --vh custom property to the root of the document
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 
@@ -205,7 +205,7 @@
             <div class="title">Downloads last month</div>
           </div>
           <div class="col-xl-4 col-lg-4 col-md-4 col-12">
-            <div class="numbers">782</div>
+            <div class="numbers">1185</div>
             <div class="title">Dependents</div>
           </div>
         </div>
@@ -439,7 +439,7 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script>
-    window.onload = function (e) {
+    window.onload = (e) => {
       init();
     };
     </script>
