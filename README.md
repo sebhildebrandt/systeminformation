@@ -35,11 +35,14 @@ lines of code, > 750 versions published, up to 50 mio downloads per month, > 700
 mio downloads overall. Top 5 NPM ranking for backend packages. Thank you to all
 who contributed to this project!
 
-> **Upcoming Version 6** ⭐️⭐️⭐️
+> **Version 6** beta just released ⭐️⭐️⭐️
 >
-> The upcoming version 6 of this package (written completely in TypeScript) will
-> come with a lot of new features and improvements. I also cleaned up the API so
-> there will also be some breaking changes. I will release the first beta soon.
+> 🏆🏆🏆 We're proud to have just released the first beta of the new version 6 of systeminformation. 
+> Version 6 of this package (written completely in TypeScript) is
+> comming with a lot of new features and improvements. We also cleaned up the API so
+> there will also be some breaking changes.
+> 
+> **Thanks to everyone testing this new version!**
 
 ## Please support this project ... ☕️
 
@@ -60,6 +63,36 @@ was not correct but this is now fixed with Deno >= 2.1.5.
 
 **Attention**: This library is supposed to be used as a backend/server-side
 library and **will definitely not work within a browser**.
+
+## Version 6.0 beta
+
+If you want to test the new version 6.0 (currently in beta), you can eather install it this way:
+
+```bash
+npm i systeminformation@beta
+```
+
+Then just test it with your existing code - be sure to check all breaking changes. Docs can be found here: 
+
+- [V6 Docs][v6-docs-url]
+- [V6 major changes][v6-changes-url]
+
+If you want to run the whole test locally on your machines (without writing any code):
+
+```bash
+# clone v6 branch 
+git clone -b v6 https://github.com/sebhildebrandt/systeminformation.git
+cd systeminformation
+
+# install dev dependencies
+npm ci          
+
+# run tests
+npm run ci      # for the whole test run
+npm run test    # for testing individual functions
+```
+
+Thynk you for testing and reporting! Please report any issue with the prefix "v6.beta.0: "
 
 ## Current Version 5.0
 
@@ -1213,3 +1246,5 @@ All other trademarks are the property of their respective owners.
 [mmon-npm-url]: https://npmjs.org/package/mmon
 [mmon-github-url]: https://github.com/sebhildebrandt/mmon
 [smc-code-url]: https://github.com/pcafstockf/smc-reader
+[v6-docs-url]: https://systeminformation.io/v6/
+[v6-changes-url]: https://systeminformation.io/v6/changes.html
