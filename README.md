@@ -92,7 +92,7 @@ npm run ci      # for the whole test run
 npm run test    # for testing individual functions
 ```
 
-Thynk you for testing and reporting! Please report any issue with the prefix "v6.beta.0: "
+Thank you for testing and reporting! Please report any issue with the prefix "v6.beta.0: "
 
 ## Current Version 5.0
 
