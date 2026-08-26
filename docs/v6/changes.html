@@ -48,7 +48,8 @@
                   <h2>Major Changes - Version 6</h2>
                   <p>
                     Version 6 is a complete rewrite of the library in <span class="bold">TypeScript</span>, shipping typed declarations (<span class="code">.d.ts</span>) for every function while keeping a consistent, promise-based API. It remains a zero-dependency
-                    <span class="code">node.js</span> backend/server-side library (it will not run in a browser).
+                    <span class="code">node.js</span>
+                    backend/server-side library (it will not run in a browser).
                   </p>
                   <h4>New Functions</h4>
                   <ul>
@@ -72,6 +73,7 @@
                     <li><span class="code">displays()</span> added <span class="code">RDP</span> as connection type for remote desktop / indirect displays (Windows)</li>
                     <li><span class="code">gpu()</span> added <span class="code">temperatureGpu</span> on Apple Silicon (optional <span class="code">macos-temperature-sensor</span> package)</li>
                     <li><span class="code">cpuTemperature()</span> added support for the <span class="code">macos-temperature-sensor</span> package (Apple Silicon, incl. <span class="code">chipset</span> / SoC temperature)</li>
+                    <li><span class="code">os()</span> added <span class="code">installDate</span>, <span class="code">displayServer</span></li>
                     <li><span class="code">versions()</span> added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, ruby, rust, sqlite3, vue</li>
                   </ul>
                   <h4>Extended Windows Support</h4>
@@ -91,7 +93,8 @@
                     <li>
                       <span class="code">displays()</span>
                       and <span class="code">gpu()</span> share the result of their common base query when called in parallel (e.g. via <span class="code">getStaticData()</span>) - the expensive <span class="code">system_profiler</span> (macOS) /
-                      <span class="code">win32_VideoController</span> (Windows) call runs only once
+                      <span class="code">win32_VideoController</span>
+                      (Windows) call runs only once
                     </li>
                     <li>
                       <span class="code">displays()</span>
