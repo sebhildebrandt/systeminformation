@@ -91,10 +91,12 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.33.2  | 2026-08-26 | `diskLayout()` fix - serial number (windows)                                                        |
+| 5.33.3  | 2026-08-25 | relase versiopn 6 first beta                                                                        |
 | 5.33.2  | 2026-07-24 | `powerShellStart()` fix - deadlock (windows)                                                        |
 | 5.33.1  | 2026-07-23 | `networkStats()` fix - changes underlying command (windows)                                         |
 | 5.33.0  | 2026-07-20 | `dockerContainers()` added status (healthy, ..)                                                     |
-| 5.32.0  | 2026-07-17 | fixes for #764, #853, #855, #866, #888, #940, #997, code refactoring                                |
+| 5.32.0  | 2026-07-17 | fixes for #764, #853, #855, #866, #888, #940, #997, code refactoring                  |
 | 5.31.17 | 2026-07-13 | `fsSize()` fixed parsing - spaces (linux)                                                           |
 | 5.31.16 | 2026-07-10 | `currentLoad` changed calculation (windows)                                                         |
 | 5.31.15 | 2026-07-08 | code refacroting, hardening                                                                         |
