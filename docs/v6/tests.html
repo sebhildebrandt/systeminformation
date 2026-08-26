@@ -44,48 +44,58 @@
 
     <div class="container-fluid">
       <section class="container">
-      <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-        </div>
-        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-          <div class="row">
-            <div class="col-12 sectionheader">
-              <div class="title">Tests</div>
-              <div class="text">
-                <p>If you run into problems, you now can easily test if a specific function is supported on your platform and returns plausible results. In this section you will learn how you can easily test all functions on your platform:</p>
-                <h2>Testing on your platform</h2>
-                <p>First of all make sure, that you have <span class="code">git</span> installed on your machine. </p>
-                <p>Next you need to clone the git repository to a directory of your choice:</p>
-                <pre><code class="js">git clone https://github.com/sebhildebrandt/systeminformation.git</code></pre>
-                <p>Go inside the newly created <span class="code">systeminformation</span> directory</p>
-                <pre><code class="js">cd systeminformation</code></pre>
-                <p>If you already cloned the repository, make sure that you have the latest version installed:</p>
-                <pre><code class="js">git pull</code></pre>
-                <p>Now you can start the test with</p>
-                <pre><code class="js">npm run test</code></pre>
-                <p>You get a nice menu where you now can run function by function and see if you get meaningfull results (if supported on yur platform) or errors. Sample output:</p>
-                <pre><code class="js">SYSTEMINFORMATION - Test Scripts - Version: 5.x.y
-═══════════════════════════════════════════════════════════
-
-┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│  a ... Audio              i ... INET Latency       t ... time               1 ... NET Iface Default     ? ... Get Object    │
-│  b ... BIOS               I ... INET Check Site    T ... CPU Temperature    2 ... NET Gateway Default   , ... All Static    │
-│  B ... Baseboard          j ... CPU Current Speed  u ... USB                3 ... NET Interfaces        . ... All Dynamic   │
-│  C ... Chassis            l ... CPU Current Load   U ... UUID               4 ... NET Stats             / ... All           │
-│  c ... CPU                L ... Full Load          v ... Versions           5 ... NET Connections                           │
-│  d ... DiskLayout         m ... Memory             V ... Virtual Box        A ... Displays                                  │
-│  D ... DiskIO             M ... MEM Layout         w ... WIFI networks                                                      │
-│  e ... Block Devices      o ... OS Info            W ... WIFI interfaces                                                    │
-│  E ... Open Files         p ... Processes          x ... WIFI connections   6 ... Docker Info                               │
-│  f ... FS Size            P ... Process Load       y ... System             7 ... Docker Images                             │
-│  F ... FS Stats           r ... Printer            Y ... Battery            8 ... Docker Container                          │
-│  g ... GPU                s ... Services           z ... Users              9 ... Docker Cont Stats                         │
-│  h ... Bluetooth          S ... Shell                                       0 ... Docker Cont Proc      q >>> QUIT          │
-└─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘</code></pre>
-                <p><span class="bold">Press q</span> to exit the test suite</p>
-                <p>Here a sample output for the e.g. <span class="bold">c ... CPU</span></p>
-                <pre><code class="js">┌────────────────────────────────────────────────┐
-│  CPU                                  v: 5.x.y │
+        <div class="row">
+          <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu"></div>
+          <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+            <div class="row">
+              <div class="col-12 sectionheader">
+                <div class="title">Tests</div>
+                <div class="text">
+                  <p>If you run into problems, you now can easily test if a specific function is supported on your platform and returns plausible results. In this section you will learn how you can easily test all functions on your platform:</p>
+                  <h2>Testing on your platform</h2>
+                  <p>First of all make sure, that you have <span class="code">git</span> installed on your machine.</p>
+                  <p>Next you need to clone the git repository to a directory of your choice:</p>
+                  <pre><code class="js">git clone https://github.com/sebhildebrandt/systeminformation.git</code></pre>
+                  <p>Go inside the newly created <span class="code">systeminformation</span> directory</p>
+                  <pre><code class="js">cd systeminformation</code></pre>
+                  <p>If you already cloned the repository, make sure that you have the latest version installed:</p>
+                  <pre><code class="js">git pull</code></pre>
+                  <p>Now you can start the test with</p>
+                  <pre><code class="js">npm ci   # build / compile package (tsc)</code></pre>
+                  <pre><code class="js">npm run test</code></pre>
+                  <p>You get a nice menu where you now can run function by function and see if you get meaningfull results (if supported on your platform) or errors. Sample output:</p>
+                  <pre><code class="js">┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                               _                 _        __                            _   _                               │
+│                 ___ _   _ ___| |_ ___ _ __ ___ (_)_ __  / _| ___  _ __ _ __ ___   __ _| |_(_) ___  _ __                    │
+│                / __| | | / __| __/ _ \ '_ ` _ \| | '_ \| |_ / _ \| '__| '_ ` _ \ / _` | __| |/ _ \| '_ \                   │
+│                \__ \ |_| \__ \ ||  __/ | | | | | | | | |  _| (_) | |  | | | | | | (_| | |_| | (_) | | | |                  │
+│                |___/\__, |___/\__\___|_| |_| |_|_|_| |_|_|  \___/|_|  |_| |_| |_|\__,_|\__|_|\___/|_| |_|                  │
+│                     |___/                                                                                                  │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                            (c) 2026 Sebastian Hildebrandt, All rights reserved. License: MIT                               │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  SYSTEMINFORMATION                                                                                         Version: 6.x.x  │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  a ... Audio             i ... INET Latency       r ... Printer             1 ... NET Iface Default     ? ... Get Object   │
+│  b ... BIOS              I ... INET Check Site    s ... Services            2 ... NET Gateway Default   , ... All Static   │
+│  B ... Baseboard         j ... CPU Current Speed  S ... Shell               3 ... NET Interfaces        . ... All Dynamic  │
+│  C ... Chassis           k ... Camera             t ... time                4 ... NET Stats             / ... All          │
+│  c ... CPU               K ... Keyboard           T ... CPU Temperature     5 ... NET Connections                          │
+│  d ... DiskLayout        l ... CPU Current Load   u ... USB                                                                │
+│  D ... DiskIO            L ... Full Load          U ... UUID                6 ... Docker Info                              │
+│  e ... Block Devices     m ... Memory             v ... Versions            7 ... Docker Images                            │
+│  E ... Open Files        M ... MEM Layout         V ... Virtual Box         8 ... Docker Container                         │
+│  f ... FS Size           n ... NPU                w ... WIFI networks       9 ... Docker Cont Stats                        │
+│  F ... FS Stats          N ... NPM Packages       W ... WIFI interfaces     0 ... Docker Cont Proc                         │
+│  g ... GPU               o ... OS Info            x ... WIFI connections    + ... Docker Volumes                           │
+│  G ... PCI               O ... Mouse              y ... System              A ... Displays                                 │
+│  h ... Bluetooth         p ... Processes          Y ... Battery             # ... Installed Software                       │
+│  H ... Thunderbolt       P ... Process Load       z ... Users               - ... SI lib version        q >>> QUIT         │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘</code></pre>
+                  <p><span class="bold">Press q</span> to exit the test suite</p>
+                  <p>Here a sample output for the e.g. <span class="bold">c ... CPU</span></p>
+                  <pre><code class="js">┌────────────────────────────────────────────────┐
+│  CPU                                  v: 6.x.y │
 └────────────────────────────────────────────────┘
 {
   manufacturer: 'Intel®',
@@ -102,21 +112,22 @@
   governor: '',
   cores: 8,
   physicalCores: 4,
+  performanceCores: 0,
+  efficiencyCores: 0,  
   processors: 1,
   socket: '',
   flags: 'fpu vme de pse tsc ...',
   virtualization: true,
   cache: { l1d: 32768, l1i: 32768, l2: 262144, l3: 8388608 }
 }</code></pre>
-                <p>Make sure to have a look in the documentation if there are already <a href="issues.html">known issues</a> and if the specific function is supported on your platform. If yes, check whether results are meaningfull and plausible.</p>
-                <p>I highly appreciate if you test all functions on your specific platform. This will help me improving the package and provide the best possible platform support.</p>
+                  <p>Make sure to have a look in the documentation if there are already <a href="issues.html">known issues</a> and if the specific function is supported on your platform. If yes, check whether results are meaningfull and plausible.</p>
+                  <p>I highly appreciate if you test all functions on your specific platform. This will help me improving the package and provide the best possible platform support.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-  </div>
-  </section>
+      </section>
     </div>
     <footer class="container-fluid footer">
       <div class="container">

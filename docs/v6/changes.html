@@ -38,316 +38,368 @@
 
     <div class="container-fluid">
       <section class="container">
-      <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-        </div>
-        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-          <div class="row">
-            <div class="col-12 sectionheader">
-              <div class="title">Major and Breaking Changes</div>
-              <div class="text">
-                <h2>Major Changes - Version 6</h2>
-                <p>Version 6 is a complete rewrite of the library in <span class="bold">TypeScript</span>, shipping typed declarations (<span class="code">.d.ts</span>) for every function while keeping a consistent, promise-based API. It remains a zero-dependency <span class="code">node.js</span> backend/server-side library (it will not run in a browser).</p>
-                <h4>New Functions</h4>
-                <ul>
-                  <li><span class="code">camera()</span> detected cameras</li>
-                  <li><span class="code">keyboard()</span> detected keyboards</li>
-                  <li><span class="code">mouse()</span> detected pointing devices</li>
-                  <li><span class="code">thunderbolt()</span> Thunderbolt controllers and devices</li>
-                  <li><span class="code">pci()</span> PCI devices (experimental)</li>
-                  <li><span class="code">npu()</span> detected NPUs / AI accelerators (experimental)</li>
-                  <li><span class="code">software()</span> installed software / applications</li>
-                  <li><span class="code">npm()</span> globally installed npm packages</li>
-                  <li><span class="code">gpu()</span> graphics controllers (replaces the controllers part of <span class="code">graphics()</span>)</li>
-                  <li><span class="code">displays()</span> monitors / displays (replaces the displays part of <span class="code">graphics()</span>)</li>
-                </ul>
-                <h4>New Attributes</h4>
-                <ul>
-                  <li><span class="code">osInfo()</span> added <span class="code">installDate</span> (operating system installation date)</li>
-                  <li><span class="code">osInfo()</span> added <span class="code">displayServer</span> (wayland, x11, quartz, dwm, surfaceflinger or '' when headless)</li>
-                  <li><span class="code">bios()</span> added <span class="code">iBridge</span> (Apple iBridge / security chip: modelName, build, bootUuid, secureBoot - macOS only)</li>
-                  <li><span class="code">displays()</span> added <span class="code">serial</span>, <span class="code">displayId</span> and <span class="code">productionYear</span> on Windows (previously macOS only)</li>
-                  <li><span class="code">displays()</span> added <span class="code">RDP</span> as connection type for remote desktop / indirect displays (Windows)</li>
-                  <li><span class="code">gpu()</span> added <span class="code">temperatureGpu</span> on Apple Silicon (optional <span class="code">macos-temperature-sensor</span> package)</li>
-                  <li><span class="code">cpuTemperature()</span> added support for the <span class="code">macos-temperature-sensor</span> package (Apple Silicon, incl. <span class="code">chipset</span> / SoC temperature)</li>
-                </ul>
-                <h4>Extended Windows Support</h4>
-                <ul>
-                  <li><span class="code">disksIO()</span>, <span class="code">fsStats()</span>, <span class="code">fsOpenFiles()</span> and <span class="code">thunderbolt()</span> are now also available on Windows</li>
-                </ul>
-                <h4>Fixes (open version 5 issues resolved in version 6)</h4>
-                <ul>
-                  <li><span class="code">displays()</span> EDID parsing with multiple monitors - all displays reported the first monitor's model, resolution and size (Linux, <a href="https://github.com/sebhildebrandt/systeminformation/issues/997">#997</a>)</li>
-                  <li><span class="code">displays()</span> display positions (<span class="code">positionX</span> / <span class="code">positionY</span>) are now parsed from xrandr (Linux, <a href="https://github.com/sebhildebrandt/systeminformation/issues/866">#866</a>)</li>
-                  <li><span class="code">displays()</span> per-display refresh rate instead of copying the primary monitor's rate to all displays (Windows, <a href="https://github.com/sebhildebrandt/systeminformation/issues/853">#853</a>)</li>
-                  <li><span class="code">displays()</span> monitor data (connection type, size) is now correlated by <span class="code">InstanceName</span> - fixes swapped values on multi-GPU setups (Windows, <a href="https://github.com/sebhildebrandt/systeminformation/issues/764">#764</a>)</li>
-                  <li><span class="code">displays()</span> mirrored/duplicated monitors are now reported as separate physical displays; monitors that are attached but inactive (e.g. "PC screen only") are not listed (Windows, <a href="https://github.com/sebhildebrandt/systeminformation/issues/940">#940</a>)</li>
-                  <li><span class="code">displays()</span> and <span class="code">gpu()</span> share the result of their common base query when called in parallel (e.g. via <span class="code">getStaticData()</span>) - the expensive <span class="code">system_profiler</span> (macOS) / <span class="code">win32_VideoController</span> (Windows) call runs only once</li>
-                  <li><span class="code">displays()</span> vendor/model fallback from <span class="code">Win32_DesktopMonitor</span> is now matched per display via <span class="code">PNPDeviceID</span> - previously only the first entry was considered (Windows, idea from <a href="https://github.com/sebhildebrandt/systeminformation/pull/855">#855</a>)</li>
-                  <li><span class="code">get()</span> returns a migration hint for the removed <span class="code">graphics</span> key instead of silently dropping it</li>
-                </ul>
-                <h4>Breaking Changes</h4>
-                <p><span class="bold">Be aware</span>, that the new version 6.x is <span class="bold">NOT fully backward compatible</span> to version 5.x ...</p>
-                <p>We modernized the library with a full TypeScript rewrite and made a few interface changes. Please review the list below and adapt your code:</p>
-                <table class="table table-sm table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Topic</th>
-                      <th>Old (V5)</th>
-                      <th>New (V6)</th>
-                      <th>Comments</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><span class="code">time()</span></td>
-                      <td>synchronous</td>
-                      <td><span class="code">await si.time()</span></td>
-                      <td>time() is now <span class="bold">asynchronous</span><br>and returns a promise</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">version()</span></td>
-                      <td>synchronous</td>
-                      <td><span class="code">await si.version()</span></td>
-                      <td>version() is now <span class="bold">asynchronous</span> too -<br><span class="bold">all</span> functions are now async</td>
-                    </tr>
-                    <tr>
-                      <td>callbacks</td>
-                      <td><span class="code">si.cpu(data => {...})</span></td>
-                      <td>removed</td>
-                      <td><span class="bold">callbacks are no longer available</span> -<br>use async / await (preferred) or promises</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">graphics()</span></td>
-                      <td><span class="code">{ controllers, displays }</span></td>
-                      <td><span class="code">gpu()<br>displays()</span></td>
-                      <td>graphics() was removed and split into two functions,<br>each returning a plain array.<br>get() returns a migration hint for the removed graphics key</td>
-                    </tr>
-                    <tr>
-                      <td>language</td>
-                      <td>JavaScript</td>
-                      <td>TypeScript</td>
-                      <td>typed .d.ts declarations are now<br>shipped for every function</td>
-                    </tr>
-                    <tr>
-                      <td>module resolution</td>
-                      <td>deep <span class="code">require('.../dist/...')</span></td>
-                      <td><span class="code">exports</span> map<br>(both require and import)</td>
-                      <td>only documented entry points are importable;<br>deep dist/... paths gone</td>
-                    </tr>
-                    <tr>
-                      <td>Node.js</td>
-                      <td>older versions</td>
-                      <td><span class="bold">&gt;= 20.0</span></td>
-                      <td>minimum Node.js version is now 20.0</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <h4>Modular Imports (new)</h4>
-                <p>The whole library, a single operating system, or a single function can now be imported individually:</p>
-                <ul>
-                  <li><span class="code">require('systeminformation')</span> - whole library (all functions, all platforms)</li>
-                  <li><span class="code">require('systeminformation/cpu')</span> - a single function (platform detected at runtime)</li>
-                  <li><span class="code">require('systeminformation/linux')</span> - a whole operating system (<span class="code">/darwin</span>, <span class="code">/windows</span>, <span class="code">/bsd</span>, <span class="code">/sun</span>)</li>
-                  <li><span class="code">require('systeminformation/linux/cpu')</span> - a single function of a single operating system</li>
-                </ul>
-                <p>This keeps bundles small: unused operating-system implementations can be tree-shaken away.</p>
-                <h4>Test Full Version 6 Functionality</h4>
-                <p>If you want to see all function results on your machine, please <a href="tests.html">head over to Testing section</a>. We implemented a tiny test suite where you can easily go through all functions and test results on your machine without coding.<br><br></p>
-                <h2>Major Changes - Version 5</h2>
-                <h4>New Functions</h4>
-                <ul>
-                  <li><span class="code">audio()</span> detailed audio information </li>
-                  <li><span class="code">bluetoothDevices()</span> detailed information detected bluetooth devices</li>
-                  <li><span class="code">printers()</span> detailed printer information </li>
-                  <li><span class="code">usb()</span> detailed USB information</li>
-                  <li><span class="code">wifiInterfaces()</span> detected Wi-Fi interfaces</li>
-                  <li><span class="code">wifiConnections()</span> active Wi-Fi connections</li>
-                </ul>
-                <h4>Breaking Changes</h4>
-                <p><span class="bold">Be aware</span>, that the new version 5.x is <span class="bold">NOT fully backward compatible</span> to version 4.x ...</p>
-                <p>We had to make <span class="bold">several interface changes</span> to keep systeminformation as consistent as possible. We highly recommend to go through the complete list and adapt your own code to be again compatible to the new version 5:</p>
-                <table class="table table-sm table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Function</th>
-                      <th>Old</th>
-                      <th>New (V5)</th>
-                      <th>Comments</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>unsupported values</td>
-                      <td><span class="code">-1</span></td>
-                      <td><span class="code">null</span></td>
-                      <td>values which are unknown or unsupported<br>on platform</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">battery()</span></td>
-                      <td><span class="code">hasbattery<br>cyclecount<br>ischarging<br>designedcapacity<br>maxcapacity<br>acconnected<br>timeremaining</span></td>
-                      <td><span class="code">hasBattery<br>cycleCount<br>isCharging<br>designedCapacity<br>maxCapacity<br>acConnected<br>timeRemaining</span></td>
-                      <td>pascalCase conformity</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">blockDevices()</span></td>
-                      <td><span class="code">fstype</span></td>
-                      <td><span class="code">fsType</span></td>
-                      <td>pascalCase conformity</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">cpu()</span></td>
-                      <td><span class="code">speedmin<br>speedmax</span></td>
-                      <td><span class="code">speedMin<br>speedMax</span></td>
-                      <td>pascalCase conformity</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">cpu().speed<br>cpu().speedMin<br>cpu().speedMax</span></td>
-                      <td>string values</td>
-                      <td>now returning<br>numerical values</td>
-                      <td>better value handling</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">cpuCurrentspeed()</span></td>
-                      <td></td>
-                      <td><span class="code">cpuCurrentSpeed()</span></td>
-                      <td>function name changed<br>pascalCase conformity</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">currentLoad()</span></td>
-                      <td><span class="code">avgload<br>currentload<br>currentload_user<br>currentload_system<br>currentload_nice<br>currentload_idle<br>currentload_irq<br>raw_currentload</span></td>
-                      <td><span class="code">avgLoad<br>currentLoad<br>currentLoadUser<br>currentLoadSystem<br>currentLoadNice<br>currentLoadIdle<br>currentLoadIrq<br>rawCurrentLoad</span></td>
-                      <td>pascalCase conformity</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">dockerContainerStats()</span></td>
-                      <td><span class="code">mem_usage<br>mem_limit<br>mem_percent<br>cpu_percent<br>cpu_stats<br>precpu_stats<br>memory_stats</span></td>
-                      <td><span class="code">memUsage<br>memLimit<br>memPercent<br>cpuPercent<br>cpuStats<br>precpuStats<br>memoryStats</span></td>
-                      <td>pascalCase conformity</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">dockerContainerProcesses()</span></td>
-                      <td><span class="code">pid_host</span></td>
-                      <td><span class="code">pidHost</span></td>
-                      <td>pascalCase conformity</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">graphics().display</span></td>
-                      <td><span class="code">pixeldepth<br>resolutionx<br>resolutiony<br>sizex<br>sizey</span></td>
-                      <td><span class="code">pixelDepth<br>resolutionX<br>resolutionY<br>sizeX<br>sizeY</span></td>
-                      <td>pascalCase conformity</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">networkConnections()</span></td>
-                      <td><span class="code">localaddress<br>localport<br>peeraddress<br>peerport</span></td>
-                      <td><span class="code">localAddress<br>localPort<br>peerAddress<br>peerPort</span></td>
-                      <td>pascalCase conformity</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">networkInterfaces()</span></td>
-                      <td><span class="code">carrier_changes</span></td>
-                      <td><span class="code">carrierChanges</span></td>
-                      <td>pascalCase conformity</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">processes()</span></td>
-                      <td><span class="code">mem_vsz<br>mem_rss<br>pcpu<br>pcpuu<br>pcpus<br>pmem</span></td>
-                      <td><span class="code">memVsz<br>memRss<br>cpu<br>cpuu<br>cpus<br>mem</span></td>
-                      <td>pascalCase conformity<br>renamed attributes</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">processLoad()</span></td>
-                      <td>result as object</td>
-                      <td>result as array of objects</td>
-                      <td>function now allows to provide more than<br>one process (as a comma separated list)</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">services()</span></td>
-                      <td><span class="code">pcpu<br>pmem</span></td>
-                      <td><span class="code">cpu<br>mem</span></td>
-                      <td>renamed attributes</td>
-                    </tr>
-                    <tr>
-                      <td><span class="code">vbox()</span></td>
-                      <td><span class="code">HPET<br>PAE<br>APIC<br>X2APIC<br>ACPI<br>IOAPIC<br>biosAPICmode<br>TRC</span></td>
-                      <td><span class="code">hpet<br>pae<br>apic<br>x2Apic<br>acpi<br>ioApic<br>biosApicMode<br>rtc</span></td>
-                      <td>pascalCase conformity</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <p>I know, these are <span class="bold">a lot of changes</span>, but for the sake of a consistent interface and to be future proof, we think that this was necessary. Thank you for your understanding.</p>
-                <h4>Other Improvements and Changes</h4>
-                <ul>
-                  <li><span class="code">baseboard()</span>: added memMax, memSlots</li>
-                  <li><span class="code">bios()</span>: added language and features (linux)</li>
-                  <li><span class="code">cpu()</span>: extended AMD processor list</li>
-                  <li><span class="code">cpu()</span>: extended socket list (win)</li>
-                  <li><span class="code">cpu()</span>: added <span class="code">virtualization</span> if cpu supports virtualization</li>
-                  <li><span class="code">cpu()</span>: now <span class="code">flags</span> are part of this function</li>
-                  <li><span class="code">cpuTemperature()</span>: added socket and chipset temperature (linux)</li>
-                  <li><span class="code">disksIO()</span>: added <span class="code">waitTime</span>, <span class="code">waitPercent</span> (linux)</li>
-                  <li><span class="code">fsSize()</span>: added <span class="code">available</span></li>
-                  <li><span class="code">fsSize()</span>: improved calculation of <span class="code">used</span></li>
-                  <li><span class="code">getData()</span>: support for passing parameters and filters (see <a href="general.html">section General / getData</a>)</li>
-                  <li><span class="code">graphics()</span>: extended properties macOS</li>
-                  <li><span class="code">graphics()</span>: extended nvidia-smi parsing</li>
-                  <li><span class="code">networkInterfaces()</span>: type detection improved (win - wireless)</li>
-                  <li><span class="code">memLayout()</span>: extended manufacturer list (decoding)</li>
-                  <li><span class="code">memLayout()</span>: added ECC flag</li>
-                  <li><span class="code">osInfo()</span>: better fqdn (win)</li>
-                  <li><span class="code">osinfo()</span>: added <span class="code">hypervizor</span> if hyper-v is enabled (win only)</li>
-                  <li><span class="code">system()</span>: better Raspberry PI detection</li>
-                  <li><span class="code">system()</span>: added <span class="code">virtual</span> and <span class="code">virtualHost</span> (if system is virtual instance)</li>
-                  <li><span class="code">uuid()</span>: better value support</li>
-                  <li><span class="code">uuid()</span>: added MACs</li>
-                  <li><span class="code">uuid()</span>: better Raspberry Pi hardware ID</li>
-                  <li><span class="code">versions()</span>: added bash, zsh, fish, powershell, dotnet</li>
-                  <li><span class="code">Apple M1 Silicon</span> extended support</li>
-                  <li>updated TypeScript definitions </li>
-                </ul>
-                <h4>Test Full Version 5 Functionality</h4>
-                <p>If you want to see all function results on your machine, please <a href="tests.html">head over to Testing section</a>. We implemented a tiny test suite where you can easily go through all functions and test resuls on your machine without coding.<br><br></p>
-                <h2>Major Changes - Version 4</h2>
-                <h4>New Functions</h4>
-                <ul>
-                  <li><span class="code">chassis()</span> chassis information</li>
-                  <li><span class="code">vboxInfo()</span> detailed virtualBox VM information</li>
-                  <li><span class="code">wifiNetworks()</span> detailed information about available wifi networks</li>
-                </ul>
-                <h4>Breaking Changes</h4>
-                <ul>
-                  <li><span class="code">networkStats()</span>: will provide an <strong>array</strong> of stats for all given interfaces. In previous versions only one interface was provided as a parameter. Pass '*' for all interfaces</li>
-                  <li><span class="code">networkStats()</span>: <span class="code">rx</span> and <span class="code">tx</span> changed to <span class="code">rx_bytes</span> and <span class="code">tx_bytes</span></li>
-                  <li><span class="code">dockerContainerStats()</span> will provide an <strong>array</strong> of stats for all given docker containers. In previous versions only one interface was provided as a parameter. Pass '*' for all docker containers</li>
-                </ul>
-                <h4>Other Changes</h4>
-                <ul>
-                  <li><span class="code">system()</span>: optimized system detection (e.g. new Raspberry Pi models, ...)</li>
-                  <li><span class="code">system(), bios(), baseboard()</span>: information also as non-root (linux)</li>
-                  <li><span class="code">graphics()</span>: added pip, pip3, virtualBox, </li>
-                  <li><span class="code">versions()</span>: better controller and display detection, fixes</li>
-                  <li><span class="code">networkInterfaces()</span>: optimization, fixes</li>
-                  <li><span class="code">networkStats()</span> added <span class="code">operstate</span>, <span class="code">type</span>, <span class="code">duplex</span>, <span class="code">mtu</span>, <span class="code">speed</span>, <span class="code">carrierChanges</span></li>
-                  <li>added TypeScript definitions </li>
-                </ul>
-                <p><strong>Be aware</strong>, that the new version 4.x is <strong>NOT fully backward compatible</strong> to version 3.x ...</p>
-                <h2>Major Changes - Version 3</h2>
-                <ul>
-                  <li>works only with <span class="code">node.js</span> v4.0.0 and above (using now internal ES6 promise function, arrow functions, ...)</li>
-                  <li><strong>Promises</strong>. As you can see in the documentation, you can now also use it in a promise oriented way. But callbacks are still supported.</li>
-                  <li><strong>Async/Await</strong>. Due to the promises support, systeminformation also works perfectly with the `async/await` pattern (available in <span class="code">node.js</span> <strong>v7.6.0</strong> and above). See example in the docs.</li>
-                </ul>
-                <br>
-                <h2>Full Version History</h2>
-                <p>Full version histrory (every single release version from version 1.x.x to 5.x.x) can be <a href="history.html">viewed here</a></p>
-
+        <div class="row">
+          <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu"></div>
+          <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+            <div class="row">
+              <div class="col-12 sectionheader">
+                <div class="title">Major and Breaking Changes</div>
+                <div class="text">
+                  <h2>Major Changes - Version 6</h2>
+                  <p>
+                    Version 6 is a complete rewrite of the library in <span class="bold">TypeScript</span>, shipping typed declarations (<span class="code">.d.ts</span>) for every function while keeping a consistent, promise-based API. It remains a zero-dependency
+                    <span class="code">node.js</span> backend/server-side library (it will not run in a browser).
+                  </p>
+                  <h4>New Functions</h4>
+                  <ul>
+                    <li><span class="code">camera()</span> detected cameras</li>
+                    <li><span class="code">keyboard()</span> detected keyboards</li>
+                    <li><span class="code">mouse()</span> detected pointing devices</li>
+                    <li><span class="code">thunderbolt()</span> Thunderbolt controllers and devices</li>
+                    <li><span class="code">pci()</span> PCI devices (experimental)</li>
+                    <li><span class="code">npu()</span> detected NPUs / AI accelerators (experimental)</li>
+                    <li><span class="code">software()</span> installed software / applications</li>
+                    <li><span class="code">npm()</span> globally installed npm packages</li>
+                    <li><span class="code">gpu()</span> graphics controllers (replaces the controllers part of <span class="code">graphics()</span>)</li>
+                    <li><span class="code">displays()</span> monitors / displays (replaces the displays part of <span class="code">graphics()</span>)</li>
+                  </ul>
+                  <h4>New Attributes</h4>
+                  <ul>
+                    <li><span class="code">osInfo()</span> added <span class="code">installDate</span> (operating system installation date)</li>
+                    <li><span class="code">osInfo()</span> added <span class="code">displayServer</span> (wayland, x11, quartz, dwm, surfaceflinger or '' when headless)</li>
+                    <li><span class="code">bios()</span> added <span class="code">iBridge</span> (Apple iBridge / security chip: modelName, build, bootUuid, secureBoot - macOS only)</li>
+                    <li><span class="code">displays()</span> added <span class="code">serial</span>, <span class="code">displayId</span> and <span class="code">productionYear</span> on Windows (previously macOS only)</li>
+                    <li><span class="code">displays()</span> added <span class="code">RDP</span> as connection type for remote desktop / indirect displays (Windows)</li>
+                    <li><span class="code">gpu()</span> added <span class="code">temperatureGpu</span> on Apple Silicon (optional <span class="code">macos-temperature-sensor</span> package)</li>
+                    <li><span class="code">cpuTemperature()</span> added support for the <span class="code">macos-temperature-sensor</span> package (Apple Silicon, incl. <span class="code">chipset</span> / SoC temperature)</li>
+                    <li><span class="code">versions()</span> added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, ruby, rust, sqlite3, vue</li>
+                  </ul>
+                  <h4>Extended Windows Support</h4>
+                  <ul>
+                    <li><span class="code">disksIO()</span>, <span class="code">fsStats()</span>, <span class="code">fsOpenFiles()</span> and <span class="code">thunderbolt()</span> are now also available on Windows</li>
+                  </ul>
+                  <h4>Fixes (open version 5 issues resolved in version 6)</h4>
+                  <ul>
+                    <li><span class="code">displays()</span> EDID parsing with multiple monitors - all displays reported the first monitor's model, resolution and size (Linux, <a href="https://github.com/sebhildebrandt/systeminformation/issues/997">#997</a>)</li>
+                    <li><span class="code">displays()</span> display positions (<span class="code">positionX</span> / <span class="code">positionY</span>) are now parsed from xrandr (Linux, <a href="https://github.com/sebhildebrandt/systeminformation/issues/866">#866</a>)</li>
+                    <li><span class="code">displays()</span> per-display refresh rate instead of copying the primary monitor's rate to all displays (Windows, <a href="https://github.com/sebhildebrandt/systeminformation/issues/853">#853</a>)</li>
+                    <li><span class="code">displays()</span> monitor data (connection type, size) is now correlated by <span class="code">InstanceName</span> - fixes swapped values on multi-GPU setups (Windows, <a href="https://github.com/sebhildebrandt/systeminformation/issues/764">#764</a>)</li>
+                    <li>
+                      <span class="code">displays()</span>
+                      mirrored/duplicated monitors are now reported as separate physical displays; monitors that are attached but inactive (e.g. "PC screen only") are not listed (Windows, <a href="https://github.com/sebhildebrandt/systeminformation/issues/940">#940</a>)
+                    </li>
+                    <li>
+                      <span class="code">displays()</span>
+                      and <span class="code">gpu()</span> share the result of their common base query when called in parallel (e.g. via <span class="code">getStaticData()</span>) - the expensive <span class="code">system_profiler</span> (macOS) /
+                      <span class="code">win32_VideoController</span> (Windows) call runs only once
+                    </li>
+                    <li>
+                      <span class="code">displays()</span>
+                      vendor/model fallback from <span class="code">Win32_DesktopMonitor</span> is now matched per display via <span class="code">PNPDeviceID</span> - previously only the first entry was considered (Windows, idea from
+                      <a href="https://github.com/sebhildebrandt/systeminformation/pull/855">#855</a>)
+                    </li>
+                    <li><span class="code">get()</span> returns a migration hint for the removed <span class="code">graphics</span> key instead of silently dropping it</li>
+                  </ul>
+                  <h4>Breaking Changes</h4>
+                  <p><span class="bold">Be aware</span>, that the new version 6.x is <span class="bold">NOT fully backward compatible</span> to version 5.x ...</p>
+                  <p>We modernized the library with a full TypeScript rewrite and made a few interface changes. Please review the list below and adapt your code:</p>
+                  <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Topic</th>
+                        <th>Old (V5)</th>
+                        <th>New (V6)</th>
+                        <th>Comments</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><span class="code">time()</span></td>
+                        <td>synchronous</td>
+                        <td><span class="code">await si.time()</span></td>
+                        <td>time() is now <span class="bold">asynchronous</span><br>and returns a promise</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">version()</span></td>
+                        <td>synchronous</td>
+                        <td><span class="code">await si.version()</span></td>
+                        <td>version() is now <span class="bold">asynchronous</span> too -<br><span class="bold">all</span> functions are now async</td>
+                      </tr>
+                      <tr>
+                        <td>callbacks</td>
+                        <td><span class="code">si.cpu(data => { ...})</span></td>
+                        <td>removed</td>
+                        <td><span class="bold">callbacks are no longer available</span> -<br>use async / await (preferred) or promises</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">graphics()</span></td>
+                        <td><span class="code">{ controllers, displays }</span></td>
+                        <td>
+                          <span class="code">gpu()<br>displays()</span>
+                        </td>
+                        <td>graphics() was removed and split into two functions,<br>each returning a plain array.<br>get() returns a migration hint for the removed graphics key</td>
+                      </tr>
+                      <tr>
+                        <td>language</td>
+                        <td>JavaScript</td>
+                        <td>TypeScript</td>
+                        <td>typed .d.ts declarations are now<br>shipped for every function</td>
+                      </tr>
+                      <tr>
+                        <td>module resolution</td>
+                        <td>deep <span class="code">require('.../dist/...')</span></td>
+                        <td><span class="code">exports</span> map<br>(both require and import)</td>
+                        <td>only documented entry points are importable;<br>deep dist/... paths gone</td>
+                      </tr>
+                      <tr>
+                        <td>Node.js</td>
+                        <td>older versions</td>
+                        <td><span class="bold">&gt;= 20.0</span></td>
+                        <td>minimum Node.js version is now 20.0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <h4>Modular Imports (new)</h4>
+                  <p>The whole library, a single operating system, or a single function can now be imported individually:</p>
+                  <ul>
+                    <li><span class="code">require('systeminformation')</span> - whole library (all functions, all platforms)</li>
+                    <li><span class="code">require('systeminformation/cpu')</span> - a single function (platform detected at runtime)</li>
+                    <li><span class="code">require('systeminformation/linux')</span> - a whole operating system (<span class="code">/darwin</span>, <span class="code">/windows</span>, <span class="code">/bsd</span>, <span class="code">/sun</span>)</li>
+                    <li><span class="code">require('systeminformation/linux/cpu')</span> - a single function of a single operating system</li>
+                  </ul>
+                  <p>This keeps bundles small: unused operating-system implementations can be tree-shaken away.</p>
+                  <h4>Test Full Version 6 Functionality</h4>
+                  <p>If you want to see all function results on your machine, please <a href="tests.html">head over to Testing section</a>. We implemented a tiny test suite where you can easily go through all functions and test results on your machine without coding.<br><br></p>
+                  <h2>Major Changes - Version 5</h2>
+                  <h4>New Functions</h4>
+                  <ul>
+                    <li><span class="code">audio()</span> detailed audio information</li>
+                    <li><span class="code">bluetoothDevices()</span> detailed information detected bluetooth devices</li>
+                    <li><span class="code">printers()</span> detailed printer information</li>
+                    <li><span class="code">usb()</span> detailed USB information</li>
+                    <li><span class="code">wifiInterfaces()</span> detected Wi-Fi interfaces</li>
+                    <li><span class="code">wifiConnections()</span> active Wi-Fi connections</li>
+                  </ul>
+                  <h4>Breaking Changes</h4>
+                  <p><span class="bold">Be aware</span>, that the new version 5.x is <span class="bold">NOT fully backward compatible</span> to version 4.x ...</p>
+                  <p>We had to make <span class="bold">several interface changes</span> to keep systeminformation as consistent as possible. We highly recommend to go through the complete list and adapt your own code to be again compatible to the new version 5:</p>
+                  <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Function</th>
+                        <th>Old</th>
+                        <th>New (V5)</th>
+                        <th>Comments</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>unsupported values</td>
+                        <td><span class="code">-1</span></td>
+                        <td><span class="code">null</span></td>
+                        <td>values which are unknown or unsupported<br>on platform</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">battery()</span></td>
+                        <td>
+                          <span class="code">hasbattery<br>cyclecount<br>ischarging<br>designedcapacity<br>maxcapacity<br>acconnected<br>timeremaining</span>
+                        </td>
+                        <td>
+                          <span class="code">hasBattery<br>cycleCount<br>isCharging<br>designedCapacity<br>maxCapacity<br>acConnected<br>timeRemaining</span>
+                        </td>
+                        <td>pascalCase conformity</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">blockDevices()</span></td>
+                        <td><span class="code">fstype</span></td>
+                        <td><span class="code">fsType</span></td>
+                        <td>pascalCase conformity</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">cpu()</span></td>
+                        <td>
+                          <span class="code">speedmin<br>speedmax</span>
+                        </td>
+                        <td>
+                          <span class="code">speedMin<br>speedMax</span>
+                        </td>
+                        <td>pascalCase conformity</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="code">cpu().speed<br>cpu().speedMin<br>cpu().speedMax</span>
+                        </td>
+                        <td>string values</td>
+                        <td>now returning<br>numerical values</td>
+                        <td>better value handling</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">cpuCurrentspeed()</span></td>
+                        <td></td>
+                        <td><span class="code">cpuCurrentSpeed()</span></td>
+                        <td>function name changed<br>pascalCase conformity</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">currentLoad()</span></td>
+                        <td>
+                          <span class="code">avgload<br>currentload<br>currentload_user<br>currentload_system<br>currentload_nice<br>currentload_idle<br>currentload_irq<br>raw_currentload</span>
+                        </td>
+                        <td>
+                          <span class="code">avgLoad<br>currentLoad<br>currentLoadUser<br>currentLoadSystem<br>currentLoadNice<br>currentLoadIdle<br>currentLoadIrq<br>rawCurrentLoad</span>
+                        </td>
+                        <td>pascalCase conformity</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">dockerContainerStats()</span></td>
+                        <td>
+                          <span class="code">mem_usage<br>mem_limit<br>mem_percent<br>cpu_percent<br>cpu_stats<br>precpu_stats<br>memory_stats</span>
+                        </td>
+                        <td>
+                          <span class="code">memUsage<br>memLimit<br>memPercent<br>cpuPercent<br>cpuStats<br>precpuStats<br>memoryStats</span>
+                        </td>
+                        <td>pascalCase conformity</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">dockerContainerProcesses()</span></td>
+                        <td><span class="code">pid_host</span></td>
+                        <td><span class="code">pidHost</span></td>
+                        <td>pascalCase conformity</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">graphics().display</span></td>
+                        <td>
+                          <span class="code">pixeldepth<br>resolutionx<br>resolutiony<br>sizex<br>sizey</span>
+                        </td>
+                        <td>
+                          <span class="code">pixelDepth<br>resolutionX<br>resolutionY<br>sizeX<br>sizeY</span>
+                        </td>
+                        <td>pascalCase conformity</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">networkConnections()</span></td>
+                        <td>
+                          <span class="code">localaddress<br>localport<br>peeraddress<br>peerport</span>
+                        </td>
+                        <td>
+                          <span class="code">localAddress<br>localPort<br>peerAddress<br>peerPort</span>
+                        </td>
+                        <td>pascalCase conformity</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">networkInterfaces()</span></td>
+                        <td><span class="code">carrier_changes</span></td>
+                        <td><span class="code">carrierChanges</span></td>
+                        <td>pascalCase conformity</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">processes()</span></td>
+                        <td>
+                          <span class="code">mem_vsz<br>mem_rss<br>pcpu<br>pcpuu<br>pcpus<br>pmem</span>
+                        </td>
+                        <td>
+                          <span class="code">memVsz<br>memRss<br>cpu<br>cpuu<br>cpus<br>mem</span>
+                        </td>
+                        <td>pascalCase conformity<br>renamed attributes</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">processLoad()</span></td>
+                        <td>result as object</td>
+                        <td>result as array of objects</td>
+                        <td>function now allows to provide more than<br>one process (as a comma separated list)</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">services()</span></td>
+                        <td>
+                          <span class="code">pcpu<br>pmem</span>
+                        </td>
+                        <td>
+                          <span class="code">cpu<br>mem</span>
+                        </td>
+                        <td>renamed attributes</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">vbox()</span></td>
+                        <td>
+                          <span class="code">HPET<br>PAE<br>APIC<br>X2APIC<br>ACPI<br>IOAPIC<br>biosAPICmode<br>TRC</span>
+                        </td>
+                        <td>
+                          <span class="code">hpet<br>pae<br>apic<br>x2Apic<br>acpi<br>ioApic<br>biosApicMode<br>rtc</span>
+                        </td>
+                        <td>pascalCase conformity</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>I know, these are <span class="bold">a lot of changes</span>, but for the sake of a consistent interface and to be future proof, we think that this was necessary. Thank you for your understanding.</p>
+                  <h4>Other Improvements and Changes</h4>
+                  <ul>
+                    <li><span class="code">baseboard()</span>: added memMax, memSlots</li>
+                    <li><span class="code">bios()</span>: added language and features (linux)</li>
+                    <li><span class="code">cpu()</span>: extended AMD processor list</li>
+                    <li><span class="code">cpu()</span>: extended socket list (win)</li>
+                    <li><span class="code">cpu()</span>: added <span class="code">virtualization</span> if cpu supports virtualization</li>
+                    <li><span class="code">cpu()</span>: now <span class="code">flags</span> are part of this function</li>
+                    <li><span class="code">cpuTemperature()</span>: added socket and chipset temperature (linux)</li>
+                    <li><span class="code">disksIO()</span>: added <span class="code">waitTime</span>, <span class="code">waitPercent</span> (linux)</li>
+                    <li><span class="code">fsSize()</span>: added <span class="code">available</span></li>
+                    <li><span class="code">fsSize()</span>: improved calculation of <span class="code">used</span></li>
+                    <li><span class="code">getData()</span>: support for passing parameters and filters (see <a href="general.html">section General / getData</a>)</li>
+                    <li><span class="code">graphics()</span>: extended properties macOS</li>
+                    <li><span class="code">graphics()</span>: extended nvidia-smi parsing</li>
+                    <li><span class="code">networkInterfaces()</span>: type detection improved (win - wireless)</li>
+                    <li><span class="code">memLayout()</span>: extended manufacturer list (decoding)</li>
+                    <li><span class="code">memLayout()</span>: added ECC flag</li>
+                    <li><span class="code">osInfo()</span>: better fqdn (win)</li>
+                    <li><span class="code">osinfo()</span>: added <span class="code">hypervizor</span> if hyper-v is enabled (win only)</li>
+                    <li><span class="code">system()</span>: better Raspberry PI detection</li>
+                    <li><span class="code">system()</span>: added <span class="code">virtual</span> and <span class="code">virtualHost</span> (if system is virtual instance)</li>
+                    <li><span class="code">uuid()</span>: better value support</li>
+                    <li><span class="code">uuid()</span>: added MACs</li>
+                    <li><span class="code">uuid()</span>: better Raspberry Pi hardware ID</li>
+                    <li><span class="code">versions()</span>: added bash, zsh, fish, powershell, dotnet</li>
+                    <li><span class="code">Apple M1 Silicon</span> extended support</li>
+                    <li>updated TypeScript definitions</li>
+                  </ul>
+                  <h4>Test Full Version 5 Functionality</h4>
+                  <p>If you want to see all function results on your machine, please <a href="tests.html">head over to Testing section</a>. We implemented a tiny test suite where you can easily go through all functions and test resuls on your machine without coding.<br><br></p>
+                  <h2>Major Changes - Version 4</h2>
+                  <h4>New Functions</h4>
+                  <ul>
+                    <li><span class="code">chassis()</span> chassis information</li>
+                    <li><span class="code">vboxInfo()</span> detailed virtualBox VM information</li>
+                    <li><span class="code">wifiNetworks()</span> detailed information about available wifi networks</li>
+                  </ul>
+                  <h4>Breaking Changes</h4>
+                  <ul>
+                    <li><span class="code">networkStats()</span>: will provide an <strong>array</strong> of stats for all given interfaces. In previous versions only one interface was provided as a parameter. Pass '*' for all interfaces</li>
+                    <li><span class="code">networkStats()</span>: <span class="code">rx</span> and <span class="code">tx</span> changed to <span class="code">rx_bytes</span> and <span class="code">tx_bytes</span></li>
+                    <li><span class="code">dockerContainerStats()</span> will provide an <strong>array</strong> of stats for all given docker containers. In previous versions only one interface was provided as a parameter. Pass '*' for all docker containers</li>
+                  </ul>
+                  <h4>Other Changes</h4>
+                  <ul>
+                    <li><span class="code">system()</span>: optimized system detection (e.g. new Raspberry Pi models, ...)</li>
+                    <li><span class="code">system(), bios(), baseboard()</span>: information also as non-root (linux)</li>
+                    <li><span class="code">graphics()</span>: added pip, pip3, virtualBox,</li>
+                    <li><span class="code">versions()</span>: better controller and display detection, fixes</li>
+                    <li><span class="code">networkInterfaces()</span>: optimization, fixes</li>
+                    <li><span class="code">networkStats()</span> added <span class="code">operstate</span>, <span class="code">type</span>, <span class="code">duplex</span>, <span class="code">mtu</span>, <span class="code">speed</span>, <span class="code">carrierChanges</span></li>
+                    <li>added TypeScript definitions</li>
+                  </ul>
+                  <p><strong>Be aware</strong>, that the new version 4.x is <strong>NOT fully backward compatible</strong> to version 3.x ...</p>
+                  <h2>Major Changes - Version 3</h2>
+                  <ul>
+                    <li>works only with <span class="code">node.js</span> v4.0.0 and above (using now internal ES6 promise function, arrow functions, ...)</li>
+                    <li><strong>Promises</strong>. As you can see in the documentation, you can now also use it in a promise oriented way. But callbacks are still supported.</li>
+                    <li><strong>Async/Await</strong>. Due to the promises support, systeminformation also works perfectly with the `async/await` pattern (available in <span class="code">node.js</span> <strong>v7.6.0</strong> and above). See example in the docs.</li>
+                  </ul>
+                  <br>
+                  <h2>Full Version History</h2>
+                  <p>Full version histrory (every single release version from version 1.x.x to 5.x.x) can be <a href="history.html">viewed here</a></p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-  </div>
-  </section>
+      </section>
     </div>
     <footer class="container-fluid footer">
       <div class="container">
