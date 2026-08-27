@@ -26,14 +26,20 @@ const readSysfs = async (file: string) => {
 };
 
 // first candidate that holds a number wins; divisor converts the sysfs unit (m°C, µW, bytes)
-const readSysfsNumber = async (files: string[], divisor = 1) => {
+// preferNonZero: idle GPUs report 0 in the "actual" clock nodes - keep looking for a current one
+const readSysfsNumber = async (files: string[], divisor = 1, preferNonZero = false) => {
+  let fallback: number | null = null;
   for (const file of files) {
     const value = Number.parseFloat(await readSysfs(file));
-    if (!Number.isNaN(value)) {
+    if (Number.isNaN(value)) {
+      continue;
+    }
+    if (!preferNonZero || value !== 0) {
       return value / divisor;
     }
+    fallback = 0;
   }
-  return null;
+  return fallback;
 };
 
 // amdgpu clock table: "1: 2100Mhz *" marks the current level
@@ -69,13 +75,18 @@ export const drmDevices = async (drmPath = '/sys/class/drm'): Promise<DrmMetrics
     try {
       hwmon = (await readdir(`${devicePath}/hwmon`)).map((node) => `${devicePath}/hwmon/${node}`);
     } catch {}
-    const clockCore = await readSysfsNumber([
-      `${cardPath}/gt_act_freq_mhz`,
-      `${cardPath}/gt_cur_freq_mhz`,
-      `${cardPath}/gt/gt0/rps_act_freq_mhz`,
-      `${devicePath}/tile0/gt0/freq0/act_freq`,
-      `${devicePath}/tile0/gt0/freq0/cur_freq`
-    ]);
+    const clockCore = await readSysfsNumber(
+      [
+        `${cardPath}/gt_act_freq_mhz`,
+        `${cardPath}/gt_cur_freq_mhz`,
+        `${cardPath}/gt/gt0/rps_act_freq_mhz`,
+        `${cardPath}/gt/gt0/rps_cur_freq_mhz`,
+        `${devicePath}/tile0/gt0/freq0/act_freq`,
+        `${devicePath}/tile0/gt0/freq0/cur_freq`
+      ],
+      1,
+      true
+    );
     devices.push({
       busAddress,
       utilizationGpu: await readSysfsNumber([`${devicePath}/gpu_busy_percent`]),
