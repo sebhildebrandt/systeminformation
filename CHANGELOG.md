@@ -91,7 +91,8 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.33.2  | 2026-08-26 | `diskLayout()` fix - serial number (windows)                                                        |
+| 5.33.5  | 2026-08-27 | `osInfo()` updated macOS detection - Golden Gate (macOS)                                            |
+| 5.33.4  | 2026-08-26 | `diskLayout()` fix - serial number (windows)                                                        |
 | 5.33.3  | 2026-08-25 | relase versiopn 6 first beta                                                                        |
 | 5.33.2  | 2026-07-24 | `powerShellStart()` fix - deadlock (windows)                                                        |
 | 5.33.1  | 2026-07-23 | `networkStats()` fix - changes underlying command (windows)                                         |

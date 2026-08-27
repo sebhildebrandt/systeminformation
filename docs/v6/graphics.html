@@ -44,312 +44,311 @@
 
     <div class="container-fluid">
       <section class="container">
-      <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-        </div>
-        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-          <div class="row">
-            <div class="col-12 sectionheader">
-              <div class="title">Graphics</div>
-              <div class="text">
-                <p>In this section you will learn how to get information about installed graphics controllers and connected displays.</p>
-                <p>In version 6 the former <span class="code">graphics()</span> function was split into two separate functions: <span class="code">gpu()</span> (graphics controllers) and <span class="code">displays()</span> (monitors / displays). Both return plain arrays.</p>
-                <p>On Windows, <span class="code">displays()</span> reports physical monitors: in duplicate/mirror mode each mirrored monitor gets its own entry (sharing the resolution and position of the mirrored screen).</p>
-                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
-                <pre><code class="js">const si = require('systeminformation');</code></pre>
-                <h2>Graphics Controllers</h2>
-                <p>All functions in this section return a promise.</p>
-                <table class="table table-sm table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Function</th>
-                      <th>Result object</th>
-                      <th>Linux</th>
-                      <th>BSD</th>
-                      <th>Mac</th>
-                      <th>Win</th>
-                      <th>Sun</th>
-                      <th>Comments</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>si.gpu()</td>
-                      <td>[{...}]</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>array of graphics controllers</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].vendor</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>e.g. ATI</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].model</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>graphics controller model</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].bus</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>on which bus (e.g. PCIe)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].vram</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>VRAM size (in MB)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].vramDynamic</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>true if dynamically allocated ram</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].deviceId</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>(macOS only) - device ID </td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].vendorId</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>(macOS only) - vendor ID</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].external</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>(macOS only) - is external GPU</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].cores</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>(Apple silicon only) - GPU cores</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].metalVersion</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>(macOS only) - Metal Version</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].subDeviceId</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - sub device ID</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].driverVersion</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - driver version</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].name</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - name</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].pciBus</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - PCI bus ID</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].fanSpeed</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - fan speed</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].memoryTotal</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - memory total</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].memoryUsed</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - memory used</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].memoryFree</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - memory free</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].utilizationGpu</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - utilization GPU</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].utilizationMemory</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - utilization memory</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].temperatureGpu</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi; macOS: optional macos-temperature-sensor) - temperature GPU</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].temperatureMemory</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - temperature memory</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].powerDraw</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - power draw</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].powerLimit</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - power limit</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].clockCore</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - clock core</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].clockMemory</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>(optional nvidia-smi) - clock memory</td>
-                    </tr>
-                    <tr class="example">
-                      <td></td>
-                      <td colspan="7">
-                        <h5>Example</h5>
-                        <pre><code class="js">const si = require('systeminformation');
+        <div class="row">
+          <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu"></div>
+          <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+            <div class="row">
+              <div class="col-12 sectionheader">
+                <div class="title">Graphics</div>
+                <div class="text">
+                  <p>In this section you will learn how to get information about installed graphics controllers and connected displays.</p>
+                  <p>In version 6 the former <span class="code">graphics()</span> function was split into two separate functions: <span class="code">gpu()</span> (graphics controllers) and <span class="code">displays()</span> (monitors / displays). Both return plain arrays.</p>
+                  <p>On Windows, <span class="code">displays()</span> reports physical monitors: in duplicate/mirror mode each mirrored monitor gets its own entry (sharing the resolution and position of the mirrored screen).</p>
+                  <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                  <pre><code class="js">const si = require('systeminformation');</code></pre>
+                  <h2>Graphics Controllers</h2>
+                  <p>All functions in this section return a promise.</p>
+                  <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Function</th>
+                        <th>Result object</th>
+                        <th>Linux</th>
+                        <th>BSD</th>
+                        <th>Mac</th>
+                        <th>Win</th>
+                        <th>Sun</th>
+                        <th>Comments</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>si.gpu()</td>
+                        <td>[ { ...}]</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>array of graphics controllers</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].vendor</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>e.g. ATI</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].model</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>graphics controller model</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].bus</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>on which bus (e.g. PCIe)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].vram</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>VRAM size (in MB)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].vramDynamic</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>true if dynamically allocated ram</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].deviceId</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>(macOS only) - device ID</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].vendorId</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>(macOS only) - vendor ID</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].external</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>(macOS only) - is external GPU</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].cores</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>(Apple silicon only) - GPU cores</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].metalVersion</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>(macOS only) - Metal Version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].subDeviceId</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi) - sub device ID</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].driverVersion</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi) - driver version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].name</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi) - name</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].pciBus</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi) - PCI bus ID</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].fanSpeed</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi) - fan speed</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].memoryTotal</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi; Linux: DRM sysfs - see notes) - memory total</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].memoryUsed</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi; Linux: DRM sysfs - see notes) - memory used</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].memoryFree</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi; Linux: DRM sysfs - see notes) - memory free</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].utilizationGpu</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi; Linux: DRM sysfs - see notes) - utilization GPU</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].utilizationMemory</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi) - utilization memory</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].temperatureGpu</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi; Linux: DRM sysfs - see notes; macOS: optional macos-temperature-sensor) - temperature GPU</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].temperatureMemory</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi) - temperature memory</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].powerDraw</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi; Linux: DRM sysfs - see notes) - power draw</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].powerLimit</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi; Linux: DRM sysfs - see notes) - power limit</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].clockCore</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi; Linux: DRM sysfs - see notes) - clock core</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].clockMemory</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>(optional nvidia-smi) - clock memory</td>
+                      </tr>
+                      <tr class="example">
+                        <td></td>
+                        <td colspan="7">
+                          <h5>Example</h5>
+                          <pre><code class="js">const si = require('systeminformation');
 si.gpu().then(data => console.log(data));</code></pre>
-                      <pre class="example">
+                          <pre class="example">
 [
   {
     vendor: 'Intel',
@@ -359,242 +358,300 @@ si.gpu().then(data => console.log(data));</code></pre>
     vramDynamic: true
   }
 ]</pre>
-                    </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <h2>Displays</h2>
-                <table class="table table-sm table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Function</th>
-                      <th>Result object</th>
-                      <th>Linux</th>
-                      <th>BSD</th>
-                      <th>Mac</th>
-                      <th>Win</th>
-                      <th>Sun</th>
-                      <th>Comments</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>si.displays()</td>
-                      <td>[{...}]</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>array of monitors / displays</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].vendor</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>monitor/display vendor</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].vendorId</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>(macOS only) - monitor/display vendor ID</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].deviceName</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>e.g. \\.\DISPLAY1</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].model</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>monitor/display model</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].productionYear</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>production year</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].serial</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>serial number</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].displayId</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>display ID</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].main</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>true if main monitor</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].builtin</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>true if built-in monitor</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].connection</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>e.g. DisplayPort, HDMI</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].sizeX</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>size in mm horizontal</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].sizeY</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>size in mm vertical</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].pixelDepth</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>color depth in bits</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].resolutionX</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>pixel horizontal</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].resolutionY</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>pixel vertical</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].currentResX</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>current pixel horizontal</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].currentResY</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>current pixel vertical</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].positionX</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>display position X</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].positionY</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>display position Y</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].currentRefreshRate</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>current screen refresh rate</td>
-                    </tr>
-                    <tr class="example">
-                      <td></td>
-                      <td colspan="7">
-                        <h5>Example</h5>
-                        <pre><code class="js">const si = require('systeminformation');
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <h4>GPU metrics on Linux (Intel, AMD, NVIDIA)</h4>
+
+                  <p>
+                    Beside the optional <span class="code">nvidia-smi</span>, <span class="code">gpu()</span> reads the runtime values the kernel exposes per DRM card below <span class="code">/sys/class/drm/card*</span>. This needs no additional tool and no root privileges, and it is matched to the
+                    controller by its PCI bus address. Values already delivered by
+                    <span class="code">nvidia-smi</span>
+                    are never overwritten.
+                  </p>
+                  <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Attribute</th>
+                        <th>Source</th>
+                        <th>Intel (i915 / xe)</th>
+                        <th>AMD (amdgpu)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>clockCore</td>
+                        <td><span class="code">gt_act_freq_mhz</span>, <span class="code">gt_cur_freq_mhz</span>, <span class="code">tile0/gt0/freq0/act_freq</span>, <span class="code">pp_dpm_sclk</span></td>
+                        <td>X</td>
+                        <td>X</td>
+                      </tr>
+                      <tr>
+                        <td>temperatureGpu</td>
+                        <td><span class="code">device/hwmon/hwmon*/temp1_input</span></td>
+                        <td>X (discrete cards; most iGPUs have no own sensor)</td>
+                        <td>X</td>
+                      </tr>
+                      <tr>
+                        <td>powerDraw / powerLimit</td>
+                        <td><span class="code">device/hwmon/hwmon*/power1_input</span>, <span class="code">power1_max</span></td>
+                        <td>X (platform dependent)</td>
+                        <td>X</td>
+                      </tr>
+                      <tr>
+                        <td>utilizationGpu</td>
+                        <td><span class="code">device/gpu_busy_percent</span></td>
+                        <td>-</td>
+                        <td>X</td>
+                      </tr>
+                      <tr>
+                        <td>memoryTotal / memoryUsed / memoryFree</td>
+                        <td><span class="code">device/mem_info_vram_total</span>, <span class="code">mem_info_vram_used</span></td>
+                        <td>-</td>
+                        <td>X</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>
+                    <span class="bold">Intel GPU utilization</span>
+                    is the one value that cannot be read this way: the i915 / xe drivers publish their engine busy counters through the perf / PMU interface instead of sysfs (<a href="https://github.com/sebhildebrandt/systeminformation/issues/890">#890</a>). Every tool reading it -
+                    <span class="code">intel_gpu_top -J</span>
+                    from <span class="code">intel-gpu-tools</span>, <span class="code">nvtop</span> - therefore needs root or the <span class="code">CAP_PERFMON</span> capability, which a library like this cannot require. If you need the busy percentage of an Intel GPU, run
+                    <span class="code">intel_gpu_top</span> yourself with the appropriate privileges; frequency, power and temperature are available through <span class="code">gpu()</span>.
+                  </p>
+
+                  <h2>Displays</h2>
+                  <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Function</th>
+                        <th>Result object</th>
+                        <th>Linux</th>
+                        <th>BSD</th>
+                        <th>Mac</th>
+                        <th>Win</th>
+                        <th>Sun</th>
+                        <th>Comments</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>si.displays()</td>
+                        <td>[ { ...}]</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>array of monitors / displays</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].vendor</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>monitor/display vendor</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].vendorId</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>(macOS only) - monitor/display vendor ID</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].deviceName</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>e.g. \\.\DISPLAY1</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].model</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>monitor/display model</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].productionYear</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>production year</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].serial</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>serial number</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].displayId</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>display ID</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].main</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>true if main monitor</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].builtin</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>true if built-in monitor</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].connection</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>e.g. DisplayPort, HDMI</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].sizeX</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>size in mm horizontal</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].sizeY</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>size in mm vertical</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].pixelDepth</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>color depth in bits</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].resolutionX</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>pixel horizontal</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].resolutionY</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>pixel vertical</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].currentResX</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>current pixel horizontal</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].currentResY</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>current pixel vertical</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].positionX</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>display position X</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].positionY</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>display position Y</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].currentRefreshRate</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>current screen refresh rate</td>
+                      </tr>
+                      <tr class="example">
+                        <td></td>
+                        <td colspan="7">
+                          <h5>Example</h5>
+                          <pre><code class="js">const si = require('systeminformation');
 si.displays().then(data => console.log(data));</code></pre>
-                      <pre class="example">
+                          <pre class="example">
 [
   {
     vendor: '',
@@ -614,17 +671,16 @@ si.displays().then(data => console.log(data));</code></pre>
     currentRefreshRate: null
   }
 ]</pre>
-                    </td>
-                    </tr>
-                  </tbody>
-                </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-  </div>
-  </section>
+      </section>
     </div>
     <footer class="container-fluid footer">
       <div class="container">

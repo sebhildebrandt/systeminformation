@@ -232,6 +232,16 @@
                       </tr>
                       <tr>
                         <td></td>
+                        <td>lastUpdate</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>date of the last OS update (see notes)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
                         <td>hypervizor</td>
                         <td></td>
                         <td></td>
@@ -260,6 +270,26 @@
                         <td></td>
                         <td>display server in use</td>
                       </tr>
+                      <tr>
+                        <td></td>
+                        <td>awake</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>system is fully awake (macOS: false during dark wake, see notes)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>hwAcceleration</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>available compute layers (see notes)</td>
+                      </tr>
                       <tr class="example">
                         <td></td>
                         <td colspan="7">
@@ -283,7 +313,10 @@ si.osInfo().then(data => console.log(data));</code></pre>
   servicepack: '',
   uefi: true,
   installDate: '2026-06-11T00:00:00.0000',
-  displayServer: 'quartz'
+  lastUpdate: '2026-07-09T22:44:10.000Z',
+  displayServer: 'quartz',
+  awake: true,
+  hwAcceleration: [ 'metal', 'opencl' ]
 }</pre>
                         </td>
                       </tr>
@@ -369,103 +402,13 @@ si.osInfo().then(data => console.log(data));</code></pre>
                       </tr>
                       <tr>
                         <td></td>
-                        <td>npm</td>
+                        <td>angular</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>npm version</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>yarn</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>yarn version</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>pm2</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>pm2 version</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>gulp</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>gulp version</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>grunt</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>grunt version</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>git</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>git version</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>tsc</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>typescript version</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>mysql</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>mysql version</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>redis</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>redis version</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>mongodb</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>mongodb version</td>
+                        <td>angular cli version</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -479,6 +422,236 @@ si.osInfo().then(data => console.log(data));</code></pre>
                       </tr>
                       <tr>
                         <td></td>
+                        <td>bash</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>bash version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>bun</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>bun version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>cargo</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>cargo version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>composer</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>composer version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>curl</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>curl version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>deno</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>deno version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>docker</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>docker version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>dockerCompose</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>docker compose version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>dotnet</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>dotnet version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>fish</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>fish version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>gcc</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>gcc version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>git</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>git version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>go</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>go version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>gradle</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>gradle version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>grunt</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>grunt version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>gulp</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>gulp version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>herd</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>laravel herd version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>homebrew</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>homebrew version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>java</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>java version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>laravel</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>laravel installer version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>maven</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>maven version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>mongodb</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>mongodb version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>mysql</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>mysql version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
                         <td>nginx</td>
                         <td>X</td>
                         <td>X</td>
@@ -486,6 +659,26 @@ si.osInfo().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td>nginx version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>npm</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>npm version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>perl</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>perl version</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -499,13 +692,43 @@ si.osInfo().then(data => console.log(data));</code></pre>
                       </tr>
                       <tr>
                         <td></td>
-                        <td>docker</td>
+                        <td>pip3</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>docker version</td>
+                        <td>pip3 version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>pip</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>pip version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>pm2</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>pm2 version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>podman</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>podman version</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -529,23 +752,13 @@ si.osInfo().then(data => console.log(data));</code></pre>
                       </tr>
                       <tr>
                         <td></td>
-                        <td>perl</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>perl version</td>
-                      </tr>
-                      <tr>
+                        <td>powershell</td>
                         <td></td>
-                        <td>python</td>
+                        <td></td>
+                        <td></td>
                         <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>python version</td>
+                        <td></td>
+                        <td>powershell version</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -559,23 +772,73 @@ si.osInfo().then(data => console.log(data));</code></pre>
                       </tr>
                       <tr>
                         <td></td>
-                        <td>java</td>
+                        <td>python</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>java version</td>
+                        <td>python version</td>
                       </tr>
                       <tr>
                         <td></td>
-                        <td>gcc</td>
+                        <td>rails</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>gcc version</td>
+                        <td>ruby on rails version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>redis</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>redis version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>ruby</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>ruby version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>rust</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>rust (rustc) version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>sqlite3</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>sqlite3 version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>tsc</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>typescript version</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -589,13 +852,43 @@ si.osInfo().then(data => console.log(data));</code></pre>
                       </tr>
                       <tr>
                         <td></td>
-                        <td>bash</td>
+                        <td>vi</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>bash version</td>
+                        <td>vi version (incl. vim banner)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>vim</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>vim version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>vue</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>vue cli version</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>yarn</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>yarn version</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -607,36 +900,6 @@ si.osInfo().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>zsh version</td>
                       </tr>
-                      <tr>
-                        <td></td>
-                        <td>fish</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>X</td>
-                        <td>fish version</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>powershell</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>X</td>
-                        <td></td>
-                        <td>powershell version</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>dotnet</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>X</td>
-                        <td></td>
-                        <td>dotnet version</td>
-                      </tr>
                       <tr class="example">
                         <td></td>
                         <td colspan="7">
@@ -645,41 +908,62 @@ si.osInfo().then(data => console.log(data));</code></pre>
 si.versions().then(data => console.log(data));</code></pre>
                           <pre class="example">
 {
-  kernel: '19.3.0',
-  openssl: '1.1.1d',
-  systemOpenssl: '2.8.3',
-  systemOpensslLib: 'LibreSSL',
-  node: '13.8.0',
-  v8: '7.9.317.25-node.28',
-  npm: '6.13.6',
-  yarn: '',
-  pm2: '',
-  gulp: '',
-  grunt: '',
-  git: '2.21.1',
-  tsc: '3.7.5',
-  mysql: 'gpl)',
-  redis: '',
-  mongodb: '',
-  apache: '2.4.41 (Unix)',
-  nginx: '',
-  php: '7.3.11',
-  docker: '19.03.5',
-  postfix: '3.2.2',
-  postgresql: '12.1',
-  perl: '5.18.4',
-  python: '2.7.16',
-  python3: '3.7.3',
-  pip: '',
-  pip3: '19.0.3',
-  java: '',
-  gcc: '4.2.1',
-  virtualbox: '',
+  kernel: '25.5.0',
+  openssl: '3.5.6',
+  systemOpenssl: '3.6.2',
+  systemOpensslLib: 'OpenSSL',
+  node: '24.16.0',
+  v8: '13.6.233.17-node.49',
+  angular: '22.1.6',
+  apache: '2.4.66',
   bash: '3.2.57',
-  zsh: '5.8',
+  bun: '1.4.0',
+  cargo: '',
+  composer: '2.10.2',
+  curl: '8.7.1',
+  deno: '2.9.3',
+  docker: '29.5.3',
+  dockerCompose: 'v5.1.4',
+  dotnet: '',
   fish: '',
+  gcc: '21.0.0',
+  git: '2.50.1',
+  go: '',
+  gradle: '',
+  grunt: '',
+  gulp: '',
+  herd: '1.30.0',
+  homebrew: '6.0.18',
+  java: '',
+  laravel: '5.31.1',
+  maven: '',
+  mongodb: '',
+  mysql: '',
+  nginx: '',
+  npm: '11.13.0',
+  perl: '5.34.1',
+  php: '8.5.8',
+  pip3: '26.1.2',
+  pip: '26.1.2',
+  pm2: '',
+  podman: '',
+  postfix: '3.2.2',
+  postgresql: '',
   powershell: '',
-  dotnet: ''
+  python3: '3.13.13',
+  python: '',
+  rails: '',
+  redis: '',
+  ruby: '2.6.10p210',
+  rust: '',
+  sqlite3: '3.51.0',
+  tsc: '6.0.3',
+  virtualbox: '',
+  vi: 'VIM - Vi IMproved 9.1',
+  vim: '9.1',
+  vue: '',
+  yarn: '',
+  zsh: '5.9'
 }</pre>
                           <h5>Example 2</h5>
                           <pre><code class="js">const si = require('systeminformation');
@@ -791,6 +1075,119 @@ si.users().then(data => console.log(data));</code></pre>
                       </tr>
                     </tbody>
                   </table>
+                  <h4>Hardware acceleration / compute layers</h4>
+
+                  <p><span class="code">osInfo().hwAcceleration</span> lists the GPU compute layers available on the machine,
+                    e.g. <span class="code">[ 'cuda', 'vulkan', 'opencl' ]</span>. This is useful to decide which build of a
+                    native library (llama.cpp, ONNX Runtime, ...) can be installed. Detection is done by looking up the runtime
+                    libraries of each layer in the usual search paths - no external tool is called and no root is needed
+                    (about 0.2 ms):</p>
+                  <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Layer</th>
+                        <th>Linux / BSD</th>
+                        <th>Windows</th>
+                        <th>macOS</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>cuda</td>
+                        <td><span class="code">libnvidia-ml.so[.1]</span> and <span class="code">libcudart.so[.11|.12|.13]</span></td>
+                        <td><span class="code">nvml.dll</span> and <span class="code">cudart64_{11,12,13}.dll</span></td>
+                        <td>-</td>
+                      </tr>
+                      <tr>
+                        <td>rocm</td>
+                        <td><span class="code">libamdhip64.so</span>, <span class="code">librocm_smi64.so</span></td>
+                        <td>-</td>
+                        <td>-</td>
+                      </tr>
+                      <tr>
+                        <td>oneapi</td>
+                        <td><span class="code">libze_loader.so[.1]</span></td>
+                        <td><span class="code">ze_loader.dll</span></td>
+                        <td>-</td>
+                      </tr>
+                      <tr>
+                        <td>vulkan</td>
+                        <td><span class="code">libvulkan.so[.1]</span></td>
+                        <td><span class="code">vulkan-1.dll</span></td>
+                        <td><span class="code">libvulkan.dylib</span>, <span class="code">libMoltenVK.dylib</span></td>
+                      </tr>
+                      <tr>
+                        <td>opencl</td>
+                        <td><span class="code">libOpenCL.so[.1]</span></td>
+                        <td><span class="code">OpenCL.dll</span></td>
+                        <td><span class="code">OpenCL.framework</span></td>
+                      </tr>
+                      <tr>
+                        <td>metal</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><span class="code">Metal.framework</span></td>
+                      </tr>
+                      <tr>
+                        <td>dx12</td>
+                        <td>-</td>
+                        <td><span class="code">d3d12.dll</span></td>
+                        <td>-</td>
+                      </tr>
+                      <tr>
+                        <td>directml</td>
+                        <td>-</td>
+                        <td><span class="code">DirectML.dll</span></td>
+                        <td>-</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>Searched are the library directories of the platform (Linux additionally
+                    <span class="code">LD_LIBRARY_PATH</span>, <span class="code">/usr/local/cuda/lib64</span>,
+                    <span class="code">/opt/rocm/lib</span>, <span class="code">/opt/intel/oneapi/lib</span>; Windows
+                    <span class="code">System32</span>, <span class="code">SysWOW64</span>, <span class="code">CUDA_PATH</span>
+                    and the vendor entries of <span class="code">PATH</span>). <span class="code">cuda</span> is only reported
+                    when driver <strong>and</strong> runtime are present, as only then it is actually usable. SunOS always
+                    returns an empty array.</p>
+                  <p class="warning">This tells you that the <strong>library of a layer is installed</strong> - it is not a
+                    capability check of the GPU. <span class="code">dx12</span> in particular: <span class="code">d3d12.dll</span>
+                    ships with every Windows 10 and later, so it says nothing about the feature level your graphics card
+                    supports.</p>
+
+                  <h4>Last system update</h4>
+                  <p><span class="code">osInfo().lastUpdate</span> is the point in time the operating system was last updated
+                    (<span class="code">null</span> if it cannot be determined). The version this update brought the system to is
+                    the one you are running, so it is already in <span class="code">release</span>. As there is no common concept
+                    across operating systems, the sources differ:</p>
+                  <ul>
+                    <li><strong>macOS</strong>: newest <span class="code">macOS ...</span> entry in
+                      <span class="code">/Library/Receipts/InstallHistory.plist</span> - so only real OS updates
+                      (e.g. 26.5.1 to 26.5.2), installer packages of other software are ignored</li>
+                    <li><strong>Windows</strong>: install date of the latest OS update
+                      (<span class="code">Get-HotFix</span>, limited to entries described as update) - Windows only reports the
+                      date, so the time part is <span class="code">00:00:00</span></li>
+                    <li><strong>Linux</strong>: newest modification time of the package manager logs / databases
+                      (apt, dpkg, rpm, dnf, yum, zypper, pacman, apk, portage)</li>
+                    <li><strong>BSD</strong>: newest modification time of the <span class="code">pkg</span> database and
+                      <span class="code">freebsd-update</span> data</li>
+                  </ul>
+                  <p>On Linux and BSD there is no single OS version that gets updated - a rolling package manager updates
+                    hundreds of packages independently. There <span class="code">lastUpdate</span> is therefore the last time
+                    <em>anything</em> was installed or updated by the package manager.</p>
+                  <p>Windows caveat: <span class="code">Get-HotFix</span> lists the servicing patches (KB) of the machine, which
+                    can also include e.g. .NET Framework updates - the date may therefore belong to a KB that did not raise the
+                    build revision of Windows itself.</p>
+                  <h4>System sleep / awake state</h4>
+                  <p><span class="code">osInfo().awake</span> tells you whether the system is fully awake. While a system is suspended,
+                    all processes are frozen and cannot run - so on Linux, BSD and SunOS this value is always
+                    <span class="code">true</span> while your code is executing.</p>
+                  <p>macOS is different: during a <strong>dark wake</strong> (e.g. lid closed, maintenance or push wake) the system
+                    runs for short periods without graphics and with unreliable networking, while node apps do run. In this state
+                    <span class="code">awake</span> is <span class="code">false</span>, so you can postpone work until the system is
+                    fully awake again. It is derived from the current system power capabilities
+                    (<span class="code">pmset -g systemstate</span>).</p>
+                  <p>On Windows <span class="code">awake</span> is always <span class="code">true</span>: classic sleep (S3) freezes all
+                    processes, and Modern Standby (S0 low power idle) cannot be reliably detected from user space.</p>
                 </div>
               </div>
             </div>

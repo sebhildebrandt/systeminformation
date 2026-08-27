@@ -44,160 +44,159 @@
 
     <div class="container-fluid">
       <section class="container">
-      <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-        </div>
-        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-          <div class="row">
-            <div class="col-12 sectionheader">
-              <div class="title">PCI</div>
-              <div class="text">
-                <p>... text ...</p>
-                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
-                <pre><code class="js">const si = require('systeminformation');</code></pre>
-                <h2>Detected PCI Devices</h2>
-                <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
-                <table class="table table-sm table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Function</th>
-                      <th>Result object</th>
-                      <th>Linux</th>
-                      <th>BSD</th>
-                      <th>Mac</th>
-                      <th>Win</th>
-                      <th>Sun</th>
-                      <th>Comments</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>si.pci(cb)</td>
-                      <td>[{...}]</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>pci information</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>slot</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>slot name</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>bus</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>bus address</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>type</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>device class, e.g. 'VGA compatible controller'</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>vendor</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>vendor name</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>vendorId</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>PCI vendor id</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>model</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>device model / name</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>deviceId</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>PCI device id</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>subVendorId</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>subsystem vendor id</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>subDeviceId</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>subsystem device id</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>revision</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>revision</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>driver</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>kernel driver / service in use</td>
-                    </tr>
-                    <tr class="example">
-                      <td></td>
-                      <td colspan="7">
-                        <h5>Example</h5>
-                        <pre><code class="js">const si = require('systeminformation');
+        <div class="row">
+          <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu"></div>
+          <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+            <div class="row">
+              <div class="col-12 sectionheader">
+                <div class="title">PCI</div>
+                <div class="text">
+                  <p>... text ...</p>
+                  <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                  <pre><code class="js">const si = require('systeminformation');</code></pre>
+                  <h2>Detected PCI Devices</h2>
+                  <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+                  <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Function</th>
+                        <th>Result object</th>
+                        <th>Linux</th>
+                        <th>BSD</th>
+                        <th>Mac</th>
+                        <th>Win</th>
+                        <th>Sun</th>
+                        <th>Comments</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>si.pci(cb)</td>
+                        <td>[ { ...}]</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>pci information</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>slot</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>slot name</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>bus</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>bus address</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>type</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>device class, e.g. 'VGA compatible controller'</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>vendor</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>vendor name</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>vendorId</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>PCI vendor id</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>model</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>device model / name</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>deviceId</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>PCI device id</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>subVendorId</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>subsystem vendor id</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>subDeviceId</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>subsystem device id</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>revision</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>revision</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>driver</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>kernel driver / service in use</td>
+                      </tr>
+                      <tr class="example">
+                        <td></td>
+                        <td colspan="7">
+                          <h5>Example</h5>
+                          <pre><code class="js">const si = require('systeminformation');
 si.pci().then(data => console.log(data));</code></pre>
-                      <pre class="example">
+                          <pre class="example">
 [
   {
     slot: '',
@@ -213,17 +212,16 @@ si.pci().then(data => console.log(data));</code></pre>
     driver: 'i915'
   }
 ]</pre>
-                    </td>
-                    </tr>
-                  </tbody>
-                </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-  </div>
-  </section>
+      </section>
     </div>
     <footer class="container-fluid footer">
       <div class="container">
