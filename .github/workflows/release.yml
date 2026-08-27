@@ -19,7 +19,7 @@ jobs:
           node-version: 20.x
       - run: npm ci
       - run: npm run build
-      - run: node test/ci.js
+      - run: node test/ci.cjs
 
   release:
     needs: test
