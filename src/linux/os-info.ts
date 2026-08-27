@@ -57,7 +57,7 @@ const linuxIsUefi = async () => {
   if (await fileExists('/sys/firmware/efi')) {
     return true;
   } else {
-    const { stdout } = await exec('dmesg | grep -E "EFI v"', execOptsLinux);
+    const { stdout } = await execSave('dmesg | grep -E "EFI v"', execOptsLinux);
     return stdout.split('\n').length > 0 && stdout.indexOf('EFI') >= 0;
   }
 };
