@@ -30,6 +30,12 @@ export const osInfo = async () => {
     workload.push(ps.exec('reg query "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion" /v DisplayVersion'));
     workload.push(ps.exec("(Get-CimInstance Win32_OperatingSystem).InstallDate.ToString('yyyy-MM-ddTHH:mm:ss')"));
     workload.push(ps.exec('[bool](Get-Process dwm -ErrorAction SilentlyContinue)'));
+    // latest installed OS update (date only, QFE has no time part)
+    workload.push(
+      ps.exec(
+        "Get-HotFix | Where-Object { $_.Description -match 'Update' } | Sort-Object InstalledOn -Descending | Select-Object -First 1 -ExpandProperty InstalledOn | ForEach-Object { $_.ToString('yyyy-MM-ddTHH:mm:ss') }"
+      )
+    );
 
     const data = await Promise.allSettled(workload).then((results) => results.map((result) => (result.status === 'fulfilled' ? result.value : null)));
     const lines = data[0] ? data[0].toString().split('\r\n') : [''];
@@ -59,6 +65,10 @@ export const osInfo = async () => {
     }
     // dwm.exe running = Desktop Window Manager active, '' = headless (e.g. server core)
     result.displayServer = data[5] && data[5].toString().toLowerCase().indexOf('true') >= 0 ? 'dwm' : '';
+    if (data[6]) {
+      const lastUpdate = new Date(data[6].toString().trim());
+      result.lastUpdate = Number.isNaN(lastUpdate.getTime()) ? null : lastUpdate;
+    }
   } catch {}
   return result;
 };

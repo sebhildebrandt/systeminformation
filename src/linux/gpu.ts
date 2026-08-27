@@ -1,9 +1,139 @@
+import { readdir, readFile, readlink } from 'fs/promises';
 import { getValue, nextTick, toInt } from '../common';
 import { execOptsLinux } from '../common/const';
 import { exec, execSave } from '../common/exec';
 import { mergeControllerNvidia, nvidiaDevices } from '../common/nvidia';
 import { getRpiGpu, isRaspberry } from '../common/raspberry';
 import { GpuData } from '../common/types';
+
+type DrmMetrics = {
+  busAddress: string;
+  utilizationGpu: number | null;
+  memoryTotal: number | null;
+  memoryUsed: number | null;
+  temperatureGpu: number | null;
+  powerDraw: number | null;
+  powerLimit: number | null;
+  clockCore: number | null;
+};
+
+const readSysfs = async (file: string) => {
+  try {
+    return (await readFile(file, 'utf8')).trim();
+  } catch {
+    return '';
+  }
+};
+
+// first candidate that holds a number wins; divisor converts the sysfs unit (m°C, µW, bytes)
+const readSysfsNumber = async (files: string[], divisor = 1) => {
+  for (const file of files) {
+    const value = Number.parseFloat(await readSysfs(file));
+    if (!Number.isNaN(value)) {
+      return value / divisor;
+    }
+  }
+  return null;
+};
+
+// amdgpu clock table: "1: 2100Mhz *" marks the current level
+const parseAmdClock = (stdout: string) => {
+  const line = stdout.split('\n').find((l) => l.includes('*'));
+  const value = line ? Number.parseFloat(line.replace(/^\d+:\s*/, '')) : Number.NaN;
+  return Number.isNaN(value) ? null : value;
+};
+
+// runtime values the kernel exposes per DRM card without root (i915, xe, amdgpu)
+export const drmDevices = async (drmPath = '/sys/class/drm'): Promise<DrmMetrics[]> => {
+  const devices: DrmMetrics[] = [];
+  let cards: string[] = [];
+  try {
+    cards = (await readdir(drmPath)).filter((entry) => /^card\d+$/.test(entry));
+  } catch {
+    return devices;
+  }
+  for (const card of cards) {
+    const cardPath = `${drmPath}/${card}`;
+    const devicePath = `${cardPath}/device`;
+    let busAddress = '';
+    try {
+      // symlink target ends with the PCI address, e.g. .../0000:00:02.0
+      busAddress = ((await readlink(devicePath)).split('/').pop() || '').replace(/^0000:/, '');
+    } catch {
+      continue;
+    }
+    if (!/^[\da-f]{2}:[\da-f]{2}\.[\da-f]$/i.test(busAddress)) {
+      continue;
+    }
+    let hwmon: string[] = [];
+    try {
+      hwmon = (await readdir(`${devicePath}/hwmon`)).map((node) => `${devicePath}/hwmon/${node}`);
+    } catch {}
+    const clockCore = await readSysfsNumber([
+      `${cardPath}/gt_act_freq_mhz`,
+      `${cardPath}/gt_cur_freq_mhz`,
+      `${cardPath}/gt/gt0/rps_act_freq_mhz`,
+      `${devicePath}/tile0/gt0/freq0/act_freq`,
+      `${devicePath}/tile0/gt0/freq0/cur_freq`
+    ]);
+    devices.push({
+      busAddress,
+      utilizationGpu: await readSysfsNumber([`${devicePath}/gpu_busy_percent`]),
+      memoryTotal: await readSysfsNumber([`${devicePath}/mem_info_vram_total`], 1024 * 1024),
+      memoryUsed: await readSysfsNumber([`${devicePath}/mem_info_vram_used`], 1024 * 1024),
+      temperatureGpu: await readSysfsNumber(
+        hwmon.map((node) => `${node}/temp1_input`),
+        1000
+      ),
+      powerDraw: await readSysfsNumber(
+        hwmon.map((node) => `${node}/power1_input`),
+        1000000
+      ),
+      powerLimit: await readSysfsNumber(
+        hwmon.map((node) => `${node}/power1_max`),
+        1000000
+      ),
+      clockCore: clockCore !== null ? clockCore : parseAmdClock(await readSysfs(`${devicePath}/pp_dpm_sclk`))
+    });
+  }
+  return devices;
+};
+
+// sysfs only fills gaps - values already delivered by nvidia-smi stay untouched
+export const mergeControllerDrm = (controller: GpuData, drm?: DrmMetrics) => {
+  if (!drm) {
+    return controller;
+  }
+  if (controller.utilizationGpu === undefined && drm.utilizationGpu !== null) {
+    controller.utilizationGpu = drm.utilizationGpu;
+  }
+  if (controller.memoryTotal === undefined && drm.memoryTotal) {
+    controller.memoryTotal = drm.memoryTotal;
+    if (controller.vram === null) {
+      controller.vram = drm.memoryTotal;
+      controller.vramDynamic = false;
+    }
+  }
+  if (controller.memoryUsed === undefined && drm.memoryUsed !== null) {
+    controller.memoryUsed = drm.memoryUsed;
+    if (controller.memoryFree === undefined && drm.memoryTotal) {
+      controller.memoryFree = drm.memoryTotal - drm.memoryUsed;
+    }
+  }
+  if (controller.temperatureGpu === undefined && drm.temperatureGpu !== null) {
+    controller.temperatureGpu = drm.temperatureGpu;
+  }
+  if (controller.powerDraw === undefined && drm.powerDraw !== null) {
+    controller.powerDraw = drm.powerDraw;
+  }
+  if (controller.powerLimit === undefined && drm.powerLimit !== null) {
+    controller.powerLimit = drm.powerLimit;
+  }
+  if (controller.clockCore === undefined && drm.clockCore !== null) {
+    controller.clockCore = drm.clockCore;
+  }
+  return controller;
+};
 
 const parseLinesLinuxControllers = async (lines: string[]) => {
   const controllers: GpuData[] = [];
@@ -262,6 +392,16 @@ export const gpu = async () => {
           // match by busAddress
           return mergeControllerNvidia(controller, nvidiaData.find((contr: any) => contr.pciBus && controller.busAddress && contr.pciBus.toLowerCase().endsWith(controller.busAddress.toLowerCase())) || {});
         });
+      }
+
+      const drmData = await drmDevices();
+      if (drmData.length) {
+        result = result.map((controller) =>
+          mergeControllerDrm(
+            controller,
+            drmData.find((device) => controller.busAddress && device.busAddress.toLowerCase() === controller.busAddress.toLowerCase())
+          )
+        );
       }
 
       try {

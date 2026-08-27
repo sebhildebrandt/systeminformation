@@ -9,14 +9,19 @@ export const disksIO = async (): Promise<DisksIoData> => {
   if ((_disk_io && !_disk_io.ms) || (_disk_io && _disk_io.ms && Date.now() - _disk_io.ms >= 500)) {
     const defaults = cloneObj(initDiskIo);
     try {
-      // raw perf counters: DiskReadsPersec/DiskWritesPersec hold cumulative operation counts
-      const data = await ps.exec("Get-CimInstance Win32_PerfRawData_PerfDisk_PhysicalDisk -Filter \"Name='_Total'\" | Select-Object DiskReadsPersec,DiskWritesPersec | ConvertTo-Json");
+      // raw perf counters: *Persec hold cumulative operation counts, Percent*Time cumulative busy time in 100ns ticks
+      const data = await ps.exec(
+        "Get-CimInstance Win32_PerfRawData_PerfDisk_PhysicalDisk -Filter \"Name='_Total'\" | Select-Object DiskReadsPersec,DiskWritesPersec,PercentDiskReadTime,PercentDiskWriteTime,PercentDiskTime | ConvertTo-Json"
+      );
       if (!data) {
         return defaults;
       }
       const rIO = toInt(data.DiskReadsPersec);
       const wIO = toInt(data.DiskWritesPersec);
-      return calcDiskIO(rIO, wIO, 0, 0, 0);
+      const rWaitTime = toInt(data.PercentDiskReadTime) / 10000;
+      const wWaitTime = toInt(data.PercentDiskWriteTime) / 10000;
+      const tWaitTime = toInt(data.PercentDiskTime) / 10000;
+      return calcDiskIO(rIO, wIO, rWaitTime, wWaitTime, tWaitTime);
     } catch {
       return defaults;
     }

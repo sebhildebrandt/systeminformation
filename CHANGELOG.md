@@ -16,30 +16,39 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `npm()` globally installed npm packages
 - `gpu()` graphics controllers (replaces the controllers part of `graphics()`)
 - `displays()` monitors / displays (replaces the displays part of `graphics()`)
+- `inetPublicIp()` public IPv4 / IPv6 address (#731)
 
 #### New Attributes
 
 - `osInfo()` added `installDate` (operating system installation date)
 - `osInfo()` added `displayServer` (wayland, x11, quartz, dwm, surfaceflinger or '' when headless)
+- `osInfo()` added `lastUpdate` (date of the last OS update on macOS / Windows, last package update on Linux / BSD, #970)
+- `osInfo()` added `hwAcceleration` (available compute layers: cuda, rocm, oneapi, vulkan, opencl, metal, dx12, directml, #980)
+- `osInfo()` added `awake` (system fully awake - `false` during macOS dark wake, #987)
 - `bios()` added `iBridge` (Apple iBridge / security chip: modelName, build, bootUuid, secureBoot - macOS only)
 - `displays()` added `serial`, `displayId` and `productionYear` on Windows (previously macOS only)
 - `displays()` added `RDP` as connection type for remote desktop / indirect displays (Windows)
 - `gpu()` added `temperatureGpu` on Apple Silicon (optional `macos-temperature-sensor` package)
 - `cpuTemperature()` added support for the `macos-temperature-sensor` package (Apple Silicon, incl. `chipset` / SoC temperature)
+- `versions()` added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, rails, ruby, rust, sqlite3, vim, vue
 
 #### Extended Windows Support
 
 - `disksIO()`, `fsStats()`, `fsOpenFiles()` and `thunderbolt()` are now also available on Windows
+- `blockDevices()` added `guid` (volume GUID path, e.g. `\\?\Volume{...}\` - needed to mount a volume, #856)
+- `disksIO()` added `rWaitTime`, `wWaitTime`, `tWaitTime`, `rWaitPercent`, `wWaitPercent` and `tWaitPercent` on Windows (previously Linux / BSD only)
 
 #### Fixes (open version 5 issues resolved in version 6)
 
-- `displays()` EDID parsing with multiple monitors - all displays reported the first monitor's model, resolution and size (Linux, [#997](https://github.com/sebhildebrandt/systeminformation/issues/997))
-- `displays()` display positions (`positionX` / `positionY`) are now parsed from xrandr (Linux, [#866](https://github.com/sebhildebrandt/systeminformation/issues/866))
-- `displays()` per-display refresh rate instead of copying the primary monitor's rate to all displays (Windows, [#853](https://github.com/sebhildebrandt/systeminformation/issues/853))
-- `displays()` monitor data (connection type, size) is now correlated by `InstanceName` - fixes swapped values on multi-GPU setups (Windows, [#764](https://github.com/sebhildebrandt/systeminformation/issues/764))
-- `displays()` mirrored/duplicated monitors are now reported as separate physical displays; monitors that are attached but inactive (e.g. "PC screen only") are not listed (Windows, [#940](https://github.com/sebhildebrandt/systeminformation/issues/940))
+- `displays()` EDID parsing with multiple monitors - all displays reported the first monitor's model, resolution and size (Linux, #997)
+- `displays()` display positions (`positionX` / `positionY`) are now parsed from xrandr (Linux, #866)
+- `displays()` per-display refresh rate instead of copying the primary monitor's rate to all displays (Windows, #853)
+- `displays()` monitor data (connection type, size) is now correlated by `InstanceName` - fixes swapped values on multi-GPU setups (Windows, #764)
+- `displays()` mirrored/duplicated monitors are now reported as separate physical displays; monitors that are attached but inactive (e.g. "PC screen only") are not listed (Windows, #940)
 - `displays()` and `gpu()` share the result of their common base query when called in parallel (e.g. via `getStaticData()`) - the expensive `system_profiler` (macOS) / `win32_VideoController` (Windows) call runs only once
-- `displays()` vendor/model fallback from `Win32_DesktopMonitor` is now matched per display via `PNPDeviceID` - previously only the first entry was considered (Windows, idea from [#855](https://github.com/sebhildebrandt/systeminformation/pull/855))
+- `displays()` vendor/model fallback from `Win32_DesktopMonitor` is now matched per display via `PNPDeviceID` - previously only the first entry was considered (Windows, idea from #855)
+- `gpu()` reads clock, temperature, power, utilization and memory from DRM sysfs (`/sys/class/drm/card*`) - runtime values for Intel and AMD GPUs without extra tools or root, previously nvidia-smi only (Linux, #890)
+- `wifiConnections()` connection details are now queried by NetworkManager connection UUID instead of the connection name - fixes wrong data when the name differs from the SSID or contains spaces (Linux, #872)
 - `get()` returns a migration hint for the removed `graphics` key instead of silently dropping it
 
 #### Breaking Changes
@@ -48,15 +57,15 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 
 We modernized the library with a full TypeScript rewrite and made a few interface changes. Please review the list below and adapt your code.
 
-| Topic             | Old (V5)                        | New (V6)                                   | Comments                                                                 |
-| ----------------- | ------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------- |
-| `time()`          | synchronous                     | `await si.time()`                          | `time()` is now **asynchronous** and returns a promise                   |
-| `version()`       | synchronous                     | `await si.version()`                       | `version()` is now **asynchronous** too - **all** functions are now async |
-| callbacks         | `si.cpu(data => {...})`         | removed                                    | **callbacks are no longer available** - use `async / await` (preferred) or promises |
-| `graphics()`      | `{ controllers, displays }`     | `si.gpu()`, `si.displays()`                | `graphics()` was **removed** and split into two functions, each returning a plain array |
-| language          | JavaScript                      | TypeScript                                 | typed `.d.ts` declarations are now shipped for every function            |
-| module resolution | deep `require('.../dist/...')`  | `exports` map (both `require` and `import`) | only documented entry points are importable; deep `dist/...` paths gone  |
-| Node.js           | older versions                  | **>= 20.0**                                | minimum Node.js version is now 20.0                                      |
+| Topic             | Old (V5)                       | New (V6)                                    | Comments                                                                                |
+| ----------------- | ------------------------------ | ------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `time()`          | synchronous                    | `await si.time()`                           | `time()` is now **asynchronous** and returns a promise                                  |
+| `version()`       | synchronous                    | `await si.version()`                        | `version()` is now **asynchronous** too - **all** functions are now async               |
+| callbacks         | `si.cpu(data => {...})`        | removed                                     | **callbacks are no longer available** - use `async / await` (preferred) or promises     |
+| `graphics()`      | `{ controllers, displays }`    | `si.gpu()`, `si.displays()`                 | `graphics()` was **removed** and split into two functions, each returning a plain array |
+| language          | JavaScript                     | TypeScript                                  | typed `.d.ts` declarations are now shipped for every function                           |
+| module resolution | deep `require('.../dist/...')` | `exports` map (both `require` and `import`) | only documented entry points are importable; deep `dist/...` paths gone                 |
+| Node.js           | older versions                 | **>= 20.0**                                 | minimum Node.js version is now 20.0                                                     |
 
 #### Modular Imports (new)
 
@@ -79,6 +88,17 @@ For major (breaking) changes - **version 6, 5, 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.33.5  | 2026-08-27 | `osInfo()` updated macOS detection - Golden Gate (macOS)                                            |
+| 5.33.4  | 2026-08-26 | `diskLayout()` fix - serial number (windows)                                                        |
+| 5.33.3  | 2026-08-25 | relase versiopn 6 first beta                                                                        |
+| 5.33.2  | 2026-07-24 | `powerShellStart()` fix - deadlock (windows)                                                        |
+| 5.33.1  | 2026-07-23 | `networkStats()` fix - changes underlying command (windows)                                         |
+| 5.33.0  | 2026-07-20 | `dockerContainers()` added status (healthy, ..)                                                     |
+| 5.32.0  | 2026-07-17 | fixes for #764, #853, #855, #866, #888, #940, #997, code refactoring                                |
+| 5.31.17 | 2026-07-13 | `fsSize()` fixed parsing - spaces (linux)                                                           |
+| 5.31.16 | 2026-07-10 | `currentLoad` changed calculation (windows)                                                         |
+| 5.31.15 | 2026-07-08 | code refacroting, hardening                                                                         |
+| 5.31.14 | 2026-07-07 | `diskLayout()` fix USB drives fallbask (macOS)                                                      |
 | 5.31.13 | 2026-07-05 | `baseboard()` fix latest Mac itentifier keys (macOS)                                                |
 | 5.31.12 | 2026-07-03 | `cpuTemperature()` fix parsing improvments cpuThermal (linux)                                       |
 | 5.31.11 | 2026-06-25 | `graphics()` fix vram parsing with correct units (linux)                                            |

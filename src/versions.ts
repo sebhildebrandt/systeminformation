@@ -53,6 +53,7 @@ export const versions = async (apps?: string | string[]) => {
     powershell: '',
     python3: '',
     python: '',
+    rails: '',
     redis: '',
     ruby: '',
     rust: '',
@@ -60,6 +61,7 @@ export const versions = async (apps?: string | string[]) => {
     tsc: '',
     virtualbox: '',
     vi: '',
+    vim: '',
     vue: '',
     yarn: '',
     zsh: ''
@@ -1093,6 +1095,33 @@ export const versions = async (apps?: string | string[]) => {
               if (res.stdout) {
                 const parts = res.stdout.split('\n')[0].trim().split(' ');
                 appsObj.versions.laravel = parts.length >= 3 ? parts[2].trim() : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('rails')) {
+          exec('rails -v')
+            .then((res) => {
+              if (res.stdout) {
+                // the 'rails' stub answers with a hint text when rails is not installed
+                const version = res.stdout.split('\n')[0].match(/^Rails\s+(\d+(\.\d+)*)/i);
+                appsObj.versions.rails = version ? version[1] : '';
+              }
+              functionProcessed();
+            })
+            .catch(() => {
+              functionProcessed();
+            });
+        }
+        if (Object.keys(appsObj.versions).includes('vim')) {
+          exec('vim --version')
+            .then((res) => {
+              if (res.stdout) {
+                const version = res.stdout.split('\n')[0].match(/\d+(\.\d+)+/);
+                appsObj.versions.vim = version ? version[0] : '';
               }
               functionProcessed();
             })

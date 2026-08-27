@@ -21,7 +21,8 @@ function run(si, f) {
       else if (f === 'H') { si.thunderbolt().then(data => { if (data !== null) { resolve({ data, title: 'Thunderbolt' }); } else { resolve('not_supported'); } }); }
       else if (f === 'i') { si.inetLatency().then(data => { if (data !== null) { resolve({ data, title: 'Internet Latency' }); } else { resolve('not_supported'); } }); }
       else if (f === 'I') { si.inetChecksite('https://systeminformation.io').then(data => { if (data !== null) { resolve({ data, title: 'Internet Check Site' }); } else { resolve('not_supported'); } }); }
-      else if (f === 'j') { si.cpuCurrentSpeed().then(data => { if (data !== null) { resolve({ data, title: 'CPU Current Speed' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'j') { si.inetPublicIp().then(data => { if (data !== null) { resolve({ data, title: 'Internet Public IP' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'J') { si.cpuCurrentSpeed().then(data => { if (data !== null) { resolve({ data, title: 'CPU Current Speed' }); } else { resolve('not_supported'); } }); }
       else if (f === 'k') { si.camera().then(data => { if (data !== null) { resolve({ data, title: 'Camera' }); } else { resolve('not_supported'); } }); }
       else if (f === 'K') { si.keyboard().then(data => { if (data !== null) { resolve({ data, title: 'Keyboard' }); } else { resolve('not_supported'); } }); }
       else if (f === 'l') { si.currentLoad().then(data => { if (data !== null) { resolve({ data, title: 'CPU Current Load' }); } else { resolve('not_supported'); } }); }
@@ -34,7 +35,7 @@ function run(si, f) {
       else if (f === 'O') { si.mouse().then(data => { if (data !== null) { resolve({ data, title: 'Mouse/Trackpad' }); } else { resolve('not_supported'); } }); }
       else if (f === 'p') { si.processes().then(data => { if (data !== null) { resolve({ data, title: 'Processes' }); } else { resolve('not_supported'); } }); }
       else if (f === 'P') { si.processLoad('postgres, login, apache, mysql, nginx, git, node').then(data => { if (data !== null) { resolve({ data, title: 'Process Load' }); } else { resolve('not_supported'); } }); }
-      else if (f === 'r') { si.printer().then(data => { if (data !== null) { resolve({ data, title: 'Printer' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'r') { si.software().then(data => { if (data !== null) { resolve({ data, title: 'Installed Software' }); } else { resolve('not_supported'); } }); }
       else if (f === 's') { si.services('apache2, postgres, wsearch').then(data => { if (data !== null) { resolve({ data, title: 'Services' }); } else { resolve('not_supported'); } }); }
       else if (f === 'S') { si.shell().then(data => { if (data !== null) { resolve({ data, title: 'Shell' }); } else { resolve('not_supported'); } }); }
       else if (f === 't') { si.time().then(data => { resolve({ data, title: 'Time' }); }); }
@@ -49,7 +50,8 @@ function run(si, f) {
       else if (f === 'x') { si.wifiConnections().then(data => { if (data !== null) { resolve({ data, title: 'WIFI Connections' }); } else { resolve('not_supported'); } }); }
       else if (f === 'y') { si.system().then(data => { if (data !== null) { resolve({ data, title: 'System' }); } else { resolve('not_supported'); } }); }
       else if (f === 'Y') { si.battery().then(data => { if (data !== null) { resolve({ data, title: 'Battery' }); } else { resolve('not_supported'); } }); }
-      else if (f === 'z') { si.users().then(data => { if (data !== null) { resolve({ data, title: 'Users' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'z') { si.printer().then(data => { if (data !== null) { resolve({ data, title: 'Printer' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'Z') { si.users().then(data => { if (data !== null) { resolve({ data, title: 'Users' }); } else { resolve('not_supported'); } }); }
       else if (f === '1') { si.networkInterfaceDefault().then(data => { if (data !== null) { resolve({ data, title: 'NET Iface Default' }); } else { resolve('not_supported'); } }); }
       else if (f === '2') { si.networkGatewayDefault().then(data => { if (data !== null) { resolve({ data, title: 'NET Gateway Default' }); } else { resolve('not_supported'); } }); }
       else if (f === '3') { si.networkInterfaces().then(data => { if (data !== null) { resolve({ data, title: 'NET Interfaces' }); } else { resolve('not_supported'); } }); }
@@ -72,7 +74,6 @@ function run(si, f) {
         };
         si.get(valueObject).then(data => resolve({ data, title: 'Get Object' }));
       }
-      else if (f === '#') { si.software().then(data => { if (data !== null) { resolve({ data, title: 'Installed Software' }); } else { resolve('not_supported'); } }); }
       else { resolve('no_key'); }
     });
   });

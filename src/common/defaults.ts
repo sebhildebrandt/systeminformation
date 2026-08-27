@@ -1,4 +1,5 @@
 import { arch, cpus, freemem, hostname, release, totalmem } from 'node:os';
+import { hwAcceleration } from './acceleration';
 import { PLATFORM, UNKNOWN } from './const';
 import { getFQDN, getUniqueMacAddresses } from './host';
 import type {
@@ -154,7 +155,10 @@ export const initOsInfo = async (): Promise<OsData> => {
     servicepack: '',
     uefi: false,
     installDate: null,
-    displayServer: ''
+    lastUpdate: null,
+    displayServer: '',
+    awake: true,
+    hwAcceleration: await hwAcceleration()
   };
 };
 
@@ -217,6 +221,7 @@ export const initFsBlockDevice: FsBlockDevicesData = {
   size: 0,
   physical: 'HDD',
   uuid: '',
+  guid: '',
   label: '',
   model: '',
   serial: '',

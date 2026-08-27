@@ -15,10 +15,39 @@ const getInstallDate = async (): Promise<Date | null> => {
   }
 };
 
+// newest macOS entry of the install history = last OS update (e.g. 26.5.1 -> 26.5.2)
+export const parseLastUpdate = (stdout: string): Date | null => {
+  let date: Date | null = null;
+  (stdout || '').split('</dict>').forEach((entry) => {
+    const name = entry.match(/<key>displayName<\/key>\s*<string>([^<]*)<\/string>/);
+    const value = entry.match(/<key>date<\/key>\s*<date>([^<]*)<\/date>/);
+    if (!name || !value || !/^macOS\b/i.test(name[1].trim())) {
+      return;
+    }
+    const entryDate = new Date(value[1]);
+    if (!Number.isNaN(entryDate.getTime()) && (!date || entryDate.getTime() > date.getTime())) {
+      date = entryDate;
+    }
+  });
+  return date;
+};
+
+const getLastUpdate = async (): Promise<Date | null> => {
+  const { stdout } = await execSave('plutil -convert xml1 -o - /Library/Receipts/InstallHistory.plist 2>/dev/null');
+  return parseLastUpdate(stdout || '');
+};
+
 // WindowServer running = Quartz compositor active, '' = headless
 const getDisplayServer = async (): Promise<string> => {
   const { stdout } = await execSave('pgrep WindowServer 2>/dev/null');
   return (stdout || '').trim() ? 'quartz' : '';
+};
+
+// dark wake (e.g. lid closed, maintenance wake): system runs without graphics capability
+const getAwake = async (): Promise<boolean> => {
+  const { stdout } = await execSave('pmset -g systemstate 2>/dev/null');
+  const line = (stdout || '').split('\n').find((l) => l.toLowerCase().includes('system capabilities'));
+  return line ? line.includes('Graphics') : true;
 };
 
 const getCodename = (release: string): string => {
@@ -78,6 +107,9 @@ const getCodename = (release: string): string => {
     case release.startsWith('26.'):
       codename = 'Tahoe';
       break;
+    case release.startsWith('27.'):
+      codename = 'Golden Gate';
+      break;
     default:
       codename = 'macOS';
   }
@@ -103,7 +135,9 @@ export const osInfo = async () => {
       uefi: true,
       codepage: getCodepage(),
       installDate: await getInstallDate(),
-      displayServer: await getDisplayServer()
+      lastUpdate: await getLastUpdate(),
+      displayServer: await getDisplayServer(),
+      awake: await getAwake()
     };
   } catch {}
   return defaults;

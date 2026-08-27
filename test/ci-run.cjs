@@ -86,6 +86,7 @@ function buildTests(si) {
     networkStats: () => si.networkStats('*'),
     inetLatency: () => si.inetLatency('github.com'), // ponytail: braucht Netz; auf CI-Runnern vorhanden
     inetChecksite: () => si.inetChecksite('https://github.com'),
+    inetPublicIp: () => si.inetPublicIp(), // ponytail: braucht Netz; DNS zu OpenDNS, sonst https-Fallback
     wifiNetworks: () => si.wifiNetworks(),
     wifiInterfaces: () => si.wifiInterfaces(),
     wifiConnections: () => si.wifiConnections(),
@@ -117,7 +118,7 @@ function buildTests(si) {
 }
 
 // ponytail: versions probes ~50 tools; JVM cold starts (gradle/maven) push it past 20s on windows runners
-const SLOW = new Set(['versions', 'getStaticData', 'getDynamicData', 'getAllData', 'inetChecksite', 'inetLatency']);
+const SLOW = new Set(['versions', 'getStaticData', 'getDynamicData', 'getAllData', 'inetChecksite', 'inetLatency', 'inetPublicIp']);
 
 async function runCi(si) {
   const lib_version = String(await si.version());

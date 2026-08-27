@@ -40,6 +40,18 @@ const getInstallDate = async (): Promise<Date | null> => {
   return null;
 };
 
+// newest package manager activity = last time the system was updated
+const getLastUpdate = async (): Promise<Date | null> => {
+  const paths =
+    '/var/log/apt/history.log /var/log/dpkg.log /var/lib/rpm/rpmdb.sqlite /var/lib/rpm/Packages /var/log/dnf.rpm.log /var/log/yum.log /var/log/zypp/history /var/log/pacman.log /lib/apk/db/installed /var/db/pkg';
+  const { stdout } = await execSave(`stat -c %Y ${paths} 2>/dev/null`, execOptsLinux);
+  const times = (stdout || '')
+    .split('\n')
+    .map((line) => parseInt(line.trim(), 10))
+    .filter((sec) => sec > 0);
+  return times.length ? new Date(Math.max(...times) * 1000) : null;
+};
+
 // '' = headless/console session; Android uses SurfaceFlinger instead of X11/Wayland
 const getDisplayServer = async (): Promise<string> => {
   if (ANDROID) {
@@ -92,6 +104,7 @@ const parseOsInfo = async (stdout: string, defaults: OsData) => {
     uefi: await linuxIsUefi(),
     serial: (await uuid()).os,
     installDate: await getInstallDate(),
+    lastUpdate: await getLastUpdate(),
     displayServer: await getDisplayServer()
   };
 };

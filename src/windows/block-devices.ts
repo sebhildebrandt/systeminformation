@@ -3,8 +3,17 @@ import { matchDevicesWin } from '../common/filesys';
 import type { FsBlockDevicesData } from '../common/types';
 import { ps, psArray } from '../common/windows';
 
-const parseBlockDevices = (logicalDisks: any[]): FsBlockDevicesData[] => {
+export const parseBlockDevices = (logicalDisks: any[], volumes: any[]): FsBlockDevicesData[] => {
   const drivetypes = ['Unknown', 'NoRoot', 'Removable', 'Local', 'Network', 'CD/DVD', 'RAM'];
+
+  // volume GUID path per drive letter, e.g. C: -> \\?\Volume{...}\
+  const guids: { [index: string]: string } = {};
+  volumes.forEach((volume: any) => {
+    const driveLetter = String(volume?.DriveLetter || '').toUpperCase();
+    if (driveLetter && volume.DeviceID) {
+      guids[driveLetter] = volume.DeviceID;
+    }
+  });
 
   const data: FsBlockDevicesData[] = [];
   logicalDisks.forEach((logicalDisk: any) => {
@@ -19,6 +28,7 @@ const parseBlockDevices = (logicalDisks: any[]): FsBlockDevicesData[] => {
         size: toInt(logicalDisk.Size),
         physical: drivetype >= 0 && drivetype <= 6 ? drivetypes[drivetype] : drivetypes[0],
         uuid: logicalDisk.VolumeSerialNumber || '',
+        guid: guids[String(logicalDisk.Caption || '').toUpperCase()] || '',
         label: logicalDisk.VolumeName || '',
         model: '',
         serial: logicalDisk.VolumeSerialNumber || '',
@@ -35,13 +45,15 @@ const parseBlockDevices = (logicalDisks: any[]): FsBlockDevicesData[] => {
 export const blockDevices = async (): Promise<FsBlockDevicesData[]> => {
   await nextTick();
   try {
-    const [logicalDisks, diskDrives] = await Promise.all([
+    const [logicalDisks, diskDrives, volumes] = await Promise.all([
       ps.exec('Get-CimInstance -ClassName Win32_LogicalDisk | select Caption,DriveType,Name,FileSystem,Size,VolumeSerialNumber,VolumeName | ConvertTo-Json'),
       ps.exec(
         "Get-WmiObject -Class Win32_diskdrive | Select-Object -Property PNPDeviceId,DeviceID, Model, Size, @{L='Partitions'; E={$_.GetRelated('Win32_DiskPartition').GetRelated('Win32_LogicalDisk') | Select-Object -Property DeviceID, VolumeName, Size, FreeSpace}} | fl"
-      )
+      ),
+      // optional: missing volume GUIDs must not drop the whole result
+      ps.exec('Get-CimInstance -ClassName Win32_Volume | select DriveLetter,DeviceID | ConvertTo-Json').catch(() => null)
     ]);
-    const data = parseBlockDevices(psArray(logicalDisks));
+    const data = parseBlockDevices(psArray(logicalDisks), psArray(volumes));
     return matchDevicesWin(data, String(diskDrives).split(/\n\s*\n/));
   } catch {
     return [];

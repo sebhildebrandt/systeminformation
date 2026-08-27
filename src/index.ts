@@ -25,6 +25,7 @@ export { getStaticData, getDynamicData, getAllData } from './get-data';
 export { gpu } from './gpu';
 export { inetChecksite } from './inet-checksite';
 export { inetLatency } from './inet-latency';
+export { inetPublicIp } from './inet-public-ip';
 export { keyboard } from './keyboard';
 export { mem } from './mem';
 export { memLayout } from './mem-layout';

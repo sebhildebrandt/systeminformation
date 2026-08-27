@@ -4,6 +4,16 @@ import { getLogoFile } from '../common/mappings';
 import { getValue, nextTick } from '../common';
 import { getCodepage } from '../common/codepage';
 
+// newest package manager activity = last time the system was updated
+const getLastUpdate = async (): Promise<Date | null> => {
+  const { stdout } = await execSave('stat -f %m /var/db/pkg/local.sqlite /var/db/pkg /var/db/freebsd-update 2>/dev/null');
+  const times = (stdout || '')
+    .split('\n')
+    .map((line) => parseInt(line.trim(), 10))
+    .filter((sec) => sec > 0);
+  return times.length ? new Date(Math.max(...times) * 1000) : null;
+};
+
 // '' = headless/console session
 const getDisplayServer = (): string => {
   const sessionType = (process.env.XDG_SESSION_TYPE || '').toLowerCase();
@@ -31,6 +41,7 @@ export const osInfo = async () => {
     codename: '',
     codepage: getCodepage(),
     uefi: uefi || null,
+    lastUpdate: await getLastUpdate(),
     displayServer: getDisplayServer()
   };
   return defaults;
