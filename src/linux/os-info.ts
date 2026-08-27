@@ -1,12 +1,12 @@
-import { exec, execSave } from '../common/exec';
-import { initOsInfo } from '../common/defaults';
-import { getLogoFile } from '../common/mappings';
 import { cloneObj, nextTick } from '../common';
-import { uuid } from './uuid';
 import { getCodepage } from '../common/codepage';
-import { fileExists } from '../common/files';
-import { OsData } from '../common/types';
 import { ANDROID, execOptsLinux } from '../common/const';
+import { initOsInfo } from '../common/defaults';
+import { exec, execSave } from '../common/exec';
+import { fileExists } from '../common/files';
+import { getLogoFile } from '../common/mappings';
+import type { OsData } from '../common/types';
+import { uuid } from './uuid';
 
 const getInstallDate = async (): Promise<Date | null> => {
   // preferred: root filesystem birth time (ext4/xfs/btrfs on statx-capable kernels)
@@ -57,7 +57,7 @@ const linuxIsUefi = async () => {
   if (await fileExists('/sys/firmware/efi')) {
     return true;
   } else {
-    const { stdout } = await exec('dmesg | grep -E "EFI v"', execOptsLinux);
+    const { stdout } = await execSave('dmesg | grep -E "EFI v"', execOptsLinux);
     return stdout.split('\n').length > 0 && stdout.indexOf('EFI') >= 0;
   }
 };

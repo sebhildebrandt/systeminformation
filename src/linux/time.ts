@@ -1,9 +1,9 @@
 import { EOL, uptime } from 'node:os';
-import { execSync } from 'child_process';
+import { execSave } from 'src/common/exec';
 
-export const nixTime = () => {
+export const nixTime = async () => {
   try {
-    const stdout = execSync('date +%Z && date +%z && ls -l /etc/localtime 2>/dev/null');
+    const { stdout } = await execSave('date +%Z && date +%z && ls -l /etc/localtime 2>/dev/null');
     const lines = stdout.toString().split(EOL);
     if (lines.length > 3 && !lines[0]) {
       lines.shift();
