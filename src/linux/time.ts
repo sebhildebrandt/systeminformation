@@ -1,5 +1,5 @@
 import { EOL, uptime } from 'node:os';
-import { execSave } from 'src/common/exec';
+import { execSave } from '../common/exec';
 
 export const nixTime = async () => {
   try {
