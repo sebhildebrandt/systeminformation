@@ -61,8 +61,10 @@
                   <p>If you already cloned the repository, make sure that you have the latest version installed:</p>
                   <pre><code class="js">git pull</code></pre>
                   <p>Now you can start the test with</p>
-                  <pre><code class="js">npm ci   # build / compile package (tsc)</code></pre>
-                  <pre><code class="js">npm run test</code></pre>
+                  <pre><code class="js">npm ci             # install dev dependencies
+npm run build      # build / compile package (tsc)
+
+npm run test</code></pre>
                   <p>You get a nice menu where you now can run function by function and see if you get meaningfull results (if supported on your platform) or errors. Sample output:</p>
                   <pre><code class="js">┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                               _                 _        __                            _   _                               │

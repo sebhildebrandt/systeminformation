@@ -84,8 +84,9 @@ If you want to run the whole test locally on your machines (without writing any 
 git clone -b v6 https://github.com/sebhildebrandt/systeminformation.git
 cd systeminformation
 
-# install dev dependencies
+# install dev dependencies and build
 npm ci          
+npm run build
 
 # run tests
 npm run ci      # for the whole test run
