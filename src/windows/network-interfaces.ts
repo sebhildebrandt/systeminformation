@@ -244,20 +244,11 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
   try {
     const defaultInterface = await networkInterfaceDefault();
     const nics: any = await getWindowsNics();
+    // adapters are matched by connection name - the same MAC can belong to several adapters, e.g. a docking station mirroring it (#762)
     nics.forEach((nic: any) => {
-      let found = false;
-      Object.keys(interfaces).forEach((key) => {
-        if (!found) {
-          (interfaces[key] || []).forEach((value: any) => {
-            if (Object.keys(value).indexOf('mac') >= 0) {
-              found = value['mac'] === nic.mac;
-            }
-          });
-        }
-      });
-
-      if (!found) {
-        interfaces[nic.name] = [{ mac: nic.mac }];
+      const name = nic.iface || nic.name;
+      if (name && !Object.keys(interfaces).some((key) => key.toLowerCase() === name.toLowerCase())) {
+        interfaces[name] = [{ mac: nic.mac }];
       }
     });
 
@@ -297,18 +288,21 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
       });
 
       dnsSuffix = getWindowsIfaceDNSsuffix(dnsSuffixes.interfaces, ifaceSanitized);
-      let foundFirst = false;
-      nics.forEach((detail: any) => {
-        if (detail.mac === mac && !foundFirst) {
-          iface = detail.iface || iface;
-          ifaceName = detail.name;
-          dhcp = detail.dhcp;
-          operstate = detail.operstate;
-          speed = operstate === 'up' ? detail.speed : 0;
-          type = detail.type;
-          foundFirst = true;
+      // connection name first, MAC only as a fallback - MACs are not unique across adapters (#762)
+      const detail =
+        nics.find((nic: any) => (nic.iface || '').toLowerCase() === dev.toLowerCase() || (nic.name || '').toLowerCase() === dev.toLowerCase()) ||
+        (mac ? nics.find((nic: any) => nic.mac === mac) : undefined);
+      if (detail) {
+        iface = detail.iface || iface;
+        ifaceName = detail.name;
+        dhcp = detail.dhcp;
+        operstate = detail.operstate;
+        speed = operstate === 'up' ? detail.speed : 0;
+        type = detail.type;
+        if (!mac) {
+          mac = detail.mac;
         }
-      });
+      }
 
       if (
         dev.toLowerCase().indexOf('wlan') >= 0 ||

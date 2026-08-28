@@ -25,6 +25,7 @@ const parseDisplaysDarwin = (graphicsArr: any[]): DisplayData[] => {
             displayId: displayItem['_spdisplays_displayID'] || null,
             deviceName: null,
             main: displayItem['spdisplays_main'] ? displayItem['spdisplays_main'] === 'spdisplays_yes' : false,
+            mirror: (displayItem['spdisplays_mirror'] || 'spdisplays_off') !== 'spdisplays_off',
             builtin: (displayItem['spdisplays_display_type'] || '').indexOf('built-in') > -1,
             connection: connectionType.indexOf('_internal') > -1 ? 'Internal' : connectionType.indexOf('_displayport') > -1 ? 'Display Port' : connectionType.indexOf('_hdmi') > -1 ? 'HDMI' : null,
             sizeX: null,

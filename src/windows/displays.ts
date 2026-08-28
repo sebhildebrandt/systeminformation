@@ -60,6 +60,8 @@ const parseLinesWindowsDisplaysPowershell = (
         deviceName,
         displayId: instanceName || null,
         main: hasOwnScreen ? primary.toLowerCase() === 'true' : false,
+        // mirrored monitors have no own logical screen - they duplicate the first one, which is mirrored too (issue #930)
+        mirror: !hasOwnScreen || (monitors.length > ssections.length && i === 0),
         builtin: videoOutputTechnology === '2147483648',
         connection: videoOutputTechnology && graphicsVideoTypes[videoOutputTechnology] ? graphicsVideoTypes[videoOutputTechnology] : '',
         resolutionX: toInt(getValue(bounds, 'Width', ':')),
@@ -86,6 +88,7 @@ const parseLinesWindowsDisplaysPowershell = (
       deviceName: '',
       displayId: null,
       main: true,
+      mirror: false,
       builtin: true,
       sizeX: null,
       sizeY: null,

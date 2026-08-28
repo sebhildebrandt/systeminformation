@@ -266,6 +266,7 @@ export const initDisplay: DisplayData = {
   deviceName: '',
   displayId: null,
   main: false,
+  mirror: false,
   builtin: false,
   connection: '',
   sizeX: null,

@@ -192,16 +192,12 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
         ieee8021xState: '',
         carrierChanges: 0
       });
-
-      _networkInterfaces = result;
-      if (defaultString.toLowerCase().indexOf('default') >= 0) {
-        result = result.filter((item) => item.default);
-        if (result.length > 0) {
-          return [result[0]];
-        } else {
-          result = [];
-        }
-      }
+    }
+    _networkInterfaces = result;
+    // filtering has to happen after all interfaces are collected - otherwise the result depends on the position of the default interface
+    if (defaultString.toLowerCase().indexOf('default') >= 0) {
+      result = result.filter((item) => item.default);
+      return result.length ? [result[0]] : [];
     }
   } catch {}
   return result;

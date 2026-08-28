@@ -41,6 +41,8 @@ export const getNvidiaSmi = async () => {
   } else if (LINUX) {
     _nvidiaSmiPath = 'nvidia-smi';
   }
+  // cache the negative result too - no driver store rescan on every call
+  _nvidiaSmiPath = _nvidiaSmiPath || '';
   return _nvidiaSmiPath;
 };
 

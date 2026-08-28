@@ -855,6 +855,7 @@ export type DisplayData = {
   deviceName: string | null;
   displayId: string | null;
   main: boolean;
+  mirror: boolean;
   builtin: boolean;
   connection: string | null;
   sizeX: number | null;
@@ -914,6 +915,7 @@ export type ServicesData = {
   name: string;
   running: boolean;
   startmode: string;
+  lastChanged: Date | null;
   pids: number[];
   cpu: number;
   mem: number;

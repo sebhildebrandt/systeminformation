@@ -37,6 +37,7 @@ export const services = async (srv: string): Promise<ServicesData[]> => {
                 name: srvName,
                 running: started.toLowerCase() === 'true',
                 startmode: startMode,
+                lastChanged: null,
                 pids: [pid],
                 cpu: 0,
                 mem: 0
@@ -55,6 +56,7 @@ export const services = async (srv: string): Promise<ServicesData[]> => {
               name: srvName,
               running: false,
               startmode: '',
+              lastChanged: null,
               pids: [],
               cpu: 0,
               mem: 0
@@ -68,6 +70,7 @@ export const services = async (srv: string): Promise<ServicesData[]> => {
             name: srvName,
             running: false,
             startmode: '',
+            lastChanged: null,
             pids: [],
             cpu: 0,
             mem: 0

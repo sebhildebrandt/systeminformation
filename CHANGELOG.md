@@ -28,8 +28,11 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `bios()` added `iBridge` (Apple iBridge / security chip: modelName, build, bootUuid, secureBoot - macOS only)
 - `displays()` added `serial`, `displayId` and `productionYear` on Windows (previously macOS only)
 - `displays()` added `RDP` as connection type for remote desktop / indirect displays (Windows)
+- `displays()` added `mirror` (true if the display is part of a mirrored / duplicated set, #930)
 - `gpu()` added `temperatureGpu` on Apple Silicon (optional `macos-temperature-sensor` package)
 - `cpuTemperature()` added support for the `macos-temperature-sensor` package (Apple Silicon, incl. `chipset` / SoC temperature)
+- `services()` added `startmode` on Linux (systemd `UnitFileState`: enabled, disabled, static, ..., previously Windows only)
+- `services()` added `lastChanged` (Linux/systemd: date of the last state change - service start when running, service stop otherwise; macOS: start time of the service processes, #886)
 - `versions()` added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, rails, ruby, rust, sqlite3, vim, vue
 
 #### Extended Windows Support
@@ -47,6 +50,17 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `displays()` mirrored/duplicated monitors are now reported as separate physical displays; monitors that are attached but inactive (e.g. "PC screen only") are not listed (Windows, #940)
 - `displays()` and `gpu()` share the result of their common base query when called in parallel (e.g. via `getStaticData()`) - the expensive `system_profiler` (macOS) / `win32_VideoController` (Windows) call runs only once
 - `displays()` vendor/model fallback from `Win32_DesktopMonitor` is now matched per display via `PNPDeviceID` - previously only the first entry was considered (Windows, idea from #855)
+- `diskLayout()` virtual disks (e.g. KVM/virtio on VPS) are no longer dropped - the filter no longer requires a non-zero `disc-max`; pseudo devices (ram, zram, loop, dm-, nbd) are excluded by name instead (Linux, #919)
+- `services()` state, start mode and PIDs are now read from systemd instead of guessing them by matching service names against the process list - fixes services reported as not running when the process name differs from the unit name (e.g. `php8.4-fpm` -> `php-fpm`) and partial name matches reporting a foreign service as running (Linux, #899, #818)
+- `networkInterfaces()` lists interfaces without an assigned IP address too - `os.networkInterfaces()` skips those, so e.g. an unplugged or unconfigured NIC was missing (Linux, #903, #355, #632)
+- `networkInterfaces()` reports `type` (wired / wireless) while the link is down as well - previously `unknown`, unlike Windows and macOS (Linux, #632)
+- `networkInterfaces()` adapters are matched by connection name instead of MAC address - a docking station mirroring the MAC of the internal NIC made one of the two disappear and mixed up their data (Windows, #762)
+- `networkInterfaces('default')` no longer returns an incomplete list when the default interface is not the first one (macOS/BSD)
+- `networkInterfaces()` queries `nmcli device status` once per call instead of once per interface (Linux)
+- `audio()` falls back to ALSA (`/proc/asound`) when no PCI audio device is found - ARM boards like the Raspberry Pi have no PCI bus, so `lspci` returned nothing and the result was always empty (Linux, #545)
+- `networkStats()` results keep the queried interface name - cached results (within 500 ms) and results for unknown interfaces returned an empty `iface` (#779)
+- `networkStats()` interfaces without traffic (e.g. a link-local only adapter) now return their stats and `operstate` instead of an empty result (Windows, #779)
+- `networkStats()` `rx_dropped`, `rx_errors`, `tx_dropped` and `tx_errors` are no longer lost in cached results
 - `gpu()` reads clock, temperature, power, utilization and memory from DRM sysfs (`/sys/class/drm/card*`) - runtime values for Intel and AMD GPUs without extra tools or root, previously nvidia-smi only (Linux, #890)
 - `wifiConnections()` connection details are now queried by NetworkManager connection UUID instead of the connection name - fixes wrong data when the name differs from the SSID or contains spaces (Linux, #872)
 - `get()` returns a migration hint for the removed `graphics` key instead of silently dropping it

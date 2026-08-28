@@ -32,17 +32,22 @@ const splitSectionsNics = (lines: string[]) => {
   return result;
 };
 
-const getLinuxIfaceConnectionName = async (interfaceName: string) => {
+// 'nmcli device status' lists every device - query it once per run instead of once per interface
+const getLinuxDeviceStatus = async () => {
   try {
     const { stdout } = await execFile('nmcli', ['device', 'status'], execOptsLinux);
-    const result = grep(stdout, interfaceName);
-    const resultFormat = result.replace(/\s+/g, ' ').trim();
-    const connectionNameLines = resultFormat.split(' ').slice(3);
-    const connectionName = connectionNameLines.join(' ');
-    return connectionName !== '--' ? connectionName : '';
+    return stdout;
   } catch {
     return '';
   }
+};
+
+const getLinuxIfaceConnectionName = (deviceStatus: string, interfaceName: string) => {
+  const result = grep(deviceStatus, interfaceName);
+  const resultFormat = result.replace(/\s+/g, ' ').trim();
+  const connectionNameLines = resultFormat.split(' ').slice(3);
+  const connectionName = connectionNameLines.join(' ');
+  return connectionName !== '--' ? connectionName : '';
 };
 
 // liest interfaces-Datei(en) ohne Shell; source-Direktive kann Glob sein (Debian-Default: /etc/network/interfaces.d/*)
@@ -205,7 +210,17 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
   try {
     const _dhcpNics = await getLinuxDHCPNics();
     const defaultInterface = await networkInterfaceDefault();
-    for (const dev in interfaces) {
+    const deviceStatus = await getLinuxDeviceStatus();
+    // os.networkInterfaces() only lists interfaces with an assigned address - sysfs knows the others too (#903, #355)
+    const devices = Object.keys(interfaces);
+    try {
+      for (const dev of await readdir('/sys/class/net')) {
+        if (!devices.some((device) => device.split(':')[0] === dev)) {
+          devices.push(dev);
+        }
+      }
+    } catch {}
+    for (const dev of devices) {
       const iface = dev;
       let ip4 = '';
       let ip4subnet = '';
@@ -293,7 +308,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
       try {
         const { stdout } = await exec(cmd, execOptsLinux);
         lines = stdout.split('\n');
-        const connectionName = await getLinuxIfaceConnectionName(ifaceSanitized);
+        const connectionName = getLinuxIfaceConnectionName(deviceStatus, ifaceSanitized);
         dhcp = await getLinuxIfaceDHCPstatus(ifaceSanitized, connectionName, _dhcpNics);
         dnsSuffix = await getLinuxIfaceDNSsuffix(connectionName);
         ieee8021xAuth = await getLinuxIfaceIEEE8021xAuth(connectionName);
@@ -310,9 +325,14 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
         myspeed = Number.parseFloat(wirelessspeed);
         speed = Number.isNaN(myspeed) ? null : myspeed;
       }
+      if (!mac) {
+        // interfaces without an address are not part of os.networkInterfaces()
+        mac = getValue(lines, 'address');
+      }
       carrierChanges = toInt(getValue(lines, 'carrier_changes'));
       const operstate = getValue(lines, 'operstate');
-      type = operstate === 'up' ? (getValue(lines, 'wireless').trim() ? 'wireless' : 'wired') : 'unknown';
+      // sysfs ARPHRD type (1 = ethernet) works while the link is down too - windows and macOS report the type regardless of the state (#632)
+      type = getValue(lines, 'wireless').trim() ? 'wireless' : toInt(getValue(lines, 'type')) === 1 ? 'wired' : 'unknown';
       if (ifaceSanitized === 'lo' || ifaceSanitized.startsWith('bond')) {
         type = 'virtual';
       }

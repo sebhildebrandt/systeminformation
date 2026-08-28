@@ -9,7 +9,8 @@ import { calcNetworkSpeed } from '../common/network';
 const _network: any = {};
 
 const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
-  const defaults = initNetworkSpeed;
+  // keep the queried interface name in cached and empty results (#779)
+  const defaults = { ...initNetworkSpeed, iface };
   if (!_network[iface] || (_network[iface] && !_network[iface].ms) || (_network[iface] && _network[iface].ms && Date.now() - _network[iface].ms >= 500)) {
     let operstate = 'unknown';
     let rx_bytes = 0;

@@ -6,6 +6,8 @@ import { diskVendorFromModel } from '../common/mappings';
 import { sanitizeShellString } from '../common/security';
 import { DiskLayoutData } from '../common/types';
 
+const virtualBlockDevice = /^(ram|zram|loop|dm-|nbd|fd)\d*$/;
+
 export const diskLayout = async (): Promise<DiskLayoutData[]> => {
   await nextTick();
   const result: DiskLayoutData[] = [];
@@ -29,10 +31,8 @@ export const diskLayout = async (): Promise<DiskLayoutData[]> => {
                 item.fstype === null &&
                 item.parttype === null &&
                 item.path &&
-                item.path.indexOf('/ram') !== 0 &&
-                item.path.indexOf('/loop') !== 0 &&
-                item['disc-max'] &&
-                item['disc-max'] !== 0))
+                // pseudo devices are filtered by name - virtual disks report no model and 'disc-max' 0 (#919)
+                !virtualBlockDevice.test(item.name || item.path.replace('/dev/', ''))))
           );
         });
       }
@@ -43,7 +43,11 @@ export const diskLayout = async (): Promise<DiskLayoutData[]> => {
         const lines = blkStdoutToObject(stdout).split('\n');
         const data = parseLinuxBlk(lines);
         devices = data.filter((item) => {
-          return item.type === 'disk' && item.size > 0 && ((item.model !== null && item.model !== '') || (item.mount === '' && item.label === '' && item.fsType === ''));
+          return (
+            item.type === 'disk' &&
+            item.size > 0 &&
+            ((item.model !== null && item.model !== '') || (item.mount === '' && item.label === '' && item.fsType === '' && !virtualBlockDevice.test(item.name || '')))
+          );
         });
       } catch {}
     }

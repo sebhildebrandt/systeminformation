@@ -150,10 +150,11 @@ export const calcNetworkSpeed = (
     _network[iface].tx_bytes = tx_bytes;
     _network[iface].rx_sec = null;
     _network[iface].tx_sec = null;
-    _network[iface].rx_dropped = result.rx_dropped;
-    _network[iface].rx_errors = result.rx_errors;
-    _network[iface].tx_dropped = result.tx_dropped;
-    _network[iface].tx_errors = result.tx_errors;
+    // the fresh result object is still empty here - store the measured values
+    _network[iface].rx_dropped = rx_dropped;
+    _network[iface].rx_errors = rx_errors;
+    _network[iface].tx_dropped = tx_dropped;
+    _network[iface].tx_errors = tx_errors;
     _network[iface].ms = Date.now();
     _network[iface].last_ms = 0;
     _network[iface].operstate = operstate;

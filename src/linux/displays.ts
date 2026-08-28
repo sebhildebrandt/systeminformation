@@ -157,6 +157,13 @@ const parseLinesLinuxDisplays = (lines: string[], depth: number) => {
     // still information there
     displays.push(currentDisplay);
   }
+  // mirrored outputs share position and resolution (issue #930)
+  displays.forEach((display, i) => {
+    display.mirror = displays.some(
+      (other, j) =>
+        j !== i && other.positionX === display.positionX && other.positionY === display.positionY && other.currentResX === display.currentResX && other.currentResY === display.currentResY
+    );
+  });
   return displays;
 };
 
@@ -181,6 +188,7 @@ export const displays = async () => {
             deviceName: '',
             displayId: null,
             main: true,
+            mirror: false,
             builtin: false,
             connection: 'HDMI',
             sizeX: null,

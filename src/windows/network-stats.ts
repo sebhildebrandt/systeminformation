@@ -33,7 +33,8 @@ const parseLinesWindowsPerfData = (sections: string[]) => {
 
 const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
   await nextTick();
-  const defaults = initNetworkSpeed;
+  // keep the queried interface name in cached and empty results (#779)
+  const defaults = { ...initNetworkSpeed, iface };
   if (!_network[iface] || (_network[iface] && !_network[iface].ms) || (_network[iface] && _network[iface].ms && Date.now() - _network[iface].ms >= 500)) {
     let operstate = 'unknown';
     let rx_bytes = 0;
@@ -45,6 +46,7 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
 
     let perfData: any[] = [];
     let ifaceName = iface;
+    let found = false;
 
     // Performance Data
     try {
@@ -85,6 +87,7 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
               .replace(/#|\//g, '_')
               .toLowerCase() === detail.desc)
         ) {
+          found = true;
           ifaceName = det.iface;
           rx_bytes = detail.rx_bytes;
           rx_dropped = detail.rx_dropped;
@@ -96,7 +99,8 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
         }
       });
     });
-    if (rx_bytes && tx_bytes) {
+    // an interface without traffic yet still has valid stats - all zero (#779)
+    if (found) {
       return calcNetworkSpeed(ifaceName, rx_bytes, tx_bytes, rx_dropped, rx_errors, tx_dropped, tx_errors, operstate, _network);
     }
     return defaults;
