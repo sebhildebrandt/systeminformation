@@ -53,7 +53,7 @@
                 <div class="text">
                   <p>In this section you will learn how to get information about installed graphics controllers and connected displays.</p>
                   <p>In version 6 the former <span class="code">graphics()</span> function was split into two separate functions: <span class="code">gpu()</span> (graphics controllers) and <span class="code">displays()</span> (monitors / displays). Both return plain arrays.</p>
-                  <p>On Windows, <span class="code">displays()</span> reports physical monitors: in duplicate/mirror mode each mirrored monitor gets its own entry (sharing the resolution and position of the mirrored screen).</p>
+                  <p>On Windows, <span class="code">displays()</span> reports physical monitors: in duplicate/mirror mode each mirrored monitor gets its own entry (sharing the resolution and position of the mirrored screen). All displays of such a mirrored set are flagged with <span class="code">mirror: true</span> (Linux, macOS and Windows).</p>
                   <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
                   <pre><code class="js">const si = require('systeminformation');</code></pre>
                   <h2>Graphics Controllers</h2>
@@ -527,6 +527,16 @@ si.gpu().then(data => console.log(data));</code></pre>
                       </tr>
                       <tr>
                         <td></td>
+                        <td>[0].mirror</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>true if mirrored / duplicated display</td>
+                      </tr>
+                      <tr>
+                        <td></td>
                         <td>[0].builtin</td>
                         <td>X</td>
                         <td></td>
@@ -657,6 +667,7 @@ si.displays().then(data => console.log(data));</code></pre>
     vendor: '',
     model: 'Color LCD',
     main: true,
+    mirror: false,
     builtin: false,
     connection: 'Internal',
     sizeX: null,

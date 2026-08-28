@@ -75,9 +75,12 @@
                     <li><span class="code">bios()</span> added <span class="code">iBridge</span> (Apple iBridge / security chip: modelName, build, bootUuid, secureBoot - macOS only)</li>
                     <li><span class="code">displays()</span> added <span class="code">serial</span>, <span class="code">displayId</span> and <span class="code">productionYear</span> on Windows (previously macOS only)</li>
                     <li><span class="code">displays()</span> added <span class="code">RDP</span> as connection type for remote desktop / indirect displays (Windows)</li>
+                    <li><span class="code">displays()</span> added <span class="code">mirror</span> (true if the display is part of a mirrored / duplicated set, #930)</li>
                     <li><span class="code">gpu()</span> added <span class="code">temperatureGpu</span> on Apple Silicon (optional <span class="code">macos-temperature-sensor</span> package)</li>
                     <li><span class="code">cpuTemperature()</span> added support for the <span class="code">macos-temperature-sensor</span> package (Apple Silicon, incl. <span class="code">chipset</span> / SoC temperature)</li>
                     <li><span class="code">os()</span> added <span class="code">installDate</span>, <span class="code">displayServer</span></li>
+                    <li><span class="code">services()</span> added <span class="code">startmode</span> on Linux (systemd <span class="code">UnitFileState</span>: enabled, disabled, static, ..., previously Windows only)</li>
+                    <li><span class="code">services()</span> added <span class="code">lastChanged</span> (Linux/systemd: date of the last state change - service start when running, service stop otherwise; macOS: start time of the service processes, #886)</li>
                     <li><span class="code">versions()</span> added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, rails, ruby, rust, sqlite3, vim, vue</li>
                   </ul>
                   <h4>Extended Windows Support</h4>
@@ -107,6 +110,17 @@
                       vendor/model fallback from <span class="code">Win32_DesktopMonitor</span> is now matched per display via <span class="code">PNPDeviceID</span> - previously only the first entry was considered (Windows, idea from
                       #855)
                     </li>
+                    <li><span class="code">diskLayout()</span> virtual disks (e.g. KVM/virtio on VPS) are no longer dropped - the filter no longer requires a non-zero <span class="code">disc-max</span>; pseudo devices (ram, zram, loop, dm-, nbd) are excluded by name instead (Linux, #919)</li>
+                    <li><span class="code">services()</span> state, start mode and PIDs are now read from systemd instead of guessing them by matching service names against the process list - fixes services reported as not running when the process name differs from the unit name (e.g. <span class="code">php8.4-fpm</span> -&gt; <span class="code">php-fpm</span>) and partial name matches reporting a foreign service as running (Linux, #899, #818)</li>
+                    <li><span class="code">networkInterfaces()</span> lists interfaces without an assigned IP address too - <span class="code">os.networkInterfaces()</span> skips those, so e.g. an unplugged or unconfigured NIC was missing (Linux, #903, #355, #632)</li>
+                    <li><span class="code">networkInterfaces()</span> reports <span class="code">type</span> (wired / wireless) while the link is down as well - previously <span class="code">unknown</span>, unlike Windows and macOS (Linux, #632)</li>
+                    <li><span class="code">networkInterfaces()</span> adapters are matched by connection name instead of MAC address - a docking station mirroring the MAC of the internal NIC made one of the two disappear and mixed up their data (Windows, #762)</li>
+                    <li><span class="code">networkInterfaces('default')</span> no longer returns an incomplete list when the default interface is not the first one (macOS/BSD)</li>
+                    <li><span class="code">networkInterfaces()</span> queries <span class="code">nmcli device status</span> once per call instead of once per interface (Linux)</li>
+                    <li><span class="code">audio()</span> falls back to ALSA (<span class="code">/proc/asound</span>) when no PCI audio device is found - ARM boards like the Raspberry Pi have no PCI bus, so <span class="code">lspci</span> returned nothing and the result was always empty (Linux, #545)</li>
+                    <li><span class="code">networkStats()</span> results keep the queried interface name - cached results (within 500 ms) and results for unknown interfaces returned an empty <span class="code">iface</span> (#779)</li>
+                    <li><span class="code">networkStats()</span> interfaces without traffic (e.g. a link-local only adapter) now return their stats and <span class="code">operstate</span> instead of an empty result (Windows, #779)</li>
+                    <li><span class="code">networkStats()</span> <span class="code">rx_dropped</span>, <span class="code">rx_errors</span>, <span class="code">tx_dropped</span> and <span class="code">tx_errors</span> are no longer lost in cached results</li>
                     <li><span class="code">gpu()</span> reads clock, temperature, power, utilization and memory from DRM sysfs (<span class="code">/sys/class/drm/card*</span>) - runtime values for Intel and AMD GPUs without extra tools or root, previously nvidia-smi only (Linux, #890)</li>
                     <li><span class="code">wifiConnections()</span> connection details are now queried by NetworkManager connection UUID instead of the connection name - fixes wrong data when the name differs from the SSID or contains spaces (Linux, #872)</li>
                     <li><span class="code">get()</span> returns a migration hint for the removed <span class="code">graphics</span> key instead of silently dropping it</li>

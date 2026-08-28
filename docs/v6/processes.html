@@ -651,7 +651,7 @@ si.processLoad('nginx, postgres').then(data => console.log(data));</code></pre>
                       <td>X</td>
                       <td>X</td>
                       <td></td>
-                      <td>pass comma separated string of services<br />pass &quot;*&quot; for ALL services (linux/win only)</td>
+                      <td>pass comma separated string of services<br />pass &quot;*&quot; for ALL services (linux/win only)<br />Linux: state, start mode and PIDs come from systemd, service names are matched exactly (case insensitive)</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -676,12 +676,22 @@ si.processLoad('nginx, postgres').then(data => console.log(data));</code></pre>
                     <tr>
                       <td></td>
                       <td>[0].startmode</td>
-                      <td></td>
+                      <td>X</td>
                       <td></td>
                       <td></td>
                       <td>X</td>
                       <td></td>
-                      <td>manual, automatic, ...</td>
+                      <td>Windows: manual, automatic, ...<br />Linux (systemd): enabled, disabled, static, ...</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].lastChanged</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td></td>
+                      <td>Linux (systemd): date of the last state change (ActiveEnter / ActiveExit)<br />macOS / BSD: start time of the service processes</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -724,7 +734,8 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre>
   {
     name: 'mysql',
     running: true,
-    startmode: '',
+    startmode: 'enabled',
+    lastChanged: 2026-08-27T07:15:42.000Z,
     pids: [ 152 ],
     cpu: 0.3,
     mem: 0
@@ -732,7 +743,8 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre>
   {
     name: 'postgres',
     running: true,
-    startmode: '',
+    startmode: 'enabled',
+    lastChanged: 2026-08-26T18:02:11.000Z,
     pids: [ 1087, 1873 ],
     cpu: 0,
     mem: 0
