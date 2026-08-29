@@ -37,7 +37,8 @@ const parseDisplaysDarwin = (graphicsArr: any[]): DisplayData[] => {
             currentResY: currentResolution.length > 1 ? parseInt(currentResolution[1], 10) : null,
             positionX: 0,
             positionY: 0,
-            currentRefreshRate: currentResolutionParts.length > 1 ? parseInt(currentResolutionParts[1], 10) : null
+            currentRefreshRate: currentResolutionParts.length > 1 ? parseInt(currentResolutionParts[1], 10) : null,
+            scale: null
           });
         });
       }

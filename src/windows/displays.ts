@@ -5,10 +5,11 @@ import { shareInflight } from '../common/exec';
 import { ps } from '../common/windows';
 
 type WinMonitor = { instanceName: string; sizeX: string; sizeY: string; active: boolean };
+type WinDisplayMode = { refreshRate: number; width: number; height: number; positionX: number; positionY: number };
 
-// EnumDisplaySettings (current mode per \\.\DISPLAYn) - per-display refresh rate (issue #853)
+// EnumDisplaySettings (current mode per \\.\DISPLAYn) - physical pixels, unaffected by DPI scaling (issues #853, #346)
 const psCurrentModes =
-  "Add-Type -AssemblyName System.Windows.Forms; if (-not ('SiDevMode' -as [Type])) { Add-Type -TypeDefinition 'using System;using System.Runtime.InteropServices;[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi)]public struct SIDEVMODE{[MarshalAs(UnmanagedType.ByValTStr,SizeConst=32)]public string dmDeviceName;public short dmSpecVersion;public short dmDriverVersion;public short dmSize;public short dmDriverExtra;public int dmFields;public int dmPositionX;public int dmPositionY;public int dmDisplayOrientation;public int dmDisplayFixedOutput;public short dmColor;public short dmDuplex;public short dmYResolution;public short dmTTOption;public short dmCollate;[MarshalAs(UnmanagedType.ByValTStr,SizeConst=32)]public string dmFormName;public short dmLogPixels;public int dmBitsPerPel;public int dmPelsWidth;public int dmPelsHeight;public int dmDisplayFlags;public int dmDisplayFrequency;public int dmICMMethod;public int dmICMIntent;public int dmMediaType;public int dmDitherType;public int dmReserved1;public int dmReserved2;public int dmPanningWidth;public int dmPanningHeight;}public class SiDevMode{[DllImport(\"user32.dll\",CharSet=CharSet.Ansi)]public static extern bool EnumDisplaySettings(string lpszDeviceName,int iModeNum,ref SIDEVMODE lpDevMode);}' }; [System.Windows.Forms.Screen]::AllScreens | ForEach-Object { $dm = New-Object SIDEVMODE; $dm.dmSize = [System.Runtime.InteropServices.Marshal]::SizeOf($dm); if ([SiDevMode]::EnumDisplaySettings($_.DeviceName, -1, [ref]$dm)) { $_.DeviceName + '|' + $dm.dmDisplayFrequency + '|' + $dm.dmBitsPerPel + '|' + $dm.dmPelsWidth + '|' + $dm.dmPelsHeight } }";
+  "Add-Type -AssemblyName System.Windows.Forms; if (-not ('SiDevMode' -as [Type])) { Add-Type -TypeDefinition 'using System;using System.Runtime.InteropServices;[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi)]public struct SIDEVMODE{[MarshalAs(UnmanagedType.ByValTStr,SizeConst=32)]public string dmDeviceName;public short dmSpecVersion;public short dmDriverVersion;public short dmSize;public short dmDriverExtra;public int dmFields;public int dmPositionX;public int dmPositionY;public int dmDisplayOrientation;public int dmDisplayFixedOutput;public short dmColor;public short dmDuplex;public short dmYResolution;public short dmTTOption;public short dmCollate;[MarshalAs(UnmanagedType.ByValTStr,SizeConst=32)]public string dmFormName;public short dmLogPixels;public int dmBitsPerPel;public int dmPelsWidth;public int dmPelsHeight;public int dmDisplayFlags;public int dmDisplayFrequency;public int dmICMMethod;public int dmICMIntent;public int dmMediaType;public int dmDitherType;public int dmReserved1;public int dmReserved2;public int dmPanningWidth;public int dmPanningHeight;}public class SiDevMode{[DllImport(\"user32.dll\",CharSet=CharSet.Ansi)]public static extern bool EnumDisplaySettings(string lpszDeviceName,int iModeNum,ref SIDEVMODE lpDevMode);}' }; [System.Windows.Forms.Screen]::AllScreens | ForEach-Object { $dm = New-Object SIDEVMODE; $dm.dmSize = [System.Runtime.InteropServices.Marshal]::SizeOf($dm); if ([SiDevMode]::EnumDisplaySettings($_.DeviceName, -1, [ref]$dm)) { $_.DeviceName + '|' + $dm.dmDisplayFrequency + '|' + $dm.dmBitsPerPel + '|' + $dm.dmPelsWidth + '|' + $dm.dmPelsHeight + '|' + $dm.dmPositionX + '|' + $dm.dmPositionY } }";
 
 const parseLinesWindowsDisplaysPowershell = (
   ssections: any[],
@@ -16,7 +17,7 @@ const parseLinesWindowsDisplaysPowershell = (
   dsections: any[],
   connections: { [index: string]: string },
   isections: any[],
-  currentModes: { [index: string]: number }
+  currentModes: { [index: string]: WinDisplayMode }
 ) => {
   const displays: DisplayData[] = [];
   // Win32_DesktopMonitor entries keyed by PNPDeviceID - matched per display instead of using only the first entry (idea from PR #855)
@@ -48,6 +49,15 @@ const parseLinesWindowsDisplaysPowershell = (
       const sizeY = monitor ? monitor.sizeY : '';
       const videoOutputTechnology = instanceName && connections[instanceName] !== undefined ? connections[instanceName] : '';
       const deviceName = getValue(linesScreen, 'DeviceName');
+      // Forms.Screen bounds are DPI scaled and mix scaled sizes with unscaled positions - take
+      // resolution and position from EnumDisplaySettings, which reports physical pixels (issue #346)
+      const mode = currentModes[deviceName.toLowerCase()];
+      const boundsWidth = toInt(getValue(bounds, 'Width', ':'));
+      const boundsHeight = toInt(getValue(bounds, 'Height', ':'));
+      const boundsX = toInt(getValue(bounds, 'X', ':'));
+      const boundsY = toInt(getValue(bounds, 'Y', ':'));
+      const resX = mode ? mode.width : boundsWidth;
+      const resY = mode ? mode.height : boundsHeight;
       // WmiMonitorID data matches per InstanceName - prefer it over the locale-dependent Win32_DesktopMonitor values
       const isection = instanceName ? isections.find((element: any) => element.instanceId.toLowerCase().startsWith(instanceName)) : undefined;
       const dsection = instanceName ? desktopMonitors.find((element: any) => element.deviceId && instanceName.startsWith(element.deviceId)) : undefined;
@@ -64,16 +74,17 @@ const parseLinesWindowsDisplaysPowershell = (
         mirror: !hasOwnScreen || (monitors.length > ssections.length && i === 0),
         builtin: videoOutputTechnology === '2147483648',
         connection: videoOutputTechnology && graphicsVideoTypes[videoOutputTechnology] ? graphicsVideoTypes[videoOutputTechnology] : '',
-        resolutionX: toInt(getValue(bounds, 'Width', ':')),
-        resolutionY: toInt(getValue(bounds, 'Height', ':')),
+        resolutionX: resX,
+        resolutionY: resY,
         sizeX: sizeX ? parseInt(sizeX, 10) : null,
         sizeY: sizeY ? parseInt(sizeY, 10) : null,
         pixelDepth: bitsPerPixel,
-        currentResX: toInt(getValue(bounds, 'Width', ':')),
-        currentResY: toInt(getValue(bounds, 'Height', ':')),
-        positionX: toInt(getValue(bounds, 'X', ':')),
-        positionY: toInt(getValue(bounds, 'Y', ':')),
-        currentRefreshRate: currentModes[deviceName.toLowerCase()] || null
+        currentResX: resX,
+        currentResY: resY,
+        positionX: mode ? mode.positionX : boundsX,
+        positionY: mode ? mode.positionY : boundsY,
+        currentRefreshRate: (mode && mode.refreshRate) || null,
+        scale: mode && boundsWidth ? Math.round((mode.width / boundsWidth) * 100) / 100 : null
       });
     }
   }
@@ -100,7 +111,8 @@ const parseLinesWindowsDisplaysPowershell = (
       currentResY: first ? first.resolutionY : 0,
       positionX: 0,
       positionY: 0,
-      currentRefreshRate: null
+      currentRefreshRate: null,
+      scale: null
     });
   }
   return displays;
@@ -212,17 +224,23 @@ export const displays = async () => {
       }
     });
 
-    // current display mode per device name (issue #853)
-    const currentModes: { [index: string]: number } = {};
+    // current display mode per device name (issues #853, #346)
+    const currentModes: { [index: string]: WinDisplayMode } = {};
     String(data[6] ?? '')
       .replace(/\r/g, '')
       .split(/\n/)
       .forEach((element) => {
         const parts = element.split('|');
-        const frequency = parts.length === 5 ? toInt(parts[1]) : 0;
-        // dmDisplayFrequency 0/1 means hardware default
-        if (frequency > 1 && parts[0]) {
-          currentModes[parts[0].trim().toLowerCase()] = frequency;
+        if (parts.length === 7 && parts[0].trim() && toInt(parts[3])) {
+          const frequency = toInt(parts[1]);
+          currentModes[parts[0].trim().toLowerCase()] = {
+            // dmDisplayFrequency 0/1 means hardware default
+            refreshRate: frequency > 1 ? frequency : 0,
+            width: toInt(parts[3]),
+            height: toInt(parts[4]),
+            positionX: toInt(parts[5]),
+            positionY: toInt(parts[6])
+          };
         }
       });
 

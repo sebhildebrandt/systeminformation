@@ -278,7 +278,8 @@ export const initDisplay: DisplayData = {
   currentResY: null,
   positionX: 0,
   positionY: 0,
-  currentRefreshRate: null
+  currentRefreshRate: null,
+  scale: null
 };
 
 export const initProcesses: ProcessesData = {

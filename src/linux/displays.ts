@@ -200,7 +200,8 @@ export const displays = async () => {
             currentResY: null,
             positionX: 0,
             positionY: 0,
-            currentRefreshRate: null
+            currentRefreshRate: null,
+            scale: null
           });
         }
       }

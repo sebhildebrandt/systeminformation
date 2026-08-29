@@ -380,6 +380,7 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 |               | [0].serial             |       |     | X   | X   |     | serial number                     |
 |               | [0].displayId          |       |     | X   | X   |     | display ID                        |
 |               | [0].main               | X     |     | X   | X   |     | true if main monitor              |
+|               | [0].mirror             | X     |     | X   | X   |     | true if mirrored / duplicated     |
 |               | [0].builtin            | X     |     | X   |     |     | true if built-in monitor          |
 |               | [0].connection         | X     |     | X   | X   |     | e.g. DisplayPort or HDMI          |
 |               | [0].sizeX              | X     |     |     | X   |     | size in mm horizontal             |
@@ -392,6 +393,7 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 |               | [0].positionX          | X     |     | X   | X   |     | display position X                |
 |               | [0].positionY          | X     |     | X   | X   |     | display position Y                |
 |               | [0].currentRefreshRate | X     |     | X   | X   |     | current screen refresh rate       |
+|               | [0].scale              |       |     |     | X   |     | DPI scaling factor, e.g. 1.5      |
 
 #### 7. Operating System
 

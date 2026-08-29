@@ -29,6 +29,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `displays()` added `serial`, `displayId` and `productionYear` on Windows (previously macOS only)
 - `displays()` added `RDP` as connection type for remote desktop / indirect displays (Windows)
 - `displays()` added `mirror` (true if the display is part of a mirrored / duplicated set, #930)
+- `displays()` added `scale` (DPI scaling factor of the display, e.g. `1.5` for 150% - Windows only)
 - `gpu()` added `temperatureGpu` on Apple Silicon (optional `macos-temperature-sensor` package)
 - `cpuTemperature()` added support for the `macos-temperature-sensor` package (Apple Silicon, incl. `chipset` / SoC temperature)
 - `services()` added `startmode` on Linux (systemd `UnitFileState`: enabled, disabled, static, ..., previously Windows only)
@@ -62,6 +63,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `networkStats()` interfaces without traffic (e.g. a link-local only adapter) now return their stats and `operstate` instead of an empty result (Windows, #779)
 - `networkStats()` `rx_dropped`, `rx_errors`, `tx_dropped` and `tx_errors` are no longer lost in cached results
 - `processLoad()` and `services()` CPU values are no longer lost when one of the queried processes exits during the call (Linux)
+- `displays()` `resolutionX/Y`, `currentResX/Y`, `positionX/Y` are now physical pixels read from `EnumDisplaySettings` - `Forms.Screen` bounds are DPI scaled and mixed scaled sizes with unscaled positions, so a scaled monitor reported a wrong resolution and pushed all other monitors to wrong positions (Windows)
 - `processes()` `pid`, `parentPid`, `cpu`, `mem`, `priority`, `memVsz`, `memRss`, `state`, `tty` and `started` were shifted by one column - the `ps` output was trimmed before parsing, which removed the leading spaces of the right-aligned header and broke all column positions
 - `processes()` and `processLoad()` no longer report `cpu` as 0 for every process for one interval after a busy process exited - the total CPU time is now accumulated from the previous totals plus the per-process deltas, so an exiting process cannot lower it and turn the denominator negative (Windows, #559, reinstates PR #560 - the regression that caused its revert in 5.10.7 was the separate `utime`/`stime` zeroing, removed in 5.17.7)
 - `gpu()` reads clock, temperature, power, utilization and memory from DRM sysfs (`/sys/class/drm/card*`) - runtime values for Intel and AMD GPUs without extra tools or root, previously nvidia-smi only (Linux, #890)

@@ -868,6 +868,7 @@ export type DisplayData = {
   positionX: number;
   positionY: number;
   currentRefreshRate: number | null;
+  scale: number | null;
 };
 
 export type GpuNvidiaData = {
