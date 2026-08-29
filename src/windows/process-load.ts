@@ -9,7 +9,7 @@ const _process_cpu = {
   all: 0,
   all_utime: 0,
   all_stime: 0,
-  list: {},
+  list: <any>{},
   ms: 0,
   result: {}
 };
@@ -30,8 +30,9 @@ export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
         );
         const procStats: ProcStatData[] = [];
         const list_new: any = {};
-        let allcpuu = 0;
-        let allcpus = 0;
+        // see processes() - never lower the total when a process exits (#559)
+        let allcpuu = _process_cpu.all_utime;
+        let allcpus = _process_cpu.all_stime;
 
         // go through all processes
         processArray.forEach((element) => {
@@ -40,8 +41,9 @@ export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
           const utime = element.UserModeTime;
           const stime = element.KernelModeTime;
           const mem = element.WorkingSetSize;
-          allcpuu = allcpuu + utime;
-          allcpus = allcpus + stime;
+          const cpuOld = _process_cpu.list[pid];
+          allcpuu += utime - (cpuOld ? cpuOld.utime : 0);
+          allcpus += stime - (cpuOld ? cpuOld.stime : 0);
 
           procStats.push({
             pid: pid,

@@ -9,7 +9,7 @@ const _processes_cpu = {
   all: 0,
   all_utime: 0,
   all_stime: 0,
-  list: {},
+  list: <any>{},
   ms: 0,
   result: <ProcessesData>{}
 };
@@ -19,11 +19,12 @@ export const calcProcStatWin = (procStat: ProcStatData, all: number, _cpu_old: C
   let cpuu = 0;
   let cpus = 0;
   if (_cpu_old.all > 0 && _cpu_old.list[procStat.pid]) {
-    cpuu = ((procStat.utime - _cpu_old.list[procStat.pid].utime) / (all - _cpu_old.all)) * 100; // user
-    cpus = ((procStat.stime - _cpu_old.list[procStat.pid].stime) / (all - _cpu_old.all)) * 100; // system
+    const delta = all - _cpu_old.all;
+    cpuu = delta > 0 ? ((procStat.utime - _cpu_old.list[procStat.pid].utime) / delta) * 100 : 0; // user
+    cpus = delta > 0 ? ((procStat.stime - _cpu_old.list[procStat.pid].stime) / delta) * 100 : 0; // system
   } else {
-    cpuu = (procStat.utime / all) * 100; // user
-    cpus = (procStat.stime / all) * 100; // system
+    cpuu = all > 0 ? (procStat.utime / all) * 100 : 0; // user
+    cpus = all > 0 ? (procStat.stime / all) * 100 : 0; // system
   }
   return {
     pid: procStat.pid,
@@ -49,8 +50,10 @@ export const processes = async (): Promise<ProcessesData> => {
         const procs: ProcessesProcessData[] = [];
         const procStats: ProcStatData[] = [];
         const list_new: any = {};
-        let allcpuu = 0;
-        let allcpus = 0;
+        // accumulate from the previous totals and add deltas only - a process that exited
+        // must not lower the total, otherwise the denominator turns negative (#559)
+        let allcpuu = _processes_cpu.all_utime;
+        let allcpus = _processes_cpu.all_stime;
         processArray.forEach((element) => {
           const pid = element.ProcessId;
           const parentPid = element.ParentProcessId;
@@ -63,8 +66,9 @@ export const processes = async (): Promise<ProcessesData> => {
           const stime = element.KernelModeTime;
           const memw = element.WorkingSetSize;
 
-          allcpuu = allcpuu + utime;
-          allcpus = allcpus + stime;
+          const cpuOld = _processes_cpu.list[pid];
+          allcpuu += utime - (cpuOld ? cpuOld.utime : 0);
+          allcpus += stime - (cpuOld ? cpuOld.stime : 0);
           result.all++;
           if (!statusValue) {
             result.unknown++;

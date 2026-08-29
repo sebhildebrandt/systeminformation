@@ -62,6 +62,8 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `networkStats()` interfaces without traffic (e.g. a link-local only adapter) now return their stats and `operstate` instead of an empty result (Windows, #779)
 - `networkStats()` `rx_dropped`, `rx_errors`, `tx_dropped` and `tx_errors` are no longer lost in cached results
 - `processLoad()` and `services()` CPU values are no longer lost when one of the queried processes exits during the call (Linux)
+- `processes()` `pid`, `parentPid`, `cpu`, `mem`, `priority`, `memVsz`, `memRss`, `state`, `tty` and `started` were shifted by one column - the `ps` output was trimmed before parsing, which removed the leading spaces of the right-aligned header and broke all column positions
+- `processes()` and `processLoad()` no longer report `cpu` as 0 for every process for one interval after a busy process exited - the total CPU time is now accumulated from the previous totals plus the per-process deltas, so an exiting process cannot lower it and turn the denominator negative (Windows, #559, reinstates PR #560 - the regression that caused its revert in 5.10.7 was the separate `utime`/`stime` zeroing, removed in 5.17.7)
 - `gpu()` reads clock, temperature, power, utilization and memory from DRM sysfs (`/sys/class/drm/card*`) - runtime values for Intel and AMD GPUs without extra tools or root, previously nvidia-smi only (Linux, #890)
 - `wifiConnections()` connection details are now queried by NetworkManager connection UUID instead of the connection name - fixes wrong data when the name differs from the SSID or contains spaces (Linux, #872)
 - `get()` returns a migration hint for the removed `graphics` key instead of silently dropping it
@@ -103,6 +105,7 @@ For major (breaking) changes - **version 6, 5, 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.33.6  | 2026-08-29 | `audio()` fallback to ALSA (/proc/asound) (linux)                                                   |
 | 5.33.5  | 2026-08-27 | `osInfo()` updated macOS detection - Golden Gate (macOS)                                            |
 | 5.33.4  | 2026-08-26 | `diskLayout()` fix - serial number (windows)                                                        |
 | 5.33.3  | 2026-08-25 | relase versiopn 6 first beta                                                                        |
