@@ -285,7 +285,8 @@ export const processes = async (): Promise<ProcessesData> => {
       }
       ({ stdout } = await exec(cmd, execOptsLinux));
       if (stdout.trim()) {
-        const lines = stdout.trim().split('\n');
+        // do not trim - parseHead relies on the leading spaces of the right-aligned header columns
+        const lines = stdout.split('\n');
         const parsedhead = parseHead(lines[0], 8);
         result.list = (await parseProcesses(lines, parsedhead)).slice();
         result.all = result.list.length;
