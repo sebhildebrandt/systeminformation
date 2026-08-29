@@ -67,6 +67,6 @@ export const execSave = async (cmd: string, options: any = {}): Promise<{ stdout
     ({ stdout, stderr } = await exec(cmd, options));
     return { stdout: stdout.toString(), stderr: stderr.toString() };
   } catch (e: any) {
-    return { stdout: e.stdout, stderr: e.stderr };
+    return { stdout: String(e.stdout ?? ''), stderr: String(e.stderr ?? '') };
   }
 };

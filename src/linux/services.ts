@@ -1,6 +1,6 @@
 import { getValue, nextTick, toInt } from '../common';
 import { DARWIN, execOptsLinux, LINUX } from '../common/const';
-import { exec, execSecure } from '../common/exec';
+import { exec, execSave, execSecure } from '../common/exec';
 import { calcProcStatLinux, parseProcStat } from '../common/parse';
 import { isPrototypePolluted, sanitizeServiceString, stringReplace, stringSplit, stringStartWith, stringSubstr, stringSubstring, stringToLower, stringToString, stringTrim } from '../common/security';
 import { ServicesData } from '../common/types';
@@ -88,7 +88,7 @@ const calcServicesCpuLinux = async (result: ServicesData[]) => {
       cmd += ';cat /proc/' + result[i].pids[j] + '/stat';
     }
   }
-  const { stdout } = await exec(cmd, execOptsLinux);
+  const { stdout } = await execSave(cmd, execOptsLinux);
   let curr_processes = stdout.toString().split('\n');
 
   // first line (all - /proc/stat)

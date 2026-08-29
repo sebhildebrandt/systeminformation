@@ -1,4 +1,4 @@
-import { exec, execSecure } from '../common/exec';
+import { execSave, execSecure } from '../common/exec';
 import { ProcessLoadData, ProcStatData, ProcStatsData } from '../common/types';
 import { execOptsLinux, LINUX } from '../common/const';
 import { nextTick } from '../common';
@@ -124,7 +124,7 @@ export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
               cmd += ';cat /proc/' + result[i].pids[j] + '/stat';
             }
           }
-          ({ stdout } = await exec(cmd, execOptsLinux));
+          ({ stdout } = await execSave(cmd, execOptsLinux));
           let curr_processes = stdout.toString().split('\n');
 
           // first line (all - /proc/stat)

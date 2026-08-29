@@ -4,7 +4,7 @@ import { nextTick, toInt } from '../common';
 import { ANDROID, DARWIN, execOptsLinux, FREEBSD, LINUX, NETBSD, OPENBSD, SUNOS } from '../common/const';
 import { parseElapsedTime, parseTimeUnix } from '../common/datetime';
 import { initProcesses } from '../common/defaults';
-import { exec } from '../common/exec';
+import { exec, execSave } from '../common/exec';
 import { fileExists } from '../common/files';
 import { cloneObj } from '../common/index';
 import { calcProcStatLinux, type headerType, parseHead, parseProcStat } from '../common/parse';
@@ -299,7 +299,8 @@ export const processes = async (): Promise<ProcessesData> => {
           result.list.forEach((element) => {
             cmd += ';cat /proc/' + element.pid + '/stat';
           });
-          ({ stdout } = await exec(cmd, execOptsLinux));
+          // dead PIDs let cat exit non-zero - stdout is still valid, so never throw here
+          ({ stdout } = await execSave(cmd, execOptsLinux));
           let curr_processes = stdout.toString().split('\n');
 
           // first line (all - /proc/stat)

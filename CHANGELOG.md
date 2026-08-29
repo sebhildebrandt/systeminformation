@@ -61,6 +61,8 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `networkStats()` results keep the queried interface name - cached results (within 500 ms) and results for unknown interfaces returned an empty `iface` (#779)
 - `networkStats()` interfaces without traffic (e.g. a link-local only adapter) now return their stats and `operstate` instead of an empty result (Windows, #779)
 - `networkStats()` `rx_dropped`, `rx_errors`, `tx_dropped` and `tx_errors` are no longer lost in cached results
+- `processes()` returns all processes again - the CPU calculation reads `/proc/<pid>/stat` for every PID and a process that exited in the meantime made the whole call fail, falling back to a `ps` variant that only lists the processes of the current session (Linux)
+- `processLoad()` and `services()` CPU values are no longer lost when one of the queried processes exits during the call (Linux)
 - `gpu()` reads clock, temperature, power, utilization and memory from DRM sysfs (`/sys/class/drm/card*`) - runtime values for Intel and AMD GPUs without extra tools or root, previously nvidia-smi only (Linux, #890)
 - `wifiConnections()` connection details are now queried by NetworkManager connection UUID instead of the connection name - fixes wrong data when the name differs from the SSID or contains spaces (Linux, #872)
 - `get()` returns a migration hint for the removed `graphics` key instead of silently dropping it
