@@ -655,6 +655,16 @@ si.gpu().then(data => console.log(data));</code></pre>
                         <td></td>
                         <td>current screen refresh rate</td>
                       </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].scale</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>DPI scaling factor, e.g. 1.5 for 150%</td>
+                      </tr>
                       <tr class="example">
                         <td></td>
                         <td colspan="7">
@@ -679,7 +689,8 @@ si.displays().then(data => console.log(data));</code></pre>
     currentResY: 1600,
     positionX: 0,
     positionY: 0,
-    currentRefreshRate: null
+    currentRefreshRate: null,
+    scale: null
   }
 ]</pre>
                         </td>

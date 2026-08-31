@@ -76,6 +76,7 @@
                     <li><span class="code">displays()</span> added <span class="code">serial</span>, <span class="code">displayId</span> and <span class="code">productionYear</span> on Windows (previously macOS only)</li>
                     <li><span class="code">displays()</span> added <span class="code">RDP</span> as connection type for remote desktop / indirect displays (Windows)</li>
                     <li><span class="code">displays()</span> added <span class="code">mirror</span> (true if the display is part of a mirrored / duplicated set, #930)</li>
+                    <li><span class="code">displays()</span> added <span class="code">scale</span> (DPI scaling factor of the display, e.g. <span class="code">1.5</span> for 150% - Windows only)</li>
                     <li><span class="code">gpu()</span> added <span class="code">temperatureGpu</span> on Apple Silicon (optional <span class="code">macos-temperature-sensor</span> package)</li>
                     <li><span class="code">cpuTemperature()</span> added support for the <span class="code">macos-temperature-sensor</span> package (Apple Silicon, incl. <span class="code">chipset</span> / SoC temperature)</li>
                     <li><span class="code">os()</span> added <span class="code">installDate</span>, <span class="code">displayServer</span></li>
@@ -94,6 +95,7 @@
                     <li><span class="code">displays()</span> EDID parsing with multiple monitors - all displays reported the first monitor's model, resolution and size (Linux, #997)</li>
                     <li><span class="code">displays()</span> display positions (<span class="code">positionX</span> / <span class="code">positionY</span>) are now parsed from xrandr (Linux, #866)</li>
                     <li><span class="code">displays()</span> per-display refresh rate instead of copying the primary monitor's rate to all displays (Windows, #853)</li>
+                    <li><span class="code">displays()</span> <span class="code">resolutionX/Y</span>, <span class="code">currentResX/Y</span>, <span class="code">positionX/Y</span> are now physical pixels read from <span class="code">EnumDisplaySettings</span> - <span class="code">Forms.Screen</span> bounds are DPI scaled and mixed scaled sizes with unscaled positions, so a scaled monitor reported a wrong resolution and pushed all other monitors to wrong positions (Windows)</li>
                     <li><span class="code">displays()</span> monitor data (connection type, size) is now correlated by <span class="code">InstanceName</span> - fixes swapped values on multi-GPU setups (Windows, #764)</li>
                     <li>
                       <span class="code">displays()</span>
