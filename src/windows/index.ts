@@ -19,6 +19,7 @@ export { cpu } from './cpu';
 export { cpuCache } from './cpu-cache';
 export { cpuFlags } from './cpu-flags';
 export { cpuTemperature } from './cpu-temperature';
+export { fans } from './fans';
 export { diskLayout } from './disk-layout';
 export { disksIO } from './disks-io';
 export { displays } from './displays';

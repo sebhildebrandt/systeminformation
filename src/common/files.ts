@@ -1,5 +1,5 @@
 import { constants } from 'fs';
-import { access, lstat, readdir } from 'fs/promises';
+import { access, lstat, readdir, readFile } from 'fs/promises';
 import { join } from 'path';
 
 export const getFilesInPath = async (source: string) => {
@@ -30,5 +30,13 @@ export const fileExists = async (file: string) => {
     return true;
   } catch {
     return false;
+  }
+};
+
+export const readSysfs = async (file: string) => {
+  try {
+    return (await readFile(file, 'utf8')).trim();
+  } catch {
+    return '';
   }
 };

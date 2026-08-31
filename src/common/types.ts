@@ -341,6 +341,14 @@ export type CpuTemperatureObject = {
   chipset: number | null;
 };
 
+export type FanData = {
+  id: string;
+  label: string | null;
+  rpm: number | null;
+  pwm: number | null;
+  source: string;
+};
+
 export type CurrentLoadData = {
   avgLoad: number;
   currentLoad: number;

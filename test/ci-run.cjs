@@ -53,6 +53,7 @@ function buildTests(si) {
     cpuCache: () => si.cpuCache(),
     cpuCurrentSpeed: () => si.cpuCurrentSpeed(),
     cpuTemperature: () => si.cpuTemperature(),
+    fans: () => si.fans(),
     currentLoad: () => si.currentLoad(),
     fullLoad: () => si.fullLoad(),
     mem: () => si.mem(),

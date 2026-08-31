@@ -30,6 +30,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `displays()` added `RDP` as connection type for remote desktop / indirect displays (Windows)
 - `displays()` added `mirror` (true if the display is part of a mirrored / duplicated set, #930)
 - `displays()` added `scale` (DPI scaling factor of the display, e.g. `1.5` for 150% - Windows only)
+- `fans()` new function - detected fans with `rpm` and `pwm` (Linux via hwmon / thermal cooling devices; Windows only with a running LibreHardwareMonitor / OpenHardwareMonitor; macOS as soon as `macos-temperature-sensor` exposes the SMC fan keys)
 - `gpu()` added `temperatureGpu` on Apple Silicon (optional `macos-temperature-sensor` package)
 - `cpuTemperature()` added support for the `macos-temperature-sensor` package (Apple Silicon, incl. `chipset` / SoC temperature)
 - `services()` added `startmode` on Linux (systemd `UnitFileState`: enabled, disabled, static, ..., previously Windows only)

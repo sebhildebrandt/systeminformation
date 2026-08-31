@@ -289,6 +289,12 @@ Full function reference with examples can be found at [https://systeminformation
 |                      | max              | X     | X   | X   | X   |     | max temperature                     |
 |                      | socket           | X     |     |     |     |     | array socket temperatures           |
 |                      | chipset          | X     |     |     |     |     | chipset temperature                 |
+| si.fans()            | [{...}]          | X     |     | X*  | X*  |     | detected fans                       |
+|                      | [0].id           | X     |     | X*  | X*  |     | identifier, e.g. hwmon2/fan1        |
+|                      | [0].label        | X     |     | X*  | X*  |     | label if the driver provides one    |
+|                      | [0].rpm          | X     |     | X*  | X*  |     | speed in rpm (or null)              |
+|                      | [0].pwm          | X     |     | X*  | X*  |     | duty cycle in % (or null)           |
+|                      | [0].source       | X     |     | X*  | X*  |     | chip / provider the value came from |
 | si.npu()             | [{...}]          | X     |     | X   | X   |     | detected NPUs / AI accelerators     |
 |                      | [0].vendor       | X     |     | X   | X   |     | vendor (Intel, AMD, Apple, ...)     |
 |                      | [0].name         | X     |     | X   | X   |     | name                                |
@@ -1005,6 +1011,11 @@ $ npm install macos-temperature-sensor --save
 
 `systeminformation` will then detect this additional library and return the temperature when calling systeminformations standard function `cpuTemperature()`.
 On Apple Silicon machines `macos-temperature-sensor` also enables the GPU temperature (`temperatureGpu`) in `gpu()`
+and - as soon as the package exposes them - the fan speeds in `fans()`.
+
+#### Windows - Fan Speed
+
+Windows itself does not expose actual fan speeds: `Win32_Fan` only reports that a fan exists, its `DesiredSpeed` is the *requested* speed and is left empty by virtually every mainboard. Real values are read from a running [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) or OpenHardwareMonitor, which publish their sensors in an own WMI namespace. Without one of these tools running, `fans()` returns an empty array or entries without `rpm`.
 
 #### Windows Temperature, Battery, ...
 

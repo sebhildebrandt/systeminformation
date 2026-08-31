@@ -1,7 +1,8 @@
-import { readdir, readFile, readlink } from 'fs/promises';
+import { readdir, readlink } from 'fs/promises';
 import { getValue, nextTick, toInt } from '../common';
 import { execOptsLinux } from '../common/const';
 import { exec, execSave } from '../common/exec';
+import { readSysfs } from '../common/files';
 import { mergeControllerNvidia, nvidiaDevices } from '../common/nvidia';
 import { getRpiGpu, isRaspberry } from '../common/raspberry';
 import { GpuData } from '../common/types';
@@ -15,14 +16,6 @@ type DrmMetrics = {
   powerDraw: number | null;
   powerLimit: number | null;
   clockCore: number | null;
-};
-
-const readSysfs = async (file: string) => {
-  try {
-    return (await readFile(file, 'utf8')).trim();
-  } catch {
-    return '';
-  }
 };
 
 // first candidate that holds a number wins; divisor converts the sysfs unit (m°C, µW, bytes)

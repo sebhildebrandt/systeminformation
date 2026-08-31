@@ -11,6 +11,7 @@ export { cpuCache } from './cpu-cache';
 export { cpuCurrentSpeed } from '../cpu-current-speed';
 export { cpuFlags } from './cpu-flags';
 export { cpuTemperature } from './cpu-temperature';
+export { fans } from './fans';
 export { currentLoad } from '../cpu-current-load';
 export { diskLayout } from './disk-layout';
 export { disksIO } from './disks-io';

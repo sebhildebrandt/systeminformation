@@ -32,7 +32,7 @@ function printMenu() {
   console.log('│  b ... BIOS            I ... INET Check Site    s ... Services            2 ... NET Gateway Default   , ... All Static     │');
   console.log('│  B ... Baseboard       j ... INET Public IP     S ... Shell               3 ... NET Interfaces        . ... All Dynamic    │');
   console.log('│  C ... Chassis         J ... CPU Current Speed  t ... time                4 ... NET Stats             / ... All            │');
-  console.log('│  c ... CPU             k ... Camera             T ... CPU Temperature     5 ... NET Connections                            │');
+  console.log('│  c ... CPU             k ... Camera             T ... CPU Temperature     5 ... NET Connections       * ... Fans           │');
   console.log('│  d ... DiskLayout      K ... Keyboard           u ... USB                                                                  │');
   console.log('│  D ... DiskIO          l ... CPU Current Load   U ... UUID                6 ... Docker Info                                │');
   console.log('│  e ... Block Devices   L ... Full Load          v ... Versions            7 ... Docker Images                              │');
