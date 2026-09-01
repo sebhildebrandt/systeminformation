@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v 6.0.0 - beta 0</div>
+          <div class="title-version float-left">v6.0.0-beta.5</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -595,6 +595,92 @@ si.cpuTemperature().then(data => console.log(data));</code></pre>
                     </td>
                     </tr>
                     <tr>
+                      <td>si.fans(cb)</td>
+                      <td>[{...}]</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X*</td>
+                      <td>X*</td>
+                      <td></td>
+                      <td>detected fans</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].id</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X*</td>
+                      <td>X*</td>
+                      <td></td>
+                      <td>identifier, e.g. hwmon2/fan1</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].label</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X*</td>
+                      <td>X*</td>
+                      <td></td>
+                      <td>label if the driver provides one</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].rpm</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X*</td>
+                      <td>X*</td>
+                      <td></td>
+                      <td>speed in rpm (or null)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].pwm</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X*</td>
+                      <td>X*</td>
+                      <td></td>
+                      <td>duty cycle in % (or null)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>[0].source</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X*</td>
+                      <td>X*</td>
+                      <td></td>
+                      <td>chip / provider the value came from</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
+si.fans().then(data =&gt; console.log(data));</code></pre>
+<pre class="example">
+[
+  {
+    id: 'hwmon2/fan1',
+    label: 'CPU Fan',
+    rpm: 1240,
+    pwm: 38,
+    source: 'nct6798'
+  },
+  {
+    id: 'hwmon4/fan1',
+    label: null,
+    rpm: 1500,
+    pwm: null,
+    source: 'amdgpu'
+  }
+]
+</pre>
+                    </td>
+                    </tr>
+                    <tr>
                       <td>si.npu(cb)</td>
                       <td>[{...}]</td>
                       <td>X</td>
@@ -708,6 +794,7 @@ si.npu().then(data => console.log(data));</code></pre>
                 <pre>$ npm install osx-temperature-sensor      # deprecated - for intel based machines</pre>
                 <pre>$ npm install macos-temperature-sensor    # for apple silicon machines</pre>
                 <p>systeminformation will then detect this additional library and return the temperature when calling systeminformations standard function <span class="code">cpuTemperature()</span>. On Apple Silicon machines <span class="code">macos-temperature-sensor</span> also enables the GPU temperature (<span class="code">temperatureGpu</span>) in <span class="code">gpu()</span>.</p>
+                <p>Windows itself does not expose actual fan speeds: <span class="code">Win32_Fan</span> only reports that a fan exists, its <span class="code">DesiredSpeed</span> is the requested speed and is left empty by virtually every mainboard. <span class="code">fans()</span> therefore reads its values from a running LibreHardwareMonitor or OpenHardwareMonitor, which publish their sensors in an own WMI namespace - without one of these tools the result stays empty.</p>
 
                 <h4>Windows Temperature</h4>
 

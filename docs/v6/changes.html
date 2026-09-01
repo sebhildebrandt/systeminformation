@@ -27,7 +27,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v 6.0.0 - beta 0</div>
+          <div class="title-version float-left">v6.0.0-beta.5</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -77,6 +77,11 @@
                     <li><span class="code">displays()</span> added <span class="code">RDP</span> as connection type for remote desktop / indirect displays (Windows)</li>
                     <li><span class="code">displays()</span> added <span class="code">mirror</span> (true if the display is part of a mirrored / duplicated set, #930)</li>
                     <li><span class="code">displays()</span> added <span class="code">scale</span> (DPI scaling factor of the display, e.g. <span class="code">1.5</span> for 150% - Windows only)</li>
+                    <li>
+                      <span class="code">fans()</span>
+                      new function - detected fans with <span class="code">rpm</span> and <span class="code">pwm</span> (Linux via hwmon / thermal cooling devices; Windows only with a running LibreHardwareMonitor / OpenHardwareMonitor; macOS as soon as
+                      <span class="code">macos-temperature-sensor</span> exposes the SMC fan keys)
+                    </li>
                     <li><span class="code">gpu()</span> added <span class="code">temperatureGpu</span> on Apple Silicon (optional <span class="code">macos-temperature-sensor</span> package)</li>
                     <li><span class="code">cpuTemperature()</span> added support for the <span class="code">macos-temperature-sensor</span> package (Apple Silicon, incl. <span class="code">chipset</span> / SoC temperature)</li>
                     <li><span class="code">os()</span> added <span class="code">installDate</span>, <span class="code">displayServer</span></li>
@@ -88,14 +93,21 @@
                   <ul>
                     <li><span class="code">disksIO()</span>, <span class="code">fsStats()</span>, <span class="code">fsOpenFiles()</span> and <span class="code">thunderbolt()</span> are now also available on Windows</li>
                     <li><span class="code">blockDevices()</span> added <span class="code">guid</span> (volume GUID path, e.g. <span class="code">\\?\Volume{...}\</span> - needed to mount a volume, #856)</li>
-                    <li><span class="code">disksIO()</span> added <span class="code">rWaitTime</span>, <span class="code">wWaitTime</span>, <span class="code">tWaitTime</span>, <span class="code">rWaitPercent</span>, <span class="code">wWaitPercent</span> and <span class="code">tWaitPercent</span> on Windows (previously Linux / BSD only)</li>
+                    <li>
+                      <span class="code">disksIO()</span>
+                      added <span class="code">rWaitTime</span>, <span class="code">wWaitTime</span>, <span class="code">tWaitTime</span>, <span class="code">rWaitPercent</span>, <span class="code">wWaitPercent</span> and <span class="code">tWaitPercent</span> on Windows (previously Linux / BSD
+                      only)
+                    </li>
                   </ul>
                   <h4>Fixes (open version 5 issues resolved in version 6)</h4>
                   <ul>
                     <li><span class="code">displays()</span> EDID parsing with multiple monitors - all displays reported the first monitor's model, resolution and size (Linux, #997)</li>
                     <li><span class="code">displays()</span> display positions (<span class="code">positionX</span> / <span class="code">positionY</span>) are now parsed from xrandr (Linux, #866)</li>
                     <li><span class="code">displays()</span> per-display refresh rate instead of copying the primary monitor's rate to all displays (Windows, #853)</li>
-                    <li><span class="code">displays()</span> <span class="code">resolutionX/Y</span>, <span class="code">currentResX/Y</span>, <span class="code">positionX/Y</span> are now physical pixels read from <span class="code">EnumDisplaySettings</span> - <span class="code">Forms.Screen</span> bounds are DPI scaled and mixed scaled sizes with unscaled positions, so a scaled monitor reported a wrong resolution and pushed all other monitors to wrong positions (Windows)</li>
+                    <li>
+                      <span class="code">displays()</span> <span class="code">resolutionX/Y</span>, <span class="code">currentResX/Y</span>, <span class="code">positionX/Y</span> are now physical pixels read from <span class="code">EnumDisplaySettings</span> -
+                      <span class="code">Forms.Screen</span> bounds are DPI scaled and mixed scaled sizes with unscaled positions, so a scaled monitor reported a wrong resolution and pushed all other monitors to wrong positions (Windows)
+                    </li>
                     <li><span class="code">displays()</span> monitor data (connection type, size) is now correlated by <span class="code">InstanceName</span> - fixes swapped values on multi-GPU setups (Windows, #764)</li>
                     <li>
                       <span class="code">displays()</span>
@@ -109,17 +121,23 @@
                     </li>
                     <li>
                       <span class="code">displays()</span>
-                      vendor/model fallback from <span class="code">Win32_DesktopMonitor</span> is now matched per display via <span class="code">PNPDeviceID</span> - previously only the first entry was considered (Windows, idea from
-                      #855)
+                      vendor/model fallback from <span class="code">Win32_DesktopMonitor</span> is now matched per display via <span class="code">PNPDeviceID</span> - previously only the first entry was considered (Windows, idea from #855)
                     </li>
                     <li><span class="code">diskLayout()</span> virtual disks (e.g. KVM/virtio on VPS) are no longer dropped - the filter no longer requires a non-zero <span class="code">disc-max</span>; pseudo devices (ram, zram, loop, dm-, nbd) are excluded by name instead (Linux, #919)</li>
-                    <li><span class="code">services()</span> state, start mode and PIDs are now read from systemd instead of guessing them by matching service names against the process list - fixes services reported as not running when the process name differs from the unit name (e.g. <span class="code">php8.4-fpm</span> -&gt; <span class="code">php-fpm</span>) and partial name matches reporting a foreign service as running (Linux, #899, #818)</li>
+                    <li>
+                      <span class="code">services()</span>
+                      state, start mode and PIDs are now read from systemd instead of guessing them by matching service names against the process list - fixes services reported as not running when the process name differs from the unit name (e.g. <span class="code">php8.4-fpm</span> -&gt;
+                      <span class="code">php-fpm</span>) and partial name matches reporting a foreign service as running (Linux, #899, #818)
+                    </li>
                     <li><span class="code">networkInterfaces()</span> lists interfaces without an assigned IP address too - <span class="code">os.networkInterfaces()</span> skips those, so e.g. an unplugged or unconfigured NIC was missing (Linux, #903, #355, #632)</li>
                     <li><span class="code">networkInterfaces()</span> reports <span class="code">type</span> (wired / wireless) while the link is down as well - previously <span class="code">unknown</span>, unlike Windows and macOS (Linux, #632)</li>
                     <li><span class="code">networkInterfaces()</span> adapters are matched by connection name instead of MAC address - a docking station mirroring the MAC of the internal NIC made one of the two disappear and mixed up their data (Windows, #762)</li>
                     <li><span class="code">networkInterfaces('default')</span> no longer returns an incomplete list when the default interface is not the first one (macOS/BSD)</li>
                     <li><span class="code">networkInterfaces()</span> queries <span class="code">nmcli device status</span> once per call instead of once per interface (Linux)</li>
-                    <li><span class="code">audio()</span> falls back to ALSA (<span class="code">/proc/asound</span>) when no PCI audio device is found - ARM boards like the Raspberry Pi have no PCI bus, so <span class="code">lspci</span> returned nothing and the result was always empty (Linux, #545)</li>
+                    <li>
+                      <span class="code">audio()</span>
+                      falls back to ALSA (<span class="code">/proc/asound</span>) when no PCI audio device is found - ARM boards like the Raspberry Pi have no PCI bus, so <span class="code">lspci</span> returned nothing and the result was always empty (Linux, #545)
+                    </li>
                     <li><span class="code">networkStats()</span> results keep the queried interface name - cached results (within 500 ms) and results for unknown interfaces returned an empty <span class="code">iface</span> (#779)</li>
                     <li><span class="code">networkStats()</span> interfaces without traffic (e.g. a link-local only adapter) now return their stats and <span class="code">operstate</span> instead of an empty result (Windows, #779)</li>
                     <li><span class="code">networkStats()</span> <span class="code">rx_dropped</span>, <span class="code">rx_errors</span>, <span class="code">tx_dropped</span> and <span class="code">tx_errors</span> are no longer lost in cached results</li>

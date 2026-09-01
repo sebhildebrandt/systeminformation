@@ -35,7 +35,7 @@ lines of code, > 750 versions published, up to 50 mio downloads per month, > 700
 mio downloads overall. Top 5 NPM ranking for backend packages. Thank you to all
 who contributed to this project!
 
-> **Version 6** beta just released ⭐️⭐️⭐️
+> ### **Version 6** beta just released ⭐️⭐️⭐️
 >
 > 🏆🏆🏆 We're proud to have just released the first beta of the new version 6 of systeminformation. 
 > Version 6 of this package (written completely in TypeScript) is

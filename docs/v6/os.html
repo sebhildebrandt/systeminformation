@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v 6.0.0 - beta 0</div>
+          <div class="title-version float-left">v6.0.0-beta.5</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -1077,11 +1077,11 @@ si.users().then(data => console.log(data));</code></pre>
                   </table>
                   <h4>Hardware acceleration / compute layers</h4>
 
-                  <p><span class="code">osInfo().hwAcceleration</span> lists the GPU compute layers available on the machine,
-                    e.g. <span class="code">[ 'cuda', 'vulkan', 'opencl' ]</span>. This is useful to decide which build of a
-                    native library (llama.cpp, ONNX Runtime, ...) can be installed. Detection is done by looking up the runtime
-                    libraries of each layer in the usual search paths - no external tool is called and no root is needed
-                    (about 0.2 ms):</p>
+                  <p>
+                    <span class="code">osInfo().hwAcceleration</span>
+                    lists the GPU compute layers available on the machine, e.g. <span class="code">[ 'cuda', 'vulkan', 'opencl' ]</span>. This is useful to decide which build of a native library (llama.cpp, ONNX Runtime, ...) can be installed. Detection is done by looking up the runtime libraries of
+                    each layer in the usual search paths - no external tool is called and no root is needed (about 0.2 ms):
+                  </p>
                   <table class="table table-sm table-bordered table-striped">
                     <thead>
                       <tr>
@@ -1095,7 +1095,7 @@ si.users().then(data => console.log(data));</code></pre>
                       <tr>
                         <td>cuda</td>
                         <td><span class="code">libnvidia-ml.so[.1]</span> and <span class="code">libcudart.so[.11|.12|.13]</span></td>
-                        <td><span class="code">nvml.dll</span> and <span class="code">cudart64_{11,12,13}.dll</span></td>
+                        <td><span class="code">nvml.dll</span> and <span class="code">cudart64_ { 11,12,13}.dll</span></td>
                         <td>-</td>
                       </tr>
                       <tr>
@@ -1142,52 +1142,57 @@ si.users().then(data => console.log(data));</code></pre>
                       </tr>
                     </tbody>
                   </table>
-                  <p>Searched are the library directories of the platform (Linux additionally
+                  <p>
+                    Searched are the library directories of the platform (Linux additionally
                     <span class="code">LD_LIBRARY_PATH</span>, <span class="code">/usr/local/cuda/lib64</span>,
                     <span class="code">/opt/rocm/lib</span>, <span class="code">/opt/intel/oneapi/lib</span>; Windows
                     <span class="code">System32</span>, <span class="code">SysWOW64</span>, <span class="code">CUDA_PATH</span>
-                    and the vendor entries of <span class="code">PATH</span>). <span class="code">cuda</span> is only reported
-                    when driver <strong>and</strong> runtime are present, as only then it is actually usable. SunOS always
-                    returns an empty array.</p>
-                  <p class="warning">This tells you that the <strong>library of a layer is installed</strong> - it is not a
-                    capability check of the GPU. <span class="code">dx12</span> in particular: <span class="code">d3d12.dll</span>
-                    ships with every Windows 10 and later, so it says nothing about the feature level your graphics card
-                    supports.</p>
+                    and the vendor entries of <span class="code">PATH</span>). <span class="code">cuda</span> is only reported when driver <strong>and</strong> runtime are present, as only then it is actually usable. SunOS always returns an empty array.
+                  </p>
+                  <p class="warning">
+                    This tells you that the <strong>library of a layer is installed</strong> - it is not a capability check of the GPU. <span class="code">dx12</span> in particular: <span class="code">d3d12.dll</span>
+                    ships with every Windows 10 and later, so it says nothing about the feature level your graphics card supports.
+                  </p>
 
                   <h4>Last system update</h4>
-                  <p><span class="code">osInfo().lastUpdate</span> is the point in time the operating system was last updated
-                    (<span class="code">null</span> if it cannot be determined). The version this update brought the system to is
-                    the one you are running, so it is already in <span class="code">release</span>. As there is no common concept
-                    across operating systems, the sources differ:</p>
+                  <p>
+                    <span class="code">osInfo().lastUpdate</span>
+                    is the point in time the operating system was last updated (<span class="code">null</span>
+                    if it cannot be determined). The version this update brought the system to is the one you are running, so it is already in <span class="code">release</span>. As there is no common concept across operating systems, the sources differ:
+                  </p>
                   <ul>
-                    <li><strong>macOS</strong>: newest <span class="code">macOS ...</span> entry in
-                      <span class="code">/Library/Receipts/InstallHistory.plist</span> - so only real OS updates
-                      (e.g. 26.5.1 to 26.5.2), installer packages of other software are ignored</li>
-                    <li><strong>Windows</strong>: install date of the latest OS update
-                      (<span class="code">Get-HotFix</span>, limited to entries described as update) - Windows only reports the
-                      date, so the time part is <span class="code">00:00:00</span></li>
-                    <li><strong>Linux</strong>: newest modification time of the package manager logs / databases
-                      (apt, dpkg, rpm, dnf, yum, zypper, pacman, apk, portage)</li>
-                    <li><strong>BSD</strong>: newest modification time of the <span class="code">pkg</span> database and
-                      <span class="code">freebsd-update</span> data</li>
+                    <li>
+                      <strong>macOS</strong>: newest <span class="code">macOS ...</span> entry in
+                      <span class="code">/Library/Receipts/InstallHistory.plist</span>
+                      - so only real OS updates (e.g. 26.5.1 to 26.5.2), installer packages of other software are ignored
+                    </li>
+                    <li><strong>Windows</strong>: install date of the latest OS update (<span class="code">Get-HotFix</span>, limited to entries described as update) - Windows only reports the date, so the time part is <span class="code">00:00:00</span></li>
+                    <li><strong>Linux</strong>: newest modification time of the package manager logs / databases (apt, dpkg, rpm, dnf, yum, zypper, pacman, apk, portage)</li>
+                    <li>
+                      <strong>BSD</strong>: newest modification time of the <span class="code">pkg</span> database and
+                      <span class="code">freebsd-update</span>
+                      data
+                    </li>
                   </ul>
-                  <p>On Linux and BSD there is no single OS version that gets updated - a rolling package manager updates
-                    hundreds of packages independently. There <span class="code">lastUpdate</span> is therefore the last time
-                    <em>anything</em> was installed or updated by the package manager.</p>
-                  <p>Windows caveat: <span class="code">Get-HotFix</span> lists the servicing patches (KB) of the machine, which
-                    can also include e.g. .NET Framework updates - the date may therefore belong to a KB that did not raise the
-                    build revision of Windows itself.</p>
+                  <p>
+                    On Linux and BSD there is no single OS version that gets updated - a rolling package manager updates hundreds of packages independently. There <span class="code">lastUpdate</span> is therefore the last time
+                    <em>anything</em>
+                    was installed or updated by the package manager.
+                  </p>
+                  <p>Windows caveat: <span class="code">Get-HotFix</span> lists the servicing patches (KB) of the machine, which can also include e.g. .NET Framework updates - the date may therefore belong to a KB that did not raise the build revision of Windows itself.</p>
                   <h4>System sleep / awake state</h4>
-                  <p><span class="code">osInfo().awake</span> tells you whether the system is fully awake. While a system is suspended,
-                    all processes are frozen and cannot run - so on Linux, BSD and SunOS this value is always
-                    <span class="code">true</span> while your code is executing.</p>
-                  <p>macOS is different: during a <strong>dark wake</strong> (e.g. lid closed, maintenance or push wake) the system
-                    runs for short periods without graphics and with unreliable networking, while node apps do run. In this state
-                    <span class="code">awake</span> is <span class="code">false</span>, so you can postpone work until the system is
-                    fully awake again. It is derived from the current system power capabilities
-                    (<span class="code">pmset -g systemstate</span>).</p>
-                  <p>On Windows <span class="code">awake</span> is always <span class="code">true</span>: classic sleep (S3) freezes all
-                    processes, and Modern Standby (S0 low power idle) cannot be reliably detected from user space.</p>
+                  <p>
+                    <span class="code">osInfo().awake</span>
+                    tells you whether the system is fully awake. While a system is suspended, all processes are frozen and cannot run - so on Linux, BSD and SunOS this value is always
+                    <span class="code">true</span>
+                    while your code is executing.
+                  </p>
+                  <p>
+                    macOS is different: during a <strong>dark wake</strong> (e.g. lid closed, maintenance or push wake) the system runs for short periods without graphics and with unreliable networking, while node apps do run. In this state
+                    <span class="code">awake</span>
+                    is <span class="code">false</span>, so you can postpone work until the system is fully awake again. It is derived from the current system power capabilities (<span class="code">pmset -g systemstate</span>).
+                  </p>
+                  <p>On Windows <span class="code">awake</span> is always <span class="code">true</span>: classic sleep (S3) freezes all processes, and Modern Standby (S0 low power idle) cannot be reliably detected from user space.</p>
                 </div>
               </div>
             </div>

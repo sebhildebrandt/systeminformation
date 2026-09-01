@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v 6.0.0 - beta 0</div>
+          <div class="title-version float-left">v6.0.0-beta.5</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -53,7 +53,10 @@
                 <div class="text">
                   <p>In this section you will learn how to get information about installed graphics controllers and connected displays.</p>
                   <p>In version 6 the former <span class="code">graphics()</span> function was split into two separate functions: <span class="code">gpu()</span> (graphics controllers) and <span class="code">displays()</span> (monitors / displays). Both return plain arrays.</p>
-                  <p>On Windows, <span class="code">displays()</span> reports physical monitors: in duplicate/mirror mode each mirrored monitor gets its own entry (sharing the resolution and position of the mirrored screen). All displays of such a mirrored set are flagged with <span class="code">mirror: true</span> (Linux, macOS and Windows).</p>
+                  <p>
+                    On Windows, <span class="code">displays()</span> reports physical monitors: in duplicate/mirror mode each mirrored monitor gets its own entry (sharing the resolution and position of the mirrored screen). All displays of such a mirrored set are flagged with
+                    <span class="code">mirror: true</span> (Linux, macOS and Windows).
+                  </p>
                   <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
                   <pre><code class="js">const si = require('systeminformation');</code></pre>
                   <h2>Graphics Controllers</h2>
@@ -417,7 +420,8 @@ si.gpu().then(data => console.log(data));</code></pre>
                     is the one value that cannot be read this way: the i915 / xe drivers publish their engine busy counters through the perf / PMU interface instead of sysfs (<a href="https://github.com/sebhildebrandt/systeminformation/issues/890">#890</a>). Every tool reading it -
                     <span class="code">intel_gpu_top -J</span>
                     from <span class="code">intel-gpu-tools</span>, <span class="code">nvtop</span> - therefore needs root or the <span class="code">CAP_PERFMON</span> capability, which a library like this cannot require. If you need the busy percentage of an Intel GPU, run
-                    <span class="code">intel_gpu_top</span> yourself with the appropriate privileges; frequency, power and temperature are available through <span class="code">gpu()</span>.
+                    <span class="code">intel_gpu_top</span>
+                    yourself with the appropriate privileges; frequency, power and temperature are available through <span class="code">gpu()</span>.
                   </p>
 
                   <h2>Displays</h2>
