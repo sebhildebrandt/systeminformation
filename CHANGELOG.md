@@ -16,7 +16,8 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `npm()` globally installed npm packages
 - `gpu()` graphics controllers (replaces the controllers part of `graphics()`)
 - `displays()` monitors / displays (replaces the displays part of `graphics()`)
-- `inetPublicIp()` public IPv4 / IPv6 address (#731)
+- `inetPublicIp()` public IPv4 / IPv6 address
+- `fans()` detected fans with `rpm` and `pwm` (Linux via hwmon / thermal cooling devices; Windows only with a running LibreHardwareMonitor / OpenHardwareMonitor; for macOS you need to install `macos-temperature-sensor` as an additional dependency)
 
 #### New Attributes
 
@@ -30,9 +31,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `displays()` added `RDP` as connection type for remote desktop / indirect displays (Windows)
 - `displays()` added `mirror` (true if the display is part of a mirrored / duplicated set, #930)
 - `displays()` added `scale` (DPI scaling factor of the display, e.g. `1.5` for 150% - Windows only)
-- `fans()` new function - detected fans with `rpm` and `pwm` (Linux via hwmon / thermal cooling devices; Windows only with a running LibreHardwareMonitor / OpenHardwareMonitor; macOS as soon as `macos-temperature-sensor` exposes the SMC fan keys)
 - `gpu()` added `temperatureGpu` on Apple Silicon (optional `macos-temperature-sensor` package)
-- `cpuTemperature()` added support for the `macos-temperature-sensor` package (Apple Silicon, incl. `chipset` / SoC temperature)
 - `services()` added `startmode` on Linux (systemd `UnitFileState`: enabled, disabled, static, ..., previously Windows only)
 - `services()` added `lastChanged` (Linux/systemd: date of the last state change - service start when running, service stop otherwise; macOS: start time of the service processes, #886)
 - `versions()` added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, rails, ruby, rust, sqlite3, vim, vue
@@ -85,7 +84,7 @@ We modernized the library with a full TypeScript rewrite and made a few interfac
 | `graphics()`      | `{ controllers, displays }`    | `si.gpu()`, `si.displays()`                 | `graphics()` was **removed** and split into two functions, each returning a plain array |
 | language          | JavaScript                     | TypeScript                                  | typed `.d.ts` declarations are now shipped for every function                           |
 | module resolution | deep `require('.../dist/...')` | `exports` map (both `require` and `import`) | only documented entry points are importable; deep `dist/...` paths gone                 |
-| Node.js           | older versions                 | **>= 20.0**                                 | minimum Node.js version is now 20.0                                                     |
+| Node.js           | >= 4.0                         | **>= 20.0**                                 | minimum Node.js version is now 20.0                                                     |
 
 #### Modular Imports (new)
 
@@ -108,6 +107,7 @@ For major (breaking) changes - **version 6, 5, 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.33.7  | 2026-09-01 | `audio()` fix - onboard sound cards, e.g. Raspberry Pi (linux)                                       |
 | 5.33.6  | 2026-08-29 | `audio()` fallback to ALSA (/proc/asound) (linux)                                                   |
 | 5.33.5  | 2026-08-27 | `osInfo()` updated macOS detection - Golden Gate (macOS)                                            |
 | 5.33.4  | 2026-08-26 | `diskLayout()` fix - serial number (windows)                                                        |
@@ -875,11 +875,16 @@ For major (breaking) changes - **version 6, 5, 4, 3 and 2** - see end of page.
 - `pci()`: PCI devices (experimental)
 - `software()`: installed software / applications
 - `npm()`: globally installed npm packages
+- `gpu()` graphics controllers (replaces the controllers part of `graphics()`)
+- `displays()` monitors / displays (replaces the displays part of `graphics()`)
+- `inetPublicIp()` public IPv4 / IPv6 address
+- `fans()` detected fans with `rpm` and `pwm`
 
 **Breaking Changes**
 
 - complete rewrite in **TypeScript**; typed `.d.ts` declarations are now shipped for every function
 - `time()` and `version()` are now **asynchronous** and return a promise (both were synchronous in version 5) - since version 6 **all** functions are async
+- `graphics()` was **removed** and split into two functions, `si.gpu()`, `si.displays()` each returning a plain array |
 - `async / await` is the preferred calling style, promises as an alternative
 - **callbacks are no longer available** (the former `si.cpu(data => ...)` style has been removed)
 - minimum **Node.js** version is now **20.0**

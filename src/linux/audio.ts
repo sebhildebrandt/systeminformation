@@ -54,11 +54,16 @@ const parseAudioAlsa = (stdout: string): AudioData[] => {
   const lines = (cards || '').split('\n');
   lines.forEach((line, i) => {
     // ' 1 [Device         ]: USB-Audio - USB Audio Device'
-    const card = line.match(/^\s*(\d+)\s+\[(.+?)\s*\]:\s*(\S+)\s+-\s+(.*)$/);
-    if (card) {
+    const card = line.match(/^\s*(\d+)\s+\[(.+?)\s*\]:\s*(.*)$/);
+    if (card && card[3].trim()) {
       const index = card[1];
-      const driver = card[3];
-      const name = card[4].trim();
+      // some drivers (e.g. bcm2835) print an unterminated driver string, gluing the name to it
+      const sep = card[3].lastIndexOf(' - ');
+      const name = (sep >= 0 ? card[3].substring(sep + 3) : card[3]).trim();
+      let driver = (sep >= 0 ? card[3].substring(0, sep) : '').trim();
+      if (name && driver.endsWith(name)) {
+        driver = driver.substring(0, driver.length - name.length).trim();
+      }
       // second line holds the long name, which is prefixed with the manufacturer on USB devices
       const longName = (lines[i + 1] || '').trim();
       const manufacturer = longName.indexOf(name) > 0 ? longName.substring(0, longName.indexOf(name)).trim() : '';
