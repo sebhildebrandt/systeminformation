@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.5</div>
+          <div class="title-version float-left">v6.0.0-beta.6</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -55,7 +55,8 @@
                   <p>In version 6 the former <span class="code">graphics()</span> function was split into two separate functions: <span class="code">gpu()</span> (graphics controllers) and <span class="code">displays()</span> (monitors / displays). Both return plain arrays.</p>
                   <p>
                     On Windows, <span class="code">displays()</span> reports physical monitors: in duplicate/mirror mode each mirrored monitor gets its own entry (sharing the resolution and position of the mirrored screen). All displays of such a mirrored set are flagged with
-                    <span class="code">mirror: true</span> (Linux, macOS and Windows).
+                    <span class="code">mirror: true</span>
+                    (Linux, macOS and Windows).
                   </p>
                   <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
                   <pre><code class="js">const si = require('systeminformation');</code></pre>

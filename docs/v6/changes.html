@@ -27,7 +27,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.5</div>
+          <div class="title-version float-left">v6.0.0-beta.6</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -80,7 +80,8 @@
                     <li>
                       <span class="code">fans()</span>
                       new function - detected fans with <span class="code">rpm</span> and <span class="code">pwm</span> (Linux via hwmon / thermal cooling devices; Windows only with a running LibreHardwareMonitor / OpenHardwareMonitor; macOS as soon as
-                      <span class="code">macos-temperature-sensor</span> exposes the SMC fan keys)
+                      <span class="code">macos-temperature-sensor</span>
+                      exposes the SMC fan keys)
                     </li>
                     <li><span class="code">gpu()</span> added <span class="code">temperatureGpu</span> on Apple Silicon (optional <span class="code">macos-temperature-sensor</span> package)</li>
                     <li><span class="code">cpuTemperature()</span> added support for the <span class="code">macos-temperature-sensor</span> package (Apple Silicon, incl. <span class="code">chipset</span> / SoC temperature)</li>
@@ -106,7 +107,8 @@
                     <li><span class="code">displays()</span> per-display refresh rate instead of copying the primary monitor's rate to all displays (Windows, #853)</li>
                     <li>
                       <span class="code">displays()</span> <span class="code">resolutionX/Y</span>, <span class="code">currentResX/Y</span>, <span class="code">positionX/Y</span> are now physical pixels read from <span class="code">EnumDisplaySettings</span> -
-                      <span class="code">Forms.Screen</span> bounds are DPI scaled and mixed scaled sizes with unscaled positions, so a scaled monitor reported a wrong resolution and pushed all other monitors to wrong positions (Windows)
+                      <span class="code">Forms.Screen</span>
+                      bounds are DPI scaled and mixed scaled sizes with unscaled positions, so a scaled monitor reported a wrong resolution and pushed all other monitors to wrong positions (Windows)
                     </li>
                     <li><span class="code">displays()</span> monitor data (connection type, size) is now correlated by <span class="code">InstanceName</span> - fixes swapped values on multi-GPU setups (Windows, #764)</li>
                     <li>
