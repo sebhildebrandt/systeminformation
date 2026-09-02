@@ -1,6 +1,6 @@
 import { nextTick, toInt } from '../common';
 import { initNetworkSpeed } from '../common/defaults';
-import { execSave } from '../common/exec';
+import { execSecure } from '../common/exec';
 import { calcNetworkSpeed } from '../common/network';
 import { sanitizeInterfacesString } from '../common/security';
 import { NetworkStatsData } from '../common/types';
@@ -21,11 +21,11 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
     let tx_dropped = 0;
     let tx_errors = 0;
 
-    let stdout = '';
-    ({ stdout } = await execSave(`ifconfig ${iface} | grep "status"`)); // lgtm [js/shell-command-constructed-from-input]
-    operstate = (stdout.split(':')[1] || '').trim().toLowerCase();
+    let stdout = await execSecure('ifconfig', [iface]);
+    const statusLine = stdout.split('\n').find((l) => l.includes('status')) || '';
+    operstate = (statusLine.split(':')[1] || '').trim().toLowerCase();
     operstate = operstate === 'active' ? 'up' : operstate === 'inactive' ? 'down' : 'unknown';
-    ({ stdout } = await execSave(`netstat -bdnI ${iface}`)); // lgtm [js/shell-command-constructed-from-input]
+    stdout = await execSecure('netstat', ['-bdnI', iface]);
     if (stdout) {
       const lines = stdout.toString().split('\n');
       // if there is less than 2 lines, no information for this interface was found

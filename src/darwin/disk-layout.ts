@@ -11,6 +11,14 @@ export const diskLayout = async (): Promise<DiskLayoutData[]> => {
   let stdout = '';
   let cmd = '';
   let cmdFullSmart = '';
+  // bsd_name comes from system_profiler output - only kernel-style names may reach the shell
+  const addSmartCmds = (bsdName: any) => {
+    if (typeof bsdName !== 'string' || !/^disk\d+(s\d+)*$/.test(bsdName)) {
+      return;
+    }
+    cmd += `printf "\n${bsdName}|"; diskutil info /dev/${bsdName} | grep SMART;`;
+    cmdFullSmart += `${cmdFullSmart ? 'printf ",";' : ''}smartctl -a -j ${bsdName};`;
+  };
 
   try {
     ({ stdout } = await exec(`system_profiler SPSerialATADataType SPNVMeDataType SPUSBDataType SPStorageDataType -xml`, { maxBuffer: MAX_BUFFER_SIZE }));
@@ -47,8 +55,7 @@ export const diskLayout = async (): Promise<DiskLayoutData[]> => {
               temperature: null,
               bsdName: disk.bsd_name
             });
-            cmd += 'printf "\n' + disk.bsd_name + '|"; diskutil info /dev/' + disk.bsd_name + ' | grep SMART;';
-            cmdFullSmart += `${cmdFullSmart ? 'printf ",";' : ''}smartctl -a -j ${disk.bsd_name};`;
+            addSmartCmds(disk.bsd_name);
           });
         }
       });
@@ -78,8 +85,7 @@ export const diskLayout = async (): Promise<DiskLayoutData[]> => {
               temperature: null,
               bsdName: disk.bsd_name
             });
-            cmd += 'printf "\n' + disk.bsd_name + '|"; diskutil info /dev/' + disk.bsd_name + ' | grep SMART;';
-            cmdFullSmart += `${cmdFullSmart ? 'printf ",";' : ''}smartctl -a -j ${disk.bsd_name};`;
+            addSmartCmds(disk.bsd_name);
           });
         }
       });
@@ -111,8 +117,7 @@ export const diskLayout = async (): Promise<DiskLayoutData[]> => {
                 temperature: null,
                 bsdName: media.bsd_name
               });
-              cmd += 'printf "\n' + media.bsd_name + '|"; diskutil info /dev/' + media.bsd_name + ' | grep SMART;';
-              cmdFullSmart += `${cmdFullSmart ? 'printf ",";' : ''}smartctl -a -j ${disk.bsd_name};`;
+              addSmartCmds(media.bsd_name);
             } else if (disk?._items.length) {
               disk._items.forEach((subdisk: any) => {
                 if (subdisk.Media && subdisk.Media?.length && subdisk.Media[0] && subdisk.Media[0].size_in_bytes && subdisk.Media[0].bsd_name) {

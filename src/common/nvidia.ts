@@ -1,7 +1,6 @@
 import { readdir, stat } from 'fs/promises';
 import { execOptsWin, LINUX, WINDIR, WINDOWS } from './const';
-import { exec } from './exec';
-import { sanitizeShellString } from './security';
+import { execFile } from './exec';
 import type { GpuData, GpuNvidiaData } from './types';
 
 let _nvidiaSmiPath: string | null = null;
@@ -51,11 +50,9 @@ export const nvidiaSmi = async () => {
   if (nvidiaSmiExe) {
     const nvidiaSmiOpts =
       '--query-gpu=driver_version,pci.sub_device_id,name,pci.bus_id,fan.speed,memory.total,memory.used,memory.free,utilization.gpu,utilization.memory,temperature.gpu,temperature.memory,power.draw,power.limit,clocks.gr,clocks.mem --format=csv,noheader,nounits';
-    const cmd = `${nvidiaSmiExe} ${nvidiaSmiOpts}`;
     try {
-      const sanitized = sanitizeShellString(cmd) + (LINUX ? '  2>/dev/null' : '') + (WINDOWS ? '  2> nul' : '');
-      const { stdout } = await exec(sanitized, execOptsWin);
-      return stdout;
+      const { stdout } = await execFile(nvidiaSmiExe, nvidiaSmiOpts.split(' '), execOptsWin);
+      return String(stdout);
     } catch {}
   }
   return '';

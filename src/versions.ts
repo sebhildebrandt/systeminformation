@@ -1,6 +1,6 @@
 import { release } from 'node:os';
 import { getValue, semverCompare } from './common';
-import { DARWIN, LINUX, VBOXMANAGE, WINDOWS } from './common/const';
+import { DARWIN, VBOXMANAGE, WINDOWS } from './common/const';
 import { darwinXcodeExists } from './common/darwin';
 import { exec, execSave } from './common/exec';
 import { fileExists } from './common/files';
@@ -415,88 +415,45 @@ export const versions = async (apps?: string | string[]) => {
             });
         }
         if (Object.keys(appsObj.versions).includes('postgresql')) {
-          if (LINUX) {
-            exec('locate bin/postgres')
-              .then((res) => {
-                const postgresqlBin = res.stdout.split('\n').sort();
-                if (postgresqlBin.length) {
-                  exec(postgresqlBin[postgresqlBin.length - 1] + ' -V')
-                    .then((res) => {
-                      if (res.stdout) {
-                        const postgresql = res.stdout.split('\n')[0].split(' ') || [];
-                        appsObj.versions.postgresql = postgresql.length ? postgresql[postgresql.length - 1] : '';
-                      }
-                      functionProcessed();
-                    })
-                    .catch(() => {
-                      functionProcessed();
-                    });
-                } else {
-                  functionProcessed();
-                }
-              })
-              .catch(() => {
-                exec('psql -V')
-                  .then((res) => {
-                    const postgresql = res.stdout.split('\n')[0].split(' ') || [];
-
-                    appsObj.versions.postgresql = postgresql.length ? postgresql[postgresql.length - 1] : '';
-                    appsObj.versions.postgresql = appsObj.versions.postgresql.split('-')[0];
-                    functionProcessed();
-                  })
-                  .catch(() => {
-                    functionProcessed();
-                  });
-              });
-          } else {
-            if (WINDOWS) {
-              ps.exec('Get-CimInstance Win32_Service | select caption | fl')
-                .then((stdout: any) => {
-                  const serviceSections = (stdout ? stdout.toString() : '').split(/\n\s*\n/);
-                  serviceSections.forEach((item: string) => {
-                    const lines = item.trim().split('\r\n');
-                    const srvCaption = getValue(lines, 'caption', ':', true).toLowerCase();
-                    if (srvCaption.indexOf('postgresql') > -1) {
-                      const parts = srvCaption.split(' server ');
-                      if (parts.length > 1) {
-                        appsObj.versions.postgresql = parts[1];
-                      }
-                    }
-                  });
-                  functionProcessed();
-                })
-                .catch(() => {
-                  functionProcessed();
-                });
-            } else {
-              exec('postgres -V')
-                .then((res) => {
-                  if (res.stdout) {
-                    const postgresql = res.stdout.split('\n')[0].split(' ') || [];
-                    appsObj.versions.postgresql = postgresql.length ? postgresql[postgresql.length - 1] : '';
-                    if (appsObj.versions.postgresql.includes('(') && postgresql.length >= 2 && !postgresql[postgresql.length - 2].includes('(')) {
-                      appsObj.versions.postgresql = postgresql[postgresql.length - 2];
+          if (WINDOWS) {
+            ps.exec('Get-CimInstance Win32_Service | select caption | fl')
+              .then((stdout: any) => {
+                const serviceSections = (stdout ? stdout.toString() : '').split(/\n\s*\n/);
+                serviceSections.forEach((item: string) => {
+                  const lines = item.trim().split('\r\n');
+                  const srvCaption = getValue(lines, 'caption', ':', true).toLowerCase();
+                  if (srvCaption.indexOf('postgresql') > -1) {
+                    const parts = srvCaption.split(' server ');
+                    if (parts.length > 1) {
+                      appsObj.versions.postgresql = parts[1];
                     }
                   }
-                  functionProcessed();
-                })
-                .catch(() => {
-                  exec('pg_config --version 2> /dev/null')
-                    .then((res) => {
-                      if (res.stdout) {
-                        const postgresql = res.stdout.toString().split('\n')[0].split(' ') || [];
-                        appsObj.versions.postgresql = postgresql.length ? postgresql[postgresql.length - 1] : '';
-                        if (appsObj.versions.postgresql.includes('(') && postgresql.length >= 2 && !postgresql[postgresql.length - 2].includes('(')) {
-                          appsObj.versions.postgresql = postgresql[postgresql.length - 2];
-                        }
-                      }
-                    })
-                    .catch(() => {})
-                    .finally(() => {
-                      functionProcessed();
-                    });
                 });
-            }
+                functionProcessed();
+              })
+              .catch(() => {
+                functionProcessed();
+              });
+          } else {
+            const parsePostgres = (stdout: string) => {
+              const postgresql = stdout.split('\n')[0].split(' ') || [];
+              let version = postgresql.length ? postgresql[postgresql.length - 1] : '';
+              if (version.includes('(') && postgresql.length >= 2 && !postgresql[postgresql.length - 2].includes('(')) {
+                version = postgresql[postgresql.length - 2];
+              }
+              return version.split('-')[0];
+            };
+            // no `locate`: its output is any user-writable path and must not be executed
+            (async () => {
+              for (const cmd of ['postgres -V', 'pg_config --version', 'psql -V']) {
+                const { stdout } = await execSave(cmd);
+                if (stdout) {
+                  appsObj.versions.postgresql = parsePostgres(stdout);
+                  break;
+                }
+              }
+              functionProcessed();
+            })();
           }
         }
         if (Object.keys(appsObj.versions).includes('perl')) {

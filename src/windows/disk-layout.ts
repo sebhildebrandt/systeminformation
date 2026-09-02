@@ -107,6 +107,9 @@ export const diskLayout = async (): Promise<DiskLayoutData[]> => {
         const smartDev = JSON.parse(stdout.trim());
         if (smartDev?.devices && smartDev.devices.length > 0) {
           for (const dev of smartDev.devices) {
+            if (!/^[\w/.,:\\-]+$/.test(String(dev.name || ''))) {
+              continue;
+            }
             try {
               const { stdout: smartOut } = await execSave(`smartctl -j -a ${dev.name}`, execOptsWin);
               const smartData = JSON.parse(smartOut);

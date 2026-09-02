@@ -1,5 +1,4 @@
-import { fileExists } from '../common/files';
-import { execSave } from '../common/exec';
+import { fileExists, readSysfs } from '../common/files';
 import { NetworkStatsData } from '../common/types';
 import { nextTick, toInt } from '../common';
 import { sanitizeInterfacesString } from '../common/security';
@@ -14,41 +13,13 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
   // keep the queried interface name in cached and empty results (#779)
   const defaults = { ...initNetworkSpeed, iface };
   if (!_network[iface] || (_network[iface] && !_network[iface].ms) || (_network[iface] && _network[iface].ms && Date.now() - _network[iface].ms >= 500)) {
-    if (await fileExists('/sys/class/net/' + iface)) {
-      const cmd =
-        'cat /sys/class/net/' +
-        iface +
-        '/operstate; ' +
-        'cat /sys/class/net/' +
-        iface +
-        '/statistics/rx_bytes; ' +
-        'cat /sys/class/net/' +
-        iface +
-        '/statistics/tx_bytes; ' +
-        'cat /sys/class/net/' +
-        iface +
-        '/statistics/rx_dropped; ' +
-        'cat /sys/class/net/' +
-        iface +
-        '/statistics/rx_errors; ' +
-        'cat /sys/class/net/' +
-        iface +
-        '/statistics/tx_dropped; ' +
-        'cat /sys/class/net/' +
-        iface +
-        '/statistics/tx_errors; ';
-      const { stdout } = await execSave(cmd);
-      if (stdout) {
-        const lines = stdout.split('\n');
-        const operstate = lines[0].trim();
-        const rx_bytes = toInt(lines[1]);
-        const tx_bytes = toInt(lines[2]);
-        const rx_dropped = toInt(lines[3]);
-        const rx_errors = toInt(lines[4]);
-        const tx_dropped = toInt(lines[5]);
-        const tx_errors = toInt(lines[6]);
-        return calcNetworkSpeed(iface, rx_bytes, tx_bytes, rx_dropped, rx_errors, tx_dropped, tx_errors, operstate, _network);
-      }
+    const dir = '/sys/class/net/' + iface;
+    if (/^[\w.:@-]+$/.test(iface) && (await fileExists(dir))) {
+      const [operstate, rx_bytes, tx_bytes, rx_dropped, rx_errors, tx_dropped, tx_errors] = await Promise.all([
+        readSysfs(dir + '/operstate'),
+        ...['rx_bytes', 'tx_bytes', 'rx_dropped', 'rx_errors', 'tx_dropped', 'tx_errors'].map(async (f) => toInt(await readSysfs(dir + '/statistics/' + f)))
+      ]);
+      return calcNetworkSpeed(iface, rx_bytes, tx_bytes, rx_dropped, rx_errors, tx_dropped, tx_errors, operstate, _network);
     }
     return defaults;
   } else {

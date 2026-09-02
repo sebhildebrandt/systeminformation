@@ -2,7 +2,7 @@ import { networkInterfaces as osNetworkInterfaces } from 'node:os';
 import { getValue, nextTick, toInt } from '../common';
 import { execOptsWin } from '../common/const';
 import { initNetworkInterface } from '../common/defaults';
-import { exec } from '../common/exec';
+import { exec, execFile } from '../common/exec';
 import { cloneObj } from '../common/index';
 import { testVirtualNic } from '../common/network';
 import { sanitizeString } from '../common/security';
@@ -154,8 +154,8 @@ const getWindowsWiredProfilesInformation = async () => {
 
 const getWindowsWirelessIfaceSSID = async (interfaceName: string) => {
   try {
-    const { stdout } = await exec(`netsh wlan show interface name="${interfaceName}" | findstr "SSID"`, execOptsWin);
-    const SSID = stdout.split('\r\n')[0];
+    const { stdout } = await execFile('netsh', ['wlan', 'show', 'interface', `name=${sanitizeString(interfaceName)}`], execOptsWin);
+    const SSID = String(stdout).split('\r\n').find((l) => l.includes('SSID')) || '';
     const parseSSID = (SSID.split(':').pop() || '').trim();
     return parseSSID;
   } catch {
@@ -203,11 +203,10 @@ const getWindowsIEEE8021x = async (connectionType: string, iface: string, interf
     let i8021xState = '';
     let i8021xProtocol = '';
     try {
-      const SSID = await getWindowsWirelessIfaceSSID(sanitizeString(iface));
+      const SSID = await getWindowsWirelessIfaceSSID(iface);
       if (SSID !== 'Unknown') {
-        const ifaceSanitized = sanitizeString(SSID);
-        const { stdout } = await exec(`netsh wlan show profiles "${ifaceSanitized}"`, execOptsWin);
-        const profiles = stdout.split('\r\n');
+        const { stdout } = await execFile('netsh', ['wlan', 'show', 'profiles', sanitizeString(SSID)], execOptsWin);
+        const profiles = String(stdout).split('\r\n');
         i8021xState = (profiles.find((l: string) => l.indexOf('802.1X') >= 0) || '').trim();
         i8021xProtocol = (profiles.find((l: string) => l.indexOf('EAP') >= 0) || '').trim();
       }

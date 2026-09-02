@@ -1,4 +1,4 @@
-import { execSave } from '../common/exec';
+import { execSecure } from '../common/exec';
 import { NetworkStatsData } from '../common/types';
 import { nextTick, toInt } from '../common';
 import { sanitizeInterfacesString } from '../common/security';
@@ -20,7 +20,7 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
     let tx_dropped = 0;
     let tx_errors = 0;
 
-    const { stdout } = await execSave(`netstat -ibndI ${iface}`);
+    const stdout = await execSecure('netstat', ['-ibndI', iface]);
     if (stdout) {
       const lines = stdout.split('\n');
       for (let i = 1; i < lines.length; i++) {

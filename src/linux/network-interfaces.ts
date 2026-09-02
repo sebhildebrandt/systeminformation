@@ -276,7 +276,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
       }
 
       const ifaceDevName = dev.split(':')[0].trim();
-      const ifaceSanitized = sanitizeString(ifaceDevName);
+      const ifaceSanitized = sanitizeString(ifaceDevName, true);
 
       const cmd = `echo -n "addr_assign_type: "; cat /sys/class/net/${ifaceSanitized}/addr_assign_type 2>/dev/null; echo;
             echo -n "address: "; cat /sys/class/net/${ifaceSanitized}/address 2>/dev/null; echo;
