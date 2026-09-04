@@ -44,6 +44,7 @@ export { pci } from './pci';
 export { printer } from './printer';
 export { processes } from './processes';
 export { processLoad } from './process-load';
+export { serialPorts } from './serial-ports';
 export { services } from './services';
 export { shell } from './shell';
 export { software } from './software';

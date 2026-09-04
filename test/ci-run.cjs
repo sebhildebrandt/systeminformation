@@ -65,6 +65,7 @@ function buildTests(si) {
     battery: () => si.battery(),
     bluetoothDevices: () => si.bluetoothDevices(),
     usb: () => si.usb(),
+    serialPorts: () => si.serialPorts(),
     printer: () => si.printer(),
     camera: () => si.camera(),
     keyboard: () => si.keyboard(),

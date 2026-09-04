@@ -24,6 +24,7 @@ import type {
   OsData,
   PciData,
   ProcessesData,
+  SerialPortData,
   SystemData,
   UsbData,
   UuidData
@@ -58,6 +59,17 @@ export const initAudioResult: AudioData = {
   in: null,
   out: null,
   status: ''
+};
+
+export const initSerialPortResult: SerialPortData = {
+  device: '',
+  name: null,
+  manufacturer: null,
+  serialNumber: null,
+  vendorId: null,
+  productId: null,
+  pnpId: null,
+  type: 'unknown'
 };
 
 export const initUsbResult: UsbData = {

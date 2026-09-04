@@ -28,22 +28,23 @@ function printMenu() {
     '│  SYSTEMINFORMATION                                                                                                  '.substring(0, 114 - lib_version.length) + 'Version: ' + lib_version + '  │'
   );
   console.log('├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤');
-  console.log('│  a ... Audio           i ... INET Latency       r ... Installed Software  1 ... NET Iface Default     ? ... Get Object     │');
-  console.log('│  b ... BIOS            I ... INET Check Site    s ... Services            2 ... NET Gateway Default   , ... All Static     │');
-  console.log('│  B ... Baseboard       j ... INET Public IP     S ... Shell               3 ... NET Interfaces        . ... All Dynamic    │');
-  console.log('│  C ... Chassis         J ... CPU Current Speed  t ... time                4 ... NET Stats             / ... All            │');
-  console.log('│  c ... CPU             k ... Camera             T ... CPU Temperature     5 ... NET Connections       * ... Fans           │');
-  console.log('│  d ... DiskLayout      K ... Keyboard           u ... USB                                                                  │');
-  console.log('│  D ... DiskIO          l ... CPU Current Load   U ... UUID                6 ... Docker Info                                │');
-  console.log('│  e ... Block Devices   L ... Full Load          v ... Versions            7 ... Docker Images                              │');
-  console.log('│  E ... Open Files      m ... Memory             V ... Virtual Box         8 ... Docker Container                           │');
-  console.log('│  f ... FS Size         M ... MEM Layout         w ... WIFI networks       9 ... Docker Cont Stats                          │');
-  console.log('│  F ... FS Stats        n ... NPU                W ... WIFI interfaces     0 ... Docker Cont Proc                           │');
-  console.log('│  A ... Displays        N ... NPM Packages       x ... WIFI connections    + ... Docker Volumes                             │');
-  console.log('│  g ... GPU             o ... OS Info            y ... System                                                               │');
-  console.log('│  G ... PCI             O ... Mouse              Y ... Battery                                                              │');
-  console.log('│  h ... Bluetooth       p ... Processes          z ... Printer                                                              │');
-  console.log('│  H ... Thunderbolt     P ... Process Load       Z ... Users               - ... SI lib version        q >>> QUIT           │');
+  console.log('│  a ... Audio           i ... INET Latency        s ... Services           1 ... NET Iface Default     ? ... Get Object     │');
+  console.log('│  b ... BIOS            I ... INET Check Site     S ... Shell              2 ... NET Gateway Default   , ... All Static     │');
+  console.log('│  B ... Baseboard       j ... INET Public IP      t ... time               3 ... NET Interfaces        . ... All Dynamic    │');
+  console.log('│  C ... Chassis         J ... CPU Current Speed   T ... CPU Temperature    4 ... NET Stats             / ... All            │');
+  console.log('│  c ... CPU             k ... Camera              u ... USB                5 ... NET Connections                            │');
+  console.log('│  * ... Fans            K ... Keyboard            U ... UUID                                                                │');
+  console.log('│  d ... DiskLayout      l ... CPU Current Load    v ... Versions           6 ... Docker Info                                │');
+  console.log('│  D ... DiskIO          L ... Full Load           V ... Virtual Box        7 ... Docker Images                              │');
+  console.log('│  e ... Block Devices   m ... Memory              w ... WIFI networks      8 ... Docker Container                           │');
+  console.log('│  E ... Open Files      M ... MEM Layout          W ... WIFI interfaces    9 ... Docker Cont Stats                          │');
+  console.log('│  f ... FS Size         n ... NPU                 x ... WIFI connections   0 ... Docker Cont Proc                           │');
+  console.log('│  F ... FS Stats        N ... NPM Packages        X ... Serial Ports       + ... Docker Volumes                             │');
+  console.log('│  A ... Displays        o ... OS Info             y ... System                                                              │');
+  console.log('│  g ... GPU             O ... Mouse               Y ... Battery                                                             │');
+  console.log('│  G ... PCI             p ... Processes           z ... Printer                                                             │');
+  console.log('│  h ... Bluetooth       P ... Process Load        Z ... Users                                                               │');
+  console.log('│  H ... Thunderbolt     r ... Installed Software  - ... SI lib version                                 q >>> QUIT           │');
   console.log('└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘');
 }
 

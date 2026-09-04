@@ -49,6 +49,7 @@ export { shell } from './shell';
 export { software } from './software';
 export { system } from './system';
 export { thunderbolt } from './thunderbolt';
+export { serialPorts } from './serial-ports';
 export { usb } from './usb';
 export { users } from './users';
 export { uuid } from './uuid';

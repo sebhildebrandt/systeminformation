@@ -349,6 +349,19 @@ export type FanData = {
   source: string;
 };
 
+export type SerialPortType = 'usb' | 'onboard' | 'pci' | 'bluetooth' | 'virtual' | 'unknown';
+
+export type SerialPortData = {
+  device: string;
+  name: string | null;
+  manufacturer: string | null;
+  serialNumber: string | null;
+  vendorId: string | null;
+  productId: string | null;
+  pnpId: string | null;
+  type: SerialPortType;
+};
+
 export type CurrentLoadData = {
   avgLoad: number;
   currentLoad: number;

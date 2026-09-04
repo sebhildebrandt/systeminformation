@@ -18,6 +18,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `displays()` monitors / displays (replaces the displays part of `graphics()`)
 - `inetPublicIp()` public IPv4 / IPv6 address
 - `fans()` detected fans with `rpm` and `pwm` (Linux via hwmon / thermal cooling devices; Windows only with a running LibreHardwareMonitor / OpenHardwareMonitor; for macOS you need to install `macos-temperature-sensor` as an additional dependency)
+- `serialPorts()` detected serial / COM ports incl. USB adapters (`device`, `name`, `manufacturer`, `serialNumber`, `vendorId`, `productId`, `pnpId`, `type`; Linux via sysfs, macOS via ioreg, Windows via `Win32_PnPEntity`)
 
 #### New Attributes
 

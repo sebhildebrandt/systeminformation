@@ -49,6 +49,8 @@ in a browser.
 - `npu()` - detected NPUs / AI accelerators (experimental)
 - `software()` - installed software / applications
 - `npm()` - globally installed npm packages
+- `fans()` - detected fans with rpm and pwm
+- `serialPorts()` - detected serial / COM ports
 
 ### Extended Windows support
 
@@ -163,7 +165,7 @@ implementations can be tree-shaken away.
 
 - complete rewrite in TypeScript with typed declarations for every function
 - modular imports: load the whole library, a single operating system, or a single function
-- new functions: `camera()`, `keyboard()`, `mouse()`, `thunderbolt()`, `pci()`, `npu()`, `software()`, `npm()`
+- new functions: `camera()`, `keyboard()`, `mouse()`, `thunderbolt()`, `pci()`, `npu()`, `software()`, `npm()`, `fans()`, `serialPorts()`
 - extended Windows support: `disksIO()`, `fsStats()`, `fsOpenFiles()`, `thunderbolt()`
 - `time()` and `version()` are now asynchronous - all functions are async (async/await preferred, promises as alternative)
 - callbacks are no longer supported
@@ -616,6 +618,15 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 |                  | [0].maxPower     | X     |     |     |     |     | max power                       |
 |                  | [0].default      | X     |     | X   | X   |     | is default printer              |
 |                  | [0].serialNumber |       |     | X   |     |     | serial number                   |
+| si.serialPorts() | [{...}]          | X     |     | X   | X   |     | detected serial / COM ports     |
+|                  | [0].device       | X     |     | X   | X   |     | device path (COMx on Windows)   |
+|                  | [0].name         | X     |     | X   | X   |     | product / friendly name         |
+|                  | [0].manufacturer | X     |     | X   | X   |     | manufacturer                    |
+|                  | [0].serialNumber | X     |     | X   | X   |     | serial number (USB only)        |
+|                  | [0].vendorId     | X     |     | X   | X   |     | vendor id (hex)                 |
+|                  | [0].productId    | X     |     | X   | X   |     | product id (hex)                |
+|                  | [0].pnpId        | X     |     |     | X   |     | stable id (by-id / DeviceID)    |
+|                  | [0].type         | X     |     | X   | X   |     | usb, onboard, pci, bluetooth    |
 
 #### 11. Devices
 
@@ -1016,6 +1027,10 @@ and - as soon as the package exposes them - the fan speeds in `fans()`.
 #### Windows - Fan Speed
 
 Windows itself does not expose actual fan speeds: `Win32_Fan` only reports that a fan exists, its `DesiredSpeed` is the *requested* speed and is left empty by virtually every mainboard. Real values are read from a running [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) or OpenHardwareMonitor, which publish their sensors in an own WMI namespace. Without one of these tools running, `fans()` returns an empty array or entries without `rpm`.
+
+#### Serial Ports
+
+`serialPorts()` only *enumerates* ports - opening one (baud rate, termios, RTS toggling) needs a native binding and is out of scope for this zero-dependency library. Two things worth knowing: on Linux a port shows up in the list even when your user is not in the `dialout` / `uucp` group, so listing can succeed while opening fails; on Windows the `COMx` number is reassigned per USB port, so `pnpId` is the only stable key. RS-232 and RS-485 cannot be told apart by enumeration - an RS-485 transceiver looks like an ordinary UART to the operating system - so no such information is reported.
 
 #### Windows Temperature, Battery, ...
 

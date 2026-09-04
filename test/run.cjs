@@ -41,6 +41,7 @@ function run(si, f) {
       else if (f === 't') { si.time().then(data => { resolve({ data, title: 'Time' }); }); }
       else if (f === 'T') { si.cpuTemperature().then(data => { if (data !== null) { resolve({ data, title: 'CPU Temperature' }); } else { resolve('not_supported'); } }); }
       else if (f === '*') { si.fans().then(data => { if (data !== null) { resolve({ data, title: 'Fans' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'X') { si.serialPorts().then(data => { if (data !== null) { resolve({ data, title: 'Serial Ports' }); } else { resolve('not_supported'); } }); }
       else if (f === 'u') { si.usb().then(data => { if (data !== null) { resolve({ data, title: 'USB' }); } else { resolve('not_supported'); } }); }
       else if (f === 'U') { si.uuid().then(data => { if (data !== null) { resolve({ data, title: 'UUID' }); } else { resolve('not_supported'); } }); }
       else if (f === 'v') { si.versions().then(data => { if (data !== null) { resolve({ data, title: 'Versions' }); } else { resolve('not_supported'); } }); }
