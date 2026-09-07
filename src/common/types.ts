@@ -916,8 +916,6 @@ export type ProcStatData = {
   name: string;
   utime: number;
   stime: number;
-  cutime?: number;
-  cstime?: number;
   cpu?: number;
   cpuu: number;
   cpus: number;
@@ -958,6 +956,7 @@ export type ProcessesProcessData = {
   cpu: number;
   cpuu: number;
   cpus: number;
+  cpuTime: number | null;
   mem: number;
   priority: number;
   memVsz: number;

@@ -123,6 +123,8 @@ export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
           for (const i in result) {
             pids.push(...result[i].pids);
           }
+          // freeze the baseline before awaiting - see #1007
+          const cpuBaseline = { ..._process_cpu };
           const stats = await readProcStats(pids);
           const all = parseProcStat(stats.all);
           const curr_processes = stats.procs;
@@ -131,7 +133,7 @@ export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
           const list_new: any = {};
 
           curr_processes.forEach((element) => {
-            const resultProcess: ProcStatData = calcProcStatLinux(element, all, _process_cpu);
+            const resultProcess: ProcStatData = calcProcStatLinux(element, all, cpuBaseline);
 
             if (resultProcess.pid) {
               // find result item
@@ -151,9 +153,7 @@ export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
                 cpuu: resultProcess.cpuu,
                 cpus: resultProcess.cpus,
                 utime: resultProcess.utime,
-                stime: resultProcess.stime,
-                cutime: resultProcess.cutime,
-                cstime: resultProcess.cstime
+                stime: resultProcess.stime
               };
             }
           });

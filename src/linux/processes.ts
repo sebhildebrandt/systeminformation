@@ -7,7 +7,7 @@ import { initProcesses } from '../common/defaults';
 import { exec } from '../common/exec';
 import { fileExists, readProcStats } from '../common/files';
 import { cloneObj } from '../common/index';
-import { calcProcStatLinux, type headerType, parseHead, parseProcStat } from '../common/parse';
+import { calcProcStatLinux, parseProcStat } from '../common/parse';
 import type { ProcessesData, ProcessesProcessData, ProcStatData } from '../common/types';
 
 const _processes_cpu = {
@@ -36,72 +36,98 @@ const getName = (command: string) => {
   return result;
 };
 
-const parseLine = async (line: string, parsedhead: headerType[]): Promise<ProcessesProcessData | null> => {
-  if (parsedhead.length < 13) {
+// ps pads its columns with spaces and none of the fields ahead of the command contains one,
+// so split those off from the left and keep the untouched remainder as the command. The
+// previous header-offset parser mis-assigned columns as soon as a value was wider than its
+// header - a user name longer than the USER column shifted the command field into the
+// neighbouring column.
+const splitPsLine = (line: string, count: number) => {
+  const fields: string[] = [];
+  let pos = 0;
+  while (fields.length < count) {
+    while (pos < line.length && line[pos] === ' ') {
+      pos++;
+    }
+    const start = pos;
+    while (pos < line.length && line[pos] !== ' ') {
+      pos++;
+    }
+    if (pos === start) {
+      return null;
+    }
+    fields.push(line.substring(start, pos));
+  }
+  while (pos < line.length && line[pos] === ' ') {
+    pos++;
+  }
+  return { fields, rest: line.substring(pos) };
+};
+
+// accumulated cpu time as ps prints it: [[DD-]HH:]MM:SS[.ss] - linux uses HH:MM:SS,
+// darwin and the BSDs MM:SS.ss with unbounded minutes, SunOS MM:SS
+const parseCpuTime = (value: string) => {
+  const dayParts = value.split('-');
+  const days = dayParts.length > 1 ? toInt(dayParts[0]) : 0;
+  const parts = dayParts[dayParts.length - 1].split(':');
+  if (parts.length < 2 || parts.length > 3) {
     return null;
   }
-  let offset = 0;
-  let offset2 = 0;
+  const seconds = parseFloat(parts[parts.length - 1]);
+  if (Number.isNaN(seconds)) {
+    return null;
+  }
+  const minutes = toInt(parts[parts.length - 2]);
+  const hours = parts.length === 3 ? toInt(parts[0]) : 0;
+  return days * 86400 + hours * 3600 + minutes * 60 + seconds;
+};
 
-  const checkColumn = (i: number) => {
-    offset = offset2;
-    if (parsedhead[i]) {
-      offset2 = line.substring(parsedhead[i].to + offset, 10000).indexOf(' ');
-    } else {
-      offset2 = 10000;
-    }
-  };
-
-  checkColumn(0);
-  const pid = toInt(line.substring(parsedhead[0].from + offset, parsedhead[0].to + offset2));
-  checkColumn(1);
-  const ppid = toInt(line.substring(parsedhead[1].from + offset, parsedhead[1].to + offset2));
-  checkColumn(2);
-  const cpu = parseFloat(line.substring(parsedhead[2].from + offset, parsedhead[2].to + offset2).replace(/,/g, '.'));
-  checkColumn(3);
-  const mem = parseFloat(line.substring(parsedhead[3].from + offset, parsedhead[3].to + offset2).replace(/,/g, '.'));
-  checkColumn(4);
-  const priority = toInt(line.substring(parsedhead[4].from + offset, parsedhead[4].to + offset2));
-  checkColumn(5);
-  const vsz = toInt(line.substring(parsedhead[5].from + offset, parsedhead[5].to + offset2));
-  checkColumn(6);
-  const rss = toInt(line.substring(parsedhead[6].from + offset, parsedhead[6].to + offset2));
-  checkColumn(7);
-  const nice = toInt(line.substring(parsedhead[7].from + offset, parsedhead[7].to + offset2)) || 0;
-  checkColumn(8);
-  const started = !SUNOS
-    ? parseElapsedTime(line.substring(parsedhead[8].from + offset, parsedhead[8].to + offset2).trim())
-    : parseTimeUnix(line.substring(parsedhead[8].from + offset, parsedhead[8].to + offset2).trim());
-  checkColumn(9);
-  let state = line.substring(parsedhead[9].from + offset, parsedhead[9].to + offset2).trim();
-  state =
-    state[0] === 'R'
+const parseLine = async (line: string): Promise<ProcessesProcessData | null> => {
+  // 13 fields ahead of the command, the last one being the accumulated cpu time
+  const split = splitPsLine(line, 13);
+  if (!split) {
+    return null;
+  }
+  const [pidValue, ppidValue, cpuValue, memValue, priValue, vszValue, rssValue, niceValue, timeValue, stateValue, ttyValue, user] = split.fields;
+  const pid = toInt(pidValue);
+  if (!pid) {
+    return null;
+  }
+  const ppid = toInt(ppidValue);
+  const cpu = parseFloat(cpuValue.replace(/,/g, '.'));
+  const mem = parseFloat(memValue.replace(/,/g, '.'));
+  const priority = toInt(priValue);
+  const vsz = toInt(vszValue);
+  const rss = toInt(rssValue);
+  const nice = toInt(niceValue) || 0;
+  const started = !SUNOS ? parseElapsedTime(timeValue) : parseTimeUnix(timeValue);
+  const state =
+    stateValue[0] === 'R'
       ? 'running'
-      : state[0] === 'S'
+      : stateValue[0] === 'S'
         ? 'sleeping'
-        : state[0] === 'T'
+        : stateValue[0] === 'T'
           ? 'stopped'
-          : state[0] === 'W'
+          : stateValue[0] === 'W'
             ? 'paging'
-            : state[0] === 'X'
+            : stateValue[0] === 'X'
               ? 'dead'
-              : state[0] === 'Z'
+              : stateValue[0] === 'Z'
                 ? 'zombie'
-                : state[0] === 'D' || state[0] === 'U'
+                : stateValue[0] === 'D' || stateValue[0] === 'U'
                   ? 'blocked'
                   : 'unknown';
-  checkColumn(10);
-  let tty = line.substring(parsedhead[10].from + offset, parsedhead[10].to + offset2).trim();
-  if (tty === '?' || tty === '??') {
-    tty = '';
-  }
-  checkColumn(11);
-  const user = line.substring(parsedhead[11].from + offset, parsedhead[11].to + offset2).trim();
-  checkColumn(12);
+  const tty = ttyValue === '?' || ttyValue === '??' ? '' : ttyValue;
+  const cpuTime = parseCpuTime(split.fields[12]);
+
   let cmdPath = '';
   let command = '';
   let params = '';
-  let fullcommand = line.substring(parsedhead[12].from + offset, parsedhead[12].to + offset2).trim();
+  let fullcommand = split.rest.trim();
+  // zombies are printed as "[name] <defunct>" - drop the marker so the bracket handling below
+  // sees a plain "[name]" and does not leak "] <defunct>" into command and name
+  if (fullcommand.endsWith(' <defunct>')) {
+    fullcommand = fullcommand.slice(0, -10).trim();
+  }
   if (fullcommand.endsWith(']')) {
     fullcommand = fullcommand.slice(0, -1);
   }
@@ -158,6 +184,7 @@ const parseLine = async (line: string, parsedhead: headerType[]): Promise<Proces
     cpu: cpu,
     cpuu: 0,
     cpus: 0,
+    cpuTime,
     mem: mem,
     priority: priority,
     memVsz: vsz,
@@ -173,13 +200,13 @@ const parseLine = async (line: string, parsedhead: headerType[]): Promise<Proces
   };
 };
 
-const parseProcesses = async (lines: string[], parsedhead: headerType[]) => {
+const parseProcesses = async (lines: string[]) => {
   const result: ProcessesProcessData[] = [];
   if (lines.length > 1) {
     lines = lines.splice(1);
     for (const line of lines) {
       if (line.trim() !== '') {
-        const parsed = await parseLine(line, parsedhead);
+        const parsed = await parseLine(line);
         if (parsed) {
           result.push(parsed);
         }
@@ -255,6 +282,7 @@ const parseProcesses2 = (lines: string[]) => {
                         : 'unknown',
         tty: parts[7],
         user: parts[8],
+        cpuTime: null,
         command: command,
         params: '',
         path: ''
@@ -272,23 +300,21 @@ export const processes = async (): Promise<ProcessesData> => {
   if ((_processes_cpu.ms && Date.now() - _processes_cpu.ms >= 500) || _processes_cpu.ms === 0) {
     try {
       if (LINUX || ANDROID) {
-        cmd = 'export LC_ALL=C; ps -axo pid:11,ppid:11,pcpu:6,pmem:6,pri:5,vsz:11,rss:11,ni:5,etime:30,state:5,tty:15,user:20,command; unset LC_ALL';
+        cmd = 'export LC_ALL=C; ps -axo pid:11,ppid:11,pcpu:6,pmem:6,pri:5,vsz:11,rss:11,ni:5,etime:30,state:5,tty:15,user:20,time,command; unset LC_ALL';
       }
       if (FREEBSD || NETBSD || OPENBSD) {
-        cmd = 'export LC_ALL=C; ps -axo pid,ppid,pcpu,pmem,pri,vsz,rss,ni,etime,state,tty,user,command; unset LC_ALL';
+        cmd = 'export LC_ALL=C; ps -axo pid,ppid,pcpu,pmem,pri,vsz,rss,ni,etime,state,tty,user,time,command; unset LC_ALL';
       }
       if (DARWIN) {
-        cmd = 'ps -axo pid,ppid,pcpu,pmem,pri,vsz=temp_title_1,rss=temp_title_2,nice,etime=temp_title_3,state,tty,user,command -r';
+        cmd = 'ps -axo pid,ppid,pcpu,pmem,pri,vsz=temp_title_1,rss=temp_title_2,nice,etime=temp_title_3,state,tty,user,time,command -r';
       }
       if (SUNOS) {
-        cmd = 'ps -Ao pid,ppid,pcpu,pmem,pri,vsz,rss,nice,stime,s,tty,user,comm';
+        cmd = 'ps -Ao pid,ppid,pcpu,pmem,pri,vsz,rss,nice,stime,s,tty,user,time,comm';
       }
       ({ stdout } = await exec(cmd, execOptsLinux));
       if (stdout.trim()) {
-        // do not trim - parseHead relies on the leading spaces of the right-aligned header columns
         const lines = stdout.split('\n');
-        const parsedhead = parseHead(lines[0], 8);
-        result.list = (await parseProcesses(lines, parsedhead)).slice();
+        result.list = (await parseProcesses(lines)).slice();
         result.all = result.list.length;
         result.running = result.list.filter((e) => e.state === 'running').length;
         result.blocked = result.list.filter((e) => e.state === 'blocked').length;
@@ -296,6 +322,9 @@ export const processes = async (): Promise<ProcessesData> => {
 
         if (LINUX) {
           // calc process_cpu - ps is not accurate in linux!
+          // freeze the baseline before awaiting: a concurrent call overwrites _processes_cpu
+          // and would leave this one dividing by a few jiffies (#1007)
+          const cpuBaseline = { ..._processes_cpu };
           const stats = await readProcStats(result.list.map((element) => element.pid));
           const all = parseProcStat(stats.all);
           const curr_processes = stats.procs;
@@ -303,13 +332,15 @@ export const processes = async (): Promise<ProcessesData> => {
           // process
           const list_new: any = {};
           curr_processes.forEach((element) => {
-            const resultProcess: ProcStatData = calcProcStatLinux(element, all, _processes_cpu);
+            const resultProcess: ProcStatData = calcProcStatLinux(element, all, cpuBaseline);
 
             if (resultProcess.pid) {
               // store pcpu in outer array
               const listPos = result.list.map((e) => e.pid).indexOf(resultProcess.pid);
               if (listPos >= 0) {
                 result.list[listPos].cpu = resultProcess.cpuu + resultProcess.cpus;
+                // absolute cpu time of the process itself, in seconds (USER_HZ is 100 for the proc ABI)
+                result.list[listPos].cpuTime = (resultProcess.utime + resultProcess.stime) / 100;
                 result.list[listPos].cpuu = resultProcess.cpuu;
                 result.list[listPos].cpus = resultProcess.cpus;
               }
@@ -319,9 +350,7 @@ export const processes = async (): Promise<ProcessesData> => {
                 cpuu: resultProcess.cpuu,
                 cpus: resultProcess.cpus,
                 utime: resultProcess.utime,
-                stime: resultProcess.stime,
-                cutime: resultProcess.cutime,
-                cstime: resultProcess.cstime
+                stime: resultProcess.stime
               };
             }
           });

@@ -24,6 +24,8 @@ export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
     const processes = sanitizeServiceString(proc);
 
     if (processes.length) {
+      // freeze the baseline before awaiting - see #1007
+      const cpuBaseline = { ..._process_cpu };
       try {
         const processArray: any[] = psArray(
           await ps.exec('Get-CimInstance Win32_Process | select ProcessId,Caption,UserModeTime,KernelModeTime,WorkingSetSize | ConvertTo-Json -compress')
@@ -31,8 +33,8 @@ export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
         const procStats: ProcStatData[] = [];
         const list_new: any = {};
         // see processes() - never lower the total when a process exits (#559)
-        let allcpuu = _process_cpu.all_utime;
-        let allcpus = _process_cpu.all_stime;
+        let allcpuu = cpuBaseline.all_utime;
+        let allcpus = cpuBaseline.all_stime;
 
         // go through all processes
         processArray.forEach((element) => {
@@ -41,7 +43,7 @@ export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
           const utime = element.UserModeTime;
           const stime = element.KernelModeTime;
           const mem = element.WorkingSetSize;
-          const cpuOld = _process_cpu.list[pid];
+          const cpuOld = cpuBaseline.list[pid];
           allcpuu += utime - (cpuOld ? cpuOld.utime : 0);
           allcpus += stime - (cpuOld ? cpuOld.stime : 0);
 
@@ -106,7 +108,7 @@ export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
 
         // calculate proc stats for each proc
         procStats.forEach((element) => {
-          const resultProcess = calcProcStatWin(element, allcpuu + allcpus, _process_cpu);
+          const resultProcess = calcProcStatWin(element, allcpuu + allcpus, cpuBaseline);
 
           let listPos = -1;
           for (let j = 0; j < result.length; j++) {

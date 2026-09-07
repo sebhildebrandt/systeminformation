@@ -82,11 +82,19 @@ const darwinGetServices = async () => {
 };
 
 const calcServicesCpuLinux = async (result: ServicesData[]) => {
+  // the ps pcpu seed is a lifetime average per core, the /proc value an interval share across
+  // all cores - adding them would double count, so drop the seed first (processes() assigns,
+  // processLoad() resets the same way)
+  result.forEach((item) => {
+    item.cpu = 0;
+  });
   // calc process_cpu - ps is not accurate in linux!
   const pids: any[] = [];
   for (const i in result) {
     pids.push(...result[i].pids);
   }
+  // freeze the baseline before awaiting - see #1007
+  const cpuBaseline = { ..._services_cpu };
   const stats = await readProcStats(pids);
   const all = parseProcStat(stats.all);
   const curr_processes = stats.procs;
@@ -94,7 +102,7 @@ const calcServicesCpuLinux = async (result: ServicesData[]) => {
   // process
   const list_new: any = {};
   curr_processes.forEach((element) => {
-    const resultProcess = calcProcStatLinux(element, all, _services_cpu);
+    const resultProcess = calcProcStatLinux(element, all, cpuBaseline);
 
     if (resultProcess.pid) {
       let listPos = -1;
@@ -114,9 +122,7 @@ const calcServicesCpuLinux = async (result: ServicesData[]) => {
         cpuu: resultProcess.cpuu,
         cpus: resultProcess.cpus,
         utime: resultProcess.utime,
-        stime: resultProcess.stime,
-        cutime: resultProcess.cutime,
-        cstime: resultProcess.cstime
+        stime: resultProcess.stime
       };
     }
   });

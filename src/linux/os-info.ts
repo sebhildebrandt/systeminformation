@@ -22,7 +22,8 @@ const getInstallDate = async (): Promise<Date | null> => {
 
   // fallback: ext filesystem creation date via tune2fs (needs root, ext only)
   try {
-    const rootMount = (await readFileLines('/proc/mounts')).find((line) => line.split(' ')[1] === '/') || '';
+    // the effective root is the last entry covering '/', which is what `df -P /` resolved to
+    const rootMount = (await readFileLines('/proc/mounts')).filter((line) => line.split(' ')[1] === '/').pop() || '';
     const dev = rootMount.split(' ')[0] || '';
     if (/^\/dev\/[\w./-]+$/.test(dev)) {
       const { stdout } = await exec(`tune2fs -l ${dev} 2>/dev/null`, execOptsLinux);

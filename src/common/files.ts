@@ -94,7 +94,10 @@ export const readFileMax = async (file: string, maxBytes = 1024 * 1024) => {
   } catch {
     return '';
   } finally {
-    await handle?.close();
+    // a rejecting close() must not override the value already returned above
+    try {
+      await handle?.close();
+    } catch {}
   }
 };
 

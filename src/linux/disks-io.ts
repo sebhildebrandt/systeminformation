@@ -19,7 +19,7 @@ export const disksIO = async (): Promise<DisksIoData> => {
 
     try {
       // /sys/block only lists whole devices - drop the virtual/rom ones lsblk would not report as "disk"
-      const disks = (await readdir('/sys/block')).filter((dev) => !/^(loop|ram|zram|dm-|md|sr|fd|nbd)/.test(dev) && isSafePathSegment(dev));
+      const disks = (await readdir('/sys/block')).filter((dev) => !/^(loop|ram|dm-|md|sr|fd|nbd)/.test(dev) && isSafePathSegment(dev));
       const lines = await Promise.all(disks.map((dev) => readSysfs(`/sys/block/${dev}/stat`)));
       lines.forEach(function (line) {
         // ignore empty lines

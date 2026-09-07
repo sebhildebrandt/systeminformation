@@ -1,4 +1,4 @@
-import { statfs } from 'node:fs/promises';
+import { stat, statfs } from 'node:fs/promises';
 import { nextTick, toInt } from '../common';
 import { DARWIN, execOptsLinux, FREEBSD, LINUX, NETBSD, OPENBSD } from '../common/const';
 import { exec, execSave } from '../common/exec';
@@ -102,6 +102,7 @@ const statfsSafeTypes = [
   'ext2',
   'ext3',
   'ext4',
+  'efivarfs',
   'f2fs',
   'gfs2',
   'hfs',
@@ -126,7 +127,7 @@ const statfsSafeTypes = [
 
 // linux: /proc/mounts + statfs() replace `df` - returns null if a requested mount needs `df` to be sized correctly
 const linuxFsSize = async (drives: string[]): Promise<FsSizeData[] | null> => {
-  const data: { entry: FsSizeData; trusted: boolean }[] = [];
+  const data: { dev: number; entry: FsSizeData; trusted: boolean }[] = [];
   const mounts = await readFileLines('/proc/mounts');
   if (!mounts.length) {
     return null;
@@ -148,7 +149,7 @@ const linuxFsSize = async (drives: string[]): Promise<FsSizeData[] | null> => {
       continue;
     }
     try {
-      const stats = await statfs(mount);
+      const [stats, { dev }] = await Promise.all([statfs(mount), stat(mount)]);
       const size = stats.blocks * stats.bsize;
       // pseudo filesystems (proc, sysfs, cgroup) report no blocks - df skips them too
       if (!size) {
@@ -157,6 +158,7 @@ const linuxFsSize = async (drives: string[]): Promise<FsSizeData[] | null> => {
       const used = (stats.blocks - stats.bfree) * stats.bsize;
       const available = stats.bavail * stats.bsize;
       const item = {
+        dev,
         entry: {
           fs,
           type,
@@ -169,8 +171,9 @@ const linuxFsSize = async (drives: string[]): Promise<FsSizeData[] | null> => {
         },
         trusted: statfsSafeTypes.includes(type)
       };
-      // df lists a device only once - the entry with the shortest mount point wins
-      const duplicate = data.findIndex((el) => el.entry.fs === fs);
+      // df keys duplicates on the device number, not the device name: btrfs subvolumes share a
+      // name but not an st_dev and must stay separate. Shortest mount point wins.
+      const duplicate = data.findIndex((el) => el.dev === dev);
       if (duplicate >= 0) {
         if (data[duplicate].entry.mount.length > mount.length) {
           data[duplicate] = item;
@@ -179,6 +182,10 @@ const linuxFsSize = async (drives: string[]): Promise<FsSizeData[] | null> => {
       }
       data.push(item);
     } catch {}
+  }
+  // nothing collected at all means statfs() is unusable here (e.g. node < 18.15) - let df take over
+  if (!data.length) {
+    return null;
   }
   // dedupe first, filter second - same order as `df` output feeding filterDrives
   const requested = data.filter((item) => matchesDrives(item.entry.fs, item.entry.mount, drives));

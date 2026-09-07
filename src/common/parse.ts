@@ -1,67 +1,6 @@
 import { toInt } from './index';
 import type { CpuData, ProcStatData } from './types';
 
-export type headerType = {
-  from: number;
-  to: number;
-  cap: string;
-};
-
-export const parseHead = (head: string, rights: number): headerType[] => {
-  let space = rights > 0;
-  let count = 1;
-  let from = 0;
-  let to = 0;
-  const result: headerType[] = [];
-  for (let i = 0; i < head.length; i++) {
-    if (count <= rights) {
-      if (/\s/.test(head[i]) && !space) {
-        to = i - 1;
-        result.push({
-          from: from,
-          to: to + 1,
-          cap: head.substring(from, to + 1)
-        });
-        from = to + 2;
-        count++;
-      }
-      space = head[i] === ' ';
-    } else {
-      if (!/\s/.test(head[i]) && space) {
-        to = i - 1;
-        if (from < to) {
-          result.push({
-            from: from,
-            to: to,
-            cap: head.substring(from, to)
-          });
-        }
-        from = to + 1;
-        count++;
-      }
-      space = head[i] === ' ';
-    }
-  }
-  to = 5000;
-  result.push({
-    from: from,
-    to: to,
-    cap: head.substring(from, to)
-  });
-  let len = result.length;
-  for (let i = 0; i < len; i++) {
-    if (result[i].cap.replace(/\s/g, '').length === 0) {
-      if (i + 1 < len) {
-        result[i].to = result[i + 1].to;
-        result[i].cap = result[i].cap + result[i + 1].cap;
-        result.splice(i + 1, 1);
-        len = len - 1;
-      }
-    }
-  }
-  return result;
-};
-
 export const parseProcStat = (line: string) => {
   const parts = line.replace(/ +/g, ' ').split(' ');
   const user = parts.length >= 2 ? toInt(parts[1]) : 0;
@@ -77,6 +16,23 @@ export const parseProcStat = (line: string) => {
   return user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 };
 
+// drops NaN/Infinity/negative values and scales cpuu + cpus down proportionally
+// if their sum exceeds 100 (normalized against all cores)
+export const clampCpuPair = (cpuu: number, cpus: number) => {
+  if (!Number.isFinite(cpuu) || cpuu < 0) {
+    cpuu = 0;
+  }
+  if (!Number.isFinite(cpus) || cpus < 0) {
+    cpus = 0;
+  }
+  const total = cpuu + cpus;
+  if (total > 100) {
+    cpuu = (cpuu / total) * 100;
+    cpus = (cpus / total) * 100;
+  }
+  return { cpuu, cpus };
+};
+
 export const calcProcStatLinux = (line: string, all: number, _cpu_old: CpuData): ProcStatData => {
   const statparts = line.replace(/ +/g, ' ').split(')');
   if (statparts.length >= 2) {
@@ -85,28 +41,28 @@ export const calcProcStatLinux = (line: string, all: number, _cpu_old: CpuData):
       const pid = toInt(statparts[0].split(' ')[0]);
       const utime = toInt(parts[12]);
       const stime = toInt(parts[13]);
-      const cutime = toInt(parts[14]);
-      const cstime = toInt(parts[15]);
-
-      // calc
+      // calc - child times (cutime/cstime) are deliberately left out: reaping a child adds its
+      // whole lifetime in one interval, which is what produced the >100% spikes in #1007.
+      // top, htop and Task Manager exclude them too.
       let cpuu = 0;
       let cpus = 0;
       if (_cpu_old.all > 0 && _cpu_old.list[pid]) {
-        cpuu = ((utime + cutime - _cpu_old.list[pid].utime - _cpu_old.list[pid].cutime) / (all - _cpu_old.all)) * 100; // user
-        cpus = ((stime + cstime - _cpu_old.list[pid].stime - _cpu_old.list[pid].cstime) / (all - _cpu_old.all)) * 100; // system
+        const delta = all - _cpu_old.all;
+        cpuu = delta > 0 ? ((utime - _cpu_old.list[pid].utime) / delta) * 100 : 0; // user
+        cpus = delta > 0 ? ((stime - _cpu_old.list[pid].stime) / delta) * 100 : 0; // system
       } else {
-        cpuu = ((utime + cutime) / all) * 100; // user
-        cpus = ((stime + cstime) / all) * 100; // system
+        cpuu = all > 0 ? (utime / all) * 100 : 0; // user
+        cpus = all > 0 ? (stime / all) * 100 : 0; // system
       }
+      // normalized against all cores, so 100 is the ceiling for cpuu + cpus
+      const clamped = clampCpuPair(cpuu, cpus);
       return {
         pid: pid,
         name: '',
         utime: utime,
         stime: stime,
-        cutime: cutime,
-        cstime: cstime,
-        cpuu: cpuu,
-        cpus: cpus
+        cpuu: clamped.cpuu,
+        cpus: clamped.cpus
       };
     }
   }
@@ -115,8 +71,6 @@ export const calcProcStatLinux = (line: string, all: number, _cpu_old: CpuData):
     name: '',
     utime: 0,
     stime: 0,
-    cutime: 0,
-    cstime: 0,
     cpuu: 0,
     cpus: 0
   };

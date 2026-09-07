@@ -4,6 +4,8 @@ import { LINUX, WINDOWS } from './common/const';
 import { readFileLines } from './common/files';
 import type { CurrentLoadData } from './common/types';
 
+const JIFFY_MS = 10;
+
 let _current_cpu = {
   user: 0,
   nice: 0,
@@ -93,10 +95,11 @@ export const currentLoad = async () => {
             for (let i = 0; i < lines.length; i++) {
               const parts = lines[i].split(' ');
               if (parts.length >= 10) {
+                // /proc/stat counts in USER_HZ (fixed at 100 for the proc ABI), os.cpus() in ms
                 const steal = parseFloat(parts[8]) || 0;
                 const guest = parseFloat(parts[9]) || 0;
-                cpus[i].times.steal = steal;
-                cpus[i].times.guest = guest;
+                cpus[i].times.steal = steal * JIFFY_MS;
+                cpus[i].times.guest = guest * JIFFY_MS;
               }
             }
           }

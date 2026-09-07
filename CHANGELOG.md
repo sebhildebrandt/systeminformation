@@ -35,6 +35,8 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `gpu()` added `temperatureGpu` on Apple Silicon (optional `macos-temperature-sensor` package)
 - `services()` added `startmode` on Linux (systemd `UnitFileState`: enabled, disabled, static, ..., previously Windows only)
 - `services()` added `lastChanged` (Linux/systemd: date of the last state change - service start when running, service stop otherwise; macOS: start time of the service processes, #886)
+- `processes()` added `cpuTime` (absolute CPU time of the process itself in seconds, excluding already reaped children, #1007)
+- `processes()` now reports zombie processes with their plain name instead of `name] <defunct>`
 - `versions()` added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, rails, ruby, rust, sqlite3, vim, vue
 
 #### Extended Windows Support

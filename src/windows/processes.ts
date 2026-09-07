@@ -4,6 +4,7 @@ import { initProcesses } from '../common/defaults';
 import { winProcessStatus } from '../common/mappings';
 import type { CpuData, ProcessesData, ProcessesProcessData, ProcStatData } from '../common/types';
 import { ps, psArray } from '../common/windows';
+import { clampCpuPair } from '../common/parse';
 
 const _processes_cpu = {
   all: 0,
@@ -26,12 +27,14 @@ export const calcProcStatWin = (procStat: ProcStatData, all: number, _cpu_old: C
     cpuu = all > 0 ? (procStat.utime / all) * 100 : 0; // user
     cpus = all > 0 ? (procStat.stime / all) * 100 : 0; // system
   }
+  // same ceiling as the linux path - cpuu + cpus stays inside [0, 100] (#1007)
+  const clamped = clampCpuPair(cpuu, cpus);
   return {
     pid: procStat.pid,
     utime: procStat.utime,
     stime: procStat.stime,
-    cpuu: cpuu > 0 ? cpuu : 0,
-    cpus: cpus > 0 ? cpus : 0
+    cpuu: clamped.cpuu,
+    cpus: clamped.cpus
   };
 };
 
@@ -39,6 +42,9 @@ export const processes = async (): Promise<ProcessesData> => {
   await nextTick();
   const result: ProcessesData = cloneObj(initProcesses);
   if ((_processes_cpu.ms && Date.now() - _processes_cpu.ms >= 500) || _processes_cpu.ms === 0) {
+    // freeze the baseline before awaiting: a concurrent call overwrites _processes_cpu
+    // and would leave this one dividing by a near-zero delta (#1007)
+    const cpuBaseline = { ..._processes_cpu };
     try {
       const processArray: any[] = psArray(
         await ps.exec(
@@ -52,8 +58,8 @@ export const processes = async (): Promise<ProcessesData> => {
         const list_new: any = {};
         // accumulate from the previous totals and add deltas only - a process that exited
         // must not lower the total, otherwise the denominator turns negative (#559)
-        let allcpuu = _processes_cpu.all_utime;
-        let allcpus = _processes_cpu.all_stime;
+        let allcpuu = cpuBaseline.all_utime;
+        let allcpus = cpuBaseline.all_stime;
         processArray.forEach((element) => {
           const pid = element.ProcessId;
           const parentPid = element.ParentProcessId;
@@ -66,7 +72,7 @@ export const processes = async (): Promise<ProcessesData> => {
           const stime = element.KernelModeTime;
           const memw = element.WorkingSetSize;
 
-          const cpuOld = _processes_cpu.list[pid];
+          const cpuOld = cpuBaseline.list[pid];
           allcpuu += utime - (cpuOld ? cpuOld.utime : 0);
           allcpus += stime - (cpuOld ? cpuOld.stime : 0);
           result.all++;
@@ -96,6 +102,8 @@ export const processes = async (): Promise<ProcessesData> => {
             cpu: 0,
             cpuu: 0,
             cpus: 0,
+            // Win32_Process reports 100-nanosecond units
+            cpuTime: (utime + stime) / 1e7,
             mem: (memw / totalmem()) * 100,
             priority: element.Priority || 0,
             memVsz: element.PageFileUsage || null,
@@ -113,7 +121,7 @@ export const processes = async (): Promise<ProcessesData> => {
         result.sleeping = result.all - result.running - result.blocked - result.unknown;
         result.list = procs;
         procStats.forEach((element) => {
-          const resultProcess = calcProcStatWin(element, allcpuu + allcpus, _processes_cpu);
+          const resultProcess = calcProcStatWin(element, allcpuu + allcpus, cpuBaseline);
 
           // store pcpu in outer array
           const listPos = result.list

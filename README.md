@@ -480,6 +480,7 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 |                                  | ...[0].cpu        | X     | X   | X   | X   | X   | process % CPU usage                                                                     |
 |                                  | ...[0].cpuu       | X     | X   |     | X   |     | process % CPU usage (user)                                                              |
 |                                  | ...[0].cpus       | X     | X   |     | X   |     | process % CPU usage (system)                                                            |
+|                                  | ...[0].cpuTime    | X     | X   | X   | X   | X   | process cpu time in seconds (own, without reaped children); null if not available       |
 |                                  | ...[0].mem        | X     | X   | X   | X   | X   | process memory %                                                                        |
 |                                  | ...[0].priority   | X     | X   | X   | X   | X   | process priority                                                                        |
 |                                  | ...[0].memVsz     | X     | X   | X   | X   | X   | process virtual memory size                                                             |
