@@ -463,6 +463,7 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 |                                  | currentLoadSystem | X     |     | X   | X   | X   | CPU load system in %                                                                    |
 |                                  | currentLoadNice   | X     |     | X   | X   | X   | CPU load nice in %                                                                      |
 |                                  | currentLoadIdle   | X     |     | X   | X   | X   | CPU load idle in %                                                                      |
+|                                  | currentLoadIowait | X     |     |     |     |     | CPU load waiting for IO in % (Linux only, 0 elsewhere)                                   |
 |                                  | currentLoadIrq    | X     |     | X   | X   | X   | CPU load system in %                                                                    |
 |                                  | rawCurrentLoad... | X     |     | X   | X   | X   | CPU load raw values (ticks)                                                             |
 |                                  | cpus[]            | X     |     | X   | X   | X   | current loads per CPU in % + raw ticks                                                  |
@@ -553,12 +554,12 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 |                   | rIO                   | X     |     | X   | X   |     | read IOs on all mounted drives                                           |
 |                   | wIO                   | X     |     | X   | X   |     | write IOs on all mounted drives                                          |
 |                   | tIO                   | X     |     | X   | X   |     | write IOs on all mounted drives                                          |
-|                   | rIO_sec               | X     |     | X   | X   |     | read IO per sec (* see notes)                                            |
-|                   | wIO_sec               | X     |     | X   | X   |     | write IO per sec (* see notes)                                           |
-|                   | tIO_sec               | X     |     | X   | X   |     | total IO per sec (* see notes)                                           |
-|                   | rWaitTime             | X     |     |     |     |     | read IO request time (* see notes)                                       |
-|                   | wWaitTime             | X     |     |     |     |     | write IO request time (* see notes)                                      |
-|                   | tWaitTime             | X     |     |     |     |     | total IO request time (* see notes)                                      |
+|                   | rIO_sec               | X     |     | X   | X   |     | read IO operations per sec, not bytes (* see notes)                      |
+|                   | wIO_sec               | X     |     | X   | X   |     | write IO operations per sec, not bytes (* see notes)                     |
+|                   | tIO_sec               | X     |     | X   | X   |     | total IO operations per sec, not bytes (* see notes)                     |
+|                   | rWaitTime             | X     |     |     |     |     | read IO request time in ms during interval, null on 1st call (* notes)   |
+|                   | wWaitTime             | X     |     |     |     |     | write IO request time in ms during interval, null on 1st call (* notes)  |
+|                   | tWaitTime             | X     |     |     |     |     | total IO request time in ms during interval, null on 1st call (* notes)  |
 |                   | rWaitPercent          | X     |     |     |     |     | read IO request time percent (* see notes)                               |
 |                   | wWaitPercent          | X     |     |     |     |     | write IO request time percent (* see notes)                              |
 |                   | tWaitPercent          | X     |     |     |     |     | total IO request time percent (* see notes)                              |

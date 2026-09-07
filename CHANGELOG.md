@@ -37,6 +37,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `services()` added `lastChanged` (Linux/systemd: date of the last state change - service start when running, service stop otherwise; macOS: start time of the service processes, #886)
 - `processes()` added `cpuTime` (absolute CPU time of the process itself in seconds, excluding already reaped children, #1007)
 - `processes()` now reports zombie processes with their plain name instead of `name] <defunct>`
+- `currentLoad()` added `currentLoadIowait` / `rawCurrentLoadIowait` and per CPU `loadIowait` / `rawLoadIowait` (CPU time waiting for IO, the `wa` value of `top`) - Linux only, `0` elsewhere as macOS, BSD and Windows do not track an iowait CPU state (#965)
 - `versions()` added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, rails, ruby, rust, sqlite3, vim, vue
 
 #### Extended Windows Support
@@ -47,6 +48,8 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 
 #### Fixes (open version 5 issues resolved in version 6)
 
+- `fsSize()` the file system `type` on macOS is now read from `mount` instead of being guessed from `diskutil` - the guess could only ever produce `APFS`, `HFS` or `NFS`, so APFS volumes were reported as `HFS` and zfs, exfat, msdos or smbfs were never recognised at all. This also makes the ZFS correction above work on macOS (#1017)
+- `fsSize()` ZFS datasets now report the hierarchical usage from `zfs list` - df and statfs only know what a dataset references itself, so a parent holding its data in child datasets was shown as almost empty (#1017) - note that `used` then includes child datasets and snapshots, exactly like `zfs list`, so it must not be summed across nested datasets
 - `displays()` EDID parsing with multiple monitors - all displays reported the first monitor's model, resolution and size (Linux, #997)
 - `displays()` display positions (`positionX` / `positionY`) are now parsed from xrandr (Linux, #866)
 - `displays()` per-display refresh rate instead of copying the primary monitor's rate to all displays (Windows, #853)
@@ -75,6 +78,8 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 
 #### Breaking Changes
 
+- `disksIO()` `rWaitTime`, `wWaitTime` and `tWaitTime` now report the wait time of the last interval in ms instead of the total since boot, and are `null` on the first call - same convention as `rIO_sec` (#1025). `tWaitPercent` therefore equals `tWaitTime * 100 / ms`. To keep the old behaviour, sum the interval values yourself.
+- `currentLoad()` on Linux now counts iowait ticks in the denominator - `os.cpus()` drops them entirely, so they used to be missing from every category. `currentLoadIdle` is now lower by exactly the iowait share while `currentLoad` is almost unchanged, and the categories add up to 100% again
 **Be aware**, that the new version 6.x is **NOT fully backward compatible** to version 5.x.
 
 We modernized the library with a full TypeScript rewrite and made a few interface changes. Please review the list below and adapt your code.

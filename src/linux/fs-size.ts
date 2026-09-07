@@ -3,10 +3,23 @@ import { nextTick, toInt } from '../common';
 import { DARWIN, execOptsLinux, FREEBSD, LINUX, NETBSD, OPENBSD } from '../common/const';
 import { exec, execSave } from '../common/exec';
 import { readFileLines } from '../common/files';
+import { zfsDatasets } from '../common/filesys';
 import { FsSizeData } from '../common/types';
 
 let macOsDisks: string[] = [];
+let macOsFsTypes = new Map<string, string>();
 let osMounts: any = {};
+
+// macOS df has no type column, so the type used to be guessed from diskutil - which only ever
+// produced APFS, HFS or NFS and therefore never recognised zfs, exfat, msdos or smbfs. mount
+// knows the real type, so prefer it and keep the old names for the three it could produce.
+const macOsFsType = (fs: string) => {
+  const type = macOsFsTypes.get(fs);
+  if (!type) {
+    return getmacOsFsType(fs);
+  }
+  return type === 'apfs' ? 'APFS' : type === 'hfs' ? 'HFS' : type === 'nfs' ? 'NFS' : type;
+};
 
 const getmacOsFsType = (fs: string) => {
   if (!fs.startsWith('/')) {
@@ -61,7 +74,7 @@ const parseNixFsSize = (lines: string[]) => {
     const match = line.trim().match(withType ? dfLineWithType : dfLineNoType);
     if (match) {
       const fs = match[1].trim();
-      const fsType = withType ? match[2] : getmacOsFsType(fs);
+      const fsType = withType ? match[2] : macOsFsType(fs);
       const mount = (withType ? match[6] : match[5]).trim();
       if (fs.startsWith('/') || mount === '/' || fs.indexOf('/') > 0 || fs.indexOf(':') === 1 || (!DARWIN && !isLinuxTmpFs(fsType))) {
         const size = toInt(match[withType ? 3 : 2]) * 1024;
@@ -202,6 +215,30 @@ const matchesDrives = (fs: string, mount: string, drives: string[]) => {
   return drives.some((drive) => fs.toLowerCase().indexOf(drive.toLowerCase()) >= 0 || mount.toLowerCase().indexOf(drive.toLowerCase()) >= 0);
 };
 
+// zfs entries carry the pool wide available space but only their own referenced usage, so
+// replace those numbers with the hierarchical ones from `zfs list` (#1017)
+const applyZfsUsage = async (data: FsSizeData[]) => {
+  if (!data.some((item) => item.type === 'zfs')) {
+    return data;
+  }
+  const { byMount, byName } = await zfsDatasets();
+  for (const item of data) {
+    if (item.type !== 'zfs') {
+      continue;
+    }
+    // the fs column is the exact dataset name and therefore unambiguous, unlike the mountpoint
+    const dataset = byName.get(item.fs) || byMount.get(item.mount);
+    if (!dataset || !(dataset.used + dataset.available)) {
+      continue;
+    }
+    item.used = dataset.used;
+    item.available = dataset.available;
+    item.size = dataset.used + dataset.available;
+    item.use = parseFloat(((100.0 * dataset.used) / item.size).toFixed(2));
+  }
+  return data;
+};
+
 const filterDrives = (data: FsSizeData[], drives: string[]) => data.filter((item) => matchesDrives(item.fs, item.mount, drives));
 
 export const fsSize = async (drives: string[]) => {
@@ -212,6 +249,7 @@ export const fsSize = async (drives: string[]) => {
   let stderr = '';
   let lines: string[] = [];
   macOsDisks = [];
+  macOsFsTypes = new Map();
   osMounts = {};
 
   if (DARWIN) {
@@ -222,15 +260,17 @@ export const fsSize = async (drives: string[]) => {
         return !line.startsWith('/') && line.indexOf(':') > 0;
       });
       ({ stdout } = await exec('mount', execOptsLinux));
-      stdout
-        .split('\n')
-        .filter((line) => {
-          return line.startsWith('/');
-        })
-        .forEach((line) => {
-          // mount output: "<fs> on <mountpoint> (<options>)" — fs may contain spaces
-          osMounts[line.split(' on ')[0]] = line.toLowerCase().indexOf('read-only') === -1;
-        });
+      stdout.split('\n').forEach((line) => {
+        // mount output: "<fs> on <mountpoint> (<type>, <options>)" — fs may contain spaces
+        const fs = line.split(' on ')[0];
+        const type = line.match(/\(([^),]+)[^)]*\)$/);
+        if (fs && type) {
+          macOsFsTypes.set(fs, type[1].trim().toLowerCase());
+        }
+        if (line.startsWith('/')) {
+          osMounts[fs] = line.toLowerCase().indexOf('read-only') === -1;
+        }
+      });
     } catch {}
   }
   if (LINUX) {
@@ -246,7 +286,7 @@ export const fsSize = async (drives: string[]) => {
     }
     const linuxData = await linuxFsSize(drives);
     if (linuxData) {
-      return linuxData;
+      return await applyZfsUsage(linuxData);
     }
     // fallback for mounts statfs() cannot size reliably
     cmd = 'export LC_ALL=C; df -kPTx squashfs; unset LC_ALL';
@@ -272,5 +312,5 @@ export const fsSize = async (drives: string[]) => {
     lines = filterFsLines(stdout);
     data = parseNixFsSize(lines);
   }
-  return filterDrives(data, drives);
+  return await applyZfsUsage(filterDrives(data, drives));
 };

@@ -1,10 +1,41 @@
 import { cloneObj, getValue, sortByKey, toInt, unique } from './index';
-import { DARWIN, execOptsWin, FREEBSD, LINUX, NETBSD, WINDOWS } from './const';
+import { DARWIN, execOptsLinux, execOptsWin, FREEBSD, LINUX, NETBSD, WINDOWS } from './const';
 import { initDiskIo, initFsBlockDevice, initFsStats } from './defaults';
 import { exec, execSecure } from './exec';
 import type { FsBlockDevicesData } from './types';
 
 let _smartMonToolsInstalled: boolean | null = null;
+
+// ZFS datasets share the pool, so df and statfs only report what a dataset references itself -
+// a parent holding its data in child datasets looks empty (#1017). Only `zfs list` knows the
+// hierarchical usage, so query it once and index it by mount point and by dataset name.
+export const zfsDatasets = async () => {
+  const byMount = new Map<string, { used: number; available: number }>();
+  const byName = new Map<string, { used: number; available: number }>();
+  let stdout = '';
+  try {
+    ({ stdout } = await exec('zfs list -H -p -o name,used,avail,mountpoint', { ...execOptsLinux, timeout: 5000 }));
+  } catch {
+    // a truncated or timed out listing would correct only part of the datasets and leave the rest
+    // on their df values - correct none instead, so the result stays consistent
+    return { byMount, byName };
+  }
+  for (const line of stdout.toString().split('\n')) {
+    const parts = line.split('\t');
+    if (parts.length < 4) {
+      continue;
+    }
+    const entry = { used: toInt(parts[1]), available: toInt(parts[2]) };
+    const mount = parts[3].trim();
+    byName.set(parts[0], entry);
+    // several datasets can carry the same mountpoint (root-on-zfs boot environments all declare
+    // "/"), so the mount index is only a fallback - keep the first one and let the name win
+    if (mount.startsWith('/') && !byMount.has(mount)) {
+      byMount.set(mount, entry);
+    }
+  }
+  return { byMount, byName };
+};
 
 export const smartMonToolsInstalled = async () => {
   if (_smartMonToolsInstalled !== null) {
@@ -83,20 +114,25 @@ export const calcDiskIO = (rIO: number, wIO: number, rWaitTime: number, wWaitTim
     result.rIO_sec = (result.rIO - _disk_io.rIO) / (result.ms / 1000);
     result.wIO_sec = (result.wIO - _disk_io.wIO) / (result.ms / 1000);
     result.tIO_sec = result.rIO_sec + result.wIO_sec;
-    result.rWaitTime = rWaitTime;
-    result.wWaitTime = wWaitTime;
-    result.tWaitTime = tWaitTime;
-    result.rWaitPercent = ((result.rWaitTime - _disk_io.rWaitTime) * 100) / result.ms;
-    result.wWaitPercent = ((result.wWaitTime - _disk_io.wWaitTime) * 100) / result.ms;
-    result.tWaitPercent = ((result.tWaitTime - _disk_io.tWaitTime) * 100) / result.ms;
+    // wait times are cumulative since boot - report the interval instead (#1025)
+    result.rWaitTime = rWaitTime - _disk_io.rWaitTime;
+    result.wWaitTime = wWaitTime - _disk_io.wWaitTime;
+    result.tWaitTime = tWaitTime - _disk_io.tWaitTime;
+    result.rWaitPercent = (result.rWaitTime * 100) / result.ms;
+    result.wWaitPercent = (result.wWaitTime * 100) / result.ms;
+    result.tWaitPercent = (result.tWaitTime * 100) / result.ms;
     _disk_io.rIO = rIO;
     _disk_io.wIO = wIO;
     _disk_io.rIO_sec = result.rIO_sec;
     _disk_io.wIO_sec = result.wIO_sec;
     _disk_io.tIO_sec = result.tIO_sec;
+    // keep the cumulative values as the baseline for the next delta, the interval separately
     _disk_io.rWaitTime = rWaitTime;
     _disk_io.wWaitTime = wWaitTime;
     _disk_io.tWaitTime = tWaitTime;
+    _disk_io.rWaitTimeDelta = result.rWaitTime;
+    _disk_io.wWaitTimeDelta = result.wWaitTime;
+    _disk_io.tWaitTimeDelta = result.tWaitTime;
     _disk_io.rWaitPercent = result.rWaitPercent;
     _disk_io.wWaitPercent = result.wWaitPercent;
     _disk_io.tWaitPercent = result.tWaitPercent;
@@ -106,9 +142,10 @@ export const calcDiskIO = (rIO: number, wIO: number, rWaitTime: number, wWaitTim
     result.rIO = rIO;
     result.wIO = wIO;
     result.tIO = rIO + wIO;
-    result.rWaitTime = rWaitTime;
-    result.wWaitTime = wWaitTime;
-    result.tWaitTime = tWaitTime;
+    // first call has no baseline - same convention as rIO_sec
+    result.rWaitTime = null;
+    result.wWaitTime = null;
+    result.tWaitTime = null;
     _disk_io.rIO = rIO;
     _disk_io.wIO = wIO;
     _disk_io.rIO_sec = null;
@@ -117,6 +154,9 @@ export const calcDiskIO = (rIO: number, wIO: number, rWaitTime: number, wWaitTim
     _disk_io.rWaitTime = rWaitTime;
     _disk_io.wWaitTime = wWaitTime;
     _disk_io.tWaitTime = tWaitTime;
+    _disk_io.rWaitTimeDelta = null;
+    _disk_io.wWaitTimeDelta = null;
+    _disk_io.tWaitTimeDelta = null;
     _disk_io.rWaitPercent = null;
     _disk_io.wWaitPercent = null;
     _disk_io.tWaitPercent = null;

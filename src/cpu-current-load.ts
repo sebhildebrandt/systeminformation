@@ -11,6 +11,7 @@ let _current_cpu = {
   nice: 0,
   system: 0,
   idle: 0,
+  iowait: 0,
   irq: 0,
   steal: 0,
   guest: 0,
@@ -22,6 +23,7 @@ let _current_cpu = {
   currentLoadSystem: 0,
   currentLoadNice: 0,
   currentLoadIdle: 0,
+  currentLoadIowait: 0,
   currentLoadIrq: 0,
   currentLoadSteal: 0,
   currentLoadGuest: 0,
@@ -30,6 +32,7 @@ let _current_cpu = {
   rawCurrentLoadSystem: 0,
   rawCurrentLoadNice: 0,
   rawCurrentLoadIdle: 0,
+  rawCurrentLoadIowait: 0,
   rawCurrentLoadIrq: 0,
   rawCurrentLoadSteal: 0,
   rawCurrentLoadGuest: 0
@@ -49,6 +52,7 @@ export const currentLoad = async () => {
     currentLoadSystem: 0,
     currentLoadNice: 0,
     currentLoadIdle: 0,
+    currentLoadIowait: 0,
     currentLoadIrq: 0,
     currentLoadSteal: 0,
     currentLoadGuest: 0,
@@ -57,6 +61,7 @@ export const currentLoad = async () => {
     rawCurrentLoadSystem: 0,
     rawCurrentLoadNice: 0,
     rawCurrentLoadIdle: 0,
+    rawCurrentLoadIowait: 0,
     rawCurrentLoadIrq: 0,
     rawCurrentLoadSteal: 0,
     rawCurrentLoadGuest: 0,
@@ -80,6 +85,7 @@ export const currentLoad = async () => {
     let totalNice = 0;
     let totalIrq = 0;
     let totalIdle = 0;
+    let totalIowait = 0;
     let totalSteal = 0;
     let totalGuest = 0;
     const cores: any[] = [];
@@ -96,8 +102,10 @@ export const currentLoad = async () => {
               const parts = lines[i].split(' ');
               if (parts.length >= 10) {
                 // /proc/stat counts in USER_HZ (fixed at 100 for the proc ABI), os.cpus() in ms
+                const iowait = parseFloat(parts[5]) || 0;
                 const steal = parseFloat(parts[8]) || 0;
                 const guest = parseFloat(parts[9]) || 0;
+                cpus[i].times.iowait = iowait * JIFFY_MS;
                 cpus[i].times.steal = steal * JIFFY_MS;
                 cpus[i].times.guest = guest * JIFFY_MS;
               }
@@ -113,6 +121,7 @@ export const currentLoad = async () => {
       totalSystem += cpu.sys;
       totalNice += cpu.nice;
       totalIdle += cpu.idle;
+      totalIowait += cpu.iowait || 0;
       totalIrq += cpu.irq;
       totalSteal += cpu.steal || 0;
       totalGuest += cpu.guest || 0;
@@ -122,6 +131,7 @@ export const currentLoad = async () => {
       const tmpSystem = _cpus && _cpus[i] && _cpus[i].sys ? _cpus[i].sys : 0;
       const tmpNice = _cpus && _cpus[i] && _cpus[i].nice ? _cpus[i].nice : 0;
       const tmpIdle = _cpus && _cpus[i] && _cpus[i].idle ? _cpus[i].idle : 0;
+      const tmpIowait = _cpus && _cpus[i] && _cpus[i].iowait ? _cpus[i].iowait : 0;
       const tmpIrq = _cpus && _cpus[i] && _cpus[i].irq ? _cpus[i].irq : 0;
       const tmpSteal = _cpus && _cpus[i] && _cpus[i].steal ? _cpus[i].steal : 0;
       const tmpGuest = _cpus && _cpus[i] && _cpus[i].guest ? _cpus[i].guest : 0;
@@ -134,6 +144,7 @@ export const currentLoad = async () => {
       _cpus[i].loadSystem = _cpus[i].sys - tmpSystem;
       _cpus[i].loadNice = _cpus[i].nice - tmpNice;
       _cpus[i].loadIdle = _cpus[i].idle - tmpIdle;
+      _cpus[i].loadIowait = (_cpus[i].iowait || 0) - tmpIowait;
       _cpus[i].loadIrq = _cpus[i].irq - tmpIrq;
       _cpus[i].loadSteal = _cpus[i].steal - tmpSteal;
       _cpus[i].loadGuest = _cpus[i].guest - tmpGuest;
@@ -144,6 +155,7 @@ export const currentLoad = async () => {
       cores[i].loadSystem = (_cpus[i].loadSystem / coreTick) * 100;
       cores[i].loadNice = (_cpus[i].loadNice / coreTick) * 100;
       cores[i].loadIdle = (_cpus[i].loadIdle / coreTick) * 100;
+      cores[i].loadIowait = (_cpus[i].loadIowait / coreTick) * 100;
       cores[i].loadIrq = (_cpus[i].loadIrq / coreTick) * 100;
       cores[i].loadSteal = (_cpus[i].loadSteal / coreTick) * 100;
       cores[i].loadGuest = (_cpus[i].loadGuest / coreTick) * 100;
@@ -152,11 +164,13 @@ export const currentLoad = async () => {
       cores[i].rawLoadSystem = _cpus[i].loadSystem;
       cores[i].rawLoadNice = _cpus[i].loadNice;
       cores[i].rawLoadIdle = _cpus[i].loadIdle;
+      cores[i].rawLoadIowait = _cpus[i].loadIowait;
       cores[i].rawLoadIrq = _cpus[i].loadIrq;
       cores[i].rawLoadSteal = _cpus[i].loadSteal;
       cores[i].rawLoadGuest = _cpus[i].loadGuest;
     }
-    const totalTick = totalUser + totalSystem + totalNice + totalIrq + totalSteal + totalGuest + totalIdle;
+    // iowait belongs into the denominator but is not load - the cpu is waiting, not busy
+    const totalTick = totalUser + totalSystem + totalNice + totalIrq + totalSteal + totalGuest + totalIdle + totalIowait;
     const totalLoad = totalUser + totalSystem + totalNice + totalIrq + totalSteal + totalGuest;
     const currentTick = totalTick - _current_cpu.tick || 1;
     result = {
@@ -166,6 +180,7 @@ export const currentLoad = async () => {
       currentLoadSystem: ((totalSystem - _current_cpu.system) / currentTick) * 100,
       currentLoadNice: ((totalNice - _current_cpu.nice) / currentTick) * 100,
       currentLoadIdle: ((totalIdle - _current_cpu.idle) / currentTick) * 100,
+      currentLoadIowait: ((totalIowait - _current_cpu.iowait) / currentTick) * 100,
       currentLoadIrq: ((totalIrq - _current_cpu.irq) / currentTick) * 100,
       currentLoadSteal: ((totalSteal - _current_cpu.steal) / currentTick) * 100,
       currentLoadGuest: ((totalGuest - _current_cpu.guest) / currentTick) * 100,
@@ -174,6 +189,7 @@ export const currentLoad = async () => {
       rawCurrentLoadSystem: totalSystem - _current_cpu.system,
       rawCurrentLoadNice: totalNice - _current_cpu.nice,
       rawCurrentLoadIdle: totalIdle - _current_cpu.idle,
+      rawCurrentLoadIowait: totalIowait - _current_cpu.iowait,
       rawCurrentLoadIrq: totalIrq - _current_cpu.irq,
       rawCurrentLoadSteal: totalSteal - _current_cpu.steal,
       rawCurrentLoadGuest: totalGuest - _current_cpu.guest,
@@ -184,6 +200,7 @@ export const currentLoad = async () => {
       nice: totalNice,
       system: totalSystem,
       idle: totalIdle,
+      iowait: totalIowait,
       irq: totalIrq,
       steal: totalSteal,
       guest: totalGuest,
@@ -195,6 +212,7 @@ export const currentLoad = async () => {
       currentLoadSystem: result.currentLoadSystem,
       currentLoadNice: result.currentLoadNice,
       currentLoadIdle: result.currentLoadIdle,
+      currentLoadIowait: result.currentLoadIowait,
       currentLoadIrq: result.currentLoadIrq,
       currentLoadSteal: result.currentLoadSteal,
       currentLoadGuest: result.currentLoadGuest,
@@ -203,6 +221,7 @@ export const currentLoad = async () => {
       rawCurrentLoadSystem: result.rawCurrentLoadSystem,
       rawCurrentLoadNice: result.rawCurrentLoadNice,
       rawCurrentLoadIdle: result.rawCurrentLoadIdle,
+      rawCurrentLoadIowait: result.rawCurrentLoadIowait,
       rawCurrentLoadIrq: result.rawCurrentLoadIrq,
       rawCurrentLoadSteal: result.rawCurrentLoadSteal,
       rawCurrentLoadGuest: result.rawCurrentLoadGuest
@@ -217,6 +236,7 @@ export const currentLoad = async () => {
       cores[i].loadSystem = (_cpus[i].loadSystem / coreTick) * 100;
       cores[i].loadNice = (_cpus[i].loadNice / coreTick) * 100;
       cores[i].loadIdle = (_cpus[i].loadIdle / coreTick) * 100;
+      cores[i].loadIowait = (_cpus[i].loadIowait / coreTick) * 100;
       cores[i].loadIrq = (_cpus[i].loadIrq / coreTick) * 100;
       cores[i].loadSteal = (_cpus[i].loadSteal / coreTick) * 100;
       cores[i].loadGuest = (_cpus[i].loadGuest / coreTick) * 100;
@@ -225,6 +245,7 @@ export const currentLoad = async () => {
       cores[i].rawLoadSystem = _cpus[i].loadSystem;
       cores[i].rawLoadNice = _cpus[i].loadNice;
       cores[i].rawLoadIdle = _cpus[i].loadIdle;
+      cores[i].rawLoadIowait = _cpus[i].loadIowait;
       cores[i].rawLoadIrq = _cpus[i].loadIrq;
       cores[i].rawLoadSteal = _cpus[i].loadSteal;
       cores[i].rawLoadGuest = _cpus[i].loadGuest;
@@ -236,6 +257,7 @@ export const currentLoad = async () => {
       currentLoadSystem: _current_cpu.currentLoadSystem,
       currentLoadNice: _current_cpu.currentLoadNice,
       currentLoadIdle: _current_cpu.currentLoadIdle,
+      currentLoadIowait: _current_cpu.currentLoadIowait,
       currentLoadIrq: _current_cpu.currentLoadIrq,
       currentLoadSteal: _current_cpu.currentLoadSteal,
       currentLoadGuest: _current_cpu.currentLoadGuest,
@@ -244,6 +266,7 @@ export const currentLoad = async () => {
       rawCurrentLoadSystem: _current_cpu.rawCurrentLoadSystem,
       rawCurrentLoadNice: _current_cpu.rawCurrentLoadNice,
       rawCurrentLoadIdle: _current_cpu.rawCurrentLoadIdle,
+      rawCurrentLoadIowait: _current_cpu.rawCurrentLoadIowait,
       rawCurrentLoadIrq: _current_cpu.rawCurrentLoadIrq,
       rawCurrentLoadSteal: _current_cpu.rawCurrentLoadSteal,
       rawCurrentLoadGuest: _current_cpu.rawCurrentLoadGuest,

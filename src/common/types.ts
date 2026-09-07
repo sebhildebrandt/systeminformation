@@ -369,6 +369,7 @@ export type CurrentLoadData = {
   currentLoadSystem: number;
   currentLoadNice: number;
   currentLoadIdle: number;
+  currentLoadIowait: number;
   currentLoadIrq: number;
   currentLoadSteal: number;
   currentLoadGuest: number;
@@ -377,6 +378,7 @@ export type CurrentLoadData = {
   rawCurrentLoadSystem: number;
   rawCurrentLoadNice: number;
   rawCurrentLoadIdle: number;
+  rawCurrentLoadIowait: number;
   rawCurrentLoadIrq: number;
   rawCurrentLoadSteal: number;
   rawCurrentLoadGuest: number;
@@ -389,12 +391,14 @@ export type CurrentLoadCpuData = {
   loadSystem: number;
   loadNice: number;
   loadIdle: number;
+  loadIowait: number;
   loadIrq: number;
   rawLoad: number;
   rawLoadUser: number;
   rawLoadSystem: number;
   rawLoadNice: number;
   rawLoadIdle: number;
+  rawLoadIowait: number;
   rawLoadIrq: number;
 };
 
@@ -693,9 +697,9 @@ export type DisksIoData = {
   rIO_sec: number | null;
   wIO_sec: number | null;
   tIO_sec: number | null;
-  rWaitTime: number;
-  wWaitTime: number;
-  tWaitTime: number;
+  rWaitTime: number | null;
+  wWaitTime: number | null;
+  tWaitTime: number | null;
   rWaitPercent: number | null;
   wWaitPercent: number | null;
   tWaitPercent: number | null;
