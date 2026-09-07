@@ -58,6 +58,12 @@ export const sanitizeShellString = (str: string, strict?: any) => {
   return result;
 };
 
+// a path segment must stay inside its directory: `/` leaves it and path.join() resolves
+// dot-only names one level up. Everything else is a legal file name - narrowing the charset
+// further only drops real devices (udev encodes `+`, `#` and `=` verbatim in /dev/serial/by-id)
+export const isSafePathSegment = (segment: string) =>
+  !!segment && segment.indexOf('/') === -1 && segment.indexOf('\0') === -1 && segment !== '.' && segment !== '..';
+
 export const sanitizeContainerID = (str: string) => {
   const s = String(str || '')
     .substring(0, 2000)

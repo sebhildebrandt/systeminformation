@@ -3,10 +3,12 @@ import { getCodepage } from '../common/codepage';
 import { ANDROID, execOptsLinux } from '../common/const';
 import { initOsInfo } from '../common/defaults';
 import { exec, execSave } from '../common/exec';
-import { fileExists } from '../common/files';
+import { readdir } from 'node:fs/promises';
+import { fileExists, readFileLines, readFileMax } from '../common/files';
 import { getLogoFile } from '../common/mappings';
 import type { OsData } from '../common/types';
 import { uuid } from './uuid';
+import { isSafePathSegment } from '../common/security';
 
 const getInstallDate = async (): Promise<Date | null> => {
   // preferred: root filesystem birth time (ext4/xfs/btrfs on statx-capable kernels)
@@ -20,8 +22,8 @@ const getInstallDate = async (): Promise<Date | null> => {
 
   // fallback: ext filesystem creation date via tune2fs (needs root, ext only)
   try {
-    const { stdout: dfOut } = await exec('df -P / 2>/dev/null', execOptsLinux);
-    const dev = (dfOut.toString().split('\n')[1] || '').split(/\s+/)[0] || '';
+    const rootMount = (await readFileLines('/proc/mounts')).find((line) => line.split(' ')[1] === '/') || '';
+    const dev = rootMount.split(' ')[0] || '';
     if (/^\/dev\/[\w./-]+$/.test(dev)) {
       const { stdout } = await exec(`tune2fs -l ${dev} 2>/dev/null`, execOptsLinux);
       const line = stdout
@@ -113,8 +115,23 @@ export const osInfo = async () => {
   await nextTick();
   const defaults = cloneObj(await initOsInfo());
   try {
-    const { stdout } = await execSave('cat /etc/*-release 2>/dev/null; cat /usr/lib/os-release 2>/dev/null; cat /etc/openwrt_release 2>/dev/null');
-    return await parseOsInfo(stdout, defaults);
+    // shell glob order: /etc/*-release sorted, then the two fixed files
+    const releaseFiles = (await readdir('/etc').catch(() => [])).filter((file) => file.endsWith('-release') && isSafePathSegment(file)).sort();
+    const files = [...releaseFiles.map((file) => `/etc/${file}`), '/usr/lib/os-release', '/etc/openwrt_release'];
+    // one shared budget - the replaced exec() capped the whole concatenation at 1 MB
+    let budget = 1024 * 1024;
+    const parts: string[] = [];
+    for (const file of files) {
+      if (budget <= 0) {
+        break;
+      }
+      const content = await readFileMax(file, budget);
+      if (content) {
+        parts.push(content);
+        budget -= content.length;
+      }
+    }
+    return await parseOsInfo(parts.join('\n') + '\n', defaults);
   } catch {}
   return defaults;
 };

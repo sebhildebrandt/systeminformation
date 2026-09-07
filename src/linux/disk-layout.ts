@@ -1,9 +1,10 @@
 import { nextTick } from '../common';
 import { execOptsLinux } from '../common/const';
 import { exec } from '../common/exec';
+import { readSysfs } from '../common/files';
 import { blkStdoutToObject, parseLinuxBlk } from '../common/filesys';
 import { diskVendorFromModel } from '../common/mappings';
-import { sanitizeShellString } from '../common/security';
+import { isSafePathSegment, sanitizeShellString } from '../common/security';
 import { DiskLayoutData } from '../common/types';
 
 const virtualBlockDevice = /^(ram|zram|loop|dm-|nbd|fd)\d*$/;
@@ -55,10 +56,7 @@ export const diskLayout = async (): Promise<DiskLayoutData[]> => {
       let mediumType = '';
       const logical = sanitizeShellString(device.name || '', true);
       const bsdName = '/dev/' + logical;
-      try {
-        ({ stdout } = await exec('cat /sys/block/' + logical + '/queue/rotational 2>/dev/null', execOptsLinux));
-        mediumType = stdout.split('\n')[0];
-      } catch {}
+      mediumType = isSafePathSegment(logical) ? await readSysfs(`/sys/block/${logical}/queue/rotational`) : '';
       let interfaceType = device.tran ? device.tran.toUpperCase().trim() : '';
       if (interfaceType === 'NVME') {
         mediumType = '2';

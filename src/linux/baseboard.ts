@@ -3,38 +3,29 @@ import { totalmem } from 'node:os';
 import { cloneObj, getValue, nextTick, toInt } from '../common';
 import { execOptsLinux } from '../common/const';
 import { initBaseboard } from '../common/defaults';
-import { exec } from '../common/exec';
+import { execSave } from '../common/exec';
+import { DMI_PATH, readFileLines, readSysfsMany } from '../common/files';
 import { cleanDefaults } from '../common/parse';
 import { decodePiCpuinfo } from '../common/raspberry';
 
 export const baseboard = async () => {
   await nextTick();
   const defaults = cloneObj(initBaseboard);
-  let cmd = '';
-  if (process.arch === 'arm') {
-    cmd = 'cat /proc/cpuinfo | grep Serial';
-  } else {
-    cmd = 'export LC_ALL=C; dmidecode -t 2 2>/dev/null; unset LC_ALL';
-  }
-  const workload = [];
-  workload.push(exec(cmd, execOptsLinux));
-  workload.push(exec('export LC_ALL=C; dmidecode -t memory 2>/dev/null', execOptsLinux));
-  const data = await Promise.allSettled(workload).then((results) => results.map((result) => (result.status === 'fulfilled' ? result.value : null)));
-  let lines = data[0] ? data[0].stdout.split('\n') : [''];
+  const boardTask =
+    process.arch === 'arm'
+      ? readFileLines('/proc/cpuinfo').then((cpuinfo) => cpuinfo.filter((line) => line.indexOf('Serial') >= 0))
+      : execSave('export LC_ALL=C; dmidecode -t 2 2>/dev/null; unset LC_ALL', execOptsLinux).then((res) => res.stdout.split('\n'));
+  const memTask = execSave('export LC_ALL=C; dmidecode -t memory 2>/dev/null', execOptsLinux).then((res) => res.stdout.split('\n'));
+  const [boardLines, memLines] = await Promise.all([boardTask, memTask]);
+  let lines = boardLines;
   let manufacturer = getValue(lines, 'Manufacturer');
   let model = getValue(lines, 'Product Name');
   let version = getValue(lines, 'Version');
   let serial = getValue(lines, 'Serial Number');
   let assetTag = getValue(lines, 'Asset Tag');
   // Non-Root values
-  cmd = `echo -n "board_asset_tag: "; cat /sys/devices/virtual/dmi/id/board_asset_tag 2>/dev/null; echo;
-            echo -n "board_name: "; cat /sys/devices/virtual/dmi/id/board_name 2>/dev/null; echo;
-            echo -n "board_serial: "; cat /sys/devices/virtual/dmi/id/board_serial 2>/dev/null; echo;
-            echo -n "board_vendor: "; cat /sys/devices/virtual/dmi/id/board_vendor 2>/dev/null; echo;
-            echo -n "board_version: "; cat /sys/devices/virtual/dmi/id/board_version 2>/dev/null; echo;`;
   try {
-    const { stdout } = await exec(cmd, execOptsLinux);
-    lines = stdout.split('\n');
+    lines = await readSysfsMany(DMI_PATH, ['board_asset_tag', 'board_name', 'board_serial', 'board_vendor', 'board_version']);
     manufacturer = !manufacturer ? getValue(lines, 'board_vendor') : manufacturer;
     model = !model ? getValue(lines, 'board_name') : model;
     version = !version ? getValue(lines, 'board_version') : version;
@@ -48,7 +39,7 @@ export const baseboard = async () => {
   manufacturer = cleanDefaults(manufacturer);
 
   // mem
-  lines = data[1] ? data[1].stdout.split('\n') : [''];
+  lines = memLines;
   let memMax = toInt(getValue(lines, 'Maximum Capacity')) * 1024 * 1024 * 1024 || null;
   let memSlots = toInt(getValue(lines, 'Number Of Devices')) || null;
 

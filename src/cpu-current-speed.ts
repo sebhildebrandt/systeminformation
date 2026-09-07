@@ -1,8 +1,8 @@
 import { cpus } from 'node:os';
 import { nextTick } from './common';
-import { execOptsLinux, LINUX } from './common/const';
+import { LINUX } from './common/const';
 import { getCpuSpeed } from './common/cpu';
-import { exec } from './common/exec';
+import { readFileLines } from './common/files';
 import type { CpuCurrentSpeedObject } from './common/types';
 
 export const getCpuCurrentSpeed = async (): Promise<CpuCurrentSpeedObject> => {
@@ -19,8 +19,10 @@ export const getCpuCurrentSpeed = async (): Promise<CpuCurrentSpeedObject> => {
     }
   } else if (LINUX) {
     try {
-      const { stdout } = await exec('cat /proc/cpuinfo | grep "cpu MHz" | cut -d " " -f 3', execOptsLinux);
-      const speedStrings = stdout.split('\n').filter((line) => line.length > 0);
+      const speedStrings = (await readFileLines('/proc/cpuinfo'))
+        .filter((line) => line.toLowerCase().startsWith('cpu mhz'))
+        .map((line) => (line.split(':')[1] || '').trim())
+        .filter((line) => line.length > 0);
       for (const i in speedStrings) {
         speeds.push(Math.floor(parseInt(speedStrings[i], 10) / 10) / 100);
       }

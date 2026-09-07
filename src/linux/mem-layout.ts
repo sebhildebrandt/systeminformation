@@ -2,6 +2,7 @@ import { totalmem } from 'node:os';
 import { getValue, nextTick, toInt } from '../common';
 import { execOptsLinux } from '../common/const';
 import { exec } from '../common/exec';
+import { readFileLines } from '../common/files';
 import { getMemManufacturer, raspberryClockSpeed } from '../common/mappings';
 import { isRaspberry } from '../common/raspberry';
 import type { MemLayoutData } from '../common/types';
@@ -82,8 +83,7 @@ export const memLayout = async () => {
       });
 
       // Try Raspberry PI
-      ({ stdout } = await exec('cat /proc/cpuinfo 2>/dev/null', execOptsLinux));
-      let lines = stdout.split('\n');
+      let lines = await readFileLines('/proc/cpuinfo');
       const version = getValue(lines, 'revision', ':', true).toLowerCase();
 
       if (await isRaspberry(lines)) {

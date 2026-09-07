@@ -1,4 +1,5 @@
-import { execSave } from './../common/exec';
+import { execSave } from '../common/exec';
+import { readFileMax } from '../common/files';
 import { getValue, nextTick } from '../common';
 import { LINUX } from '../common/const';
 import { PrinterData } from '../common/types';
@@ -50,9 +51,8 @@ const parseLinuxLpstatPrinter = (lines: string[], id: number): PrinterData => {
 export const printer = async () => {
   await nextTick();
   const result: PrinterData[] = [];
-  let { stdout } = await execSave('cat /etc/cups/printers.conf 2>/dev/null');
   // printers.conf
-  const parts = stdout.toString().split('<Printer ');
+  const parts = (await readFileMax('/etc/cups/printers.conf')).split('<Printer ');
   const printerHeader = parseLinuxCupsHeader(parts[0].split('\n'));
   for (let i = 1; i < parts.length; i++) {
     const printers = parseLinuxCupsPrinter(parts[i].split('\n'));
@@ -65,7 +65,7 @@ export const printer = async () => {
   if (result.length === 0) {
     if (LINUX) {
       // lpstat
-      ({ stdout } = await execSave('export LC_ALL=C; lpstat -lp 2>/dev/null; unset LC_ALL'));
+      const { stdout } = await execSave('export LC_ALL=C; lpstat -lp 2>/dev/null; unset LC_ALL');
       const parts = ('\n' + stdout.toString()).split('\nprinter ');
       for (let i = 1; i < parts.length; i++) {
         const printers = parseLinuxLpstatPrinter(parts[i].split('\n'), i);

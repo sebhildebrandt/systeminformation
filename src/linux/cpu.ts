@@ -5,6 +5,7 @@ import { execOptsLinux } from '../common/const';
 import { setCpuSpeed } from '../common/cpu';
 import { initCpuCacheResult, initCpuResult } from '../common/defaults';
 import { exec } from '../common/exec';
+import { readSysfs } from '../common/files';
 import { cpuBrandManufacturer, cpuManufacturer, getAMDSpeed } from '../common/mappings';
 import { kFactor } from '../common/parse';
 import { isRaspberry } from './../common/raspberry';
@@ -24,8 +25,9 @@ export const cpu = async () => {
   if (cpus()[0] && cpus()[0].model) {
     modelline = cpus()[0].model;
   }
-  let { stdout } = await exec('export LC_ALL=C; lscpu; echo -n "Governor: "; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 2>/dev/null; echo; unset LC_ALL', execOptsLinux);
+  let { stdout } = await exec('export LC_ALL=C; lscpu; unset LC_ALL', execOptsLinux);
   let lines = stdout.toString().split('\n');
+  lines.push(`Governor: ${await readSysfs('/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor')}`);
   modelline = getValue(lines, 'model name') || modelline;
   modelline = getValue(lines, 'bios model name') || modelline;
   modelline = cleanString(modelline);

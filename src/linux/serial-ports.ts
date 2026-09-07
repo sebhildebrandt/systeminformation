@@ -4,6 +4,7 @@ import { cloneObj, nextTick } from '../common';
 import { initSerialPortResult } from '../common/defaults';
 import { fileExists, readSysfs } from '../common/files';
 import type { SerialPortData, SerialPortType } from '../common/types';
+import { isSafePathSegment } from '../common/security';
 
 const busType = (subsystem: string, name: string): SerialPortType => {
   switch (subsystem) {
@@ -45,7 +46,7 @@ const usbDevicePath = async (devicePath: string) => {
 const stableIds = async (path: string) => {
   const map: Record<string, string> = {};
   try {
-    for (const entry of await readdir(path)) {
+    for (const entry of (await readdir(path)).filter(isSafePathSegment)) {
       try {
         map[basename(await readlink(`${path}/${entry}`))] = entry;
       } catch {}
@@ -59,7 +60,7 @@ export const serialPorts = async (sysPath = '/sys/class/tty', byIdPath = '/dev/s
   const result: SerialPortData[] = [];
   let names: string[] = [];
   try {
-    names = await readdir(sysPath);
+    names = (await readdir(sysPath)).filter(isSafePathSegment);
   } catch {
     return result;
   }

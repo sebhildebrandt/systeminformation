@@ -1,7 +1,7 @@
 import { fileExists, readSysfs } from '../common/files';
 import { NetworkStatsData } from '../common/types';
 import { nextTick, toInt } from '../common';
-import { sanitizeInterfacesString } from '../common/security';
+import { isSafePathSegment, sanitizeInterfacesString } from '../common/security';
 import { initNetworkSpeed } from '../common/defaults';
 import { networkInterfaceDefault, networkInterfaces } from './index';
 import { calcNetworkSpeed } from '../common/network';
@@ -14,7 +14,7 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
   const defaults = { ...initNetworkSpeed, iface };
   if (!_network[iface] || (_network[iface] && !_network[iface].ms) || (_network[iface] && _network[iface].ms && Date.now() - _network[iface].ms >= 500)) {
     const dir = '/sys/class/net/' + iface;
-    if (/^[\w.:@-]+$/.test(iface) && (await fileExists(dir))) {
+    if (isSafePathSegment(iface) && (await fileExists(dir))) {
       const [operstate, rx_bytes, tx_bytes, rx_dropped, rx_errors, tx_dropped, tx_errors] = await Promise.all([
         readSysfs(dir + '/operstate'),
         ...['rx_bytes', 'tx_bytes', 'rx_dropped', 'rx_errors', 'tx_dropped', 'tx_errors'].map(async (f) => toInt(await readSysfs(dir + '/statistics/' + f)))

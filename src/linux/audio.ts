@@ -1,9 +1,12 @@
 import { EOL } from 'node:os';
 import { getValue, nextTick } from '../common';
 import { execOptsLinux } from '../common/const';
+import { readdir } from 'node:fs/promises';
 import { exec } from '../common/exec';
+import { readSysfs } from '../common/files';
 import { audioTypeLabel } from '../common/mappings';
 import type { AudioData, AudioPCI } from '../common/types';
+import { isSafePathSegment } from '../common/security';
 
 const getAudioPci = async () => {
   const result: any = [];
@@ -92,8 +95,14 @@ const parseAudioAlsa = (stdout: string): AudioData[] => {
 
 const getAudioAlsa = async (): Promise<AudioData[]> => {
   try {
-    const { stdout } = await exec('cat /proc/asound/cards 2>/dev/null; echo "--pcm--"; ls -d /proc/asound/card*/pcm* 2>/dev/null', execOptsLinux);
-    return parseAudioAlsa(stdout.toString());
+    const cards = await readSysfs('/proc/asound/cards');
+    const pcms: string[] = [];
+    for (const card of (await readdir('/proc/asound')).filter((entry) => /^card\d+$/.test(entry)).sort()) {
+      for (const pcm of (await readdir(`/proc/asound/${card}`)).filter((entry) => entry.startsWith('pcm') && isSafePathSegment(entry)).sort()) {
+        pcms.push(`/proc/asound/${card}/${pcm}`);
+      }
+    }
+    return parseAudioAlsa(`${cards}\n--pcm--\n${pcms.join('\n')}\n`);
   } catch {
     return [];
   }

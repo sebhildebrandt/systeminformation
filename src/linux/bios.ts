@@ -2,20 +2,17 @@ import { BiosData } from './../common/types';
 import { cloneObj, getValue, nextTick } from '../common';
 import { initBios } from '../common/defaults';
 import { parseDateTime } from '../common/datetime';
-import { exec } from '../common/exec';
+import { execSave } from '../common/exec';
+import { DMI_PATH, readFileLines, readSysfsMany } from '../common/files';
 import { execOptsLinux } from '../common/const';
 
 export const bios = async () => {
   await nextTick();
   const result: BiosData = cloneObj(initBios);
-  let cmd = '';
-  if (process.arch === 'arm') {
-    cmd = 'cat /proc/cpuinfo | grep Serial';
-  } else {
-    cmd = 'export LC_ALL=C; dmidecode -t bios 2>/dev/null; unset LC_ALL';
-  }
-  const { stdout } = await exec(cmd, execOptsLinux);
-  let lines = stdout.toString().split('\n');
+  let lines =
+    process.arch === 'arm'
+      ? (await readFileLines('/proc/cpuinfo')).filter((line) => line.indexOf('Serial') >= 0)
+      : (await execSave('export LC_ALL=C; dmidecode -t bios 2>/dev/null; unset LC_ALL', execOptsLinux)).stdout.split('\n');
   result.vendor = getValue(lines, 'Vendor');
   result.version = getValue(lines, 'Version');
   let datetime = getValue(lines, 'Release Date');
@@ -26,7 +23,7 @@ export const bios = async () => {
   if (language) {
     result.language = language;
   }
-  if (lines.length && stdout.toString().indexOf('Characteristics:') >= 0) {
+  if (lines.some((line: string) => line.indexOf('Characteristics:') >= 0)) {
     const features: string[] = [];
     lines.forEach((line: string) => {
       if (line.indexOf(' is supported') >= 0) {
@@ -37,12 +34,8 @@ export const bios = async () => {
     result.features = features;
   }
   // Non-Root values
-  cmd = `echo -n "bios_date: "; cat /sys/devices/virtual/dmi/id/bios_date 2>/dev/null; echo;
-            echo -n "bios_vendor: "; cat /sys/devices/virtual/dmi/id/bios_vendor 2>/dev/null; echo;
-            echo -n "bios_version: "; cat /sys/devices/virtual/dmi/id/bios_version 2>/dev/null; echo;`;
   try {
-    const { stdout } = await exec(cmd, execOptsLinux);
-    lines = stdout.split('\n');
+    lines = await readSysfsMany(DMI_PATH, ['bios_date', 'bios_vendor', 'bios_version']);
     result.vendor = !result.vendor ? getValue(lines, 'bios_vendor') : result.vendor;
     result.version = !result.version ? getValue(lines, 'bios_version') : result.version;
     datetime = getValue(lines, 'bios_date');

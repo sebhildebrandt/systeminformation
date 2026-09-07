@@ -3,8 +3,8 @@ import { release } from 'node:os';
 import { cloneObj, getValue, nextTick } from '../common';
 import { execOptsLinux, FREEBSD, NETBSD, OPENBSD } from '../common/const';
 import { initSystem } from '../common/defaults';
-import { exec, execSave } from '../common/exec';
-import { fileExists } from '../common/files';
+import { exec } from '../common/exec';
+import { DMI_PATH, fileExists, readSysfsMany } from '../common/files';
 import { cleanDefaults } from '../common/parse';
 import { decodePiCpuinfo, isRaspberry } from '../common/raspberry';
 
@@ -22,14 +22,8 @@ export const system = async () => {
   result.sku = getValue(lines, 'sku number');
 
   // Non-Root values
-  const cmd = `echo -n "product_name: "; cat /sys/devices/virtual/dmi/id/product_name 2>/dev/null; echo;
-            echo -n "product_serial: "; cat /sys/devices/virtual/dmi/id/product_serial 2>/dev/null; echo;
-            echo -n "product_uuid: "; cat /sys/devices/virtual/dmi/id/product_uuid 2>/dev/null; echo;
-            echo -n "product_version: "; cat /sys/devices/virtual/dmi/id/product_version 2>/dev/null; echo;
-            echo -n "sys_vendor: "; cat /sys/devices/virtual/dmi/id/sys_vendor 2>/dev/null; echo;`;
   try {
-    ({ stdout } = await execSave(cmd));
-    lines = stdout.split('\n');
+    lines = await readSysfsMany(DMI_PATH, ['product_name', 'product_serial', 'product_uuid', 'product_version', 'sys_vendor']);
     result.manufacturer = result.manufacturer === '' ? getValue(lines, 'sys_vendor') : result.manufacturer;
     result.model = result.model === '' ? getValue(lines, 'product_name') : result.model;
     result.version = result.version === '' ? getValue(lines, 'product_version') : result.version;

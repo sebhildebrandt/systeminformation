@@ -1,7 +1,7 @@
 import { readFile } from 'fs/promises';
 import { getValue, nextTick } from '../common';
 import { initUUID } from '../common/defaults';
-import { execSave } from '../common/exec';
+import { DMI_PATH, readSysfs } from '../common/files';
 import { UuidData } from '../common/types';
 import { diskLayout } from './disk-layout';
 
@@ -9,15 +9,9 @@ export const uuid = async () => {
   await nextTick();
   const defaults: UuidData = initUUID;
   try {
-    const cmd = `echo -n "os: "; cat /var/lib/dbus/machine-id 2> /dev/null ||
-cat /etc/machine-id 2> /dev/null; echo;
-echo -n "hardware: "; cat /sys/class/dmi/id/product_uuid 2> /dev/null; echo;
-echo -n "systemuuid: "; cat /sys/devices/virtual/dmi/id/product_uuid 2>/dev/null; echo;`;
-    const { stdout } = await execSave(cmd);
-    const lines = stdout.toString().split('\n');
-    const os = getValue(lines, 'os').toLowerCase();
-    let hardware = getValue(lines, 'hardware').toLowerCase();
-    const systemuuid = getValue(lines, 'systemuuid').toLowerCase();
+    const os = ((await readSysfs('/var/lib/dbus/machine-id')) || (await readSysfs('/etc/machine-id'))).toLowerCase();
+    let hardware = (await readSysfs('/sys/class/dmi/id/product_uuid')).toLowerCase();
+    const systemuuid = (await readSysfs(`${DMI_PATH}/product_uuid`)).toLowerCase();
     if (!hardware) {
       const lines = (await readFile('/proc/cpuinfo')).toString().split('\n');
       const serial = getValue(lines, 'serial');

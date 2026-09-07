@@ -1,10 +1,11 @@
 import { initDiskIo } from '../common/defaults';
 import { cloneObj } from '../common/index';
-import { exec } from '../common/exec';
 import { DisksIoData } from '../common/types';
 import { nextTick, toInt } from '../common';
 import { calcDiskIO, _disk_io } from '../common/filesys';
-import { execOptsLinux } from '../common/const';
+import { readdir } from 'node:fs/promises';
+import { readSysfs } from '../common/files';
+import { isSafePathSegment } from '../common/security';
 
 export const disksIO = async (): Promise<DisksIoData> => {
   await nextTick();
@@ -17,11 +18,9 @@ export const disksIO = async (): Promise<DisksIoData> => {
     let tWaitTime = 0;
 
     try {
-      const cmd =
-        'for mount in `lsblk 2>/dev/null | grep " disk " | sed "s/[│└─├]//g" | awk \'{$1=$1};1\' | cut -d " " -f 1 | sort -u`; do cat /sys/block/$mount/stat | sed -r "s/ +/;/g" | sed -r "s/^;//"; done';
-
-      const { stdout } = await exec(cmd, execOptsLinux);
-      const lines = stdout.split('\n');
+      // /sys/block only lists whole devices - drop the virtual/rom ones lsblk would not report as "disk"
+      const disks = (await readdir('/sys/block')).filter((dev) => !/^(loop|ram|zram|dm-|md|sr|fd|nbd)/.test(dev) && isSafePathSegment(dev));
+      const lines = await Promise.all(disks.map((dev) => readSysfs(`/sys/block/${dev}/stat`)));
       lines.forEach(function (line) {
         // ignore empty lines
         if (!line) {
@@ -29,7 +28,7 @@ export const disksIO = async (): Promise<DisksIoData> => {
         }
 
         // sum r/wIO of all disks to compute all disks IO
-        const stats = line.split(';');
+        const stats = line.trim().split(/\s+/);
         rIO += toInt(stats[0]);
         wIO += toInt(stats[4]);
         rWaitTime += toInt(stats[3]);

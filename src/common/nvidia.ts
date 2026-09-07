@@ -2,6 +2,7 @@ import { readdir, stat } from 'fs/promises';
 import { execOptsWin, LINUX, WINDIR, WINDOWS } from './const';
 import { execFile } from './exec';
 import type { GpuData, GpuNvidiaData } from './types';
+import { isSafePathSegment } from './security';
 
 let _nvidiaSmiPath: string | null = null;
 
@@ -24,7 +25,7 @@ export const getNvidiaSmi = async () => {
       const basePath = String.raw`${WINDIR}\System32\DriverStore\FileRepository`;
       let lastMod = 0;
       for (const dir of await readdir(basePath)) {
-        if (!dir.toLowerCase().startsWith('nv')) {
+        if (!dir.toLowerCase().startsWith('nv') || !isSafePathSegment(dir)) {
           continue;
         }
         const smiPath = [basePath, dir, 'nvidia-smi.exe'].join('\\');

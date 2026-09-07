@@ -4,6 +4,7 @@ import { exec } from '../common/exec';
 import { FsStatsData } from '../common/types';
 import { nextTick, toInt } from '../common';
 import { calcFsSpeed, _fs_speed } from '../common/filesys';
+import { readFileLines } from '../common/files';
 import { sanitizeShellString } from '../common/security';
 import { execOptsLinux } from '../common/const';
 
@@ -16,8 +17,9 @@ export const fsStats = async (): Promise<FsStatsData> => {
     let wx = 0;
 
     try {
-      ({ stdout } = await exec('lsblk -r 2>/dev/null | grep /', execOptsLinux));
-      const lines = stdout.toString().split('\n');
+      ({ stdout } = await exec('lsblk -r 2>/dev/null', execOptsLinux));
+      // only rows with a mountpoint
+      const lines = stdout.toString().split('\n').filter((line: string) => line.indexOf('/') >= 0);
       const fs_filter: any = [];
       lines.forEach((line: string) => {
         if (line !== '') {
@@ -29,15 +31,10 @@ export const fsStats = async (): Promise<FsStatsData> => {
         }
       });
 
-      const output = fs_filter.join('|');
       try {
-        ({ stdout } = await exec('cat /proc/diskstats | egrep "' + output + '"', execOptsLinux));
-        const lines = stdout.toString().split('\n');
-        lines.forEach((line) => {
-          line = line.trim();
-          if (line !== '') {
-            const lineParts = line.replace(/ +/g, ' ').split(' ');
-
+        (await readFileLines('/proc/diskstats')).forEach((line) => {
+          const lineParts = line.trim().split(/\s+/);
+          if (fs_filter.indexOf(lineParts[2]) >= 0) {
             rx += toInt(lineParts[5]) * 512;
             wx += toInt(lineParts[9]) * 512;
           }

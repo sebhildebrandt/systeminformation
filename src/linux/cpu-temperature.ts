@@ -1,40 +1,55 @@
-import { readFile } from 'fs/promises';
+import { readdir, readFile } from 'fs/promises';
 import { execOptsLinux } from '../common/const';
 import { cloneObj, nextTick } from '../common';
 import { initCpuTemperature } from '../common/defaults';
 import { exec } from '../common/exec';
-import { fileExists } from '../common/files';
+import { fileExists, readSysfs } from '../common/files';
+import { isSafePathSegment } from '../common/security';
+
+// replaces the hwmon shell loop: <label>___<temp_input> per labelled sensor
+const readHwmonTemps = async () => {
+  const entries: string[] = [];
+  let mons: string[] = [];
+  try {
+    mons = (await readdir('/sys/class/hwmon')).filter(isSafePathSegment).sort();
+  } catch {}
+  for (const mon of mons) {
+    const dir = `/sys/class/hwmon/${mon}`;
+    let labels: string[] = [];
+    try {
+      labels = (await readdir(dir)).filter((file) => /^temp\d+_label$/.test(file)).sort();
+    } catch {}
+    for (const label of labels) {
+      const [name, value] = await Promise.all([readSysfs(`${dir}/${label}`), readSysfs(`${dir}/${label.replace(/_label$/, '_input')}`)]);
+      entries.push(`${name}___${value}`);
+    }
+  }
+  return entries;
+};
 
 export const cpuTemperature = async () => {
   await nextTick();
   const result = cloneObj(initCpuTemperature);
   let cpuThermal = null;
   try {
-    const cmd = 'cat /sys/class/thermal/thermal_zone*/type  2>/dev/null; echo "-----"; cat /sys/class/thermal/thermal_zone*/temp 2>/dev/null;';
-    const { stdout } = await exec(cmd, execOptsLinux);
-    const parts = stdout.split('-----\n');
-    if (parts.length === 2) {
-      const lines = parts[0].split('\n');
-      const lines2 = parts[1].split('\n');
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (line.startsWith('acpi') && lines2[i]) {
-          result.socket.push(Math.round(Number.parseInt(lines2[i], 10) / 100) / 10);
-        }
-        if (line.startsWith('pch') && lines2[i]) {
-          result.chipset = Math.round(Number.parseInt(lines2[i], 10) / 100) / 10;
-        }
-        // CPU thermal zone (e.g. cpu-thermal on Raspberry Pi)
-        if (cpuThermal === null && line.indexOf('cpu') !== -1 && lines2[i]) {
-          cpuThermal = Math.round(parseInt(lines2[i], 10) / 100) / 10;
-        }
+    const zones = (await readdir('/sys/class/thermal')).filter((zone) => zone.startsWith('thermal_zone') && isSafePathSegment(zone)).sort();
+    for (const zone of zones) {
+      const [line, temp] = await Promise.all([readSysfs(`/sys/class/thermal/${zone}/type`), readSysfs(`/sys/class/thermal/${zone}/temp`)]);
+      if (line.startsWith('acpi') && temp) {
+        result.socket.push(Math.round(Number.parseInt(temp, 10) / 100) / 10);
+      }
+      if (line.startsWith('pch') && temp) {
+        result.chipset = Math.round(Number.parseInt(temp, 10) / 100) / 10;
+      }
+      // CPU thermal zone (e.g. cpu-thermal on Raspberry Pi)
+      if (cpuThermal === null && line.indexOf('cpu') !== -1 && temp) {
+        cpuThermal = Math.round(parseInt(temp, 10) / 100) / 10;
       }
     }
   } catch {}
 
-  const cmd = 'for mon in /sys/class/hwmon/hwmon*; do for label in "$mon"/temp*_label; do if [ -f $label ]; then value=${label%_*}_input; echo $(cat "$label")___$(cat "$value"); fi; done; done;';
   try {
-    let { stdout } = await exec(cmd, execOptsLinux);
+    let stdout = (await readHwmonTemps()).join('\n');
     const tdiePos = stdout.toLowerCase().indexOf('tdie');
     if (tdiePos !== -1) {
       stdout = stdout.substring(tdiePos);

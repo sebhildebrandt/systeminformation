@@ -1,7 +1,7 @@
 import { loadavg, cpus as oscpu } from 'node:os';
 import { nextTick } from './common';
 import { LINUX, WINDOWS } from './common/const';
-import { exec } from './common/exec';
+import { readFileLines } from './common/files';
 import type { CurrentLoadData } from './common/types';
 
 let _current_cpu = {
@@ -86,8 +86,7 @@ export const currentLoad = async () => {
     // linux: try to get other cpu stats
     if (LINUX) {
       try {
-        const { stdout } = await exec('cat /proc/stat 2>/dev/null | grep cpu');
-        const lines = stdout.split('\n');
+        const lines = (await readFileLines('/proc/stat')).filter((line) => line.startsWith('cpu'));
         if (lines.length > 1) {
           lines.shift();
           if (lines.length === cpus.length) {

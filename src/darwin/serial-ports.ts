@@ -3,6 +3,7 @@ import { cloneObj, nextTick } from '../common';
 import { initSerialPortResult } from '../common/defaults';
 import { execSave } from '../common/exec';
 import type { SerialPortData } from '../common/types';
+import { isSafePathSegment } from '../common/security';
 
 const toHex4 = (value: string) => {
   const num = Number.parseInt(value, 10);
@@ -73,7 +74,7 @@ export const serialPorts = async (): Promise<SerialPortData[]> => {
   let devices: string[] = [];
   try {
     // cu.* is the callout device - tty.* is the dial-in side and blocks on DCD
-    devices = (await readdir('/dev')).filter((device) => device.startsWith('cu.'));
+    devices = (await readdir('/dev')).filter((device) => device.startsWith('cu.') && isSafePathSegment(device));
   } catch {
     return result;
   }

@@ -2,6 +2,7 @@ import { readdir } from 'fs/promises';
 import { nextTick } from '../common';
 import { readSysfs } from '../common/files';
 import type { FanData } from '../common/types';
+import { isSafePathSegment } from '../common/security';
 
 const toNumber = (value: string) => {
   const result = Number.parseFloat(value);
@@ -19,7 +20,7 @@ const hwmonFans = async (hwmonPath: string): Promise<FanData[]> => {
   const fans: FanData[] = [];
   let nodes: string[] = [];
   try {
-    nodes = await readdir(hwmonPath);
+    nodes = (await readdir(hwmonPath)).filter(isSafePathSegment);
   } catch {
     return fans;
   }
@@ -59,7 +60,7 @@ const coolingDeviceFans = async (thermalPath: string): Promise<FanData[]> => {
   const fans: FanData[] = [];
   let nodes: string[] = [];
   try {
-    nodes = (await readdir(thermalPath)).filter((entry) => entry.startsWith('cooling_device'));
+    nodes = (await readdir(thermalPath)).filter((entry) => entry.startsWith('cooling_device') && isSafePathSegment(entry));
   } catch {
     return fans;
   }

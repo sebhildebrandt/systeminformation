@@ -6,6 +6,7 @@ import { readSysfs } from '../common/files';
 import { mergeControllerNvidia, nvidiaDevices } from '../common/nvidia';
 import { getRpiGpu, isRaspberry } from '../common/raspberry';
 import { GpuData } from '../common/types';
+import { isSafePathSegment } from '../common/security';
 
 type DrmMetrics = {
   busAddress: string;
@@ -66,7 +67,7 @@ export const drmDevices = async (drmPath = '/sys/class/drm'): Promise<DrmMetrics
     }
     let hwmon: string[] = [];
     try {
-      hwmon = (await readdir(`${devicePath}/hwmon`)).map((node) => `${devicePath}/hwmon/${node}`);
+      hwmon = (await readdir(`${devicePath}/hwmon`)).filter(isSafePathSegment).map((node) => `${devicePath}/hwmon/${node}`);
     } catch {}
     const clockCore = await readSysfsNumber(
       [

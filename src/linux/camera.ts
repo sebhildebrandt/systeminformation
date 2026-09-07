@@ -1,6 +1,7 @@
 import { readdir, readFile, realpath } from 'node:fs/promises';
 import { nextTick } from '../common';
 import { Camera } from '../common/types';
+import { isSafePathSegment } from '../common/security';
 
 const V4L_PATH = '/sys/class/video4linux';
 
@@ -17,7 +18,7 @@ export const camera = async (): Promise<Camera[]> => {
   const result: Camera[] = [];
   const seen = new Set<string>();
   try {
-    const nodes = (await readdir(V4L_PATH)).filter((node) => node.startsWith('video')).sort();
+    const nodes = (await readdir(V4L_PATH)).filter((node) => node.startsWith('video') && isSafePathSegment(node)).sort();
     for (const node of nodes) {
       const base = `${V4L_PATH}/${node}`;
       const name = await readAttr(`${base}/name`);

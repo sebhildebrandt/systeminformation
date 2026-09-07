@@ -1,6 +1,7 @@
 import { getValue, nextTick, toInt } from '../common';
 import { DARWIN, execOptsLinux, LINUX } from '../common/const';
-import { exec, execSave, execSecure } from '../common/exec';
+import { exec, execSecure } from '../common/exec';
+import { readProcStats } from '../common/files';
 import { calcProcStatLinux, parseProcStat } from '../common/parse';
 import { isPrototypePolluted, sanitizeServiceString, stringReplace, stringSplit, stringStartWith, stringSubstr, stringSubstring, stringToLower, stringToString, stringTrim } from '../common/security';
 import { ServicesData } from '../common/types';
@@ -82,18 +83,13 @@ const darwinGetServices = async () => {
 
 const calcServicesCpuLinux = async (result: ServicesData[]) => {
   // calc process_cpu - ps is not accurate in linux!
-  let cmd = 'cat /proc/stat | grep "cpu "';
+  const pids: any[] = [];
   for (const i in result) {
-    for (const j in result[i].pids) {
-      cmd += ';cat /proc/' + result[i].pids[j] + '/stat';
-    }
+    pids.push(...result[i].pids);
   }
-  const { stdout } = await execSave(cmd, execOptsLinux);
-  let curr_processes = stdout.toString().split('\n');
-
-  // first line (all - /proc/stat)
-  const all = parseProcStat(curr_processes[0]);
-  curr_processes = curr_processes.slice(1);
+  const stats = await readProcStats(pids);
+  const all = parseProcStat(stats.all);
+  const curr_processes = stats.procs;
 
   // process
   const list_new: any = {};

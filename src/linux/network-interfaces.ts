@@ -4,10 +4,11 @@ import { basename, dirname, join } from 'node:path';
 import { getValue, grep, nextTick, toInt } from '../common';
 import { execOptsLinux } from '../common/const';
 import { initNetworkInterface } from '../common/defaults';
-import { exec, execFile } from '../common/exec';
+import { exec, execFile, execSecure } from '../common/exec';
+import { readFileLines, readSysfsMany } from '../common/files';
 import { cloneObj } from '../common/index';
 import { testVirtualNic } from '../common/network';
-import { sanitizeString } from '../common/security';
+import { isSafePathSegment, sanitizeString } from '../common/security';
 import type { NetworkInterfacesData } from '../common/types';
 import { networkInterfaceDefault } from './network-interface-default';
 
@@ -55,7 +56,7 @@ const readInterfacesLines = async (file: string): Promise<string[]> => {
   if (file.includes('*') || file.includes('?')) {
     try {
       const rx = new RegExp(`^${basename(file).replace(/\./g, '\\.').replace(/\*/g, '.*').replace(/\?/g, '.')}$`);
-      const names = (await readdir(dirname(file))).filter((n) => rx.test(n)).sort();
+      const names = (await readdir(dirname(file))).filter((n) => rx.test(n) && isSafePathSegment(n)).sort();
       const out: string[] = [];
       for (const n of names) {
         out.push(...(await readInterfacesLines(join(dirname(file), n))));
@@ -278,36 +279,17 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
       const ifaceDevName = dev.split(':')[0].trim();
       const ifaceSanitized = sanitizeString(ifaceDevName, true);
 
-      const cmd = `echo -n "addr_assign_type: "; cat /sys/class/net/${ifaceSanitized}/addr_assign_type 2>/dev/null; echo;
-            echo -n "address: "; cat /sys/class/net/${ifaceSanitized}/address 2>/dev/null; echo;
-            echo -n "addr_len: "; cat /sys/class/net/${ifaceSanitized}/addr_len 2>/dev/null; echo;
-            echo -n "broadcast: "; cat /sys/class/net/${ifaceSanitized}/broadcast 2>/dev/null; echo;
-            echo -n "carrier: "; cat /sys/class/net/${ifaceSanitized}/carrier 2>/dev/null; echo;
-            echo -n "carrier_changes: "; cat /sys/class/net/${ifaceSanitized}/carrier_changes 2>/dev/null; echo;
-            echo -n "dev_id: "; cat /sys/class/net/${ifaceSanitized}/dev_id 2>/dev/null; echo;
-            echo -n "dev_port: "; cat /sys/class/net/${ifaceSanitized}/dev_port 2>/dev/null; echo;
-            echo -n "dormant: "; cat /sys/class/net/${ifaceSanitized}/dormant 2>/dev/null; echo;
-            echo -n "duplex: "; cat /sys/class/net/${ifaceSanitized}/duplex 2>/dev/null; echo;
-            echo -n "flags: "; cat /sys/class/net/${ifaceSanitized}/flags 2>/dev/null; echo;
-            echo -n "gro_flush_timeout: "; cat /sys/class/net/${ifaceSanitized}/gro_flush_timeout 2>/dev/null; echo;
-            echo -n "ifalias: "; cat /sys/class/net/${ifaceSanitized}/ifalias 2>/dev/null; echo;
-            echo -n "ifindex: "; cat /sys/class/net/${ifaceSanitized}/ifindex 2>/dev/null; echo;
-            echo -n "iflink: "; cat /sys/class/net/${ifaceSanitized}/iflink 2>/dev/null; echo;
-            echo -n "link_mode: "; cat /sys/class/net/${ifaceSanitized}/link_mode 2>/dev/null; echo;
-            echo -n "mtu: "; cat /sys/class/net/${ifaceSanitized}/mtu 2>/dev/null; echo;
-            echo -n "netdev_group: "; cat /sys/class/net/${ifaceSanitized}/netdev_group 2>/dev/null; echo;
-            echo -n "operstate: "; cat /sys/class/net/${ifaceSanitized}/operstate 2>/dev/null; echo;
-            echo -n "proto_down: "; cat /sys/class/net/${ifaceSanitized}/proto_down 2>/dev/null; echo;
-            echo -n "speed: "; cat /sys/class/net/${ifaceSanitized}/speed 2>/dev/null; echo;
-            echo -n "tx_queue_len: "; cat /sys/class/net/${ifaceSanitized}/tx_queue_len 2>/dev/null; echo;
-            echo -n "type: "; cat /sys/class/net/${ifaceSanitized}/type 2>/dev/null; echo;
-            echo -n "wireless: "; cat /proc/net/wireless 2>/dev/null | grep ${ifaceSanitized}; echo;
-            echo -n "wirelessspeed: "; iw dev ${ifaceSanitized} link 2>&1 | grep bitrate; echo;`;
-
       let lines: string[] = [];
       try {
-        const { stdout } = await exec(cmd, execOptsLinux);
-        lines = stdout.split('\n');
+        const [sysfsLines, wirelessLines, iwOut] = await Promise.all([
+          isSafePathSegment(ifaceSanitized) ? readSysfsMany(`/sys/class/net/${ifaceSanitized}`, ['address', 'carrier_changes', 'duplex', 'mtu', 'operstate', 'speed', 'type']) : [],
+          readFileLines('/proc/net/wireless'),
+          execSecure('iw', ['dev', ifaceSanitized, 'link'])
+        ]);
+        lines = sysfsLines;
+        lines.push(`wireless: ${wirelessLines.find((line: string) => line.indexOf(ifaceSanitized) >= 0) || ''}`);
+        // keep the raw "tx bitrate: <x> MBit/s" lines - getValue() matches on the line start
+        lines.push(...iwOut.split('\n').filter((line: string) => line.indexOf('bitrate') >= 0).map((line: string) => line.trim()));
         const connectionName = getLinuxIfaceConnectionName(deviceStatus, ifaceSanitized);
         dhcp = await getLinuxIfaceDHCPstatus(ifaceSanitized, connectionName, _dhcpNics);
         dnsSuffix = await getLinuxIfaceDNSsuffix(connectionName);
@@ -315,7 +297,6 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
         ieee8021xState = getLinuxIfaceIEEE8021xState(ieee8021xAuth);
       } catch {}
       duplex = getValue(lines, 'duplex');
-      duplex = duplex.startsWith('cat') ? '' : duplex;
       mtu = toInt(getValue(lines, 'mtu'));
       let myspeed = toInt(getValue(lines, 'speed'));
       speed = Number.isNaN(myspeed) ? null : myspeed;

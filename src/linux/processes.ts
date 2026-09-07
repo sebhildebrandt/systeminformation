@@ -4,8 +4,8 @@ import { nextTick, toInt } from '../common';
 import { ANDROID, DARWIN, execOptsLinux, FREEBSD, LINUX, NETBSD, OPENBSD, SUNOS } from '../common/const';
 import { parseElapsedTime, parseTimeUnix } from '../common/datetime';
 import { initProcesses } from '../common/defaults';
-import { exec, execSave } from '../common/exec';
-import { fileExists } from '../common/files';
+import { exec } from '../common/exec';
+import { fileExists, readProcStats } from '../common/files';
 import { cloneObj } from '../common/index';
 import { calcProcStatLinux, type headerType, parseHead, parseProcStat } from '../common/parse';
 import type { ProcessesData, ProcessesProcessData, ProcStatData } from '../common/types';
@@ -296,17 +296,9 @@ export const processes = async (): Promise<ProcessesData> => {
 
         if (LINUX) {
           // calc process_cpu - ps is not accurate in linux!
-          cmd = 'cat /proc/stat | grep "cpu "';
-          result.list.forEach((element) => {
-            cmd += ';cat /proc/' + element.pid + '/stat';
-          });
-          // dead PIDs let cat exit non-zero - stdout is still valid, so never throw here
-          ({ stdout } = await execSave(cmd, execOptsLinux));
-          let curr_processes = stdout.toString().split('\n');
-
-          // first line (all - /proc/stat)
-          const all = parseProcStat(curr_processes[0]);
-          curr_processes = curr_processes.slice(1);
+          const stats = await readProcStats(result.list.map((element) => element.pid));
+          const all = parseProcStat(stats.all);
+          const curr_processes = stats.procs;
 
           // process
           const list_new: any = {};

@@ -1,9 +1,10 @@
-import { execSave, execSecure } from '../common/exec';
+import { execSecure } from '../common/exec';
 import { ProcessLoadData, ProcStatData, ProcStatsData } from '../common/types';
-import { execOptsLinux, LINUX } from '../common/const';
+import { LINUX } from '../common/const';
 import { nextTick } from '../common';
 import { isPrototypePolluted, sanitizeServiceString } from '../common/security';
 import { calcProcStatLinux, parseProcStat } from '../common/parse';
+import { readProcStats } from '../common/files';
 
 const _process_cpu = {
   all: 0,
@@ -118,18 +119,13 @@ export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
           result.forEach(function (item) {
             item.cpu = 0;
           });
-          let cmd = 'cat /proc/stat | grep "cpu "';
+          const pids: any[] = [];
           for (const i in result) {
-            for (const j in result[i].pids) {
-              cmd += ';cat /proc/' + result[i].pids[j] + '/stat';
-            }
+            pids.push(...result[i].pids);
           }
-          ({ stdout } = await execSave(cmd, execOptsLinux));
-          let curr_processes = stdout.toString().split('\n');
-
-          // first line (all - /proc/stat)
-          const all = parseProcStat(curr_processes[0]);
-          curr_processes = curr_processes.slice(1);
+          const stats = await readProcStats(pids);
+          const all = parseProcStat(stats.all);
+          const curr_processes = stats.procs;
 
           // process
           const list_new: any = {};

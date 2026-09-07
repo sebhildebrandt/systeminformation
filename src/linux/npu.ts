@@ -2,6 +2,7 @@ import { readdir, readFile, readlink, realpath } from 'node:fs/promises';
 import { cloneObj, nextTick } from '../common';
 import { NpuData } from '../common/types';
 import { initNpuData } from '../common/defaults';
+import { isSafePathSegment } from '../common/security';
 
 // modern AI accelerators (Intel VPU, AMD XDNA) expose themselves via the kernel "accel" subsystem
 const ACCEL_PATH = '/sys/class/accel';
@@ -44,7 +45,7 @@ export const npu = async (): Promise<NpuData[]> => {
   const result: NpuData[] = [];
   const seen = new Set<string>();
   try {
-    const nodes = (await readdir(ACCEL_PATH)).filter((node) => node.startsWith('accel')).sort();
+    const nodes = (await readdir(ACCEL_PATH)).filter((node) => node.startsWith('accel') && isSafePathSegment(node)).sort();
     for (const node of nodes) {
       let dev: string;
       try {
