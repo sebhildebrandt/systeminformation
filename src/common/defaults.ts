@@ -290,6 +290,10 @@ export const initDisplay: DisplayData = {
   currentResY: null,
   positionX: 0,
   positionY: 0,
+  workAreaResolutionX: null,
+  workAreaResolutionY: null,
+  workAreaPositionX: null,
+  workAreaPositionY: null,
   currentRefreshRate: null,
   scale: null
 };

@@ -892,6 +892,10 @@ export type DisplayData = {
   currentResY: number | null;
   positionX: number;
   positionY: number;
+  workAreaResolutionX: number | null;
+  workAreaResolutionY: number | null;
+  workAreaPositionX: number | null;
+  workAreaPositionY: number | null;
   currentRefreshRate: number | null;
   scale: number | null;
 };

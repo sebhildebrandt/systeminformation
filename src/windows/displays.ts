@@ -44,6 +44,7 @@ const parseLinesWindowsDisplaysPowershell = (
       const instanceName = monitor ? monitor.instanceName : '';
       const bitsPerPixel = toInt(getValue(linesScreen, 'BitsPerPixel'));
       const bounds = getValue(linesScreen, 'Bounds').replace('{', '').replace('}', '').replace(/=/g, ':').split(',');
+      const workArea = getValue(linesScreen, 'WorkingArea').replace('{', '').replace('}', '').replace(/=/g, ':').split(',');
       const primary = getValue(linesScreen, 'Primary');
       const sizeX = monitor ? monitor.sizeX : '';
       const sizeY = monitor ? monitor.sizeY : '';
@@ -58,6 +59,12 @@ const parseLinesWindowsDisplaysPowershell = (
       const boundsY = toInt(getValue(bounds, 'Y', ':'));
       const resX = mode ? mode.width : boundsWidth;
       const resY = mode ? mode.height : boundsHeight;
+      const posX = mode ? mode.positionX : boundsX;
+      const posY = mode ? mode.positionY : boundsY;
+      // WorkingArea (screen minus task bar and app bars, PR #772) is DPI scaled like Bounds - convert to physical pixels
+      const dpiScale = mode && boundsWidth ? mode.width / boundsWidth : 1;
+      const workAreaWidth = getValue(workArea, 'Width', ':');
+      const workAreaHeight = getValue(workArea, 'Height', ':');
       // WmiMonitorID data matches per InstanceName - prefer it over the locale-dependent Win32_DesktopMonitor values
       const isection = instanceName ? isections.find((element: any) => element.instanceId.toLowerCase().startsWith(instanceName)) : undefined;
       const dsection = instanceName ? desktopMonitors.find((element: any) => element.deviceId && instanceName.startsWith(element.deviceId)) : undefined;
@@ -81,8 +88,12 @@ const parseLinesWindowsDisplaysPowershell = (
         pixelDepth: bitsPerPixel,
         currentResX: resX,
         currentResY: resY,
-        positionX: mode ? mode.positionX : boundsX,
-        positionY: mode ? mode.positionY : boundsY,
+        positionX: posX,
+        positionY: posY,
+        workAreaResolutionX: workAreaWidth ? Math.round(toInt(workAreaWidth) * dpiScale) : null,
+        workAreaResolutionY: workAreaHeight ? Math.round(toInt(workAreaHeight) * dpiScale) : null,
+        workAreaPositionX: workAreaWidth ? Math.round(posX + (toInt(getValue(workArea, 'X', ':')) - boundsX) * dpiScale) : null,
+        workAreaPositionY: workAreaHeight ? Math.round(posY + (toInt(getValue(workArea, 'Y', ':')) - boundsY) * dpiScale) : null,
         currentRefreshRate: (mode && mode.refreshRate) || null,
         scale: mode && boundsWidth ? Math.round((mode.width / boundsWidth) * 100) / 100 : null
       });
@@ -111,6 +122,10 @@ const parseLinesWindowsDisplaysPowershell = (
       currentResY: first ? first.resolutionY : 0,
       positionX: 0,
       positionY: 0,
+      workAreaResolutionX: null,
+      workAreaResolutionY: null,
+      workAreaPositionX: null,
+      workAreaPositionY: null,
       currentRefreshRate: null,
       scale: null
     });
