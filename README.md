@@ -400,10 +400,10 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 |               | [0].currentResY        | X     |     | X   | X   |     | current pixel vertical            |
 |               | [0].positionX          | X     |     | X   | X   |     | display position X                |
 |               | [0].positionY          | X     |     | X   | X   |     | display position Y                |
-|               | [0].workAreaResolutionX |      |     |     | X   |     | working area (screen minus task bar) resolution X |
-|               | [0].workAreaResolutionY |      |     |     | X   |     | working area resolution Y         |
-|               | [0].workAreaPositionX  |       |     |     | X   |     | working area position X           |
-|               | [0].workAreaPositionY  |       |     |     | X   |     | working area position Y           |
+|               | [0].workAreaResolutionX |      |     | X   | X   |     | working area (screen minus task bar / menu bar and Dock) resolution X |
+|               | [0].workAreaResolutionY |      |     | X   | X   |     | working area resolution Y         |
+|               | [0].workAreaPositionX  |       |     | X   | X   |     | working area position X           |
+|               | [0].workAreaPositionY  |       |     | X   | X   |     | working area position Y           |
 |               | [0].currentRefreshRate | X     |     | X   | X   |     | current screen refresh rate       |
 |               | [0].scale              |       |     |     | X   |     | DPI scaling factor, e.g. 1.5      |
 

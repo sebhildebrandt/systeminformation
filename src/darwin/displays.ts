@@ -1,6 +1,6 @@
 import { nextTick, toInt } from '../common';
 import { plistParser, plistReader } from '../common/darwin';
-import { exec, shareInflight } from '../common/exec';
+import { exec, execSave, shareInflight } from '../common/exec';
 import { graphicsIdToVendor, graphicsModelToVendor } from '../common/mappings';
 import { DisplayData } from '../common/types';
 
@@ -92,6 +92,36 @@ const getDisplayPositionDarwin = async (displays: DisplayData[]): Promise<Displa
   return displays;
 };
 
+// NSScreen.visibleFrame (screen minus menu bar and Dock) per CGDirectDisplayID - points, y-up, origin at the main screen's bottom left
+const jxaVisibleFrames =
+  'ObjC.import("AppKit"); var s = $.NSScreen.screens, out = []; for (var i = 0; i < s.count; i++) { var sc = s.objectAtIndex(i), f = sc.frame, v = sc.visibleFrame; out.push([sc.deviceDescription.objectForKey($("NSScreenNumber")).intValue, f.origin.x, f.origin.y, f.size.width, f.size.height, v.origin.x, v.origin.y, v.size.width, v.size.height].join("|")); } out.join("\\n")';
+
+const getWorkAreaDarwin = async (displays: DisplayData[]): Promise<DisplayData[]> => {
+  try {
+    const { stdout } = await execSave(`osascript -l JavaScript -e '${jxaVisibleFrames}'`);
+    const screens = stdout
+      .toString()
+      .split('\n')
+      .map((line) => line.split('|').map((part) => parseFloat(part)))
+      .filter((parts) => parts.length === 9 && !Number.isNaN(parts[0]));
+    // the main screen sits at the origin - its height converts y-up NSScreen coordinates to the y-down global space used by positionY
+    const main = screens.find((parts) => parts[1] === 0 && parts[2] === 0);
+    if (!main) {
+      return displays;
+    }
+    screens.forEach((parts) => {
+      const display = displays.find((element) => toInt(element.displayId || '') === parts[0]);
+      if (display) {
+        display.workAreaResolutionX = Math.round(parts[7]);
+        display.workAreaResolutionY = Math.round(parts[8]);
+        display.workAreaPositionX = Math.round(parts[5]);
+        display.workAreaPositionY = Math.round(main[4] - (parts[6] + parts[8]));
+      }
+    });
+  } catch {}
+  return displays;
+};
+
 export const displays = async () => {
   await nextTick();
   let result: DisplayData[] = [];
@@ -100,6 +130,7 @@ export const displays = async () => {
     const { stdout } = await shareInflight('SPDisplaysDataType', () => exec('system_profiler -xml -detailLevel full SPDisplaysDataType'));
     result = parseDisplaysDarwin(plistParser(stdout));
     result = await getDisplayPositionDarwin(result);
+    result = await getWorkAreaDarwin(result);
   } catch {}
   return result;
 };
