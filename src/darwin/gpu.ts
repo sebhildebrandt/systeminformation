@@ -11,7 +11,7 @@ const parseControllersDarwin = (graphicsArr: any[]): GpuData[] => {
       const bus = (item.sppci_bus || '').indexOf('builtin') > -1 ? 'Built-In' : (item.sppci_bus || '').indexOf('pcie') > -1 ? 'PCIe' : '';
       const vram = (parseInt(item.spdisplays_vram || '', 10) || 0) * ((item.spdisplays_vram || '').indexOf('GB') > -1 ? 1024 : 1);
       const vramDyn = (parseInt(item.spdisplays_vram_shared || '', 10) || 0) * ((item.spdisplays_vram_shared || '').indexOf('GB') > -1 ? 1024 : 1);
-      const metalVersion = graphicsMetalVersion(item.spdisplays_metal || item.spdisplays_metalfamily || '');
+      const metalVersion = graphicsMetalVersion(item.spdisplays_mtlgpufamilysupport || item.spdisplays_metal || item.spdisplays_metalfamily || '');
       controllers.push({
         vendor: graphicsModelToVendor(item.spdisplays_vendor || '') || item.spdisplays_vendor || '',
         model: item.sppci_model || '',

@@ -1783,7 +1783,9 @@ export const graphicsMetalVersion = (id: string) => {
     spdisplays_metalfeaturesetfamily14: 'family1_v4',
     spdisplays_metalfeaturesetfamily21: 'family2_v1'
   };
-  return families[id] || '';
+  // newer macOS reports the supported Metal version instead of the GPU family, e.g. spdisplays_metal4
+  const version = /^spdisplays_metal(\d+)$/.exec(id);
+  return families[id] || (version ? version[1] : '');
 };
 
 export const winProcessStatus: { [index: string]: any } = {

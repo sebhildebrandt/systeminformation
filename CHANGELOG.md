@@ -81,7 +81,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 
 - `disksIO()` `rWaitTime`, `wWaitTime` and `tWaitTime` now report the wait time of the last interval in ms instead of the total since boot, and are `null` on the first call - same convention as `rIO_sec` (#1025). `tWaitPercent` therefore equals `tWaitTime * 100 / ms`. To keep the old behaviour, sum the interval values yourself.
 - `currentLoad()` on Linux now counts iowait ticks in the denominator - `os.cpus()` drops them entirely, so they used to be missing from every category. `currentLoadIdle` is now lower by exactly the iowait share while `currentLoad` is almost unchanged, and the categories add up to 100% again
-**Be aware**, that the new version 6.x is **NOT fully backward compatible** to version 5.x.
+  **Be aware**, that the new version 6.x is **NOT fully backward compatible** to version 5.x.
 
 We modernized the library with a full TypeScript rewrite and made a few interface changes. Please review the list below and adapt your code.
 
@@ -116,7 +116,7 @@ For major (breaking) changes - **version 6, 5, 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.33.7  | 2026-09-01 | `audio()` fix - onboard sound cards, e.g. Raspberry Pi (linux)                                       |
+| 5.33.7  | 2026-09-01 | `audio()` fix - onboard sound cards, e.g. Raspberry Pi (linux)                                      |
 | 5.33.6  | 2026-08-29 | `audio()` fallback to ALSA (/proc/asound) (linux)                                                   |
 | 5.33.5  | 2026-08-27 | `osInfo()` updated macOS detection - Golden Gate (macOS)                                            |
 | 5.33.4  | 2026-08-26 | `diskLayout()` fix - serial number (windows)                                                        |
