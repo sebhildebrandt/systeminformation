@@ -38,5 +38,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install
+      - run: node test/battery-darwin.js
       - run: node test/ci.js
       - run: node test/testAll.js
