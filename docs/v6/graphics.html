@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.10</div>
+          <div class="title-version float-left">v6.0.0-beta.11</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -652,6 +652,46 @@ si.gpu().then(data => console.log(data));</code></pre>
                       </tr>
                       <tr>
                         <td></td>
+                        <td>[0].workAreaResolutionX</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>working area (screen minus task bar / panels / menu bar and Dock) resolution X</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].workAreaResolutionY</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>working area resolution Y</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].workAreaPositionX</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>working area position X</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].workAreaPositionY</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>working area position Y</td>
+                      </tr>
+                      <tr>
+                        <td></td>
                         <td>[0].currentRefreshRate</td>
                         <td>X</td>
                         <td></td>
@@ -694,6 +734,10 @@ si.displays().then(data => console.log(data));</code></pre>
     currentResY: 1600,
     positionX: 0,
     positionY: 0,
+    workAreaResolutionX: 2560,
+    workAreaResolutionY: 1561,
+    workAreaPositionX: 0,
+    workAreaPositionY: 39,
     currentRefreshRate: null,
     scale: null
   }

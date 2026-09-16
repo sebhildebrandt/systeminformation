@@ -27,7 +27,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.10</div>
+          <div class="title-version float-left">v6.0.0-beta.11</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -82,6 +82,11 @@
                     <li><span class="code">displays()</span> added <span class="code">RDP</span> as connection type for remote desktop / indirect displays (Windows)</li>
                     <li><span class="code">displays()</span> added <span class="code">mirror</span> (true if the display is part of a mirrored / duplicated set, #930)</li>
                     <li><span class="code">displays()</span> added <span class="code">scale</span> (DPI scaling factor of the display, e.g. <span class="code">1.5</span> for 150% - Windows only)</li>
+                    <li>
+                      <span class="code">displays()</span>
+                      added <span class="code">workAreaResolutionX/Y</span> and <span class="code">workAreaPositionX/Y</span> (desktop working area - the screen minus task bar and app bars on Windows, menu bar and Dock on macOS, panels/docks on Linux via <span class="code">_NET_WORKAREA</span>, X11
+                      only, #772)
+                    </li>
                     <li>
                       <span class="code">fans()</span>
                       new function - detected fans with <span class="code">rpm</span> and <span class="code">pwm</span> (Linux via hwmon / thermal cooling devices; Windows only with a running LibreHardwareMonitor / OpenHardwareMonitor; macOS as soon as
@@ -166,6 +171,10 @@
                     <li><span class="code">networkStats()</span> interfaces without traffic (e.g. a link-local only adapter) now return their stats and <span class="code">operstate</span> instead of an empty result (Windows, #779)</li>
                     <li><span class="code">networkStats()</span> <span class="code">rx_dropped</span>, <span class="code">rx_errors</span>, <span class="code">tx_dropped</span> and <span class="code">tx_errors</span> are no longer lost in cached results</li>
                     <li><span class="code">gpu()</span> reads clock, temperature, power, utilization and memory from DRM sysfs (<span class="code">/sys/class/drm/card*</span>) - runtime values for Intel and AMD GPUs without extra tools or root, previously nvidia-smi only (Linux, #890)</li>
+                    <li>
+                      <span class="code">gpu()</span> <span class="code">metalVersion</span> on macOS is read from <span class="code">spdisplays_mtlgpufamilysupport</span> and understands the Metal support level reported by newer macOS versions (e.g. <span class="code">spdisplays_metal4</span> -&gt;
+                      <span class="code">4</span>) - the old GPU family keys no longer exist, so <span class="code">metalVersion</span> was always empty (macOS)
+                    </li>
                     <li><span class="code">wifiConnections()</span> connection details are now queried by NetworkManager connection UUID instead of the connection name - fixes wrong data when the name differs from the SSID or contains spaces (Linux, #872)</li>
                     <li><span class="code">get()</span> returns a migration hint for the removed <span class="code">graphics</span> key instead of silently dropping it</li>
                   </ul>
