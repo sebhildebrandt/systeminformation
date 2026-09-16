@@ -1,12 +1,17 @@
 import { cloneObj, getValue, nextTick, toInt } from '../common';
 import { initBatteryResult } from '../common/defaults';
 import { execSave } from '../common/exec';
-import { BatteryObject } from '../common/types';
+import type { BatteryObject } from '../common/types';
 
 const parseBatteryObject = (data: string): BatteryObject[] => {
   const defaults = cloneObj(initBatteryResult);
   data = data || '';
-  const lines = data.replace(/ +/g, '').replace(/"+/g, '').replace(/-/g, '').split('\n');
+  const lines = data
+    .replace(/^[ |]+/gm, '')
+    .replace(/ +/g, '')
+    .replace(/"+/g, '')
+    .replace(/-/g, '')
+    .split('\n');
   let percent = null;
   const line = getValue(lines, 'internal', 'Battery');
   const parts = line.split(';');
@@ -21,9 +26,19 @@ const parseBatteryObject = (data: string): BatteryObject[] => {
 
   const voltage = parseInt('0' + getValue(lines, 'voltage', '='), 10) / 1000.0;
   const capacityUnit = voltage ? 'mWh' : 'mAh';
-  const maxCapacity = Math.round(parseInt('0' + getValue(lines, 'applerawmaxcapacity', '='), 10) * (voltage || 1));
-  const currentCapacity = Math.round(parseInt('0' + getValue(lines, 'applerawcurrentcapacity', '='), 10) * (voltage || 1));
-  const designedCapacity = Math.round(parseInt('0' + getValue(lines, 'DesignCapacity', '='), 10) * (voltage || 1));
+  const batteryData = getValue(lines, 'BatteryData', '=').replace(/^\{/, '').replace(/\}$/, '').split(',');
+  const maxCapacity = Math.round(
+    parseInt(
+      '0' +
+        (getValue(lines, 'AppleRawMaxCapacity', '=') ||
+          getValue(lines, 'NominalChargeCapacity', '=') ||
+          getValue(batteryData, 'FullChargeCapacity', '=') ||
+          getValue(batteryData, 'NominalChargeCapacity', '=')),
+      10
+    ) * (voltage || 1)
+  );
+  const currentCapacity = Math.round(parseInt('0' + (getValue(lines, 'AppleRawCurrentCapacity', '=') || getValue(batteryData, 'RemainingCapacity', '=')), 10) * (voltage || 1));
+  const designedCapacity = Math.round(parseInt('0' + (getValue(lines, 'DesignCapacity', '=') || getValue(batteryData, 'DesignCapacity', '=')), 10) * (voltage || 1));
   let hasBattery = defaults.hasBattery;
   let type = defaults.type;
   let timeRemaining = defaults.timeRemaining;
@@ -62,7 +77,7 @@ const parseBatteryObject = (data: string): BatteryObject[] => {
 export const battery = async () => {
   await nextTick();
   const { stdout } = await execSave(
-    'ioreg -n AppleSmartBattery -r | egrep "CycleCount|IsCharging|DesignCapacity|MaxCapacity|CurrentCapacity|DeviceName|BatterySerialNumber|Serial|TimeRemaining|Voltage"; pmset -g batt | grep %'
+    'ioreg -n AppleSmartBattery -r | egrep "CycleCount|IsCharging|DesignCapacity|MaxCapacity|CurrentCapacity|DeviceName|BatterySerialNumber|Serial|TimeRemaining|Voltage|BatteryData|NominalChargeCapacity"; pmset -g batt | grep %'
   );
   return parseBatteryObject(stdout);
 };

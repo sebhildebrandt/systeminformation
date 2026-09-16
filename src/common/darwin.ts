@@ -16,6 +16,26 @@ export const darwinXcodeExists = async () => {
 
 const isProtoKey = (key: string) => key === '__proto__' || key === 'constructor' || key === 'prototype';
 
+// macOS 27 moved the USB device tree from SPUSBDataType to SPUSBHostDataType,
+// so USB sections are requested (and read) under both names.
+export const USB_DATA_TYPES = ['SPUSBDataType', 'SPUSBHostDataType'];
+
+// Picks the _items of the given system_profiler data types (order preserved, missing types skipped).
+export const spItems = (data: any, dataTypes: string | string[]): any[] => {
+  const types = Array.isArray(dataTypes) ? dataTypes : [dataTypes];
+  const result: any[] = [];
+  if (!Array.isArray(data)) {
+    return result;
+  }
+  for (const dataType of types) {
+    const section = data.find((s: any) => s && s._dataType === dataType);
+    if (section && Array.isArray(section._items)) {
+      result.push(...section._items);
+    }
+  }
+  return result;
+};
+
 export const plistParser = (xmlStr: string, items = true) => {
   const tags = ['array', 'dict', 'key', 'string', 'integer', 'date', 'real', 'data', 'boolean', 'arrayEmpty'];
   const startStr = '<plist version';

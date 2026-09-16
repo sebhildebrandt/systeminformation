@@ -32,7 +32,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `displays()` added `RDP` as connection type for remote desktop / indirect displays (Windows)
 - `displays()` added `mirror` (true if the display is part of a mirrored / duplicated set, #930)
 - `displays()` added `scale` (DPI scaling factor of the display, e.g. `1.5` for 150% - Windows only)
-- `displays()` added `workAreaResolutionX/Y` and `workAreaPositionX/Y` (desktop working area - the screen minus task bar and app bars on Windows, minus menu bar and Dock on macOS, #772)
+- `displays()` added `workAreaResolutionX/Y` and `workAreaPositionX/Y` (desktop working area - the screen minus task bar and app bars on Windows, menu bar and Dock on macOS, panels/docks on Linux via `_NET_WORKAREA`, X11 only, #772)
 - `gpu()` added `temperatureGpu` on Apple Silicon (optional `macos-temperature-sensor` package)
 - `services()` added `startmode` on Linux (systemd `UnitFileState`: enabled, disabled, static, ..., previously Windows only)
 - `services()` added `lastChanged` (Linux/systemd: date of the last state change - service start when running, service stop otherwise; macOS: start time of the service processes, #886)

@@ -167,6 +167,37 @@ const parseLinesLinuxDisplays = (lines: string[], depth: number) => {
   return displays;
 };
 
+// _NET_WORKAREA (EWMH) is one rect for the whole virtual screen - intersecting it per display is the same
+// heuristic chromium / electron use on X11. Wayland has no equivalent protocol, so the values stay null there
+const getWorkAreaLinux = async (displays: DisplayData[]): Promise<DisplayData[]> => {
+  try {
+    const { stdout } = await execSave('xprop -root _NET_WORKAREA 2>/dev/null');
+    const values = (stdout.toString().split('=')[1] || '').split(',').map((value) => toInt(value));
+    const [areaX, areaY, areaWidth, areaHeight] = values;
+    if (values.length < 4 || !areaWidth || !areaHeight) {
+      return displays;
+    }
+    displays.forEach((display) => {
+      const width = display.currentResX || display.resolutionX;
+      const height = display.currentResY || display.resolutionY;
+      if (!width || !height) {
+        return;
+      }
+      const left = Math.max(display.positionX, areaX);
+      const top = Math.max(display.positionY, areaY);
+      const right = Math.min(display.positionX + width, areaX + areaWidth);
+      const bottom = Math.min(display.positionY + height, areaY + areaHeight);
+      if (right > left && bottom > top) {
+        display.workAreaResolutionX = right - left;
+        display.workAreaResolutionY = bottom - top;
+        display.workAreaPositionX = left;
+        display.workAreaPositionY = top;
+      }
+    });
+  } catch {}
+  return displays;
+};
+
 export const displays = async () => {
   await nextTick();
   const result: DisplayData[] = [];
@@ -221,7 +252,7 @@ export const displays = async () => {
         ({ stdout } = await exec('xrandr --verbose 2>/dev/null', execOptsLinux));
         const lines = stdout.toString().split('\n');
         // xrandr result replaces the raspberry fbset/tvservice fallback (v5 behavior)
-        return parseLinesLinuxDisplays(lines, depth);
+        return await getWorkAreaLinux(parseLinesLinuxDisplays(lines, depth));
       } catch {}
     } catch {}
   } catch {}

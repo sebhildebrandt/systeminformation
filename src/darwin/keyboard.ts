@@ -1,4 +1,4 @@
-import { plistParser } from '../common/darwin';
+import { plistParser, spItems, USB_DATA_TYPES } from '../common/darwin';
 import { nextTick } from '../common';
 import { exec } from '../common/exec';
 import { BluetoothObject, Keyboard } from '../common/types';
@@ -59,11 +59,11 @@ export const keyboard = async (): Promise<Keyboard[]> => {
   await nextTick();
 
   try {
-    const { stdout } = await exec('system_profiler SPSPIDataType SPUSBDataType SPBluetoothDataType -xml');
+    const { stdout } = await exec('system_profiler SPSPIDataType SPUSBDataType SPUSBHostDataType SPBluetoothDataType -xml');
     const data = plistParser(stdout, false);
-    const spiData = data.length >= 2 && data[0]._items ? data[0]._items : [];
-    const usbData = data.length >= 2 && data[1]._items ? data[1]._items : [];
-    const bluetoothData = data.length >= 3 && data[2]._items ? data[2]._items : [];
+    const spiData = spItems(data, 'SPSPIDataType');
+    const usbData = spItems(data, USB_DATA_TYPES);
+    const bluetoothData = spItems(data, 'SPBluetoothDataType');
     let result = parseKeyboard(spiData);
     result = result.concat(parseUsb(usbData));
     result = result.concat(filterBluetooth(parseBluetooth(bluetoothData)));

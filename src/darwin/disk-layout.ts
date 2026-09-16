@@ -1,6 +1,6 @@
 import { nextTick } from '../common';
 import { MAX_BUFFER_SIZE } from '../common/const';
-import { plistParser } from '../common/darwin';
+import { plistParser, spItems, USB_DATA_TYPES } from '../common/darwin';
 import { exec, execSave } from '../common/exec';
 import { diskVendorFromModel } from '../common/mappings';
 import type { DiskLayoutData } from '../common/types';
@@ -21,14 +21,14 @@ export const diskLayout = async (): Promise<DiskLayoutData[]> => {
   };
 
   try {
-    ({ stdout } = await exec(`system_profiler SPSerialATADataType SPNVMeDataType SPUSBDataType SPStorageDataType -xml`, { maxBuffer: MAX_BUFFER_SIZE }));
+    ({ stdout } = await exec(`system_profiler SPSerialATADataType SPNVMeDataType SPUSBDataType SPUSBHostDataType SPStorageDataType -xml`, { maxBuffer: MAX_BUFFER_SIZE }));
     const data = plistParser(stdout, false);
-    const diskSATA = data.length >= 4 && data[0]._items ? data[0]._items : [];
-    const diskNVME = data.length >= 4 && data[1]._items ? data[1]._items : [];
-    const diskUSB = data.length >= 4 && data[2]._items ? data[2]._items : [];
-    const diskLine = data.length >= 4 && data[3]._items ? data[3]._items : [];
+    const diskSATA = spItems(data, 'SPSerialATADataType');
+    const diskNVME = spItems(data, 'SPNVMeDataType');
+    const diskUSB = spItems(data, USB_DATA_TYPES);
+    const diskLine = spItems(data, 'SPStorageDataType');
     // Serial ATA Drives
-    if (diskSATA?.length && diskSATA._items) {
+    if (diskSATA?.length) {
       diskSATA.forEach((controller: any) => {
         if (controller?._items && controller._items.length) {
           // const mediumType = util.getValue(lines, 'Medium Type', ':', true).trim();

@@ -1,5 +1,5 @@
 import { Camera } from './../common/types';
-import { plistParser } from '../common/darwin';
+import { plistParser, spItems, USB_DATA_TYPES } from '../common/darwin';
 import { nextTick } from '../common';
 import { exec } from '../common/exec';
 import { manufacturedApple, usbDarwinType } from '../common/mappings';
@@ -42,10 +42,10 @@ export const camera = async (): Promise<Camera[]> => {
   await nextTick();
 
   try {
-    const { stdout } = await exec('system_profiler SPCameraDataType SPUSBDataType -xml');
+    const { stdout } = await exec('system_profiler SPCameraDataType SPUSBDataType SPUSBHostDataType -xml');
     const data = plistParser(stdout, false);
-    const cameraData = data.length >= 2 && data[0]._items ? data[0]._items : [];
-    const usbData = data.length >= 2 && data[1]._items ? data[1]._items : [];
+    const cameraData = spItems(data, 'SPCameraDataType');
+    const usbData = spItems(data, USB_DATA_TYPES);
     let result = parseCamera(cameraData);
     result = result.concat(parseUsb(usbData));
     return result;
