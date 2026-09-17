@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.11</div>
+          <div class="title-version float-left">v6.0.0-beta.12</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -713,6 +713,13 @@ si.gpu().then(data => console.log(data));</code></pre>
                       <tr class="example">
                         <td></td>
                         <td colspan="7">
+                          <h5>Displays on Linux</h5>
+                          <p>
+                            Display detection uses <span class="code">xrandr</span>, which needs a running X session. Without a display server - a headless server, or Wayland without XWayland - the DRM connectors in <span class="code">/sys/class/drm</span> are read instead. That fallback reports
+                            every connected connector with its name, resolution and, where the monitor provides an EDID, model and physical size. Values that only a window manager knows - position, work area, refresh rate and pixel depth - stay
+                            <span class="code">null</span>
+                            there, and since there is no "primary" display either, <span class="code">main</span> goes to the built-in panel, or to the first connector when there is none.
+                          </p>
                           <h5>Example</h5>
                           <pre><code class="js">const si = require('systeminformation');
 si.displays().then(data => console.log(data));</code></pre>

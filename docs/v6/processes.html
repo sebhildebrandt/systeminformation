@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.11</div>
+          <div class="title-version float-left">v6.0.0-beta.12</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -87,9 +87,9 @@
                       <td>X</td>
                       <td>X</td>
                       <td>X</td>
-                      <td></td>
                       <td>X</td>
-                      <td>average load</td>
+                      <td>X</td>
+                      <td>average load<br>(Windows: approximated - see note below)</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -204,6 +204,12 @@
                     <tr class="example">
                       <td></td>
                       <td colspan="7">
+                        <h5>avgLoad on Windows</h5>
+                        <p>
+                          Windows has no kernel load average. <span class="code">avgLoad</span> is therefore approximated the way the unix kernel calculates it: an exponentially weighted moving average
+                          (1 / 5 / 15 minutes) over the number of busy cores. This average is only updated while <span class="code">currentLoad()</span> is being called, so it starts from the average
+                          load since boot and converges towards the real value the longer your application polls the function. A single call cannot deliver a meaningful average.
+                        </p>
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
 si.currentLoad().then(data => console.log(data));</code></pre>
@@ -532,6 +538,13 @@ si.fullLoad().then(data => console.log(data));</code></pre>
                     <tr class="example">
                       <td></td>
                       <td colspan="7">
+                        <h5>state on Windows</h5>
+                        <p>
+                          Windows does not expose a process state - <span class="code">Win32_Process.ExecutionState</span> is documented as not implemented and always empty. The state is therefore
+                          derived from the threads of a process: at least one thread on or ready for a CPU is reported as <span class="code">running</span>, all threads waiting as
+                          <span class="code">sleeping</span>, and all threads suspended (what the task manager shows as "Suspended") as <span class="code">blocked</span>. Processes whose threads
+                          cannot be read - protected system processes - stay <span class="code">unknown</span>.
+                        </p>
                         <h5>Example</h5>
                         <pre><code class="js">const si = require('systeminformation');
 si.processes().then(data => console.log(data));</code></pre>

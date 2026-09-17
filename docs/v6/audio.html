@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.11</div>
+          <div class="title-version float-left">v6.0.0-beta.12</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -137,9 +137,9 @@
                         <td></td>
                         <td></td>
                         <td>X</td>
+                        <td>X</td>
                         <td></td>
-                        <td></td>
-                        <td>is default</td>
+                        <td>is default input or output device</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -147,7 +147,7 @@
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td></td>
+                        <td>X</td>
                         <td></td>
                         <td>channel e.g. Build-In, HDMI, USB, ...</td>
                       </tr>
@@ -167,7 +167,7 @@
                         <td>X</td>
                         <td></td>
                         <td>X</td>
-                        <td></td>
+                        <td>X</td>
                         <td></td>
                         <td>is input channel<br>(Linux: ALSA devices only)</td>
                       </tr>
@@ -177,7 +177,7 @@
                         <td>X</td>
                         <td></td>
                         <td>X</td>
-                        <td></td>
+                        <td>X</td>
                         <td></td>
                         <td>is output channel<br>(Linux: ALSA devices only)</td>
                       </tr>
@@ -194,6 +194,25 @@
                       <tr class="example">
                         <td></td>
                         <td colspan="7">
+                          <h5>default, in and out on Windows</h5>
+                          <p>
+                            <span class="code">Win32_SoundDevice</span>
+                            knows neither an "is default" flag nor the direction of a device. Windows keeps both in the MMDevices registry: one key per audio endpoint below <span class="code">Render</span> (playback) and <span class="code">Capture</span> (recording). An adapter with an active
+                            playback endpoint is reported as <span class="code">out</span>, one with an active recording endpoint as <span class="code">in</span>, and per direction the endpoint that became default last is the current
+                            <span class="code">default</span>. When nothing distinguishes the candidates for a direction, no device is marked for it - devices serving that direction keep
+                            <span class="code">default</span>
+                            at <span class="code">null</span> rather than being declared "not the default".
+                          </p>
+                          <p>
+                            Because <span class="code">audio()</span> lists audio adapters and not endpoints, these flags describe the adapter an endpoint belongs to: an adapter serving several endpoints (e.g. speakers and headphones on the same chip) is marked as soon as one of them applies.
+                            Adapters without any active endpoint keep
+                            <span class="code">in</span>
+                            / <span class="code">out</span> at <span class="code">null</span> rather than claiming they are neither. The registry layout is not a documented API and can differ between Windows versions; when it cannot be read, <span class="code">default</span>,
+                            <span class="code">in</span> and
+                            <span class="code">out</span>
+                            stay <span class="code">null</span>.
+                          </p>
+                          <p><span class="code">channel</span> is derived from the PNP device id of the adapter (USB, Bluetooth, Onboard for HD Audio, PCIe) - HDMI and DisplayPort are recognised by the device name, because those endpoints sit on an HD Audio or PCI bus like any other.</p>
                           <h5>Example</h5>
                           <pre><code class="js">const si = require('systeminformation');
 si.audio().then(data => console.log(data));</code></pre>

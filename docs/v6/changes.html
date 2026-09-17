@@ -27,7 +27,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.11</div>
+          <div class="title-version float-left">v6.0.0-beta.12</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -74,18 +74,18 @@
                   <ul>
                     <li><span class="code">osInfo()</span> added <span class="code">installDate</span> (operating system installation date)</li>
                     <li><span class="code">osInfo()</span> added <span class="code">displayServer</span> (wayland, x11, quartz, dwm, surfaceflinger or '' when headless)</li>
-                    <li><span class="code">osInfo()</span> added <span class="code">lastUpdate</span> (date of the last OS update on macOS / Windows, last package update on Linux / BSD, #970)</li>
-                    <li><span class="code">osInfo()</span> added <span class="code">hwAcceleration</span> (available compute layers: cuda, rocm, oneapi, vulkan, opencl, metal, dx12, directml, #980)</li>
-                    <li><span class="code">osInfo()</span> added <span class="code">awake</span> (system fully awake - <span class="code">false</span> during macOS dark wake, #987)</li>
+                    <li><span class="code">osInfo()</span> added <span class="code">lastUpdate</span> (date of the last OS update on macOS / Windows, last package update on Linux / BSD)</li>
+                    <li><span class="code">osInfo()</span> added <span class="code">hwAcceleration</span> (available compute layers: cuda, rocm, oneapi, vulkan, opencl, metal, dx12, directml)</li>
+                    <li><span class="code">osInfo()</span> added <span class="code">awake</span> (system fully awake - <span class="code">false</span> during macOS dark wake)</li>
                     <li><span class="code">bios()</span> added <span class="code">iBridge</span> (Apple iBridge / security chip: modelName, build, bootUuid, secureBoot - macOS only)</li>
                     <li><span class="code">displays()</span> added <span class="code">serial</span>, <span class="code">displayId</span> and <span class="code">productionYear</span> on Windows (previously macOS only)</li>
                     <li><span class="code">displays()</span> added <span class="code">RDP</span> as connection type for remote desktop / indirect displays (Windows)</li>
-                    <li><span class="code">displays()</span> added <span class="code">mirror</span> (true if the display is part of a mirrored / duplicated set, #930)</li>
+                    <li><span class="code">displays()</span> added <span class="code">mirror</span> (true if the display is part of a mirrored / duplicated set)</li>
                     <li><span class="code">displays()</span> added <span class="code">scale</span> (DPI scaling factor of the display, e.g. <span class="code">1.5</span> for 150% - Windows only)</li>
                     <li>
                       <span class="code">displays()</span>
                       added <span class="code">workAreaResolutionX/Y</span> and <span class="code">workAreaPositionX/Y</span> (desktop working area - the screen minus task bar and app bars on Windows, menu bar and Dock on macOS, panels/docks on Linux via <span class="code">_NET_WORKAREA</span>, X11
-                      only, #772)
+                      only)
                     </li>
                     <li>
                       <span class="code">fans()</span>
@@ -97,19 +97,30 @@
                     <li><span class="code">cpuTemperature()</span> added support for the <span class="code">macos-temperature-sensor</span> package (Apple Silicon, incl. <span class="code">chipset</span> / SoC temperature)</li>
                     <li><span class="code">os()</span> added <span class="code">installDate</span>, <span class="code">displayServer</span></li>
                     <li><span class="code">services()</span> added <span class="code">startmode</span> on Linux (systemd <span class="code">UnitFileState</span>: enabled, disabled, static, ..., previously Windows only)</li>
-                    <li><span class="code">services()</span> added <span class="code">lastChanged</span> (Linux/systemd: date of the last state change - service start when running, service stop otherwise; macOS: start time of the service processes, #886)</li>
+                    <li><span class="code">services()</span> added <span class="code">lastChanged</span> (Linux/systemd: date of the last state change - service start when running, service stop otherwise; macOS: start time of the service processes)</li>
                     <li><span class="code">processes()</span> added <span class="code">cpuTime</span> (absolute CPU time of the process itself in seconds, excluding already reaped children, #1007)</li>
                     <li><span class="code">processes()</span> now reports zombie processes with their plain name instead of <span class="code">name] &lt;defunct&gt;</span></li>
+                    <li><span class="code">networkInterfaces()</span> added <span class="code">vendor</span>, <span class="code">model</span> and <span class="code">gateway</span> (default gateway of this interface)</li>
                     <li>
                       <span class="code">currentLoad()</span>
                       added <span class="code">currentLoadIowait</span> / <span class="code">rawCurrentLoadIowait</span> and per CPU <span class="code">loadIowait</span> / <span class="code">rawLoadIowait</span> (CPU time waiting for IO, the <span class="code">wa</span> value of
-                      <span class="code">top</span>) - Linux only, <span class="code">0</span> elsewhere (#965)
+                      <span class="code">top</span>) - Linux only, <span class="code">0</span> elsewhere
                     </li>
                     <li><span class="code">versions()</span> added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, rails, ruby, rust, sqlite3, vim, vue</li>
                   </ul>
                   <h4>Extended Windows Support</h4>
                   <ul>
                     <li><span class="code">disksIO()</span>, <span class="code">fsStats()</span>, <span class="code">fsOpenFiles()</span> and <span class="code">thunderbolt()</span> are now also available on Windows</li>
+                    <li>
+                      <span class="code">audio()</span> <span class="code">default</span>, <span class="code">in</span> and <span class="code">out</span> are now detected on Windows (previously macOS only) - <span class="code">Win32_SoundDevice</span> has neither flag, so the audio endpoints in the
+                      MMDevices registry are evaluated: an active playback / recording endpoint gives <span class="code">out</span> / <span class="code">in</span>, and the highest ranked one per direction is the
+                      <span class="code">default</span>
+                    </li>
+                    <li><span class="code">audio()</span> added <span class="code">channel</span> on Windows (USB, Bluetooth, Onboard, PCIe, HDMI - derived from the PNP device id and the device name)</li>
+                    <li>
+                      <span class="code">currentLoad()</span> <span class="code">avgLoad</span> is no longer always <span class="code">0</span> on Windows - Windows has no kernel load average, so it is approximated the way the unix kernel does it: an exponentially weighted moving average (1 / 5 / 15
+                      min) over the number of busy cores. It is only fed while <span class="code">currentLoad()</span> is being called, so the value converges the longer an application polls it
+                    </li>
                     <li><span class="code">blockDevices()</span> added <span class="code">guid</span> (volume GUID path, e.g. <span class="code">\\?\Volume{...}\</span> - needed to mount a volume, #856)</li>
                     <li>
                       <span class="code">disksIO()</span>
@@ -129,8 +140,18 @@
                       ZFS datasets now report the hierarchical usage from <span class="code">zfs list</span> - df and statfs only know what a dataset references itself, so a parent holding its data in child datasets was shown as almost empty (#1017) - note that <span class="code">used</span> then
                       includes child datasets and snapshots, exactly like <span class="code">zfs list</span>, so it must not be summed across nested datasets
                     </li>
+                    <li>
+                      <span class="code">processes()</span> <span class="code">state</span> was <span class="code">unknown</span> for every process on Windows - <span class="code">Win32_Process.ExecutionState</span> is documented as not implemented and always empty. The state is now derived from the
+                      threads of a process: running, sleeping, or blocked when every thread is suspended (Windows)
+                    </li>
                     <li><span class="code">displays()</span> EDID parsing with multiple monitors - all displays reported the first monitor's model, resolution and size (Linux, #997)</li>
                     <li><span class="code">displays()</span> display positions (<span class="code">positionX</span> / <span class="code">positionY</span>) are now parsed from xrandr (Linux, #866)</li>
+                    <li>
+                      <span class="code">displays()</span>
+                      falls back to the DRM connectors in sysfs (<span class="code">/sys/class/drm</span>) when no display server is running - <span class="code">xdpyinfo</span> / <span class="code">xrandr</span> need an X session, so on a headless server (or Wayland without XWayland) the result was
+                      always empty although the kernel knows every connected monitor incl. its EDID (Linux)
+                    </li>
+
                     <li><span class="code">displays()</span> per-display refresh rate instead of copying the primary monitor's rate to all displays (Windows, #853)</li>
                     <li>
                       <span class="code">displays()</span> <span class="code">resolutionX/Y</span>, <span class="code">currentResX/Y</span>, <span class="code">positionX/Y</span> are now physical pixels read from <span class="code">EnumDisplaySettings</span> -
