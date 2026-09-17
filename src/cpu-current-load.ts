@@ -40,34 +40,24 @@ let _current_cpu = {
 const _cpus: any[] = [];
 let _corecount = 0;
 
-// windows has no kernel load average - approximate it the way the unix kernel does:
-// an exponentially weighted moving average over the number of busy cores. The decay is
-// derived from the real interval between two calls, so it also works when currentLoad()
-// is polled irregularly - it only converges while the process keeps calling it.
+// windows has no kernel load average - approximated like the unix kernel: EWMA over the number of
+// busy cores, decayed by the real interval between calls, so it only converges while it is polled
 const AVG_LOAD_PERIODS = [60, 300, 900];
 let _avgLoadEwma = [0, 0, 0];
 let _avgLoadEwmaMs: number | null = null;
 
-export const resetAvgLoadEwma = () => {
-  _avgLoadEwma = [0, 0, 0];
-  _avgLoadEwmaMs = null;
-};
-
-export const updateAvgLoadEwma = (busyCores: number, ms: number) => {
-  const seconds = _avgLoadEwmaMs === null ? 0 : (ms - _avgLoadEwmaMs) / 1000;
-  _avgLoadEwmaMs = ms;
-  if (seconds <= 0) {
-    // first sample covers the whole uptime - use it as starting point instead of 0
-    _avgLoadEwma = [busyCores, busyCores, busyCores];
-    return;
+export const avgLoadEwma = (previous: number[] | null, busyCores: number, seconds: number) => {
+  if (!previous || seconds <= 0) {
+    // the first sample covers the whole uptime - better starting point than 0
+    return [busyCores, busyCores, busyCores];
   }
-  _avgLoadEwma = AVG_LOAD_PERIODS.map((period, i) => {
+  return AVG_LOAD_PERIODS.map((period, i) => {
     const decay = Math.exp(-seconds / period);
-    return (_avgLoadEwma[i] || 0) * decay + busyCores * (1 - decay);
+    return (previous[i] || 0) * decay + busyCores * (1 - decay);
   });
 };
 
-export const getAvgLoadEwma = (cores: number) => (cores ? parseFloat((Math.max(..._avgLoadEwma) / cores).toFixed(2)) : 0);
+const avgLoadFromEwma = (cores: number) => (cores ? parseFloat((Math.max(..._avgLoadEwma) / cores).toFixed(2)) : 0);
 
 export const currentLoad = async () => {
   await nextTick();
@@ -203,8 +193,11 @@ export const currentLoad = async () => {
     const totalLoad = totalUser + totalSystem + totalNice + totalIrq + totalSteal + totalGuest;
     const currentTick = totalTick - _current_cpu.tick || 1;
     if (WINDOWS) {
-      updateAvgLoadEwma(((totalLoad - _current_cpu.load) / currentTick) * _corecount, _current_cpu.ms);
-      avgLoad = getAvgLoadEwma(_corecount);
+      const busyCores = ((totalLoad - _current_cpu.load) / currentTick) * _corecount;
+      const seconds = _avgLoadEwmaMs === null ? 0 : (_current_cpu.ms - _avgLoadEwmaMs) / 1000;
+      _avgLoadEwma = avgLoadEwma(_avgLoadEwmaMs === null ? null : _avgLoadEwma, busyCores, seconds);
+      _avgLoadEwmaMs = _current_cpu.ms;
+      avgLoad = avgLoadFromEwma(_corecount);
     }
     result = {
       avgLoad: avgLoad,
@@ -261,7 +254,7 @@ export const currentLoad = async () => {
     };
   } else {
     if (WINDOWS) {
-      avgLoad = getAvgLoadEwma(_corecount);
+      avgLoad = avgLoadFromEwma(_corecount);
     }
     const cores: any[] = [];
     for (let i = 0; i < _corecount; i++) {

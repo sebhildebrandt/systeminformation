@@ -202,8 +202,7 @@ const getWorkAreaLinux = async (displays: DisplayData[]): Promise<DisplayData[]>
   return displays;
 };
 
-// without a display server (headless server, wayland without xwayland) xdpyinfo / xrandr
-// deliver nothing - the kernel still exposes every connector incl. its EDID via DRM sysfs
+// xdpyinfo / xrandr need an X session - DRM sysfs knows the connectors incl. EDID without one
 export const drmDisplays = async (path = '/sys/class/drm'): Promise<DisplayData[]> => {
   const result: DisplayData[] = [];
   let connectors: string[] = [];
@@ -220,7 +219,6 @@ export const drmDisplays = async (path = '/sys/class/drm'): Promise<DisplayData[
     const display = cloneObj(initDisplay);
     display.connection = connector.replace(/^card\d+-/, '');
     display.builtin = /^(edp|lvds|dsi)/i.test(display.connection);
-    display.main = result.length === 0;
     display.positionX = 0;
     display.positionY = 0;
     // first entry of 'modes' is the preferred / active mode
@@ -241,6 +239,11 @@ export const drmDisplays = async (path = '/sys/class/drm'): Promise<DisplayData[
       }
     } catch {}
     result.push(display);
+  }
+  // no window manager, so no "primary" - and sorting by name would put HDMI in front of eDP
+  const main = result.find((display) => display.builtin) || result[0];
+  if (main) {
+    main.main = true;
   }
   return result;
 };

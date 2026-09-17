@@ -34,7 +34,7 @@ const parseLinesWindowsNics = (sections: any[], nconfigsections: any[]) => {
           }
           if (netEnabled !== '') {
             const speed = toInt(getValue(lines, 'speed', ':').trim()) / 1000000;
-            // Format-List renders the DefaultIPGateway array as {a, b} - #482
+            // Format-List renders the DefaultIPGateway array as {a, b}
             const gateway = (getValue(linesNicConfig, 'DefaultIPGateway', ':').replace(/[{}"]/g, '').split(',')[0] || '').trim();
             nics.push({
               mac: getValue(lines, 'MACAddress', ':').toLowerCase(),

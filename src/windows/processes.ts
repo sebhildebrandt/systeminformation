@@ -14,8 +14,8 @@ const _processes_cpu = {
   result: <ProcessesData>{}
 };
 
-// Win32_Process.ExecutionState is documented as not implemented and always comes back null.
-// The only real state windows exposes is per thread, so it is aggregated back to the process.
+// Win32_Process.ExecutionState is documented as not implemented and always null - the only real
+// state windows exposes is per thread, so it is aggregated back to the process
 export const processStateWin = (running: number, waiting: number, suspended: number) => {
   if (running > 0) {
     return 'running';
@@ -77,7 +77,6 @@ export const processes = async (): Promise<ProcessesData> => {
     // and would leave this one dividing by a near-zero delta (#1007)
     const cpuBaseline = { ..._processes_cpu };
     try {
-      // the pool runs both queries on separate workers - the thread states cost no extra wall time
       const [processList, states] = await Promise.all([
         ps.exec(
           `Get-CimInstance Win32_Process | select-Object ProcessId,ParentProcessId,Caption,CommandLine,ExecutablePath,UserModeTime,KernelModeTime,WorkingSetSize,Priority,PageFileUsage,

@@ -1,4 +1,4 @@
-import { readFile, readdir, readlink } from 'node:fs/promises';
+import { readFile, readdir, realpath } from 'node:fs/promises';
 import { networkInterfaces as osNetworkInterfaces } from 'node:os';
 import { basename, dirname, join } from 'node:path';
 import { getValue, grep, nextTick, toInt } from '../common';
@@ -199,7 +199,7 @@ const getLinuxIfaceIEEE8021xState = (authenticationProtocol: string) => {
   }
 };
 
-// one default route per interface, incl. multipath nexthops - #482
+// one default route per interface, incl. multipath nexthop lines
 const getLinuxGateways = async () => {
   const result: { [iface: string]: string } = {};
   try {
@@ -215,37 +215,59 @@ const getLinuxGateways = async () => {
   return result;
 };
 
-// vendor / model of the underlying PCI or USB device - #519
+// virtio-net hangs one level below its pci device, so the leaf alone is not enough - but searching
+// the whole path would hand a USB NIC the slot of its host controller. Hence the last two segments.
+const PCI_SLOT = /^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\.[0-9a-f]$/i;
+
+export const pciSlotFromPath = (path: string) => {
+  const segments = path.split('/');
+  return segments.slice(-2).reverse().find((segment) => PCI_SLOT.test(segment)) || null;
+};
+
+// vendor / model of the underlying PCI or USB device - static, so each device is looked at once.
+// Only conclusive results are remembered; a failed lookup is retried on the next call.
+const _nicHardware: { [iface: string]: { vendor: string; model: string } } = {};
+const _nicHardwareChecked = new Set<string>();
+
 const getLinuxNicHardware = async (devices: string[]) => {
-  const result: { [iface: string]: { vendor: string; model: string } } = {};
   let pciDevices: PciData[] | null = null;
   for (const device of devices) {
     // aliases like eth0:1 share the hardware of their base device
     const dev = device.split(':')[0];
-    if (!isSafePathSegment(dev) || result[dev]) {
+    if (!isSafePathSegment(dev) || _nicHardwareChecked.has(dev)) {
       continue;
     }
-    let node = '';
+    let target = '';
     try {
-      node = basename(await readlink(`/sys/class/net/${dev}/device`));
+      target = await realpath(`/sys/class/net/${dev}/device`);
     } catch {
+      // virtual interfaces have none, a physical one may not be up yet
       continue;
     }
-    if (/^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\.[0-9a-f]$/i.test(node)) {
-      pciDevices = pciDevices || (await pci());
-      const entry = pciDevices.find((item) => item.slot && node.endsWith(item.slot));
-      if (entry) {
-        result[dev] = { vendor: entry.vendor, model: entry.model };
-      }
-    } else {
-      // USB NICs keep manufacturer / product on the parent usb device
-      const [vendor, model] = await Promise.all([readSysfs(`/sys/class/net/${dev}/device/../manufacturer`), readSysfs(`/sys/class/net/${dev}/device/../product`)]);
-      if (vendor || model) {
-        result[dev] = { vendor, model };
-      }
+    // USB NICs keep manufacturer / product on the parent usb device - check this before the pci slot
+    const [vendor, model] = await Promise.all([readSysfs(join(target, '..', 'manufacturer')), readSysfs(join(target, '..', 'product'))]);
+    if (vendor || model) {
+      _nicHardware[dev] = { vendor, model };
+      _nicHardwareChecked.add(dev);
+      continue;
     }
+    const slot = pciSlotFromPath(target);
+    if (!slot) {
+      _nicHardwareChecked.add(dev);
+      continue;
+    }
+    pciDevices = pciDevices || (await pci());
+    if (!pciDevices.length) {
+      // no lspci on this host - not a final answer
+      continue;
+    }
+    const entry = pciDevices.find((item) => item.slot && slot.endsWith(item.slot));
+    if (entry) {
+      _nicHardware[dev] = { vendor: entry.vendor, model: entry.model };
+    }
+    _nicHardwareChecked.add(dev);
   }
-  return result;
+  return _nicHardware;
 };
 
 export const networkInterfaces = async (defaultString = '', rescan = true): Promise<NetworkInterfacesData[]> => {

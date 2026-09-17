@@ -1,6 +1,6 @@
 import { networkInterfaces as osNetworkInterfaces } from 'node:os';
 import { getValue, nextTick, toInt } from '../common';
-import { MAX_BUFFER_SIZE } from '../common/const';
+import { DARWIN, MAX_BUFFER_SIZE } from '../common/const';
 import { exec } from '../common/exec';
 import { cloneObj } from '../common/index';
 import { testVirtualNic } from '../common/network';
@@ -98,24 +98,52 @@ const getBsdNics = async () => {
   }
 };
 
-// routing table lists one default route per interface - #482
-const getBsdGateways = async () => {
+// the interface column differs per system (NetBSD / OpenBSD add Refs/Use/Mtu/Prio before it),
+// so its position comes from the header instead of being hardcoded
+export const parseBsdGateways = (stdout: string) => {
   const result: { [iface: string]: string } = {};
-  try {
-    const { stdout } = await exec('netstat -rn -f inet', { maxBuffer: MAX_BUFFER_SIZE });
-    for (const line of stdout.split('\n')) {
-      const parts = line.trim().split(/\s+/);
-      if (parts[0] === 'default' && parts.length >= 4 && parts[1].includes('.') && !result[parts[3]]) {
-        result[parts[3]] = parts[1];
-      }
+  let ifaceColumn = -1;
+  for (const line of stdout.split('\n')) {
+    const parts = line.trim().split(/\s+/);
+    if (parts[0] === 'Destination') {
+      ifaceColumn = parts.findIndex((part) => /^(netif|interface|iface)$/i.test(part));
+      continue;
     }
-  } catch {}
+    if (parts[0] !== 'default' || parts.length < 3 || !parts[1].includes('.')) {
+      continue;
+    }
+    // without a header only a BSD interface name is accepted, so flags cannot become the key
+    const iface = ifaceColumn > 0 ? parts[ifaceColumn] : parts.slice(2).reverse().find((part) => /^[a-z][a-z0-9]*\d$/.test(part));
+    if (iface && !result[iface]) {
+      result[iface] = parts[1];
+    }
+  }
   return result;
 };
 
-// ioreg lists the controller (vendor / model) with its interface as child node - #519
+const getBsdGateways = async () => {
+  try {
+    const { stdout } = await exec('netstat -rn -f inet', { maxBuffer: MAX_BUFFER_SIZE });
+    return parseBsdGateways(stdout);
+  } catch {
+    return {};
+  }
+};
+
+// ioreg lists the controller (vendor / model) with its interface as child node - static, so cached
+let _nicVendors: { [iface: string]: { vendor: string; model: string } } | null = null;
+
 const getBsdNicVendors = async () => {
+  if (_nicVendors) {
+    return _nicVendors;
+  }
   const result: { [iface: string]: { vendor: string; model: string } } = {};
+  if (!DARWIN) {
+    // ioreg does not exist on FreeBSD / NetBSD / OpenBSD
+    _nicVendors = result;
+    return result;
+  }
+  let complete = false;
   try {
     const { stdout } = await exec('ioreg -r -c IONetworkController -d 2 -w 0', { maxBuffer: MAX_BUFFER_SIZE });
     let vendor = '';
@@ -140,7 +168,12 @@ const getBsdNicVendors = async () => {
         result[child[1]] = { vendor, model };
       }
     }
+    complete = true;
   } catch {}
+  // a transient failure must not stay cached for the rest of the process
+  if (complete) {
+    _nicVendors = result;
+  }
   return result;
 };
 
@@ -166,10 +199,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
   let result: NetworkInterfacesData[] = [];
 
   try {
-    const nics = await getBsdNics();
-    const defaultInterface = await networkInterfaceDefault();
-    const gateways = await getBsdGateways();
-    const vendors = await getBsdNicVendors();
+    const [nics, defaultInterface, gateways, vendors] = await Promise.all([getBsdNics(), networkInterfaceDefault(), getBsdGateways(), getBsdNicVendors()]);
     for (const nic of nics) {
       let ip4link = '';
       let ip4linksubnet = '';
