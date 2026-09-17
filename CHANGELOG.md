@@ -46,6 +46,8 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 #### Extended Windows Support
 
 - `disksIO()`, `fsStats()`, `fsOpenFiles()` and `thunderbolt()` are now also available on Windows
+- `audio()`: `default`, `in` and `out` are now detected on Windows (previously macOS only)
+- `audio()` added `channel` on Windows (USB, Bluetooth, Onboard, PCIe, HDMI - derived from the PNP device id and the device name)
 - `blockDevices()` added `guid` (volume GUID path, e.g. `\\?\Volume{...}\` - needed to mount a volume, #856)
 - `disksIO()` added `rWaitTime`, `wWaitTime`, `tWaitTime`, `rWaitPercent`, `wWaitPercent` and `tWaitPercent` on Windows (previously Linux / BSD only)
 
@@ -53,6 +55,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 
 - `fsSize()` the file system `type` on macOS is now read from `mount` instead of being guessed from `diskutil` - the guess could only ever produce `APFS`, `HFS` or `NFS`, so APFS volumes were reported as `HFS` and zfs, exfat, msdos or smbfs were never recognised at all. This also makes the ZFS correction above work on macOS (#1017)
 - `fsSize()` ZFS datasets now report the hierarchical usage from `zfs list` - df and statfs only know what a dataset references itself, so a parent holding its data in child datasets was shown as almost empty (#1017) - note that `used` then includes child datasets and snapshots, exactly like `zfs list`, so it must not be summed across nested datasets
+- `processes()` `state` was `unknown` for every process on Windows - `Win32_Process.ExecutionState` is documented as not implemented and always empty. The state is now derived from the threads of a process: running, sleeping, or blocked when every thread is suspended. `running`, `sleeping`, `blocked` and `unknown` in the summary are counted accordingly instead of putting everything into `unknown` (Windows)
 - `displays()` EDID parsing with multiple monitors - all displays reported the first monitor's model, resolution and size (Linux, #997)
 - `displays()` display positions (`positionX` / `positionY`) are now parsed from xrandr (Linux, #866)
 - `displays()` falls back to the DRM connectors in sysfs (`/sys/class/drm`) when no display server is running - `xdpyinfo` / `xrandr` need an X session, so on a headless server (or Wayland without XWayland) the result was always empty although the kernel knows every connected monitor incl. its EDID (Linux)

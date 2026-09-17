@@ -1,7 +1,6 @@
 import { totalmem } from 'node:os';
 import { cloneObj, nextTick } from '../common';
 import { initProcesses } from '../common/defaults';
-import { winProcessStatus } from '../common/mappings';
 import type { CpuData, ProcessesData, ProcessesProcessData, ProcStatData } from '../common/types';
 import { ps, psArray } from '../common/windows';
 import { clampCpuPair } from '../common/parse';
@@ -13,6 +12,38 @@ const _processes_cpu = {
   list: <any>{},
   ms: 0,
   result: <ProcessesData>{}
+};
+
+// Win32_Process.ExecutionState is documented as not implemented and always comes back null.
+// The only real state windows exposes is per thread, so it is aggregated back to the process.
+export const processStateWin = (running: number, waiting: number, suspended: number) => {
+  if (running > 0) {
+    return 'running';
+  }
+  if (waiting > 0) {
+    return 'sleeping';
+  }
+  if (suspended > 0) {
+    return 'blocked';
+  }
+  return 'unknown';
+};
+
+// thread states: 1 ready, 2 running, 3 standby, 5 wait, 6 transition; wait reason 5 is suspended.
+// .Threads throws for protected processes and .WaitReason throws unless the thread is waiting
+const WIN_THREAD_STATES =
+  'Get-Process -ErrorAction SilentlyContinue | ForEach-Object { $r=0;$w=0;$u=0; try { foreach ($t in $_.Threads) { $s=[int]$t.ThreadState; ' +
+  'if ($s -eq 1 -or $s -eq 2 -or $s -eq 3 -or $s -eq 6) { $r++ } elseif ($s -eq 5) { if ([int]$t.WaitReason -eq 5) { $u++ } else { $w++ } } } } catch {}; ' +
+  '[PSCustomObject]@{i=$_.Id;r=$r;w=$w;u=$u} } | ConvertTo-Json -compress';
+
+const getWindowsProcessStates = async () => {
+  const result: { [pid: number]: string } = {};
+  try {
+    for (const entry of psArray(await ps.exec(WIN_THREAD_STATES))) {
+      result[entry.i] = processStateWin(entry.r || 0, entry.w || 0, entry.u || 0);
+    }
+  } catch {}
+  return result;
 };
 
 export const calcProcStatWin = (procStat: ProcStatData, all: number, _cpu_old: CpuData) => {
@@ -46,12 +77,15 @@ export const processes = async (): Promise<ProcessesData> => {
     // and would leave this one dividing by a near-zero delta (#1007)
     const cpuBaseline = { ..._processes_cpu };
     try {
-      const processArray: any[] = psArray(
-        await ps.exec(
-          `Get-CimInstance Win32_Process | select-Object ProcessId,ParentProcessId,ExecutionState,Caption,CommandLine,ExecutablePath,UserModeTime,KernelModeTime,WorkingSetSize,Priority,PageFileUsage,
+      // the pool runs both queries on separate workers - the thread states cost no extra wall time
+      const [processList, states] = await Promise.all([
+        ps.exec(
+          `Get-CimInstance Win32_Process | select-Object ProcessId,ParentProcessId,Caption,CommandLine,ExecutablePath,UserModeTime,KernelModeTime,WorkingSetSize,Priority,PageFileUsage,
         @{n="CreationDate";e={$_.CreationDate.ToString("yyyy-MM-dd HH:mm:ss")}} | ConvertTo-Json -compress`
-        )
-      );
+        ),
+        getWindowsProcessStates()
+      ]);
+      const processArray: any[] = psArray(processList);
       if (processArray.length) {
         const procs: ProcessesProcessData[] = [];
         const procStats: ProcStatData[] = [];
@@ -63,7 +97,6 @@ export const processes = async (): Promise<ProcessesData> => {
         processArray.forEach((element) => {
           const pid = element.ProcessId;
           const parentPid = element.ParentProcessId;
-          const statusValue = element.ExecutionState || null;
           const name = element.Caption;
           const commandLine = element.CommandLine;
           // get additional command line data
@@ -76,15 +109,6 @@ export const processes = async (): Promise<ProcessesData> => {
           allcpuu += utime - (cpuOld ? cpuOld.utime : 0);
           allcpus += stime - (cpuOld ? cpuOld.stime : 0);
           result.all++;
-          if (!statusValue) {
-            result.unknown++;
-          }
-          if (statusValue === 3) {
-            result.running++;
-          }
-          if (statusValue === 4 || statusValue === 5) {
-            result.blocked++;
-          }
 
           procStats.push({
             pid: pid,
@@ -110,7 +134,7 @@ export const processes = async (): Promise<ProcessesData> => {
             memRss: Math.floor((element.WorkingSetSize || 0) / 1024),
             nice: 0,
             started: element.CreationDate,
-            state: statusValue ? winProcessStatus[statusValue] : winProcessStatus[0],
+            state: states[pid] || 'unknown',
             tty: '',
             user: '',
             command: commandLine || name,
@@ -118,6 +142,9 @@ export const processes = async (): Promise<ProcessesData> => {
             params: ''
           });
         });
+        result.running = procs.filter((proc) => proc.state === 'running').length;
+        result.blocked = procs.filter((proc) => proc.state === 'blocked').length;
+        result.unknown = procs.filter((proc) => proc.state === 'unknown').length;
         result.sleeping = result.all - result.running - result.blocked - result.unknown;
         result.list = procs;
         procStats.forEach((element) => {

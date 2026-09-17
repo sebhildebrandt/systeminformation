@@ -1788,19 +1788,6 @@ export const graphicsMetalVersion = (id: string) => {
   return families[id] || (version ? version[1] : '');
 };
 
-export const winProcessStatus: { [index: string]: any } = {
-  '0': 'unknown',
-  '1': 'other',
-  '2': 'ready',
-  '3': 'running',
-  '4': 'blocked',
-  '5': 'suspended blocked',
-  '6': 'suspended ready',
-  '7': 'terminated',
-  '8': 'stopped',
-  '9': 'growing'
-};
-
 // Mac model name and serial number / model identifier
 
 export const getAppleModel = (key: string) => {
