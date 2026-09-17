@@ -55,6 +55,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `fsSize()` ZFS datasets now report the hierarchical usage from `zfs list` - df and statfs only know what a dataset references itself, so a parent holding its data in child datasets was shown as almost empty (#1017) - note that `used` then includes child datasets and snapshots, exactly like `zfs list`, so it must not be summed across nested datasets
 - `displays()` EDID parsing with multiple monitors - all displays reported the first monitor's model, resolution and size (Linux, #997)
 - `displays()` display positions (`positionX` / `positionY`) are now parsed from xrandr (Linux, #866)
+- `displays()` falls back to the DRM connectors in sysfs (`/sys/class/drm`) when no display server is running - `xdpyinfo` / `xrandr` need an X session, so on a headless server (or Wayland without XWayland) the result was always empty although the kernel knows every connected monitor incl. its EDID (Linux)
 - `displays()` per-display refresh rate instead of copying the primary monitor's rate to all displays (Windows, #853)
 - `displays()` monitor data (connection type, size) is now correlated by `InstanceName` - fixes swapped values on multi-GPU setups (Windows, #764)
 - `displays()` mirrored/duplicated monitors are now reported as separate physical displays; monitors that are attached but inactive (e.g. "PC screen only") are not listed (Windows, #940)

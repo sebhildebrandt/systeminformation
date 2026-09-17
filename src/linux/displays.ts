@@ -1,9 +1,13 @@
+import { readFile, readdir } from 'node:fs/promises';
+import { join } from 'node:path';
 import { getValue, nextTick, toInt } from '../common';
 import { execOptsLinux } from '../common/const';
 import { initDisplay } from '../common/defaults';
 import { exec, execSave } from '../common/exec';
+import { readSysfs } from '../common/files';
 import { cloneObj } from '../common/index';
 import { isRaspberry } from '../common/raspberry';
+import { isSafePathSegment } from '../common/security';
 import { DisplayData } from '../common/types';
 
 const parseLinesLinuxEdid = (edid: string) => {
@@ -198,6 +202,49 @@ const getWorkAreaLinux = async (displays: DisplayData[]): Promise<DisplayData[]>
   return displays;
 };
 
+// without a display server (headless server, wayland without xwayland) xdpyinfo / xrandr
+// deliver nothing - the kernel still exposes every connector incl. its EDID via DRM sysfs
+export const drmDisplays = async (path = '/sys/class/drm'): Promise<DisplayData[]> => {
+  const result: DisplayData[] = [];
+  let connectors: string[] = [];
+  try {
+    connectors = (await readdir(path)).filter((name) => /^card\d+-/.test(name) && isSafePathSegment(name)).sort();
+  } catch {
+    return result;
+  }
+  for (const connector of connectors) {
+    const dir = join(path, connector);
+    if ((await readSysfs(join(dir, 'status'))) !== 'connected') {
+      continue;
+    }
+    const display = cloneObj(initDisplay);
+    display.connection = connector.replace(/^card\d+-/, '');
+    display.builtin = /^(edp|lvds|dsi)/i.test(display.connection);
+    display.main = result.length === 0;
+    display.positionX = 0;
+    display.positionY = 0;
+    // first entry of 'modes' is the preferred / active mode
+    const mode = (await readSysfs(join(dir, 'modes'))).split('\n')[0].split('x');
+    if (mode.length === 2) {
+      display.currentResX = toInt(mode[0]);
+      display.currentResY = toInt(mode[1]);
+    }
+    try {
+      const edid = (await readFile(join(dir, 'edid'))).toString('hex');
+      if (edid) {
+        const decoded = parseLinesLinuxEdid(edid);
+        display.model = decoded.model;
+        display.resolutionX = decoded.resolutionX;
+        display.resolutionY = decoded.resolutionY;
+        display.sizeX = decoded.sizeX;
+        display.sizeY = decoded.sizeY;
+      }
+    } catch {}
+    result.push(display);
+  }
+  return result;
+};
+
 export const displays = async () => {
   await nextTick();
   const result: DisplayData[] = [];
@@ -252,9 +299,13 @@ export const displays = async () => {
         ({ stdout } = await exec('xrandr --verbose 2>/dev/null', execOptsLinux));
         const lines = stdout.toString().split('\n');
         // xrandr result replaces the raspberry fbset/tvservice fallback (v5 behavior)
-        return await getWorkAreaLinux(parseLinesLinuxDisplays(lines, depth));
+        const xrandrDisplays = parseLinesLinuxDisplays(lines, depth);
+        if (xrandrDisplays.length) {
+          return await getWorkAreaLinux(xrandrDisplays);
+        }
       } catch {}
     } catch {}
   } catch {}
-  return result;
+  const drm = await drmDisplays();
+  return drm.length ? drm : result;
 };
