@@ -98,6 +98,52 @@ const getBsdNics = async () => {
   }
 };
 
+// routing table lists one default route per interface - #482
+const getBsdGateways = async () => {
+  const result: { [iface: string]: string } = {};
+  try {
+    const { stdout } = await exec('netstat -rn -f inet', { maxBuffer: MAX_BUFFER_SIZE });
+    for (const line of stdout.split('\n')) {
+      const parts = line.trim().split(/\s+/);
+      if (parts[0] === 'default' && parts.length >= 4 && parts[1].includes('.') && !result[parts[3]]) {
+        result[parts[3]] = parts[1];
+      }
+    }
+  } catch {}
+  return result;
+};
+
+// ioreg lists the controller (vendor / model) with its interface as child node - #519
+const getBsdNicVendors = async () => {
+  const result: { [iface: string]: { vendor: string; model: string } } = {};
+  try {
+    const { stdout } = await exec('ioreg -r -c IONetworkController -d 2 -w 0', { maxBuffer: MAX_BUFFER_SIZE });
+    let vendor = '';
+    let model = '';
+    for (const line of stdout.split('\n')) {
+      if (line.startsWith('+-o ')) {
+        vendor = '';
+        model = '';
+        continue;
+      }
+      const value = line.match(/"IO(Vendor|Model)" = "(.*)"/);
+      if (value) {
+        if (value[1] === 'Vendor') {
+          vendor = value[2];
+        } else {
+          model = value[2];
+        }
+        continue;
+      }
+      const child = line.match(/^\s+\+-o (\S+)\s+<class \S*Interface/);
+      if (child && (vendor || model)) {
+        result[child[1]] = { vendor, model };
+      }
+    }
+  } catch {}
+  return result;
+};
+
 const getBsdIfaceDHCPstatus = async (iface: string) => {
   let result = false;
   try {
@@ -122,6 +168,8 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
   try {
     const nics = await getBsdNics();
     const defaultInterface = await networkInterfaceDefault();
+    const gateways = await getBsdGateways();
+    const vendors = await getBsdNicVendors();
     for (const nic of nics) {
       let ip4link = '';
       let ip4linksubnet = '';
@@ -173,11 +221,14 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
       result.push({
         iface: nic.iface,
         ifaceName: nic.iface,
+        vendor: vendors[nic.iface]?.vendor || '',
+        model: vendors[nic.iface]?.model || '',
         default: nic.iface === defaultInterface,
         ip4: nic.ip4,
         ip4subnet: nic.ip4subnet || '',
         ip6: nic.ip6,
         ip6subnet: nic.ip6subnet || '',
+        gateway: gateways[nic.iface] || '',
         mac: nic.mac,
         internal: nic.internal,
         virtual: nic.internal ? false : testVirtualNic(nic.iface, nic.iface, nic.mac),

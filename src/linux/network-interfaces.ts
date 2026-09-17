@@ -1,16 +1,17 @@
-import { readFile, readdir } from 'node:fs/promises';
+import { readFile, readdir, readlink } from 'node:fs/promises';
 import { networkInterfaces as osNetworkInterfaces } from 'node:os';
 import { basename, dirname, join } from 'node:path';
 import { getValue, grep, nextTick, toInt } from '../common';
 import { execOptsLinux } from '../common/const';
 import { initNetworkInterface } from '../common/defaults';
 import { exec, execFile, execSecure } from '../common/exec';
-import { readFileLines, readSysfsMany } from '../common/files';
+import { readFileLines, readSysfs, readSysfsMany } from '../common/files';
 import { cloneObj } from '../common/index';
 import { testVirtualNic } from '../common/network';
 import { isSafePathSegment, sanitizeString } from '../common/security';
-import type { NetworkInterfacesData } from '../common/types';
+import type { NetworkInterfacesData, PciData } from '../common/types';
 import { networkInterfaceDefault } from './network-interface-default';
+import { pci } from './pci';
 
 let _interfaces: any = {}; // nodejs structure
 let _networkInterfaces: NetworkInterfacesData[] = []; // si structure
@@ -198,6 +199,55 @@ const getLinuxIfaceIEEE8021xState = (authenticationProtocol: string) => {
   }
 };
 
+// one default route per interface, incl. multipath nexthops - #482
+const getLinuxGateways = async () => {
+  const result: { [iface: string]: string } = {};
+  try {
+    const { stdout } = await exec('ip -4 route show default 2> /dev/null', execOptsLinux);
+    for (const line of stdout.split('\n')) {
+      for (const match of line.matchAll(/(?:via\s+(\S+)\s+)?dev\s+(\S+)/g)) {
+        if (!result[match[2]]) {
+          result[match[2]] = match[1] || '';
+        }
+      }
+    }
+  } catch {}
+  return result;
+};
+
+// vendor / model of the underlying PCI or USB device - #519
+const getLinuxNicHardware = async (devices: string[]) => {
+  const result: { [iface: string]: { vendor: string; model: string } } = {};
+  let pciDevices: PciData[] | null = null;
+  for (const device of devices) {
+    // aliases like eth0:1 share the hardware of their base device
+    const dev = device.split(':')[0];
+    if (!isSafePathSegment(dev) || result[dev]) {
+      continue;
+    }
+    let node = '';
+    try {
+      node = basename(await readlink(`/sys/class/net/${dev}/device`));
+    } catch {
+      continue;
+    }
+    if (/^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\.[0-9a-f]$/i.test(node)) {
+      pciDevices = pciDevices || (await pci());
+      const entry = pciDevices.find((item) => item.slot && node.endsWith(item.slot));
+      if (entry) {
+        result[dev] = { vendor: entry.vendor, model: entry.model };
+      }
+    } else {
+      // USB NICs keep manufacturer / product on the parent usb device
+      const [vendor, model] = await Promise.all([readSysfs(`/sys/class/net/${dev}/device/../manufacturer`), readSysfs(`/sys/class/net/${dev}/device/../product`)]);
+      if (vendor || model) {
+        result[dev] = { vendor, model };
+      }
+    }
+  }
+  return result;
+};
+
 export const networkInterfaces = async (defaultString = '', rescan = true): Promise<NetworkInterfacesData[]> => {
   await nextTick();
   const interfaces = osNetworkInterfaces();
@@ -221,6 +271,8 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
         }
       }
     } catch {}
+    const gateways = await getLinuxGateways();
+    const hardware = await getLinuxNicHardware(devices);
     for (const dev of devices) {
       const iface = dev;
       let ip4 = '';
@@ -327,11 +379,14 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
         ...initNetworkInterface,
         iface: ifaceSanitized,
         ifaceName,
+        vendor: hardware[ifaceSanitized]?.vendor || '',
+        model: hardware[ifaceSanitized]?.model || '',
         default: iface === defaultInterface,
         ip4,
         ip4subnet,
         ip6,
         ip6subnet,
+        gateway: gateways[ifaceSanitized] || '',
         mac,
         internal,
         virtual,

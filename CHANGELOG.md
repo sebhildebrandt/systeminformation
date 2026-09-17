@@ -24,21 +24,22 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 
 - `osInfo()` added `installDate` (operating system installation date)
 - `osInfo()` added `displayServer` (wayland, x11, quartz, dwm, surfaceflinger or '' when headless)
-- `osInfo()` added `lastUpdate` (date of the last OS update on macOS / Windows, last package update on Linux / BSD, #970)
-- `osInfo()` added `hwAcceleration` (available compute layers: cuda, rocm, oneapi, vulkan, opencl, metal, dx12, directml, #980)
-- `osInfo()` added `awake` (system fully awake - `false` during macOS dark wake, #987)
+- `osInfo()` added `lastUpdate` (date of the last OS update on macOS / Windows, last package update on Linux / BSD)
+- `osInfo()` added `hwAcceleration` (available compute layers: cuda, rocm, oneapi, vulkan, opencl, metal, dx12, directml)
+- `osInfo()` added `awake` (system fully awake - `false` during macOS dark wake)
 - `bios()` added `iBridge` (Apple iBridge / security chip: modelName, build, bootUuid, secureBoot - macOS only)
 - `displays()` added `serial`, `displayId` and `productionYear` on Windows (previously macOS only)
 - `displays()` added `RDP` as connection type for remote desktop / indirect displays (Windows)
 - `displays()` added `mirror` (true if the display is part of a mirrored / duplicated set, #930)
 - `displays()` added `scale` (DPI scaling factor of the display, e.g. `1.5` for 150% - Windows only)
-- `displays()` added `workAreaResolutionX/Y` and `workAreaPositionX/Y` (desktop working area - the screen minus task bar and app bars on Windows, menu bar and Dock on macOS, panels/docks on Linux via `_NET_WORKAREA`, X11 only, #772)
+- `displays()` added `workAreaResolutionX/Y` and `workAreaPositionX/Y` (desktop working area - the screen minus task bar and app bars on Windows, menu bar and Dock on macOS, panels/docks on Linux via `_NET_WORKAREA`, X11 only)
 - `gpu()` added `temperatureGpu` on Apple Silicon (optional `macos-temperature-sensor` package)
 - `services()` added `startmode` on Linux (systemd `UnitFileState`: enabled, disabled, static, ..., previously Windows only)
-- `services()` added `lastChanged` (Linux/systemd: date of the last state change - service start when running, service stop otherwise; macOS: start time of the service processes, #886)
-- `processes()` added `cpuTime` (absolute CPU time of the process itself in seconds, excluding already reaped children, #1007)
+- `services()` added `lastChanged` (Linux/systemd: date of the last state change - service start when running, service stop otherwise; macOS: start time of the service processes)
+- `processes()` added `cpuTime` (absolute CPU time of the process itself in seconds, excluding already reaped children)
 - `processes()` now reports zombie processes with their plain name instead of `name] <defunct>`
-- `currentLoad()` added `currentLoadIowait` / `rawCurrentLoadIowait` and per CPU `loadIowait` / `rawLoadIowait` (CPU time waiting for IO, the `wa` value of `top`) - Linux only, `0` elsewhere as macOS, BSD and Windows do not track an iowait CPU state (#965)
+- `networkInterfaces()` added `vendor`, `model` and `gateway`
+- `currentLoad()` added `currentLoadIowait` / `rawCurrentLoadIowait` and per CPU `loadIowait` / `rawLoadIowait` (CPU time waiting for IO, the `wa` value of `top`) - Linux only, `0` elsewhere as macOS, BSD and Windows do not track an iowait CPU state
 - `versions()` added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, rails, ruby, rust, sqlite3, vim, vue
 
 #### Extended Windows Support

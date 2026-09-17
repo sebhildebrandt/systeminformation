@@ -999,11 +999,14 @@ export type ProcessLoadData = {
 export type NetworkInterfacesData = {
   iface: string;
   ifaceName: string;
+  vendor: string;
+  model: string;
   default: boolean;
   ip4: string;
   ip4subnet: string;
   ip6: string;
   ip6subnet: string;
+  gateway: string;
   mac: string;
   internal: boolean;
   virtual: boolean;

@@ -34,9 +34,14 @@ const parseLinesWindowsNics = (sections: any[], nconfigsections: any[]) => {
           }
           if (netEnabled !== '') {
             const speed = toInt(getValue(lines, 'speed', ':').trim()) / 1000000;
+            // Format-List renders the DefaultIPGateway array as {a, b} - #482
+            const gateway = (getValue(linesNicConfig, 'DefaultIPGateway', ':').replace(/[{}"]/g, '').split(',')[0] || '').trim();
             nics.push({
               mac: getValue(lines, 'MACAddress', ':').toLowerCase(),
               dhcp: getValue(linesNicConfig, 'dhcpEnabled', ':').toLowerCase() === 'true',
+              gateway,
+              vendor: getValue(lines, 'Manufacturer', ':'),
+              model: getValue(lines, 'ProductName', ':') || getValue(lines, 'Description', ':'),
               name: ifacename,
               iface,
               netEnabled: netEnabled === 'TRUE',
@@ -54,7 +59,7 @@ const parseLinesWindowsNics = (sections: any[], nconfigsections: any[]) => {
 
 const getWindowsNics = async () => {
   let cmd = 'Get-CimInstance Win32_NetworkAdapter | fl *' + "; echo '#-#-#-#';";
-  cmd += 'Get-CimInstance Win32_NetworkAdapterConfiguration | fl DHCPEnabled' + '';
+  cmd += 'Get-CimInstance Win32_NetworkAdapterConfiguration | fl DHCPEnabled, DefaultIPGateway' + '';
   try {
     const stdout = String((await ps.exec(cmd)) || '');
     const data = stdout.split('#-#-#-#');
@@ -266,6 +271,9 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
       let speed = 0;
       let operstate = 'down';
       let dhcp = false;
+      let gateway = '';
+      let vendor = '';
+      let model = '';
       let dnsSuffix = '';
       let ieee8021xAuth = '';
       let ieee8021xState = '';
@@ -295,6 +303,9 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
         iface = detail.iface || iface;
         ifaceName = detail.name;
         dhcp = detail.dhcp;
+        gateway = detail.gateway;
+        vendor = detail.vendor;
+        model = detail.model;
         operstate = detail.operstate;
         speed = operstate === 'up' ? detail.speed : 0;
         type = detail.type;
@@ -326,11 +337,14 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
         ...initNetworkInterface,
         iface,
         ifaceName,
+        vendor,
+        model,
         default: iface === defaultInterface,
         ip4,
         ip4subnet,
         ip6,
         ip6subnet,
+        gateway,
         mac,
         internal,
         virtual,
