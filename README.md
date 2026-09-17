@@ -461,7 +461,7 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 | Function                         | Result object     | Linux | BSD | Mac | Win | Sun | Comments                                                                                |
 | -------------------------------- | ----------------- | ----- | --- | --- | --- | --- | --------------------------------------------------------------------------------------- |
 | si.currentLoad()                 | {...}             | X     |     | X   | X   | X   | CPU-Load                                                                                |
-|                                  | avgLoad           | X     |     | X   |     | X   | average load                                                                            |
+|                                  | avgLoad           | X     |     | X   | X   | X   | average load<br>(Windows: approximated, see docs)                                       |
 |                                  | currentLoad       | X     |     | X   | X   | X   | CPU load in %                                                                           |
 |                                  | currentLoadUser   | X     |     | X   | X   | X   | CPU load user in %                                                                      |
 |                                  | currentLoadSystem | X     |     | X   | X   | X   | CPU load system in %                                                                    |

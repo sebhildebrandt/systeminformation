@@ -39,6 +39,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `processes()` added `cpuTime` (absolute CPU time of the process itself in seconds, excluding already reaped children)
 - `processes()` now reports zombie processes with their plain name instead of `name] <defunct>`
 - `networkInterfaces()` added `vendor`, `model` and `gateway`
+- `currentLoad()` `avgLoad` is no longer always `0` on Windows - Windows has no kernel load average, so it is approximated the way the unix kernel does it: an exponentially weighted moving average (1 / 5 / 15 min) over the number of busy cores. It is only fed while `currentLoad()` is being called, so the value converges the longer an application polls it
 - `currentLoad()` added `currentLoadIowait` / `rawCurrentLoadIowait` and per CPU `loadIowait` / `rawLoadIowait` (CPU time waiting for IO, the `wa` value of `top`) - Linux only, `0` elsewhere as macOS, BSD and Windows do not track an iowait CPU state
 - `versions()` added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, rails, ruby, rust, sqlite3, vim, vue
 
