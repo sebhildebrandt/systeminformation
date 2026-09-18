@@ -246,7 +246,11 @@ export const raidMatchLinux = async (data: FsBlockDevicesData[]) => {
   try {
     for (const element of data) {
       if (element.type.startsWith('raid')) {
-        const stdout = await execSecure('mdadm', ['--export', '--detail', `/dev/${element.name}`]);
+        // the name goes into a path, and mdadm can block on a degraded array
+        if (!isSafePathSegment(element.name)) {
+          continue;
+        }
+        const stdout = await execSecure('mdadm', ['--export', '--detail', `/dev/${element.name}`], { timeout: 5000 });
         const lines = stdout.split('\n');
         const mdData = decodeMdabmData(lines);
 
