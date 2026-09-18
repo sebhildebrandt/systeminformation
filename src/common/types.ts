@@ -988,6 +988,12 @@ export type ProcessesData = {
   list: ProcessesProcessData[];
 };
 
+export type ProcessFocusedData = {
+  pid: number;
+  name: string;
+  path: string;
+};
+
 export type ProcessLoadData = {
   proc: string;
   pid: number | null;

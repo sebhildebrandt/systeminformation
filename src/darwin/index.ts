@@ -40,6 +40,7 @@ export { pci } from './pci';
 export { printer } from './printer';
 export { processes } from '../linux/processes';
 export { processLoad } from '../linux/process-load';
+export { processFocused } from './process-focused';
 export { services } from '../linux/services';
 export { shell } from '../shell';
 export { software } from './software';

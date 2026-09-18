@@ -515,6 +515,10 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 |                                  | [0].pids          | X     | X   | X   | X   |     | pids                                                                                    |
 |                                  | [0].cpu           | X     | X   | X   |     |     | process % CPU                                                                           |
 |                                  | [0].mem           | X     | X   | X   |     |     | process % MEM                                                                           |
+| si.processFocused()              | {...}             | X     |     | X   | X   |     | process owning the currently focused window (X11 only on Linux); null if not detectable |
+|                                  | pid               | X     |     | X   | X   |     | PID of the focused process                                                              |
+|                                  | name              | X     |     | X   | X   |     | name of the focused process                                                             |
+|                                  | path              | X     |     | X   | X   |     | path of the focused process                                                             |
 
 #### 9. File System
 
@@ -539,7 +543,7 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 |                   | [0].smartStatus       | X     |     | X   | X   |     | S.M.A.R.T Status (see Known Issues)                                      |
 |                   | [0].temperature       | X     |     |     |     |     | S.M.A.R.T temperature                                                    |
 |                   | [0].smartData         | X     |     |     | X   |     | full S.M.A.R.T data from smartctl<br>requires at least smartmontools 7.0 |
-| si.blockDevices() | [{...}]               | X     |     | X   | X   |     | returns array of disks, partitions,<br>raids and roms                    |
+| si.blockDevices() | [{...}]               | X     |     | X   | X   |     | returns array of disks, partitions,<br>raids, pools and roms             |
 |                   | [0].name              | X     |     | X   | X   |     | name                                                                     |
 |                   | [0].type              | X     |     | X   | X   |     | type                                                                     |
 |                   | [0].fstype            | X     |     | X   | X   |     | file system type (e.g. ext4)                                             |
@@ -552,7 +556,7 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 |                   | [0].serial            | X     |     |     | X   |     | serial                                                                   |
 |                   | [0].removable         | X     |     | X   | X   |     | serial                                                                   |
 |                   | [0].protocol          | X     |     | X   |     |     | protocol (SATA, PCI-Express, ...)                                        |
-|                   | [0].group             | X     |     |     |     |     | Raid group member (e.g. md1)                                             |
+|                   | [0].group             | X     |     |     |     |     | raid / pool member (e.g. md1, ZFS pool,<br>btrfs label)                  |
 |                   | [0].device            | X     |     | X   | X   |     | physical device mapped to (e.g. /dev/sda)                                |
 | si.disksIO()      | {...}                 | X     |     | X   | X   |     | current transfer stats                                                   |
 |                   | rIO                   | X     |     | X   | X   |     | read IOs on all mounted drives                                           |

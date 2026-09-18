@@ -43,7 +43,7 @@ function printMenu() {
   console.log('│  A ... Displays        o ... OS Info             y ... System                                                              │');
   console.log('│  g ... GPU             O ... Mouse               Y ... Battery                                                             │');
   console.log('│  G ... PCI             p ... Processes           z ... Printer                                                             │');
-  console.log('│  h ... Bluetooth       P ... Process Load        Z ... Users                                                               │');
+  console.log('│  h ... Bluetooth       P ... Process Load        Z ... Users              R ... Process Focused                            │');
   console.log('│  H ... Thunderbolt     r ... Installed Software  - ... SI lib version                                 q >>> QUIT           │');
   console.log('└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘');
 }

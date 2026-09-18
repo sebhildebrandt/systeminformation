@@ -19,6 +19,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `inetPublicIp()` public IPv4 / IPv6 address
 - `fans()` detected fans with `rpm` and `pwm` (Linux via hwmon / thermal cooling devices; Windows only with a running LibreHardwareMonitor / OpenHardwareMonitor; for macOS you need to install `macos-temperature-sensor` as an additional dependency)
 - `serialPorts()` detected serial / COM ports incl. USB adapters (`device`, `name`, `manufacturer`, `serialNumber`, `vendorId`, `productId`, `pnpId`, `type`; Linux via sysfs, macOS via ioreg, Windows via `Win32_PnPEntity`)
+- `processFocused()` process owning the currently focused window (`pid`, `name`, `path`; macOS via `lsappinfo`, Windows via `GetForegroundWindow`, Linux X11 via `xdotool` / `xprop`, #403)
 
 #### New Attributes
 
@@ -42,6 +43,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `currentLoad()` `avgLoad` is no longer always `0` on Windows - Windows has no kernel load average, so it is approximated the way the unix kernel does it: an exponentially weighted moving average (1 / 5 / 15 min) over the number of busy cores. It is only fed while `currentLoad()` is being called, so the value converges the longer an application polls it
 - `currentLoad()` added `currentLoadIowait` / `rawCurrentLoadIowait` and per CPU `loadIowait` / `rawLoadIowait` (CPU time waiting for IO, the `wa` value of `top`) - Linux only, `0` elsewhere as macOS, BSD and Windows do not track an iowait CPU state
 - `versions()` added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, rails, ruby, rust, sqlite3, vim, vue
+- `blockDevices()` ZFS pools and multi device btrfs file systems are now resolved like mdraid: every member gets its pool as `group` and one entry per pool is added, with the raid profile as `type` (e.g. `mirror`, `raidz1`, `raid1`, `raid10`). btrfs is read from sysfs (no btrfs-progs, no root needed), ZFS from `zpool status` / `zpool list` (Linux, #802, #883)
 
 #### Extended Windows Support
 

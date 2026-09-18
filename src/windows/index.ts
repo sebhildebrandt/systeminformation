@@ -43,6 +43,7 @@ export { osInfo } from './os-info';
 export { pci } from './pci';
 export { printer } from './printer';
 export { processLoad } from './process-load';
+export { processFocused } from './process-focused';
 export { processes } from './processes';
 export { services } from './services';
 export { shell } from './shell';

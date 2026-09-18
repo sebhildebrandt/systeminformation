@@ -1,3 +1,4 @@
+import { readdir, readFile } from 'node:fs/promises';
 import { cloneObj, getValue, sortByKey, toInt, unique } from './index';
 import { DARWIN, execOptsLinux, execOptsWin, FREEBSD, LINUX, NETBSD, WINDOWS } from './const';
 import { initDiskIo, initFsBlockDevice, initFsStats } from './defaults';
@@ -320,4 +321,170 @@ export const matchDevicesWin = (data: FsBlockDevicesData[], diskDrives: string[]
     }
   });
   return data;
+};
+
+export type PoolInfoLinux = {
+  name: string;
+  type: string;
+  fsType: string;
+  size: number;
+  uuid: string;
+  mount: string;
+  members: string[];
+};
+
+const ZFS_VDEV_TYPES = ['mirror', 'raidz', 'draid'];
+
+// `zpool status -PL` prints an indented tree per pool: the pool itself, then either vdev groups
+// (mirror-0, raidz1-0, draid2:4d:12c:2s-0) or plain devices for a stripe, then log/cache/spare
+// sections. Only the first data vdev decides the pool type, every device becomes a member.
+export const parseZpoolStatus = (stdout: string) => {
+  const result = new Map<string, { type: string; members: string[] }>();
+  let pool = '';
+  let inConfig = false;
+  for (const line of stdout.split('\n')) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith('pool:')) {
+      pool = trimmed.substring(5).trim();
+      inConfig = false;
+      continue;
+    }
+    if (!pool) {
+      continue;
+    }
+    if (trimmed === 'config:') {
+      inConfig = true;
+      result.set(pool, { type: 'stripe', members: [] });
+      continue;
+    }
+    if (!inConfig || !trimmed || trimmed.startsWith('errors:')) {
+      inConfig = inConfig && !trimmed.startsWith('errors:');
+      continue;
+    }
+    const entry = result.get(pool);
+    const token = trimmed.split(/\s+/)[0];
+    if (!entry || token === 'NAME' || token === pool) {
+      continue;
+    }
+    if (token.startsWith('/')) {
+      entry.members.push(token.split('/').pop() || '');
+    } else if (entry.type === 'stripe' && !entry.members.length && ZFS_VDEV_TYPES.some((type) => token.startsWith(type))) {
+      entry.type = token.replace(/-\d+$/, '');
+    }
+  }
+  return result;
+};
+
+export const parseZpoolList = (stdout: string) => {
+  const result = new Map<string, number>();
+  for (const line of stdout.split('\n')) {
+    const parts = line.split('\t');
+    if (parts.length < 2 || !parts[0].trim()) {
+      continue;
+    }
+    result.set(parts[0].trim(), toInt(parts[1]));
+  }
+  return result;
+};
+
+// btrfs exposes the allocation profile as a subdirectory of allocation/data, longest name first
+// so raid1c3 is not shadowed by raid1
+const BTRFS_PROFILES = ['raid1c4', 'raid1c3', 'raid10', 'raid0', 'raid5', 'raid6', 'raid1', 'dup', 'single'];
+
+export const btrfsProfileFromEntries = (entries: string[]) => BTRFS_PROFILES.find((profile) => entries.includes(profile)) || '';
+
+// assigns the pool name as group to every member and appends one entry per pool, mirroring what
+// raidMatchLinux does for mdraid (#802, #883)
+export const applyPoolsLinux = (data: FsBlockDevicesData[], pools: PoolInfoLinux[]): FsBlockDevicesData[] => {
+  const defaults = cloneObj(initFsBlockDevice);
+  const result = [...data];
+  for (const pool of pools) {
+    const members = result.filter((element) => pool.members.includes(element.name));
+    if (!members.length) {
+      continue;
+    }
+    for (const member of members) {
+      member.group = pool.name;
+    }
+    result.push({
+      ...defaults,
+      name: pool.name,
+      type: pool.type,
+      fsType: pool.fsType,
+      mount: pool.mount,
+      size: pool.size,
+      uuid: pool.uuid
+    });
+  }
+  return result;
+};
+
+export const zfsPoolsLinux = async (data: FsBlockDevicesData[]): Promise<PoolInfoLinux[]> => {
+  const result: PoolInfoLinux[] = [];
+  // skip the exec entirely on the vast majority of machines that have no zfs at all
+  if (!data.some((element) => element.fsType === 'zfs_member')) {
+    return result;
+  }
+  try {
+    const status = parseZpoolStatus(await execSecure('zpool', ['status', '-PL']));
+    if (!status.size) {
+      return result;
+    }
+    const sizes = parseZpoolList(await execSecure('zpool', ['list', '-Hp', '-o', 'name,size']));
+    for (const [name, info] of status) {
+      const members = data.filter((element) => info.members.includes(element.name));
+      result.push({
+        name,
+        type: info.type,
+        fsType: 'zfs',
+        // zpool size is the raw pool capacity - fall back to the summed member sizes
+        size: sizes.get(name) || members.reduce((sum, element) => sum + element.size, 0),
+        uuid: '',
+        mount: members.find((element) => element.mount)?.mount || '',
+        members: info.members
+      });
+    }
+  } catch {}
+  return result;
+};
+
+const BTRFS_SYSFS = '/sys/fs/btrfs';
+
+// sysfs knows every mounted btrfs by its fsid - no btrfs-progs and no root needed
+export const btrfsPoolsLinux = async (data: FsBlockDevicesData[]): Promise<PoolInfoLinux[]> => {
+  const result: PoolInfoLinux[] = [];
+  let fsids: string[] = [];
+  try {
+    fsids = await readdir(BTRFS_SYSFS);
+  } catch {
+    return result;
+  }
+  for (const fsid of fsids) {
+    let devices: string[] = [];
+    try {
+      devices = await readdir(`${BTRFS_SYSFS}/${fsid}/devices`);
+    } catch {
+      continue;
+    }
+    // a single device btrfs is not a pool
+    if (devices.length < 2) {
+      continue;
+    }
+    let profile = '';
+    try {
+      profile = btrfsProfileFromEntries(await readdir(`${BTRFS_SYSFS}/${fsid}/allocation/data`));
+    } catch {}
+    const label = (await readFile(`${BTRFS_SYSFS}/${fsid}/label`, 'utf8').catch(() => '')).trim();
+    const members = data.filter((element) => devices.includes(element.name));
+    result.push({
+      name: label || fsid,
+      type: profile || 'btrfs',
+      fsType: 'btrfs',
+      size: members.reduce((sum, element) => sum + element.size, 0),
+      uuid: fsid,
+      mount: members.find((element) => element.mount)?.mount || '',
+      members: devices
+    });
+  }
+  return result;
 };
