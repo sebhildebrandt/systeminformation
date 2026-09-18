@@ -1,4 +1,5 @@
 import { spawn } from 'node:child_process';
+import { shareInflight } from './exec';
 import { fileExists } from '../common/files';
 import { WINDOWS } from './const';
 
@@ -333,3 +334,66 @@ export const ps = new PowerShellPool({ size: 4 });
 if (WINDOWS) {
   process.on('exit', () => ps.stop());
 }
+
+// DEVPKEY_Device_LocationInfo reads "PCI bus 1, device 0, function 0" - and is localised, so only
+// the three decimal numbers are reliable. PCI addresses are written in hex, hence the conversion.
+export const parseWindowsLocationInfo = (value: string) => {
+  const text = String(value ?? '').trim();
+  if (!/pci/i.test(text)) {
+    return '';
+  }
+  const numbers = text.match(/\d+/g);
+  if (!numbers || numbers.length !== 3) {
+    return '';
+  }
+  const [bus, device, fn] = numbers.map((part) => parseInt(part, 10));
+  if ([bus, device, fn].some((part) => Number.isNaN(part))) {
+    return '';
+  }
+  return `${bus.toString(16).padStart(2, '0')}:${device.toString(16).padStart(2, '0')}.${fn.toString(16)}`;
+};
+
+// rows of "<pnp instance id>|<location info>"
+export const parseWindowsPnpLocations = (stdout: any) => {
+  const result = new Map<string, string>();
+  for (const line of String(stdout ?? '').split('\n')) {
+    const separator = line.indexOf('|');
+    if (separator < 1) {
+      continue;
+    }
+    const busAddress = parseWindowsLocationInfo(line.substring(separator + 1));
+    if (busAddress) {
+      result.set(line.substring(0, separator).trim().toLowerCase(), busAddress);
+    }
+  }
+  return result;
+};
+
+// EnumDisplayDevices returns the full pnp instance id on current windows, but only the
+// VEN/DEV/SUBSYS/REV prefix on older ones. A prefix shared by two identical cards cannot identify
+// either of them, so it only counts when exactly one device matches.
+export const matchPnpLocation = (deviceId: string, locations: Map<string, string>) => {
+  const id = String(deviceId ?? '').trim().toLowerCase();
+  if (!id) {
+    return '';
+  }
+  const exact = locations.get(id);
+  if (exact) {
+    return exact;
+  }
+  const candidates = [...locations].filter(([instanceId]) => instanceId.startsWith(`${id}\\`));
+  return candidates.length === 1 ? candidates[0][1] : '';
+};
+
+const PS_PNP_DISPLAY_LOCATIONS =
+  'Get-PnpDevice -Class Display -PresentOnly -ErrorAction SilentlyContinue | ForEach-Object { ' +
+  "$l = ($_ | Get-PnpDeviceProperty -KeyName DEVPKEY_Device_LocationInfo -ErrorAction SilentlyContinue).Data; \"$($_.InstanceId)|$l\" }";
+
+// shared: gpu() and displays() both need it, and it is the same query for both
+export const windowsPciBusAddresses = async () => {
+  try {
+    return parseWindowsPnpLocations(await shareInflight('pnpDisplayLocations', () => ps.exec(PS_PNP_DISPLAY_LOCATIONS)));
+  } catch {
+    return new Map<string, string>();
+  }
+};

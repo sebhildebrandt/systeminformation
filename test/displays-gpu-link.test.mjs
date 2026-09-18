@@ -17,8 +17,14 @@ const ENUM = `\\\\.\\DISPLAY1|NVIDIA GeForce RTX 4090|PCI\\VEN_10DE&DEV_2684&SUB
 garbage line without pipes
 `;
 const adapters = parseEnumDisplayDevices(ENUM);
-assert.equal(adapters.get('\\\\.\\display1'), 'NVIDIA GeForce RTX 4090');
-assert.equal(adapters.get('\\\\.\\display2'), 'Intel(R) UHD Graphics 770');
+assert.deepEqual(adapters.get('\\\\.\\display1'), {
+  gpu: 'NVIDIA GeForce RTX 4090',
+  deviceId: 'PCI\\VEN_10DE&DEV_2684&SUBSYS_167F10DE&REV_A1'
+});
+assert.deepEqual(adapters.get('\\\\.\\display2'), {
+  gpu: 'Intel(R) UHD Graphics 770',
+  deviceId: 'PCI\\VEN_8086&DEV_4680&SUBSYS_00000000&REV_0C'
+});
 assert.equal(adapters.size, 2);
 assert.equal(parseEnumDisplayDevices('').size, 0);
 

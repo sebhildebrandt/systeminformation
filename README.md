@@ -373,7 +373,7 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 |               | [0].model              | X     |     | X   | X   |     | graphics controller model         |
 |               | [0].deviceId           |       |     | X   |     |     | device ID                         |
 |               | [0].bus                | X     |     | X   | X   |     | on which bus (e.g. PCIe)          |
-|               | [0].busAddress         | X     |     |     |     |     | PCI bus address, e.g. '01:00.0'   |
+|               | [0].busAddress         | X     |     |     | X   |     | PCI bus address, e.g. '01:00.0'   |
 |               | [0].vram               | X     |     | X   | X   |     | VRAM size (in MB)                 |
 |               | [0].vramDynamic        | X     |     | X   | X   |     | true if dynamically allocated ram |
 |               | [0].external           |       |     | X   |     |     | is external GPU                   |
@@ -409,7 +409,7 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 |               | [0].scale              |       |     |     | X   |     | DPI scaling factor, e.g. 1.5      |
 |               | [0].powerState         | X     |     |     | X   |     | 'on', 'standby', 'suspend', 'off' |
 |               | [0].gpu                |       |     | X   | X   |     | GPU model driving this display    |
-|               | [0].gpuBusAddress      | X     |     |     |     |     | PCI addr, joins gpu().busAddress  |
+|               | [0].gpuBusAddress      | X     |     |     | X   |     | PCI addr, joins gpu().busAddress  |
 
 #### 7. Operating System
 

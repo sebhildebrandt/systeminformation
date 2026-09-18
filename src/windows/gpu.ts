@@ -2,9 +2,9 @@ import { getValue, nextTick, toInt } from '../common';
 import { mergeControllerNvidia, nvidiaDevices } from '../common/nvidia';
 import type { GpuData } from '../common/types';
 import { shareInflight } from '../common/exec';
-import { ps } from '../common/windows';
+import { matchPnpLocation, ps, windowsPciBusAddresses } from '../common/windows';
 
-const parseLinesWindowsControllers = (sections: any[], vections: any[]) => {
+const parseLinesWindowsControllers = (sections: any[], vections: any[], locations: Map<string, string>) => {
   const memorySizes: any = {};
   for (const i in vections) {
     if (Object.prototype.hasOwnProperty.call(vections, i)) {
@@ -82,6 +82,8 @@ const parseLinesWindowsControllers = (sections: any[], vections: any[]) => {
           vendor: getValue(lines, 'AdapterCompatibility', ':'),
           model: getValue(lines, 'name', ':'),
           bus: getValue(lines, 'PNPDeviceID', ':').startsWith('PCI') ? 'PCI' : '',
+          // join key for displays()[].gpuBusAddress, same format as on linux (#974)
+          busAddress: matchPnpLocation(getValue(lines, 'PNPDeviceID', ':'), locations),
           vram: (memorySize == null ? toInt(getValue(lines, 'AdapterRAM', ':')) : memorySize) / 1024 / 1024,
           vramDynamic: getValue(lines, 'VideoMemoryType', ':') === '2',
           subDeviceId
@@ -116,7 +118,7 @@ export const gpu = async () => {
       .toString()
       .replace(/\r/g, '')
       .split(/\n\s*\n/);
-    result = parseLinesWindowsControllers(csections, vsections);
+    result = parseLinesWindowsControllers(csections, vsections, await windowsPciBusAddresses());
     result = result.map((controller) => {
       // match by subDeviceId
       if (controller.vendor.toLowerCase() === 'nvidia') {

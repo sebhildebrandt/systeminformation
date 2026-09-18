@@ -2,7 +2,7 @@ import { getValue, nextTick, toInt } from '../common';
 import { graphicsVideoTypes } from '../common/mappings';
 import type { DisplayData } from '../common/types';
 import { shareInflight } from '../common/exec';
-import { ps } from '../common/windows';
+import { matchPnpLocation, ps, windowsPciBusAddresses } from '../common/windows';
 
 type WinMonitor = { instanceName: string; sizeX: string; sizeY: string; active: boolean };
 type WinDisplayMode = { refreshRate: number; width: number; height: number; positionX: number; positionY: number };
@@ -38,13 +38,13 @@ for ($i = 0; $i -lt 16; $i++) {
 }`;
 
 export const parseEnumDisplayDevices = (stdout: any) => {
-  const result = new Map<string, string>();
+  const result = new Map<string, { gpu: string; deviceId: string }>();
   for (const line of String(stdout ?? '').split('\n')) {
     const parts = line.trim().split('|');
     if (parts.length < 3 || !parts[0].startsWith('\\\\.\\')) {
       continue;
     }
-    result.set(parts[0].toLowerCase(), parts[1].trim());
+    result.set(parts[0].toLowerCase(), { gpu: parts[1].trim(), deviceId: parts[2].trim() });
   }
   return result;
 };
@@ -62,7 +62,8 @@ const parseLinesWindowsDisplaysPowershell = (
   connections: { [index: string]: string },
   isections: any[],
   currentModes: { [index: string]: WinDisplayMode },
-  adapters: Map<string, string>
+  adapters: Map<string, { gpu: string; deviceId: string }>,
+  locations: Map<string, string>
 ) => {
   const displays: DisplayData[] = [];
   // Win32_DesktopMonitor entries keyed by PNPDeviceID - matched per display instead of using only the first entry (idea from PR #855)
@@ -143,8 +144,8 @@ const parseLinesWindowsDisplaysPowershell = (
         currentRefreshRate: (mode && mode.refreshRate) || null,
         scale: mode && boundsWidth ? Math.round((mode.width / boundsWidth) * 100) / 100 : null,
         powerState: dsection ? dsection.powerState : '',
-        gpu: adapters.get(deviceName.toLowerCase()) || '',
-        gpuBusAddress: ''
+        gpu: adapters.get(deviceName.toLowerCase())?.gpu || '',
+        gpuBusAddress: matchPnpLocation(adapters.get(deviceName.toLowerCase())?.deviceId || '', locations)
       });
     }
   }
@@ -152,8 +153,8 @@ const parseLinesWindowsDisplaysPowershell = (
     const first = desktopMonitors[0];
     displays.push({
       powerState: first ? first.powerState : '',
-      gpu: [...adapters.values()][0] || '',
-      gpuBusAddress: '',
+      gpu: [...adapters.values()][0]?.gpu || '',
+      gpuBusAddress: matchPnpLocation([...adapters.values()][0]?.deviceId || '', locations),
       vendor: first ? first.vendor : '',
       vendorId: null,
       model: first ? first.model : '',
@@ -312,7 +313,7 @@ export const displays = async () => {
         }
       });
 
-    result = parseLinesWindowsDisplaysPowershell(ssections, monitors, dsections, connections, isections, currentModes, parseEnumDisplayDevices(data[7]));
+    result = parseLinesWindowsDisplaysPowershell(ssections, monitors, dsections, connections, isections, currentModes, parseEnumDisplayDevices(data[7]), await windowsPciBusAddresses());
 
     if (result.length === 1) {
       if (_resolutionX) {
