@@ -27,7 +27,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.12</div>
+          <div class="title-version float-left">v6.0.0-beta.13</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -69,6 +69,10 @@
                       detected serial / COM ports incl. USB adapters (<span class="code">device</span>, <span class="code">name</span>, <span class="code">manufacturer</span>, <span class="code">serialNumber</span>, <span class="code">vendorId</span>,
                       <span class="code">productId</span>, <span class="code">pnpId</span>, <span class="code">type</span>; Linux via sysfs, macOS via ioreg, Windows via <span class="code">Win32_PnPEntity</span>)
                     </li>
+                    <li>
+                      <span class="code">processFocused()</span>
+                      process owning the currently focused window (<span class="code">pid</span>, <span class="code">name</span>, <span class="code">path</span>)
+                    </li>
                   </ul>
                   <h4>New Attributes</h4>
                   <ul>
@@ -107,6 +111,14 @@
                       <span class="code">top</span>) - Linux only, <span class="code">0</span> elsewhere
                     </li>
                     <li><span class="code">versions()</span> added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, rails, ruby, rust, sqlite3, vim, vue</li>
+                    <li>
+                      <span class="code">blockDevices()</span>
+                      ZFS pools and multi device btrfs file systems are now resolved like mdraid: every member gets its pool as <span class="code">group</span> and one entry per pool is added, with the raid profile as <span class="code">type</span> (e.g. <span class="code">mirror</span>,
+                      <span class="code">raidz1</span>, <span class="code">raid1</span>,
+                      <span class="code">raid10</span>). btrfs is read from sysfs (no btrfs-progs, no root needed), ZFS from <span class="code">zpool status</span> /
+                      <span class="code">zpool list</span>
+                      (Linux)
+                    </li>
                   </ul>
                   <h4>Extended Windows Support</h4>
                   <ul>

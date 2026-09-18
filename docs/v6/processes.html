@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.12</div>
+          <div class="title-version float-left">v6.0.0-beta.13</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -677,6 +677,60 @@ si.processLoad('nginx, postgres').then(data => console.log(data));</code></pre>
   },
 ]</pre>
                     </td>
+                    </tr>
+                    <tr>
+                      <td>si.processFocused()</td>
+                      <td>{...}</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>process owning the currently focused window<br />X11 only on Linux, null if not detectable</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>pid</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>PID of the focused process</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>name</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>name of the focused process</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>path</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>X</td>
+                      <td>X</td>
+                      <td></td>
+                      <td>path of the focused process</td>
+                    </tr>
+                    <tr class="example">
+                      <td></td>
+                      <td colspan="7">
+                        <h5>Example</h5>
+                        <pre><code class="js">const si = require('systeminformation');
+si.processFocused().then(data => console.log(data));</code></pre>
+<pre class="example">
+{
+  pid: 73140,
+  name: 'Safari',
+  path: '/Applications/Safari.app/Contents/MacOS/Safari'
+}</pre>
+                      </td>
                     </tr>
                     <tr>
                       <td>si.services('mysql, apache2', cb)</td>
