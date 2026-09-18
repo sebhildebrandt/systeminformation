@@ -419,6 +419,21 @@ export const applyPoolsLinux = (data: FsBlockDevicesData[], pools: PoolInfoLinux
   return result;
 };
 
+// lsblk never reports a mountpoint for zfs_member devices - what gets mounted is the dataset,
+// not the device. /proc/mounts lists the root dataset under the plain pool name, and escapes
+// spaces and tabs in the mount point as octal sequences
+export const parseZfsMountpoints = (content: string) => {
+  const result = new Map<string, string>();
+  for (const line of content.split('\n')) {
+    const parts = line.split(' ');
+    if (parts.length < 3 || parts[2] !== 'zfs' || parts[0].includes('/')) {
+      continue;
+    }
+    result.set(parts[0], parts[1].replace(/\\(\d{3})/g, (_, code) => String.fromCharCode(parseInt(code, 8))));
+  }
+  return result;
+};
+
 export const zfsPoolsLinux = async (data: FsBlockDevicesData[]): Promise<PoolInfoLinux[]> => {
   const result: PoolInfoLinux[] = [];
   // skip the exec entirely on the vast majority of machines that have no zfs at all
@@ -426,11 +441,14 @@ export const zfsPoolsLinux = async (data: FsBlockDevicesData[]): Promise<PoolInf
     return result;
   }
   try {
-    const status = parseZpoolStatus(await execSecure('zpool', ['status', '-PL']));
+    // a suspended pool or an unresponsive vdev makes zpool block forever, and execSecure only
+    // settles on close - without a timeout blockDevices() would never resolve
+    const status = parseZpoolStatus(await execSecure('zpool', ['status', '-PL'], { timeout: 5000 }));
     if (!status.size) {
       return result;
     }
-    const sizes = parseZpoolList(await execSecure('zpool', ['list', '-Hp', '-o', 'name,size']));
+    const sizes = parseZpoolList(await execSecure('zpool', ['list', '-Hp', '-o', 'name,size'], { timeout: 5000 }));
+    const mountpoints = parseZfsMountpoints(await readFile('/proc/mounts', 'utf8').catch(() => ''));
     for (const [name, info] of status) {
       const members = data.filter((element) => info.members.includes(element.name));
       result.push({
@@ -440,7 +458,7 @@ export const zfsPoolsLinux = async (data: FsBlockDevicesData[]): Promise<PoolInf
         // zpool size is the raw pool capacity - fall back to the summed member sizes
         size: sizes.get(name) || members.reduce((sum, element) => sum + element.size, 0),
         uuid: '',
-        mount: members.find((element) => element.mount)?.mount || '',
+        mount: mountpoints.get(name) || '',
         members: info.members
       });
     }

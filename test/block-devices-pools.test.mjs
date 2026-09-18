@@ -1,7 +1,7 @@
 // Parser unit checks for zfs/btrfs pool detection in blockDevices()
 // run: node test/block-devices-pools.test.mjs (after npm run dev)
 import assert from 'node:assert/strict';
-import { applyPoolsLinux, btrfsPoolsLinux, btrfsProfileFromEntries, parseZpoolList, parseZpoolStatus, zfsPoolsLinux } from '../dist/common/filesys.js';
+import { applyPoolsLinux, btrfsPoolsLinux, btrfsProfileFromEntries, parseZfsMountpoints, parseZpoolList, parseZpoolStatus, zfsPoolsLinux } from '../dist/common/filesys.js';
 
 const ZPOOL_STATUS = `  pool: tank
  state: ONLINE
@@ -68,6 +68,21 @@ assert.equal(parseZpoolList('').size, 0);
 assert.equal(btrfsProfileFromEntries(['bytes_used', 'total_bytes', 'raid1']), 'raid1');
 assert.equal(btrfsProfileFromEntries(['total_bytes', 'raid1c3']), 'raid1c3');
 assert.equal(btrfsProfileFromEntries(['total_bytes', 'bytes_used']), '');
+
+// --- /proc/mounts: lsblk shows no mountpoint for zfs_member devices, the dataset is mounted ---
+const PROC_MOUNTS = `/dev/sda1 / ext4 rw,relatime 0 0
+tank /tank zfs rw,xattr,noacl 0 0
+tank/data /tank/data zfs rw,xattr,noacl 0 0
+backup /mnt/my\\040backup zfs rw,xattr,noacl 0 0
+/dev/sdb /mnt/btr btrfs rw,relatime 0 0
+`;
+const mounts = parseZfsMountpoints(PROC_MOUNTS);
+assert.equal(mounts.get('tank'), '/tank');
+assert.equal(mounts.get('backup'), '/mnt/my backup', 'octal escapes must be decoded');
+assert.equal(mounts.has('tank/data'), false, 'only root datasets carry the pool name');
+assert.equal(mounts.has('/dev/sdb'), false, 'non zfs lines are ignored');
+assert.equal(mounts.size, 2);
+assert.equal(parseZfsMountpoints('').size, 0);
 
 // --- applyPoolsLinux: sets group on members and appends one entry per pool ---
 const blk = [

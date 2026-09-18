@@ -46,9 +46,13 @@ assert.equal(normalizeDrmConnector('card0-DVI-I-1'), 'dvi-i-1');
 assert.equal(windowsAvailabilityToPowerState('3'), 'on');
 assert.equal(windowsAvailabilityToPowerState('7'), 'off');
 assert.equal(windowsAvailabilityToPowerState('8'), 'off');
+// DMTF CIM_LogicalDevice.Availability: 13 power save unknown, 14 low power mode,
+// 15 standby, 16 power cycle (not a power save state), 17 power save warning
 assert.equal(windowsAvailabilityToPowerState('13'), 'standby');
 assert.equal(windowsAvailabilityToPowerState('14'), 'standby');
-assert.equal(windowsAvailabilityToPowerState('16'), 'standby');
+assert.equal(windowsAvailabilityToPowerState('15'), 'standby');
+assert.equal(windowsAvailabilityToPowerState('17'), 'standby');
+assert.equal(windowsAvailabilityToPowerState('16'), '', 'power cycle is transient, not standby');
 assert.equal(windowsAvailabilityToPowerState(''), '');
 assert.equal(windowsAvailabilityToPowerState('5'), '');
 
