@@ -295,7 +295,8 @@ export const initDisplay: DisplayData = {
   workAreaPositionX: null,
   workAreaPositionY: null,
   currentRefreshRate: null,
-  scale: null
+  scale: null,
+  powerState: ''
 };
 
 export const initProcesses: ProcessesData = {

@@ -1,6 +1,6 @@
 import { nextTick, toInt } from '../common';
 import { plistParser, plistReader } from '../common/darwin';
-import { exec, execSave, shareInflight } from '../common/exec';
+import { exec, execSave, execSecure, shareInflight } from '../common/exec';
 import { graphicsIdToVendor, graphicsModelToVendor } from '../common/mappings';
 import { DisplayData } from '../common/types';
 
@@ -41,6 +41,7 @@ const parseDisplaysDarwin = (graphicsArr: any[]): DisplayData[] => {
             workAreaResolutionY: null,
             workAreaPositionX: null,
             workAreaPositionY: null,
+            powerState: '',
             currentRefreshRate: currentResolutionParts.length > 1 ? parseInt(currentResolutionParts[1], 10) : null,
             scale: null
           });
@@ -122,6 +123,40 @@ const getWorkAreaDarwin = async (displays: DisplayData[]): Promise<DisplayData[]
   return displays;
 };
 
+// ioreg prints the power managed node as
+// "IOPowerManagement" = {"CapabilityFlags"=32832,"MaxPowerState"=4,"CurrentPowerState"=4}
+// intel macs run the display through IODisplayWrangler (5 states), apple silicon through
+// IOMobileFramebufferShim (on/off only) - the first node found decides
+export const parseIoregPowerState = (stdout: string) => {
+  const match = stdout.match(/"MaxPowerState"=(\d+)[^}]*"CurrentPowerState"=(\d+)/);
+  if (!match) {
+    return '';
+  }
+  const max = toInt(match[1]);
+  const current = toInt(match[2]);
+  if (!max) {
+    return '';
+  }
+  if (current >= max) {
+    return 'on';
+  }
+  if (!current) {
+    return 'off';
+  }
+  return current === max - 1 ? 'standby' : 'suspend';
+};
+
+// the display power state is a system wide value on macOS, so every display gets the same one
+const getPowerStateDarwin = async () => {
+  for (const args of [['-n', 'IODisplayWrangler', '-r', '-d', '1'], ['-c', 'IOMobileFramebufferShim', '-r', '-d', '1']]) {
+    const powerState = parseIoregPowerState(await execSecure('ioreg', args));
+    if (powerState) {
+      return powerState;
+    }
+  }
+  return '';
+};
+
 export const displays = async () => {
   await nextTick();
   let result: DisplayData[] = [];
@@ -131,6 +166,10 @@ export const displays = async () => {
     result = parseDisplaysDarwin(plistParser(stdout));
     result = await getDisplayPositionDarwin(result);
     result = await getWorkAreaDarwin(result);
+    const powerState = await getPowerStateDarwin();
+    for (const display of result) {
+      display.powerState = powerState;
+    }
   } catch {}
   return result;
 };

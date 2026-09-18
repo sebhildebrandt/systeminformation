@@ -202,6 +202,46 @@ const getWorkAreaLinux = async (displays: DisplayData[]): Promise<DisplayData[]>
   return displays;
 };
 
+export const dpmsToPowerState = (value: string) => {
+  const state = value.trim().toLowerCase();
+  return state === 'on' || state === 'off' || state === 'standby' || state === 'suspend' ? state : '';
+};
+
+// xrandr names the connector HDMI-1 where drm calls it card0-HDMI-A-1
+export const normalizeDrmConnector = (name: string) => name.replace(/^card\d+-/, '').replace(/^(HDMI|DVI)-[AB]-/i, '$1-').toLowerCase();
+
+export const drmPowerStates = async (path = '/sys/class/drm') => {
+  const result = new Map<string, string>();
+  let connectors: string[] = [];
+  try {
+    connectors = (await readdir(path)).filter((name) => /^card\d+-/.test(name) && isSafePathSegment(name));
+  } catch {
+    return result;
+  }
+  for (const connector of connectors) {
+    const powerState = dpmsToPowerState(await readSysfs(join(path, connector, 'dpms')));
+    if (powerState) {
+      result.set(normalizeDrmConnector(connector), powerState);
+    }
+  }
+  return result;
+};
+
+// dpms is per connector, but a compositor puts every output to sleep at once - so one distinct
+// value also covers displays whose connector xrandr spells differently (#916)
+const applyDrmPowerStates = async (displays: DisplayData[]) => {
+  const states = await drmPowerStates();
+  if (!states.size) {
+    return displays;
+  }
+  const distinct = new Set(states.values());
+  const fallback = distinct.size === 1 ? [...distinct][0] : '';
+  for (const display of displays) {
+    display.powerState = states.get(normalizeDrmConnector(display.connection || '')) || fallback;
+  }
+  return displays;
+};
+
 // xdpyinfo / xrandr need an X session - DRM sysfs knows the connectors incl. EDID without one
 export const drmDisplays = async (path = '/sys/class/drm'): Promise<DisplayData[]> => {
   const result: DisplayData[] = [];
@@ -261,6 +301,7 @@ export const displays = async () => {
         const parts = lines[0].replace('mode', '').replace(/"/g, '').trim().split('x');
         if (parts.length === 2) {
           result.push({
+            powerState: '',
             vendor: '',
             vendorId: null,
             model: getValue(lines, 'device_name', '='),
@@ -304,11 +345,11 @@ export const displays = async () => {
         // xrandr result replaces the raspberry fbset/tvservice fallback (v5 behavior)
         const xrandrDisplays = parseLinesLinuxDisplays(lines, depth);
         if (xrandrDisplays.length) {
-          return await getWorkAreaLinux(xrandrDisplays);
+          return await applyDrmPowerStates(await getWorkAreaLinux(xrandrDisplays));
         }
       } catch {}
     } catch {}
   } catch {}
   const drm = await drmDisplays();
-  return drm.length ? drm : result;
+  return await applyDrmPowerStates(drm.length ? drm : result);
 };

@@ -898,6 +898,7 @@ export type DisplayData = {
   workAreaPositionY: number | null;
   currentRefreshRate: number | null;
   scale: number | null;
+  powerState: string;
 };
 
 export type GpuNvidiaData = {

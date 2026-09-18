@@ -11,6 +11,12 @@ type WinDisplayMode = { refreshRate: number; width: number; height: number; posi
 const psCurrentModes =
   "Add-Type -AssemblyName System.Windows.Forms; if (-not ('SiDevMode' -as [Type])) { Add-Type -TypeDefinition 'using System;using System.Runtime.InteropServices;[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi)]public struct SIDEVMODE{[MarshalAs(UnmanagedType.ByValTStr,SizeConst=32)]public string dmDeviceName;public short dmSpecVersion;public short dmDriverVersion;public short dmSize;public short dmDriverExtra;public int dmFields;public int dmPositionX;public int dmPositionY;public int dmDisplayOrientation;public int dmDisplayFixedOutput;public short dmColor;public short dmDuplex;public short dmYResolution;public short dmTTOption;public short dmCollate;[MarshalAs(UnmanagedType.ByValTStr,SizeConst=32)]public string dmFormName;public short dmLogPixels;public int dmBitsPerPel;public int dmPelsWidth;public int dmPelsHeight;public int dmDisplayFlags;public int dmDisplayFrequency;public int dmICMMethod;public int dmICMIntent;public int dmMediaType;public int dmDitherType;public int dmReserved1;public int dmReserved2;public int dmPanningWidth;public int dmPanningHeight;}public class SiDevMode{[DllImport(\"user32.dll\",CharSet=CharSet.Ansi)]public static extern bool EnumDisplaySettings(string lpszDeviceName,int iModeNum,ref SIDEVMODE lpDevMode);}' }; [System.Windows.Forms.Screen]::AllScreens | ForEach-Object { $dm = New-Object SIDEVMODE; $dm.dmSize = [System.Runtime.InteropServices.Marshal]::SizeOf($dm); if ([SiDevMode]::EnumDisplaySettings($_.DeviceName, -1, [ref]$dm)) { $_.DeviceName + '|' + $dm.dmDisplayFrequency + '|' + $dm.dmBitsPerPel + '|' + $dm.dmPelsWidth + '|' + $dm.dmPelsHeight + '|' + $dm.dmPositionX + '|' + $dm.dmPositionY } }";
 
+// Win32_DesktopMonitor.Availability: 3 running / full power, 7 power off, 8 off line,
+// 13 / 14 / 16 power save modes
+const WIN_AVAILABILITY: { [index: string]: string } = { '3': 'on', '7': 'off', '8': 'off', '13': 'standby', '14': 'standby', '16': 'standby' };
+
+export const windowsAvailabilityToPowerState = (value: string) => WIN_AVAILABILITY[value.trim()] || '';
+
 const parseLinesWindowsDisplaysPowershell = (
   ssections: any[],
   monitors: WinMonitor[],
@@ -28,7 +34,8 @@ const parseLinesWindowsDisplaysPowershell = (
       vendor: getValue(linesDisplay, 'MonitorManufacturer', ':'),
       model: getValue(linesDisplay, 'Name', ':'),
       resolutionX: toInt(getValue(linesDisplay, 'ScreenWidth', ':')),
-      resolutionY: toInt(getValue(linesDisplay, 'ScreenHeight', ':'))
+      resolutionY: toInt(getValue(linesDisplay, 'ScreenHeight', ':')),
+      powerState: windowsAvailabilityToPowerState(getValue(linesDisplay, 'Availability', ':'))
     };
   });
   // iterate over physical monitors too - mirrored monitors have no own logical screen (issue #940)
@@ -95,13 +102,15 @@ const parseLinesWindowsDisplaysPowershell = (
         workAreaPositionX: workAreaWidth ? Math.round(posX + (toInt(getValue(workArea, 'X', ':')) - boundsX) * dpiScale) : null,
         workAreaPositionY: workAreaHeight ? Math.round(posY + (toInt(getValue(workArea, 'Y', ':')) - boundsY) * dpiScale) : null,
         currentRefreshRate: (mode && mode.refreshRate) || null,
-        scale: mode && boundsWidth ? Math.round((mode.width / boundsWidth) * 100) / 100 : null
+        scale: mode && boundsWidth ? Math.round((mode.width / boundsWidth) * 100) / 100 : null,
+        powerState: dsection ? dsection.powerState : ''
       });
     }
   }
   if (ssections.length === 0) {
     const first = desktopMonitors[0];
     displays.push({
+      powerState: first ? first.powerState : '',
       vendor: first ? first.vendor : '',
       vendorId: null,
       model: first ? first.model : '',
