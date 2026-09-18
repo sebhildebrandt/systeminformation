@@ -9,6 +9,8 @@ const parseDisplaysDarwin = (graphicsArr: any[]): DisplayData[] => {
   try {
     graphicsArr.forEach((item: any) => {
       if (item.spdisplays_ndrvs && item.spdisplays_ndrvs.length) {
+        // the displays are nested under the gpu that drives them (#974)
+        const gpu = item['sppci_model'] || item['_name'] || '';
         item.spdisplays_ndrvs.forEach((displayItem: { [index: string]: string }) => {
           const connectionType = displayItem['spdisplays_connection_type'] || '';
           const currentResolutionParts = (displayItem['_spdisplays_resolution'] || '').split('@');
@@ -42,6 +44,8 @@ const parseDisplaysDarwin = (graphicsArr: any[]): DisplayData[] => {
             workAreaPositionX: null,
             workAreaPositionY: null,
             powerState: '',
+            gpu,
+            gpuBusAddress: '',
             currentRefreshRate: currentResolutionParts.length > 1 ? parseInt(currentResolutionParts[1], 10) : null,
             scale: null
           });

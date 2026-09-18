@@ -296,7 +296,9 @@ export const initDisplay: DisplayData = {
   workAreaPositionY: null,
   currentRefreshRate: null,
   scale: null,
-  powerState: ''
+  powerState: '',
+  gpu: '',
+  gpuBusAddress: ''
 };
 
 export const initProcesses: ProcessesData = {

@@ -11,6 +11,44 @@ type WinDisplayMode = { refreshRate: number; width: number; height: number; posi
 const psCurrentModes =
   "Add-Type -AssemblyName System.Windows.Forms; if (-not ('SiDevMode' -as [Type])) { Add-Type -TypeDefinition 'using System;using System.Runtime.InteropServices;[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi)]public struct SIDEVMODE{[MarshalAs(UnmanagedType.ByValTStr,SizeConst=32)]public string dmDeviceName;public short dmSpecVersion;public short dmDriverVersion;public short dmSize;public short dmDriverExtra;public int dmFields;public int dmPositionX;public int dmPositionY;public int dmDisplayOrientation;public int dmDisplayFixedOutput;public short dmColor;public short dmDuplex;public short dmYResolution;public short dmTTOption;public short dmCollate;[MarshalAs(UnmanagedType.ByValTStr,SizeConst=32)]public string dmFormName;public short dmLogPixels;public int dmBitsPerPel;public int dmPelsWidth;public int dmPelsHeight;public int dmDisplayFlags;public int dmDisplayFrequency;public int dmICMMethod;public int dmICMIntent;public int dmMediaType;public int dmDitherType;public int dmReserved1;public int dmReserved2;public int dmPanningWidth;public int dmPanningHeight;}public class SiDevMode{[DllImport(\"user32.dll\",CharSet=CharSet.Ansi)]public static extern bool EnumDisplaySettings(string lpszDeviceName,int iModeNum,ref SIDEVMODE lpDevMode);}' }; [System.Windows.Forms.Screen]::AllScreens | ForEach-Object { $dm = New-Object SIDEVMODE; $dm.dmSize = [System.Runtime.InteropServices.Marshal]::SizeOf($dm); if ([SiDevMode]::EnumDisplaySettings($_.DeviceName, -1, [ref]$dm)) { $_.DeviceName + '|' + $dm.dmDisplayFrequency + '|' + $dm.dmBitsPerPel + '|' + $dm.dmPelsWidth + '|' + $dm.dmPelsHeight + '|' + $dm.dmPositionX + '|' + $dm.dmPositionY } }";
 
+// EnumDisplayDevices returns the adapter driving each \\.\\DISPLAYn device - the only api that
+// links a logical display back to its gpu (#974). The type is registered once per worker.
+const psDisplayAdapters = `if (-not ([System.Management.Automation.PSTypeName]'SIDispHolder').Type) { Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+public class SIDispHolder {
+  [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Unicode)]
+  public struct DISPLAY_DEVICE {
+    public int cb;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst=32)] public string DeviceName;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst=128)] public string DeviceString;
+    public int StateFlags;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst=128)] public string DeviceID;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst=128)] public string DeviceKey;
+  }
+  [DllImport("user32.dll", CharSet=CharSet.Unicode)]
+  public static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, ref SIDispHolder.DISPLAY_DEVICE lpDisplayDevice, uint dwFlags);
+}
+"@ -ErrorAction SilentlyContinue };
+$d = New-Object SIDispHolder+DISPLAY_DEVICE;
+for ($i = 0; $i -lt 16; $i++) {
+  $d.cb = [System.Runtime.InteropServices.Marshal]::SizeOf($d);
+  if (-not [SIDispHolder]::EnumDisplayDevices($null, $i, [ref]$d, 0)) { break };
+  "$($d.DeviceName)|$($d.DeviceString)|$($d.DeviceID)"
+}`;
+
+export const parseEnumDisplayDevices = (stdout: any) => {
+  const result = new Map<string, string>();
+  for (const line of String(stdout ?? '').split('\n')) {
+    const parts = line.trim().split('|');
+    if (parts.length < 3 || !parts[0].startsWith('\\\\.\\')) {
+      continue;
+    }
+    result.set(parts[0].toLowerCase(), parts[1].trim());
+  }
+  return result;
+};
+
 // Win32_DesktopMonitor.Availability: 3 running / full power, 7 power off, 8 off line,
 // 13 / 14 / 16 power save modes
 const WIN_AVAILABILITY: { [index: string]: string } = { '3': 'on', '7': 'off', '8': 'off', '13': 'standby', '14': 'standby', '16': 'standby' };
@@ -23,7 +61,8 @@ const parseLinesWindowsDisplaysPowershell = (
   dsections: any[],
   connections: { [index: string]: string },
   isections: any[],
-  currentModes: { [index: string]: WinDisplayMode }
+  currentModes: { [index: string]: WinDisplayMode },
+  adapters: Map<string, string>
 ) => {
   const displays: DisplayData[] = [];
   // Win32_DesktopMonitor entries keyed by PNPDeviceID - matched per display instead of using only the first entry (idea from PR #855)
@@ -103,7 +142,9 @@ const parseLinesWindowsDisplaysPowershell = (
         workAreaPositionY: workAreaHeight ? Math.round(posY + (toInt(getValue(workArea, 'Y', ':')) - boundsY) * dpiScale) : null,
         currentRefreshRate: (mode && mode.refreshRate) || null,
         scale: mode && boundsWidth ? Math.round((mode.width / boundsWidth) * 100) / 100 : null,
-        powerState: dsection ? dsection.powerState : ''
+        powerState: dsection ? dsection.powerState : '',
+        gpu: adapters.get(deviceName.toLowerCase()) || '',
+        gpuBusAddress: ''
       });
     }
   }
@@ -111,6 +152,8 @@ const parseLinesWindowsDisplaysPowershell = (
     const first = desktopMonitors[0];
     displays.push({
       powerState: first ? first.powerState : '',
+      gpu: [...adapters.values()][0] || '',
+      gpuBusAddress: '',
       vendor: first ? first.vendor : '',
       vendorId: null,
       model: first ? first.model : '',
@@ -160,6 +203,7 @@ export const displays = async () => {
       )
     );
     workload.push(ps.exec(psCurrentModes));
+    workload.push(ps.exec(psDisplayAdapters));
 
     const data = await Promise.allSettled(workload).then((results) => results.map((result) => (result.status === 'fulfilled' ? result.value : '')));
 
@@ -268,7 +312,7 @@ export const displays = async () => {
         }
       });
 
-    result = parseLinesWindowsDisplaysPowershell(ssections, monitors, dsections, connections, isections, currentModes);
+    result = parseLinesWindowsDisplaysPowershell(ssections, monitors, dsections, connections, isections, currentModes, parseEnumDisplayDevices(data[7]));
 
     if (result.length === 1) {
       if (_resolutionX) {

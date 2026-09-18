@@ -1,4 +1,4 @@
-import { readFile, readdir } from 'node:fs/promises';
+import { readFile, readdir, readlink } from 'node:fs/promises';
 import { join } from 'node:path';
 import { getValue, nextTick, toInt } from '../common';
 import { execOptsLinux } from '../common/const';
@@ -210,34 +210,52 @@ export const dpmsToPowerState = (value: string) => {
 // xrandr names the connector HDMI-1 where drm calls it card0-HDMI-A-1
 export const normalizeDrmConnector = (name: string) => name.replace(/^card\d+-/, '').replace(/^(HDMI|DVI)-[AB]-/i, '$1-').toLowerCase();
 
-export const drmPowerStates = async (path = '/sys/class/drm') => {
-  const result = new Map<string, string>();
+// /sys/class/drm/cardN/device is a symlink ending in the PCI address of the gpu (#974)
+export const parseDrmDevicePath = (target: string) => {
+  const address = (target.split('/').pop() || '').replace(/^0000:/, '');
+  return /^[\da-f]{2}:[\da-f]{2}\.[\da-f]$/i.test(address) ? address : '';
+};
+
+export const drmConnectorInfo = async (path = '/sys/class/drm') => {
+  const result = new Map<string, { powerState: string; gpuBusAddress: string }>();
   let connectors: string[] = [];
   try {
     connectors = (await readdir(path)).filter((name) => /^card\d+-/.test(name) && isSafePathSegment(name));
   } catch {
     return result;
   }
+  const busAddresses = new Map<string, string>();
   for (const connector of connectors) {
-    const powerState = dpmsToPowerState(await readSysfs(join(path, connector, 'dpms')));
-    if (powerState) {
-      result.set(normalizeDrmConnector(connector), powerState);
+    const card = connector.replace(/-.*$/, '');
+    if (!busAddresses.has(card)) {
+      busAddresses.set(card, parseDrmDevicePath(await readlink(join(path, card, 'device')).catch(() => '')));
     }
+    result.set(normalizeDrmConnector(connector), {
+      powerState: dpmsToPowerState(await readSysfs(join(path, connector, 'dpms'))),
+      gpuBusAddress: busAddresses.get(card) || ''
+    });
   }
   return result;
 };
 
 // dpms is per connector, but a compositor puts every output to sleep at once - so one distinct
-// value also covers displays whose connector xrandr spells differently (#916)
-const applyDrmPowerStates = async (displays: DisplayData[]) => {
-  const states = await drmPowerStates();
-  if (!states.size) {
+// value also covers displays whose connector xrandr spells differently (#916). The same holds
+// for the bus address as long as there is exactly one gpu (#974)
+const applyDrmInfo = async (displays: DisplayData[]) => {
+  const info = await drmConnectorInfo();
+  if (!info.size) {
     return displays;
   }
-  const distinct = new Set(states.values());
-  const fallback = distinct.size === 1 ? [...distinct][0] : '';
+  const single = (pick: (entry: { powerState: string; gpuBusAddress: string }) => string) => {
+    const values = new Set([...info.values()].map(pick).filter(Boolean));
+    return values.size === 1 ? [...values][0] : '';
+  };
+  const powerStateFallback = single((entry) => entry.powerState);
+  const busAddressFallback = single((entry) => entry.gpuBusAddress);
   for (const display of displays) {
-    display.powerState = states.get(normalizeDrmConnector(display.connection || '')) || fallback;
+    const entry = info.get(normalizeDrmConnector(display.connection || ''));
+    display.powerState = (entry && entry.powerState) || powerStateFallback;
+    display.gpuBusAddress = (entry && entry.gpuBusAddress) || busAddressFallback;
   }
   return displays;
 };
@@ -302,6 +320,8 @@ export const displays = async () => {
         if (parts.length === 2) {
           result.push({
             powerState: '',
+            gpu: '',
+            gpuBusAddress: '',
             vendor: '',
             vendorId: null,
             model: getValue(lines, 'device_name', '='),
@@ -345,11 +365,11 @@ export const displays = async () => {
         // xrandr result replaces the raspberry fbset/tvservice fallback (v5 behavior)
         const xrandrDisplays = parseLinesLinuxDisplays(lines, depth);
         if (xrandrDisplays.length) {
-          return await applyDrmPowerStates(await getWorkAreaLinux(xrandrDisplays));
+          return await applyDrmInfo(await getWorkAreaLinux(xrandrDisplays));
         }
       } catch {}
     } catch {}
   } catch {}
   const drm = await drmDisplays();
-  return await applyDrmPowerStates(drm.length ? drm : result);
+  return await applyDrmInfo(drm.length ? drm : result);
 };

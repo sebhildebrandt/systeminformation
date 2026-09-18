@@ -899,6 +899,8 @@ export type DisplayData = {
   currentRefreshRate: number | null;
   scale: number | null;
   powerState: string;
+  gpu: string;
+  gpuBusAddress: string;
 };
 
 export type GpuNvidiaData = {
