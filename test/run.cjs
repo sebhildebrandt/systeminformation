@@ -35,8 +35,8 @@ function run(si, f) {
       else if (f === 'O') { si.mouse().then(data => { if (data !== null) { resolve({ data, title: 'Mouse/Trackpad' }); } else { resolve('not_supported'); } }); }
       else if (f === 'p') { si.processes().then(data => { if (data !== null) { resolve({ data, title: 'Processes' }); } else { resolve('not_supported'); } }); }
       else if (f === 'P') { si.processLoad('postgres, login, apache, mysql, nginx, git, node').then(data => { if (data !== null) { resolve({ data, title: 'Process Load' }); } else { resolve('not_supported'); } }); }
-      else if (f === 'R') { si.processFocused().then(data => { if (data !== null) { resolve({ data, title: 'Process Focused' }); } else { resolve('not_supported'); } }); }
-      else if (f === 'r') { si.software().then(data => { if (data !== null) { resolve({ data, title: 'Installed Software' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'r') { si.processFocused().then(data => { if (data !== null) { resolve({ data, title: 'Process Focused' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'R') { si.software().then(data => { if (data !== null) { resolve({ data, title: 'Installed Software' }); } else { resolve('not_supported'); } }); }
       else if (f === 's') { si.services('apache2, postgres, wsearch').then(data => { if (data !== null) { resolve({ data, title: 'Services' }); } else { resolve('not_supported'); } }); }
       else if (f === 'S') { si.shell().then(data => { if (data !== null) { resolve({ data, title: 'Shell' }); } else { resolve('not_supported'); } }); }
       else if (f === 't') { si.time().then(data => { resolve({ data, title: 'Time' }); }); }
