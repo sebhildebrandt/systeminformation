@@ -95,6 +95,7 @@ function buildTests(si) {
     // Processes
     processes: () => si.processes(),
     processLoad: () => si.processLoad('node'),
+    processFocused: () => si.processFocused(), // ponytail: null on headless runners and unsupported platforms - that is a pass, not a failure
     services: () => si.services('*'),
     // Aggregation
     get: () => si.get({ cpu: 'manufacturer, brand, speed', mem: 'total, free', osInfo: '*' }),
