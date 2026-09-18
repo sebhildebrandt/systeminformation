@@ -406,7 +406,7 @@ On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode 
 |               | [0].workAreaPositionY  | X     |     | X   | X   |     | working area position Y           |
 |               | [0].currentRefreshRate | X     |     | X   | X   |     | current screen refresh rate       |
 |               | [0].scale              |       |     |     | X   |     | DPI scaling factor, e.g. 1.5      |
-|               | [0].powerState         | X     |     | X   | X   |     | 'on', 'standby', 'suspend', 'off' |
+|               | [0].powerState         | X     |     |     | X   |     | 'on', 'standby', 'suspend', 'off' |
 
 #### 7. Operating System
 

@@ -18,7 +18,7 @@ assert.equal(parseIoregPowerState(wrangler(3, 4)), 'standby');
 assert.equal(parseIoregPowerState(wrangler(1, 4)), 'suspend');
 assert.equal(parseIoregPowerState(wrangler(0, 4)), 'off');
 
-// apple silicon only has on/off via IOMobileFramebufferShim
+// a node with only two states maps to on/off
 assert.equal(parseIoregPowerState(wrangler(1, 1)), 'on');
 assert.equal(parseIoregPowerState(wrangler(0, 1)), 'off');
 

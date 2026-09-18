@@ -125,8 +125,6 @@ const getWorkAreaDarwin = async (displays: DisplayData[]): Promise<DisplayData[]
 
 // ioreg prints the power managed node as
 // "IOPowerManagement" = {"CapabilityFlags"=32832,"MaxPowerState"=4,"CurrentPowerState"=4}
-// intel macs run the display through IODisplayWrangler (5 states), apple silicon through
-// IOMobileFramebufferShim (on/off only) - the first node found decides
 export const parseIoregPowerState = (stdout: string) => {
   const match = stdout.match(/"MaxPowerState"=(\d+)[^}]*"CurrentPowerState"=(\d+)/);
   if (!match) {
@@ -146,16 +144,12 @@ export const parseIoregPowerState = (stdout: string) => {
   return current === max - 1 ? 'standby' : 'suspend';
 };
 
-// the display power state is a system wide value on macOS, so every display gets the same one
-const getPowerStateDarwin = async () => {
-  for (const args of [['-n', 'IODisplayWrangler', '-r', '-d', '1'], ['-c', 'IOMobileFramebufferShim', '-r', '-d', '1']]) {
-    const powerState = parseIoregPowerState(await execSecure('ioreg', args));
-    if (powerState) {
-      return powerState;
-    }
-  }
-  return '';
-};
+// IODisplayWrangler drives the display power state and is system wide, so every display gets
+// the same value. Apple Silicon has no wrangler and no replacement: measured against
+// `pmset displaysleepnow`, not one of the 353 power managed ioreg nodes changes state while the
+// screen is off - IOMobileFramebufferShim stays at 1/1 - so those machines report '' instead of
+// a wrong 'on' (#916)
+const getPowerStateDarwin = async () => parseIoregPowerState(await execSecure('ioreg', ['-n', 'IODisplayWrangler', '-r', '-d', '1']));
 
 export const displays = async () => {
   await nextTick();

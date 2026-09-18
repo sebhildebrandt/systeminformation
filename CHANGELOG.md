@@ -33,7 +33,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `displays()` added `RDP` as connection type for remote desktop / indirect displays (Windows)
 - `displays()` added `mirror` (true if the display is part of a mirrored / duplicated set, #930)
 - `displays()` added `scale` (DPI scaling factor of the display, e.g. `1.5` for 150% - Windows only)
-- `displays()` added `powerState` (`on`, `standby`, `suspend`, `off` or `''` when unknown - tells a dimmed / sleeping screen apart from an active one. Linux reads the DPMS state per connector from sysfs, macOS and Windows only know a system wide state, so every display reports the same value there, #916)
+- `displays()` added `powerState` (`on`, `standby`, `suspend`, `off` or `''` when unknown - tells a dimmed / sleeping screen apart from an active one. Linux reads the DPMS state per connector from sysfs, Windows the `Availability` of `Win32_DesktopMonitor`. On macOS it is a system wide value from `IODisplayWrangler`, which exists on Intel Macs only - Apple Silicon has no queryable display power state (verified against `pmset displaysleepnow`: no power managed ioreg node changes while the screen is off), so it reports `''` rather than a wrong `on`, #916)
 - `displays()` added `workAreaResolutionX/Y` and `workAreaPositionX/Y` (desktop working area - the screen minus task bar and app bars on Windows, menu bar and Dock on macOS, panels/docks on Linux via `_NET_WORKAREA`, X11 only)
 - `gpu()` added `temperatureGpu` on Apple Silicon (optional `macos-temperature-sensor` package)
 - `services()` added `startmode` on Linux (systemd `UnitFileState`: enabled, disabled, static, ..., previously Windows only)
