@@ -6,6 +6,10 @@ import { isPrototypePolluted, sanitizeServiceString } from '../common/security';
 import { calcProcStatLinux, parseProcStat } from '../common/parse';
 import { readProcStats } from '../common/files';
 
+// execSecure only settles on close - a process stuck in uninterruptible sleep must not leave
+// processLoad() pending forever
+const EXEC_OPTS = { timeout: 5000 };
+
 const _process_cpu = {
   all: 0,
   all_utime: 0,
@@ -24,7 +28,7 @@ export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
 
     if (processes.length) {
       const args = ['-axo', 'pid,ppid,pcpu,pmem,comm'];
-      stdout = await execSecure('ps', args);
+      stdout = await execSecure('ps', args, EXEC_OPTS);
       if (stdout) {
         const procStats: ProcStatsData[] = [];
         const lines = stdout.split('\n').filter((line: string) => {

@@ -13,6 +13,10 @@ import type { NetworkInterfacesData, PciData } from '../common/types';
 import { networkInterfaceDefault } from './network-interface-default';
 import { pci } from './pci';
 
+// execSecure only settles on close - iw runs once per interface, so a wedged call would
+// block the whole networkInterfaces() listing
+const EXEC_OPTS = { timeout: 5000 };
+
 let _interfaces: any = {}; // nodejs structure
 let _networkInterfaces: NetworkInterfacesData[] = []; // si structure
 
@@ -358,7 +362,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
         const [sysfsLines, wirelessLines, iwOut] = await Promise.all([
           isSafePathSegment(ifaceSanitized) ? readSysfsMany(`/sys/class/net/${ifaceSanitized}`, ['address', 'carrier_changes', 'duplex', 'mtu', 'operstate', 'speed', 'type']) : [],
           readFileLines('/proc/net/wireless'),
-          execSecure('iw', ['dev', ifaceSanitized, 'link'])
+          execSecure('iw', ['dev', ifaceSanitized, 'link'], EXEC_OPTS)
         ]);
         lines = sysfsLines;
         lines.push(`wireless: ${wirelessLines.find((line: string) => line.indexOf(ifaceSanitized) >= 0) || ''}`);

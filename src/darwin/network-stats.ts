@@ -6,6 +6,10 @@ import { sanitizeInterfacesString } from '../common/security';
 import { NetworkStatsData } from '../common/types';
 import { networkInterfaces } from '../darwin';
 
+// execSecure only settles on close - a wedged ifconfig/netstat must not leave
+// networkStats() pending forever
+const EXEC_OPTS = { timeout: 5000 };
+
 const _network: any = {};
 
 const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
@@ -21,11 +25,11 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
     let tx_dropped = 0;
     let tx_errors = 0;
 
-    let stdout = await execSecure('ifconfig', [iface]);
+    let stdout = await execSecure('ifconfig', [iface], EXEC_OPTS);
     const statusLine = stdout.split('\n').find((l) => l.includes('status')) || '';
     operstate = (statusLine.split(':')[1] || '').trim().toLowerCase();
     operstate = operstate === 'active' ? 'up' : operstate === 'inactive' ? 'down' : 'unknown';
-    stdout = await execSecure('netstat', ['-bdnI', iface]);
+    stdout = await execSecure('netstat', ['-bdnI', iface], EXEC_OPTS);
     if (stdout) {
       const lines = stdout.toString().split('\n');
       // if there is less than 2 lines, no information for this interface was found

@@ -6,6 +6,10 @@ import { calcProcStatLinux, parseProcStat } from '../common/parse';
 import { isPrototypePolluted, sanitizeServiceString, stringReplace, stringSplit, stringStartWith, stringSubstr, stringSubstring, stringToLower, stringToString, stringTrim } from '../common/security';
 import { ServicesData } from '../common/types';
 
+// execSecure only settles on close - systemd and processes stuck in uninterruptible sleep
+// would otherwise leave services() pending forever
+const EXEC_OPTS = { timeout: 5000 };
+
 const _services_cpu = {
   all: 0,
   all_utime: 0,
@@ -162,7 +166,7 @@ const systemdUnits = async (): Promise<SystemdUnit[]> => {
     '--property=ActiveExitTimestamp',
     '--property=MainPID',
     '*.service'
-  ]);
+  ], EXEC_OPTS);
   stdout.split(/\n\s*\n/).forEach((block: string) => {
     const lines = block.split('\n');
     const id = getValue(lines, 'Id', '=', false, true);
@@ -200,7 +204,7 @@ const elapsedToDate = (elapsed: string): Date | null => {
 
 const psProcessesLinux = async () => {
   const procs: { pid: number; ppid: number; cpu: number; mem: number }[] = [];
-  const stdout = await execSecure('ps', ['-axo', 'pcpu,pmem,pid,ppid']);
+  const stdout = await execSecure('ps', ['-axo', 'pcpu,pmem,pid,ppid'], EXEC_OPTS);
   stdout
     .replace(/ +/g, ' ')
     .replace(/,+/g, '.')
@@ -286,7 +290,7 @@ export const services = async (srv: string): Promise<ServicesData[]> => {
     }
     let args = DARWIN ? ['-caxo', 'pcpu,pmem,pid,etime,command'] : ['-axo', 'pcpu,pmem,pid,etime,command'];
     if (srvs.length > 0) {
-      let stdout = await execSecure('ps', args);
+      let stdout = await execSecure('ps', args, EXEC_OPTS);
       if (stdout) {
         const lines = stdout.replace(/ +/g, ' ').replace(/,+/g, '.').split('\n');
         srvs.forEach((srv: string) => {
@@ -346,7 +350,7 @@ export const services = async (srv: string): Promise<ServicesData[]> => {
         return result;
       } else {
         args = ['-o', 'comm'];
-        stdout = await execSecure('ps', args);
+        stdout = await execSecure('ps', args, EXEC_OPTS);
         if (stdout) {
           const lines = stdout.replace(/ +/g, ' ').replace(/,+/g, '.').split('\n');
           srvs.forEach((srv: string) => {
