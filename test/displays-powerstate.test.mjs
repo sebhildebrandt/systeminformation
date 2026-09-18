@@ -56,4 +56,9 @@ assert.equal(windowsAvailabilityToPowerState('16'), '', 'power cycle is transien
 assert.equal(windowsAvailabilityToPowerState(''), '');
 assert.equal(windowsAvailabilityToPowerState('5'), '');
 
+// the value comes from wmi output - a key must never reach Object.prototype
+for (const key of ['constructor', 'toString', '__proto__', 'hasOwnProperty', 'valueOf']) {
+  assert.equal(windowsAvailabilityToPowerState(key), '', `${key} must not resolve through the prototype chain`);
+}
+
 console.log('displays-powerstate: all checks passed');

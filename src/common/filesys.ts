@@ -3,6 +3,7 @@ import { cloneObj, getValue, sortByKey, toInt, unique } from './index';
 import { DARWIN, execOptsLinux, execOptsWin, FREEBSD, LINUX, NETBSD, WINDOWS } from './const';
 import { initDiskIo, initFsBlockDevice, initFsStats } from './defaults';
 import { exec, execSecure } from './exec';
+import { isSafePathSegment } from './security';
 import type { FsBlockDevicesData } from './types';
 
 let _smartMonToolsInstalled: boolean | null = null;
@@ -473,7 +474,7 @@ export const btrfsPoolsLinux = async (data: FsBlockDevicesData[]): Promise<PoolI
   const result: PoolInfoLinux[] = [];
   let fsids: string[] = [];
   try {
-    fsids = await readdir(BTRFS_SYSFS);
+    fsids = (await readdir(BTRFS_SYSFS)).filter(isSafePathSegment);
   } catch {
     return result;
   }

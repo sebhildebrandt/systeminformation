@@ -1,6 +1,9 @@
 import { nextTick, toInt } from '../common';
 import { plistParser, plistReader } from '../common/darwin';
 import { exec, execSave, execSecure, shareInflight } from '../common/exec';
+
+// execSecure only settles on close - a wedged ioreg would leave displays() pending forever
+const EXEC_OPTS = { timeout: 5000 };
 import { graphicsIdToVendor, graphicsModelToVendor } from '../common/mappings';
 import { DisplayData } from '../common/types';
 
@@ -153,7 +156,7 @@ export const parseIoregPowerState = (stdout: string) => {
 // `pmset displaysleepnow`, not one of the 353 power managed ioreg nodes changes state while the
 // screen is off - IOMobileFramebufferShim stays at 1/1 - so those machines report '' instead of
 // a wrong 'on' (#916)
-const getPowerStateDarwin = async () => parseIoregPowerState(await execSecure('ioreg', ['-n', 'IODisplayWrangler', '-r', '-d', '1']));
+const getPowerStateDarwin = async () => parseIoregPowerState(await execSecure('ioreg', ['-n', 'IODisplayWrangler', '-r', '-d', '1'], EXEC_OPTS));
 
 export const displays = async () => {
   await nextTick();

@@ -52,17 +52,19 @@ export const parseEnumDisplayDevices = (stdout: any) => {
 // DMTF CIM_LogicalDevice.Availability: 3 running / full power, 7 power off, 8 off line,
 // 13 power save unknown, 14 low power mode, 15 standby, 17 power save warning.
 // 16 is power cycle - transient rather than a power save state, so it stays unknown
-const WIN_AVAILABILITY: { [index: string]: string } = {
-  '3': 'on',
-  '7': 'off',
-  '8': 'off',
-  '13': 'standby',
-  '14': 'standby',
-  '15': 'standby',
-  '17': 'standby'
-};
+// a Map, not an object literal - the value comes from wmi output and an object lookup would
+// resolve keys like "constructor" through the prototype chain
+const WIN_AVAILABILITY = new Map<string, string>([
+  ['3', 'on'],
+  ['7', 'off'],
+  ['8', 'off'],
+  ['13', 'standby'],
+  ['14', 'standby'],
+  ['15', 'standby'],
+  ['17', 'standby']
+]);
 
-export const windowsAvailabilityToPowerState = (value: string) => WIN_AVAILABILITY[value.trim()] || '';
+export const windowsAvailabilityToPowerState = (value: string) => WIN_AVAILABILITY.get(String(value ?? '').trim()) || '';
 
 const parseLinesWindowsDisplaysPowershell = (
   ssections: any[],
