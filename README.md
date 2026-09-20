@@ -376,8 +376,8 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 |               | [0].deviceId           |       |     | X   |     |     | device ID                         |
 |               | [0].bus                | X     |     | X   | X   |     | on which bus (e.g. PCIe)          |
 |               | [0].busAddress         | X     |     |     | X   |     | PCI bus address, e.g. '01:00.0'   |
-|               | [0].vram               | X     |     | X   | X   |     | VRAM size (in MB)                 |
-|               | [0].vramDynamic        | X     |     | X   | X   |     | true if dynamically allocated ram |
+|               | [0].vram               | X     |     | X   | X   |     | VRAM size (in MB), `null` if shared |
+|               | [0].vramDynamic        | X     |     | X   | X   |     | true if dynamically allocated ram (integrated GPUs) |
 |               | [0].external           |       |     | X   |     |     | is external GPU                   |
 |               | [0].cores              |       |     | X   |     |     | Apple silicon only                |
 |               | [0].metalVersion       |       |     | X   |     |     | Apple Metal Version               |

@@ -10,6 +10,7 @@ import { isSafePathSegment } from '../common/security';
 
 type DrmMetrics = {
   busAddress: string;
+  sharedMemory: boolean;
   utilizationGpu: number | null;
   memoryTotal: number | null;
   memoryUsed: number | null;
@@ -43,6 +44,10 @@ const parseAmdClock = (stdout: string) => {
   return Number.isNaN(value) ? null : value;
 };
 
+// drivers that (almost always) drive an integrated GPU. i915 and xe also run the discrete Arc
+// cards, so the driver alone does not decide it - the absence of a VRAM total node does
+const INTEGRATED_DRM_DRIVERS = ['i915', 'xe', 'v3d', 'vc4', 'panfrost', 'lima', 'msm', 'etnaviv'];
+
 // runtime values the kernel exposes per DRM card without root (i915, xe, amdgpu)
 export const drmDevices = async (drmPath = '/sys/class/drm'): Promise<DrmMetrics[]> => {
   const devices: DrmMetrics[] = [];
@@ -65,6 +70,10 @@ export const drmDevices = async (drmPath = '/sys/class/drm'): Promise<DrmMetrics
     if (!/^[\da-f]{2}:[\da-f]{2}\.[\da-f]$/i.test(busAddress)) {
       continue;
     }
+    let driver = '';
+    try {
+      driver = (await readlink(`${devicePath}/driver`)).split('/').pop() || '';
+    } catch {}
     let hwmon: string[] = [];
     try {
       hwmon = (await readdir(`${devicePath}/hwmon`)).filter(isSafePathSegment).map((node) => `${devicePath}/hwmon/${node}`);
@@ -81,10 +90,13 @@ export const drmDevices = async (drmPath = '/sys/class/drm'): Promise<DrmMetrics
       1,
       true
     );
+    // the real VRAM size, in bytes on every driver - amdgpu, discrete Intel Arc (i915, xe)
+    const memoryTotal = await readSysfsNumber([`${devicePath}/mem_info_vram_total`, `${cardPath}/lmem_total_bytes`, `${devicePath}/tile0/physical_vram_size_bytes`], 1024 * 1024);
     devices.push({
       busAddress,
+      sharedMemory: INTEGRATED_DRM_DRIVERS.includes(driver) && memoryTotal === null,
       utilizationGpu: await readSysfsNumber([`${devicePath}/gpu_busy_percent`]),
-      memoryTotal: await readSysfsNumber([`${devicePath}/mem_info_vram_total`], 1024 * 1024),
+      memoryTotal,
       memoryUsed: await readSysfsNumber([`${devicePath}/mem_info_vram_used`], 1024 * 1024),
       temperatureGpu: await readSysfsNumber(
         hwmon.map((node) => `${node}/temp1_input`),
@@ -193,10 +205,10 @@ export const mergeControllerDrm = (controller: GpuData, drm?: DrmMetrics) => {
   }
   if (controller.memoryTotal === undefined && drm.memoryTotal) {
     controller.memoryTotal = drm.memoryTotal;
-    if (controller.vram === null) {
-      controller.vram = drm.memoryTotal;
-      controller.vramDynamic = false;
-    }
+    // sysfs knows the real size - vram still held the largest PCI region from lspci, which is only
+    // an approximation and overshoots on cards with resizable BAR (#1035: 32 GB BAR, 24 GB card)
+    controller.vram = drm.memoryTotal;
+    controller.vramDynamic = false;
   }
   if (controller.memoryUsed === undefined && drm.memoryUsed !== null) {
     controller.memoryUsed = drm.memoryUsed;
@@ -216,6 +228,12 @@ export const mergeControllerDrm = (controller: GpuData, drm?: DrmMetrics) => {
   if (controller.clockCore === undefined && drm.clockCore !== null) {
     controller.clockCore = drm.clockCore;
   }
+  // an integrated GPU has no dedicated memory - what lspci reports as the largest PCI region is
+  // the graphics aperture (256M on an Intel iGPU), not video memory, so do not pass it off as vram
+  if (drm.sharedMemory) {
+    controller.vram = null;
+    controller.vramDynamic = true;
+  }
   return controller;
 };
 
@@ -232,7 +250,12 @@ const parseLinesLinuxControllers = async (lines: string[]) => {
     pciID: ''
   };
   let isGraphicsController = false;
-  // PCI bus IDs
+  // PCI bus IDs. dmidecode needs root - without it pciIDs stays empty and every card falls back
+  // to "Onboard", including a discrete one. There is no root free replacement: /sys/bus/pci/slots
+  // is only filled for hotplug capable slots and is empty on ordinary desktop boards, and every
+  // other signal (PCI tree depth, presence of a PCIe link, DRM driver name) reads an AMD APU as a
+  // plug-in card, because its iGPU really does sit behind an internal PCIe bridge. bus is
+  // therefore best effort; nothing in this library derives behaviour from it
   let pciIDs: string[] = [];
   try {
     const { stdout } = await exec('export LC_ALL=C; dmidecode -t 9 2>/dev/null; unset LC_ALL | grep "Bus Address: "', execOptsLinux);
