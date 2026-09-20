@@ -104,6 +104,84 @@ export const drmDevices = async (drmPath = '/sys/class/drm'): Promise<DrmMetrics
   return devices;
 };
 
+// Tegra / Jetson: the integrated GPU is a device tree platform device, so lspci does not list it
+// and drmDevices() drops it for lack of a PCI address. Every value has its own sysfs node instead
+// of nvidia-smi - an unknown generation simply finds nothing and yields no entry (#800).
+// root prefixes every path so the readers can be pointed at a fixture, same as drmDevices()
+
+// device tree properties are NUL terminated, "compatible" holds a whole list of them
+const readDeviceTree = async (file: string) => (await readSysfs(file)).replace(/\0/g, '\n').trim();
+
+// the gpu devfreq node is named after its device tree address and GPU codename:
+// 57000000.gpu (TX1/TX2), 17000000.gv11b (Xavier), 17000000.ga10b (Orin)
+const tegraClock = async (root: string) => {
+  let nodes: string[] = [];
+  try {
+    nodes = (await readdir(`${root}/sys/class/devfreq`)).filter(isSafePathSegment);
+  } catch {
+    return null;
+  }
+  const gpuNodes = nodes.filter((node) => /\.(gpu|gm20b|gp10b|gv11b|ga10b)$/.test(node)).sort();
+  return await readSysfsNumber(
+    gpuNodes.map((node) => `${root}/sys/class/devfreq/${node}/cur_freq`),
+    1000000,
+    true
+  );
+};
+
+// GPU-therm (TX2/Xavier) or gpu-thermal (Orin) - the plain thermal zone interface, no tegra specifics
+const tegraTemperature = async (root: string) => {
+  let zones: string[] = [];
+  try {
+    zones = (await readdir(`${root}/sys/class/thermal`)).filter((zone) => zone.startsWith('thermal_zone') && isSafePathSegment(zone)).sort();
+  } catch {
+    return null;
+  }
+  for (const zone of zones) {
+    if ((await readSysfs(`${root}/sys/class/thermal/${zone}/type`)).toLowerCase().startsWith('gpu')) {
+      return await readSysfsNumber([`${root}/sys/class/thermal/${zone}/temp`], 1000);
+    }
+  }
+  return null;
+};
+
+// nvidia,tegra234 -> Tegra234
+const tegraSoc = (compatible: string) => {
+  const match = /nvidia,(tegra\d+)/.exec(compatible);
+  return match ? match[1].charAt(0).toUpperCase() + match[1].slice(1) : '';
+};
+
+export const tegraDevice = async (root = ''): Promise<GpuData | null> => {
+  const compatible = (await readDeviceTree(`${root}/proc/device-tree/compatible`)).toLowerCase();
+  if (!compatible.includes('nvidia,tegra')) {
+    return null;
+  }
+  // "NVIDIA Jetson AGX Orin Developer Kit", or the SoC name when the model property is missing
+  const model = (await readDeviceTree(`${root}/proc/device-tree/model`)) || tegraSoc(compatible);
+  // load is per mille on every L4T release - the same value tegrastats divides by 10
+  const load = await readSysfsNumber([`${root}/sys/devices/platform/gpu.0/load`, `${root}/sys/devices/gpu.0/load`]);
+  const temperatureGpu = await tegraTemperature(root);
+  const clockCore = await tegraClock(root);
+  const result: GpuData = {
+    vendor: 'NVIDIA',
+    model: model || 'Tegra',
+    bus: '',
+    // the GPU has no dedicated memory, it shares system RAM
+    vram: null,
+    vramDynamic: true
+  };
+  if (load !== null) {
+    result.utilizationGpu = Math.min(100, Math.round(load) / 10);
+  }
+  if (temperatureGpu !== null) {
+    result.temperatureGpu = temperatureGpu;
+  }
+  if (clockCore !== null) {
+    result.clockCore = clockCore;
+  }
+  return result;
+};
+
 // sysfs only fills gaps - values already delivered by nvidia-smi stay untouched
 export const mergeControllerDrm = (controller: GpuData, drm?: DrmMetrics) => {
   if (!drm) {
@@ -415,6 +493,13 @@ export const gpu = async () => {
         result = parseLinesLinuxClinfo(result, lines);
       } catch {}
     } catch {}
+    // last resort - neither lspci nor the DRM sysfs path can see a Tegra iGPU
+    if (!result.length) {
+      const tegra = await tegraDevice();
+      if (tegra) {
+        result.push(tegra);
+      }
+    }
   } catch {}
   return result;
 };

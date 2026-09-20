@@ -41,8 +41,8 @@ export const cpuTemperature = async () => {
       if (line.startsWith('pch') && temp) {
         result.chipset = Math.round(Number.parseInt(temp, 10) / 100) / 10;
       }
-      // CPU thermal zone (e.g. cpu-thermal on Raspberry Pi)
-      if (cpuThermal === null && line.indexOf('cpu') !== -1 && temp) {
+      // CPU thermal zone (e.g. cpu-thermal on Raspberry Pi, CPU-therm on Tegra/Jetson)
+      if (cpuThermal === null && line.toLowerCase().indexOf('cpu') !== -1 && temp) {
         cpuThermal = Math.round(parseInt(temp, 10) / 100) / 10;
       }
     }

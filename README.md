@@ -365,6 +365,8 @@ In v6 the former `graphics()` function was split into `si.gpu()` (graphics contr
 
 On Windows, `si.displays()` reports physical monitors: in duplicate/mirror mode each mirrored monitor gets its own entry (sharing the resolution and position of the mirrored screen).
 
+On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boards. It is a device tree platform device rather than a PCI one, so `model`, `utilizationGpu`, `temperatureGpu` and `clockCore` are read from the Tegra sysfs nodes - neither `tegrastats` nor `jtop` is required. Its memory is shared with the system, so `vram` is `null` and `vramDynamic` is `true`.
+
 | Function      | Result object          | Linux | BSD | Mac | Win | Sun | Comments                          |
 | ------------- | ---------------------- | ----- | --- | --- | --- | --- | --------------------------------- |
 | si.gpu()      | [{...}]                | X     |     | X   | X   |     | array of graphics controllers     |
