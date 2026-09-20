@@ -144,8 +144,10 @@ export const calcNetworkSpeed = (counters: NetworkCounters, _network: any): Netw
     _network[iface].rx_sec = null;
     _network[iface].tx_sec = null;
   }
-  // unchanged behaviour: the previous code assigned result.ms here, which was always 0
-  _network[iface].last_ms = 0;
+  // the interval rx_sec/tx_sec were measured over - a cached result replays both, so it has to
+  // report the same ms. Previously this stored an always empty result.ms, which made every cached
+  // result claim ms: 0 next to a non null rx_sec
+  _network[iface].last_ms = ms;
   _network[iface].rx_bytes = rx_bytes;
   _network[iface].tx_bytes = tx_bytes;
   _network[iface].rx_packets = rx_packets;

@@ -108,7 +108,14 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
     });
     // an interface without traffic yet still has valid stats - all zero (#779)
     if (found) {
-      return calcNetworkSpeed({ iface: ifaceName, rx_bytes, tx_bytes, rx_packets, tx_packets, rx_dropped, rx_errors, tx_dropped, tx_errors, operstate }, _network);
+      const stats = calcNetworkSpeed({ iface: ifaceName, rx_bytes, tx_bytes, rx_packets, tx_packets, rx_dropped, rx_errors, tx_dropped, tx_errors, operstate }, _network);
+      // the cache is keyed on the resolved adapter name, the 500 ms check above looks up what the
+      // caller passed - without this alias a query by MAC, IP or friendly name never hit the cache.
+      // Both keys share one object, so the next measurement keeps them in sync
+      if (ifaceName !== iface) {
+        _network[iface] = _network[ifaceName];
+      }
+      return stats;
     }
     return defaults;
   } else {
