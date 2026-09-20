@@ -30,6 +30,8 @@ export const mem = async () => {
       ...defaults,
       total,
       free,
+      // defaults.used is evaluated once at import - always derive it from this measurement
+      used: total - free,
       buffcache,
       available,
       active: total - available,

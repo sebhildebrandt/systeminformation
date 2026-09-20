@@ -125,6 +125,11 @@ export const parseSip = (stdout: string): OsSecurityData => {
   if (!status) {
     return { module: '', enabled: false, mode: '', policy: '' };
   }
+  // "enabled (Custom Configuration)" / "unknown (Custom Configuration)": single protections were
+  // turned off, so SIP is neither fully on nor off - this has to win over the plain states
+  if (status.includes('custom')) {
+    return { module: 'sip', enabled: false, mode: 'custom', policy: '' };
+  }
   const enabled = status.startsWith('enabled');
   return {
     module: 'sip',

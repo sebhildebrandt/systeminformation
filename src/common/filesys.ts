@@ -412,10 +412,12 @@ export const btrfsUsableSize = (profile: string, sizes: number[]) => {
       return Math.floor(sum / 3);
     case 'raid1c4':
       return Math.floor(sum / 4);
+    // parity costs one device (raid5) or two (raid6) - with fewer members than that the
+    // subtraction would wipe out the whole pool, so report the plain sum instead
     case 'raid5':
-      return sum - (largest[0] || 0);
+      return sizes.length > 1 ? sum - (largest[0] || 0) : sum;
     case 'raid6':
-      return sum - (largest[0] || 0) - (largest[1] || 0);
+      return sizes.length > 2 ? sum - (largest[0] || 0) - (largest[1] || 0) : sum;
     default:
       return sum;
   }
@@ -526,7 +528,9 @@ export const btrfsPoolsLinux = async (data: FsBlockDevicesData[]): Promise<PoolI
       name: label || fsid,
       type: profile || 'btrfs',
       fsType: 'btrfs',
-      size: btrfsUsableSize(profile, members.map((element) => element.size)),
+      // the profile math only holds for a complete member list - lsblk may not resolve every
+      // device of the pool, and then the summed sizes are the best we can honestly report
+      size: members.length === devices.length ? btrfsUsableSize(profile, members.map((element) => element.size)) : members.reduce((sum, element) => sum + element.size, 0),
       uuid: fsid,
       mount: members.find((element) => element.mount)?.mount || '',
       members: devices
