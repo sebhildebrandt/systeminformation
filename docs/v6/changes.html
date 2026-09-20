@@ -154,6 +154,13 @@
                       <span class="code">NFS</span>, so APFS volumes were reported as <span class="code">HFS</span> and zfs, exfat, msdos or smbfs were never recognised at all. This also makes the ZFS correction work on macOS (#1017)
                     </li>
                     <li>
+                      <span class="code">blockDevices()</span>
+                      and <span class="code">fsSize()</span> report the usable instead of the raw capacity for btrfs. The pool entry summed its member sizes and btrfs reports the raw device capacity as filesystem size, so a
+                      raid5 of four disks showed the full four disks. The pool size is now derived from the data profile (raid5 minus one device, raid6 minus two, raid1/raid10/dup halved, raid1c3/raid1c4 divided by
+                      three/four), and <span class="code">fsSize()</span> uses <span class="code">used + available</span>, which already accounts for the profile. Note that the reported size therefore shrinks on mirrored
+                      profiles compared to earlier betas
+                    </li>
+                    <li>
                       <span class="code">fsSize()</span>
                       ZFS datasets now report the hierarchical usage from <span class="code">zfs list</span> - df and statfs only know what a dataset references itself, so a parent holding its data in child datasets was shown as almost empty (#1017) - note that <span class="code">used</span> then
                       includes child datasets and snapshots, exactly like <span class="code">zfs list</span>, so it must not be summed across nested datasets
