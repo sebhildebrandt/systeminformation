@@ -218,6 +218,17 @@
                     <li><span class="code">networkStats()</span> <span class="code">rx_dropped</span>, <span class="code">rx_errors</span>, <span class="code">tx_dropped</span> and <span class="code">tx_errors</span> are no longer lost in cached results</li>
                     <li><span class="code">gpu()</span> reads clock, temperature, power, utilization and memory from DRM sysfs (<span class="code">/sys/class/drm/card*</span>) - runtime values for Intel and AMD GPUs without extra tools or root, previously nvidia-smi only (Linux, #890)</li>
                     <li>
+                      <span class="code">gpu()</span>
+                      detects the integrated GPU of NVIDIA Tegra / Jetson boards - it is a device tree platform device, so <span class="code">lspci</span> does not list it and the DRM sysfs path skips it for lack of a PCI
+                      address, which left <span class="code">gpu()</span> empty on every Jetson. <span class="code">model</span>, <span class="code">utilizationGpu</span>, <span class="code">temperatureGpu</span> and
+                      <span class="code">clockCore</span>
+                      now come from the Tegra sysfs nodes, so no <span class="code">tegrastats</span> and no <span class="code">jtop</span> is needed (Linux)
+                    </li>
+                    <li>
+                      <span class="code">cpuTemperature()</span>
+                      matches the CPU thermal zone case insensitively - Tegra / Jetson names it <span class="code">CPU-therm</span>, so the main temperature stayed empty there (Linux)
+                    </li>
+                    <li>
                       <span class="code">gpu()</span> <span class="code">metalVersion</span> on macOS is read from <span class="code">spdisplays_mtlgpufamilysupport</span> and understands the Metal support level reported by newer macOS versions (e.g. <span class="code">spdisplays_metal4</span> -&gt;
                       <span class="code">4</span>) - the old GPU family keys no longer exist, so <span class="code">metalVersion</span> was always empty (macOS)
                     </li>
