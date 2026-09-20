@@ -44,6 +44,20 @@
             <div class="col-12 sectionheader">
               <div class="title">Security Advisories</div>
               <div class="text">
+                <h2>networkStats() Prototype Pollution Vulnerability</h2>
+                <p><span class="bold">Affected versions:</span>
+                  &lt; 5.33.13<br>
+                  <span class="bold">Date:</span> 2026-09-20
+                </p>
+
+                <h4>Impact</h4>
+                <p>We had an issue that there was a possibility to pollute <span class="code">Object.prototype</span> by passing a crafted interface name like <span class="code">__proto__</span> to <span class="code">networkStats()</span>, because the interface name was used as a key of the internal network speed cache object.</p>
+
+                <h4>Patch</h4>
+                <p>Problem was fixed by creating the internal cache without a prototype. If you are using version 5, please upgrade to version >= 5.33.13.</p>
+                <hr>
+                <br>
+
                 <h2>networkInterfaces() Command Injection Vulnerability</h2>
                 <p><span class="bold">Affected versions:</span>
                   &lt; 5.31.7<br>
