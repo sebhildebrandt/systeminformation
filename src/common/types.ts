@@ -1046,9 +1046,11 @@ export type NetworkStatsData = {
   iface: string;
   operstate: string;
   rx_bytes: number;
+  rx_packets: number;
   rx_dropped: number;
   rx_errors: number;
   tx_bytes: number;
+  tx_packets: number;
   tx_dropped: number;
   tx_errors: number;
   rx_sec: number | null;

@@ -20,9 +20,12 @@ const parseLinesWindowsPerfData = (sections: string[]) => {
           .replace(/#|\//g, '_')
           .toLowerCase(),
         rx_bytes: toInt(getValue(lines, 'ReceivedBytes', ':')),
+        // Get-NetAdapterStatistics has no aggregated packet counter, only the three classes
+        rx_packets: toInt(getValue(lines, 'ReceivedUnicastPackets', ':')) + toInt(getValue(lines, 'ReceivedMulticastPackets', ':')) + toInt(getValue(lines, 'ReceivedBroadcastPackets', ':')),
         rx_errors: toInt(getValue(lines, 'ReceivedPacketErrors', ':')),
         rx_dropped: toInt(getValue(lines, 'ReceivedDiscardedPackets', ':')),
         tx_bytes: toInt(getValue(lines, 'SentBytes', ':')),
+        tx_packets: toInt(getValue(lines, 'SentUnicastPackets', ':')) + toInt(getValue(lines, 'SentMulticastPackets', ':')) + toInt(getValue(lines, 'SentBroadcastPackets', ':')),
         tx_errors: toInt(getValue(lines, 'OutboundPacketErrors', ':')),
         tx_dropped: toInt(getValue(lines, 'OutboundDiscardedPackets', ':'))
       });
@@ -39,6 +42,8 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
     let operstate = 'unknown';
     let rx_bytes = 0;
     let tx_bytes = 0;
+    let rx_packets = 0;
+    let tx_packets = 0;
     let rx_dropped = 0;
     let rx_errors = 0;
     let tx_dropped = 0;
@@ -52,7 +57,7 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
     try {
       const stdout = String(
         (await ps.exec(
-          'Get-NetAdapterStatistics | select Name,InterfaceDescription,ReceivedBytes,ReceivedPacketErrors,ReceivedDiscardedPackets,SentBytes,OutboundPacketErrors,OutboundDiscardedPackets | fl'
+          'Get-NetAdapterStatistics | select Name,InterfaceDescription,ReceivedBytes,ReceivedUnicastPackets,ReceivedMulticastPackets,ReceivedBroadcastPackets,ReceivedPacketErrors,ReceivedDiscardedPackets,SentBytes,SentUnicastPackets,SentMulticastPackets,SentBroadcastPackets,OutboundPacketErrors,OutboundDiscardedPackets | fl'
         )) || ''
       );
       if (stdout) {
@@ -90,9 +95,11 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
           found = true;
           ifaceName = det.iface;
           rx_bytes = detail.rx_bytes;
+          rx_packets = detail.rx_packets;
           rx_dropped = detail.rx_dropped;
           rx_errors = detail.rx_errors;
           tx_bytes = detail.tx_bytes;
+          tx_packets = detail.tx_packets;
           tx_dropped = detail.tx_dropped;
           tx_errors = detail.tx_errors;
           operstate = det.operstate;
@@ -101,7 +108,7 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
     });
     // an interface without traffic yet still has valid stats - all zero (#779)
     if (found) {
-      return calcNetworkSpeed(ifaceName, rx_bytes, tx_bytes, rx_dropped, rx_errors, tx_dropped, tx_errors, operstate, _network);
+      return calcNetworkSpeed({ iface: ifaceName, rx_bytes, tx_bytes, rx_packets, tx_packets, rx_dropped, rx_errors, tx_dropped, tx_errors, operstate }, _network);
     }
     return defaults;
   } else {
@@ -109,6 +116,8 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
       ...defaults,
       rx_bytes: _network[iface].rx_bytes,
       tx_bytes: _network[iface].tx_bytes,
+      rx_packets: _network[iface].rx_packets,
+      tx_packets: _network[iface].tx_packets,
       rx_sec: _network[iface].rx_sec,
       tx_sec: _network[iface].tx_sec,
       rx_dropped: _network[iface].rx_dropped,

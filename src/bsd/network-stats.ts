@@ -18,6 +18,8 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
     let operstate = 'unknown';
     let rx_bytes = 0;
     let tx_bytes = 0;
+    let rx_packets = 0;
+    let tx_packets = 0;
     let rx_dropped = 0;
     let rx_errors = 0;
     let tx_dropped = 0;
@@ -30,6 +32,9 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
         const line = lines[i].replace(/ +/g, ' ').split(' ');
         if (line && line[0] && line[7] && line[10]) {
           rx_bytes = rx_bytes + toInt(line[7]);
+          // Ipkts / Opkts sit right before Ierrs / Oerrs
+          rx_packets = rx_packets + toInt(line[4]);
+          tx_packets = tx_packets + toInt(line[8]);
           if (line[6].trim() !== '-') {
             rx_dropped = rx_dropped + toInt(line[6]);
           }
@@ -46,7 +51,7 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
           operstate = 'up';
         }
       }
-      return calcNetworkSpeed(iface, rx_bytes, tx_bytes, rx_dropped, rx_errors, tx_dropped, tx_errors, operstate, _network);
+      return calcNetworkSpeed({ iface, rx_bytes, tx_bytes, rx_packets, tx_packets, rx_dropped, rx_errors, tx_dropped, tx_errors, operstate }, _network);
     }
     return defaults;
   } else {
@@ -54,6 +59,8 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
       ...defaults,
       rx_bytes: _network[iface].rx_bytes,
       tx_bytes: _network[iface].tx_bytes,
+      rx_packets: _network[iface].rx_packets,
+      tx_packets: _network[iface].tx_packets,
       rx_sec: _network[iface].rx_sec,
       tx_sec: _network[iface].tx_sec,
       rx_dropped: _network[iface].rx_dropped,

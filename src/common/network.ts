@@ -1,5 +1,4 @@
-import { initNetworkSpeed } from './defaults';
-import { cloneObj, toInt } from './index';
+import { toInt } from './index';
 import { wifiFrequencies } from './mappings';
 import type { NetworkStatsData } from './types';
 
@@ -107,18 +106,23 @@ export const testVirtualNic = (iface: string, ifaceName: string, mac: string) =>
   }
 };
 
-export const calcNetworkSpeed = (
-  iface: string,
-  rx_bytes: number,
-  tx_bytes: number,
-  rx_dropped: number,
-  rx_errors: number,
-  tx_dropped: number,
-  tx_errors: number,
-  operstate: string,
-  _network: any
-): NetworkStatsData => {
-  const result = cloneObj(initNetworkSpeed);
+// counters of one measurement - a single object because the positional variant had grown to
+// nine same typed arguments, where a swapped pair produces wrong numbers silently
+export type NetworkCounters = {
+  iface: string;
+  rx_bytes: number;
+  tx_bytes: number;
+  rx_packets: number;
+  tx_packets: number;
+  rx_dropped: number;
+  rx_errors: number;
+  tx_dropped: number;
+  tx_errors: number;
+  operstate: string;
+};
+
+export const calcNetworkSpeed = (counters: NetworkCounters, _network: any): NetworkStatsData => {
+  const { iface, rx_bytes, tx_bytes, rx_packets, tx_packets, rx_dropped, rx_errors, tx_dropped, tx_errors, operstate } = counters;
 
   let rx_sec: number | null = null;
   let tx_sec: number | null = null;
@@ -131,41 +135,36 @@ export const calcNetworkSpeed = (
     tx_bytes_intervall = tx_bytes - _network[iface].tx_bytes;
     rx_sec = rx_bytes_intervall >= 0 ? rx_bytes_intervall / (ms / 1000) : 0;
     tx_sec = tx_bytes_intervall >= 0 ? tx_bytes_intervall / (ms / 1000) : 0;
-    _network[iface].rx_bytes = rx_bytes;
-    _network[iface].tx_bytes = tx_bytes;
     _network[iface].rx_sec = rx_sec;
     _network[iface].tx_sec = tx_sec;
-    _network[iface].rx_dropped = rx_dropped;
-    _network[iface].rx_errors = rx_errors;
-    _network[iface].tx_dropped = tx_dropped;
-    _network[iface].tx_errors = tx_errors;
-    _network[iface].ms = Date.now();
-    _network[iface].last_ms = result.ms;
-    _network[iface].operstate = operstate;
   } else {
     if (!_network[iface]) {
       _network[iface] = {};
     }
-    _network[iface].rx_bytes = rx_bytes;
-    _network[iface].tx_bytes = tx_bytes;
     _network[iface].rx_sec = null;
     _network[iface].tx_sec = null;
-    // the fresh result object is still empty here - store the measured values
-    _network[iface].rx_dropped = rx_dropped;
-    _network[iface].rx_errors = rx_errors;
-    _network[iface].tx_dropped = tx_dropped;
-    _network[iface].tx_errors = tx_errors;
-    _network[iface].ms = Date.now();
-    _network[iface].last_ms = 0;
-    _network[iface].operstate = operstate;
   }
+  // unchanged behaviour: the previous code assigned result.ms here, which was always 0
+  _network[iface].last_ms = 0;
+  _network[iface].rx_bytes = rx_bytes;
+  _network[iface].tx_bytes = tx_bytes;
+  _network[iface].rx_packets = rx_packets;
+  _network[iface].tx_packets = tx_packets;
+  _network[iface].rx_dropped = rx_dropped;
+  _network[iface].rx_errors = rx_errors;
+  _network[iface].tx_dropped = tx_dropped;
+  _network[iface].tx_errors = tx_errors;
+  _network[iface].ms = Date.now();
+  _network[iface].operstate = operstate;
   return {
     iface,
     operstate,
     rx_bytes,
+    rx_packets,
     rx_dropped,
     rx_errors,
     tx_bytes,
+    tx_packets,
     tx_dropped,
     tx_errors,
     rx_sec,

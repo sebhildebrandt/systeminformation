@@ -15,11 +15,11 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
   if (!_network[iface] || (_network[iface] && !_network[iface].ms) || (_network[iface] && _network[iface].ms && Date.now() - _network[iface].ms >= 500)) {
     const dir = '/sys/class/net/' + iface;
     if (isSafePathSegment(iface) && (await fileExists(dir))) {
-      const [operstate, rx_bytes, tx_bytes, rx_dropped, rx_errors, tx_dropped, tx_errors] = await Promise.all([
+      const [operstate, rx_bytes, tx_bytes, rx_packets, tx_packets, rx_dropped, rx_errors, tx_dropped, tx_errors] = await Promise.all([
         readSysfs(dir + '/operstate'),
-        ...['rx_bytes', 'tx_bytes', 'rx_dropped', 'rx_errors', 'tx_dropped', 'tx_errors'].map(async (f) => toInt(await readSysfs(dir + '/statistics/' + f)))
+        ...['rx_bytes', 'tx_bytes', 'rx_packets', 'tx_packets', 'rx_dropped', 'rx_errors', 'tx_dropped', 'tx_errors'].map(async (f) => toInt(await readSysfs(dir + '/statistics/' + f)))
       ]);
-      return calcNetworkSpeed(iface, rx_bytes, tx_bytes, rx_dropped, rx_errors, tx_dropped, tx_errors, operstate, _network);
+      return calcNetworkSpeed({ iface, rx_bytes, tx_bytes, rx_packets, tx_packets, rx_dropped, rx_errors, tx_dropped, tx_errors, operstate }, _network);
     }
     return defaults;
   } else {
@@ -27,6 +27,8 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
       ...defaults,
       rx_bytes: _network[iface].rx_bytes,
       tx_bytes: _network[iface].tx_bytes,
+      rx_packets: _network[iface].rx_packets,
+      tx_packets: _network[iface].tx_packets,
       rx_sec: _network[iface].rx_sec,
       tx_sec: _network[iface].tx_sec,
       rx_dropped: _network[iface].rx_dropped,
