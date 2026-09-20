@@ -314,12 +314,12 @@ Full function reference with examples can be found at [https://systeminformation
 |                | total                 | X     | X   | X   | X   | X   | total memory in bytes                  |
 |                | free                  | X     | X   | X   | X   | X   | not used in bytes                      |
 |                | used                  | X     | X   | X   | X   | X   | used (incl. buffers/cache)             |
-|                | active                | X     | X   | X   | X   | X   | used actively (excl. buffers/cache)    |
+|                | active                | X     | X   | X   | X   | X   | used actively (excl. buffers/cache and ZFS ARC) |
 |                | buffcache             | X     | X   | X   |     | X   | used by buffers+cache                  |
 |                | buffers               | X     |     |     |     |     | used by buffers                        |
 |                | cached                | X     |     |     |     |     | used by cache                          |
 |                | slab                  | X     |     |     |     |     | used by slab                           |
-|                | available             | X     | X   | X   | X   | X   | potentially available (total - active) |
+|                | available             | X     | X   | X   | X   | X   | potentially available (total - active), incl. reclaimable ZFS ARC |
 |                | swaptotal             | X     | X   | X   | X   | X   |                                        |
 |                | swapused              | X     | X   | X   | X   | X   |                                        |
 |                | swapfree              | X     | X   | X   | X   | X   |                                        |
