@@ -46,7 +46,9 @@ const parseAmdClock = (stdout: string) => {
 
 // drmDevices() only yields PCI devices, so the platform drivers of ARM SoCs (v3d, panfrost, ...)
 // never reach here - those GPUs come from getRpiGpu() and tegraDevice() instead. i915 and xe also
-// run the discrete Arc cards, so the driver alone does not decide it - a missing VRAM size does
+// run the discrete Arc cards, so the driver alone does not decide it - a missing VRAM size does.
+// Tradeoff: a discrete Arc on a kernel that exposes no VRAM size is read as integrated. Reporting
+// null is still better than asserting a PCI region size that resizable BAR makes meaningless
 const INTEGRATED_DRM_DRIVERS = ['i915', 'xe'];
 
 // runtime values the kernel exposes per DRM card without root (i915, xe, amdgpu)
