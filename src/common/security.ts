@@ -66,7 +66,12 @@ export const isSafePathSegment = (segment: string) =>
 
 // windows drive letter whitelist: only "<letter>:" survives, everything else is dropped
 export const sanitizeDriveLetter = (str: string) => {
-  const match = /^\s*([a-zA-Z]):?[\\/]?\s*$/.exec(String(str || ''));
+  const value = String(str || '');
+  // a drive spec is a few characters - reject anything longer instead of scanning it
+  if (value.length > 2000) {
+    return '';
+  }
+  const match = /^\s*([a-zA-Z]):?[\\/]?\s*$/.exec(value);
   return match ? `${match[1]}:` : '';
 };
 

@@ -151,6 +151,7 @@ const tegraSoc = (compatible: string) => {
   return match ? match[1].charAt(0).toUpperCase() + match[1].slice(1) : '';
 };
 
+// @internal - root is a test seam, gpu() always calls this without an argument
 export const tegraDevice = async (root = ''): Promise<GpuData | null> => {
   const compatible = (await readDeviceTree(`${root}/proc/device-tree/compatible`)).toLowerCase();
   if (!compatible.includes('nvidia,tegra')) {

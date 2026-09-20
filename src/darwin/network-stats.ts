@@ -3,14 +3,14 @@ import { initNetworkSpeed } from '../common/defaults';
 import { execSecure } from '../common/exec';
 import { calcNetworkSpeed } from '../common/network';
 import { sanitizeInterfacesString } from '../common/security';
-import { NetworkStatsData } from '../common/types';
+import type { NetworkStatsData } from '../common/types';
 import { networkInterfaces } from '../darwin';
 
 // execSecure only settles on close - a wedged ifconfig/netstat must not leave
 // networkStats() pending forever
 const EXEC_OPTS = { timeout: 5000 };
 
-const _network: any = {};
+const _network: any = Object.create(null);
 
 const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
   await nextTick();

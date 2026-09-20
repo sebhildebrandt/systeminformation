@@ -4,11 +4,11 @@ import { DARWIN, execOptsLinux, FREEBSD, LINUX, NETBSD, OPENBSD } from '../commo
 import { exec, execSave } from '../common/exec';
 import { readFileLines } from '../common/files';
 import { zfsDatasets } from '../common/filesys';
-import { FsSizeData } from '../common/types';
+import type { FsSizeData } from '../common/types';
 
 let macOsDisks: string[] = [];
 let macOsFsTypes = new Map<string, string>();
-let osMounts: any = {};
+let osMounts: any = Object.create(null);
 
 // macOS df has no type column, so the type used to be guessed from diskutil - which only ever
 // produced APFS, HFS or NFS and therefore never recognised zfs, exfat, msdos or smbfs. mount
@@ -255,7 +255,7 @@ export const fsSize = async (drives: string[]) => {
   let lines: string[] = [];
   macOsDisks = [];
   macOsFsTypes = new Map();
-  osMounts = {};
+  osMounts = Object.create(null);
 
   if (DARWIN) {
     cmd = 'df -kP';

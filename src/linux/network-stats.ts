@@ -1,12 +1,12 @@
-import { fileExists, readSysfs } from '../common/files';
-import { NetworkStatsData } from '../common/types';
 import { nextTick, toInt } from '../common';
-import { isSafePathSegment, sanitizeInterfacesString } from '../common/security';
 import { initNetworkSpeed } from '../common/defaults';
-import { networkInterfaceDefault, networkInterfaces } from './index';
+import { fileExists, readSysfs } from '../common/files';
 import { calcNetworkSpeed } from '../common/network';
+import { isSafePathSegment, sanitizeInterfacesString } from '../common/security';
+import type { NetworkStatsData } from '../common/types';
+import { networkInterfaceDefault, networkInterfaces } from './index';
 
-const _network: any = {};
+const _network: any = Object.create(null);
 
 const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
   await nextTick();

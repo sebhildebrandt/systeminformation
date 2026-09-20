@@ -1,15 +1,15 @@
-import { execSecure } from '../common/exec';
-import { NetworkStatsData } from '../common/types';
 import { nextTick, toInt } from '../common';
-import { sanitizeInterfacesString } from '../common/security';
 import { initNetworkSpeed } from '../common/defaults';
-import { networkInterfaces } from '../darwin';
+import { execSecure } from '../common/exec';
 import { calcNetworkSpeed } from '../common/network';
+import { sanitizeInterfacesString } from '../common/security';
+import type { NetworkStatsData } from '../common/types';
+import { networkInterfaces } from '../darwin';
 
 // execSecure only settles on close - a wedged netstat must not leave networkStats() pending forever
 const EXEC_OPTS = { timeout: 5000 };
 
-const _network: any = {};
+const _network: any = Object.create(null);
 
 const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
   // keep the queried interface name in cached and empty results (#779)

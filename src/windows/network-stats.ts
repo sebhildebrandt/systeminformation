@@ -1,12 +1,12 @@
-import { networkInterfaces } from './index';
 import { getValue, nextTick, toInt } from '../common';
 import { initNetworkSpeed } from '../common/defaults';
 import { calcNetworkSpeed } from '../common/network';
 import { sanitizeInterfacesString } from '../common/security';
 import type { NetworkStatsData } from '../common/types';
 import { ps } from '../common/windows';
+import { networkInterfaces } from './index';
 
-const _network: any = {};
+const _network: any = Object.create(null);
 
 const parseLinesWindowsPerfData = (sections: string[]) => {
   const perfData = [];
