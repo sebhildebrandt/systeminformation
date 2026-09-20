@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.14</div>
+          <div class="title-version float-left">v6.0.0-beta.15</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -1207,8 +1207,7 @@ si.users().then(data => console.log(data));</code></pre>
                   <h4>Mandatory access control / system integrity</h4>
                   <p>
                     <span class="code">osInfo().security</span>
-                    describes the systemwide access policy the kernel enforces on top of the classic file permissions - the thing you need to know about before your app writes outside its own directories or loads
-                    kernel extensions:
+                    describes the systemwide access policy the kernel enforces on top of the classic file permissions - the thing you need to know about before your app writes outside its own directories or loads kernel extensions:
                   </p>
                   <ul>
                     <li><span class="code">module</span>: <span class="code">selinux</span>, <span class="code">apparmor</span>, <span class="code">sip</span> or <span class="code">''</span> when the platform has none</li>
@@ -1220,15 +1219,17 @@ si.users().then(data => console.log(data));</code></pre>
                     <li><span class="code">policy</span>: the loaded SELinux policy, e.g. <span class="code">targeted</span> or <span class="code">mls</span> - empty for AppArmor and SIP</li>
                   </ul>
                   <p>
-                    <strong>Linux</strong> is read from sysfs (<span class="code">/sys/fs/selinux/enforce</span>, <span class="code">/sys/module/apparmor/parameters/*</span>) and <span class="code">/etc/selinux/config</span> - no
+                    <strong>Linux</strong>
+                    is read from sysfs (<span class="code">/sys/fs/selinux/enforce</span>, <span class="code">/sys/module/apparmor/parameters/*</span>) and <span class="code">/etc/selinux/config</span> - no
                     <span class="code">sestatus</span>
                     / <span class="code">aa-status</span> binary and no root privileges required. SELinux and AppArmor exclude each other in practice; if a distribution ships SELinux but it is not active, you get
                     <span class="code">module: 'selinux'</span>
                     with <span class="code">enabled: false</span>, the same distinction <span class="code">sestatus</span> makes.
                   </p>
                   <p>
-                    <strong>macOS</strong> has no SELinux style policy. The closest equivalent is System Integrity Protection, a kernel enforced restriction that can only be turned off from recoveryOS
-                    (<span class="code">csrutil status</span>). <span class="code">mode: 'custom'</span> means individual protections were disabled - SIP is then neither fully on nor fully off.
+                    <strong>macOS</strong>
+                    has no SELinux style policy. The closest equivalent is System Integrity Protection, a kernel enforced restriction that can only be turned off from recoveryOS (<span class="code">csrutil status</span>). <span class="code">mode: 'custom'</span> means individual protections were
+                    disabled - SIP is then neither fully on nor fully off.
                   </p>
                   <p><strong>Windows, BSD and SunOS</strong> have no comparable, queryable mechanism, so <span class="code">module</span> stays empty there. Windows features like Secure Boot, Defender or BitLocker are a different concept and are not reported here.</p>
                 </div>

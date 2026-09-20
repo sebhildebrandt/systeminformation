@@ -27,7 +27,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.14</div>
+          <div class="title-version float-left">v6.0.0-beta.15</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -38,180 +38,344 @@
 
     <div class="container-fluid">
       <section class="container">
-      <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-        </div>
-        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-          <div class="row">
-            <div class="col-12 sectionheader">
-              <div class="title">Security Advisories</div>
-              <div class="text">
-                <h2>Passing User Paramters to Systeminformation</h2>
-                <p>For most of the applications that are using <span class="code">systeminformation</span>, there is no reason to worry. <span class="bold">But be aware!</span> If you are using <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span>, <span class="code">versions()</span> with arbitrary untrusted user input, you should pay extra attention! We are doing a lot of input sanitation for those functions inside this package but we cannot handle all cases!</p>
-                <p class="warning">This can lead to serious impact on your servers!</p>
-                <p>We highly recommend to always upgrade to the latest version of our package. We maintain security updates for version 5 AND also version 4. For version 4 you can install latest version by placing <span class="code">"systeminformation": "^4"</span> in your package.json (dependencies) and run <span class="code">npm install</span></p>
+        <div class="row">
+          <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu"></div>
+          <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+            <div class="row">
+              <div class="col-12 sectionheader">
+                <div class="title">Security Advisories</div>
+                <div class="text">
+                  <h2>networkStats() Prototype Pollution Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 5.33.13<br>
+                    <span class="bold">Date:</span>
+                    2026-09-20
+                  </p>
 
-                <h2>Command Injection Vulnerability</h2>
-                <p><span class="bold">Affected versions:</span>
-                  &lt; 5.6.13 and &lt; 4.34.21<br>
-                  <span class="bold">Date:</span> 2021-05-04<br>
-                  <span class="bold">CVE indentifier</span> -
-                </p>
+                  <h4>Impact</h4>
+                  <p>
+                    We had an issue that there was a possibility to pollute <span class="code">Object.prototype</span> by passing a crafted interface name like <span class="code">__proto__</span> to <span class="code">networkStats()</span>, because the interface name was used as a key of the
+                    internal network speed cache object.
+                  </p>
 
-                <h4>Impact</h4>
-                <p>We had an issue that there was a possibility to perform a potential command injection possibility by passing a non string values as a parameter to the <span class="code">dockerImagesInspect()</span>, <span class="code">dockerContainerInspect()</span>, <span class="code">dockerContainerProcesses()</span>.</p>
+                  <h4>Patch</h4>
+                  <p>Problem was fixed by creating the internal cache without a prototype. If you are using version 5, please upgrade to version >= 5.33.13.</p>
+                  <hr>
+                  <br>
 
-                <h4>Patch</h4>
-                <p>Problem was fixed with parameter checking. Please upgrade to version >= 5.6.13 (or >= 4.34.21 if you are using version 4).</p>
+                  <h2>networkInterfaces() Command Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 5.31.7<br>
+                    <span class="bold">Date:</span>
+                    2026-06-05<br>
+                    <span class="bold">CVE indentifier</span>
+                    CVE-2026-50289
+                  </p>
 
-                <h4>Workaround</h4>
-                <p>If you cannot upgrade, be sure to check or sanitize parameter strings that are passed to <span class="code">dockerImagesInspect()</span>, <span class="code">dockerContainerInspect()</span>, <span class="code">dockerContainerProcesses()</span> (string only)</p>
-                <hr>
-                <br>
-                <h2>Command Injection Vulnerability</h2>
-                <p><span class="bold">Affected versions:</span>
-                  &lt; 5.6.11 and &lt; 4.34.20<br>
-                  <span class="bold">Date:</span> 2021-04-08<br>
-                  <span class="bold">CVE indentifier</span> -
-                </p>
+                  <h4>Impact</h4>
+                  <p>We had an issue that there was a possibility to perform a potential command injection possibility by craft the /etc/network/interfaces.d to contains file names with maticious code metacharacters on linux machines.</p>
 
-                <h4>Impact</h4>
-                <p>We had an issue that there was a possibility to perform a potential command injection possibility by passing a non string values as a parameter to the <span class="code">versions()</span>.</p>
+                  <h4>Patch</h4>
+                  <p>Problem was fixed by changing the way of parsing that content. If you are using version 5, please upgrade to version >= 5.31.7.</p>
+                  <hr>
+                  <br>
 
-                <h4>Patch</h4>
-                <p>Problem was fixed with parameter checking. Please upgrade to version >= 5.6.11 (or >= 4.34.20 if you are using version 4).</p>
+                  <h2>networkInterfaces() Command Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 5.31.6<br>
+                    <span class="bold">Date:</span>
+                    2026-05-06<br>
+                    <span class="bold">CVE indentifier</span>
+                    CVE-2026-44724
+                  </p>
 
-                <h4>Workaround</h4>
-                <p>If you cannot upgrade, be sure to check or sanitize parameter strings that are passed to <span class="code">versions()</span> (string only)</p>
-                <hr>
-                <br>
-                <h2>Command Injection Vulnerability</h2>
-                <p><span class="bold">Affected versions:</span>
-                  &lt; 5.6.4 and &lt; 4.34.17<br>
-                  <span class="bold">Date:</span> 2021-03-15<br>
-                  <span class="bold">CVE indentifier</span> CVE-2021-21388
-                </p>
+                  <h4>Impact</h4>
+                  <p>We had an issue that there was a possibility to perform a potential command injection possibility by craft the active NetworkManager connection profile name to contains shell metacharacters on linux machines.</p>
 
-                <h4>Impact</h4>
-                <p>We had an issue that there was a possibility to perform a potential command injection possibility by passing a manipulated string prototype as a parameter to the following functions. Affected commands: <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span>.</p>
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with parameter checking and execFile. If you are using version 5, please upgrade to version >= 5.31.6.</p>
+                  <hr>
+                  <br>
+                  <h2>versions() Command Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 5.31.0<br>
+                    <span class="bold">Date:</span>
+                    2026-02-15<br>
+                    <span class="bold">CVE indentifier</span>
+                    CVE-2026-26318
+                  </p>
 
-                <h4>Patch</h4>
-                <p>Problem was fixed with additional parameter checking. Please upgrade to version >= 5.6.4 (or >= 4.34.17 if you are using version 4).</p>
+                  <h4>Impact</h4>
+                  <p>We had an issue that there was a possibility to perform a potential command injection possibility by craft the malicious file path for postgres that is then used in <span class="code">versions()</span> on linux machines.</p>
 
-                <h4>Workaround</h4>
-                <p>If you cannot upgrade, be sure to check or sanitize parameter strings that are passed to <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span> (string only)</p>
-                <hr>
-                <br>
-                <h2>Insufficient File Scheme Validation</h2>
-                <p><span class="bold">Affected versions:</span>
-                  &lt; 5.3.2 and &lt; 4.34.12<br>
-                  <span class="bold">Date:</span> 2021-02-15<br>
-                  <span class="bold">CVE indentifier</span> -
-                </p>
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with parameter checking and execFile. If you are using version 5, please upgrade to version >= 5.31.0.</p>
+                  <hr>
+                  <br>
+                  <h2>wifiNetworks Command Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 5.30.8<br>
+                    <span class="bold">Date:</span>
+                    2026-02-14<br>
+                    <span class="bold">CVE indentifier</span>
+                    CVE-2026-26280
+                  </p>
 
-                <h4>Impact</h4>
-                <p>We had an issue that there was a possibility to run inetChecksite against local files due to improper file scheme validation. Affected commands: <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>.</p>
+                  <h4>Impact</h4>
+                  <p>We had an issue that there was a possibility to perform a potential command injection possibility by manipulating SSIDs in <span class="code">wifiNetworks()</span> on linux machines.</p>
 
-                <h4>Patch</h4>
-                <p>Problem was fixed with additional parameter checking. Please upgrade to version >= 5.3.2 (or >= 4.34.12 if you are using version 4).</p>
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with parameter checking. If you are using version 5, please upgrade to version >= 5.30.8.</p>
+                  <hr>
+                  <br>
 
-                <h4>Workaround</h4>
-                <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span> (sanitize `file://` parameter)</p>
-                <hr>
-                <br>
-                <h2>Command Injection Vulnerability</h2>
-                <p><span class="bold">Affected versions:</span>
-                  &lt; 5.3.1 and &lt; 4.34.11<br>
-                  <span class="bold">Date:</span> 2021-02-14<br>
-                  <span class="bold">CVE indentifier</span> CVE-2021-21315
-                </p>
+                  <h2>fsSize Command Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 5.27.14<br>
+                    <span class="bold">Date:</span>
+                    2025-12-16<br>
+                    <span class="bold">CVE indentifier</span>
+                    CVE-2025-68154
+                  </p>
 
-                <h4>Impact</h4>
-                <p>We had an issue that there was a possibility to perform a potential command injection possibility by passing a manipulated array as a parameter to the following functions. Affected commands: <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span>.</p>
+                  <h4>Impact</h4>
+                  <p>We had an issue that there was a possibility to perform a potential command injection possibility by manipulating Win32_logicaldisk input in <span class="code">fsSize()</span> on windows machines.</p>
 
-                <h4>Patch</h4>
-                <p>Problem was fixed with additional parameter checking. Please upgrade to version >= 5.3.1 (or >= 4.34.11 if you are using version 4).</p>
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with parameter checking. If you are using version 5, please upgrade to version >= 5.27.14.</p>
+                  <hr>
+                  <br>
+                  <h2>SSID Command Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 5.23.7<br>
+                    <span class="bold">Date:</span>
+                    2024-11-11<br>
+                    <span class="bold">CVE indentifier</span>
+                    CVE-2024-56334
+                  </p>
 
-                <h4>Workaround</h4>
-                <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span> (string only)</p>
-                <hr>
-                <br>
-                <h2>DOS Injection Vulnerability</h2>
-                <p><span class="bold">Affected versions:</span>
-                  &lt; 5.2.6 and &lt; 4.34.10<br>
-                  <span class="bold">Date:</span> 2021-02-12<br>
-                  <span class="bold">CVE indentifier</span> -
-                </p>
+                  <h4>Impact</h4>
+                  <p>We had an issue that there was a possibility to perform a potential command injection possibility by crafting detected SSIDs in <span class="code">networkInterfaces()</span> on windows machines.</p>
 
-                <h4>Impact</h4>
-                <p>Here we had an issue that there was a possibility to perform a ping command execution for too long time. Affected commands: <span class="code">inetLatency()</span>.</p>
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with parameter checking. If you are using version 5, please upgrade to version >= 5.23.7.</p>
+                  <hr>
+                  <br>
 
-                <h4>Patch</h4>
-                <p>Problem was fixed with a shell string sanitation fix. Please upgrade to version >= 5.2.6 (or >= 4.34.10 if you are using version 4).</p>
+                  <h2>Passing User Paramters to Systeminformation</h2>
+                  <p>
+                    For most of the applications that are using <span class="code">systeminformation</span>, there is no reason to worry. <span class="bold">But be aware!</span> If you are using <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>,
+                    <span class="code">services()</span>, <span class="code">processLoad()</span>, <span class="code">versions()</span> with arbitrary untrusted user input, you should pay extra attention! We are doing a lot of input sanitation for those functions inside this package but we cannot
+                    handle all cases!
+                  </p>
+                  <p class="warning">This can lead to serious impact on your servers!</p>
+                  <p>
+                    We highly recommend to always upgrade to the latest version of our package. We maintain security updates for version 5 AND also version 4. For version 4 you can install latest version by placing <span class="code">"systeminformation": "^4"</span> in your package.json
+                    (dependencies) and run <span class="code">npm install</span>
+                  </p>
 
-                <h4>Workaround</h4>
-                <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetLatency()</span> (no spaces)</p>
-                <hr>
-                <br>
-                <h2>Command Injection Vulnerability</h2>
-                <p><span class="bold">Affected versions:</span>
-                  &lt; 4.31.1<br>
-                  <span class="bold">Date:</span> 2020-12-11<br>
-                  <span class="bold">CVE indentifier</span> CVE-2020-26274, CVE-2020-28448
-                </p>
+                  <h2>Command Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 5.6.13 and &lt; 4.34.21<br>
+                    <span class="bold">Date:</span>
+                    2021-05-04<br>
+                    <span class="bold">CVE indentifier</span>
+                    -
+                  </p>
 
-                <h4>Impact</h4>
-                <p>Here we had an issue that there was a possibility to inject commands to the command line of your machine via systeminformation. Affected commands: <span class="code">inetLatency()</span>.</p>
+                  <h4>Impact</h4>
+                  <p>
+                    We had an issue that there was a possibility to perform a potential command injection possibility by passing a non string values as a parameter to the <span class="code">dockerImagesInspect()</span>, <span class="code">dockerContainerInspect()</span>,
+                    <span class="code">dockerContainerProcesses()</span>.
+                  </p>
 
-                <h4>Patch</h4>
-                <p>Problem was fixed with a shell string sanitation fix. Please upgrade to version >= 4.31.1</p>
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with parameter checking. Please upgrade to version >= 5.6.13 (or >= 4.34.21 if you are using version 4).</p>
 
-                <h4>Workaround</h4>
-                <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetLatency()</span></p>
+                  <h4>Workaround</h4>
+                  <p>If you cannot upgrade, be sure to check or sanitize parameter strings that are passed to <span class="code">dockerImagesInspect()</span>, <span class="code">dockerContainerInspect()</span>, <span class="code">dockerContainerProcesses()</span> (string only)</p>
+                  <hr>
+                  <br>
+                  <h2>Command Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 5.6.11 and &lt; 4.34.20<br>
+                    <span class="bold">Date:</span>
+                    2021-04-08<br>
+                    <span class="bold">CVE indentifier</span>
+                    -
+                  </p>
 
-                <hr>
-                <br>
-                <h2>Command Injection Vulnerability - Prototype Pollution</h2>
-                <p><span class="bold">Affected versions:</span>
-                  &lt; 4.30.5<br>
-                  <span class="bold">Date:</span> 2020-11-26<br>
-                  <span class="bold">CVE indentifier</span> CVE-2020-26245
-                </p>
+                  <h4>Impact</h4>
+                  <p>We had an issue that there was a possibility to perform a potential command injection possibility by passing a non string values as a parameter to the <span class="code">versions()</span>.</p>
 
-                <h4>Impact</h4>
-                <p>Here we had an issue that there was a possibility to inject commands to the command line by property pollution on the string object. Affected commands: <span class="code">inetChecksite()</span>.</p>
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with parameter checking. Please upgrade to version >= 5.6.11 (or >= 4.34.20 if you are using version 4).</p>
 
-                <h4>Patch</h4>
-                <p>Problem was fixed with a shell string sanitation fix as well as handling prototype polution. Please upgrade to version >= 4.30.5</p>
+                  <h4>Workaround</h4>
+                  <p>If you cannot upgrade, be sure to check or sanitize parameter strings that are passed to <span class="code">versions()</span> (string only)</p>
+                  <hr>
+                  <br>
+                  <h2>Command Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 5.6.4 and &lt; 4.34.17<br>
+                    <span class="bold">Date:</span>
+                    2021-03-15<br>
+                    <span class="bold">CVE indentifier</span>
+                    CVE-2021-21388
+                  </p>
 
-                <h4>Workaround</h4>
-                <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetChecksite()</span></p>
+                  <h4>Impact</h4>
+                  <p>
+                    We had an issue that there was a possibility to perform a potential command injection possibility by passing a manipulated string prototype as a parameter to the following functions. Affected commands: <span class="code">inetLatency()</span>,
+                    <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span>.
+                  </p>
 
-                <hr>
-                <br>
-                <h2>Command Injection Vulnerability</h2>
-                <p><span class="bold">Affected versions:</span>
-                  &lt; 4.27.11<br>
-                  <span class="bold">Date:</span> 2020-10-26<br>
-                  <span class="bold">CVE indentifier</span> CVE-2020-7752
-                </p>
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with additional parameter checking. Please upgrade to version >= 5.6.4 (or >= 4.34.17 if you are using version 4).</p>
 
-                <h4>Impact</h4>
-                <p>Here we had an issue that there was a possibility to inject commands to the command line of your machine via systeminformation. Affected commands: <span class="code">inetChecksite()</span>.</p>
+                  <h4>Workaround</h4>
+                  <p>If you cannot upgrade, be sure to check or sanitize parameter strings that are passed to <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span> (string only)</p>
+                  <hr>
+                  <br>
+                  <h2>Insufficient File Scheme Validation</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 5.3.2 and &lt; 4.34.12<br>
+                    <span class="bold">Date:</span>
+                    2021-02-15<br>
+                    <span class="bold">CVE indentifier</span>
+                    -
+                  </p>
 
-                <h4>Patch</h4>
-                <p>Problem was fixed with a shell string sanitation fix. Please upgrade to version >= 4.27.11</p>
+                  <h4>Impact</h4>
+                  <p>We had an issue that there was a possibility to run inetChecksite against local files due to improper file scheme validation. Affected commands: <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>.</p>
 
-                <h4>Workaround</h4>
-                <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetChecksite()</span></p>
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with additional parameter checking. Please upgrade to version >= 5.3.2 (or >= 4.34.12 if you are using version 4).</p>
 
+                  <h4>Workaround</h4>
+                  <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span> (sanitize `file://` parameter)</p>
+                  <hr>
+                  <br>
+                  <h2>Command Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 5.3.1 and &lt; 4.34.11<br>
+                    <span class="bold">Date:</span>
+                    2021-02-14<br>
+                    <span class="bold">CVE indentifier</span>
+                    CVE-2021-21315
+                  </p>
+
+                  <h4>Impact</h4>
+                  <p>
+                    We had an issue that there was a possibility to perform a potential command injection possibility by passing a manipulated array as a parameter to the following functions. Affected commands: <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>,
+                    <span class="code">services()</span>, <span class="code">processLoad()</span>.
+                  </p>
+
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with additional parameter checking. Please upgrade to version >= 5.3.1 (or >= 4.34.11 if you are using version 4).</p>
+
+                  <h4>Workaround</h4>
+                  <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetLatency()</span>, <span class="code">inetChecksite()</span>, <span class="code">services()</span>, <span class="code">processLoad()</span> (string only)</p>
+                  <hr>
+                  <br>
+                  <h2>DOS Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 5.2.6 and &lt; 4.34.10<br>
+                    <span class="bold">Date:</span>
+                    2021-02-12<br>
+                    <span class="bold">CVE indentifier</span>
+                    -
+                  </p>
+
+                  <h4>Impact</h4>
+                  <p>Here we had an issue that there was a possibility to perform a ping command execution for too long time. Affected commands: <span class="code">inetLatency()</span>.</p>
+
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with a shell string sanitation fix. Please upgrade to version >= 5.2.6 (or >= 4.34.10 if you are using version 4).</p>
+
+                  <h4>Workaround</h4>
+                  <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetLatency()</span> (no spaces)</p>
+                  <hr>
+                  <br>
+                  <h2>Command Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 4.31.1<br>
+                    <span class="bold">Date:</span>
+                    2020-12-11<br>
+                    <span class="bold">CVE indentifier</span>
+                    CVE-2020-26274, CVE-2020-28448
+                  </p>
+
+                  <h4>Impact</h4>
+                  <p>Here we had an issue that there was a possibility to inject commands to the command line of your machine via systeminformation. Affected commands: <span class="code">inetLatency()</span>.</p>
+
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with a shell string sanitation fix. Please upgrade to version >= 4.31.1</p>
+
+                  <h4>Workaround</h4>
+                  <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetLatency()</span></p>
+
+                  <hr>
+                  <br>
+                  <h2>Command Injection Vulnerability - Prototype Pollution</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 4.30.5<br>
+                    <span class="bold">Date:</span>
+                    2020-11-26<br>
+                    <span class="bold">CVE indentifier</span>
+                    CVE-2020-26245
+                  </p>
+
+                  <h4>Impact</h4>
+                  <p>Here we had an issue that there was a possibility to inject commands to the command line by property pollution on the string object. Affected commands: <span class="code">inetChecksite()</span>.</p>
+
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with a shell string sanitation fix as well as handling prototype polution. Please upgrade to version >= 4.30.5</p>
+
+                  <h4>Workaround</h4>
+                  <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetChecksite()</span></p>
+
+                  <hr>
+                  <br>
+                  <h2>Command Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span>
+                    &lt; 4.27.11<br>
+                    <span class="bold">Date:</span>
+                    2020-10-26<br>
+                    <span class="bold">CVE indentifier</span>
+                    CVE-2020-7752
+                  </p>
+
+                  <h4>Impact</h4>
+                  <p>Here we had an issue that there was a possibility to inject commands to the command line of your machine via systeminformation. Affected commands: <span class="code">inetChecksite()</span>.</p>
+
+                  <h4>Patch</h4>
+                  <p>Problem was fixed with a shell string sanitation fix. Please upgrade to version >= 4.27.11</p>
+
+                  <h4>Workaround</h4>
+                  <p>If you cannot upgrade, be sure to check or sanitize service parameter strings that are passed to <span class="code">inetChecksite()</span></p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-  </div>
-  </section>
+      </section>
     </div>
     <footer class="container-fluid footer">
       <div class="container">

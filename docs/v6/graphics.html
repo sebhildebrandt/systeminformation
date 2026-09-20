@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.14</div>
+          <div class="title-version float-left">v6.0.0-beta.15</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -437,8 +437,8 @@ si.gpu().then(data => console.log(data));</code></pre>
 
                   <h4>NVIDIA Tegra / Jetson</h4>
                   <p>
-                    On a Jetson the GPU is integrated into the SoC and attached through the device tree, not through PCI. <span class="code">lspci</span> therefore does not list it, and the DRM sysfs path above skips it because
-                    it has no PCI bus address - which used to leave <span class="code">gpu()</span> empty on every Tegra board. The values now come from the Tegra sysfs nodes directly:
+                    On a Jetson the GPU is integrated into the SoC and attached through the device tree, not through PCI. <span class="code">lspci</span> therefore does not list it, and the DRM sysfs path above skips it because it has no PCI bus address - which used to leave
+                    <span class="code">gpu()</span> empty on every Tegra board. The values now come from the Tegra sysfs nodes directly:
                   </p>
                   <table class="table table-sm table-bordered table-striped">
                     <thead>
@@ -469,14 +469,12 @@ si.gpu().then(data => console.log(data));</code></pre>
                   <p>
                     This needs no root privileges and neither <span class="code">tegrastats</span> nor <span class="code">jtop</span>.
                     <span class="code">tegrastats</span>
-                    is deliberately not used: it is a streaming process that prints one line per interval until it is killed, its output format differs between Tegra generations and L4T releases, and on several releases it requires root - while it only reads the
-                    same sysfs nodes itself.
+                    is deliberately not used: it is a streaming process that prints one line per interval until it is killed, its output format differs between Tegra generations and L4T releases, and on several releases it requires root - while it only reads the same sysfs nodes itself.
                   </p>
                   <p class="warning">
                     The GPU has no dedicated memory, it shares system RAM. <span class="code">vram</span> is therefore <span class="code">null</span> with <span class="code">vramDynamic: true</span>; use
                     <span class="code">mem()</span>
-                    for the actual memory situation. <span class="code">powerDraw</span> is not reported: the INA3221 power rails of a Jetson depend on the carrier board, not only on the SoC generation. Any node a generation
-                    does not provide is simply left out rather than guessed.
+                    for the actual memory situation. <span class="code">powerDraw</span> is not reported: the INA3221 power rails of a Jetson depend on the carrier board, not only on the SoC generation. Any node a generation does not provide is simply left out rather than guessed.
                   </p>
 
                   <h2>Displays</h2>
