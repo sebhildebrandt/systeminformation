@@ -44,9 +44,10 @@ const parseAmdClock = (stdout: string) => {
   return Number.isNaN(value) ? null : value;
 };
 
-// drivers that (almost always) drive an integrated GPU. i915 and xe also run the discrete Arc
-// cards, so the driver alone does not decide it - the absence of a VRAM total node does
-const INTEGRATED_DRM_DRIVERS = ['i915', 'xe', 'v3d', 'vc4', 'panfrost', 'lima', 'msm', 'etnaviv'];
+// drmDevices() only yields PCI devices, so the platform drivers of ARM SoCs (v3d, panfrost, ...)
+// never reach here - those GPUs come from getRpiGpu() and tegraDevice() instead. i915 and xe also
+// run the discrete Arc cards, so the driver alone does not decide it - a missing VRAM size does
+const INTEGRATED_DRM_DRIVERS = ['i915', 'xe'];
 
 // runtime values the kernel exposes per DRM card without root (i915, xe, amdgpu)
 export const drmDevices = async (drmPath = '/sys/class/drm'): Promise<DrmMetrics[]> => {
@@ -90,11 +91,14 @@ export const drmDevices = async (drmPath = '/sys/class/drm'): Promise<DrmMetrics
       1,
       true
     );
-    // the real VRAM size, in bytes on every driver - amdgpu, discrete Intel Arc (i915, xe)
-    const memoryTotal = await readSysfsNumber([`${devicePath}/mem_info_vram_total`, `${cardPath}/lmem_total_bytes`, `${devicePath}/tile0/physical_vram_size_bytes`], 1024 * 1024);
+    // the real VRAM size, in bytes on every driver - amdgpu, discrete Intel Arc (i915, xe).
+    // preferNonZero: an integrated card can carry one of these nodes reporting 0, which must not
+    // shadow a later candidate
+    const memoryTotal = await readSysfsNumber([`${devicePath}/mem_info_vram_total`, `${cardPath}/lmem_total_bytes`, `${devicePath}/tile0/physical_vram_size_bytes`], 1024 * 1024, true);
     devices.push({
       busAddress,
-      sharedMemory: INTEGRATED_DRM_DRIVERS.includes(driver) && memoryTotal === null,
+      // 0 bytes of VRAM is no VRAM - the node may exist and report nothing
+      sharedMemory: INTEGRATED_DRM_DRIVERS.includes(driver) && !memoryTotal,
       utilizationGpu: await readSysfsNumber([`${devicePath}/gpu_busy_percent`]),
       memoryTotal,
       memoryUsed: await readSysfsNumber([`${devicePath}/mem_info_vram_used`], 1024 * 1024),
@@ -207,7 +211,7 @@ export const mergeControllerDrm = (controller: GpuData, drm?: DrmMetrics) => {
     controller.memoryTotal = drm.memoryTotal;
     // sysfs knows the real size - vram still held the largest PCI region from lspci, which is only
     // an approximation and overshoots on cards with resizable BAR (#1035: 32 GB BAR, 24 GB card)
-    controller.vram = drm.memoryTotal;
+    controller.vram = Math.round(drm.memoryTotal);
     controller.vramDynamic = false;
   }
   if (controller.memoryUsed === undefined && drm.memoryUsed !== null) {
