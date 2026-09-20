@@ -4,9 +4,9 @@ import { ANDROID, execOptsLinux } from '../common/const';
 import { initOsInfo } from '../common/defaults';
 import { exec, execSave } from '../common/exec';
 import { readdir } from 'node:fs/promises';
-import { fileExists, readFileLines, readFileMax } from '../common/files';
+import { fileExists, readFileLines, readFileMax, readSysfs } from '../common/files';
 import { getLogoFile } from '../common/mappings';
-import type { OsData } from '../common/types';
+import type { OsData, OsSecurityData } from '../common/types';
 import { uuid } from './uuid';
 import { isSafePathSegment } from '../common/security';
 
@@ -77,6 +77,46 @@ const linuxIsUefi = async () => {
   }
 };
 
+// SELinux and AppArmor both publish their state in sysfs - no sestatus / aa-status and no root
+// needed. They exclude each other in practice, SELinux wins if both somehow answer
+const getSecurity = async (): Promise<OsSecurityData> => {
+  const enforce = await readSysfs('/sys/fs/selinux/enforce');
+  if (enforce === '0' || enforce === '1') {
+    const config = await readFileLines('/etc/selinux/config');
+    const policy = config.find((line) => line.trim().startsWith('SELINUXTYPE='));
+    return {
+      module: 'selinux',
+      enabled: true,
+      mode: enforce === '1' ? 'enforcing' : 'permissive',
+      policy: policy ? policy.split('=')[1].trim() : ''
+    };
+  }
+  const apparmor = await readSysfs('/sys/module/apparmor/parameters/enabled');
+  if (apparmor) {
+    const enabled = apparmor.toUpperCase() === 'Y';
+    // the mode parameter only exists on newer kernels, enforce is the AppArmor default
+    const mode = await readSysfs('/sys/module/apparmor/parameters/mode');
+    return {
+      module: 'apparmor',
+      enabled,
+      mode: enabled ? mode || 'enforce' : 'disabled',
+      policy: ''
+    };
+  }
+  // selinuxfs unmounted but the policy still configured -> report the configured state
+  const config = await readFileLines('/etc/selinux/config');
+  const configured = config.find((line) => line.trim().startsWith('SELINUX='));
+  if (configured) {
+    return {
+      module: 'selinux',
+      enabled: false,
+      mode: 'disabled',
+      policy: ''
+    };
+  }
+  return { module: '', enabled: false, mode: '', policy: '' };
+};
+
 const parseOsInfo = async (stdout: string, defaults: OsData) => {
   const release: any = {};
   const lines = stdout.toString().split('\n');
@@ -108,7 +148,8 @@ const parseOsInfo = async (stdout: string, defaults: OsData) => {
     serial: (await uuid()).os,
     installDate: await getInstallDate(),
     lastUpdate: await getLastUpdate(),
-    displayServer: await getDisplayServer()
+    displayServer: await getDisplayServer(),
+    security: await getSecurity()
   };
 };
 

@@ -170,7 +170,13 @@ export const initOsInfo = async (): Promise<OsData> => {
     lastUpdate: null,
     displayServer: '',
     awake: true,
-    hwAcceleration: await hwAcceleration()
+    hwAcceleration: await hwAcceleration(),
+    security: {
+      module: '',
+      enabled: false,
+      mode: '',
+      policy: ''
+    }
   };
 };
 

@@ -28,6 +28,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `osInfo()` added `lastUpdate` (date of the last OS update on macOS / Windows, last package update on Linux / BSD)
 - `osInfo()` added `hwAcceleration` (available compute layers: cuda, rocm, oneapi, vulkan, opencl, metal, dx12, directml)
 - `osInfo()` added `awake` (system fully awake - `false` during macOS dark wake)
+- `osInfo()` added `security` (systemwide mandatory access control / system integrity: `module`, `enabled`, `mode`, `policy` - SELinux or AppArmor on Linux, System Integrity Protection on macOS, `''` elsewhere, #859)
 - `bios()` added `iBridge` (Apple iBridge / security chip: modelName, build, bootUuid, secureBoot - macOS only)
 - `displays()` added `serial`, `displayId` and `productionYear` on Windows (previously macOS only)
 - `displays()` added `RDP` as connection type for remote desktop / indirect displays (Windows)

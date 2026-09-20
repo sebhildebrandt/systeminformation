@@ -3,6 +3,7 @@ import { getCodepage } from '../common/codepage';
 import { initOsInfo } from '../common/defaults';
 import { exec, execSave } from '../common/exec';
 import { getLogoFile } from '../common/mappings';
+import type { OsSecurityData } from '../common/types';
 
 // birth time of the initial-setup marker = when the OS was first set up
 const getInstallDate = async (): Promise<Date | null> => {
@@ -116,6 +117,29 @@ const getCodename = (release: string): string => {
   return codename;
 };
 
+// macOS has no SELinux style policy, System Integrity Protection is the closest equivalent:
+// a kernel enforced, systemwide restriction that a user can turn off (only from recoveryOS).
+// "unknown (Custom Configuration)" means some protections were disabled individually
+export const parseSip = (stdout: string): OsSecurityData => {
+  const status = (stdout.toString().split(':')[1] || '').trim().toLowerCase();
+  if (!status) {
+    return { module: '', enabled: false, mode: '', policy: '' };
+  }
+  const enabled = status.startsWith('enabled');
+  return {
+    module: 'sip',
+    enabled,
+    mode: enabled ? 'enforcing' : status.startsWith('disabled') ? 'disabled' : 'custom',
+    policy: ''
+  };
+};
+
+const getSecurity = async (): Promise<OsSecurityData> => {
+  // csrutil does not exist before OS X 10.11
+  const { stdout } = await execSave('csrutil status');
+  return parseSip(stdout);
+};
+
 export const osInfo = async () => {
   await nextTick();
   const defaults = await initOsInfo();
@@ -137,7 +161,8 @@ export const osInfo = async () => {
       installDate: await getInstallDate(),
       lastUpdate: await getLastUpdate(),
       displayServer: await getDisplayServer(),
-      awake: await getAwake()
+      awake: await getAwake(),
+      security: await getSecurity()
     };
   } catch {}
   return defaults;

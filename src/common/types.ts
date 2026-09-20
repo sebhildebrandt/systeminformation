@@ -497,6 +497,16 @@ export type MemLayoutData = {
   voltageMax: number | null;
 };
 
+// systemwide mandatory access control / system integrity enforcement. linux is covered by
+// SELinux or AppArmor, macOS by System Integrity Protection - windows, BSD and SunOS have no
+// comparable, queryable equivalent and stay empty
+export type OsSecurityData = {
+  module: string;
+  enabled: boolean;
+  mode: string;
+  policy: string;
+};
+
 export type OsData = {
   platform: string;
   distro: string;
@@ -517,6 +527,7 @@ export type OsData = {
   displayServer: string;
   awake: boolean;
   hwAcceleration: string[];
+  security: OsSecurityData;
   hypervizor?: boolean;
   remoteSession?: boolean;
   hypervisor?: boolean;
