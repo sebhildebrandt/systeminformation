@@ -134,7 +134,7 @@
                         <td>X</td>
                         <td>X</td>
                         <td></td>
-                        <td>VRAM size (in MB)</td>
+                        <td>VRAM size (in MB), <span class="code">null</span> when the GPU shares system memory</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -144,7 +144,7 @@
                         <td>X</td>
                         <td>X</td>
                         <td></td>
-                        <td>true if dynamically allocated ram</td>
+                        <td>true if dynamically allocated ram (integrated GPUs, see notes)</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -420,8 +420,8 @@ si.gpu().then(data => console.log(data));</code></pre>
                       </tr>
                       <tr>
                         <td>memoryTotal / memoryUsed / memoryFree</td>
-                        <td><span class="code">device/mem_info_vram_total</span>, <span class="code">mem_info_vram_used</span></td>
-                        <td>-</td>
+                        <td><span class="code">device/mem_info_vram_total</span>, <span class="code">mem_info_vram_used</span>, <span class="code">lmem_total_bytes</span>, <span class="code">tile0/physical_vram_size_bytes</span></td>
+                        <td>X (discrete Arc only - an iGPU has no VRAM)</td>
                         <td>X</td>
                       </tr>
                     </tbody>
@@ -433,6 +433,33 @@ si.gpu().then(data => console.log(data));</code></pre>
                     from <span class="code">intel-gpu-tools</span>, <span class="code">nvtop</span> - therefore needs root or the <span class="code">CAP_PERFMON</span> capability, which a library like this cannot require. If you need the busy percentage of an Intel GPU, run
                     <span class="code">intel_gpu_top</span>
                     yourself with the appropriate privileges; frequency, power and temperature are available through <span class="code">gpu()</span>.
+                  </p>
+
+                  <p>
+                    Where such a node exists it also sets <span class="code">vram</span>, in preference to the memory region size <span class="code">lspci</span> reports. That region is only an
+                    approximation and overshoots on cards with resizable BAR - a Radeon 7900 XTX exposes a 32 GB window for 24 GB of memory
+                    (<a href="https://github.com/sebhildebrandt/systeminformation/issues/1035">#1035</a>). Values already delivered by <span class="code">nvidia-smi</span> stay untouched.
+                  </p>
+
+                  <h4>Integrated GPUs and <span class="code">vram</span></h4>
+                  <p>
+                    An integrated GPU has no dedicated video memory - it takes what it needs from system RAM. <span class="code">lspci</span> still reports memory regions for it, but the largest one is the
+                    <strong>graphics aperture</strong>
+                    (the CPU visible window into the GTT, typically 256 MB on an Intel iGPU and configurable in the firmware), not video memory. Reporting it as
+                    <span class="code">vram</span>
+                    made an Intel UHD Graphics 630 look like a 256 MB card.
+                  </p>
+                  <p>
+                    A card is treated as sharing system memory when its DRM driver is <span class="code">i915</span> or <span class="code">xe</span>
+                    <strong>and</strong>
+                    sysfs reports no VRAM size for it - either because no such node exists, or because it reads 0. It then returns <span class="code">vram: null</span> with
+                    <span class="code">vramDynamic: true</span>. The integrated GPUs of ARM SoCs are not covered here: they are platform devices rather than PCI ones and come from their own code paths
+                    (<span class="code">vcgencmd</span> on a Raspberry Pi, the Tegra sysfs nodes on a Jetson).
+                  </p>
+                  <p>
+                    The driver name alone does not decide it: <span class="code">i915</span> and <span class="code">xe</span> also drive the discrete Arc cards, which do expose their memory
+                    (<span class="code">lmem_total_bytes</span>, <span class="code">tile0/physical_vram_size_bytes</span>). Discrete cards are therefore unaffected - AMD through
+                    <span class="code">mem_info_vram_total</span>, NVIDIA through <span class="code">nvidia-smi</span>.
                   </p>
 
                   <h4>NVIDIA Tegra / Jetson</h4>
