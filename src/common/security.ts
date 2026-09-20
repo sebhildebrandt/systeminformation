@@ -175,6 +175,8 @@ export const sanitizeUrl = (url: string): string => {
   if (urlSanitized && !isPrototypePolluted()) {
     Object.setPrototypeOf(urlSanitized, { startsWith: stringStartWith });
     if (
+      // a host never starts with a dash - as an argument ping would read it as an option
+      urlSanitized.startsWith('-') ||
       urlSanitized.startsWith('file:') ||
       urlSanitized.startsWith('gopher:') ||
       urlSanitized.startsWith('telnet:') ||
@@ -240,7 +242,11 @@ export const sanitizeInterfacesString = (interfaces: string): string => {
   });
 
   interfacesSanitized = interfacesSanitized.trim().replace(/,+/g, '|');
-  return interfacesSanitized;
+  // an interface name never starts with a dash either - ifconfig takes it as its only argument on
+  // macOS, so "-a" would list every interface instead of the requested one. '-' is the established
+  // reject marker the callers already check for
+  const kept = interfacesSanitized.split('|').filter((part: string) => part && !/^\s*-/.test(part));
+  return kept.length ? kept.join('|') : '-';
 };
 
 export const sanitizeString = (str: string, strict?: any) => {
