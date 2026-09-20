@@ -119,7 +119,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td></td>
-                      <td>used actively (excl. buffers/cache)</td>
+                      <td>used actively (excl. buffers/cache and reclaimable ZFS ARC, see notes)</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -169,7 +169,7 @@
                       <td>X</td>
                       <td>X</td>
                       <td></td>
-                      <td>potentially available (total - active)</td>
+                      <td>potentially available (total - active, see notes)</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -397,6 +397,35 @@ si.memLayout().then(data => console.log(data));</code></pre>
                     </tr>
                   </tbody>
                 </table>
+                <h4>ZFS ARC and the active / available values</h4>
+                <p>
+                  <span class="code">mem().active</span>
+                  is meant to be the memory that is really in use - everything that would be handed back to your processes under pressure is subtracted and shows up in
+                  <span class="code">available</span>
+                  instead. For the ordinary page cache the operating system does that bookkeeping itself. ZFS does not take part in it: its cache, the
+                  <strong>ARC</strong>
+                  (Adaptive Replacement Cache), lives outside the page cache, so Linux reports it in neither <span class="code">Cached</span> nor <span class="code">MemAvailable</span>, and FreeBSD counts it as wired memory.
+                </p>
+                <p>
+                  Because the ARC grows until it has taken roughly half of the machine, that made <span class="code">active</span> sit near <span class="code">total</span> permanently on a ZFS host - and worse, it hid real memory
+                  growth, since the ARC gives memory back at exactly the same rate until there is nothing left to give.
+                </p>
+                <p>
+                  The ARC never shrinks below <span class="code">c_min</span>, so everything it holds above that value is treated as available. The correction is read from
+                  <span class="code">/proc/spl/kstat/zfs/arcstats</span>
+                  on Linux and from <span class="code">kstat.zfs.misc.arcstats</span> on FreeBSD - no root privileges and no
+                  <span class="code">arc_summary</span>
+                  / <span class="code">arcstat</span> binary required. Without ZFS nothing changes. This is the same correction
+                  <a href="https://htop.dev/" target="_blank" rel="noopener">htop</a>
+                  applies.
+                </p>
+                <p class="warning">
+                  <span class="code">available</span>
+                  can therefore be larger than <span class="code">free + buffcache</span> and larger than what
+                  <span class="code">free -b</span>
+                  reports - <span class="code">free</span> has no ZFS awareness. The other values (<span class="code">used</span>, <span class="code">buffers</span>, <span class="code">cached</span>,
+                  <span class="code">slab</span>, <span class="code">buffcache</span>) stay exactly as the operating system reports them.
+                </p>
               </div>
             </div>
           </div>

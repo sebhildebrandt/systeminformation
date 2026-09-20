@@ -290,6 +290,16 @@
                         <td></td>
                         <td>available compute layers (see notes)</td>
                       </tr>
+                      <tr>
+                        <td></td>
+                        <td>security</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>mandatory access control / system integrity (see notes)</td>
+                      </tr>
                       <tr class="example">
                         <td></td>
                         <td colspan="7">
@@ -316,7 +326,8 @@ si.osInfo().then(data => console.log(data));</code></pre>
   lastUpdate: '2026-07-09T22:44:10.000Z',
   displayServer: 'quartz',
   awake: true,
-  hwAcceleration: [ 'metal', 'opencl' ]
+  hwAcceleration: [ 'metal', 'opencl' ],
+  security: { module: 'sip', enabled: true, mode: 'enforcing', policy: '' }
 }</pre>
                         </td>
                       </tr>
@@ -1193,6 +1204,33 @@ si.users().then(data => console.log(data));</code></pre>
                     is <span class="code">false</span>, so you can postpone work until the system is fully awake again. It is derived from the current system power capabilities (<span class="code">pmset -g systemstate</span>).
                   </p>
                   <p>On Windows <span class="code">awake</span> is always <span class="code">true</span>: classic sleep (S3) freezes all processes, and Modern Standby (S0 low power idle) cannot be reliably detected from user space.</p>
+                  <h4>Mandatory access control / system integrity</h4>
+                  <p>
+                    <span class="code">osInfo().security</span>
+                    describes the systemwide access policy the kernel enforces on top of the classic file permissions - the thing you need to know about before your app writes outside its own directories or loads
+                    kernel extensions:
+                  </p>
+                  <ul>
+                    <li><span class="code">module</span>: <span class="code">selinux</span>, <span class="code">apparmor</span>, <span class="code">sip</span> or <span class="code">''</span> when the platform has none</li>
+                    <li><span class="code">enabled</span>: the module is active and enforcing or complaining - <span class="code">false</span> also when it is installed but switched off</li>
+                    <li>
+                      <span class="code">mode</span>: <span class="code">enforcing</span> or <span class="code">permissive</span> (SELinux), <span class="code">enforce</span> or <span class="code">complain</span> (AppArmor),
+                      <span class="code">enforcing</span>, <span class="code">custom</span> or <span class="code">disabled</span> (SIP)
+                    </li>
+                    <li><span class="code">policy</span>: the loaded SELinux policy, e.g. <span class="code">targeted</span> or <span class="code">mls</span> - empty for AppArmor and SIP</li>
+                  </ul>
+                  <p>
+                    <strong>Linux</strong> is read from sysfs (<span class="code">/sys/fs/selinux/enforce</span>, <span class="code">/sys/module/apparmor/parameters/*</span>) and <span class="code">/etc/selinux/config</span> - no
+                    <span class="code">sestatus</span>
+                    / <span class="code">aa-status</span> binary and no root privileges required. SELinux and AppArmor exclude each other in practice; if a distribution ships SELinux but it is not active, you get
+                    <span class="code">module: 'selinux'</span>
+                    with <span class="code">enabled: false</span>, the same distinction <span class="code">sestatus</span> makes.
+                  </p>
+                  <p>
+                    <strong>macOS</strong> has no SELinux style policy. The closest equivalent is System Integrity Protection, a kernel enforced restriction that can only be turned off from recoveryOS
+                    (<span class="code">csrutil status</span>). <span class="code">mode: 'custom'</span> means individual protections were disabled - SIP is then neither fully on nor fully off.
+                  </p>
+                  <p><strong>Windows, BSD and SunOS</strong> have no comparable, queryable mechanism, so <span class="code">module</span> stays empty there. Windows features like Secure Boot, Defender or BitLocker are a different concept and are not reported here.</p>
                 </div>
               </div>
             </div>

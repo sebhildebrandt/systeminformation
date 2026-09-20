@@ -91,6 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.33.13 | 2026-09-20 | `mamLayout()` fix clock speed reading (linux)                                                       |
 | 5.33.12 | 2026-09-18 | `fsSize()` strict drive letter whitelist (windows)                                                  |
 | 5.33.11 | 2026-09-16 | `battery()`, `uuid()`, `blockDevices()` fix Mac OS Golden Gate (macOS)                              |
 | 5.33.10 | 2026-09-08 | `fsSize()` zfs usage and macOS file system type                                                     |

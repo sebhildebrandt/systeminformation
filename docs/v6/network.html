@@ -483,6 +483,16 @@ si.networkGatewayDefault().then(data => console.log(data));</code></pre>
                       </tr>
                       <tr>
                         <td></td>
+                        <td>[0].rx_packets</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>received packets overall</td>
+                      </tr>
+                      <tr>
+                        <td></td>
                         <td>[0].rx_dropped</td>
                         <td>X</td>
                         <td>X</td>
@@ -510,6 +520,16 @@ si.networkGatewayDefault().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td></td>
                         <td>transferred bytes overall</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].tx_packets</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>transferred packets overall</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -577,9 +597,11 @@ setInterval(function() {
     iface: 'en0',
     operstate: 'up',
     rx_bytes: 1752866207,
+    rx_packets: 2842914,
     rx_dropped: 0,
     rx_errors: 0,
     tx_bytes: 180934681,
+    tx_packets: 1204338,
     tx_dropped: 0,
     tx_errors: 0,
     rx_sec: null,
@@ -592,9 +614,11 @@ setInterval(function() {
     iface: 'en0',
     operstate: 'up',
     rx_bytes: 1752866822,
+    rx_packets: 2842920,
     rx_dropped: 0,
     rx_errors: 0,
     tx_bytes: 180939820,
+    tx_packets: 1204351,
     tx_dropped: 0,
     tx_errors: 0,
     rx_sec: 624.3654822335026,

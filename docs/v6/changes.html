@@ -81,6 +81,12 @@
                     <li><span class="code">osInfo()</span> added <span class="code">lastUpdate</span> (date of the last OS update on macOS / Windows, last package update on Linux / BSD)</li>
                     <li><span class="code">osInfo()</span> added <span class="code">hwAcceleration</span> (available compute layers: cuda, rocm, oneapi, vulkan, opencl, metal, dx12, directml)</li>
                     <li><span class="code">osInfo()</span> added <span class="code">awake</span> (system fully awake - <span class="code">false</span> during macOS dark wake)</li>
+                    <li>
+                      <span class="code">osInfo()</span>
+                      added <span class="code">security</span> (systemwide mandatory access control / system integrity: <span class="code">module</span>, <span class="code">enabled</span>, <span class="code">mode</span>, <span class="code">policy</span> - SELinux or AppArmor on Linux,
+                      System Integrity Protection on macOS, empty elsewhere)
+                    </li>
+                    <li><span class="code">networkStats()</span> added <span class="code">rx_packets</span> and <span class="code">tx_packets</span> (received / transferred packets overall)</li>
                     <li><span class="code">bios()</span> added <span class="code">iBridge</span> (Apple iBridge / security chip: modelName, build, bootUuid, secureBoot - macOS only)</li>
                     <li><span class="code">displays()</span> added <span class="code">serial</span>, <span class="code">displayId</span> and <span class="code">productionYear</span> on Windows (previously macOS only)</li>
                     <li><span class="code">displays()</span> added <span class="code">RDP</span> as connection type for remote desktop / indirect displays (Windows)</li>
@@ -151,6 +157,13 @@
                       <span class="code">fsSize()</span>
                       ZFS datasets now report the hierarchical usage from <span class="code">zfs list</span> - df and statfs only know what a dataset references itself, so a parent holding its data in child datasets was shown as almost empty (#1017) - note that <span class="code">used</span> then
                       includes child datasets and snapshots, exactly like <span class="code">zfs list</span>, so it must not be summed across nested datasets
+                    </li>
+                    <li>
+                      <span class="code">mem()</span>
+                      <span class="code">active</span> and <span class="code">available</span> now account for the ZFS ARC cache - the ARC is not part of the page cache, so
+                      <span class="code">MemAvailable</span>
+                      (Linux) and the page counters (FreeBSD) report it as used. On a ZFS host <span class="code">active</span> therefore sat near <span class="code">total</span> permanently and real memory growth was
+                      invisible. Everything the ARC holds above <span class="code">c_min</span> is reclaimable and is now counted as available, the same correction htop applies (Linux/FreeBSD)
                     </li>
                     <li>
                       <span class="code">processes()</span> <span class="code">state</span> was <span class="code">unknown</span> for every process on Windows - <span class="code">Win32_Process.ExecutionState</span> is documented as not implemented and always empty. The state is now derived from the
