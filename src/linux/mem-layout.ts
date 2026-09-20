@@ -34,11 +34,9 @@ export const memLayout = async () => {
           channel: null,
           type: getValue(lines, 'Type:'),
           ecc: dataWidth && totalWidth ? totalWidth > dataWidth : false,
-          clockSpeed: getValue(lines, 'Configured Clock Speed:')
-            ? parseInt(getValue(lines, 'Configured Clock Speed:'), 10)
-            : getValue(lines, 'Speed:')
-              ? parseInt(getValue(lines, 'Speed:'), 10)
-              : null,
+          // dmidecode >= 3.1 renamed "Configured Clock Speed" to "Configured Memory Speed" - without
+          // the new label this silently fell back to Speed, the rated instead of the running speed
+          clockSpeed: toInt(getValue(lines, 'Configured Memory Speed:')) || toInt(getValue(lines, 'Configured Clock Speed:')) || toInt(getValue(lines, 'Speed:')) || null,
           formFactor: getValue(lines, 'Form Factor:'),
           manufacturer: getMemManufacturer(getValue(lines, 'Manufacturer:')),
           partNum: getValue(lines, 'Part Number:'),
