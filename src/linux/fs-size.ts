@@ -77,9 +77,11 @@ const parseNixFsSize = (lines: string[]) => {
       const fsType = withType ? match[2] : macOsFsType(fs);
       const mount = (withType ? match[6] : match[5]).trim();
       if (fs.startsWith('/') || mount === '/' || fs.indexOf('/') > 0 || fs.indexOf(':') === 1 || (!DARWIN && !isLinuxTmpFs(fsType))) {
-        const size = toInt(match[withType ? 3 : 2]) * 1024;
         const used = toInt(match[withType ? 4 : 3]) * 1024;
         const available = toInt(match[withType ? 5 : 4]) * 1024;
+        // btrfs reports the raw device capacity as size while free space already accounts for
+        // the raid profile - report the usable size, like `use` has always been computed (#883)
+        const size = fsType === 'btrfs' ? used + available : toInt(match[withType ? 3 : 2]) * 1024;
         const use = parseFloat((100.0 * (used / (used + available))).toFixed(2));
         const rw = osMounts && Object.keys(osMounts).length > 0 ? osMounts[fs] || false : null;
         if (!data.find((el) => el.fs === fs && el.type === fsType && el.mount === mount)) {
@@ -163,13 +165,16 @@ const linuxFsSize = async (drives: string[]): Promise<FsSizeData[] | null> => {
     }
     try {
       const [stats, { dev }] = await Promise.all([statfs(mount), stat(mount)]);
-      const size = stats.blocks * stats.bsize;
+      const rawSize = stats.blocks * stats.bsize;
       // pseudo filesystems (proc, sysfs, cgroup) report no blocks - df skips them too
-      if (!size) {
+      if (!rawSize) {
         continue;
       }
       const used = (stats.blocks - stats.bfree) * stats.bsize;
       const available = stats.bavail * stats.bsize;
+      // btrfs reports the raw device capacity as size while free space already accounts for
+      // the raid profile - report the usable size, like `use` has always been computed (#883)
+      const size = type === 'btrfs' ? used + available : rawSize;
       const item = {
         dev,
         entry: {

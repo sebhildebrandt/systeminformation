@@ -398,6 +398,29 @@ const BTRFS_PROFILES = ['raid1c4', 'raid1c3', 'raid10', 'raid0', 'raid5', 'raid6
 
 export const btrfsProfileFromEntries = (entries: string[]) => BTRFS_PROFILES.find((profile) => entries.includes(profile)) || '';
 
+// the summed member sizes are the raw capacity, not what the array can store (#883). with
+// unequal devices the mirrored profiles are an upper bound - btrfs cannot balance the surplus
+export const btrfsUsableSize = (profile: string, sizes: number[]) => {
+  const sum = sizes.reduce((total, size) => total + size, 0);
+  const largest = [...sizes].sort((a, b) => b - a);
+  switch (profile) {
+    case 'dup':
+    case 'raid1':
+    case 'raid10':
+      return Math.floor(sum / 2);
+    case 'raid1c3':
+      return Math.floor(sum / 3);
+    case 'raid1c4':
+      return Math.floor(sum / 4);
+    case 'raid5':
+      return sum - (largest[0] || 0);
+    case 'raid6':
+      return sum - (largest[0] || 0) - (largest[1] || 0);
+    default:
+      return sum;
+  }
+};
+
 // assigns the pool name as group to every member and appends one entry per pool, mirroring what
 // raidMatchLinux does for mdraid (#802, #883)
 export const applyPoolsLinux = (data: FsBlockDevicesData[], pools: PoolInfoLinux[]): FsBlockDevicesData[] => {
@@ -503,7 +526,7 @@ export const btrfsPoolsLinux = async (data: FsBlockDevicesData[]): Promise<PoolI
       name: label || fsid,
       type: profile || 'btrfs',
       fsType: 'btrfs',
-      size: members.reduce((sum, element) => sum + element.size, 0),
+      size: btrfsUsableSize(profile, members.map((element) => element.size)),
       uuid: fsid,
       mount: members.find((element) => element.mount)?.mount || '',
       members: devices

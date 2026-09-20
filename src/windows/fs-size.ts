@@ -1,5 +1,5 @@
 import { getValue, nextTick, toInt } from '../common';
-import { sanitizeShellString } from '../common/security';
+import { sanitizeDriveLetter } from '../common/security';
 import type { FsSizeData } from '../common/types';
 import { ps } from '../common/windows';
 
@@ -34,10 +34,8 @@ export const fsSize = async (drives: string[]) => {
   await nextTick();
   let data: FsSizeData[] = [];
   try {
-    const conditions = drives
-      .map((drive) => (drive ? sanitizeShellString(drive, true) : ''))
-      .filter((drive) => drive !== '')
-      .map((drive) => `$_.Caption -eq '${drive}'`);
+    // invalid drive input yields '' -> condition matches no drive instead of being dropped
+    const conditions = drives.filter((drive) => !!drive).map((drive) => `$_.Caption -eq '${sanitizeDriveLetter(drive)}'`);
     const filter = conditions.length ? ` | where { ${conditions.join(' -or ')} }` : '';
     const stdout: string = await ps.exec(`Get-CimInstance Win32_logicaldisk | select Access,Caption,FileSystem,FreeSpace,Size${filter} | fl`);
     data = parseFsSize(String(stdout));

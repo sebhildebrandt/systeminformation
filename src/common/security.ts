@@ -64,6 +64,12 @@ export const sanitizeShellString = (str: string, strict?: any) => {
 export const isSafePathSegment = (segment: string) =>
   !!segment && segment.indexOf('/') === -1 && segment.indexOf('\0') === -1 && segment !== '.' && segment !== '..';
 
+// windows drive letter whitelist: only "<letter>:" survives, everything else is dropped
+export const sanitizeDriveLetter = (str: string) => {
+  const match = /^\s*([a-zA-Z]):?[\\/]?\s*$/.exec(String(str || ''));
+  return match ? `${match[1]}:` : '';
+};
+
 export const sanitizeContainerID = (str: string) => {
   const s = String(str || '')
     .substring(0, 2000)
