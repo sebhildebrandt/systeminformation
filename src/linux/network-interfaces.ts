@@ -348,15 +348,19 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
       const ifaceSanitized = sanitizeString(ifaceDevName, true);
 
       let lines: string[] = [];
+      let hasDevice = true;
       try {
         const safe = isSafePathSegment(ifaceSanitized);
         const connectionName = getLinuxIfaceConnectionName(deviceStatus, ifaceSanitized);
         // iw needs nl80211 - skip the spawn for every non cfg80211 interface
-        const [sysfsLines, iwOut, details] = await Promise.all([
+        const [sysfsLines, iwOut, details, device] = await Promise.all([
           safe ? readSysfsMany(`/sys/class/net/${ifaceSanitized}`, ['address', 'carrier_changes', 'duplex', 'mtu', 'operstate', 'speed', 'type']) : [],
           safe ? fileExists(`/sys/class/net/${ifaceSanitized}/phy80211`).then((wifi) => (wifi ? execSecure('iw', ['dev', ifaceSanitized, 'link'], EXEC_OPTS) : '')) : '',
-          getLinuxConnectionDetails(connectionName)
+          getLinuxConnectionDetails(connectionName),
+          // physical NICs link to their bus device - veths, bridges, tun, wireguard etc. have none
+          safe ? fileExists(`/sys/class/net/${ifaceSanitized}/device`) : true
         ]);
+        hasDevice = device;
         lines = sysfsLines;
         lines.push(`wireless: ${wirelessLines.find((line: string) => line.indexOf(ifaceSanitized) >= 0) || ''}`);
         // keep the raw "tx bitrate: <x> MBit/s" lines - getValue() matches on the line start
@@ -392,7 +396,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
       if (dev.toLowerCase().indexOf('loopback') > -1 || ifaceName.toLowerCase().indexOf('loopback') > -1) {
         internal = true;
       }
-      const virtual = internal ? false : testVirtualNic(dev, ifaceName, mac);
+      const virtual = internal ? false : !hasDevice || testVirtualNic(dev, ifaceName, mac);
       return {
         ...initNetworkInterface,
         iface: ifaceSanitized,
