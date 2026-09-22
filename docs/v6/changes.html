@@ -27,7 +27,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.15</div>
+          <div class="title-version float-left">v6.0.0-beta.16</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -227,17 +227,16 @@
                       <span class="code">gpu()</span>
                       takes <span class="code">vram</span> for discrete cards from sysfs instead of the PCI region size. The largest <span class="code">Region N ... [size=]</span> of
                       <span class="code">lspci</span>
-                      was only overwritten when no region had been found at all, so the sysfs value never won - a Radeon 7900 XTX reported <span class="code">vram: 32768</span> because resizable BAR exposes a 32 GB
-                      window on a 24 GB card. <span class="code">mem_info_vram_total</span> now wins, and discrete Intel Arc is read as well through <span class="code">lmem_total_bytes</span> /
+                      was only overwritten when no region had been found at all, so the sysfs value never won - a Radeon 7900 XTX reported <span class="code">vram: 32768</span> because resizable BAR exposes a 32 GB window on a 24 GB card. <span class="code">mem_info_vram_total</span> now wins, and
+                      discrete Intel Arc is read as well through <span class="code">lmem_total_bytes</span> /
                       <span class="code">tile0/physical_vram_size_bytes</span>. NVIDIA is unaffected (Linux)
                     </li>
                     <li>
                       <span class="code">gpu()</span>
                       no longer reports the PCI graphics aperture as <span class="code">vram</span> for integrated GPUs. The largest <span class="code">Region N ... [size=]</span> of
                       <span class="code">lspci</span>
-                      is the CPU visible aperture, not video memory - an Intel UHD Graphics 630 was reported as <span class="code">vram: 256, vramDynamic: false</span> although it has no dedicated memory at all. Cards
-                      whose DRM driver is an integrated one and that expose no VRAM total node in sysfs now return <span class="code">vram: null</span> with <span class="code">vramDynamic: true</span>. Discrete AMD,
-                      Intel Arc and NVIDIA cards are unaffected (Linux)
+                      is the CPU visible aperture, not video memory - an Intel UHD Graphics 630 was reported as <span class="code">vram: 256, vramDynamic: false</span> although it has no dedicated memory at all. Cards whose DRM driver is an integrated one and that expose no VRAM total node in sysfs
+                      now return <span class="code">vram: null</span> with <span class="code">vramDynamic: true</span>. Discrete AMD, Intel Arc and NVIDIA cards are unaffected (Linux)
                     </li>
                     <li><span class="code">gpu()</span> reads clock, temperature, power, utilization and memory from DRM sysfs (<span class="code">/sys/class/drm/card*</span>) - runtime values for Intel and AMD GPUs without extra tools or root, previously nvidia-smi only (Linux, #890)</li>
                     <li>

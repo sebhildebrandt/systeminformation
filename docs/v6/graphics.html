@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.15</div>
+          <div class="title-version float-left">v6.0.0-beta.16</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -436,9 +436,8 @@ si.gpu().then(data => console.log(data));</code></pre>
                   </p>
 
                   <p>
-                    Where such a node exists it also sets <span class="code">vram</span>, in preference to the memory region size <span class="code">lspci</span> reports. That region is only an
-                    approximation and overshoots on cards with resizable BAR - a Radeon 7900 XTX exposes a 32 GB window for 24 GB of memory
-                    (<a href="https://github.com/sebhildebrandt/systeminformation/issues/1035">#1035</a>). Values already delivered by <span class="code">nvidia-smi</span> stay untouched.
+                    Where such a node exists it also sets <span class="code">vram</span>, in preference to the memory region size <span class="code">lspci</span> reports. That region is only an approximation and overshoots on cards with resizable BAR - a Radeon 7900 XTX exposes a 32 GB window for 24
+                    GB of memory (<a href="https://github.com/sebhildebrandt/systeminformation/issues/1035">#1035</a>). Values already delivered by <span class="code">nvidia-smi</span> stay untouched.
                   </p>
 
                   <h4>Integrated GPUs and <span class="code">vram</span></h4>
@@ -453,19 +452,20 @@ si.gpu().then(data => console.log(data));</code></pre>
                     A card is treated as sharing system memory when its DRM driver is <span class="code">i915</span> or <span class="code">xe</span>
                     <strong>and</strong>
                     sysfs reports no VRAM size for it - either because no such node exists, or because it reads 0. It then returns <span class="code">vram: null</span> with
-                    <span class="code">vramDynamic: true</span>. The integrated GPUs of ARM SoCs are not covered here: they are platform devices rather than PCI ones and come from their own code paths
-                    (<span class="code">vcgencmd</span> on a Raspberry Pi, the Tegra sysfs nodes on a Jetson).
+                    <span class="code">vramDynamic: true</span>. The integrated GPUs of ARM SoCs are not covered here: they are platform devices rather than PCI ones and come from their own code paths (<span class="code">vcgencmd</span>
+                    on a Raspberry Pi, the Tegra sysfs nodes on a Jetson).
                   </p>
                   <p>
-                    The driver name alone does not decide it: <span class="code">i915</span> and <span class="code">xe</span> also drive the discrete Arc cards, which do expose their memory
-                    (<span class="code">lmem_total_bytes</span>, <span class="code">tile0/physical_vram_size_bytes</span>). Discrete cards are therefore unaffected - AMD through
+                    The driver name alone does not decide it: <span class="code">i915</span> and <span class="code">xe</span> also drive the discrete Arc cards, which do expose their memory (<span class="code">lmem_total_bytes</span>, <span class="code">tile0/physical_vram_size_bytes</span>).
+                    Discrete cards are therefore unaffected - AMD through
                     <span class="code">mem_info_vram_total</span>, NVIDIA through <span class="code">nvidia-smi</span>.
                   </p>
 
                   <h4>NVIDIA Tegra / Jetson</h4>
                   <p>
                     On a Jetson the GPU is integrated into the SoC and attached through the device tree, not through PCI. <span class="code">lspci</span> therefore does not list it, and the DRM sysfs path above skips it because it has no PCI bus address - which used to leave
-                    <span class="code">gpu()</span> empty on every Tegra board. The values now come from the Tegra sysfs nodes directly:
+                    <span class="code">gpu()</span>
+                    empty on every Tegra board. The values now come from the Tegra sysfs nodes directly:
                   </p>
                   <table class="table table-sm table-bordered table-striped">
                     <thead>
