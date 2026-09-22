@@ -5,9 +5,9 @@ import { getValue, grep, nextTick, toInt } from '../common';
 import { execOptsLinux } from '../common/const';
 import { initNetworkInterface } from '../common/defaults';
 import { exec, execFile, execSecure } from '../common/exec';
-import { readFileLines, readSysfs, readSysfsMany } from '../common/files';
+import { fileExists, readFileLines, readSysfs, readSysfsMany } from '../common/files';
 import { cloneObj } from '../common/index';
-import { testVirtualNic } from '../common/network';
+import { filterDefaultInterface, testVirtualNic } from '../common/network';
 import { isSafePathSegment, sanitizeString } from '../common/security';
 import type { NetworkInterfacesData, PciData } from '../common/types';
 import { networkInterfaceDefault } from './network-interface-default';
@@ -16,6 +16,11 @@ import { pci } from './pci';
 // execSecure only settles on close - iw runs once per interface, so a wedged call would
 // block the whole networkInterfaces() listing
 const EXEC_OPTS = { timeout: 5000 };
+const EXEC_OPTS_LINUX = { ...execOptsLinux, ...EXEC_OPTS };
+// nmcli localizes the device state
+const EXEC_OPTS_NMCLI = { ...EXEC_OPTS_LINUX, env: { ...process.env, LC_ALL: 'C.UTF-8' } };
+// interfaces scanned in parallel - hosts with many (docker) interfaces took minutes serially (#1044)
+const SCAN_CONCURRENCY = 8;
 
 let _interfaces: any = {}; // nodejs structure
 let _networkInterfaces: NetworkInterfacesData[] = []; // si structure
@@ -39,22 +44,41 @@ const splitSectionsNics = (lines: string[]) => {
 };
 
 // 'nmcli device status' lists every device - query it once per run instead of once per interface
+// terse format DEVICE:STATE:CONNECTION, ':' inside values is escaped as '\:'
 const getLinuxDeviceStatus = async () => {
+  const result = new Map<string, { state: string; connection: string }>();
   try {
-    const { stdout } = await execFile('nmcli', ['device', 'status'], execOptsLinux);
+    const { stdout } = await execFile('nmcli', ['-t', '-f', 'DEVICE,STATE,CONNECTION', 'device', 'status'], EXEC_OPTS_NMCLI);
+    for (const line of stdout.split('\n')) {
+      const [device, state, connection] = line.split(/(?<!\\):/).map((part) => part.replace(/\\:/g, ':'));
+      if (device && state !== undefined) {
+        result.set(device, { state, connection: connection && connection !== '--' ? connection : '' });
+      }
+    }
+  } catch {}
+  return result;
+};
+
+// externally connected devices (docker bridges, veths) have generated NM connections without meaningful settings
+const getLinuxIfaceConnectionName = (deviceStatus: Map<string, { state: string; connection: string }>, interfaceName: string) => {
+  const device = deviceStatus.get(interfaceName);
+  return device && !device.state.includes('externally') ? device.connection : '';
+};
+
+// one 'nmcli connection show' per interface, parsed for dhcp, dns suffix and 802.1x; null when unavailable
+const getLinuxConnectionDetails = async (connectionName: string) => {
+  if (!connectionName) {
+    return null;
+  }
+  try {
+    const { stdout } = await execFile('nmcli', ['connection', 'show', 'id', connectionName], EXEC_OPTS_NMCLI);
     return stdout;
   } catch {
-    return '';
+    return null;
   }
 };
 
-const getLinuxIfaceConnectionName = (deviceStatus: string, interfaceName: string) => {
-  const result = grep(deviceStatus, interfaceName);
-  const resultFormat = result.replace(/\s+/g, ' ').trim();
-  const connectionNameLines = resultFormat.split(' ').slice(3);
-  const connectionName = connectionNameLines.join(' ');
-  return connectionName !== '--' ? connectionName : '';
-};
+const getNmcliValue = (stdout: string, property: string) => grep(stdout, property).replace(/\s+/g, ' ').trim().split(' ').slice(1).toString();
 
 // liest interfaces-Datei(en) ohne Shell; source-Direktive kann Glob sein (Debian-Default: /etc/network/interfaces.d/*)
 const readInterfacesLines = async (file: string): Promise<string[]> => {
@@ -101,7 +125,7 @@ const getLinuxDHCPNics = async () => {
   // alternate methods getting interfaces using DHCP
   let result: any[] = [];
   try {
-    const { stdout } = await exec('ip a 2> /dev/null', execOptsLinux);
+    const { stdout } = await exec('ip a 2> /dev/null', EXEC_OPTS_LINUX);
     const lines = stdout.split('\n');
     const nsections = splitSectionsNics(lines);
     result = parseLinuxDHCPNics(nsections);
@@ -133,63 +157,27 @@ const parseLinuxDHCPNics = (sections: any[]) => {
   return result;
 };
 
-const getLinuxIfaceDHCPstatus = async (iface: string, connectionName: string, DHCPNics: string[]) => {
-  let result = false;
-  if (connectionName) {
-    try {
-      const { stdout } = await execFile('nmcli', ['connection', 'show', connectionName], execOptsLinux);
-      const res = grep(stdout, 'ipv4.method');
-      const resultFormat = res.replace(/\s+/g, ' ').trim();
-
-      const dhcStatus = resultFormat.split(' ').slice(1).toString();
-      switch (dhcStatus) {
-        case 'auto':
-          result = true;
-          break;
-
-        default:
-          result = false;
-          break;
-      }
-      return result;
-    } catch {
-      return DHCPNics.indexOf(iface) >= 0;
-    }
-  } else {
+const getLinuxIfaceDHCPstatus = (iface: string, details: string | null, DHCPNics: string[]) => {
+  if (details === null) {
     return DHCPNics.indexOf(iface) >= 0;
   }
+  return getNmcliValue(details, 'ipv4.method') === 'auto';
 };
 
-const getLinuxIfaceDNSsuffix = async (connectionName: string) => {
-  if (connectionName) {
-    try {
-      const { stdout } = await execFile('nmcli', ['connection', 'show', connectionName], execOptsLinux);
-      const res = grep(stdout, 'ipv4.dns-search');
-      const resultFormat = res.replace(/\s+/g, ' ').trim();
-      const dnsSuffix = resultFormat.split(' ').slice(1).toString();
-      return dnsSuffix === '--' ? 'Not defined' : dnsSuffix;
-    } catch {
-      return 'Unknown';
-    }
-  } else {
+const getLinuxIfaceDNSsuffix = (details: string | null) => {
+  if (details === null) {
     return 'Unknown';
   }
+  const dnsSuffix = getNmcliValue(details, 'ipv4.dns-search');
+  return dnsSuffix === '--' ? 'Not defined' : dnsSuffix;
 };
 
-const getLinuxIfaceIEEE8021xAuth = async (connectionName: string) => {
-  if (connectionName) {
-    try {
-      const { stdout } = await execFile('nmcli', ['connection', 'show', connectionName], execOptsLinux);
-      const res = grep(stdout, '802-1x.eap');
-      const resultFormat = res.replace(/\s+/g, ' ').trim();
-      const authenticationProtocol = resultFormat.split(' ').slice(1).toString();
-      return authenticationProtocol === '--' ? '' : authenticationProtocol;
-    } catch {
-      return 'Not defined';
-    }
-  } else {
+const getLinuxIfaceIEEE8021xAuth = (details: string | null) => {
+  if (details === null) {
     return 'Not defined';
   }
+  const authenticationProtocol = getNmcliValue(details, '802-1x.eap');
+  return authenticationProtocol === '--' ? '' : authenticationProtocol;
 };
 
 const getLinuxIfaceIEEE8021xState = (authenticationProtocol: string) => {
@@ -207,7 +195,7 @@ const getLinuxIfaceIEEE8021xState = (authenticationProtocol: string) => {
 const getLinuxGateways = async () => {
   const result: { [iface: string]: string } = {};
   try {
-    const { stdout } = await exec('ip -4 route show default 2> /dev/null', execOptsLinux);
+    const { stdout } = await exec('ip -4 route show default 2> /dev/null', EXEC_OPTS_LINUX);
     for (const line of stdout.split('\n')) {
       for (const match of line.matchAll(/(?:via\s+(\S+)\s+)?dev\s+(\S+)/g)) {
         if (!result[match[2]]) {
@@ -278,28 +266,30 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
   await nextTick();
   const interfaces = osNetworkInterfaces();
   if (JSON.stringify(interfaces) === JSON.stringify(_interfaces) && !rescan) {
-    return _networkInterfaces;
+    return filterDefaultInterface(_networkInterfaces, defaultString);
   }
   _interfaces = cloneObj(interfaces);
 
   let result: NetworkInterfacesData[] = [];
 
   try {
-    const _dhcpNics = await getLinuxDHCPNics();
-    const defaultInterface = await networkInterfaceDefault();
-    const deviceStatus = await getLinuxDeviceStatus();
+    const [_dhcpNics, defaultInterface, deviceStatus, gateways, sysfsDevices, wirelessLines] = await Promise.all([
+      getLinuxDHCPNics(),
+      networkInterfaceDefault(),
+      getLinuxDeviceStatus(),
+      getLinuxGateways(),
+      readdir('/sys/class/net').catch(() => [] as string[]),
+      readFileLines('/proc/net/wireless')
+    ]);
     // os.networkInterfaces() only lists interfaces with an assigned address - sysfs knows the others too (#903, #355)
     const devices = Object.keys(interfaces);
-    try {
-      for (const dev of await readdir('/sys/class/net')) {
-        if (!devices.some((device) => device.split(':')[0] === dev)) {
-          devices.push(dev);
-        }
+    for (const dev of sysfsDevices) {
+      if (!devices.some((device) => device.split(':')[0] === dev)) {
+        devices.push(dev);
       }
-    } catch {}
-    const gateways = await getLinuxGateways();
+    }
     const hardware = await getLinuxNicHardware(devices);
-    for (const dev of devices) {
+    const scanInterface = async (dev: string): Promise<NetworkInterfacesData> => {
       const iface = dev;
       let ip4 = '';
       let ip4subnet = '';
@@ -359,19 +349,21 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
 
       let lines: string[] = [];
       try {
-        const [sysfsLines, wirelessLines, iwOut] = await Promise.all([
-          isSafePathSegment(ifaceSanitized) ? readSysfsMany(`/sys/class/net/${ifaceSanitized}`, ['address', 'carrier_changes', 'duplex', 'mtu', 'operstate', 'speed', 'type']) : [],
-          readFileLines('/proc/net/wireless'),
-          execSecure('iw', ['dev', ifaceSanitized, 'link'], EXEC_OPTS)
+        const safe = isSafePathSegment(ifaceSanitized);
+        const connectionName = getLinuxIfaceConnectionName(deviceStatus, ifaceSanitized);
+        // iw needs nl80211 - skip the spawn for every non cfg80211 interface
+        const [sysfsLines, iwOut, details] = await Promise.all([
+          safe ? readSysfsMany(`/sys/class/net/${ifaceSanitized}`, ['address', 'carrier_changes', 'duplex', 'mtu', 'operstate', 'speed', 'type']) : [],
+          safe ? fileExists(`/sys/class/net/${ifaceSanitized}/phy80211`).then((wifi) => (wifi ? execSecure('iw', ['dev', ifaceSanitized, 'link'], EXEC_OPTS) : '')) : '',
+          getLinuxConnectionDetails(connectionName)
         ]);
         lines = sysfsLines;
         lines.push(`wireless: ${wirelessLines.find((line: string) => line.indexOf(ifaceSanitized) >= 0) || ''}`);
         // keep the raw "tx bitrate: <x> MBit/s" lines - getValue() matches on the line start
         lines.push(...iwOut.split('\n').filter((line: string) => line.indexOf('bitrate') >= 0).map((line: string) => line.trim()));
-        const connectionName = getLinuxIfaceConnectionName(deviceStatus, ifaceSanitized);
-        dhcp = await getLinuxIfaceDHCPstatus(ifaceSanitized, connectionName, _dhcpNics);
-        dnsSuffix = await getLinuxIfaceDNSsuffix(connectionName);
-        ieee8021xAuth = await getLinuxIfaceIEEE8021xAuth(connectionName);
+        dhcp = getLinuxIfaceDHCPstatus(ifaceSanitized, details, _dhcpNics);
+        dnsSuffix = getLinuxIfaceDNSsuffix(details);
+        ieee8021xAuth = getLinuxIfaceIEEE8021xAuth(details);
         ieee8021xState = getLinuxIfaceIEEE8021xState(ieee8021xAuth);
       } catch {}
       duplex = getValue(lines, 'duplex');
@@ -401,7 +393,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
         internal = true;
       }
       const virtual = internal ? false : testVirtualNic(dev, ifaceName, mac);
-      result.push({
+      return {
         ...initNetworkInterface,
         iface: ifaceSanitized,
         ifaceName,
@@ -426,17 +418,12 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
         ieee8021xAuth,
         ieee8021xState,
         carrierChanges
-      });
+      };
+    };
+    for (let i = 0; i < devices.length; i += SCAN_CONCURRENCY) {
+      result.push(...(await Promise.all(devices.slice(i, i + SCAN_CONCURRENCY).map(scanInterface))));
     }
   } catch {}
   _networkInterfaces = result;
-  if (defaultString.toLowerCase().indexOf('default') >= 0) {
-    result = result.filter((item) => item.default);
-    if (result.length > 0) {
-      return [result[0]];
-    } else {
-      result = [];
-    }
-  }
-  return result;
+  return filterDefaultInterface(result, defaultString);
 };

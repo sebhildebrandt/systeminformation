@@ -4,7 +4,7 @@ import { execOptsWin } from '../common/const';
 import { initNetworkInterface } from '../common/defaults';
 import { exec, execFile } from '../common/exec';
 import { cloneObj } from '../common/index';
-import { testVirtualNic } from '../common/network';
+import { filterDefaultInterface, testVirtualNic } from '../common/network';
 import { sanitizeString } from '../common/security';
 import type { NetworkInterfacesData } from '../common/types';
 import { ps } from '../common/windows';
@@ -239,7 +239,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
   await nextTick();
   const interfaces: any = osNetworkInterfaces();
   if (JSON.stringify(interfaces) === JSON.stringify(_interfaces) && !rescan) {
-    return _networkInterfaces;
+    return filterDefaultInterface(_networkInterfaces, defaultString);
   }
   _interfaces = cloneObj(interfaces);
 
@@ -359,14 +359,5 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
     }
   } catch {}
   _networkInterfaces = result;
-  if (defaultString.toLowerCase().indexOf('default') >= 0) {
-    result = result.filter((item) => item.default);
-    if (result.length > 0) {
-      return [result[0]];
-    } else {
-      return [];
-    }
-  }
-
-  return result;
+  return filterDefaultInterface(result, defaultString);
 };

@@ -95,6 +95,8 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `gpu()` detects the integrated GPU of NVIDIA Tegra / Jetson boards - it is a device tree platform device, so `lspci` does not list it and the DRM sysfs path skips it for lack of a PCI address, which left `gpu()` empty on every Jetson. `model`, `utilizationGpu`, `temperatureGpu` and `clockCore` now come from the Tegra sysfs nodes, so no `tegrastats` (a streaming process, root on some L4T releases) and no `jtop` is needed. Memory is shared with the system, so `vram` stays `null` with `vramDynamic: true` (Linux, #800)
 - `wifiConnections()` connection details are now queried by NetworkManager connection UUID instead of the connection name - fixes wrong data when the name differs from the SSID or contains spaces (Linux, #872)
 - `get()` returns a migration hint for the removed `graphics` key instead of silently dropping it
+- `networkInterfaces()` scans much faster on hosts with many interfaces (e.g. Docker veths) - interfaces are scanned in parallel, `nmcli connection show` runs once instead of three times per interface and is skipped for externally connected devices, `iw` only runs for wireless interfaces, and all `nmcli` / `ip` calls now have a timeout (Linux, #1044)
+- `networkInterfaces('default', false)` returned all interfaces instead of the default one when the cached result was used, and the cached list itself was handed out, so callers could modify it
 
 #### Breaking Changes
 

@@ -3,7 +3,7 @@ import { getValue, nextTick, toInt } from '../common';
 import { DARWIN, MAX_BUFFER_SIZE } from '../common/const';
 import { exec } from '../common/exec';
 import { cloneObj } from '../common/index';
-import { testVirtualNic } from '../common/network';
+import { filterDefaultInterface, testVirtualNic } from '../common/network';
 import { isPrototypePolluted, mathMin, sanitizeShellString } from '../common/security';
 import type { NetworkInterfacesData } from '../common/types';
 import { networkInterfaceDefault } from './network-interface-default';
@@ -193,7 +193,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
   await nextTick();
   const interfaces = osNetworkInterfaces();
   if (JSON.stringify(interfaces) === JSON.stringify(_interfaces) && !rescan) {
-    return _networkInterfaces;
+    return filterDefaultInterface(_networkInterfaces, defaultString);
   }
   _interfaces = cloneObj(interfaces);
   let result: NetworkInterfacesData[] = [];
@@ -276,10 +276,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
     }
     _networkInterfaces = result;
     // filtering has to happen after all interfaces are collected - otherwise the result depends on the position of the default interface
-    if (defaultString.toLowerCase().indexOf('default') >= 0) {
-      result = result.filter((item) => item.default);
-      return result.length ? [result[0]] : [];
-    }
+    return filterDefaultInterface(result, defaultString);
   } catch {}
   return result;
 };
