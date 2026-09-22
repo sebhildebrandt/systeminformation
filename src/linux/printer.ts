@@ -65,7 +65,7 @@ export const printer = async () => {
   if (result.length === 0) {
     if (LINUX) {
       // lpstat
-      const { stdout } = await execSave('export LC_ALL=C; lpstat -lp 2>/dev/null; unset LC_ALL');
+      const { stdout } = await execSave('export LC_ALL=C.UTF-8; lpstat -lp 2>/dev/null; unset LC_ALL');
       const parts = ('\n' + stdout.toString()).split('\nprinter ');
       for (let i = 1; i < parts.length; i++) {
         const printers = parseLinuxLpstatPrinter(parts[i].split('\n'), i);

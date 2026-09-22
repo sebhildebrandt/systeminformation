@@ -300,10 +300,10 @@ export const processes = async (): Promise<ProcessesData> => {
   if ((_processes_cpu.ms && Date.now() - _processes_cpu.ms >= 500) || _processes_cpu.ms === 0) {
     try {
       if (LINUX || ANDROID) {
-        cmd = 'export LC_ALL=C; ps -axo pid:11,ppid:11,pcpu:6,pmem:6,pri:5,vsz:11,rss:11,ni:5,etime:30,state:5,tty:15,user:20,time,command; unset LC_ALL';
+        cmd = 'export LC_ALL=C.UTF-8; ps -axo pid:11,ppid:11,pcpu:6,pmem:6,pri:5,vsz:11,rss:11,ni:5,etime:30,state:5,tty:15,user:20,time,command; unset LC_ALL';
       }
       if (FREEBSD || NETBSD || OPENBSD) {
-        cmd = 'export LC_ALL=C; ps -axo pid,ppid,pcpu,pmem,pri,vsz,rss,ni,etime,state,tty,user,time,command; unset LC_ALL';
+        cmd = 'export LC_ALL=C.UTF-8; ps -axo pid,ppid,pcpu,pmem,pri,vsz,rss,ni,etime,state,tty,user,time,command; unset LC_ALL';
       }
       if (DARWIN) {
         cmd = 'ps -axo pid,ppid,pcpu,pmem,pri,vsz=temp_title_1,rss=temp_title_2,nice,etime=temp_title_3,state,tty,user,time,command -r';

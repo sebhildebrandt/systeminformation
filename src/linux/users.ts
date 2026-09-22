@@ -92,7 +92,7 @@ const parseUsersLinux = (lines: string[], phase: number): UserData[] => {
 export const users = async () => {
   await nextTick();
   let result: UserData[] = [];
-  let { stdout } = await exec('export LC_ALL=C; who --ips; echo "---"; w; unset LC_ALL | tail -n +2', execOptsLinux);
+  let { stdout } = await exec('export LC_ALL=C.UTF-8; who --ips; echo "---"; w | tail -n +2', execOptsLinux);
   // lines / split
   let lines = stdout.toString().split('\n');
   result = parseUsersLinux(lines, 1);

@@ -42,7 +42,7 @@ const getWifiNetworkListNmi = async () => {
 const getWifiNetworkListIw = async (networkInterface: string) => {
   const result: WifiNetworkData[] = [];
   try {
-    const { stdout } = await exec(`export LC_ALL=C; iwlist ${networkInterface} scan 2>&1; unset LC_ALL`, execOptsLinux);
+    const { stdout } = await exec(`export LC_ALL=C.UTF-8; iwlist ${networkInterface} scan 2>&1; unset LC_ALL`, execOptsLinux);
     let iwlistParts = stdout.split('        Cell ');
     if (iwlistParts[0].indexOf('resource busy') >= 0) {
       return -1;
@@ -136,7 +136,7 @@ export const wifiNetworks = async () => {
   let result: WifiNetworkData[] = await getWifiNetworkListNmi();
   if (result.length === 0) {
     try {
-      const { stdout } = await exec('export LC_ALL=C; iwconfig 2>/dev/null; unset LC_ALL', execOptsLinux);
+      const { stdout } = await exec('export LC_ALL=C.UTF-8; iwconfig 2>/dev/null; unset LC_ALL', execOptsLinux);
       const iwconfigParts = stdout.split('\n\n');
       let networkInterface = '';
       iwconfigParts.forEach((element) => {

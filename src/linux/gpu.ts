@@ -264,7 +264,7 @@ const parseLinesLinuxControllers = async (lines: string[]) => {
   // therefore best effort; nothing in this library derives behaviour from it
   let pciIDs: string[] = [];
   try {
-    const { stdout } = await exec('export LC_ALL=C; dmidecode -t 9 2>/dev/null; unset LC_ALL | grep "Bus Address: "', execOptsLinux);
+    const { stdout } = await exec('export LC_ALL=C; dmidecode -t 9 2>/dev/null | grep "Bus Address: "', execOptsLinux);
     pciIDs = stdout.split('\n');
     for (let i = 0; i < pciIDs.length; i++) {
       pciIDs[i] = pciIDs[i].replace('Bus Address:', '').replace('0000:', '').trim();

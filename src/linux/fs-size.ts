@@ -294,7 +294,7 @@ export const fsSize = async (drives: string[]) => {
       return await applyZfsUsage(linuxData);
     }
     // fallback for mounts statfs() cannot size reliably
-    cmd = 'export LC_ALL=C; df -kPTx squashfs; unset LC_ALL';
+    cmd = 'export LC_ALL=C.UTF-8; df -kPTx squashfs; unset LC_ALL';
   }
   if (FREEBSD || NETBSD || OPENBSD) {
     try {

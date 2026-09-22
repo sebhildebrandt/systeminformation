@@ -16,7 +16,7 @@ export const diskLayout = async (): Promise<DiskLayoutData[]> => {
   let cmd = '';
   let cmdFullSmart = '';
   try {
-    ({ stdout } = await exec('export LC_ALL=C; lsblk -ablJO 2>/dev/null; unset LC_ALL', execOptsLinux));
+    ({ stdout } = await exec('export LC_ALL=C.UTF-8; lsblk -ablJO 2>/dev/null; unset LC_ALL', execOptsLinux));
     const out = stdout.trim();
     let devices = [];
     try {
@@ -40,7 +40,7 @@ export const diskLayout = async (): Promise<DiskLayoutData[]> => {
     } catch (e) {
       // fallback to older version of lsblk
       try {
-        ({ stdout } = await exec('export LC_ALL=C; lsblk -bPo NAME,TYPE,SIZE,FSTYPE,MOUNTPOINT,UUID,ROTA,RO,RM,LABEL,MODEL,OWNER,GROUP 2>/dev/null; unset LC_ALL', execOptsLinux));
+        ({ stdout } = await exec('export LC_ALL=C.UTF-8; lsblk -bPo NAME,TYPE,SIZE,FSTYPE,MOUNTPOINT,UUID,ROTA,RO,RM,LABEL,MODEL,OWNER,GROUP 2>/dev/null; unset LC_ALL', execOptsLinux));
         const lines = blkStdoutToObject(stdout).split('\n');
         const data = parseLinuxBlk(lines);
         devices = data.filter((item) => {
