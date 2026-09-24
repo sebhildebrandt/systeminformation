@@ -2,21 +2,31 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../roboto/css/roboto.css">
-    <link rel="stylesheet" href="styles.css">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css"
+      integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../roboto/css/roboto.css" />
+    <link rel="stylesheet" href="styles.css" />
     <script src="main.js"></script>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
 
     <title>systeminformation</title>
   </head>
@@ -25,7 +35,7 @@
     <nav class="nav">
       <div class="container">
         <a href="."
-          ><img class="logo float-left" src="../assets/logo.png" alt="logo">
+          ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
           <div class="title-version float-left">v6.0.0-beta.16</div>
         </a>
@@ -46,14 +56,17 @@
                 <div class="title">Version History</div>
                 <div class="text">
                   <h3>Major and Breaking Changes</h3>
-                  <p>To see detaild information on major und breaking changes for version 5.x, refer to the <a href="changes.html">Version 5 - Changes</a> page.<br>Be aware version 5 is <strong>NOT fully backward compatible</strong> to version 4.x ...</p>
+                  <p>
+                    To see detaild information on major und breaking changes for version 5.x, refer to the <a href="changes.html">Version 5 - Changes</a> page.<br />Be aware version 5 is
+                    <strong>NOT fully backward compatible</strong> to version 4.x ...
+                  </p>
 
                   <h3>Full version history</h3>
                   <table class="table table-sm table-bordered table-striped">
                     <thead>
                       <tr>
                         <th scope="col">Version</th>
-                        <th scope="col" style="width: 12%;">Date</th>
+                        <th scope="col" style="width: 12%">Date</th>
                         <th scope="col">Comment</th>
                       </tr>
                     </thead>
@@ -142,6 +155,11 @@
                         <th scope="row">6.0.0-beta.0</th>
                         <td>2026-08-25</td>
                         <td><span class="code">version 6 beta</span> fixes and improvements</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">5.33.14</th>
+                        <td>2026-09-24</td>
+                        <td><span class="code">networkStats()</span> prevent path traversal via interface name (linux)</td>
                       </tr>
                       <tr>
                         <th scope="row">5.33.13</th>
@@ -1776,7 +1794,9 @@
                       <tr>
                         <th scope="row">5.6.13</th>
                         <td>2021-05-04</td>
-                        <td><span class="code">dockerImagesInspect()</span> <span class="code">dockerContainerInspect()</span> <span class="code">dockerContainerProcesses()</span> parameter sanitation</td>
+                        <td>
+                          <span class="code">dockerImagesInspect()</span> <span class="code">dockerContainerInspect()</span> <span class="code">dockerContainerProcesses()</span> parameter sanitation
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">5.6.12</th>
@@ -1876,7 +1896,10 @@
                       <tr>
                         <th scope="row">5.3.1</th>
                         <td>2021-02-14</td>
-                        <td><span class="code">inetLatency()</span> <span class="code">inetChecksite()</span> <span class="code">services()</span> <span class="code">processLoad()</span> fix possible security issue</td>
+                        <td>
+                          <span class="code">inetLatency()</span> <span class="code">inetChecksite()</span> <span class="code">services()</span> <span class="code">processLoad()</span> fix possible
+                          security issue
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">5.3.0</th>
@@ -2693,7 +2716,7 @@
                         <td>2019-06-24</td>
                         <td>
                           <span class="code">networkInterface()</span>
-                          virtual interfaces mac OS<br>
+                          virtual interfaces mac OS<br />
                           <span class="code">networkInterfaceDefault()</span>
                           optimization windows
                         </td>
@@ -3561,7 +3584,10 @@
                       <tr>
                         <th scope="row">3.30.0</th>
                         <td>2017-09-21</td>
-                        <td>extended <span class="code">versions()</span> (added <span class="code">yarn</span>, <span class="code">gulp</span>, <span class="code">grunt</span>, <span class="code">tsc</span>, <span class="code">git</span>)</td>
+                        <td>
+                          extended <span class="code">versions()</span> (added <span class="code">yarn</span>, <span class="code">gulp</span>, <span class="code">grunt</span>,
+                          <span class="code">tsc</span>, <span class="code">git</span>)
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">3.29.0</th>
@@ -3651,7 +3677,9 @@
                       <tr>
                         <th scope="row">3.23.0</th>
                         <td>2017-06-22</td>
-                        <td>added <span class="code">memLayout</span>, <span class="code">diskLayout</span>, extended windows support (<span class="code">inetChecksite</span><span class="code"></span></td>
+                        <td>
+                          added <span class="code">memLayout</span>, <span class="code">diskLayout</span>, extended windows support (<span class="code">inetChecksite</span><span class="code"></span>
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">3.22.0</th>
@@ -3992,7 +4020,7 @@
               <li><a href="trademarks.html">Trademarks</a></li>
               <li>&nbsp;</li>
               <li>
-                <a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license"></a>
+                <a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a>
               </li>
               <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
               <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
@@ -4003,9 +4031,9 @@
     </footer>
 
     <script>
-    window.onload = (e) => {
-      createMenu();
-    };
+      window.onload = (e) => {
+        createMenu();
+      };
     </script>
   </body>
 </html>

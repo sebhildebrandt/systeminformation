@@ -91,6 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.33.14 | 2026-09-24 | `networkStats()` prevent path traversal via interface name (linux)                                  |
 | 5.33.13 | 2026-09-20 | `networkStats()` fix prototype pollution, `mamLayout()` fix clock speed reading                     |
 | 5.33.12 | 2026-09-18 | `fsSize()` strict drive letter whitelist (windows)                                                  |
 | 5.33.11 | 2026-09-16 | `battery()`, `uuid()`, `blockDevices()` fix Mac OS Golden Gate (macOS)                              |
@@ -105,7 +106,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 | 5.33.2  | 2026-07-24 | `powerShellStart()` fix - deadlock (windows)                                                        |
 | 5.33.1  | 2026-07-23 | `networkStats()` fix - changes underlying command (windows)                                         |
 | 5.33.0  | 2026-07-20 | `dockerContainers()` added status (healthy, ..)                                                     |
-| 5.32.0  | 2026-07-17 | fixes for #764, #853, #855, #866, #888, #940, #997, code refactoring                  |
+| 5.32.0  | 2026-07-17 | fixes for #764, #853, #855, #866, #888, #940, #997, code refactoring                                |
 | 5.31.17 | 2026-07-13 | `fsSize()` fixed parsing - spaces (linux)                                                           |
 | 5.31.16 | 2026-07-10 | `currentLoad` changed calculation (windows)                                                         |
 | 5.31.15 | 2026-07-08 | code refacroting, hardening                                                                         |
