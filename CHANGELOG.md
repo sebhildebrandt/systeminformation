@@ -91,7 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.33.14 | 2026-09-24 | `networkStats()` prevent path traversal via interface name (linux)                                  |
+| 5.33.14 | 2026-09-28 | `networkStats()` prevent path traversal via interface name (linux)                                  |
 | 5.33.13 | 2026-09-20 | `networkStats()` fix prototype pollution, `mamLayout()` fix clock speed reading                     |
 | 5.33.12 | 2026-09-18 | `fsSize()` strict drive letter whitelist (windows)                                                  |
 | 5.33.11 | 2026-09-16 | `battery()`, `uuid()`, `blockDevices()` fix Mac OS Golden Gate (macOS)                              |
