@@ -1793,6 +1793,38 @@ export const graphicsMetalVersion = (id: string) => {
 export const getAppleModel = (key: string) => {
   const appleModelIds = [
     {
+      key: 'Mac18,5',
+      name: 'Mac mini',
+      size: '',
+      processor: 'M6',
+      year: '2026',
+      additional: ''
+    },
+    {
+      key: 'Mac17,16',
+      name: 'Mac mini',
+      size: '',
+      processor: 'M5 Pro',
+      year: '2026',
+      additional: ''
+    },
+    {
+      key: 'Mac17,15',
+      name: 'Mac Studio',
+      size: '',
+      processor: 'M5 Ultra',
+      year: '2026',
+      additional: ''
+    },
+    {
+      key: 'Mac17,14',
+      name: 'Mac Studio',
+      size: '',
+      processor: 'M5 Max',
+      year: '2026',
+      additional: ''
+    },
+    {
       key: 'Mac17,9',
       name: 'MacBook Pro',
       size: '14-inch',
