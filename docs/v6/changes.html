@@ -27,7 +27,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.16</div>
+          <div class="title-version float-left">v6.0.0-beta.17</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -216,7 +216,10 @@
                     <li><span class="code">networkInterfaces()</span> adapters are matched by connection name instead of MAC address - a docking station mirroring the MAC of the internal NIC made one of the two disappear and mixed up their data (Windows, #762)</li>
                     <li><span class="code">networkInterfaces('default')</span> no longer returns an incomplete list when the default interface is not the first one (macOS/BSD)</li>
                     <li><span class="code">networkInterfaces()</span> queries <span class="code">nmcli device status</span> once per call instead of once per interface (Linux)</li>
-                    <li><span class="code">networkInterfaces()</span> <span class="code">virtual</span> is also <span class="code">true</span> for every interface without an underlying bus device in sysfs (bridges, bonds, tun / tap, wireguard, veths with custom names) - previously only name prefixes like <span class="code">veth</span> and known virtual MAC ranges were detected (Linux)</li>
+                    <li>
+                      <span class="code">networkInterfaces()</span> <span class="code">virtual</span> is also <span class="code">true</span> for every interface without an underlying bus device in sysfs (bridges, bonds, tun / tap, wireguard, veths with custom names) - previously only name prefixes
+                      like <span class="code">veth</span> and known virtual MAC ranges were detected (Linux)
+                    </li>
                     <li>
                       <span class="code">audio()</span>
                       falls back to ALSA (<span class="code">/proc/asound</span>) when no PCI audio device is found - ARM boards like the Raspberry Pi have no PCI bus, so <span class="code">lspci</span> returned nothing and the result was always empty (Linux, #545)

@@ -27,7 +27,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.16</div>
+          <div class="title-version float-left">v6.0.0-beta.17</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -55,8 +55,8 @@
 
                   <h4>Impact</h4>
                   <p>
-                    We had an issue that on linux machines the interface name passed to <span class="code">networkStats()</span> was used to build <span class="code">/sys/class/net/&lt;iface&gt;</span> paths without checking that it stays inside this directory. A crafted interface name containing <span class="code">../</span> in
-                    combination with a prepared directory containing symlinks could disclose the first line of files readable by the node process.
+                    We had an issue that on linux machines the interface name passed to <span class="code">networkStats()</span> was used to build <span class="code">/sys/class/net/&lt;iface&gt;</span> paths without checking that it stays inside this directory. A crafted interface name containing
+                    <span class="code">../</span> in combination with a prepared directory containing symlinks could disclose the first line of files readable by the node process.
                   </p>
 
                   <h4>Patch</h4>

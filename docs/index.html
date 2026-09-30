@@ -6,18 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css"
-      integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous" />
     <link rel="stylesheet" href="roboto/css/roboto.css" />
     <link rel="stylesheet" href="styles.css?a=112123" />
 
@@ -27,12 +17,7 @@
     <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"
-      integrity="sha512-3J8teBiHrSyaaRBajZyIEtpDsXdPq1gsznKWIVb5CnorQuFhjWGhWe54z8YNnHHr7MZuExb9m5kvf964HiT1Sw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" integrity="sha512-3J8teBiHrSyaaRBajZyIEtpDsXdPq1gsznKWIVb5CnorQuFhjWGhWe54z8YNnHHr7MZuExb9m5kvf964HiT1Sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <title>systeminformation</title>
     <script>
@@ -135,13 +120,7 @@
         const start = window.pageYOffset;
         const startTime = "now" in window.performance ? performance.now() : Date.now();
 
-        const documentHeight = Math.max(
-          document.body.scrollHeight,
-          document.body.offsetHeight,
-          document.documentElement.clientHeight,
-          document.documentElement.scrollHeight,
-          document.documentElement.offsetHeight,
-        );
+        const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
         const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName("body")[0].clientHeight;
         const destinationOffset = typeof destination === "number" ? destination : destination.offsetTop;
         const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
@@ -182,7 +161,7 @@
         <img class="logo" src="assets/logo.png" alt="logo" />
         <div class="title">systeminformation</div>
         <div class="subtitle"><span id="typed"></span>&nbsp;</div>
-        <div class="version">New Version: <span id="version">5.33.14</span></div>
+        <div class="version">New Version: <span id="version">5.33.15</span></div>
         <button type="button" class="btn btn-light" onclick="location.href = 'https://github.com/sebhildebrandt/systeminformation'">View on Github <i class="fab fa-github"></i></button>
       </div>
       <div class="down">
@@ -198,8 +177,7 @@
           <div class="col-12 sectionheader index">
             <div class="title">Overview</div>
             <div class="subtitle">
-              Node.js system information package. Lightweight collection of 50+ functions to retrieve detailed hardware, system and OS information. For Linux, macOS, partial Windows, FreeBSD, OpenBSD,
-              NetBSD, SunOS and Android support. Dependency free. Works with <span class="bold">Node.js</span>,
+              Node.js system information package. Lightweight collection of 50+ functions to retrieve detailed hardware, system and OS information. For Linux, macOS, partial Windows, FreeBSD, OpenBSD, NetBSD, SunOS and Android support. Dependency free. Works with <span class="bold">Node.js</span>,
               <span class="bold">Bun</span>
               and <span class="bold">Deno</span>
             </div>
@@ -210,19 +188,11 @@
             </div>
             <div class="npmicons">
               <a href="https://npmjs.org/package/systeminformation" rel="nofollow"
-                ><img
-                  src="https://img.shields.io/npm/v/systeminformation.svg?style=flat-square"
-                  alt="NPM Version"
-                  data-canonical-src="https://img.shields.io/npm/v/systeminformation.svg?style=flat-square"
-                  style="max-width: 100%"
+                ><img src="https://img.shields.io/npm/v/systeminformation.svg?style=flat-square" alt="NPM Version" data-canonical-src="https://img.shields.io/npm/v/systeminformation.svg?style=flat-square" style="max-width: 100%"
               /></a>
               <a href="https://systeminformation.io" rel="nofollow"><img src="assets/no-dependencies.svg" alt="no dependencies" /></a>
               <a href="https://github.com/sebhildebrandt/systeminformation/blob/master/LICENSE"
-                ><img
-                  src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square"
-                  alt="MIT license"
-                  data-canonical-src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square"
-                  style="max-width: 100%"
+                ><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" data-canonical-src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" style="max-width: 100%"
               /></a>
             </div>
             <div class="text larger"><span class="warning">Security issues:</span> Please have a look at our <a href="../security.html">security advisories</a>.</div>
@@ -235,7 +205,7 @@
         </div>
         <div class="row number-section">
           <div class="col-xl-4 col-lg-4 col-md-4 col-12">
-            <div class="numbers">20,263</div>
+            <div class="numbers">20,526</div>
             <div class="title">Lines of code</div>
           </div>
           <div class="col-xl-4 col-lg-4 col-md-4 col-12">
@@ -243,7 +213,7 @@
             <div class="title">Downloads last month</div>
           </div>
           <div class="col-xl-4 col-lg-4 col-md-4 col-12">
-            <div class="numbers">1210</div>
+            <div class="numbers">1213</div>
             <div class="title">Dependents</div>
           </div>
         </div>
@@ -258,8 +228,8 @@
             <div class="subtitle">Detailed documentation and reference for version 5.x.x</div>
             <div class="title-small">Breaking Changes - Version 5</div>
             <div class="text">
-              We made a lot of improvements and changes in the new version. <span class="bold">Version 5 is NOT fully backward compatible to version 4!</span> Be aware, there are some breaking
-              changes. Please refer to the <a href="changes.html">Version 5 - Changes</a> page to see a full documentation of all changes you should have a look on.
+              We made a lot of improvements and changes in the new version. <span class="bold">Version 5 is NOT fully backward compatible to version 4!</span> Be aware, there are some breaking changes. Please refer to the <a href="changes.html">Version 5 - Changes</a> page to see a full
+              documentation of all changes you should have a look on.
             </div>
             <div class="text larger"><span class="bold">Version 4 documentation</span> can be found on the <a href="v4/index.html">version 4 documentation page</a>.</div>
           </div>
@@ -384,8 +354,7 @@
             <div class="title-small">Issues</div>
             <div class="text"><span class="warning">Security issues:</span> We highly recommend to have a look at our <a href="security.html">security advisories</a></div>
             <div class="text">
-              <span class="bold">Having an issue</span>: If you run into problems, please check out <a href="issues.html">known issues page</a> first.<br />If you still have problems, please feel free
-              to open an issue on our
+              <span class="bold">Having an issue</span>: If you run into problems, please check out <a href="issues.html">known issues page</a> first.<br />If you still have problems, please feel free to open an issue on our
               <a href="https://github.com/sebhildebrandt/systeminformation/issues">github page</a>
             </div>
           </div>

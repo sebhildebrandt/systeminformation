@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo">
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.16</div>
+          <div class="title-version float-left">v6.0.0-beta.17</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -44,150 +44,149 @@
 
     <div class="container-fluid">
       <section class="container">
-      <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
-        </div>
-        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-          <div class="row">
-            <div class="col-12 sectionheader">
-              <div class="title">USB / Serial</div>
-              <div class="text">
-                <p>In this section you will learn how to get information about detected USB devices and serial / COM ports:</p>
-                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
-                <pre><code class="js">const si = require('systeminformation');</code></pre>
-                <h2>Detected USB Devices and Serial Ports</h2>
-                <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
-                <table class="table table-sm table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Function</th>
-                      <th>Result object</th>
-                      <th>Linux</th>
-                      <th>BSD</th>
-                      <th>Mac</th>
-                      <th>Win</th>
-                      <th>Sun</th>
-                      <th>Comments</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>si.usb(cb)</td>
-                      <td>[{...}]</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>array detected USB devices</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].bus</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>USB bus</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].deviceId</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>Bus device ID</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].id</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>ID e.g. 0bda:8821</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].name</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>name, e.g. root hub</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].type</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>type e.g. keyboard or mouse</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].removable</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>is removable</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].vendor</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>vendor e.g. Realtek</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].manufacturer</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>manufacturer e.g. Chicony</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].maxPower</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>max power e.g. 100mA</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].serialNumber</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>serial number if available</td>
-                    </tr>
-                    <tr class="example">
-                      <td></td>
-                      <td colspan="7">
-                        <h5>Example</h5>
-                        <pre><code class="js">const si = require('systeminformation');
+        <div class="row">
+          <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu"></div>
+          <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+            <div class="row">
+              <div class="col-12 sectionheader">
+                <div class="title">USB / Serial</div>
+                <div class="text">
+                  <p>In this section you will learn how to get information about detected USB devices and serial / COM ports:</p>
+                  <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                  <pre><code class="js">const si = require('systeminformation');</code></pre>
+                  <h2>Detected USB Devices and Serial Ports</h2>
+                  <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+                  <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Function</th>
+                        <th>Result object</th>
+                        <th>Linux</th>
+                        <th>BSD</th>
+                        <th>Mac</th>
+                        <th>Win</th>
+                        <th>Sun</th>
+                        <th>Comments</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>si.usb(cb)</td>
+                        <td>[ { ...}]</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>array detected USB devices</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].bus</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>USB bus</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].deviceId</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Bus device ID</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].id</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>ID e.g. 0bda:8821</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].name</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>name, e.g. root hub</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].type</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>type e.g. keyboard or mouse</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].removable</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>is removable</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].vendor</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>vendor e.g. Realtek</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].manufacturer</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>manufacturer e.g. Chicony</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].maxPower</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>max power e.g. 100mA</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].serialNumber</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>serial number if available</td>
+                      </tr>
+                      <tr class="example">
+                        <td></td>
+                        <td colspan="7">
+                          <h5>Example</h5>
+                          <pre><code class="js">const si = require('systeminformation');
 si.usb().then(data => console.log(data));</code></pre>
-                      <pre class="example">
+                          <pre class="example">
 [
   {
     bus: 1,
@@ -237,105 +236,105 @@ si.usb().then(data => console.log(data));</code></pre>
     maxPower: '100mA',
     serialNumber: null }
 ]</pre>
-                    </td>
-                    </tr>
-                    <tr>
-                      <td>si.serialPorts()</td>
-                      <td>[{...}]</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>array of detected serial / COM ports</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].device</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>device path, e.g. /dev/ttyUSB0 (COM3 on Windows)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].name</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>product / friendly name</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].manufacturer</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>manufacturer e.g. FTDI</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].serialNumber</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>serial number (USB ports only)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].vendorId</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>vendor id (hex) e.g. 0403</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].productId</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>product id (hex) e.g. 6001</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].pnpId</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>stable id (by-id on Linux, DeviceID on Windows)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].type</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>usb, onboard, pci, bluetooth, virtual, unknown</td>
-                    </tr>
-                    <tr class="example">
-                      <td></td>
-                      <td colspan="7">
-                        <h5>Example</h5>
-                        <pre><code class="js">const si = require('systeminformation');
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>si.serialPorts()</td>
+                        <td>[ { ...}]</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>array of detected serial / COM ports</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].device</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>device path, e.g. /dev/ttyUSB0 (COM3 on Windows)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].name</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>product / friendly name</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].manufacturer</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>manufacturer e.g. FTDI</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].serialNumber</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>serial number (USB ports only)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].vendorId</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>vendor id (hex) e.g. 0403</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].productId</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>product id (hex) e.g. 6001</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].pnpId</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>stable id (by-id on Linux, DeviceID on Windows)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].type</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>usb, onboard, pci, bluetooth, virtual, unknown</td>
+                      </tr>
+                      <tr class="example">
+                        <td></td>
+                        <td colspan="7">
+                          <h5>Example</h5>
+                          <pre><code class="js">const si = require('systeminformation');
 si.serialPorts().then(data =&gt; console.log(data));</code></pre>
-                      <pre class="example">
+                          <pre class="example">
 [
   {
     device: '/dev/ttyUSB0',
@@ -358,28 +357,26 @@ si.serialPorts().then(data =&gt; console.log(data));</code></pre>
     type: 'onboard'
   }
 ]</pre>
-                    </td>
-                    </tr>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <h2>Known issues</h2>
+                  <h4>Serial Ports</h4>
 
-                  </tbody>
-                </table>
-                <h2>Known issues</h2>
-                <h4>Serial Ports</h4>
+                  <p><span class="code">serialPorts()</span> only <span class="bold">enumerates</span> ports - opening one (baud rate, termios, RTS toggling for half duplex) needs a native binding and is therefore out of scope for this zero-dependency library.</p>
 
-                <p><span class="code">serialPorts()</span> only <span class="bold">enumerates</span> ports - opening one (baud rate, termios, RTS toggling for half duplex) needs a native binding and is therefore out of scope for this zero-dependency library.</p>
+                  <p>On Linux a port is listed even when the current user is not a member of the <span class="code">dialout</span> / <span class="code">uucp</span> group, so listing can succeed while opening the port fails with a permission error.</p>
 
-                <p>On Linux a port is listed even when the current user is not a member of the <span class="code">dialout</span> / <span class="code">uucp</span> group, so listing can succeed while opening the port fails with a permission error.</p>
+                  <p>On Windows the <span class="code">COMx</span> number is reassigned per USB port, so <span class="code">pnpId</span> is the only stable key to identify a specific adapter.</p>
 
-                <p>On Windows the <span class="code">COMx</span> number is reassigned per USB port, so <span class="code">pnpId</span> is the only stable key to identify a specific adapter.</p>
-
-                <p>RS-232 and RS-485 cannot be told apart by enumeration - an RS-485 transceiver looks like an ordinary UART to the operating system - so no such information is reported.</p>
+                  <p>RS-232 and RS-485 cannot be told apart by enumeration - an RS-485 transceiver looks like an ordinary UART to the operating system - so no such information is reported.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-  </div>
-  </section>
+      </section>
     </div>
     <footer class="container-fluid footer">
       <div class="container">
