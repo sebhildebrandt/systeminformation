@@ -15,7 +15,8 @@ export const services = async (srv: string): Promise<ServicesData[]> => {
       if (srvs[0] !== '*') {
         wincommand += ' -Filter "';
         srvs.forEach((srv: string) => {
-          wincommand += `Name='${srv}' or `;
+          // whitelist: srv is inserted into a PowerShell string
+          wincommand += `Name='${srv.replace(/[^a-zA-Z0-9 _.\-@]/g, '')}' or `;
         });
         wincommand = `${wincommand.slice(0, -4)}"`;
       }

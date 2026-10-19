@@ -42,6 +42,9 @@ export const sanitizeShellString = (str: string, strict?: any) => {
         s[i] === "'" ||
         s[i] === '`' ||
         s[i] === '"' ||
+        // unicode quotes (U+2018-U+201E) and dashes (U+2013-U+2015) are treated as ' " - by PowerShell
+        (s[i] >= '‘' && s[i] <= '„') ||
+        (s[i] >= '–' && s[i] <= '―') ||
         s[i].length > 1 ||
         (strict && s[i] === '(') ||
         (strict && s[i] === ')') ||
@@ -61,8 +64,7 @@ export const sanitizeShellString = (str: string, strict?: any) => {
 // a path segment must stay inside its directory: `/` leaves it and path.join() resolves
 // dot-only names one level up. Everything else is a legal file name - narrowing the charset
 // further only drops real devices (udev encodes `+`, `#` and `=` verbatim in /dev/serial/by-id)
-export const isSafePathSegment = (segment: string) =>
-  !!segment && segment.indexOf('/') === -1 && segment.indexOf('\0') === -1 && segment !== '.' && segment !== '..';
+export const isSafePathSegment = (segment: string) => !!segment && segment.indexOf('/') === -1 && segment.indexOf('\0') === -1 && segment !== '.' && segment !== '..';
 
 // windows drive letter whitelist: only "<letter>:" survives, everything else is dropped
 export const sanitizeDriveLetter = (str: string) => {
