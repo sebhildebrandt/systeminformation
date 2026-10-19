@@ -2,26 +2,26 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../roboto/css/roboto.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../roboto/css/roboto.css" />
+    <link rel="stylesheet" href="styles.css" />
     <script src="main.js"></script>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-    hljs.initHighlightingOnLoad();
+      hljs.initHighlightingOnLoad();
     </script>
 
     <title>systeminformation</title>
@@ -31,9 +31,9 @@
     <nav class="nav">
       <div class="container">
         <a href="."
-          ><img class="logo float-left" src="../assets/logo.png" alt="logo">
+          ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.17</div>
+          <div class="title-version float-left">v6.0.0-beta.18</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -88,7 +88,7 @@
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>average load<br>(Windows: approximated - see note below)</td>
+                        <td>average load<br />(Windows: approximated - see note below)</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -269,8 +269,7 @@ si.currentLoad().then(data => console.log(data));</code></pre>
                           <h5>Example</h5>
                           <pre><code class="js">const si = require('systeminformation');
 si.fullLoad().then(data => console.log(data));</code></pre>
-                          <pre class="example">
-4.2087723705022335</pre>
+                          <pre class="example">4.2087723705022335</pre>
                         </td>
                       </tr>
                       <tr>
@@ -539,8 +538,8 @@ si.fullLoad().then(data => console.log(data));</code></pre>
                           <h5>state on Windows</h5>
                           <p>
                             Windows does not expose a process state - <span class="code">Win32_Process.ExecutionState</span> is documented as not implemented and always empty. The state is therefore derived from the threads of a process: at least one thread on or ready for a CPU is reported as
-                            <span class="code">running</span>, all threads waiting as
-                            <span class="code">sleeping</span>, and all threads suspended (what the task manager shows as "Suspended") as <span class="code">blocked</span>. Processes whose threads cannot be read - protected system processes - stay <span class="code">unknown</span>.
+                            <span class="code">running</span>, all threads waiting as <span class="code">sleeping</span>, and all threads suspended (what the task manager shows as "Suspended") as <span class="code">blocked</span>. Processes whose threads cannot be read - protected system processes -
+                            stay <span class="code">unknown</span>.
                           </p>
                           <h5>Example</h5>
                           <pre><code class="js">const si = require('systeminformation');
@@ -587,7 +586,7 @@ si.processes().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>detailed information about given processes<br>pass comma separated list or<br>'*' for all processes</td>
+                        <td>detailed information about given processes<br />pass comma separated list or<br />'*' for all processes</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -683,7 +682,7 @@ si.processLoad('nginx, postgres').then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td></td>
-                        <td>process owning the currently focused window<br>X11 only on Linux, null if not detectable</td>
+                        <td>process owning the currently focused window<br />X11 only on Linux, null if not detectable</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -737,7 +736,7 @@ si.processFocused().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td></td>
-                        <td>pass comma separated string of services<br>pass &quot;*&quot; for ALL services (linux/win only)<br>Linux: state, start mode and PIDs come from systemd, service names are matched exactly (case insensitive)</td>
+                        <td>pass comma separated string of services<br />pass &quot;*&quot; for ALL services (linux/win only)<br />Linux: state, start mode and PIDs come from systemd, service names are matched exactly (case insensitive)</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -767,7 +766,7 @@ si.processFocused().then(data => console.log(data));</code></pre>
                         <td></td>
                         <td>X</td>
                         <td></td>
-                        <td>Windows: manual, automatic, ...<br>Linux (systemd): enabled, disabled, static, ...</td>
+                        <td>Windows: manual, automatic, ...<br />Linux (systemd): enabled, disabled, static, ...</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -777,7 +776,7 @@ si.processFocused().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td></td>
                         <td></td>
-                        <td>Linux (systemd): date of the last state change (ActiveEnter / ActiveExit)<br>macOS / BSD: start time of the service processes</td>
+                        <td>Linux (systemd): date of the last state change (ActiveEnter / ActiveExit)<br />macOS / BSD: start time of the service processes</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -898,7 +897,7 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre>
               <li><a href="trademarks.html">Trademarks</a></li>
               <li>&nbsp;</li>
               <li>
-                <a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license"></a>
+                <a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a>
               </li>
               <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
               <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
@@ -909,9 +908,9 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre>
     </footer>
 
     <script>
-    window.onload = (e) => {
-      createMenu();
-    };
+      window.onload = (e) => {
+        createMenu();
+      };
     </script>
   </body>
 </html>

@@ -2,21 +2,21 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../roboto/css/roboto.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../roboto/css/roboto.css" />
+    <link rel="stylesheet" href="styles.css" />
     <script src="main.js"></script>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
 
     <title>systeminformation</title>
   </head>
@@ -25,9 +25,9 @@
     <nav class="nav">
       <div class="container">
         <a href="."
-          ><img class="logo float-left" src="../assets/logo.png" alt="logo">
+          ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.17</div>
+          <div class="title-version float-left">v6.0.0-beta.18</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -66,8 +66,8 @@
                     <li><span class="code">inetPublicIp()</span> public IPv4 / IPv6 address (#731)</li>
                     <li>
                       <span class="code">serialPorts()</span>
-                      detected serial / COM ports incl. USB adapters (<span class="code">device</span>, <span class="code">name</span>, <span class="code">manufacturer</span>, <span class="code">serialNumber</span>, <span class="code">vendorId</span>,
-                      <span class="code">productId</span>, <span class="code">pnpId</span>, <span class="code">type</span>; Linux via sysfs, macOS via ioreg, Windows via <span class="code">Win32_PnPEntity</span>)
+                      detected serial / COM ports incl. USB adapters (<span class="code">device</span>, <span class="code">name</span>, <span class="code">manufacturer</span>, <span class="code">serialNumber</span>, <span class="code">vendorId</span>, <span class="code">productId</span>,
+                      <span class="code">pnpId</span>, <span class="code">type</span>; Linux via sysfs, macOS via ioreg, Windows via <span class="code">Win32_PnPEntity</span>)
                     </li>
                     <li>
                       <span class="code">processFocused()</span>
@@ -120,8 +120,7 @@
                     <li>
                       <span class="code">blockDevices()</span>
                       ZFS pools and multi device btrfs file systems are now resolved like mdraid: every member gets its pool as <span class="code">group</span> and one entry per pool is added, with the raid profile as <span class="code">type</span> (e.g. <span class="code">mirror</span>,
-                      <span class="code">raidz1</span>, <span class="code">raid1</span>,
-                      <span class="code">raid10</span>). btrfs is read from sysfs (no btrfs-progs, no root needed), ZFS from <span class="code">zpool status</span> /
+                      <span class="code">raidz1</span>, <span class="code">raid1</span>, <span class="code">raid10</span>). btrfs is read from sysfs (no btrfs-progs, no root needed), ZFS from <span class="code">zpool status</span> /
                       <span class="code">zpool list</span>
                       (Linux)
                     </li>
@@ -232,8 +231,7 @@
                       takes <span class="code">vram</span> for discrete cards from sysfs instead of the PCI region size. The largest <span class="code">Region N ... [size=]</span> of
                       <span class="code">lspci</span>
                       was only overwritten when no region had been found at all, so the sysfs value never won - a Radeon 7900 XTX reported <span class="code">vram: 32768</span> because resizable BAR exposes a 32 GB window on a 24 GB card. <span class="code">mem_info_vram_total</span> now wins, and
-                      discrete Intel Arc is read as well through <span class="code">lmem_total_bytes</span> /
-                      <span class="code">tile0/physical_vram_size_bytes</span>. NVIDIA is unaffected (Linux)
+                      discrete Intel Arc is read as well through <span class="code">lmem_total_bytes</span> / <span class="code">tile0/physical_vram_size_bytes</span>. NVIDIA is unaffected (Linux)
                     </li>
                     <li>
                       <span class="code">gpu()</span>
@@ -278,39 +276,39 @@
                         <td><span class="code">time()</span></td>
                         <td>synchronous</td>
                         <td><span class="code">await si.time()</span></td>
-                        <td>time() is now <span class="bold">asynchronous</span><br>and returns a promise</td>
+                        <td>time() is now <span class="bold">asynchronous</span><br />and returns a promise</td>
                       </tr>
                       <tr>
                         <td><span class="code">version()</span></td>
                         <td>synchronous</td>
                         <td><span class="code">await si.version()</span></td>
-                        <td>version() is now <span class="bold">asynchronous</span> too -<br><span class="bold">all</span> functions are now async</td>
+                        <td>version() is now <span class="bold">asynchronous</span> too -<br /><span class="bold">all</span> functions are now async</td>
                       </tr>
                       <tr>
                         <td>callbacks</td>
                         <td><span class="code">si.cpu(data => { ...})</span></td>
                         <td>removed</td>
-                        <td><span class="bold">callbacks are no longer available</span> -<br>use async / await (preferred) or promises</td>
+                        <td><span class="bold">callbacks are no longer available</span> -<br />use async / await (preferred) or promises</td>
                       </tr>
                       <tr>
                         <td><span class="code">graphics()</span></td>
                         <td><span class="code">{ controllers, displays }</span></td>
                         <td>
-                          <span class="code">gpu()<br>displays()</span>
+                          <span class="code">gpu()<br />displays()</span>
                         </td>
-                        <td>graphics() was removed and split into two functions,<br>each returning a plain array.<br>get() returns a migration hint for the removed graphics key</td>
+                        <td>graphics() was removed and split into two functions,<br />each returning a plain array.<br />get() returns a migration hint for the removed graphics key</td>
                       </tr>
                       <tr>
                         <td>language</td>
                         <td>JavaScript</td>
                         <td>TypeScript</td>
-                        <td>typed .d.ts declarations are now<br>shipped for every function</td>
+                        <td>typed .d.ts declarations are now<br />shipped for every function</td>
                       </tr>
                       <tr>
                         <td>module resolution</td>
                         <td>deep <span class="code">require('.../dist/...')</span></td>
-                        <td><span class="code">exports</span> map<br>(both require and import)</td>
-                        <td>only documented entry points are importable;<br>deep dist/... paths gone</td>
+                        <td><span class="code">exports</span> map<br />(both require and import)</td>
+                        <td>only documented entry points are importable;<br />deep dist/... paths gone</td>
                       </tr>
                       <tr>
                         <td>Node.js</td>
@@ -339,7 +337,7 @@
                   </ul>
                   <p>This keeps bundles small: unused operating-system implementations can be tree-shaken away.</p>
                   <h4>Test Full Version 6 Functionality</h4>
-                  <p>If you want to see all function results on your machine, please <a href="tests.html">head over to Testing section</a>. We implemented a tiny test suite where you can easily go through all functions and test results on your machine without coding.<br><br></p>
+                  <p>If you want to see all function results on your machine, please <a href="tests.html">head over to Testing section</a>. We implemented a tiny test suite where you can easily go through all functions and test results on your machine without coding.<br /><br /></p>
                   <h2>Major Changes - Version 5</h2>
                   <h4>New Functions</h4>
                   <ul>
@@ -367,15 +365,15 @@
                         <td>unsupported values</td>
                         <td><span class="code">-1</span></td>
                         <td><span class="code">null</span></td>
-                        <td>values which are unknown or unsupported<br>on platform</td>
+                        <td>values which are unknown or unsupported<br />on platform</td>
                       </tr>
                       <tr>
                         <td><span class="code">battery()</span></td>
                         <td>
-                          <span class="code">hasbattery<br>cyclecount<br>ischarging<br>designedcapacity<br>maxcapacity<br>acconnected<br>timeremaining</span>
+                          <span class="code">hasbattery<br />cyclecount<br />ischarging<br />designedcapacity<br />maxcapacity<br />acconnected<br />timeremaining</span>
                         </td>
                         <td>
-                          <span class="code">hasBattery<br>cycleCount<br>isCharging<br>designedCapacity<br>maxCapacity<br>acConnected<br>timeRemaining</span>
+                          <span class="code">hasBattery<br />cycleCount<br />isCharging<br />designedCapacity<br />maxCapacity<br />acConnected<br />timeRemaining</span>
                         </td>
                         <td>pascalCase conformity</td>
                       </tr>
@@ -388,44 +386,44 @@
                       <tr>
                         <td><span class="code">cpu()</span></td>
                         <td>
-                          <span class="code">speedmin<br>speedmax</span>
+                          <span class="code">speedmin<br />speedmax</span>
                         </td>
                         <td>
-                          <span class="code">speedMin<br>speedMax</span>
+                          <span class="code">speedMin<br />speedMax</span>
                         </td>
                         <td>pascalCase conformity</td>
                       </tr>
                       <tr>
                         <td>
-                          <span class="code">cpu().speed<br>cpu().speedMin<br>cpu().speedMax</span>
+                          <span class="code">cpu().speed<br />cpu().speedMin<br />cpu().speedMax</span>
                         </td>
                         <td>string values</td>
-                        <td>now returning<br>numerical values</td>
+                        <td>now returning<br />numerical values</td>
                         <td>better value handling</td>
                       </tr>
                       <tr>
                         <td><span class="code">cpuCurrentspeed()</span></td>
                         <td></td>
                         <td><span class="code">cpuCurrentSpeed()</span></td>
-                        <td>function name changed<br>pascalCase conformity</td>
+                        <td>function name changed<br />pascalCase conformity</td>
                       </tr>
                       <tr>
                         <td><span class="code">currentLoad()</span></td>
                         <td>
-                          <span class="code">avgload<br>currentload<br>currentload_user<br>currentload_system<br>currentload_nice<br>currentload_idle<br>currentload_irq<br>raw_currentload</span>
+                          <span class="code">avgload<br />currentload<br />currentload_user<br />currentload_system<br />currentload_nice<br />currentload_idle<br />currentload_irq<br />raw_currentload</span>
                         </td>
                         <td>
-                          <span class="code">avgLoad<br>currentLoad<br>currentLoadUser<br>currentLoadSystem<br>currentLoadNice<br>currentLoadIdle<br>currentLoadIrq<br>rawCurrentLoad</span>
+                          <span class="code">avgLoad<br />currentLoad<br />currentLoadUser<br />currentLoadSystem<br />currentLoadNice<br />currentLoadIdle<br />currentLoadIrq<br />rawCurrentLoad</span>
                         </td>
                         <td>pascalCase conformity</td>
                       </tr>
                       <tr>
                         <td><span class="code">dockerContainerStats()</span></td>
                         <td>
-                          <span class="code">mem_usage<br>mem_limit<br>mem_percent<br>cpu_percent<br>cpu_stats<br>precpu_stats<br>memory_stats</span>
+                          <span class="code">mem_usage<br />mem_limit<br />mem_percent<br />cpu_percent<br />cpu_stats<br />precpu_stats<br />memory_stats</span>
                         </td>
                         <td>
-                          <span class="code">memUsage<br>memLimit<br>memPercent<br>cpuPercent<br>cpuStats<br>precpuStats<br>memoryStats</span>
+                          <span class="code">memUsage<br />memLimit<br />memPercent<br />cpuPercent<br />cpuStats<br />precpuStats<br />memoryStats</span>
                         </td>
                         <td>pascalCase conformity</td>
                       </tr>
@@ -438,20 +436,20 @@
                       <tr>
                         <td><span class="code">graphics().display</span></td>
                         <td>
-                          <span class="code">pixeldepth<br>resolutionx<br>resolutiony<br>sizex<br>sizey</span>
+                          <span class="code">pixeldepth<br />resolutionx<br />resolutiony<br />sizex<br />sizey</span>
                         </td>
                         <td>
-                          <span class="code">pixelDepth<br>resolutionX<br>resolutionY<br>sizeX<br>sizeY</span>
+                          <span class="code">pixelDepth<br />resolutionX<br />resolutionY<br />sizeX<br />sizeY</span>
                         </td>
                         <td>pascalCase conformity</td>
                       </tr>
                       <tr>
                         <td><span class="code">networkConnections()</span></td>
                         <td>
-                          <span class="code">localaddress<br>localport<br>peeraddress<br>peerport</span>
+                          <span class="code">localaddress<br />localport<br />peeraddress<br />peerport</span>
                         </td>
                         <td>
-                          <span class="code">localAddress<br>localPort<br>peerAddress<br>peerPort</span>
+                          <span class="code">localAddress<br />localPort<br />peerAddress<br />peerPort</span>
                         </td>
                         <td>pascalCase conformity</td>
                       </tr>
@@ -464,36 +462,36 @@
                       <tr>
                         <td><span class="code">processes()</span></td>
                         <td>
-                          <span class="code">mem_vsz<br>mem_rss<br>pcpu<br>pcpuu<br>pcpus<br>pmem</span>
+                          <span class="code">mem_vsz<br />mem_rss<br />pcpu<br />pcpuu<br />pcpus<br />pmem</span>
                         </td>
                         <td>
-                          <span class="code">memVsz<br>memRss<br>cpu<br>cpuu<br>cpus<br>mem</span>
+                          <span class="code">memVsz<br />memRss<br />cpu<br />cpuu<br />cpus<br />mem</span>
                         </td>
-                        <td>pascalCase conformity<br>renamed attributes</td>
+                        <td>pascalCase conformity<br />renamed attributes</td>
                       </tr>
                       <tr>
                         <td><span class="code">processLoad()</span></td>
                         <td>result as object</td>
                         <td>result as array of objects</td>
-                        <td>function now allows to provide more than<br>one process (as a comma separated list)</td>
+                        <td>function now allows to provide more than<br />one process (as a comma separated list)</td>
                       </tr>
                       <tr>
                         <td><span class="code">services()</span></td>
                         <td>
-                          <span class="code">pcpu<br>pmem</span>
+                          <span class="code">pcpu<br />pmem</span>
                         </td>
                         <td>
-                          <span class="code">cpu<br>mem</span>
+                          <span class="code">cpu<br />mem</span>
                         </td>
                         <td>renamed attributes</td>
                       </tr>
                       <tr>
                         <td><span class="code">vbox()</span></td>
                         <td>
-                          <span class="code">HPET<br>PAE<br>APIC<br>X2APIC<br>ACPI<br>IOAPIC<br>biosAPICmode<br>TRC</span>
+                          <span class="code">HPET<br />PAE<br />APIC<br />X2APIC<br />ACPI<br />IOAPIC<br />biosAPICmode<br />TRC</span>
                         </td>
                         <td>
-                          <span class="code">hpet<br>pae<br>apic<br>x2Apic<br>acpi<br>ioApic<br>biosApicMode<br>rtc</span>
+                          <span class="code">hpet<br />pae<br />apic<br />x2Apic<br />acpi<br />ioApic<br />biosApicMode<br />rtc</span>
                         </td>
                         <td>pascalCase conformity</td>
                       </tr>
@@ -530,7 +528,7 @@
                     <li>updated TypeScript definitions</li>
                   </ul>
                   <h4>Test Full Version 5 Functionality</h4>
-                  <p>If you want to see all function results on your machine, please <a href="tests.html">head over to Testing section</a>. We implemented a tiny test suite where you can easily go through all functions and test resuls on your machine without coding.<br><br></p>
+                  <p>If you want to see all function results on your machine, please <a href="tests.html">head over to Testing section</a>. We implemented a tiny test suite where you can easily go through all functions and test resuls on your machine without coding.<br /><br /></p>
                   <h2>Major Changes - Version 4</h2>
                   <h4>New Functions</h4>
                   <ul>
@@ -561,7 +559,7 @@
                     <li><strong>Promises</strong>. As you can see in the documentation, you can now also use it in a promise oriented way. But callbacks are still supported.</li>
                     <li><strong>Async/Await</strong>. Due to the promises support, systeminformation also works perfectly with the `async/await` pattern (available in <span class="code">node.js</span> <strong>v7.6.0</strong> and above). See example in the docs.</li>
                   </ul>
-                  <br>
+                  <br />
                   <h2>Full Version History</h2>
                   <p>Full version histrory (every single release version from version 1.x.x to 5.x.x) can be <a href="history.html">viewed here</a></p>
                 </div>
@@ -606,7 +604,7 @@
               <li><a href="trademarks.html">Trademarks</a></li>
               <li>&nbsp;</li>
               <li>
-                <a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license"></a>
+                <a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a>
               </li>
               <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
               <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
@@ -617,9 +615,9 @@
     </footer>
 
     <script>
-    window.onload = (e) => {
-      createMenu();
-    };
+      window.onload = (e) => {
+        createMenu();
+      };
     </script>
   </body>
 </html>

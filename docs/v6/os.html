@@ -2,26 +2,26 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../roboto/css/roboto.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../roboto/css/roboto.css" />
+    <link rel="stylesheet" href="styles.css" />
     <script src="main.js"></script>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-    hljs.initHighlightingOnLoad();
+      hljs.initHighlightingOnLoad();
     </script>
 
     <title>systeminformation</title>
@@ -31,9 +31,9 @@
     <nav class="nav">
       <div class="container">
         <a href="."
-          ><img class="logo float-left" src="../assets/logo.png" alt="logo">
+          ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.17</div>
+          <div class="title-version float-left">v6.0.0-beta.18</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -349,7 +349,7 @@ si.osInfo().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>version information of<br>node and dev software packages<br>optional apps param (string, <br>comma or space seperated)<br>only those apps are detected</td>
+                        <td>version information of<br />node and dev software packages<br />optional apps param (string, <br />comma or space seperated)<br />only those apps are detected</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -1155,10 +1155,8 @@ si.users().then(data => console.log(data));</code></pre>
                   </table>
                   <p>
                     Searched are the library directories of the platform (Linux additionally
-                    <span class="code">LD_LIBRARY_PATH</span>, <span class="code">/usr/local/cuda/lib64</span>,
-                    <span class="code">/opt/rocm/lib</span>, <span class="code">/opt/intel/oneapi/lib</span>; Windows
-                    <span class="code">System32</span>, <span class="code">SysWOW64</span>, <span class="code">CUDA_PATH</span>
-                    and the vendor entries of <span class="code">PATH</span>). <span class="code">cuda</span> is only reported when driver <strong>and</strong> runtime are present, as only then it is actually usable. SunOS always returns an empty array.
+                    <span class="code">LD_LIBRARY_PATH</span>, <span class="code">/usr/local/cuda/lib64</span>, <span class="code">/opt/rocm/lib</span>, <span class="code">/opt/intel/oneapi/lib</span>; Windows <span class="code">System32</span>, <span class="code">SysWOW64</span>,
+                    <span class="code">CUDA_PATH</span> and the vendor entries of <span class="code">PATH</span>). <span class="code">cuda</span> is only reported when driver <strong>and</strong> runtime are present, as only then it is actually usable. SunOS always returns an empty array.
                   </p>
                   <p class="warning">
                     This tells you that the <strong>library of a layer is installed</strong> - it is not a capability check of the GPU. <span class="code">dx12</span> in particular: <span class="code">d3d12.dll</span>
@@ -1168,8 +1166,8 @@ si.users().then(data => console.log(data));</code></pre>
                   <h4>Last system update</h4>
                   <p>
                     <span class="code">osInfo().lastUpdate</span>
-                    is the point in time the operating system was last updated (<span class="code">null</span>
-                    if it cannot be determined). The version this update brought the system to is the one you are running, so it is already in <span class="code">release</span>. As there is no common concept across operating systems, the sources differ:
+                    is the point in time the operating system was last updated (<span class="code">null</span> if it cannot be determined). The version this update brought the system to is the one you are running, so it is already in <span class="code">release</span>. As there is no common concept
+                    across operating systems, the sources differ:
                   </p>
                   <ul>
                     <li>
@@ -1213,8 +1211,8 @@ si.users().then(data => console.log(data));</code></pre>
                     <li><span class="code">module</span>: <span class="code">selinux</span>, <span class="code">apparmor</span>, <span class="code">sip</span> or <span class="code">''</span> when the platform has none</li>
                     <li><span class="code">enabled</span>: the module is active and enforcing or complaining - <span class="code">false</span> also when it is installed but switched off</li>
                     <li>
-                      <span class="code">mode</span>: <span class="code">enforcing</span> or <span class="code">permissive</span> (SELinux), <span class="code">enforce</span> or <span class="code">complain</span> (AppArmor),
-                      <span class="code">enforcing</span>, <span class="code">custom</span> or <span class="code">disabled</span> (SIP)
+                      <span class="code">mode</span>: <span class="code">enforcing</span> or <span class="code">permissive</span> (SELinux), <span class="code">enforce</span> or <span class="code">complain</span> (AppArmor), <span class="code">enforcing</span>, <span class="code">custom</span> or
+                      <span class="code">disabled</span> (SIP)
                     </li>
                     <li><span class="code">policy</span>: the loaded SELinux policy, e.g. <span class="code">targeted</span> or <span class="code">mls</span> - empty for AppArmor and SIP</li>
                   </ul>
@@ -1274,7 +1272,7 @@ si.users().then(data => console.log(data));</code></pre>
               <li><a href="trademarks.html">Trademarks</a></li>
               <li>&nbsp;</li>
               <li>
-                <a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license"></a>
+                <a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a>
               </li>
               <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
               <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
@@ -1285,9 +1283,9 @@ si.users().then(data => console.log(data));</code></pre>
     </footer>
 
     <script>
-    window.onload = (e) => {
-      createMenu();
-    };
+      window.onload = (e) => {
+        createMenu();
+      };
     </script>
   </body>
 </html>

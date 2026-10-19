@@ -2,26 +2,26 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../roboto/css/roboto.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../roboto/css/roboto.css" />
+    <link rel="stylesheet" href="styles.css" />
     <script src="main.js"></script>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-    hljs.initHighlightingOnLoad();
+      hljs.initHighlightingOnLoad();
     </script>
 
     <title>systeminformation</title>
@@ -31,9 +31,9 @@
     <nav class="nav">
       <div class="container">
         <a href="."
-          ><img class="logo float-left" src="../assets/logo.png" alt="logo">
+          ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.17</div>
+          <div class="title-version float-left">v6.0.0-beta.18</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -124,7 +124,7 @@
                         <td></td>
                         <td>X</td>
                         <td></td>
-                        <td>PCI bus address, e.g. '01:00.0'<br>join key for displays()[].gpuBusAddress</td>
+                        <td>PCI bus address, e.g. '01:00.0'<br />join key for displays()[].gpuBusAddress</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -451,14 +451,13 @@ si.gpu().then(data => console.log(data));</code></pre>
                   <p>
                     A card is treated as sharing system memory when its DRM driver is <span class="code">i915</span> or <span class="code">xe</span>
                     <strong>and</strong>
-                    sysfs reports no VRAM size for it - either because no such node exists, or because it reads 0. It then returns <span class="code">vram: null</span> with
-                    <span class="code">vramDynamic: true</span>. The integrated GPUs of ARM SoCs are not covered here: they are platform devices rather than PCI ones and come from their own code paths (<span class="code">vcgencmd</span>
+                    sysfs reports no VRAM size for it - either because no such node exists, or because it reads 0. It then returns <span class="code">vram: null</span> with <span class="code">vramDynamic: true</span>. The integrated GPUs of ARM SoCs are not covered here: they are platform devices
+                    rather than PCI ones and come from their own code paths (<span class="code">vcgencmd</span>
                     on a Raspberry Pi, the Tegra sysfs nodes on a Jetson).
                   </p>
                   <p>
                     The driver name alone does not decide it: <span class="code">i915</span> and <span class="code">xe</span> also drive the discrete Arc cards, which do expose their memory (<span class="code">lmem_total_bytes</span>, <span class="code">tile0/physical_vram_size_bytes</span>).
-                    Discrete cards are therefore unaffected - AMD through
-                    <span class="code">mem_info_vram_total</span>, NVIDIA through <span class="code">nvidia-smi</span>.
+                    Discrete cards are therefore unaffected - AMD through <span class="code">mem_info_vram_total</span>, NVIDIA through <span class="code">nvidia-smi</span>.
                   </p>
 
                   <h4>NVIDIA Tegra / Jetson</h4>
@@ -797,7 +796,7 @@ si.gpu().then(data => console.log(data));</code></pre>
                         <td></td>
                         <td>X</td>
                         <td></td>
-                        <td>'on', 'standby', 'suspend', 'off' or '' when unknown<br>Linux per connector (DPMS), Windows system wide<br>macOS: Intel only, Apple Silicon reports ''</td>
+                        <td>'on', 'standby', 'suspend', 'off' or '' when unknown<br />Linux per connector (DPMS), Windows system wide<br />macOS: Intel only, Apple Silicon reports ''</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -807,7 +806,7 @@ si.gpu().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td></td>
-                        <td>model of the GPU driving this display<br>macOS and Windows only</td>
+                        <td>model of the GPU driving this display<br />macOS and Windows only</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -817,7 +816,7 @@ si.gpu().then(data => console.log(data));</code></pre>
                         <td></td>
                         <td>X</td>
                         <td></td>
-                        <td>PCI address of the GPU driving this display<br>matches gpu()[].busAddress<br>Windows resolves it from the pnp location info</td>
+                        <td>PCI address of the GPU driving this display<br />matches gpu()[].busAddress<br />Windows resolves it from the pnp location info</td>
                       </tr>
                       <tr class="example">
                         <td></td>
@@ -904,7 +903,7 @@ si.displays().then(data => console.log(data));</code></pre>
               <li><a href="trademarks.html">Trademarks</a></li>
               <li>&nbsp;</li>
               <li>
-                <a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license"></a>
+                <a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a>
               </li>
               <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
               <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
@@ -915,9 +914,9 @@ si.displays().then(data => console.log(data));</code></pre>
     </footer>
 
     <script>
-    window.onload = (e) => {
-      createMenu();
-    };
+      window.onload = (e) => {
+        createMenu();
+      };
     </script>
   </body>
 </html>
