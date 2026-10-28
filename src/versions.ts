@@ -4,8 +4,8 @@ import { DARWIN, VBOXMANAGE, WINDOWS } from './common/const';
 import { darwinXcodeExists } from './common/darwin';
 import { exec, execSave } from './common/exec';
 import { fileExists } from './common/files';
-import { ps } from './common/windows';
 import type { VersionData } from './common/types';
+import { ps } from './common/windows';
 
 export const versions = async (apps?: string | string[]) => {
   const versionObject: { [index: string]: any } = {
@@ -75,15 +75,15 @@ export const versions = async (apps?: string | string[]) => {
       };
     }
     if (!Array.isArray(apps)) {
-      apps = apps.trim().toLowerCase().replace(/,+/g, '|').replace(/ /g, '|');
-      apps = apps.split('|');
+      // non-string input yields no apps (same as v5)
+      apps = typeof apps === 'string' ? apps.trim().toLowerCase().replace(/,+/g, '|').replace(/ /g, '|').split('|') : [];
     }
     const result: any = {
       versions: {},
       counter: 0
     };
     apps.forEach((el) => {
-      if (el) {
+      if (el && typeof el === 'string') {
         for (const key in versionObject) {
           if (Object.keys(versionObject).includes(key)) {
             if (key.toLowerCase() === el.toLowerCase() && !Object.keys(result.versions).includes(key)) {
@@ -768,7 +768,9 @@ export const versions = async (apps?: string | string[]) => {
         }
         if (Object.keys(appsObj.versions).includes('dotnet')) {
           if (WINDOWS) {
-            ps.exec('gci "HKLM:\\SOFTWARE\\Microsoft\\NET Framework Setup\\NDP" -recurse | gp -name Version,Release -EA 0 | where { $_.PSChildName -match "^(?!S)\\p{L}"} | select PSChildName, Version, Release')
+            ps.exec(
+              'gci "HKLM:\\SOFTWARE\\Microsoft\\NET Framework Setup\\NDP" -recurse | gp -name Version,Release -EA 0 | where { $_.PSChildName -match "^(?!S)\\p{L}"} | select PSChildName, Version, Release'
+            )
               .then((stdout: any) => {
                 const lines: string[] = (stdout ? stdout.toString() : '').split('\r\n');
                 let dotnet = '';

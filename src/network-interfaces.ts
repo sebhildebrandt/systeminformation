@@ -1,7 +1,8 @@
-import { LINUX, WINDOWS, DARWIN, FREEBSD, NETBSD, OPENBSD, ANDROID } from './common/const';
+import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 
 export const networkInterfaces = async (defaultString = '', rescan = true) => {
-  defaultString = '' + defaultString;
+  // objects without string conversion would throw here
+  defaultString = typeof defaultString === 'string' ? defaultString : '';
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/network-interfaces.js')).networkInterfaces(defaultString, rescan);

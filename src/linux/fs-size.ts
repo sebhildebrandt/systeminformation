@@ -217,7 +217,8 @@ const matchesDrives = (fs: string, mount: string, drives: string[]) => {
   if (!drives.length) {
     return true;
   }
-  return drives.some((drive) => fs.toLowerCase().indexOf(drive.toLowerCase()) >= 0 || mount.toLowerCase().indexOf(drive.toLowerCase()) >= 0);
+  // non-string drive input matches no drive (same as windows)
+  return drives.some((drive) => typeof drive === 'string' && (fs.toLowerCase().indexOf(drive.toLowerCase()) >= 0 || mount.toLowerCase().indexOf(drive.toLowerCase()) >= 0));
 };
 
 // zfs entries carry the pool wide available space but only their own referenced usage, so
