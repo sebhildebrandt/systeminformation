@@ -10,7 +10,7 @@ const pickKeys = (element: any, keyList: string[]) => {
   }
   const partial: { [key: string]: any } = {};
   keyList.forEach((k) => {
-    if (Object.hasOwn(element, k)) {
+    if (Object.prototype.hasOwnProperty.call(element, k)) {
       partial[k] = element[k];
     }
   });
@@ -42,7 +42,7 @@ const pickResult = (data: any, value: string) => {
       if (filterParts.length === 2) {
         const filterKey = filterParts[0].trim();
         const filterValue = filterParts[1].trim();
-        if (Object.hasOwn(partialRes, filterKey)) {
+        if (Object.prototype.hasOwnProperty.call(partialRes, filterKey)) {
           const val = partialRes[filterKey];
           if (typeof val === 'number') {
             if (val === parseFloat(filterValue)) {
@@ -66,7 +66,7 @@ const pickResult = (data: any, value: string) => {
 export const get = async (valueObject: { [key: string]: string }): Promise<{ [key: string]: any }> => {
   await nextTick();
   const lib = functions as unknown as { [key: string]: (...args: any[]) => any };
-  const isGettable = (key: string) => Object.hasOwn(lib, key) && typeof lib[key] === 'function' && typeof (valueObject || {})[key] === 'string' && blocked.indexOf(key) < 0;
+  const isGettable = (key: string) => Object.prototype.hasOwnProperty.call(lib, key) && typeof lib[key] === 'function' && typeof (valueObject || {})[key] === 'string' && blocked.indexOf(key) < 0;
 
   const keys = Object.keys(valueObject || {}).filter(isGettable);
   const data = await Promise.all(
@@ -87,7 +87,7 @@ export const get = async (valueObject: { [key: string]: string }): Promise<{ [ke
     result[key] = pickResult(data[i], valueObject[key]);
   });
   // v6 migration hint instead of silently dropping the removed key
-  if (Object.hasOwn(valueObject || {}, 'graphics')) {
+  if (Object.prototype.hasOwnProperty.call(valueObject || {}, 'graphics')) {
     result.graphics = 'graphics() was removed in v6 - use gpu and displays instead';
   }
   return result;
