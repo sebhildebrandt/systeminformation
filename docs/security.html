@@ -44,6 +44,19 @@
             <div class="col-12 sectionheader">
               <div class="title">Security Advisories</div>
               <div class="text">
+                <h2>inetChecksite() Unhandled Rejection (Denial of Service)</h2>
+                <p><span class="bold">Affected versions:</span>
+                  &lt; 5.33.17<br>
+                  <span class="bold">Date:</span> 2026-10-28
+                </p>
+
+                <h4>Impact</h4>
+                <p>We had an issue that malformed URLs (e.g. <span class="code">http://</span>) passed to <span class="code">inetChecksite()</span> caused the underlying HTTP request to throw synchronously. The resulting promise rejection was not handled, which could terminate the node process. Applications passing untrusted URLs to <span class="code">inetChecksite()</span> could be crashed with a single request (denial of service).</p>
+
+                <h4>Patch</h4>
+                <p>Problem was fixed by catching synchronous request errors so that <span class="code">inetChecksite()</span> always resolves. If you are using version 5, please upgrade to version >= 5.33.17.</p>
+                <hr>
+                <br>
                 <h2>services() Command Injection Vulnerability</h2>
                 <p><span class="bold">Affected versions:</span>
                   &lt; 5.33.16<br>
