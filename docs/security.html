@@ -44,6 +44,19 @@
             <div class="col-12 sectionheader">
               <div class="title">Security Advisories</div>
               <div class="text">
+                <h2>fsSize() Uncaught TypeError (Denial of Service)</h2>
+                <p><span class="bold">Affected versions:</span>
+                  &lt; 5.33.18<br>
+                  <span class="bold">Date:</span> 2026-10-28
+                </p>
+
+                <h4>Impact</h4>
+                <p>We had an issue that on linux, macOS and BSD machines a non-string value (e.g. a number or an object) passed as <span class="code">drive</span> parameter to <span class="code">fsSize()</span> caused an uncaught TypeError inside an asynchronous callback, which could terminate the node process. Applications passing untrusted input to <span class="code">fsSize()</span> could be crashed with a single request (denial of service).</p>
+
+                <h4>Patch</h4>
+                <p>Problem was fixed by checking the type of the drive parameter. Non-string values now match no drive (same behavior as on windows). If you are using version 5, please upgrade to version >= 5.33.18.</p>
+                <hr>
+                <br>
                 <h2>inetChecksite() Unhandled Rejection (Denial of Service)</h2>
                 <p><span class="bold">Affected versions:</span>
                   &lt; 5.33.17<br>
