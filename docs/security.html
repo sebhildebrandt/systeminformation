@@ -44,6 +44,19 @@
             <div class="col-12 sectionheader">
               <div class="title">Security Advisories</div>
               <div class="text">
+                <h2>get() Uncaught TypeError (Denial of Service)</h2>
+                <p><span class="bold">Affected versions:</span>
+                  &lt; 5.33.19 (version 6 is not affected)<br>
+                  <span class="bold">Date:</span> 2026-10-30
+                </p>
+
+                <h4>Impact</h4>
+                <p>We had an issue that a parameter given in a <span class="code">get()</span> value (e.g. <span class="code">{ cpu: '(a)' }</span>) was also passed to functions that only accept a callback. Those functions then tried to call the parameter string as callback, which caused an uncaught TypeError inside an asynchronous callback and could terminate the node process. Applications passing untrusted input to <span class="code">get()</span> or <span class="code">observe()</span> could be crashed with a single request (denial of service).</p>
+
+                <h4>Patch</h4>
+                <p>Problem was fixed by passing parameters only to functions that accept a parameter. All other functions are now called without arguments. If you are using version 5, please upgrade to version >= 5.33.19.</p>
+                <hr>
+                <br>
                 <h2>fsSize() Uncaught TypeError (Denial of Service)</h2>
                 <p><span class="bold">Affected versions:</span>
                   &lt; 5.33.18<br>

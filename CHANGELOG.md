@@ -91,6 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.33.19 | 2026-10-30 | `get()` fixed uncaught TypeError on params for callback-only functions                               |
 | 5.33.18 | 2026-10-28 | `fsSize()` fixed uncaught TypeError on non-string drive (linux, macOS, bsd)                         |
 | 5.33.17 | 2026-10-28 | `inetChecksite()` fixed unhandled rejection on invalid URLs                                         |
 | 5.33.16 | 2026-10-19 | `utils()` sanitizeShellString extended (windows)                                                    |
