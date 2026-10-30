@@ -549,29 +549,28 @@ export const dockerAll = async () => {
   await nextTick();
   const result = await dockerContainers(true);
   if (result && Object.prototype.toString.call(result) === '[object Array]' && result.length > 0) {
-    result.forEach(async (element: any) => {
-      const res = await dockerContainerStats(element.id);
-      // include stats in array
-      if (res) {
-        element.memUsage = res[0].memUsage;
-        element.memLimit = res[0].memLimit;
-        element.memPercent = res[0].memPercent;
-        element.cpuPercent = res[0].cpuPercent;
-        element.pids = res[0].pids;
-        element.netIO = res[0].netIO;
-        element.blockIO = res[0].blockIO;
-        element.cpuStats = res[0].cpuStats;
-        element.precpuStats = res[0].precpuStats;
-        element.memoryStats = res[0].memoryStats;
-        element.networks = res[0].networks;
-      }
+    await Promise.all(
+      result.map(async (element: any) => {
+        const res = await dockerContainerStats(element.id);
+        // include stats in array
+        if (res && res[0]) {
+          element.memUsage = res[0].memUsage;
+          element.memLimit = res[0].memLimit;
+          element.memPercent = res[0].memPercent;
+          element.cpuPercent = res[0].cpuPercent;
+          element.pids = res[0].pids;
+          element.netIO = res[0].netIO;
+          element.blockIO = res[0].blockIO;
+          element.cpuStats = res[0].cpuStats;
+          element.precpuStats = res[0].precpuStats;
+          element.memoryStats = res[0].memoryStats;
+          element.networks = res[0].networks;
+        }
 
-      const processes = await dockerContainerProcesses(element.id);
-      element.processes = processes;
-    });
+        element.processes = await dockerContainerProcesses(element.id);
+      })
+    );
     return result;
-
-    // all done??
   } else {
     return result;
   }

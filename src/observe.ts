@@ -1,8 +1,13 @@
 import { get } from './get';
 
-// polls get(valueObject) every `interval` ms and calls back only when the data changed;
+// polls get(valueObject) every `interval` ms (min 500) and calls back only when the data changed;
 // returns the interval handle — stop observing with clearInterval(handle)
 export const observe = (valueObject: { [key: string]: string }, interval: number, callback: (data: { [key: string]: any }) => void) => {
+  if (typeof callback !== 'function') {
+    return undefined;
+  }
+  // setInterval falls back to 1 ms above this max
+  const ms = Math.min(Math.max(Number(interval) || 0, 500), 2147483647);
   let _data: { [key: string]: any } | null = null;
   return setInterval(() => {
     get(valueObject).then((data) => {
@@ -11,5 +16,5 @@ export const observe = (valueObject: { [key: string]: string }, interval: number
         callback(data);
       }
     });
-  }, interval);
+  }, ms);
 };
