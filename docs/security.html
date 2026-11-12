@@ -44,6 +44,20 @@
             <div class="col-12 sectionheader">
               <div class="title">Security Advisories</div>
               <div class="text">
+                <h2>getMacAddresses() Command Injection Vulnerability</h2>
+                <p><span class="bold">Affected versions:</span>
+                  &gt;= 3.50.2 and &lt; 5.33.20 (version 6 is not affected)<br>
+                  <span class="bold">Date:</span> 2026-11-12<br>
+                  <span class="bold">CVSS Score:</span> 6.4 (Medium)
+                </p>
+
+                <h4>Impact</h4>
+                <p>On linux and BSD machines the path of the <span class="code">ip</span> binary was resolved with <span class="code">which ip</span> and then used unsanitized in a shell command (used by <span class="code">networkInterfaces()</span> when node reports masked MAC addresses). If the <span class="code">PATH</span> of the node process contained a directory with shell metacharacters in its name holding an <span class="code">ip</span> executable, these characters were interpreted by the shell. Exploitation requires that an attacker can already control the <span class="code">PATH</span> environment of the node process.</p>
+
+                <h4>Patch</h4>
+                <p>Problem was fixed by accepting only resolved paths containing safe characters. Any other path is ignored and the fallback is used. If you are using version 5, please upgrade to version >= 5.33.20.</p>
+                <hr>
+                <br>
                 <h2>get() Uncaught TypeError (Denial of Service)</h2>
                 <p><span class="bold">Affected versions:</span>
                   &lt; 5.33.19 (version 6 is not affected)<br>
