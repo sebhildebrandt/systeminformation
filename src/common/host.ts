@@ -22,9 +22,14 @@ export const getFQDN = async () => {
           return stdout.split(EOL)[0];
         } catch {}
         break;
-      case WINDOWS:
-        ({ stdout } = await exec('echo %COMPUTERNAME%.%USERDNSDOMAIN%'));
-        return stdout.toString().replace('.%USERDNSDOMAIN%', '').split(EOL)[0];
+      case WINDOWS: {
+        // read env directly - cmd.exe would interpret metacharacters in expanded values
+        const name = process.env.COMPUTERNAME;
+        if (name) {
+          return process.env.USERDNSDOMAIN ? `${name}.${process.env.USERDNSDOMAIN}` : name;
+        }
+        break;
+      }
       default:
         return hostname();
     }

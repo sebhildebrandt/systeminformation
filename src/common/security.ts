@@ -221,7 +221,7 @@ export const sanitizeServiceString = (str: string) => {
     if (isPrototypePolluted() && srvString !== '*') {
       srvString = '------';
     }
-    return srvString.split('|');
+    return Reflect.apply(stringSplit, srvString, ['|']) as string[];
   }
   return ['*'];
 };

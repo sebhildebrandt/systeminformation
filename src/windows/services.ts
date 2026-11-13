@@ -3,6 +3,19 @@ import { isPrototypePolluted, sanitizeServiceString } from '../common/security';
 import type { ServicesData } from '../common/types';
 import { ps } from '../common/windows';
 
+// whitelist via char compare - no String/RegExp prototype methods involved
+const psServiceName = (srv: unknown): string => {
+  const s = String(srv);
+  let name = '';
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i] || '';
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c === ' ' || c === '_' || c === '.' || c === '-' || c === '@') {
+      name += c;
+    }
+  }
+  return name;
+};
+
 export const services = async (srv: string): Promise<ServicesData[]> => {
   await nextTick();
   const result: ServicesData[] = [];
@@ -16,7 +29,7 @@ export const services = async (srv: string): Promise<ServicesData[]> => {
         wincommand += ' -Filter "';
         srvs.forEach((srv: string) => {
           // whitelist: srv is inserted into a PowerShell string
-          wincommand += `Name='${srv.replace(/[^a-zA-Z0-9 _.\-@]/g, '')}' or `;
+          wincommand += `Name='${psServiceName(srv)}' or `;
         });
         wincommand = `${wincommand.slice(0, -4)}"`;
       }

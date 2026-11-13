@@ -1,20 +1,28 @@
+import { readFile, stat } from 'node:fs/promises';
 import { getValue, nextTick } from '../common';
 import { getCodepage } from '../common/codepage';
+import { WINDIR } from '../common/const';
 import { initOsInfo } from '../common/defaults';
-import { exec } from '../common/exec';
 import { getLogoFile, getWindowsRelease } from '../common/mappings';
 import { ps } from '../common/windows';
 
 const windowsIsUefi = async () => {
   try {
-    const { stdout } = await exec('findstr /C:"Detected boot environment" "%windir%\\Panther\\setupact.log"');
-    const line = stdout.split('\n\r')[0];
-    return line.toLowerCase().indexOf('efi') >= 0;
-  } catch {
-    const { stdout } = await exec('echo %firmware_type%');
-    const line = stdout.toString() || '';
-    return line.toLowerCase().indexOf('efi') >= 0;
-  }
+    const logFile = `${WINDIR}\\Panther\\setupact.log`;
+    // skip huge logs
+    if ((await stat(logFile)).size > 50 * 1024 * 1024) {
+      throw new Error('setupact.log too large');
+    }
+    const content = await readFile(logFile, 'latin1');
+    const line = content
+      .split('\n')
+      .filter((l) => l.includes('Detected boot environment'))
+      .join('\n');
+    if (line) {
+      return line.toLowerCase().includes('efi');
+    }
+  } catch {}
+  return (process.env.firmware_type || '').toLowerCase().includes('efi');
 };
 
 export const osInfo = async () => {
