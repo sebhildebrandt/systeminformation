@@ -31,17 +31,17 @@
 ## The Systeminformation Project
 
 This is amazing. Started as a small project just for myself, it now has > 20,000
-lines of code, > 750 versions published, up to 50 mio downloads per month, > 700
+lines of code, > 800 versions published, up to 90 mio downloads per month, > 900
 mio downloads overall. Top 5 NPM ranking for backend packages. Thank you to all
 who contributed to this project!
 
 > ### **Version 6** beta just released ⭐️⭐️⭐️
 >
-> 🏆🏆🏆 We're proud to have just released the first beta of the new version 6 of systeminformation. 
+> 🏆🏆🏆 We're proud to have just released the first beta of the new version 6 of systeminformation.
 > Version 6 of this package (written completely in TypeScript) is
 > comming with a lot of new features and improvements. We also cleaned up the API so
 > there will also be some breaking changes.
-> 
+>
 > **Thanks to everyone testing this new version!**
 
 ## Please support this project ... ☕️
@@ -72,7 +72,7 @@ If you want to test the new version 6.0 (currently in beta), you can eather inst
 npm i systeminformation@beta
 ```
 
-Then just test it with your existing code - be sure to check all breaking changes. Docs can be found here: 
+Then just test it with your existing code - be sure to check all breaking changes. Docs can be found here:
 
 - [V6 Docs][v6-docs-url]
 - [V6 major changes][v6-changes-url]
@@ -80,12 +80,12 @@ Then just test it with your existing code - be sure to check all breaking change
 If you want to run the whole test locally on your machines (without writing any code):
 
 ```bash
-# clone v6 branch 
+# clone v6 branch
 git clone -b v6 https://github.com/sebhildebrandt/systeminformation.git
 cd systeminformation
 
 # install dev dependencies and build
-npm ci          
+npm ci
 npm run build
 
 # run tests

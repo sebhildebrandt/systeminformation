@@ -44,6 +44,24 @@
               <div class="col-12 sectionheader">
                 <div class="title">Security Advisories</div>
                 <div class="text">
+                  <h2>Windows Environment Variable Command Injection Vulnerability</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span> &lt; 5.33.22 and version 6 &lt; 6.0.0-beta.23<br />
+                    <span class="bold">Date:</span> 2026-11-13<br />
+                    <span class="bold">CVSS Score:</span> ?.? (Medium)
+                  </p>
+
+                  <h4>Impact</h4>
+                  <p>
+                    On Windows <span class="code">osInfo()</span> (FQDN, UEFI detection) and <span class="code">uuid()</span> passed <span class="code">%COMPUTERNAME%</span>, <span class="code">%USERDNSDOMAIN%</span>, <span class="code">%windir%</span> and
+                    <span class="code">%firmware_type%</span> to <span class="code">cmd.exe</span>. cmd.exe expands environment variables before parsing the command line, so metacharacters like <span class="code">&amp;</span> in one of these values were interpreted as command separators. Exploitation requires
+                    that an attacker can already control the environment of the node process.
+                  </p>
+
+                  <h4>Patch</h4>
+                  <p>Problem was fixed by reading these values directly from the process environment, reading <span class="code">setupact.log</span> without a shell and calling <span class="code">reg.exe</span> via <span class="code">execFile()</span> without a shell. If you are using version 5, please upgrade to version >= 5.33.22.</p>
+                  <hr />
+                  <br />
                   <h2>getMacAddresses() Command Injection Vulnerability</h2>
                   <p>
                     <span class="bold">Affected versions:</span> &gt;= 3.50.2 and &lt; 5.33.20 (version 6 is not affected)<br />
