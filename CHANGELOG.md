@@ -91,7 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
-| 5.33.21 | 2026-11-13 | `disksIO()` fixed double counting of ZFS zvols (linux)                                              |
+| 5.33.21 | 2026-11-13 | `disksIO()` fixed double counting of ZFS zvols, `fsStats()` include ZFS disks (linux)              |
 | 5.33.20 | 2026-11-12 | `networkInterfaces()` fixed unsanitized ip path (linux, bsd)                                       |
 | 5.33.19 | 2026-10-30 | `get()` fixed uncaught TypeError on params for callback-only functions                               |
 | 5.33.18 | 2026-10-28 | `fsSize()` fixed uncaught TypeError on non-string drive (linux, macOS, bsd)                         |
