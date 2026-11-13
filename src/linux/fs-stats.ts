@@ -17,9 +17,12 @@ export const fsStats = async (): Promise<FsStatsData> => {
     let wx = 0;
 
     try {
-      ({ stdout } = await exec('lsblk -r 2>/dev/null', execOptsLinux));
-      // only rows with a mountpoint
-      const lines = stdout.toString().split('\n').filter((line: string) => line.indexOf('/') >= 0);
+      ({ stdout } = await exec('lsblk -rno NAME,FSTYPE,MOUNTPOINT 2>/dev/null', execOptsLinux));
+      // rows with a mountpoint or ZFS pool members (ZFS mounts datasets, not devices); skip zvols, counted on their backing disks
+      const lines = stdout
+        .toString()
+        .split('\n')
+        .filter((line: string) => (line.indexOf('/') >= 0 || / zfs_member( |$)/.test(line)) && !/^zd\d/.test(line));
       const fs_filter: any = [];
       lines.forEach((line: string) => {
         if (line !== '') {
