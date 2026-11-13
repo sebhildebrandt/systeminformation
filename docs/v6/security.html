@@ -45,6 +45,20 @@
               <div class="col-12 sectionheader">
                 <div class="title">Security Advisories</div>
                 <div class="text">
+                  <h2>services() String.prototype Hardening (Command Injection)</h2>
+                  <p><span class="bold">Affected versions:</span>
+                    &lt; 5.33.22 and version 6 &lt; 6.0.0-beta.23<br>
+                    <span class="bold">Date:</span> 2026-11-13<br>
+                    <span class="bold">CVSS Score:</span> ?.? (Low)
+                  </p>
+
+                  <h4>Impact</h4>
+                  <p>On Windows <span class="code">services()</span> restored several native <span class="code">String.prototype</span> methods before parsing the service list, but not <span class="code">split</span>. If <span class="code">String.prototype.split</span> was replaced by a function, the returned values could bypass the allowlist and were inserted into a PowerShell command. Exploitation requires that an attacker can already execute JavaScript code in the node process.</p>
+
+                  <h4>Patch</h4>
+                  <p>Problem was fixed by calling the native <span class="code">split</span> and <span class="code">replace</span> methods explicitly and by extending the prototype pollution check. Please upgrade to version >= 6.0.0-beta.23 (version 5: >= 5.33.22).</p>
+                  <hr>
+                  <br>
                   <h2>Windows Environment Variable Command Injection Vulnerability</h2>
                   <p><span class="bold">Affected versions:</span>
                     &lt; 5.33.22 and version 6 &lt; 6.0.0-beta.23<br>
