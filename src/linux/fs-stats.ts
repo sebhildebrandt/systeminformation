@@ -17,8 +17,8 @@ export const fsStats = async (): Promise<FsStatsData> => {
     let wx = 0;
 
     try {
-      ({ stdout } = await exec('lsblk -rno NAME,FSTYPE,MOUNTPOINT 2>/dev/null', execOptsLinux));
-      // rows with a mountpoint or ZFS pool members (ZFS mounts datasets, not devices); skip zvols, counted on their backing disks
+      ({ stdout } = await exec('lsblk -rno KNAME,FSTYPE,MOUNTPOINT 2>/dev/null', execOptsLinux));
+      // mounted devices and ZFS pool members, no zvols
       const lines = stdout
         .toString()
         .split('\n')
