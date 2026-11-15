@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs';
+
 export const PLATFORM = process.platform;
 
 export const AIX = PLATFORM === 'aix';
@@ -12,10 +14,14 @@ export const ANDROID = PLATFORM === 'android';
 
 export const WINDIR = process.env.WINDIR || 'C:\\Windows';
 
+// cmd.exe and libuv search cwd before PATH: run from system32 so bare names never resolve to files in the caller's cwd (CWE-427)
+const WIN_SYSDIR = `${WINDIR}\\system32`;
+
 export const execOptsWin = {
   windowsHide: true,
   maxBuffer: 1024 * 102400,
-  env: Object.assign({}, process.env, { LANG: 'en_US.UTF-8' })
+  env: Object.assign({}, process.env, { LANG: 'en_US.UTF-8' }),
+  cwd: WINDOWS && existsSync(WIN_SYSDIR) ? WIN_SYSDIR : undefined
 };
 
 export const execOptsLinux = {
