@@ -91,6 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.33.23 | 2026-11-15 | fixed command search path hijacking via current working directory (windows)                         |
 | 5.33.22 | 2026-11-13 | `osInfo()`, `uuid()` fixed env variable command injection, `services()` hardening (windows)        |
 | 5.33.21 | 2026-11-13 | `disksIO()` fixed double counting of ZFS zvols, `fsStats()` include ZFS disks (linux)              |
 | 5.33.20 | 2026-11-12 | `networkInterfaces()` fixed unsanitized ip path (linux, bsd)                                       |
