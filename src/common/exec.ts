@@ -1,9 +1,15 @@
 import { execFile as execFileFunction, exec as execFunction, spawn } from 'node:child_process';
 import { promisify } from 'node:util';
-import { MAX_BUFFER_SIZE } from './const';
+import { MAX_BUFFER_SIZE, WIN_CWD } from './const';
 
-export const exec = promisify(execFunction);
-export const execFile = promisify(execFileFunction);
+// Windows: default cwd to system32 so bare command names never resolve from the caller's cwd (CWE-427)
+const withWinCwd = (options?: any) => (WIN_CWD && !options?.cwd ? { ...options, cwd: WIN_CWD } : options);
+
+const _exec = promisify(execFunction);
+const _execFile = promisify(execFileFunction);
+// cast keeps the promisify overloads (string vs Buffer result) for callers
+export const exec = ((cmd: string, options?: any) => _exec(cmd, withWinCwd(options))) as typeof _exec;
+export const execFile = ((file: string, args?: any, options?: any) => _execFile(file, args, withWinCwd(options))) as typeof _execFile;
 
 // share the result of concurrent identical calls (e.g. gpu() and displays() both
 // query the same expensive base command when run in parallel via getStaticData)
@@ -42,7 +48,7 @@ export const execSecure = (cmd: string, args: any, options?: any) => {
         // stderr is never read here - leaving it as a pipe lets a chatty command block at the pipe
         // buffer and run into the timeout, losing the stdout it had already produced. Same stdio
         // shape execOptsLinux uses for the exec() path. A caller supplied stdio still wins
-        const child = spawn(cmd, args, { stdio: ['pipe', 'pipe', 'ignore'], ...spawnOptions });
+        const child = spawn(cmd, args, withWinCwd({ stdio: ['pipe', 'pipe', 'ignore'], ...spawnOptions }));
 
         if (child?.pid) {
           if (timeoutMs) {

@@ -1,13 +1,12 @@
 import { spawn } from 'node:child_process';
 import { shareInflight } from './exec';
 import { fileExists } from '../common/files';
-import { WINDOWS } from './const';
+import { WIN_CWD, WINDIR, WINDOWS } from './const';
 
 // ----------------------------------------------------------------------------
 // PowerShell Wrapper - pool of persistent PowerShell processes
 // ----------------------------------------------------------------------------
 
-const WINDIR = process.env.WINDIR || String.raw`C:\Windows`;
 const JOB_TIMEOUT_MS = 60000; // a hung WMI query must not block a worker + its queue forever
 let _powerShell = '';
 
@@ -96,6 +95,7 @@ class PowerShellWorker {
     this.child = spawn(this.exe, args, {
       stdio: 'pipe',
       windowsHide: true,
+      cwd: WIN_CWD,
       env: { ...process.env, ...this.env }
     });
 
