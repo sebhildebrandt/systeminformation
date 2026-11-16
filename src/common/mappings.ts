@@ -294,8 +294,6 @@ export const getLogoFile = (distro = '') => {
       return 'windows';
     case distro.indexOf('mac os') !== -1 || distro.indexOf('macos') !== -1:
       return 'apple';
-    case distro.indexOf('arch') !== -1:
-      return 'arch';
     case distro.indexOf('cachy') !== -1:
       return 'cachy';
     case distro.indexOf('centos') !== -1:
@@ -334,10 +332,20 @@ export const getLogoFile = (distro = '') => {
       return 'pclinuxos';
     case distro.indexOf('puppy') !== -1:
       return 'puppy';
-    case distro.indexOf('popos') !== -1:
+    case distro.indexOf('popos') !== -1 || distro.indexOf('pop!_os') !== -1:
       return 'popos';
-    case distro.indexOf('raspbian') !== -1:
+    case distro.indexOf('raspbian') !== -1 || distro.indexOf('raspberry') !== -1:
       return 'raspbian';
+    case distro.indexOf('nixos') !== -1:
+      return 'nixos';
+    case distro.indexOf('zorin') !== -1:
+      return 'zorin';
+    case distro.indexOf('garuda') !== -1:
+      return 'garuda';
+    case distro.indexOf('nobara') !== -1:
+      return 'nobara';
+    case distro.indexOf('bazzite') !== -1:
+      return 'bazzite';
     case distro.indexOf('reactos') !== -1:
       return 'reactos';
     case distro.indexOf('redhat') !== -1:
@@ -366,6 +374,9 @@ export const getLogoFile = (distro = '') => {
       return 'ferenos';
     case distro.indexOf('robolinux') !== -1:
       return 'robolinux';
+    // last - names of arch based distros contain "arch" too
+    case distro.indexOf('arch') !== -1:
+      return 'arch';
     default:
       return PLATFORM;
   }

@@ -1,14 +1,14 @@
+import { readdir } from 'node:fs/promises';
 import { cloneObj, nextTick } from '../common';
 import { getCodepage } from '../common/codepage';
 import { ANDROID, execOptsLinux } from '../common/const';
 import { initOsInfo } from '../common/defaults';
 import { exec, execSave } from '../common/exec';
-import { readdir } from 'node:fs/promises';
 import { fileExists, readFileLines, readFileMax, readSysfs } from '../common/files';
 import { getLogoFile } from '../common/mappings';
+import { isSafePathSegment } from '../common/security';
 import type { OsData, OsSecurityData } from '../common/types';
 import { uuid } from './uuid';
-import { isSafePathSegment } from '../common/security';
 
 const getInstallDate = async (): Promise<Date | null> => {
   // preferred: root filesystem birth time (ext4/xfs/btrfs on statx-capable kernels)
@@ -117,6 +117,37 @@ const getSecurity = async (): Promise<OsSecurityData> => {
   return { module: '', enabled: false, mode: '', policy: '' };
 };
 
+// flavors and derivatives that ship the os-release of their base distribution unchanged
+const UBUNTU_FLAVORS: [string, string][] = [
+  ['ubuntustudio-desktop', 'Ubuntu Studio'],
+  ['kubuntu-desktop', 'Kubuntu'],
+  ['xubuntu-desktop', 'Xubuntu'],
+  ['lubuntu-desktop', 'Lubuntu'],
+  ['ubuntu-mate-desktop', 'Ubuntu MATE'],
+  ['ubuntu-budgie-desktop', 'Ubuntu Budgie'],
+  ['ubuntucinnamon-desktop', 'Ubuntu Cinnamon'],
+  ['ubuntu-unity-desktop', 'Ubuntu Unity'],
+  ['ubuntukylin-desktop', 'Ubuntu Kylin']
+];
+
+const getDistroVariant = async (distro: string, variant: string) => {
+  if (distro.toLowerCase() === 'ubuntu') {
+    for (const [pkg, name] of UBUNTU_FLAVORS) {
+      if (await fileExists(`/var/lib/dpkg/info/${pkg}.list`)) {
+        return name;
+      }
+    }
+  }
+  if (distro.toLowerCase().startsWith('debian') && (await fileExists('/etc/rpi-issue'))) {
+    return 'Raspberry Pi OS';
+  }
+  // Fedora Atomic desktops and remixes (Silverblue, Kinoite, Asahi Remix, ...) - editions are no separate distro
+  if (distro.toLowerCase().startsWith('fedora') && variant && !/edition|container/i.test(variant)) {
+    return `${distro} (${variant})`;
+  }
+  return distro;
+};
+
 const parseOsInfo = async (stdout: string, defaults: OsData) => {
   const release: any = {};
   const lines = stdout.toString().split('\n');
@@ -136,10 +167,11 @@ const parseOsInfo = async (stdout: string, defaults: OsData) => {
     codename = releaseVersion.split('(')[1].replace(/[()]/g, '').trim();
     releaseVersion = releaseVersion.split('(')[0].trim();
   }
+  const distroName = await getDistroVariant(distro, (release.VARIANT || '').replace(/"/g, '').trim());
   return {
     ...defaults,
-    distro: (release.DISTRIB_ID || release.NAME || 'unknown').replace(/"/g, ''),
-    logofile: getLogoFile(distro),
+    distro: distroName,
+    logofile: getLogoFile(distroName),
     release: (releaseVersion || release.DISTRIB_RELEASE || release.VERSION_ID || 'unknown').replace(/"/g, ''),
     codename: codename,
     codepage: getCodepage(),

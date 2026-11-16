@@ -72,6 +72,8 @@ imported individually - see [Installation](#installation) and [Usage](#usage).
 - **Minimum Node.js version is now 20.0** (older releases are no longer supported).
 - **Import paths.** With the new `exports` map only the documented entry points are
   importable (deep `dist/...` paths are no longer part of the public API).
+- **`osInfo().distro` reports flavors and derivatives** (e.g. `Kubuntu` instead of
+  `Ubuntu`, `Raspberry Pi OS` instead of `Debian GNU/Linux`) - adapt checks on the distro name.
 
 ## Quick Start
 

@@ -109,6 +109,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 
 - `disksIO()` `rWaitTime`, `wWaitTime` and `tWaitTime` now report the wait time of the last interval in ms instead of the total since boot, and are `null` on the first call - same convention as `rIO_sec` (#1025). `tWaitPercent` therefore equals `tWaitTime * 100 / ms`. To keep the old behaviour, sum the interval values yourself.
 - `currentLoad()` on Linux now counts iowait ticks in the denominator - `os.cpus()` drops them entirely, so they used to be missing from every category. `currentLoadIdle` is now lower by exactly the iowait share while `currentLoad` is almost unchanged, and the categories add up to 100% again
+- `osInfo()` `distro` now reports flavors and derivatives that ship the os-release of their base distribution unchanged: Ubuntu flavors (e.g. `Kubuntu`, `Xubuntu`, `Ubuntu MATE` instead of `Ubuntu`), `Raspberry Pi OS` instead of `Debian GNU/Linux` and Fedora Atomic desktops / remixes with their variant (e.g. `Fedora Linux (Silverblue)`). Checks like `distro === "Ubuntu"` need to be adapted (Linux)
   **Be aware**, that the new version 6.x is **NOT fully backward compatible** to version 5.x.
 
 We modernized the library with a full TypeScript rewrite and made a few interface changes. Please review the list below and adapt your code.
