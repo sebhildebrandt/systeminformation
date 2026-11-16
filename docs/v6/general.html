@@ -151,6 +151,55 @@ si.time().then(data => console.log(data));</code></pre>
                     </tbody>
                   </table>
                   <p>Keep in mind, that there is another function <span class="code">si.versions()</span> that will return versions of other system libraries and software packages</p>
+                  <h2>Windows: PowerShell Processes</h2>
+                  <p>To speed up Windows functions, a small pool of PowerShell processes is kept running in the background and reused for all calls. If you only gather data from time to time and do not want these processes to stay open, release them after your calls have finished. The pool restarts automatically with the next call that needs PowerShell.</p>
+                  <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Function</th>
+                        <th>Result object</th>
+                        <th>Linux</th>
+                        <th>BSD</th>
+                        <th>Mac</th>
+                        <th>Win</th>
+                        <th>Sun</th>
+                        <th>Comments</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>si.powerShellStart()</td>
+                        <td>: void</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>starts the pool upfront (optional - otherwise it starts with the first call that needs it)</td>
+                      </tr>
+                      <tr>
+                        <td>si.powerShellRelease()</td>
+                        <td>: void</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>terminates all pooled PowerShell processes</td>
+                      </tr>
+                      <tr class="example">
+                        <td></td>
+                        <td colspan="7">
+                          <h5>Example</h5>
+                          <pre><code class="js">const si = require('systeminformation');
+
+const data = await si.get({ cpu: '*', mem: '*', networkInterfaces: '*' });
+// make sure all calls have finished - pending calls would return empty results
+await si.powerShellRelease();</code></pre>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                   <h2>Get Defined Result Object</h2>
                   <p>
                     Normally you would call each of the functions (where you want to get detailed system information) seperately. The docs pages contain a full reference (with examples) for each available function. But there is also another really handy way to get a self-defined result object in one
