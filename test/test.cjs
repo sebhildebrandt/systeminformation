@@ -31,21 +31,21 @@ function printMenu() {
   console.log('│  a ... Audio           i ... INET Latency        R ... Installed Software 1 ... NET Iface Default     ? ... Get Object     │');
   console.log('│  b ... BIOS            I ... INET Check Site     s ... Services           2 ... NET Gateway Default   , ... All Static     │');
   console.log('│  B ... Baseboard       j ... INET Public IP      S ... Shell              3 ... NET Interfaces        . ... All Dynamic    │');
-  console.log('│  C ... Chassis         J ... CPU Current Speed   t ... time               4 ... NET Stats             / ... All            │');
-  console.log('│  c ... CPU             k ... Camera              T ... CPU Temperature    5 ... NET Connections                            │');
-  console.log('│  * ... Fans            K ... Keyboard            u ... USB                # ... NET Routes                                 │');
-  console.log('│  d ... DiskLayout      l ... CPU Current Load    U ... UUID               % ... INET Speed                                 │');
-  console.log('│  D ... DiskIO          L ... Full Load           v ... Versions                                                            │');
-  console.log('│  e ... Block Devices   m ... Memory              V ... Virtual Box        6 ... Docker Info                                │');
-  console.log('│  E ... Open Files      M ... MEM Layout          w ... WIFI networks      7 ... Docker Images                              │');
-  console.log('│  f ... FS Size         n ... NPU                 W ... WIFI interfaces    8 ... Docker Container                           │');
-  console.log('│  F ... FS Stats        N ... NPM Packages        x ... WIFI connections   9 ... Docker Cont Stats                          │');
-  console.log('│  A ... Displays        o ... OS Info             X ... Serial Ports       0 ... Docker Cont Proc                           │');
-  console.log('│  g ... GPU             O ... Mouse               y ... System             + ... Docker Volumes                             │');
-  console.log('│  G ... PCI             p ... Processes           Y ... Battery                                                             │');
-  console.log('│  h ... Bluetooth       P ... Process Load        z ... Printer            $ ... Disk Speed                                 │');
-  console.log('│  H ... Thunderbolt     r ... Process Focused     Z ... Users                                                               │');
-  console.log('│                                                                           - ... SI lib version        q >>> QUIT           │');
+  console.log('│  C ... Chassis         % ... INET Speed          t ... time               4 ... NET Stats             / ... All            │');
+  console.log('│  c ... CPU             J ... CPU Current Speed   T ... CPU Temperature    5 ... NET Connections                            │');
+  console.log('│  * ... Fans            k ... Camera              u ... USB                # ... NET Routes                                 │');
+  console.log('│  d ... DiskLayout      K ... Keyboard            U ... UUID                                                                │');
+  console.log('│  D ... DiskIO          l ... CPU Current Load    v ... Versions           6 ... Docker Info                                │');
+  console.log('│  e ... Block Devices   L ... Full Load           V ... Virtual Box        7 ... Docker Images                              │');
+  console.log('│  E ... Open Files      m ... Memory              w ... WIFI networks      8 ... Docker Container                           │');
+  console.log('│  f ... FS Size         M ... MEM Layout          W ... WIFI interfaces    9 ... Docker Cont Stats                          │');
+  console.log('│  F ... FS Stats        n ... NPU                 x ... WIFI connections   0 ... Docker Cont Proc                           │');
+  console.log('│  $ ... Disk Speed      N ... NPM Packages        X ... Serial Ports       + ... Docker Volumes                             │');
+  console.log('│  A ... Displays        o ... OS Info             y ... System                                                              │');
+  console.log('│  g ... GPU             O ... Mouse               Y ... Battery                                                             │');
+  console.log('│  G ... PCI             p ... Processes           z ... Printer                                                             │');
+  console.log('│  h ... Bluetooth       P ... Process Load        Z ... Users                                                               │');
+  console.log('│  H ... Thunderbolt     r ... Process Focused     - ... SI lib version                                 q >>> QUIT           │');
   console.log('└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘');
 }
 
