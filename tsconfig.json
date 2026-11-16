@@ -4,7 +4,7 @@
     "target": "es2022",
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
+    "lib": ["dom", "es2022"],
     "skipLibCheck": true,
     "sourceMap": false,
     "outDir": "./dist",
