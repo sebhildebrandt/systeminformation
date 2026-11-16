@@ -1,8 +1,7 @@
 import { readFileTimed, runDiskSpeed } from '../common/disk-speed';
 import type { DiskSpeedData } from '../common/types';
 
-// node cannot bypass the unified buffer cache - the optional macos-smc package (Apple Silicon)
-// sets F_NOCACHE. It has to be set before writing: already cached pages are not evicted.
+// F_NOCACHE via optional macos-smc - must be set before writing, cached pages are not evicted
 const noCache = (fd: number) => {
   try {
     const smc = require('macos-smc');
