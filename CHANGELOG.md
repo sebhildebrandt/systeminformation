@@ -56,6 +56,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `currentLoad()` added per CPU `coreId` and `socketId` (physical core and socket / package of each logical CPU - logical CPUs with the same `socketId` and `coreId` are SMT siblings. Linux via sysfs, Windows via `GetLogicalProcessorInformationEx`, macOS Apple Silicon only, `null` if unknown)
 - `mem()` added `swapin_sec` and `swapout_sec` (pages swapped in / out per second since the previous call - shows whether the system is currently swapping, `null` on the first call, Linux only)
 - `pci()` added `iommuGroup` (IOMMU group of the device, `''` when the IOMMU is disabled, Linux only)
+- `wifiConnections()` added `rxRate` (negotiated receive link rate in Mbit/s, Linux via `iw`, Windows via `netsh`; not available on macOS without root)
 - `disksIO()` added `busyPercent` and `idlePercent` (percentage of time the disks were busy / idle during the interval, averaged over all disks - same source as `iostat %util`, `null` on the first call, Linux only)
 
 #### Extended Windows Support
@@ -69,6 +70,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 
 #### Fixes (open version 5 issues resolved in version 6)
 
+- `wifiConnections()` `txRate` is now also returned on Linux (via `iw`), and on German Windows it no longer reports the receive rate as `txRate`
 - `cpuCurrentSpeed()` reports the real current frequency per core on Apple Silicon (optional `macos-smc` package) - `os.cpus()` only returns a fixed value there. The first call measures ~100 ms, following calls return the values since the previous call without waiting
 - `fsSize()` the file system `type` on macOS is now read from `mount` instead of being guessed from `diskutil` - the guess could only ever produce `APFS`, `HFS` or `NFS`, so APFS volumes were reported as `HFS` and zfs, exfat, msdos or smbfs were never recognised at all. This also makes the ZFS correction above work on macOS (#1017)
 - `blockDevices()` and `fsSize()` report the usable instead of the raw capacity for btrfs. The pool entry summed its member sizes and btrfs reports the raw device capacity as filesystem size, so a raid5 of four disks showed the full four disks (#883). The pool size is now derived from the data profile (raid5 minus one device, raid6 minus two, raid1/raid10/dup halved, raid1c3/raid1c4 divided by three/four), and `fsSize()` uses `used + available`, which already accounts for the profile - the same values `use` has always been computed from. Note that the reported size therefore **shrinks** on mirrored profiles compared to earlier betas

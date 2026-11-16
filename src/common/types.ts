@@ -443,6 +443,7 @@ export type WifiConnectionData = {
   signalLevel: number | null;
   quality: number | null;
   txRate: number | null;
+  rxRate: number | null;
 };
 
 export type InetChecksiteData = {

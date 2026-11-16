@@ -1,7 +1,7 @@
 import { EOL } from 'node:os';
 import { getValue, nextTick, toInt } from '../common';
 import { execOptsLinux } from '../common/const';
-import { exec, execSave } from '../common/exec';
+import { exec, execSave, execSecure } from '../common/exec';
 import { wifiChannelFromFrequencies, wifiDBFromQuality, wifiFrequencyFromChannel, wifiQualityFromDB } from '../common/network';
 import { sanitizeShellString } from '../common/security';
 import type { WifiConnectionData, WifiNetworkData } from '../common/types';
@@ -169,6 +169,23 @@ const getWifiNetworkListNmi = async () => {
   }
 };
 
+// negotiated link rate of the current association
+export const parseIwLinkRates = (stdout: string) => {
+  const rate = (direction: string) => {
+    const match = stdout.match(new RegExp(`${direction} bitrate:\\s*([\\d.]+)\\s*MBit/s`, 'i'));
+    return match?.[1] ? parseFloat(match[1]) : null;
+  };
+  return { txRate: rate('tx'), rxRate: rate('rx') };
+};
+
+const linkRatesLinux = async (networkInterface: string) => {
+  try {
+    return parseIwLinkRates(await execSecure('iw', ['dev', networkInterface, 'link'], { timeout: 5000 }));
+  } catch {
+    return { txRate: null, rxRate: null };
+  }
+};
+
 export const wifiConnections = async () => {
   await nextTick();
   const result: WifiConnectionData[] = [];
@@ -185,6 +202,7 @@ export const wifiConnections = async () => {
     const bssid = network?.length && network[0].bssid ? network[0].bssid : wpaDetails.bssid || null;
     const signalLevel = network && network.length && network[0].signalLevel ? network[0].signalLevel : 0;
     if (ssid && bssid) {
+      const rates = await linkRatesLinux(networkInterface);
       result.push({
         id: '' + interfaceDetail.id,
         networkInterface: interfaceDetail.networkInterface,
@@ -197,7 +215,8 @@ export const wifiConnections = async () => {
         security: nmiConnection.security ? nmiConnection.security : wpaDetails.security || null,
         signalLevel,
         quality: wifiQualityFromDB(signalLevel),
-        txRate: null
+        txRate: rates.txRate,
+        rxRate: rates.rxRate
       });
     }
   }

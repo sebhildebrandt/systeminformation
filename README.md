@@ -821,7 +821,8 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 |                      | [0].signalLevel | X     |     | X   | X   |     | signal level in dB                |
 |                      | [0].quality     | X     |     | X   | X   |     | quality in %                      |
 |                      | [0].security    | X     |     | X   | X   |     | array e.g. WPA, WPA-2             |
-|                      | [0].txRate      | X     |     | X   | X   |     | transfer rate MBit/s              |
+|                      | [0].txRate      | X     |     | X   | X   |     | link transmit rate MBit/s         |
+|                      | [0].rxRate      | X     |     |     | X   |     | link receive rate MBit/s          |
 
 #### 14. Bluetooth
 

@@ -458,7 +458,17 @@ si.wifiInterfaces().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td></td>
-                        <td>transfer rate Mbit/s</td>
+                        <td>link transmit rate Mbit/s</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].rxRate</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>link receive rate Mbit/s (not available on macOS)</td>
                       </tr>
                       <tr class="example">
                         <td></td>
@@ -480,7 +490,8 @@ si.wifiConnections().then(data => console.log(data));</code></pre>
     type: '802.11',
     security: 'wpa2-psk',
     signalLevel: 46,
-    txRate: '405'
+    txRate: 405,
+    rxRate: 526
   },
   ...
 ]</pre>

@@ -52,7 +52,9 @@ export const wifiConnections = async () => {
       security,
       signalLevel: signalLevel ? Number.parseInt(signalLevel, 10) : null,
       quality: wifiQualityFromDB(signalLevel),
-      txRate: airportWifiObj.spairport_network_rate || null
+      txRate: airportWifiObj.spairport_network_rate || null,
+      // macOS exposes only the transmit rate without root
+      rxRate: null
     });
   } catch {}
   return result;

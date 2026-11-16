@@ -3,6 +3,12 @@ import { wifiDBFromQuality, wifiFrequencyFromChannel } from '../common/network';
 import type { WifiConnectionData } from '../common/types';
 import { ps } from '../common/windows';
 
+// matched on the label - localized (EN / DE / FR) and umlauts may arrive garbled from netsh
+export const rateValue = (lines: string[], label: RegExp) => {
+  const line = lines.find((l) => label.test(l.split(':')[0] || ''));
+  return (line && toInt(line.split(':').slice(1).join(':'))) || null;
+};
+
 export const wifiConnections = async () => {
   await nextTick();
   const result: WifiConnectionData[] = [];
@@ -30,7 +36,8 @@ export const wifiConnections = async () => {
       const type = getValue(lines, 'Radio type', ':', true) || getValue(lines, 'Type de radio', ':', true) || getValue(lines, 'Funktyp', ':', true) || null;
       const security = getValue(lines, 'authentication', ':', true) || getValue(lines, 'Authentification', ':', true) || getValue(lines, 'Authentifizierung', ':', true) || null;
       const channel = toInt(getValue(lines, 'Channel', ':', true) || getValue(lines, 'Canal', ':', true) || getValue(lines, 'Kanal', ':', true)) || null;
-      const txRate = getValue(lines, 'Transmit rate (mbps)', ':', true) || getValue(lines, 'Transmission (mbit/s)', ':', true) || getValue(lines, 'Empfangsrate (MBit/s)', ':', true) || null;
+      const txRate = rateValue(lines, /transmit rate|^transmission|bertragungsrate/i);
+      const rxRate = rateValue(lines, /receive rate|ception \(|empfangsrate/i);
       if (model && id && ssid && bssid) {
         result.push({
           id,
@@ -44,7 +51,8 @@ export const wifiConnections = async () => {
           security,
           signalLevel,
           quality: quality ? parseInt(quality, 10) : null,
-          txRate: toInt(txRate) || null
+          txRate,
+          rxRate
         });
       }
     }
