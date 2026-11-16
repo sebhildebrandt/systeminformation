@@ -570,6 +570,11 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 |                   | [0].protocol          | X     |     | X   |     |     | protocol (SATA, PCI-Express, ...)                                        |
 |                   | [0].group             | X     |     |     |     |     | raid / pool member (e.g. md1, ZFS pool,<br>btrfs label)                  |
 |                   | [0].device            | X     |     | X   | X   |     | physical device mapped to (e.g. /dev/sda)                                |
+|                   | [0].partUuid          | X     |     |     |     |     | partition UUID (PARTUUID)                                                |
+|                   | [0].partLabel         | X     |     |     |     |     | partition label (GPT name)                                               |
+|                   | [0].partType          | X     |     |     |     |     | partition type (MBR id e.g. 0x83, 0x5 = extended, or GPT type GUID)      |
+|                   | [0].partFlags         | X     |     |     |     |     | partition flags (e.g. 0x80 = bootable)                                   |
+|                   | [0].partStart         | X     |     |     |     |     | start offset of partition in bytes                                       |
 | si.disksIO()      | {...}                 | X     |     | X   | X   |     | current transfer stats                                                   |
 |                   | rIO                   | X     |     | X   | X   |     | read IOs on all mounted drives                                           |
 |                   | wIO                   | X     |     | X   | X   |     | write IOs on all mounted drives                                          |

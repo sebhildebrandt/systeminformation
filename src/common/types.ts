@@ -689,6 +689,11 @@ export type FsBlockDevicesData = {
   protocol: string;
   group: string;
   device: string;
+  partUuid: string;
+  partLabel: string;
+  partType: string;
+  partFlags: string;
+  partStart: number | null;
 };
 
 export type FsStatsData = {

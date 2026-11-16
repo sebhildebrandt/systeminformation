@@ -35,7 +35,12 @@ export const parseBlockDevices = (logicalDisks: any[], volumes: any[]): FsBlockD
         removable: drivetype === 2,
         protocol: '',
         group: '',
-        device: ''
+        device: '',
+        partUuid: '',
+        partLabel: '',
+        partType: '',
+        partFlags: '',
+        partStart: null
       });
     }
   });

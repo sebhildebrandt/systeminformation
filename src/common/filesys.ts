@@ -180,7 +180,12 @@ export const calcDiskIO = (rIO: number, wIO: number, rWaitTime: number, wWaitTim
 };
 
 export const blkStdoutToObject = (stdout: string) => {
+  // PART* first - TYPE=, UUID= and LABEL= below would otherwise match inside them
   return stdout
+    .replace(/PARTUUID=/g, ',"partUuid":')
+    .replace(/PARTLABEL=/g, ',"partLabel":')
+    .replace(/PARTTYPE=/g, ',"partType":')
+    .replace(/PARTFLAGS=/g, ',"partFlags":')
     .replace(/NAME=/g, '{"name":')
     .replace(/FSTYPE=/g, ',"fsType":')
     .replace(/TYPE=/g, ',"type":')
@@ -224,7 +229,11 @@ export const parseLinuxBlk = (lines: string[]): FsBlockDevicesData[] => {
           serial: disk.serial,
           removable: disk.rm === '1',
           protocol: disk.tran,
-          group: disk.group
+          group: disk.group,
+          partUuid: disk.partUuid || '',
+          partLabel: disk.partLabel || '',
+          partType: disk.partType || '',
+          partFlags: disk.partFlags || ''
         });
       } catch {}
     });

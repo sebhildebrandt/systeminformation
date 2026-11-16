@@ -60,6 +60,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `audio()`: `default`, `in` and `out` are now detected on Windows (previously macOS only)
 - `audio()` added `channel` on Windows (USB, Bluetooth, Onboard, PCIe, HDMI - derived from the PNP device id and the device name)
 - `blockDevices()` added `guid` (volume GUID path, e.g. `\\?\Volume{...}\` - needed to mount a volume, #856)
+- `blockDevices()` added `partUuid`, `partLabel`, `partType` (MBR type id, e.g. `0x83` / `0x5` for extended, or GPT type GUID), `partFlags` and `partStart` (start offset of the partition in bytes) for partitions (Linux)
 - `disksIO()` added `rWaitTime`, `wWaitTime`, `tWaitTime`, `rWaitPercent`, `wWaitPercent` and `tWaitPercent` on Windows (previously Linux / BSD only)
 
 #### Fixes (open version 5 issues resolved in version 6)

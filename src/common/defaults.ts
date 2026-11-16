@@ -246,7 +246,12 @@ export const initFsBlockDevice: FsBlockDevicesData = {
   removable: false,
   protocol: '',
   group: '',
-  device: ''
+  device: '',
+  partUuid: '',
+  partLabel: '',
+  partType: '',
+  partFlags: '',
+  partStart: null
 };
 
 export const initFsStats: FsStatsData = {
