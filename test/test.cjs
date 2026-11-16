@@ -33,14 +33,14 @@ function printMenu() {
   console.log('│  B ... Baseboard       j ... INET Public IP      S ... Shell              3 ... NET Interfaces        . ... All Dynamic    │');
   console.log('│  C ... Chassis         J ... CPU Current Speed   t ... time               4 ... NET Stats             / ... All            │');
   console.log('│  c ... CPU             k ... Camera              T ... CPU Temperature    5 ... NET Connections                            │');
-  console.log('│  * ... Fans            K ... Keyboard            u ... USB                                                                 │');
+  console.log('│  * ... Fans            K ... Keyboard            u ... USB                # ... NET Routes                                 │');
   console.log('│  d ... DiskLayout      l ... CPU Current Load    U ... UUID               6 ... Docker Info                                │');
   console.log('│  D ... DiskIO          L ... Full Load           v ... Versions           7 ... Docker Images                              │');
   console.log('│  e ... Block Devices   m ... Memory              V ... Virtual Box        8 ... Docker Container                           │');
   console.log('│  E ... Open Files      M ... MEM Layout          w ... WIFI networks      9 ... Docker Cont Stats                          │');
   console.log('│  f ... FS Size         n ... NPU                 W ... WIFI interfaces    0 ... Docker Cont Proc                           │');
   console.log('│  F ... FS Stats        N ... NPM Packages        x ... WIFI connections   + ... Docker Volumes                             │');
-  console.log('│  A ... Displays        o ... OS Info             X ... Serial Ports                                                        │');
+  console.log('│  A ... Displays        o ... OS Info             X ... Serial Ports       $ ... Disk Speed                                 │');
   console.log('│  g ... GPU             O ... Mouse               y ... System                                                              │');
   console.log('│  G ... PCI             p ... Processes           Y ... Battery                                                             │');
   console.log('│  h ... Bluetooth       P ... Process Load        z ... Printer                                                             │');
