@@ -7,6 +7,8 @@ import { cloneObj } from '../common/index';
 import { isSafePathSegment } from '../common/security';
 import type { DisksIoData } from '../common/types';
 
+let _diskCount = -1;
+
 export const disksIO = async (): Promise<DisksIoData> => {
   await nextTick();
   if ((_disk_io && !_disk_io.ms) || (_disk_io && _disk_io.ms && Date.now() - _disk_io.ms >= 500)) {
@@ -36,10 +38,15 @@ export const disksIO = async (): Promise<DisksIoData> => {
         rWaitTime += toInt(stats[3]);
         wWaitTime += toInt(stats[7]);
         tWaitTime += toInt(stats[10]);
-        // io_ticks - same source as iostat %util
+        // io_ticks - the source of iostat %util, here averaged over all disks
         busyTime += toInt(stats[9]);
         diskCount++;
       });
+      // a disk added or removed shifts the average - no valid delta for this interval
+      if (diskCount !== _diskCount) {
+        _disk_io.busyTime = null;
+        _diskCount = diskCount;
+      }
       return calcDiskIO(rIO, wIO, rWaitTime, wWaitTime, tWaitTime, diskCount ? busyTime / diskCount : null);
     } catch {
       return defaults;

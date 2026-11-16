@@ -59,9 +59,13 @@ export const avgLoadEwma = (previous: number[] | null, busyCores: number, second
 
 const avgLoadFromEwma = (cores: number) => (cores ? parseFloat((Math.max(..._avgLoadEwma) / cores).toFixed(2)) : 0);
 
-// topology is static - read once, again only if the number of cpus changes (hotplug)
+// topology is static - read once, again only if the number of cpus changes (hotplug).
+// Concurrent callers share one read; a failed read is retried a few times (cold PowerShell pool)
+const TOPOLOGY_TRIES = 3;
 let _topology: CpuTopologyData[] = [];
-let _topologyCount = -1;
+let _topologyRead: Promise<CpuTopologyData[]> | null = null;
+let _topologyTries = 0;
+let _topologyTriesCount = -1;
 
 const readCpuTopology = async (): Promise<CpuTopologyData[]> => {
   switch (true) {
@@ -77,14 +81,29 @@ const readCpuTopology = async (): Promise<CpuTopologyData[]> => {
   }
 };
 
-const cpuTopology = async (count: number) => {
-  if (count !== _topologyCount) {
-    _topologyCount = count;
-    const topology = await readCpuTopology().catch(() => []);
-    // an index based mapping is only valid if both lists describe the same cpus
-    _topology = topology.length === count ? topology : [];
+const cpuTopology = async (count: number): Promise<CpuTopologyData[]> => {
+  if (_topology.length !== count) {
+    if (_topologyTriesCount !== count) {
+      _topologyTriesCount = count;
+      _topologyTries = 0;
+    }
+    if (_topologyTries < TOPOLOGY_TRIES || _topologyRead) {
+      if (!_topologyRead) {
+        _topologyTries++;
+        _topologyRead = readCpuTopology()
+          .catch(() => [] as CpuTopologyData[])
+          .finally(() => {
+            _topologyRead = null;
+          });
+      }
+      const topology = await _topologyRead;
+      // an index based mapping is only valid if both lists describe the same cpus
+      if (topology.length === count) {
+        _topology = topology;
+      }
+    }
   }
-  return _topology;
+  return _topology.length === count ? _topology : [];
 };
 
 export const currentLoad = async () => {

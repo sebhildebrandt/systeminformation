@@ -20,7 +20,8 @@ export const parseWindowsRoutes = (data: any): NetworkRouteData[] => {
   }
   return psArray(data?.routes).map((route: any) => {
     const family = familyName(route?.Family);
-    const routeMetric = toInt(String(route?.RouteMetric));
+    // toInt() maps a missing value to 0 - a missing metric must stay null
+    const routeMetric = typeof route?.RouteMetric === 'number' ? route.RouteMetric : Number.NaN;
     // effective metric as shown by "route print": route metric + interface metric
     const ifaceMetric = ifaceMetrics.get(`${route?.InterfaceIndex}/${family}`) ?? 0;
     const nextHop = String(route?.NextHop || '');

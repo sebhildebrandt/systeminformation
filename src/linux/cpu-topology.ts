@@ -2,11 +2,8 @@ import { toInt } from '../common';
 import { readFileLines, readSysfs } from '../common/files';
 import type { CpuTopologyData } from '../common/types';
 
-// some ARM kernels report -1 for an unknown package
-const toId = (value: string) => {
-  const id = toInt(value);
-  return value === '' || Number.isNaN(id) || id < 0 ? null : id;
-};
+// some ARM kernels report -1 for an unknown package; toInt() would map garbage to 0
+const toId = (value: string) => (/^\d+$/.test(value.trim()) ? toInt(value) : null);
 
 // os.cpus() follows the cpuN lines of /proc/stat - their names give the real cpu number, which
 // differs from the index as soon as a cpu is offline

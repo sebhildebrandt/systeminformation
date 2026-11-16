@@ -132,10 +132,10 @@ const UBUNTU_FLAVORS: [string, string][] = [
 
 const getDistroVariant = async (distro: string, variant: string) => {
   if (distro.toLowerCase() === 'ubuntu') {
-    for (const [pkg, name] of UBUNTU_FLAVORS) {
-      if (await fileExists(`/var/lib/dpkg/info/${pkg}.list`)) {
-        return name;
-      }
+    const installed = await Promise.all(UBUNTU_FLAVORS.map(([pkg]) => fileExists(`/var/lib/dpkg/info/${pkg}.list`)));
+    const flavor = UBUNTU_FLAVORS.find((_, i) => installed[i]);
+    if (flavor) {
+      return flavor[1];
     }
   }
   if (distro.toLowerCase().startsWith('debian') && (await fileExists('/etc/rpi-issue'))) {

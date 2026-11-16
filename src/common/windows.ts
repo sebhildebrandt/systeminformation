@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process';
-import { shareInflight } from './exec';
 import { fileExists } from '../common/files';
 import { WIN_CWD, WINDIR, WINDOWS } from './const';
+import { shareInflight } from './exec';
 
 // ----------------------------------------------------------------------------
 // PowerShell Wrapper - pool of persistent PowerShell processes
@@ -281,6 +281,7 @@ class PowerShellPool {
   workers: PowerShellWorker[];
   _rr: number;
   _started: Promise<void> | null;
+  _generation: number;
 
   constructor({ size = 2, env = { LANG: 'en_US.UTF-8' } }: { size?: number; env?: NodeJS.ProcessEnv } = {}) {
     this.size = Math.max(1, Math.trunc(size));
@@ -289,19 +290,25 @@ class PowerShellPool {
     this._rr = 0;
     this.exe = '';
     this._started = null;
+    this._generation = 0;
   }
 
   start(): Promise<void> {
     if (!this._started) {
+      // a stop() while the executable is looked up invalidates this start - otherwise its
+      // workers would land in the pool after the release and never be stopped
+      const generation = ++this._generation;
       this._started = (async () => {
-        this.exe = await pickPowerShellExecutable();
+        const exe = await pickPowerShellExecutable();
+        if (generation !== this._generation) return;
+        this.exe = exe;
         for (let i = 0; i < this.size; i++) {
           const w = new PowerShellWorker({ exe: this.exe, env: this.env });
           w.start();
           this.workers.push(w);
         }
       })().catch((err) => {
-        this._started = null;
+        if (generation === this._generation) this._started = null;
         throw err;
       });
     }
@@ -310,6 +317,9 @@ class PowerShellPool {
 
   async exec(script: string) {
     await this.start();
+    // released while this call waited for the start - start again
+    if (!this.workers.length) await this.start();
+    if (!this.workers.length) throw new Error('PowerShell pool not available');
     const idx = this._rr++ % this.workers.length;
     let w = this.workers[idx];
     if (w.dead) {
@@ -321,6 +331,7 @@ class PowerShellPool {
   }
 
   async stop() {
+    this._generation++;
     for (const w of this.workers) w.stop();
     this.workers = [];
     this._started = null;
@@ -373,7 +384,9 @@ export const parseWindowsPnpLocations = (stdout: any) => {
 // VEN/DEV/SUBSYS/REV prefix on older ones. A prefix shared by two identical cards cannot identify
 // either of them, so it only counts when exactly one device matches.
 export const matchPnpLocation = (deviceId: string, locations: Map<string, string>) => {
-  const id = String(deviceId ?? '').trim().toLowerCase();
+  const id = String(deviceId ?? '')
+    .trim()
+    .toLowerCase();
   if (!id) {
     return '';
   }
@@ -387,7 +400,7 @@ export const matchPnpLocation = (deviceId: string, locations: Map<string, string
 
 const PS_PNP_DISPLAY_LOCATIONS =
   'Get-PnpDevice -Class Display -PresentOnly -ErrorAction SilentlyContinue | ForEach-Object { ' +
-  "$l = ($_ | Get-PnpDeviceProperty -KeyName DEVPKEY_Device_LocationInfo -ErrorAction SilentlyContinue).Data; \"$($_.InstanceId)|$l\" }";
+  '$l = ($_ | Get-PnpDeviceProperty -KeyName DEVPKEY_Device_LocationInfo -ErrorAction SilentlyContinue).Data; "$($_.InstanceId)|$l" }';
 
 // shared: gpu() and displays() both need it, and it is the same query for both
 export const windowsPciBusAddresses = async () => {

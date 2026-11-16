@@ -31,8 +31,9 @@ public static class SiCpuTopology {
     IntPtr buf = Marshal.AllocHGlobal((int)len);
     try {
       if (!GetLogicalProcessorInformationEx(0xffff, buf, ref len)) return "";
-      // PROCESSOR_RELATIONSHIP: GroupCount at 30, GROUP_AFFINITY[] at 32 (KAFFINITY mask + WORD group)
-      int stride = IntPtr.Size == 8 ? 16 : 8;
+      // PROCESSOR_RELATIONSHIP: GroupCount at 30, GROUP_AFFINITY[] at 32
+      // (KAFFINITY mask + WORD Group + WORD Reserved[3] = 16 bytes on 64 bit, 12 on 32 bit)
+      int stride = IntPtr.Size == 8 ? 16 : 12;
       int coreIdx = 0;
       int pkgIdx = 0;
       long pos = 0;
@@ -70,10 +71,8 @@ public static class SiCpuTopology {
 }
 `;
 
-const toId = (value: string | undefined) => {
-  const id = toInt(value || '');
-  return Number.isNaN(id) || id < 0 ? null : id;
-};
+// toInt() maps garbage to 0 - an id must not
+const toId = (value: string | undefined) => (/^\d+$/.test((value || '').trim()) ? toInt(value) : null);
 
 export const parseCpuTopology = (stdout: string): CpuTopologyData[] =>
   stdout
