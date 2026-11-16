@@ -1,11 +1,11 @@
-import { plistParser } from './../common/darwin';
 import { nextTick } from '../common';
+import { plistParser } from './../common/darwin';
 import { exec } from '../common/exec';
 import { bluetoothManufacturer, bluetoothTypeLabel, parseBluetoothVendor } from '../common/mappings';
-import { BluetoothObject } from '../common/types';
+import type { BluetoothObject } from '../common/types';
 
 const deviceId = (id: string) => {
-  return id.split(' &lt; ')[0];
+  return id.split(' < ')[0];
 };
 
 const parseBluetoothObjects = (bluetoothObject: any, macAddr2: string | null): BluetoothObject => {

@@ -71,6 +71,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 
 #### Fixes (open version 5 issues resolved in version 6)
 
+- macOS: strings read from `system_profiler` are XML-decoded - e.g. `wifiNetworks()` / `wifiConnections()` returned the SSID `&lt;redacted&gt;` instead of `<redacted>` (macOS 14+ without location permission), names containing `&` came back as `&amp;`
 - `wifiConnections()` `txRate` is now also returned on Linux (via `iw`), and on German Windows it no longer reports the receive rate as `txRate`
 - `cpuCurrentSpeed()` reports the real current frequency per core on Apple Silicon (optional `macos-smc` package) - `os.cpus()` only returns a fixed value there. The first call measures ~100 ms, following calls return the values since the previous call without waiting
 - `fsSize()` the file system `type` on macOS is now read from `mount` instead of being guessed from `diskutil` - the guess could only ever produce `APFS`, `HFS` or `NFS`, so APFS volumes were reported as `HFS` and zfs, exfat, msdos or smbfs were never recognised at all. This also makes the ZFS correction above work on macOS (#1017)

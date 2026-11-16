@@ -44,7 +44,7 @@ export const wifiConnections = async () => {
       id: networkWifiObj._name || 'Wi-Fi',
       networkInterface: networkWifiObj.interface || '',
       model: networkWifiObj.hardware || '',
-      ssid: (airportWifiObj._name || '').replace('&lt;', '<').replace('&gt;', '>'),
+      ssid: airportWifiObj._name || '',
       bssid: airportWifiObj.spairport_network_bssid || '',
       channel,
       frequency: channel ? wifiFrequencyFromChannel(channel) : null,

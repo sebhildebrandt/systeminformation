@@ -36,6 +36,20 @@ export const spItems = (data: any, dataTypes: string | string[]): any[] => {
   return result;
 };
 
+// plist strings are XML escaped (e.g. the "<redacted>" SSID of macOS 14+ without location permission)
+const XML_ENTITIES: { [entity: string]: string } = { lt: '<', gt: '>', amp: '&', quot: '"', apos: "'" };
+export const decodeXmlEntities = (value: string) =>
+  value.replace(/&(#x[0-9a-f]+|#\d+|lt|gt|amp|quot|apos);/gi, (match, entity: string) => {
+    const lower = entity.toLowerCase();
+    if (lower.startsWith('#x')) {
+      return String.fromCodePoint(parseInt(lower.slice(2), 16));
+    }
+    if (lower.startsWith('#')) {
+      return String.fromCodePoint(parseInt(lower.slice(1), 10));
+    }
+    return XML_ENTITIES[lower] ?? match;
+  });
+
 export const plistParser = (xmlStr: string, items = true) => {
   const tags = ['array', 'dict', 'key', 'string', 'integer', 'date', 'real', 'data', 'boolean', 'arrayEmpty'];
   const startStr = '<plist version';
@@ -134,7 +148,7 @@ export const plistParser = (xmlStr: string, items = true) => {
             metaData[depth].tagEnd = '';
           } else {
             if (metaData[depth].tagEnd === '/key' && metaData[depth].tagContent) {
-              metaData[depth].key = metaData[depth].tagContent;
+              metaData[depth].key = decodeXmlEntities(metaData[depth].tagContent);
             } else {
               if (metaData[depth].tagEnd === '/real' && metaData[depth].tagContent) {
                 metaData[depth].data = parseFloat(metaData[depth].tagContent) || 0;
@@ -143,7 +157,7 @@ export const plistParser = (xmlStr: string, items = true) => {
                 metaData[depth].data = parseInt(metaData[depth].tagContent, 10) || 0;
               }
               if (metaData[depth].tagEnd === '/string' && metaData[depth].tagContent) {
-                metaData[depth].data = metaData[depth].tagContent || '';
+                metaData[depth].data = decodeXmlEntities(metaData[depth].tagContent);
               }
               if (metaData[depth].tagEnd === '/date' && metaData[depth].tagContent) {
                 metaData[depth].data = metaData[depth].tagContent || '';
