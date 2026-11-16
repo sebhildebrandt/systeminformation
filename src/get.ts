@@ -2,7 +2,7 @@ import { nextTick } from './common';
 import * as functions from './index';
 
 // aggregate / control functions must not be callable through get()
-const blocked = ['get', 'observe', 'getStaticData', 'getDynamicData', 'getAllData', 'powerShellStart', 'powerShellRelease'];
+const blocked = ['get', 'observe', 'getStaticData', 'getDynamicData', 'getAllData', 'powerShellStart', 'powerShellRelease', 'diskSpeed'];
 
 const pickKeys = (element: any, keyList: string[]) => {
   if (keyList.length === 1 && (keyList[0] === '*' || keyList[0] === 'all')) {

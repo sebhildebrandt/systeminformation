@@ -12,6 +12,7 @@ export { audio } from '../linux/audio';
 export { baseboard } from '../linux/baseboard';
 export { bios } from '../linux/bios';
 export { chassis } from '../linux/chassis';
+export { diskSpeed } from '../linux/disk-speed';
 export { disksIO } from '../linux/disks-io';
 export { fsSize } from '../linux/fs-size';
 export { inetLatency } from '../linux/inet-latency';

@@ -14,6 +14,7 @@ export { cpuTemperature } from './cpu-temperature';
 export { fans } from './fans';
 export { currentLoad } from '../cpu-current-load';
 export { diskLayout } from './disk-layout';
+export { diskSpeed } from './disk-speed';
 export { disksIO } from './disks-io';
 export { displays } from './displays';
 export { dockerInfo, dockerImages, dockerContainers, dockerContainerStats, dockerContainerProcesses, dockerVolumes, dockerAll } from '../docker';

@@ -21,6 +21,7 @@ export { cpuFlags } from './cpu-flags';
 export { cpuTemperature } from './cpu-temperature';
 export { fans } from './fans';
 export { diskLayout } from './disk-layout';
+export { diskSpeed } from './disk-speed';
 export { disksIO } from './disks-io';
 export { displays } from './displays';
 export { fsOpenFiles } from './fs-open-files';

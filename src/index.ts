@@ -14,6 +14,7 @@ export { cpuFlags } from './cpu-flags';
 export { fullLoad } from './cpu-full-load';
 export { cpuTemperature } from './cpu-temperature';
 export { diskLayout } from './disk-layout';
+export { diskSpeed } from './disk-speed';
 export { disksIO } from './disks-io';
 export { displays } from './displays';
 export { dockerAll, dockerContainerProcesses, dockerContainerStats, dockerContainers, dockerImages, dockerInfo, dockerVolumes } from './docker';

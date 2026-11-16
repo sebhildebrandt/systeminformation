@@ -705,6 +705,15 @@ export type FsBlockDevicesData = {
   partStart: number | null;
 };
 
+export type DiskSpeedData = {
+  path: string;
+  fs: string;
+  sizeMB: number;
+  writeSpeed: number | null;
+  readSpeed: number | null;
+  ms: number;
+};
+
 export type FsStatsData = {
   rx: number;
   wx: number;

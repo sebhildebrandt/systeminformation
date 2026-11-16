@@ -77,6 +77,7 @@ function buildTests(si) {
     diskLayout: () => si.diskLayout(),
     blockDevices: () => si.blockDevices(),
     disksIO: () => si.disksIO(),
+    diskSpeed: () => si.diskSpeed(undefined, 64),
     fsSize: () => si.fsSize(),
     fsOpenFiles: () => si.fsOpenFiles(),
     fsStats: () => si.fsStats(),

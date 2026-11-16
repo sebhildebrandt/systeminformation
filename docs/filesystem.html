@@ -749,6 +749,94 @@ setInterval(function() {
 }...</pre>
                         </td>
                       </tr>
+                      <tr>
+                        <td>si.diskSpeed(path, sizeMB)</td>
+                        <td>{ ...}</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>disk speed test: sequential write / read throughput. Writes a temporary test file (default 1 GB, max. 10 s per phase) into <span class="code">path</span> (default: temp directory) and deletes it afterwards</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>path</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>tested directory</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>fs</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>file system / device holding the directory</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>sizeMB</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>tested size in MB (less than requested if the time budget was used up)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>writeSpeed</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>write throughput in MB/s (incl. fsync)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>readSpeed</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>read throughput in MB/s, bypassing the file cache - null if not possible (Linux: needs GNU dd, macOS: needs optional macos-smc package, Apple Silicon only)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>ms</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>total duration of the test in ms</td>
+                      </tr>
+                      <tr class="example">
+                        <td></td>
+                        <td colspan="7">
+                          <h5>Example</h5>
+                          <pre><code class="js">const si = require('systeminformation');
+si.diskSpeed('/data', 1024).then(data => console.log(data));</code></pre>
+                          <pre class="example">
+{
+  path: '/data',
+  fs: '/dev/nvme0n1p2',
+  sizeMB: 1024,
+  writeSpeed: 6612.8,
+  readSpeed: 12833.1,
+  ms: 189
+}</pre>
+                          <p>The test writes real data - do not run it periodically on SSDs. Sizes from 16 MB to 4096 MB, at least 1 GB of free space is kept. Not part of <span class="code">get()</span> / <span class="code">getAllData()</span>.</p>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                   <h2>File System and File System Stats</h2>

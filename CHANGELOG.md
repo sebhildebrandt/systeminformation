@@ -21,6 +21,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `serialPorts()` detected serial / COM ports incl. USB adapters (`device`, `name`, `manufacturer`, `serialNumber`, `vendorId`, `productId`, `pnpId`, `type`; Linux via sysfs, macOS via ioreg, Windows via `Win32_PnPEntity`)
 - `processFocused()` process owning the currently focused window (`pid`, `name`, `path`; macOS via `lsappinfo`, Windows via `GetForegroundWindow`, Linux X11 via `xdotool` / `xprop`, #403)
 - `networkRoutes()` routing table: `destination` (CIDR), `gateway`, `iface`, `metric` and `family` per route (Linux via `ip -j route` or `/proc/net/route`, macOS / BSD via `netstat -rn` without ARP / NDP neighbor entries, Windows via `Get-NetRoute` with the effective metric)
+- `diskSpeed(path, sizeMB)` disk speed test: sequential write / read throughput in MB/s. Writes a temporary file (default 1 GB, max. 10 s per phase, at least 1 GB free space kept) and deletes it afterwards. Reads bypass the file cache (Linux via GNU `dd iflag=nocache`, Windows via `FILE_FLAG_NO_BUFFERING`, macOS on Apple Silicon with the optional `macos-smc` package), otherwise `readSpeed` is `null`. Not part of `get()` / `getAllData()`
 - `powerShellStart()` / `powerShellRelease()` start / terminate the pool of persistent PowerShell processes (Windows). After a release, the pool restarts automatically with the next call that needs PowerShell
 
 #### New Attributes

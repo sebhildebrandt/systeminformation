@@ -52,6 +52,7 @@ in a browser.
 - `fans()` - detected fans with rpm and pwm
 - `serialPorts()` - detected serial / COM ports
 - `networkRoutes()` - network routing table
+- `diskSpeed()` - disk speed test (sequential write / read throughput)
 
 ### Extended Windows support
 
@@ -170,7 +171,7 @@ implementations can be tree-shaken away.
 
 - complete rewrite in TypeScript with typed declarations for every function
 - modular imports: load the whole library, a single operating system, or a single function
-- new functions: `camera()`, `keyboard()`, `mouse()`, `thunderbolt()`, `pci()`, `npu()`, `software()`, `npm()`, `fans()`, `serialPorts()`, `networkRoutes()`
+- new functions: `camera()`, `keyboard()`, `mouse()`, `thunderbolt()`, `pci()`, `npu()`, `software()`, `npm()`, `fans()`, `serialPorts()`, `networkRoutes()`, `diskSpeed()`
 - extended Windows support: `disksIO()`, `fsStats()`, `fsOpenFiles()`, `thunderbolt()`
 - `time()` and `version()` are now asynchronous - all functions are async (async/await preferred, promises as alternative)
 - callbacks are no longer supported
@@ -600,6 +601,13 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 |                   | busyPercent           | X     |     |     |     |     | percent of time disks were busy, avg. over all disks (* see notes)       |
 |                   | idlePercent           | X     |     |     |     |     | percent of time disks were idle, avg. over all disks (* see notes)       |
 |                   | ms                    | X     |     | X   | X   |     | interval length (for per second values)                                  |
+| si.diskSpeed(path, sizeMB) | {...}     | X     | X   | X   | X   |     | disk speed test (writes a temp. file, default 1 GB, max. 10 s per phase) |
+|                   | path                  | X     | X   | X   | X   |     | tested directory (default: temp directory)                               |
+|                   | fs                    | X     | X   | X   | X   |     | file system / device holding the directory                               |
+|                   | sizeMB                | X     | X   | X   | X   |     | tested size in MB (less if the time budget was used up)                  |
+|                   | writeSpeed            | X     | X   | X   | X   |     | write throughput in MB/s (incl. fsync)                                   |
+|                   | readSpeed             | X     | X   | X   | X   |     | read throughput in MB/s past the file cache, null if not possible (*)    |
+|                   | ms                    | X     | X   | X   | X   |     | total duration in ms                                                     |
 | si.fsSize(drive)  | [{...}]               | X     | X   | X   | X   |     | returns array of mounted file systems<br>drive param is optional         |
 |                   | [0].fs                | X     | X   | X   | X   |     | name of file system                                                      |
 |                   | [0].type              | X     | X   | X   | X   |     | type of file system                                                      |
@@ -1072,7 +1080,7 @@ $ npm install macos-smc --save
 
 `systeminformation` will then detect this additional library and return the temperature when calling systeminformations standard function `cpuTemperature()`.
 On Apple Silicon machines `macos-smc` also enables the GPU temperature (`temperatureGpu`) in `gpu()`, the fan speeds in `fans()`
-and the real current CPU frequency in `cpuCurrentSpeed()` (`os.cpus()` only reports a fixed value there). `macos-smc` replaces
+the real current CPU frequency in `cpuCurrentSpeed()` and the uncached read test in `diskSpeed()` (`os.cpus()` only reports a fixed value there). `macos-smc` replaces
 the former `macos-temperature-sensor` package, which is no longer used.
 
 #### Windows - Fan Speed
