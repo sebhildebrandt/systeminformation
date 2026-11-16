@@ -29,7 +29,12 @@ h4 {
 
 .larger {
   margin-top: 10px;
-  font-size: 1.5rem !important;
+  font-size: 1.3rem !important;
+}
+@media only screen and (min-width: 767px) {
+  .larger {
+    font-size: 1.5rem !important;
+  }
 }
 
 .medium {
@@ -54,12 +59,6 @@ h4 {
   background-size: cover;
   -o-background-size: cover;
   height: 100svh;
-  opacity: 0.95;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  width: 100% !important;
-  flex-direction: column;
 }
 @media only screen and (min-height: 1100px) {
   .bg-image-full {
@@ -70,6 +69,14 @@ h4 {
   .bg-image-full {
     max-height: 1260px;
   }
+}
+.bg-image-full {
+  opacity: 0.95;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 100% !important;
+  flex-direction: column;
 }
 .bg-image-full .top-container {
   text-align: center;
@@ -262,6 +269,7 @@ h4 {
   margin-bottom: 10px;
   color: #fff;
   font-size: 0.9rem;
+  font-weight: 500;
 }
 @media only screen and (min-width: 420px) {
   .bg-image-full .version {
@@ -330,6 +338,12 @@ h4 {
   .nav .title {
     font-size: 1.5rem;
   }
+}
+.nav .title-version {
+  color: #aaa;
+  margin-left: 15px;
+  margin-top: 23px;
+  font-weight: 400;
 }
 .nav .text {
   margin-top: 18px;

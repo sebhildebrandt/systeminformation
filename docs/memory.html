@@ -1,209 +1,231 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous" />
+    <link rel="stylesheet" href="roboto/css/roboto.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="main.js"></script>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous">
-  <link rel="stylesheet" href="roboto/css/roboto.css">
-  <link rel="stylesheet" href="styles.css">
-  <script src="main.js"></script>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha512-XJ+kBRoBFQps17m1/oCbbESEJtXMrCKq6Ls2a9MKSwoQsSrUk8i+qOd/7YXfl3BsAlfjUyQ4EPd0b0JB24Bgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+    <title>systeminformation</title>
+  </head>
 
-  <title>systeminformation</title>
-
-</head>
-
-<body>
-  <nav class="nav">
-    <div class="container">
-      <a href="."><img class="logo float-left" src="assets/logo.png" alt="logo">
-        <div class="title float-left">systeminformation</div>
-      </a>
-      <div class="text float-right github"><a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a></div>
-      <div class="text float-right todocs"><a href="./#docs">Docs Overview</a></div>
-    </div>
-  </nav>
-
-  <div class="container-fluid">
-    <section class="container">
-      <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu">
+  <body>
+    <nav class="nav">
+      <div class="container">
+        <a href="."
+          ><img class="logo float-left" src="assets/logo.png" alt="logo" />
+          <div class="title float-left">systeminformation</div>
+        </a>
+        <div class="text float-right github">
+          <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
         </div>
-        <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
-          <div class="row">
-            <div class="col-12 sectionheader">
-              <div class="title">Memory</div>
-              <div class="text">
-                <p>In this section you will learn how to get overall memory information (usage by OS) and memory module layout:</p>
-                <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
-                <pre><code class="js">const si = require('systeminformation');</code></pre>
-                <h2>System Memory and Memory Layout</h2>
-                <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
-                <table class="table table-sm table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Function</th>
-                      <th>Result object</th>
-                      <th>Linux</th>
-                      <th>BSD</th>
-                      <th>Mac</th>
-                      <th>Win</th>
-                      <th>Sun</th>
-                      <th>Comments</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>si.mem(cb)</td>
-                      <td>{...}</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>Memory information (object)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>total</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>total memory in bytes</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>free</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>not used in bytes</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>used</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>used (incl. buffers/cache)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>active</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>used actively (excl. buffers/cache)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>buffcache</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td>used by buffers+cache</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>buffers</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>used by buffers</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>cached</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>used by cache</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>slab</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>used by slab</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>available</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>potentially available (total - active)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>swaptotal</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>swapused</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>swapfree</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr class="example">
-                      <td></td>
-                      <td colspan="7">
-                        <h5>Example</h5>
-                        <pre><code class="js">const si = require('systeminformation');
+        <div class="text float-right todocs"><a href="./#docs">Docs Overview</a></div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <section class="container">
+        <div class="row">
+          <div class="col-12 col-md-4 col-lg-3 col-xl-2 menu" id="menu"></div>
+          <div class="col-12 col-md-8 col-lg-9 col-xl-10 content">
+            <div class="row">
+              <div class="col-12 sectionheader">
+                <div class="title">Memory</div>
+                <div class="text">
+                  <p>In this section you will learn how to get overall memory information (usage by OS) and memory module layout:</p>
+                  <p>For function reference and examples we assume, that we imported <span class="code">systeminformation</span> as follows:</p>
+                  <pre><code class="js">const si = require('systeminformation');</code></pre>
+                  <h2>System Memory and Memory Layout</h2>
+                  <p>All functions in this section return a promise or can be called with a callback function (parameter <span class="code">cb</span> in the function reference)</p>
+                  <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Function</th>
+                        <th>Result object</th>
+                        <th>Linux</th>
+                        <th>BSD</th>
+                        <th>Mac</th>
+                        <th>Win</th>
+                        <th>Sun</th>
+                        <th>Comments</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>si.mem(cb)</td>
+                        <td>{ ...}</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>Memory information (object)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>total</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>total memory in bytes</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>free</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>not used in bytes</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>used</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>used (incl. buffers/cache)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>active</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>used actively (excl. buffers/cache and reclaimable ZFS ARC, see notes)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>buffcache</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>used by buffers+cache</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>buffers</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>used by buffers</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>cached</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>used by cache</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>slab</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>used by slab</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>available</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>potentially available (total - active, see notes)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>swaptotal</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>swapused</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>swapfree</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>swapin_sec</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>pages swapped in per second since previous call (null on first call)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>swapout_sec</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>pages swapped out per second since previous call (null on first call)</td>
+                      </tr>
+                      <tr class="example">
+                        <td></td>
+                        <td colspan="7">
+                          <h5>Example</h5>
+                          <pre><code class="js">const si = require('systeminformation');
 si.mem().then(data => console.log(data));</code></pre>
-<pre class="example">
+                          <pre class="example">
 {
   total: 67092135936,
   free: 65769291776,
@@ -216,148 +238,150 @@ si.mem().then(data => console.log(data));</code></pre>
   buffcache: 1132142592,
   swaptotal: 8589930496,
   swapused: 0,
-  swapfree: 8589930496
+  swapfree: 8589930496,
+  swapin_sec: 0,
+  swapout_sec: 0
 }
 </pre>
-                    </td>
-                    </tr>
-                    <tr>
-                      <td>si.memLayout(cb)</td>
-                      <td>[{...}]</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>Memory Layout (array of objects)</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].size</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>size in bytes</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].bank</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>memory bank</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].type</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>memory type</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].ecc</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>ECC memory</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].clockSpeed</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>clock speed</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].formFactor</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>form factor</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].manufacturer</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>manufacturer</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].partNum</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>part number</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].serialNum</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>serial number</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].voltageConfigured</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>voltage conf.</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].voltageMin</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>voltage min</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>[0].voltageMax</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td></td>
-                      <td>X</td>
-                      <td></td>
-                      <td>voltage max</td>
-                    </tr>
-                    <tr class="example">
-                      <td></td>
-                      <td colspan="7">
-                        <h5>Example</h5>
-                        <pre><code class="js">const si = require('systeminformation');
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>si.memLayout(cb)</td>
+                        <td>[ { ...}]</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>Memory Layout (array of objects)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].size</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>size in bytes</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].bank</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>memory bank</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].type</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>memory type</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].ecc</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>ECC memory</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].clockSpeed</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>clock speed</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].formFactor</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>form factor</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].manufacturer</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>manufacturer</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].partNum</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>part number</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].serialNum</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>serial number</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].voltageConfigured</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>voltage conf.</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].voltageMin</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>voltage min</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].voltageMax</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>voltage max</td>
+                      </tr>
+                      <tr class="example">
+                        <td></td>
+                        <td colspan="7">
+                          <h5>Example</h5>
+                          <pre><code class="js">const si = require('systeminformation');
 si.memLayout().then(data => console.log(data));</code></pre>
-<pre class="example">
+                          <pre class="example">
 [
   {
     size: 34359738368,
@@ -389,60 +413,95 @@ si.memLayout().then(data => console.log(data));</code></pre>
   }
 ]
 </pre>
-                    </td>
-                    </tr>
-                  </tbody>
-                </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <h4>ZFS ARC and the active / available values</h4>
+                  <p>
+                    <span class="code">mem().active</span>
+                    is meant to be the memory that is really in use - everything that would be handed back to your processes under pressure is subtracted and shows up in
+                    <span class="code">available</span>
+                    instead. For the ordinary page cache the operating system does that bookkeeping itself. ZFS does not take part in it: its cache, the
+                    <strong>ARC</strong>
+                    (Adaptive Replacement Cache), lives outside the page cache, so Linux reports it in neither <span class="code">Cached</span> nor <span class="code">MemAvailable</span>, and FreeBSD counts it as wired memory.
+                  </p>
+                  <p>
+                    Because the ARC grows until it has taken roughly half of the machine, that made <span class="code">active</span> sit near <span class="code">total</span> permanently on a ZFS host - and worse, it hid real memory growth, since the ARC gives memory back at exactly the same rate
+                    until there is nothing left to give.
+                  </p>
+                  <p>
+                    The ARC never shrinks below <span class="code">c_min</span>, so everything it holds above that value is treated as available. The correction is read from
+                    <span class="code">/proc/spl/kstat/zfs/arcstats</span>
+                    on Linux and from <span class="code">kstat.zfs.misc.arcstats</span> on FreeBSD - no root privileges and no
+                    <span class="code">arc_summary</span>
+                    / <span class="code">arcstat</span> binary required. Without ZFS nothing changes. This is the same correction
+                    <a href="https://htop.dev/" target="_blank" rel="noopener">htop</a>
+                    applies.
+                  </p>
+                  <p class="warning">
+                    <span class="code">available</span>
+                    can therefore be larger than <span class="code">free + buffcache</span> and larger than what
+                    <span class="code">free -b</span>
+                    reports - <span class="code">free</span> has no ZFS awareness. The other values (<span class="code">used</span>, <span class="code">buffers</span>, <span class="code">cached</span>, <span class="code">slab</span>, <span class="code">buffcache</span>) stay exactly as the operating
+                    system reports them.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-  </div>
-  </section>
-  </div>
-  <footer class="container-fluid footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 col-12">
-          <ul class="list-unstyled">
-            <li><a href="." class="medium home">Home</a></li>
-            <li>&nbsp;</li>
-            <li><a href="security.html">Security Advisories&nbsp;&nbsp;<i class="fas fa-shield-check"></i></a></li>
-            <li><a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a></li>
-            <li>&nbsp;</li>
-            <li><a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-4 col-12">
-          <ul class="list-unstyled">
-            <li><a href="gettingstarted.html">Quick Start</a></li>
-            <li><a href="changes.html">Version 6 Changes</a></li>
-            <li><a href="history.html">Full Version History</a></li>
-            <li><a href="tests.html">Testing</a></li>
-            <li><a href="issues.html">Known Issues</a></li>
-            <li><a href="statsfunctions.html">Stats Functions</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-4 col-12">
-          <ul class="list-unstyled">
-            <li><a href="contributors.html">Contributors</a></li>
-            <li><a href="trademarks.html">Trademarks</a></li>
-            <li>&nbsp;</li>
-            <li><a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a></li>
-            <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
-            <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
-          </ul>
-        </div>
-      </div>
+      </section>
     </div>
-  </footer>
+    <footer class="container-fluid footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-12">
+            <ul class="list-unstyled">
+              <li><a href="." class="medium home">Home</a></li>
+              <li>&nbsp;</li>
+              <li>
+                <a href="security.html">Security Advisories&nbsp;&nbsp;<i class="fas fa-shield-check"></i></a>
+              </li>
+              <li>
+                <a href="https://github.com/sebhildebrandt/systeminformation">Github <i class="fab fa-github"></i></a>
+              </li>
+              <li>&nbsp;</li>
+              <li>
+                <a href="https://buymeacoff.ee/systeminfo" class="medium badge bg-primary"><i class="fas fa-coffee"></i>&nbsp;&nbsp;Buy me a coffee</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-12">
+            <ul class="list-unstyled">
+              <li><a href="gettingstarted.html">Quick Start</a></li>
+              <li><a href="changes.html">Version 6 Changes</a></li>
+              <li><a href="history.html">Full Version History</a></li>
+              <li><a href="tests.html">Testing</a></li>
+              <li><a href="issues.html">Known Issues</a></li>
+              <li><a href="statsfunctions.html">Stats Functions</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-12">
+            <ul class="list-unstyled">
+              <li><a href="contributors.html">Contributors</a></li>
+              <li><a href="trademarks.html">Trademarks</a></li>
+              <li>&nbsp;</li>
+              <li>
+                <a href="copyright.html">Copyright &amp; License&nbsp;&nbsp;<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT license" /></a>
+              </li>
+              <li><a href="https://www.plus-innovations.com">&copy; 2026 Sebastian Hildebrandt</a></li>
+              <li><a href="https://www.plus-innovations.com">+innovations GmbH</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
 
-  <script>
-    window.onload = function (e) {
-      createMenu();
-    }
-  </script>
-</body>
-
+    <script>
+      window.onload = (e) => {
+        createMenu();
+      };
+    </script>
+  </body>
 </html>
