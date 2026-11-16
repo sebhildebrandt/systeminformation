@@ -1059,6 +1059,14 @@ export type NetworkInterfacesData = {
   bridgeMembers: string[];
 };
 
+export type NetworkRouteData = {
+  destination: string;
+  gateway: string;
+  iface: string;
+  metric: number | null;
+  family: string;
+};
+
 export type NetworkStatsData = {
   iface: string;
   operstate: string;

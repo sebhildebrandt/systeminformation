@@ -84,6 +84,7 @@ function buildTests(si) {
     networkInterfaces: () => si.networkInterfaces(),
     networkInterfaceDefault: () => si.networkInterfaceDefault(),
     networkGatewayDefault: () => si.networkGatewayDefault(),
+    networkRoutes: () => si.networkRoutes(),
     networkConnections: () => si.networkConnections(),
     networkStats: () => si.networkStats('*'),
     inetLatency: () => si.inetLatency('github.com'), // ponytail: braucht Netz; auf CI-Runnern vorhanden

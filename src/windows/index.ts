@@ -36,6 +36,7 @@ export { networkConnections } from './network-connections';
 export { networkGatewayDefault } from './network-gateway-default';
 export { networkInterfaceDefault } from './network-interface-default';
 export { networkInterfaces } from './network-interfaces';
+export { networkRoutes } from './network-routes';
 export { networkStats } from './network-stats';
 export { npm } from './npm';
 export { npu } from './npu';

@@ -4,6 +4,7 @@ export { fullLoad } from '../cpu-full-load';
 export { fsOpenFiles } from '../darwin/fs-open-files';
 export { networkInterfaceDefault } from '../darwin/network-interface-default';
 export { networkInterfaces } from '../darwin/network-interfaces';
+export { networkRoutes } from '../darwin/network-routes';
 export { users } from '../darwin/users';
 export { dockerAll, dockerContainerProcesses, dockerContainers, dockerContainerStats, dockerImages, dockerInfo, dockerVolumes } from '../docker';
 export { inetChecksite } from '../inet-checksite';

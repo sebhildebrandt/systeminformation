@@ -20,6 +20,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `fans()` detected fans with `rpm` and `pwm` (Linux via hwmon / thermal cooling devices; Windows only with a running LibreHardwareMonitor / OpenHardwareMonitor; for macOS you need to install `macos-temperature-sensor` as an additional dependency)
 - `serialPorts()` detected serial / COM ports incl. USB adapters (`device`, `name`, `manufacturer`, `serialNumber`, `vendorId`, `productId`, `pnpId`, `type`; Linux via sysfs, macOS via ioreg, Windows via `Win32_PnPEntity`)
 - `processFocused()` process owning the currently focused window (`pid`, `name`, `path`; macOS via `lsappinfo`, Windows via `GetForegroundWindow`, Linux X11 via `xdotool` / `xprop`, #403)
+- `networkRoutes()` routing table: `destination` (CIDR), `gateway`, `iface`, `metric` and `family` per route (Linux via `ip -j route` or `/proc/net/route`, macOS / BSD via `netstat -rn` without ARP / NDP neighbor entries, Windows via `Get-NetRoute` with the effective metric)
 - `powerShellStart()` / `powerShellRelease()` start / terminate the pool of persistent PowerShell processes (Windows). After a release, the pool restarts automatically with the next call that needs PowerShell
 
 #### New Attributes

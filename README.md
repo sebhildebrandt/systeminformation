@@ -51,6 +51,7 @@ in a browser.
 - `npm()` - globally installed npm packages
 - `fans()` - detected fans with rpm and pwm
 - `serialPorts()` - detected serial / COM ports
+- `networkRoutes()` - network routing table
 
 ### Extended Windows support
 
@@ -167,7 +168,7 @@ implementations can be tree-shaken away.
 
 - complete rewrite in TypeScript with typed declarations for every function
 - modular imports: load the whole library, a single operating system, or a single function
-- new functions: `camera()`, `keyboard()`, `mouse()`, `thunderbolt()`, `pci()`, `npu()`, `software()`, `npm()`, `fans()`, `serialPorts()`
+- new functions: `camera()`, `keyboard()`, `mouse()`, `thunderbolt()`, `pci()`, `npu()`, `software()`, `npm()`, `fans()`, `serialPorts()`, `networkRoutes()`
 - extended Windows support: `disksIO()`, `fsStats()`, `fsOpenFiles()`, `thunderbolt()`
 - `time()` and `version()` are now asynchronous - all functions are async (async/await preferred, promises as alternative)
 - callbacks are no longer supported
@@ -741,6 +742,12 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 |                              | [0].bridgeMembers  | X     |     | X   |     |     | interfaces enslaved to this bridge (empty if not a bridge)                                                                                                                                         |
 | si.networkInterfaceDefault() | : string           | X     | X   | X   | X   | X   | get name of default network interface                                                                                                                                                              |
 | si.networkGatewayDefault()   | : string           | X     | X   | X   | X   | X   | get default network gateway                                                                                                                                                                        |
+| si.networkRoutes()           | [{...}]            | X     | X   | X   | X   |     | routing table (array of routes)                                                                                                                                                                    |
+|                              | [0].destination    | X     | X   | X   | X   |     | destination in CIDR notation (default route: 0.0.0.0/0 or ::/0)                                                                                                                                  |
+|                              | [0].gateway        | X     | X   | X   | X   |     | next hop (empty if directly connected)                                                                                                                                                             |
+|                              | [0].iface          | X     | X   | X   | X   |     | interface                                                                                                                                                                                          |
+|                              | [0].metric         | X     |     |     | X   |     | metric (Windows: route + interface metric), null if unknown                                                                                                                                        |
+|                              | [0].family         | X     | X   | X   | X   |     | IPv4 or IPv6                                                                                                                                                                                       |
 | si.networkStats(ifaces)      | [{...}]            | X     | X   | X   | X   |     | current network stats of given interfaces<br>iface list: space or comma separated<br>iface parameter is optional<br>defaults to first external network interface,<br />Pass '*' for all interfaces |
 |                              | [0].iface          | X     | X   | X   | X   |     | interface                                                                                                                                                                                          |
 |                              | [0].operstate      | X     | X   | X   | X   |     | up / down                                                                                                                                                                                          |
