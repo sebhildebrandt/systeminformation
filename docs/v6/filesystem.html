@@ -460,6 +460,56 @@ si.diskLayout().then(data => console.log(data));</code></pre>
                         <td></td>
                         <td>Physical device mapped to (e.g. /dev/sda)</td>
                       </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].partUuid</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>partition UUID (PARTUUID)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].partLabel</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>partition label (GPT name)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].partType</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>partition type (MBR id e.g. 0x83, 0x5 = extended, or GPT type GUID)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].partFlags</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>partition flags (e.g. 0x80 = bootable)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].partStart</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>start offset of partition in bytes (null if not a partition)</td>
+                      </tr>
                       <tr class="example">
                         <td></td>
                         <td colspan="7">
@@ -483,7 +533,25 @@ si.blockDevices().then(data => console.log(data));</code></pre>
     removable: false,
     protocol: 'nvme',
     group: '',
-    device: 'nvme0n1'
+    device: 'nvme0n1',
+    partUuid: '',
+    partLabel: '',
+    partType: '',
+    partFlags: '',
+    partStart: null
+  },
+  {
+    name: 'nvme0n1p1',
+    type: 'part',
+    fsType: 'vfat',
+    mount: '/boot/efi',
+    size: 536870912,
+    ...
+    partUuid: '6f1c2b1e-8a4d-4c47-9e1e-3c1f0a2b7d11',
+    partLabel: 'EFI System Partition',
+    partType: 'c12a7328-f81f-11d2-ba4b-00a0c93ec93b',
+    partFlags: '',
+    partStart: 1048576
   },
   {
     ...
