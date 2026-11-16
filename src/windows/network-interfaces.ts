@@ -17,7 +17,7 @@ const parseLinesWindowsNics = (sections: any[], nconfigsections: any[]) => {
   const nics = [];
   for (let i = 0; i < sections.length; i++) {
     try {
-      if (Object.prototype.hasOwnProperty.call(sections, i)) {
+      if (Object.hasOwn(sections, i)) {
         if (sections[i].trim() !== '') {
           const lines = sections[i].trim().split('\r\n');
           let linesNicConfig = null;
@@ -160,7 +160,10 @@ const getWindowsWiredProfilesInformation = async () => {
 const getWindowsWirelessIfaceSSID = async (interfaceName: string) => {
   try {
     const { stdout } = await execFile('netsh', ['wlan', 'show', 'interface', `name=${sanitizeString(interfaceName)}`], execOptsWin);
-    const SSID = String(stdout).split('\r\n').find((l) => l.includes('SSID')) || '';
+    const SSID =
+      String(stdout)
+        .split('\r\n')
+        .find((l) => l.includes('SSID')) || '';
     const parseSSID = (SSID.split(':').pop() || '').trim();
     return parseSSID;
   } catch {
@@ -243,7 +246,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
   }
   _interfaces = cloneObj(interfaces);
 
-  let result: NetworkInterfacesData[] = [];
+  const result: NetworkInterfacesData[] = [];
 
   try {
     const defaultInterface = await networkInterfaceDefault();
@@ -335,6 +338,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
       const virtual = internal ? false : testVirtualNic(dev, ifaceName, mac);
       result.push({
         ...initNetworkInterface,
+        bridgeMembers: [],
         iface,
         ifaceName,
         vendor,

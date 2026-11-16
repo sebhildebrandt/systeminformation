@@ -341,7 +341,8 @@ export const initNetworkInterface: NetworkInterfacesData = {
   dnsSuffix: '',
   ieee8021xAuth: '',
   ieee8021xState: '',
-  carrierChanges: 0
+  carrierChanges: 0,
+  bridgeMembers: []
 };
 
 export const initNpuData: NpuData = {

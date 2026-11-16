@@ -1042,6 +1042,7 @@ export type NetworkInterfacesData = {
   ieee8021xAuth: string;
   ieee8021xState: string;
   carrierChanges: number;
+  bridgeMembers: string[];
 };
 
 export type NetworkStatsData = {

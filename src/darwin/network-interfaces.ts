@@ -42,7 +42,8 @@ const parseLinesDarwinNics = (sections: any[]) => {
       type: '',
       operstate: '',
       duplex: '',
-      internal: false
+      internal: false,
+      bridgeMembers: [] as string[]
     };
     const first = section[0];
     nic.iface = first.split(':')[0].trim();
@@ -61,6 +62,10 @@ const parseLinesDarwinNics = (sections: any[]) => {
       }
       if (line.trim().startsWith('inet ') && !nic.ip4) {
         nic.ip4 = line.split('inet ')[1].toLowerCase().split(' ')[0];
+      }
+      // bridges list their enslaved interfaces as "member: en1 flags=..."
+      if (line.trim().startsWith('member: ')) {
+        nic.bridgeMembers.push(line.trim().split(/\s+/)[1]);
       }
     });
     let speed = getValue(section, 'link rate');
@@ -113,7 +118,13 @@ export const parseBsdGateways = (stdout: string) => {
       continue;
     }
     // without a header only a BSD interface name is accepted, so flags cannot become the key
-    const iface = ifaceColumn > 0 ? parts[ifaceColumn] : parts.slice(2).reverse().find((part) => /^[a-z][a-z0-9]*\d$/.test(part));
+    const iface =
+      ifaceColumn > 0
+        ? parts[ifaceColumn]
+        : parts
+            .slice(2)
+            .reverse()
+            .find((part) => /^[a-z][a-z0-9]*\d$/.test(part));
     if (iface && !result[iface]) {
       result[iface] = parts[1];
     }
@@ -196,7 +207,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
     return filterDefaultInterface(_networkInterfaces, defaultString);
   }
   _interfaces = cloneObj(interfaces);
-  let result: NetworkInterfacesData[] = [];
+  const result: NetworkInterfacesData[] = [];
 
   try {
     const [nics, defaultInterface, gateways, vendors] = await Promise.all([getBsdNics(), networkInterfaceDefault(), getBsdGateways(), getBsdNicVendors()]);
@@ -271,7 +282,8 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
         dnsSuffix: '',
         ieee8021xAuth: '',
         ieee8021xState: '',
-        carrierChanges: 0
+        carrierChanges: 0,
+        bridgeMembers: nic.bridgeMembers
       });
     }
     _networkInterfaces = result;

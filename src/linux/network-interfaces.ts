@@ -354,18 +354,22 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
 
       let lines: string[] = [];
       let hasDevice = true;
+      let bridgeMembers: string[] = [];
       try {
         const safe = isSafePathSegment(ifaceSanitized);
         const connectionName = getLinuxIfaceConnectionName(deviceStatus, ifaceSanitized);
         // iw needs nl80211 - skip the spawn for every non cfg80211 interface
-        const [sysfsLines, iwOut, details, device] = await Promise.all([
+        const [sysfsLines, iwOut, details, device, brif] = await Promise.all([
           safe ? readSysfsMany(`/sys/class/net/${ifaceSanitized}`, ['address', 'carrier_changes', 'duplex', 'mtu', 'operstate', 'speed', 'type']) : [],
           safe ? fileExists(`/sys/class/net/${ifaceSanitized}/phy80211`).then((wifi) => (wifi ? execSecure('iw', ['dev', ifaceSanitized, 'link'], EXEC_OPTS) : '')) : '',
           getLinuxConnectionDetails(connectionName),
           // physical NICs link to their bus device - veths, bridges, tun, wireguard etc. have none
-          safe ? fileExists(`/sys/class/net/${ifaceSanitized}/device`) : true
+          safe ? fileExists(`/sys/class/net/${ifaceSanitized}/device`) : true,
+          // only bridges have brif - one entry per enslaved interface
+          safe ? readdir(`/sys/class/net/${ifaceSanitized}/brif`).catch(() => [] as string[]) : ([] as string[])
         ]);
         hasDevice = device;
+        bridgeMembers = brif.sort();
         lines = sysfsLines;
         lines.push(`wireless: ${wirelessLines.find((line: string) => line.indexOf(ifaceSanitized) >= 0) || ''}`);
         // keep the raw "tx bitrate: <x> MBit/s" lines - getValue() matches on the line start
@@ -433,7 +437,8 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
         dnsSuffix,
         ieee8021xAuth,
         ieee8021xState,
-        carrierChanges
+        carrierChanges,
+        bridgeMembers
       };
     };
     for (let i = 0; i < devices.length; i += SCAN_CONCURRENCY) {
