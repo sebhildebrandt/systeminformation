@@ -453,6 +453,92 @@ si.networkGatewayDefault().then(data => console.log(data));</code></pre>
                         </td>
                       </tr>
                       <tr>
+                        <td>si.networkRoutes()</td>
+                        <td>[ { ...}]</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>routing table (array of routes)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].destination</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>destination in CIDR notation (default route: 0.0.0.0/0 or ::/0)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].gateway</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>next hop (empty if directly connected)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].iface</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>interface</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].metric</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td>metric (Windows: route metric + interface metric), null if unknown</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].family</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>IPv4 or IPv6</td>
+                      </tr>
+                      <tr class="example">
+                        <td></td>
+                        <td colspan="7">
+                          <h5>Example</h5>
+                          <pre><code class="js">const si = require('systeminformation');
+si.networkRoutes().then(data => console.log(data));</code></pre>
+                          <pre class="example">
+[
+  {
+    destination: '0.0.0.0/0',
+    gateway: '192.168.1.1',
+    iface: 'eth0',
+    metric: 100,
+    family: 'IPv4'
+  },
+  {
+    destination: '192.168.1.0/24',
+    gateway: '',
+    iface: 'eth0',
+    metric: 100,
+    family: 'IPv4'
+  },
+  ...
+]</pre>
+                        </td>
+                      </tr>
+                      <tr>
                         <td>si.networkStats(iface,cb)</td>
                         <td>[ { ...}]</td>
                         <td>X</td>
