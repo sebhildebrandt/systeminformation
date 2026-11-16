@@ -200,6 +200,26 @@
                         <td>X</td>
                         <td>current loads per CPU in % + raw ticks</td>
                       </tr>
+                      <tr>
+                        <td></td>
+                        <td>cpus[].coreId</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>physical core of this logical CPU (null if unknown, macOS: Apple Silicon only)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>cpus[].socketId</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>socket / package of this logical CPU - same socketId and coreId = SMT siblings</td>
+                      </tr>
                       <tr class="example">
                         <td></td>
                         <td colspan="7">
@@ -246,7 +266,9 @@ si.currentLoad().then(data => console.log(data));</code></pre>
       rawLoadIdle: 880,
       rawLoadIrq: 0
       rawLoadSteal: 0
-      rawLoadGuest: 0
+      rawLoadGuest: 0,
+      coreId: 0,
+      socketId: 0
     },
     ...
   ]
