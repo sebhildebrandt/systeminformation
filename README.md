@@ -75,6 +75,8 @@ imported individually - see [Installation](#installation) and [Usage](#usage).
   importable (deep `dist/...` paths are no longer part of the public API).
 - **`osInfo().distro` reports flavors and derivatives** (e.g. `Kubuntu` instead of
   `Ubuntu`, `Raspberry Pi OS` instead of `Debian GNU/Linux`) - adapt checks on the distro name.
+- **macOS (Apple Silicon): `macos-smc` replaces `macos-temperature-sensor`** as optional
+  package for temperatures, fans and the current CPU frequency - see [Known Issues](#known-issues).
 
 ## Quick Start
 
@@ -1065,12 +1067,13 @@ $ npm install osx-temperature-sensor --save
 For Apple Silicon (ARM) based machines install
 
 ```bash
-$ npm install macos-temperature-sensor --save
+$ npm install macos-smc --save
 ```
 
 `systeminformation` will then detect this additional library and return the temperature when calling systeminformations standard function `cpuTemperature()`.
-On Apple Silicon machines `macos-temperature-sensor` also enables the GPU temperature (`temperatureGpu`) in `gpu()`
-and - as soon as the package exposes them - the fan speeds in `fans()`.
+On Apple Silicon machines `macos-smc` also enables the GPU temperature (`temperatureGpu`) in `gpu()`, the fan speeds in `fans()`
+and the real current CPU frequency in `cpuCurrentSpeed()` (`os.cpus()` only reports a fixed value there). `macos-smc` replaces
+the former `macos-temperature-sensor` package, which is no longer used.
 
 #### Windows - Fan Speed
 

@@ -1,6 +1,6 @@
-import { cpus } from 'node:os';
+import { arch, cpus } from 'node:os';
 import { nextTick } from './common';
-import { LINUX } from './common/const';
+import { DARWIN, LINUX } from './common/const';
 import { getCpuSpeed } from './common/cpu';
 import { readFileLines } from './common/files';
 import type { CpuCurrentSpeedObject } from './common/types';
@@ -67,6 +67,12 @@ export const getCpuCurrentSpeed = async (): Promise<CpuCurrentSpeedObject> => {
 
 export const cpuCurrentSpeed = async () => {
   await nextTick();
+  if (DARWIN && arch() === 'arm64') {
+    const appleSilicon = await (await import('./darwin/cpu-current-speed.js')).appleSiliconSpeed();
+    if (appleSilicon) {
+      return appleSilicon;
+    }
+  }
   let result = await getCpuCurrentSpeed();
   if (result.avg === 0 && getCpuSpeed() !== 0) {
     const currCpuSpeed = getCpuSpeed();

@@ -2,7 +2,7 @@ import { nextTick } from '../common';
 import { plistParser } from '../common/darwin';
 import { exec, shareInflight } from '../common/exec';
 import { graphicsMetalVersion, graphicsModelToVendor, graphicsVendorToId } from '../common/mappings';
-import { GpuData } from '../common/types';
+import type { GpuData } from '../common/types';
 
 const parseControllersDarwin = (graphicsArr: any[]): GpuData[] => {
   const controllers: GpuData[] = [];
@@ -37,13 +37,13 @@ export const gpu = async () => {
     const { stdout } = await shareInflight('SPDisplaysDataType', () => exec('system_profiler -xml -detailLevel full SPDisplaysDataType'));
     result = parseControllersDarwin(plistParser(stdout));
     try {
-      // GPU temperature (Apple Silicon) - optional macos-temperature-sensor dependency
-      const macosTemp = require('macos-temperature-sensor');
-      const temps = macosTemp.temperature();
-      if (temps && temps.gpu) {
+      // GPU temperature (Apple Silicon) - optional macos-smc dependency
+      const smc = require('macos-smc');
+      const gpuMax = smc.temperatures()?.gpu?.max;
+      if (typeof gpuMax === 'number') {
         for (const controller of result) {
           if (controller.bus === 'Built-In') {
-            controller.temperatureGpu = Math.round(temps.gpu * 100) / 100;
+            controller.temperatureGpu = Math.round(gpuMax * 100) / 100;
           }
         }
       }

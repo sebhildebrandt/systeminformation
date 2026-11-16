@@ -22,21 +22,14 @@ export const cpuTemperature = async () => {
     }
   } catch {}
   try {
-    // Apple Silicon - optional macos-temperature-sensor dependency
-    const macosTemp = require('macos-temperature-sensor');
-    const res = macosTemp.temperature();
-    if (res.cpu) {
-      // round to 2 digits
-      result.main = Math.round(res.cpu * 100) / 100;
-      result.max = result.main;
-    }
-    if (res.soc) {
-      result.chipset = Math.round(res.soc * 100) / 100;
-    }
-    if (res && res.cpuDieTemps && res.cpuDieTemps.length) {
-      for (const temp of res.cpuDieTemps) {
-        result.cores.push(Math.round(temp * 100) / 100);
-      }
+    // Apple Silicon - optional macos-smc dependency (SMC Tp* / Te* sensors, no SoC sensor)
+    const smc = require('macos-smc');
+    const cpu = smc.temperatures()?.cpu;
+    if (typeof cpu?.max === 'number') {
+      const round2 = (value: number) => Math.round(value * 100) / 100;
+      result.main = round2(typeof cpu.avg === 'number' ? cpu.avg : cpu.max);
+      result.max = round2(cpu.max);
+      result.cores = (cpu.sensors || []).map((sensor: any) => round2(sensor.value));
     }
   } catch {}
   return result;
