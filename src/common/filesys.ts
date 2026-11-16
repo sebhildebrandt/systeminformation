@@ -1,8 +1,8 @@
 import { readdir, readFile } from 'node:fs/promises';
-import { cloneObj, getValue, sortByKey, toInt, unique } from './index';
 import { DARWIN, execOptsLinux, execOptsWin, FREEBSD, LINUX, NETBSD, WINDOWS } from './const';
 import { initDiskIo, initFsBlockDevice, initFsStats } from './defaults';
 import { exec, execSecure } from './exec';
+import { cloneObj, getValue, sortByKey, toInt, unique } from './index';
 import { isSafePathSegment } from './security';
 import type { FsBlockDevicesData } from './types';
 
@@ -106,7 +106,8 @@ export const calcFsSpeed = (rx: number, wx: number) => {
 
 export const _disk_io: any = {};
 
-export const calcDiskIO = (rIO: number, wIO: number, rWaitTime: number, wWaitTime: number, tWaitTime: number) => {
+// busyTime: cumulative ms with IO in flight, averaged per disk (null where the OS does not provide it)
+export const calcDiskIO = (rIO: number, wIO: number, rWaitTime: number, wWaitTime: number, tWaitTime: number, busyTime: number | null = null) => {
   const result = cloneObj(initDiskIo);
   if (_disk_io?.ms) {
     result.rIO = rIO;
@@ -123,6 +124,13 @@ export const calcDiskIO = (rIO: number, wIO: number, rWaitTime: number, wWaitTim
     result.rWaitPercent = (result.rWaitTime * 100) / result.ms;
     result.wWaitPercent = (result.wWaitTime * 100) / result.ms;
     result.tWaitPercent = (result.tWaitTime * 100) / result.ms;
+    if (busyTime !== null && _disk_io.busyTime !== null && result.ms > 0) {
+      result.busyPercent = Math.min(100, Math.max(0, ((busyTime - _disk_io.busyTime) * 100) / result.ms));
+      result.idlePercent = 100 - result.busyPercent;
+    }
+    _disk_io.busyTime = busyTime;
+    _disk_io.busyPercent = result.busyPercent;
+    _disk_io.idlePercent = result.idlePercent;
     _disk_io.rIO = rIO;
     _disk_io.wIO = wIO;
     _disk_io.rIO_sec = result.rIO_sec;
@@ -162,6 +170,9 @@ export const calcDiskIO = (rIO: number, wIO: number, rWaitTime: number, wWaitTim
     _disk_io.rWaitPercent = null;
     _disk_io.wWaitPercent = null;
     _disk_io.tWaitPercent = null;
+    _disk_io.busyTime = busyTime;
+    _disk_io.busyPercent = null;
+    _disk_io.idlePercent = null;
     _disk_io.last_ms = 0;
     _disk_io.ms = Date.now();
   }
@@ -459,7 +470,10 @@ export const parseZfsMountpoints = (content: string) => {
     if (parts.length < 3 || parts[2] !== 'zfs' || parts[0].includes('/')) {
       continue;
     }
-    result.set(parts[0], parts[1].replace(/\\(\d{3})/g, (_, code) => String.fromCharCode(parseInt(code, 8))));
+    result.set(
+      parts[0],
+      parts[1].replace(/\\(\d{3})/g, (_, code) => String.fromCharCode(parseInt(code, 8)))
+    );
   }
   return result;
 };
@@ -530,7 +544,13 @@ export const btrfsPoolsLinux = async (data: FsBlockDevicesData[]): Promise<PoolI
       fsType: 'btrfs',
       // the profile math only holds for a complete member list - lsblk may not resolve every
       // device of the pool, and then the summed sizes are the best we can honestly report
-      size: members.length === devices.length ? btrfsUsableSize(profile, members.map((element) => element.size)) : members.reduce((sum, element) => sum + element.size, 0),
+      size:
+        members.length === devices.length
+          ? btrfsUsableSize(
+              profile,
+              members.map((element) => element.size)
+            )
+          : members.reduce((sum, element) => sum + element.size, 0),
       uuid: fsid,
       mount: members.find((element) => element.mount)?.mount || '',
       members: devices

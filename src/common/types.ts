@@ -714,6 +714,8 @@ export type DisksIoData = {
   rWaitPercent: number | null;
   wWaitPercent: number | null;
   tWaitPercent: number | null;
+  busyPercent: number | null;
+  idlePercent: number | null;
   ms: number;
 };
 

@@ -272,6 +272,8 @@ export const initDiskIo: DisksIoData = {
   rWaitPercent: null,
   wWaitPercent: null,
   tWaitPercent: null,
+  busyPercent: null,
+  idlePercent: null,
   ms: 0
 };
 

@@ -48,7 +48,9 @@ export const disksIO = async (): Promise<DisksIoData> => {
       tWaitTime: _disk_io.tWaitTimeDelta,
       rWaitPercent: _disk_io.rWaitPercent,
       wWaitPercent: _disk_io.wWaitPercent,
-      tWaitPercent: _disk_io.tWaitPercent
+      tWaitPercent: _disk_io.tWaitPercent,
+      busyPercent: _disk_io.busyPercent,
+      idlePercent: _disk_io.idlePercent
     };
   }
 };

@@ -1,11 +1,11 @@
-import { initDiskIo } from '../common/defaults';
-import { cloneObj } from '../common/index';
-import { DisksIoData } from '../common/types';
-import { nextTick, toInt } from '../common';
-import { calcDiskIO, _disk_io } from '../common/filesys';
 import { readdir } from 'node:fs/promises';
+import { nextTick, toInt } from '../common';
+import { initDiskIo } from '../common/defaults';
 import { readSysfs } from '../common/files';
+import { _disk_io, calcDiskIO } from '../common/filesys';
+import { cloneObj } from '../common/index';
 import { isSafePathSegment } from '../common/security';
+import type { DisksIoData } from '../common/types';
 
 export const disksIO = async (): Promise<DisksIoData> => {
   await nextTick();
@@ -16,12 +16,14 @@ export const disksIO = async (): Promise<DisksIoData> => {
     let rWaitTime = 0;
     let wWaitTime = 0;
     let tWaitTime = 0;
+    let busyTime = 0;
+    let diskCount = 0;
 
     try {
       // skip virtual, rom and stacked devices
       const disks = (await readdir('/sys/block')).filter((dev) => !/^(loop|ram|zram|dm-|md|sr|fd|nbd|zd)/.test(dev) && isSafePathSegment(dev));
       const lines = await Promise.all(disks.map((dev) => readSysfs(`/sys/block/${dev}/stat`)));
-      lines.forEach(function (line) {
+      lines.forEach((line) => {
         // ignore empty lines
         if (!line) {
           return;
@@ -34,8 +36,11 @@ export const disksIO = async (): Promise<DisksIoData> => {
         rWaitTime += toInt(stats[3]);
         wWaitTime += toInt(stats[7]);
         tWaitTime += toInt(stats[10]);
+        // io_ticks - same source as iostat %util
+        busyTime += toInt(stats[9]);
+        diskCount++;
       });
-      return calcDiskIO(rIO, wIO, rWaitTime, wWaitTime, tWaitTime);
+      return calcDiskIO(rIO, wIO, rWaitTime, wWaitTime, tWaitTime, diskCount ? busyTime / diskCount : null);
     } catch {
       return defaults;
     }
@@ -53,7 +58,9 @@ export const disksIO = async (): Promise<DisksIoData> => {
       tWaitTime: _disk_io.tWaitTimeDelta,
       rWaitPercent: _disk_io.rWaitPercent,
       wWaitPercent: _disk_io.wWaitPercent,
-      tWaitPercent: _disk_io.tWaitPercent
+      tWaitPercent: _disk_io.tWaitPercent,
+      busyPercent: _disk_io.busyPercent,
+      idlePercent: _disk_io.idlePercent
     };
   }
 };

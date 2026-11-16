@@ -583,6 +583,8 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 |                   | rWaitPercent          | X     |     |     |     |     | read IO request time percent (* see notes)                               |
 |                   | wWaitPercent          | X     |     |     |     |     | write IO request time percent (* see notes)                              |
 |                   | tWaitPercent          | X     |     |     |     |     | total IO request time percent (* see notes)                              |
+|                   | busyPercent           | X     |     |     |     |     | percent of time disks were busy, avg. over all disks (* see notes)       |
+|                   | idlePercent           | X     |     |     |     |     | percent of time disks were idle, avg. over all disks (* see notes)       |
 |                   | ms                    | X     |     | X   | X   |     | interval length (for per second values)                                  |
 | si.fsSize(drive)  | [{...}]               | X     | X   | X   | X   |     | returns array of mounted file systems<br>drive param is optional         |
 |                   | [0].fs                | X     | X   | X   | X   |     | name of file system                                                      |

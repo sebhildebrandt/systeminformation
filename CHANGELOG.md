@@ -50,6 +50,7 @@ Version 6 is a complete rewrite of the library in **TypeScript**, shipping typed
 - `currentLoad()` added `currentLoadIowait` / `rawCurrentLoadIowait` and per CPU `loadIowait` / `rawLoadIowait` (CPU time waiting for IO, the `wa` value of `top`) - Linux only, `0` elsewhere as macOS, BSD and Windows do not track an iowait CPU state
 - `versions()` added angular, cargo, composer, curl, dockerCompose, go, gradle, herd, laravel, podman, rails, ruby, rust, sqlite3, vim, vue
 - `blockDevices()` ZFS pools and multi device btrfs file systems are now resolved like mdraid: every member gets its pool as `group` and one entry per pool is added, with the raid profile as `type` (e.g. `mirror`, `raidz1`, `raid1`, `raid10`). btrfs is read from sysfs (no btrfs-progs, no root needed), ZFS from `zpool status` / `zpool list` (Linux, #802, #883)
+- `disksIO()` added `busyPercent` and `idlePercent` (percentage of time the disks were busy / idle during the interval, averaged over all disks - same source as `iostat %util`, `null` on the first call, Linux only)
 
 #### Extended Windows Support
 
