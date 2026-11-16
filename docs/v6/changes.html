@@ -73,9 +73,20 @@
                       <span class="code">processFocused()</span>
                       process owning the currently focused window (<span class="code">pid</span>, <span class="code">name</span>, <span class="code">path</span>)
                     </li>
+                    <li><span class="code">networkRoutes()</span> routing table: <span class="code">destination</span> (CIDR), <span class="code">gateway</span>, <span class="code">iface</span>, <span class="code">metric</span>, <span class="code">family</span></li>
+                    <li><span class="code">diskSpeed()</span> disk speed test - sequential write / read throughput in MB/s (temporary test file, default 1 GB, max. 10 s per phase, reads bypass the file cache)</li>
+                    <li><span class="code">powerShellStart()</span> / <span class="code">powerShellRelease()</span> start / terminate the pool of persistent PowerShell processes (Windows)</li>
                   </ul>
                   <h4>New Attributes</h4>
                   <ul>
+                    <li><span class="code">currentLoad()</span> added per CPU <span class="code">coreId</span> and <span class="code">socketId</span> (physical core / socket of each logical CPU)</li>
+                    <li><span class="code">disksIO()</span> added <span class="code">busyPercent</span> and <span class="code">idlePercent</span> (Linux)</li>
+                    <li><span class="code">mem()</span> added <span class="code">swapin_sec</span> and <span class="code">swapout_sec</span> (Linux)</li>
+                    <li><span class="code">blockDevices()</span> added <span class="code">partUuid</span>, <span class="code">partLabel</span>, <span class="code">partType</span>, <span class="code">partFlags</span> and <span class="code">partStart</span> (Linux)</li>
+                    <li><span class="code">networkInterfaces()</span> added <span class="code">bridgeMembers</span> (Linux, macOS) and <span class="code">type</span> <span class="code">can</span> for SocketCAN interfaces (Linux)</li>
+                    <li><span class="code">pci()</span> added <span class="code">iommuGroup</span> (Linux)</li>
+                    <li><span class="code">osInfo()</span> detects Ubuntu flavors, Raspberry Pi OS and Fedora Atomic variants in <span class="code">distro</span> (Linux)</li>
+                    <li><span class="code">cpuCurrentSpeed()</span> real current frequency per core on Apple Silicon (optional <span class="code">macos-smc</span> package)</li>
                     <li><span class="code">osInfo()</span> added <span class="code">installDate</span> (operating system installation date)</li>
                     <li><span class="code">osInfo()</span> added <span class="code">displayServer</span> (wayland, x11, quartz, dwm, surfaceflinger or '' when headless)</li>
                     <li><span class="code">osInfo()</span> added <span class="code">lastUpdate</span> (date of the last OS update on macOS / Windows, last package update on Linux / BSD)</li>
