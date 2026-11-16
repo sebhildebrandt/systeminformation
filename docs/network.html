@@ -1005,6 +1005,93 @@ si.inetPublicIp().then(data => console.log(data));</code></pre>
 }</pre>
                         </td>
                       </tr>
+                      <tr>
+                        <td>si.inetSpeed(dlUrl, ulUrl)</td>
+                        <td>{ ...}</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>internet speed test: download / upload throughput (4 parallel connections, max. 8 s each, max. 250 MB download / 50 MB upload). Default server: speed.cloudflare.com (sees your IP). Own URLs optional, e.g. a server in your local network to measure the real WiFi / LAN throughput. Not part of <span class="code">get()</span> / <span class="code">getAllData()</span></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>server</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>test server (host)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>downloadSpeed</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>download throughput in Mbit/s</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>uploadSpeed</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>upload throughput in Mbit/s</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>downloadMB</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>transferred download volume in MB</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>uploadMB</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>transferred upload volume in MB</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>ms</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>total duration in ms</td>
+                      </tr>
+                      <tr class="example">
+                        <td></td>
+                        <td colspan="7">
+                          <h5>Example</h5>
+                          <pre><code class="js">const si = require('systeminformation');
+si.inetSpeed().then(data => console.log(data));</code></pre>
+                          <pre class="example">
+{
+  server: 'speed.cloudflare.com',
+  downloadSpeed: 264.4,
+  uploadSpeed: 50.9,
+  downloadMB: 250.1,
+  uploadMB: 50.3,
+  ms: 15478
+}</pre>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                   <h4>Public IP addresses</h4>

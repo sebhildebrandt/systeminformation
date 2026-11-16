@@ -12,6 +12,7 @@ export {
   dockerVolumes
 } from '../docker';
 export { inetChecksite } from '../inet-checksite';
+export { inetSpeed } from '../inet-speed';
 export { processLoad } from '../linux/process-load';
 export { processes } from '../linux/processes';
 export { npm } from '../npm';

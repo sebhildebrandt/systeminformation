@@ -543,6 +543,15 @@ export type OsData = {
   hypervisor?: boolean;
 };
 
+export type InetSpeedData = {
+  server: string;
+  downloadSpeed: number | null;
+  uploadSpeed: number | null;
+  downloadMB: number;
+  uploadMB: number;
+  ms: number;
+};
+
 export type InetPublicIpData = {
   ip4: string;
   ip6: string;

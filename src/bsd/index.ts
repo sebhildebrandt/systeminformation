@@ -8,6 +8,7 @@ export { networkRoutes } from '../darwin/network-routes';
 export { users } from '../darwin/users';
 export { dockerAll, dockerContainerProcesses, dockerContainers, dockerContainerStats, dockerImages, dockerInfo, dockerVolumes } from '../docker';
 export { inetChecksite } from '../inet-checksite';
+export { inetSpeed } from '../inet-speed';
 export { audio } from '../linux/audio';
 export { baseboard } from '../linux/baseboard';
 export { bios } from '../linux/bios';

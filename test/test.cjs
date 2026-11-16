@@ -34,17 +34,18 @@ function printMenu() {
   console.log('│  C ... Chassis         J ... CPU Current Speed   t ... time               4 ... NET Stats             / ... All            │');
   console.log('│  c ... CPU             k ... Camera              T ... CPU Temperature    5 ... NET Connections                            │');
   console.log('│  * ... Fans            K ... Keyboard            u ... USB                # ... NET Routes                                 │');
-  console.log('│  d ... DiskLayout      l ... CPU Current Load    U ... UUID                                                                │');
-  console.log('│  D ... DiskIO          L ... Full Load           v ... Versions           6 ... Docker Info                                │');
-  console.log('│  e ... Block Devices   m ... Memory              V ... Virtual Box        7 ... Docker Images                              │');
-  console.log('│  E ... Open Files      M ... MEM Layout          w ... WIFI networks      8 ... Docker Container                           │');
-  console.log('│  f ... FS Size         n ... NPU                 W ... WIFI interfaces    9 ... Docker Cont Stats                          │');
-  console.log('│  F ... FS Stats        N ... NPM Packages        x ... WIFI connections   0 ... Docker Cont Proc                           │');
-  console.log('│  A ... Displays        o ... OS Info             X ... Serial Ports       + ... Docker Volumes                             │');
-  console.log('│  g ... GPU             O ... Mouse               y ... System                                                              │');
-  console.log('│  G ... PCI             p ... Processes           Y ... Battery            $ ... Disk Speed                                 │');
-  console.log('│  h ... Bluetooth       P ... Process Load        z ... Printer                                                             │');
-  console.log('│  H ... Thunderbolt     r ... Process Focused     Z ... Users              - ... SI lib version        q >>> QUIT           │');
+  console.log('│  d ... DiskLayout      l ... CPU Current Load    U ... UUID               % ... INET Speed                                 │');
+  console.log('│  D ... DiskIO          L ... Full Load           v ... Versions                                                            │');
+  console.log('│  e ... Block Devices   m ... Memory              V ... Virtual Box        6 ... Docker Info                                │');
+  console.log('│  E ... Open Files      M ... MEM Layout          w ... WIFI networks      7 ... Docker Images                              │');
+  console.log('│  f ... FS Size         n ... NPU                 W ... WIFI interfaces    8 ... Docker Container                           │');
+  console.log('│  F ... FS Stats        N ... NPM Packages        x ... WIFI connections   9 ... Docker Cont Stats                          │');
+  console.log('│  A ... Displays        o ... OS Info             X ... Serial Ports       0 ... Docker Cont Proc                           │');
+  console.log('│  g ... GPU             O ... Mouse               y ... System             + ... Docker Volumes                             │');
+  console.log('│  G ... PCI             p ... Processes           Y ... Battery                                                             │');
+  console.log('│  h ... Bluetooth       P ... Process Load        z ... Printer            $ ... Disk Speed                                 │');
+  console.log('│  H ... Thunderbolt     r ... Process Focused     Z ... Users                                                               │');
+  console.log('│                                                                           - ... SI lib version        q >>> QUIT           │');
   console.log('└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘');
 }
 

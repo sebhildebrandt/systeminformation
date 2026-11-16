@@ -24,6 +24,7 @@ export { fsStats } from './fs-stats';
 export { fullLoad } from '../cpu-full-load';
 export { gpu } from './gpu';
 export { inetChecksite } from '../inet-checksite';
+export { inetSpeed } from '../inet-speed';
 export { inetLatency } from '../linux/inet-latency';
 export { keyboard } from './keyboard';
 export { mem } from './mem';

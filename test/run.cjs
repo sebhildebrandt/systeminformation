@@ -57,6 +57,7 @@ function run(si, f) {
       else if (f === 'Z') { si.users().then(data => { if (data !== null) { resolve({ data, title: 'Users' }); } else { resolve('not_supported'); } }); }
       else if (f === '#') { si.networkRoutes().then(data => { if (data !== null) { resolve({ data, title: 'NET Routes' }); } else { resolve('not_supported'); } }); }
       else if (f === '$') { si.diskSpeed().then(data => { if (data !== null) { resolve({ data, title: 'Disk Speed' }); } else { resolve('not_supported'); } }); }
+      else if (f === '%') { si.inetSpeed().then(data => { if (data !== null) { resolve({ data, title: 'INET Speed' }); } else { resolve('not_supported'); } }); }
       else if (f === '1') { si.networkInterfaceDefault().then(data => { if (data !== null) { resolve({ data, title: 'NET Iface Default' }); } else { resolve('not_supported'); } }); }
       else if (f === '2') { si.networkGatewayDefault().then(data => { if (data !== null) { resolve({ data, title: 'NET Gateway Default' }); } else { resolve('not_supported'); } }); }
       else if (f === '3') { si.networkInterfaces().then(data => { if (data !== null) { resolve({ data, title: 'NET Interfaces' }); } else { resolve('not_supported'); } }); }

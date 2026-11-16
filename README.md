@@ -53,6 +53,7 @@ in a browser.
 - `serialPorts()` - detected serial / COM ports
 - `networkRoutes()` - network routing table
 - `diskSpeed()` - disk speed test (sequential write / read throughput)
+- `inetSpeed()` - internet speed test (download / upload throughput)
 
 ### Extended Windows support
 
@@ -171,7 +172,7 @@ implementations can be tree-shaken away.
 
 - complete rewrite in TypeScript with typed declarations for every function
 - modular imports: load the whole library, a single operating system, or a single function
-- new functions: `camera()`, `keyboard()`, `mouse()`, `thunderbolt()`, `pci()`, `npu()`, `software()`, `npm()`, `fans()`, `serialPorts()`, `networkRoutes()`, `diskSpeed()`
+- new functions: `camera()`, `keyboard()`, `mouse()`, `thunderbolt()`, `pci()`, `npu()`, `software()`, `npm()`, `fans()`, `serialPorts()`, `networkRoutes()`, `diskSpeed()`, `inetSpeed()`
 - extended Windows support: `disksIO()`, `fsStats()`, `fsOpenFiles()`, `thunderbolt()`
 - `time()` and `version()` are now asynchronous - all functions are async (async/await preferred, promises as alternative)
 - callbacks are no longer supported
@@ -787,6 +788,13 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 |                              | status             | X     | X   | X   | X   | X   | status code                                                                                                                                                                                        |
 |                              | ms                 | X     | X   | X   | X   | X   | response time in ms                                                                                                                                                                                |
 | si.inetLatency(host)         | : number           | X     | X   | X   | X   | X   | response-time (ms) to external resource<br>host parameter is optional (default 8.8.8.8)                                                                                                            |
+| si.inetSpeed(dlUrl, ulUrl)   | {...}              | X     | X   | X   | X   | X   | internet speed test (download / upload, max. 8 s each)<br>default server: speed.cloudflare.com, URLs optional |
+|                              | server             | X     | X   | X   | X   | X   | test server (host)                                    |
+|                              | downloadSpeed      | X     | X   | X   | X   | X   | download throughput in Mbit/s                         |
+|                              | uploadSpeed        | X     | X   | X   | X   | X   | upload throughput in Mbit/s                           |
+|                              | downloadMB         | X     | X   | X   | X   | X   | transferred download volume in MB (max. 250)          |
+|                              | uploadMB           | X     | X   | X   | X   | X   | transferred upload volume in MB (max. 50)             |
+|                              | ms                 | X     | X   | X   | X   | X   | total duration in ms                                  |
 
 #### 13. Wifi
 
