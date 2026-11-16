@@ -1,4 +1,4 @@
-import { readFile, readdir, realpath } from 'node:fs/promises';
+import { readdir, readFile, realpath } from 'node:fs/promises';
 import { networkInterfaces as osNetworkInterfaces } from 'node:os';
 import { basename, dirname, join } from 'node:path';
 import { getValue, grep, nextTick, toInt } from '../common';
@@ -213,7 +213,12 @@ const PCI_SLOT = /^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\.[0-9a-f]$/i;
 
 export const pciSlotFromPath = (path: string) => {
   const segments = path.split('/');
-  return segments.slice(-2).reverse().find((segment) => PCI_SLOT.test(segment)) || null;
+  return (
+    segments
+      .slice(-2)
+      .reverse()
+      .find((segment) => PCI_SLOT.test(segment)) || null
+  );
 };
 
 // vendor / model of the underlying PCI or USB device - static, so each device is looked at once.
@@ -270,7 +275,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
   }
   _interfaces = cloneObj(interfaces);
 
-  let result: NetworkInterfacesData[] = [];
+  const result: NetworkInterfacesData[] = [];
 
   try {
     const [_dhcpNics, defaultInterface, deviceStatus, gateways, sysfsDevices, wirelessLines] = await Promise.all([
@@ -364,7 +369,12 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
         lines = sysfsLines;
         lines.push(`wireless: ${wirelessLines.find((line: string) => line.indexOf(ifaceSanitized) >= 0) || ''}`);
         // keep the raw "tx bitrate: <x> MBit/s" lines - getValue() matches on the line start
-        lines.push(...iwOut.split('\n').filter((line: string) => line.indexOf('bitrate') >= 0).map((line: string) => line.trim()));
+        lines.push(
+          ...iwOut
+            .split('\n')
+            .filter((line: string) => line.indexOf('bitrate') >= 0)
+            .map((line: string) => line.trim())
+        );
         dhcp = getLinuxIfaceDHCPstatus(ifaceSanitized, details, _dhcpNics);
         dnsSuffix = getLinuxIfaceDNSsuffix(details);
         ieee8021xAuth = getLinuxIfaceIEEE8021xAuth(details);
@@ -387,7 +397,9 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
       carrierChanges = toInt(getValue(lines, 'carrier_changes'));
       const operstate = getValue(lines, 'operstate');
       // sysfs ARPHRD type (1 = ethernet) works while the link is down too - windows and macOS report the type regardless of the state (#632)
-      type = getValue(lines, 'wireless').trim() ? 'wireless' : toInt(getValue(lines, 'type')) === 1 ? 'wired' : 'unknown';
+      // 280 = ARPHRD_CAN (SocketCAN, incl. vcan)
+      const arphrd = toInt(getValue(lines, 'type'));
+      type = getValue(lines, 'wireless').trim() ? 'wireless' : arphrd === 1 ? 'wired' : arphrd === 280 ? 'can' : 'unknown';
       if (ifaceSanitized === 'lo' || ifaceSanitized.startsWith('bond')) {
         type = 'virtual';
       }
