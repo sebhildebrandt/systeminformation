@@ -147,7 +147,9 @@ export const initMemData: MemData = {
   swapused: 0,
   swapfree: 0,
   writeback: 0,
-  dirty: 0
+  dirty: 0,
+  swapin_sec: null,
+  swapout_sec: null
 };
 
 export const initOsInfo = async (): Promise<OsData> => {

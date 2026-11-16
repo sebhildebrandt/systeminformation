@@ -26,6 +26,27 @@ export const parseArcstats = (lines: string[]) => {
   return Math.max(size - cMin, 0);
 };
 
+const _swap = { pswpin: 0, pswpout: 0, ms: 0, swapin_sec: null as number | null, swapout_sec: null as number | null };
+
+// pages swapped in / out per second since the previous call - pswpin / pswpout are cumulative since boot
+const swapActivity = async () => {
+  const lines = await readFileLines('/proc/vmstat');
+  const pswpin = toInt(getValue(lines, 'pswpin', ' '));
+  const pswpout = toInt(getValue(lines, 'pswpout', ' '));
+  const now = Date.now();
+  if (lines.length && _swap.ms && now > _swap.ms) {
+    const seconds = (now - _swap.ms) / 1000;
+    _swap.swapin_sec = Math.max(0, pswpin - _swap.pswpin) / seconds;
+    _swap.swapout_sec = Math.max(0, pswpout - _swap.pswpout) / seconds;
+  }
+  if (lines.length) {
+    _swap.pswpin = pswpin;
+    _swap.pswpout = pswpout;
+    _swap.ms = now;
+  }
+  return { swapin_sec: _swap.swapin_sec, swapout_sec: _swap.swapout_sec };
+};
+
 export const mem = async (): Promise<MemData> => {
   await nextTick();
   const defaults = cloneObj(initMemData);
@@ -80,7 +101,8 @@ export const mem = async (): Promise<MemData> => {
       swapused,
       swapfree,
       writeback,
-      dirty
+      dirty,
+      ...(await swapActivity())
     };
   } catch {}
   return defaults;

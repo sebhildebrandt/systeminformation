@@ -328,6 +328,8 @@ Full function reference with examples can be found at [https://systeminformation
 |                | swaptotal             | X     | X   | X   | X   | X   |                                        |
 |                | swapused              | X     | X   | X   | X   | X   |                                        |
 |                | swapfree              | X     | X   | X   | X   | X   |                                        |
+|                | swapin_sec            | X     |     |     |     |     | pages swapped in per sec. (* see notes) |
+|                | swapout_sec           | X     |     |     |     |     | pages swapped out per sec. (* see notes) |
 | si.memLayout() | [{...}]               | X     | X   | X   | X   |     | Memory Layout (array)                  |
 |                | [0].size              | X     | X   | X   | X   |     | size in bytes                          |
 |                | [0].bank              | X     | X   |     | X   |     | memory bank                            |
@@ -1093,7 +1095,7 @@ To speed up Windows functions, a small pool of PowerShell processes is kept runn
 
 ## *: Additional Notes
 
-In `fsStats()`, `disksIO()` and `networkStats()` the results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning
+In `fsStats()`, `disksIO()`, `networkStats()` and `mem()` (swapin_sec, swapout_sec) the results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning
 with the second call of the function. It is determined by calculating the difference of transferred bytes / IOs
 divided by the time between two calls of the function.
 

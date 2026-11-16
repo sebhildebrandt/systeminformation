@@ -479,6 +479,8 @@ export type MemData = {
   swapfree: number;
   writeback: number;
   dirty: number;
+  swapin_sec: number | null;
+  swapout_sec: number | null;
 };
 
 export type MemLayoutData = {
