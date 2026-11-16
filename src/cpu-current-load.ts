@@ -1,8 +1,8 @@
-import { loadavg, cpus as oscpu } from 'node:os';
+import { arch, loadavg, cpus as oscpu } from 'node:os';
 import { nextTick } from './common';
-import { LINUX, WINDOWS } from './common/const';
+import { DARWIN, LINUX, WINDOWS } from './common/const';
 import { readFileLines } from './common/files';
-import type { CurrentLoadData } from './common/types';
+import type { CpuTopologyData, CurrentLoadData } from './common/types';
 
 const JIFFY_MS = 10;
 
@@ -58,6 +58,34 @@ export const avgLoadEwma = (previous: number[] | null, busyCores: number, second
 };
 
 const avgLoadFromEwma = (cores: number) => (cores ? parseFloat((Math.max(..._avgLoadEwma) / cores).toFixed(2)) : 0);
+
+// topology is static - read once, again only if the number of cpus changes (hotplug)
+let _topology: CpuTopologyData[] = [];
+let _topologyCount = -1;
+
+const readCpuTopology = async (): Promise<CpuTopologyData[]> => {
+  switch (true) {
+    case LINUX:
+      return (await import('./linux/cpu-topology.js')).cpuTopology();
+    case WINDOWS:
+      return (await import('./windows/cpu-topology.js')).cpuTopology();
+    // Apple Silicon has no SMT and a single package; Intel Macs expose no per cpu mapping
+    case DARWIN:
+      return arch() === 'arm64' ? oscpu().map((_, i) => ({ coreId: i, socketId: 0 })) : [];
+    default:
+      return [];
+  }
+};
+
+const cpuTopology = async (count: number) => {
+  if (count !== _topologyCount) {
+    _topologyCount = count;
+    const topology = await readCpuTopology().catch(() => []);
+    // an index based mapping is only valid if both lists describe the same cpus
+    _topology = topology.length === count ? topology : [];
+  }
+  return _topology;
+};
 
 export const currentLoad = async () => {
   await nextTick();
@@ -303,5 +331,10 @@ export const currentLoad = async () => {
     };
   }
 
+  const topology = await cpuTopology(result.cpus.length);
+  result.cpus.forEach((core, i) => {
+    core.coreId = topology[i]?.coreId ?? null;
+    core.socketId = topology[i]?.socketId ?? null;
+  });
   return result;
 };

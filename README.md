@@ -487,6 +487,8 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 |                                  | currentLoadIrq    | X     |     | X   | X   | X   | CPU load system in %                                                                    |
 |                                  | rawCurrentLoad... | X     |     | X   | X   | X   | CPU load raw values (ticks)                                                             |
 |                                  | cpus[]            | X     |     | X   | X   | X   | current loads per CPU in % + raw ticks                                                  |
+|                                  | cpus[].coreId     | X     |     | X   | X   |     | physical core of this logical CPU (null if unknown, macOS: Apple Silicon only)          |
+|                                  | cpus[].socketId   | X     |     | X   | X   |     | socket / package of this logical CPU (null if unknown, macOS: Apple Silicon only)       |
 | si.fullLoad()                    | : integer         | X     |     | X   | X   |     | CPU full load since bootup in %                                                         |
 | si.processes()                   | {...}             | X     | X   | X   | X   | X   | # running processes                                                                     |
 |                                  | all               | X     | X   | X   | X   | X   | # of all processes                                                                      |

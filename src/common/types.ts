@@ -400,6 +400,13 @@ export type CurrentLoadCpuData = {
   rawLoadIdle: number;
   rawLoadIowait: number;
   rawLoadIrq: number;
+  coreId: number | null;
+  socketId: number | null;
+};
+
+export type CpuTopologyData = {
+  coreId: number | null;
+  socketId: number | null;
 };
 
 export type WifiNetworkData = {
