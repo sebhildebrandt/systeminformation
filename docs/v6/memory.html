@@ -200,6 +200,26 @@
                         <td></td>
                         <td></td>
                       </tr>
+                      <tr>
+                        <td></td>
+                        <td>swapin_sec</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>pages swapped in per second since previous call (null on first call)</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>swapout_sec</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>pages swapped out per second since previous call (null on first call)</td>
+                      </tr>
                       <tr class="example">
                         <td></td>
                         <td colspan="7">
@@ -219,7 +239,9 @@ si.mem().then(data => console.log(data));</code></pre>
   buffcache: 1132142592,
   swaptotal: 8589930496,
   swapused: 0,
-  swapfree: 8589930496
+  swapfree: 8589930496,
+  swapin_sec: 0,
+  swapout_sec: 0
 }
 </pre>
                         </td>
