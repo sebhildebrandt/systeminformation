@@ -792,9 +792,9 @@ si.npu().then(data => console.log(data));</code></pre>
                   <p>But if you need to detect macOS temperature just run the following additional installation command. Wether you have Intel or Apple Silicon machines, install one of the following packages:</p>
 
                   <pre>$ npm install osx-temperature-sensor      # deprecated - for intel based machines</pre>
-                  <pre>$ npm install macos-temperature-sensor    # for apple silicon machines</pre>
+                  <pre>$ npm install macos-smc                   # for apple silicon machines</pre>
                   <p>
-                    systeminformation will then detect this additional library and return the temperature when calling systeminformations standard function <span class="code">cpuTemperature()</span>. On Apple Silicon machines <span class="code">macos-temperature-sensor</span> also enables the GPU
+                    systeminformation will then detect this additional library and return the temperature when calling systeminformations standard function <span class="code">cpuTemperature()</span>. On Apple Silicon machines <span class="code">macos-smc</span> also enables the fan speeds in <span class="code">fans()</span>, the current CPU frequency in <span class="code">cpuCurrentSpeed()</span> and the GPU
                     temperature (<span class="code">temperatureGpu</span>) in <span class="code">gpu()</span>.
                   </p>
                   <p>

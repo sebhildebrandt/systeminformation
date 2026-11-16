@@ -99,12 +99,12 @@
                     </li>
                     <li>
                       <span class="code">fans()</span>
-                      new function - detected fans with <span class="code">rpm</span> and <span class="code">pwm</span> (Linux via hwmon / thermal cooling devices; Windows only with a running LibreHardwareMonitor / OpenHardwareMonitor; macOS as soon as
-                      <span class="code">macos-temperature-sensor</span>
-                      exposes the SMC fan keys)
+                      new function - detected fans with <span class="code">rpm</span> and <span class="code">pwm</span> (Linux via hwmon / thermal cooling devices; Windows only with a running LibreHardwareMonitor / OpenHardwareMonitor; macOS (Apple Silicon) with the optional
+                      <span class="code">macos-smc</span>
+                      package)
                     </li>
-                    <li><span class="code">gpu()</span> added <span class="code">temperatureGpu</span> on Apple Silicon (optional <span class="code">macos-temperature-sensor</span> package)</li>
-                    <li><span class="code">cpuTemperature()</span> added support for the <span class="code">macos-temperature-sensor</span> package (Apple Silicon, incl. <span class="code">chipset</span> / SoC temperature)</li>
+                    <li><span class="code">gpu()</span> added <span class="code">temperatureGpu</span> on Apple Silicon (optional <span class="code">macos-smc</span> package)</li>
+                    <li><span class="code">cpuTemperature()</span>, <span class="code">fans()</span>, <span class="code">cpuCurrentSpeed()</span>: Apple Silicon via the optional <span class="code">macos-smc</span> package (replaces <span class="code">macos-temperature-sensor</span>; <span class="code">main</span> = average, <span class="code">max</span> = hottest CPU sensor, real current CPU frequency)</li>
                     <li><span class="code">os()</span> added <span class="code">installDate</span>, <span class="code">displayServer</span></li>
                     <li><span class="code">services()</span> added <span class="code">startmode</span> on Linux (systemd <span class="code">UnitFileState</span>: enabled, disabled, static, ..., previously Windows only)</li>
                     <li><span class="code">services()</span> added <span class="code">lastChanged</span> (Linux/systemd: date of the last state change - service start when running, service stop otherwise; macOS: start time of the service processes)</li>
