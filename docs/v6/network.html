@@ -310,6 +310,16 @@
                         <td></td>
                         <td># changes up/down</td>
                       </tr>
+                      <tr>
+                        <td></td>
+                        <td>[0].bridgeMembers</td>
+                        <td>X</td>
+                        <td></td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td>interfaces enslaved to this bridge (empty array if not a bridge)</td>
+                      </tr>
                       <tr class="example">
                         <td></td>
                         <td colspan="7">
@@ -341,7 +351,8 @@ si.networkInterfaces().then(data => console.log(data));</code></pre>
     dnsSuffix: '',
     ieee8021xAuth: '',
     ieee8021xState: '',
-    carrierChanges: 0
+    carrierChanges: 0,
+    bridgeMembers: []
   },
   {
     iface: 'en0',
@@ -366,7 +377,8 @@ si.networkInterfaces().then(data => console.log(data));</code></pre>
     dnsSuffix: '',
     ieee8021xAuth: '',
     ieee8021xState: '',
-    carrierChanges: 0
+    carrierChanges: 0,
+    bridgeMembers: []
   }, ...
 ]</pre>
                           <h5>Get Default Interface only</h5>
@@ -397,7 +409,8 @@ si.networkInterfaces('default').then(data => console.log(data));</code></pre>
   dnsSuffix: '',
   ieee8021xAuth: '',
   ieee8021xState: '',
-  carrierChanges: 0
+  carrierChanges: 0,
+  bridgeMembers: []
 }</pre>
                         </td>
                       </tr>
