@@ -190,6 +190,16 @@
                         <td></td>
                         <td>kernel driver / service in use</td>
                       </tr>
+                      <tr>
+                        <td></td>
+                        <td>iommuGroup</td>
+                        <td>X</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>IOMMU group of the device ('' when the IOMMU is disabled)</td>
+                      </tr>
                       <tr class="example">
                         <td></td>
                         <td colspan="7">
@@ -209,7 +219,8 @@ si.pci().then(data => console.log(data));</code></pre>
     subVendorId: '1458',
     subDeviceId: 'd000',
     revision: '0c',
-    driver: 'i915'
+    driver: 'i915',
+    iommuGroup: '1'
   }
 ]</pre>
                         </td>
