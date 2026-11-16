@@ -206,6 +206,11 @@ Full function reference with examples can be found at [https://systeminformation
 |              | timezone      | X     | X   | X   | X   | X   | e.g. GMT+0200                 |
 |              | timezoneName  | X     | X   | X   | X   | X   | e.g. CEST                     |
 
+| Function               | Result object | Linux | BSD | Mac | Win | Sun | Comments                                      |
+| ---------------------- | ------------- | ----- | --- | --- | --- | --- | --------------------------------------------- |
+| si.powerShellStart()   | : void        |       |     |     | X   |     | start pool of persistent PowerShell processes |
+| si.powerShellRelease() | : void        |       |     |     | X   |     | terminate all pooled PowerShell processes     |
+
 #### 2. System (HW)
 
 | Function       | Result object | Linux | BSD | Mac | Win | Sun | Comments                                                                             |
@@ -1072,6 +1077,10 @@ To be able to detect S.M.A.R.T. status on Linux you need to install `smartmontoo
 #### Windows Encoding Issues
 
 I now reimplemented all windows functions to avoid encoding problems (special chacarters). And as Windows 11 now dropped `wmic` support, I had to move completely to `powershell`. Be sure that powershell version 5+ is installed on your machine. On older Windows versions (7, 8) you might still see encoding problems due to the old powershell version.
+
+#### Windows - PowerShell Processes
+
+To speed up Windows functions, a small pool of PowerShell processes is kept running in the background and reused for all calls. If you only gather data from time to time and do not want these processes to stay open, call `await si.powerShellRelease()` after your calls have finished. The pool restarts automatically with the next call that needs PowerShell.
 
 ## *: Additional Notes
 
