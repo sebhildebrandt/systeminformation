@@ -1,8 +1,8 @@
-import { exec } from '../common/exec';
 import { cloneObj, getValue, nextTick } from '../common';
-import { PciData } from '../common/types';
-import { initPciData } from '../common/defaults';
 import { execOptsLinux } from '../common/const';
+import { initPciData } from '../common/defaults';
+import { exec } from '../common/exec';
+import type { PciData } from '../common/types';
 
 // machine-readable value like "Intel Corporation [8086]" -> { name, id }
 const splitId = (value: string): { name: string; id: string } => {
@@ -39,7 +39,9 @@ const parsePci = (stdout: string): PciData[] => {
       subVendorId: svendor.id,
       subDeviceId: sdevice.id,
       revision: getValue(lines, 'Rev', ':', true),
-      driver: getValue(lines, 'Driver', ':', true)
+      driver: getValue(lines, 'Driver', ':', true),
+      // only present when the IOMMU is enabled
+      iommuGroup: getValue(lines, 'IOMMUGroup', ':', true)
     });
   });
   return result;

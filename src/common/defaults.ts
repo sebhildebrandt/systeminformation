@@ -365,7 +365,8 @@ export const initPciData: PciData = {
   subVendorId: '',
   subDeviceId: '',
   revision: '',
-  driver: ''
+  driver: '',
+  iommuGroup: ''
 };
 
 export const initNetworkSpeed: NetworkStatsData = {

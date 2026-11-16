@@ -1124,6 +1124,7 @@ export type PciData = {
   subDeviceId: string;
   revision: string;
   driver: string;
+  iommuGroup: string;
 };
 
 export type NpuData = {

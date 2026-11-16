@@ -624,6 +624,7 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 |                  | [0].subDeviceId  | X     |     | X   | X   |     | subsystem device id (hex)       |
 |                  | [0].revision     | X     |     | X   | X   |     | revision                        |
 |                  | [0].driver       | X     |     |     | X   |     | kernel driver / service         |
+|                  | [0].iommuGroup   | X     |     |     |     |     | IOMMU group (if IOMMU enabled)  |
 | si.thunderbolt() | [{...}]          | X     |     | X   | X   |     | Thunderbolt controllers/devices |
 |                  | [0].name         | X     |     | X   | X   |     | name                            |
 |                  | [0].uuid         | X     |     | X   |     |     | device UUID                     |
