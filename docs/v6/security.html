@@ -27,7 +27,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.25</div>
+          <div class="title-version float-left">v6.0.0-beta.26</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -47,7 +47,7 @@
                 <div class="text">
                   <h2>Windows Command Search Path Hijacking (Current Working Directory)</h2>
                   <p><span class="bold">Affected versions:</span>
-                    &lt; 5.33.23 and version 6 &lt; 6.0.0-beta.24<br>
+                    &lt; 5.33.23 and version 6 &lt; 6.0.0-beta.26<br>
                     <span class="bold">Date:</span> 2026-11-15<br>
                     <span class="bold">CVSS Score:</span> 7.8 (High)
                   </p>
@@ -56,7 +56,7 @@
                   <p>On Windows several commands (<span class="code">chcp</span>, <span class="code">netstat</span>, <span class="code">ipconfig</span>, <span class="code">netsh</span>, <span class="code">reg</span>, <span class="code">where</span>) were called by name only. <span class="code">cmd.exe</span> and node look in the current working directory before <span class="code">PATH</span>, so a file like <span class="code">chcp.cmd</span> in the directory node was started from was executed instead of the system command. <span class="code">chcp</span> is already called while the module is loaded, so <span class="code">require('systeminformation')</span> was enough to trigger it. Exploitation requires that a user starts an application using systeminformation from a directory containing attacker controlled files.</p>
 
                   <h4>Patch</h4>
-                  <p>Problem was fixed by running all Windows commands with the Windows system directory as working directory, so command names can no longer resolve to files in the current working directory. Please upgrade to version >= 6.0.0-beta.24 (version 5: >= 5.33.23).</p>
+                  <p>Problem was fixed by running all Windows commands with the Windows system directory as working directory, so command names can no longer resolve to files in the current working directory. Please upgrade to version >= 6.0.0-beta.26 (version 5: >= 5.33.23).</p>
                   <hr>
                   <br>
                   <h2>services() String.prototype Hardening (Command Injection)</h2>
