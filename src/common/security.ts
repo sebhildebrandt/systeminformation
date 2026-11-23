@@ -42,6 +42,8 @@ export const sanitizeShellString = (str: string, strict?: any) => {
         s[i] === "'" ||
         s[i] === '`' ||
         s[i] === '"' ||
+        // exec() throws synchronously on NUL bytes
+        s[i] === '\0' ||
         // unicode quotes (U+2018-U+201E) and dashes (U+2013-U+2015) are treated as ' " - by PowerShell
         (s[i] >= '‘' && s[i] <= '„') ||
         (s[i] >= '–' && s[i] <= '―') ||
