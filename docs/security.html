@@ -44,6 +44,22 @@
               <div class="col-12 sectionheader">
                 <div class="title">Security Advisories</div>
                 <div class="text">
+                  <h2>networkStats() NUL Byte in Interface Name (Denial of Service)</h2>
+                  <p>
+                    <span class="bold">Affected versions:</span> &lt; 5.33.24 (version 6 not affected)<br />
+                    <span class="bold">Date:</span> 2026-11-23<br />
+                    <span class="bold">CVSS Score:</span> 5.9 (Medium)
+                  </p>
+
+                  <h4>Impact</h4>
+                  <p>
+                    On macOS, FreeBSD, OpenBSD and NetBSD an interface name containing a NUL byte passed to <span class="code">networkStats()</span> (also via <span class="code">get()</span>, <span class="code">observe()</span>, <span class="code">getDynamicData()</span> and <span class="code">getAllData()</span>) made <span class="code">exec()</span> throw synchronously inside a <span class="code">process.nextTick()</span> callback. The resulting uncaught exception terminated the Node.js process (denial of service). No command execution is possible, the NUL byte is rejected before a shell is started. Exploitation requires an application that passes untrusted input to these functions. Linux and Windows are not affected.
+                  </p>
+
+                  <h4>Patch</h4>
+                  <p>Problem was fixed by removing NUL bytes in <span class="code">sanitizeShellString()</span>. If you are using version 5, please upgrade to version >= 5.33.24.</p>
+                  <hr />
+                  <br />
                   <h2>Windows Command Search Path Hijacking (Current Working Directory)</h2>
                   <p>
                     <span class="bold">Affected versions:</span> &lt; 5.33.23 and version 6 &lt; 6.0.0-beta.26<br />
