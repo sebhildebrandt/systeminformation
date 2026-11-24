@@ -27,7 +27,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.28</div>
+          <div class="title-version float-left">v6.0.0-beta.29</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -45,6 +45,20 @@
               <div class="col-12 sectionheader">
                 <div class="title">Security Advisories</div>
                 <div class="text">
+                  <h2>processes(), services(), processLoad() Crash on Many Processes (Denial of Service)</h2>
+                  <p><span class="bold">Affected versions:</span>
+                    &lt; 5.33.26 (version 6 not affected)<br>
+                    <span class="bold">Date:</span> 2026-11-24<br>
+                    <span class="bold">CVSS Score:</span> 5.5 (Medium)
+                  </p>
+
+                  <h4>Impact</h4>
+                  <p>On Linux <span class="code">processes()</span>, <span class="code">services()</span> and <span class="code">processLoad()</span> added one <span class="code">cat /proc/&lt;pid&gt;/stat</span> per process to a single shell command. With about 6,500 processes this command exceeded the kernel limit of 128 KiB for one argument, <span class="code">exec()</span> threw <span class="code">E2BIG</span> synchronously and the Node.js process terminated. Any unprivileged local user could trigger this by starting many idle processes, large hosts could hit it without an attacker. No confidentiality or integrity impact. Only Linux is affected.</p>
+
+                  <h4>Patch</h4>
+                  <p>Version 6 is not affected, it reads <span class="code">/proc/&lt;pid&gt;/stat</span> directly via <span class="code">fs</span>. Version 5: problem was fixed by reading these files via <span class="code">fs</span> as well, please upgrade to version >= 5.33.26.</p>
+                  <hr>
+                  <br>
                   <h2>networkStats() NUL Byte in Interface Name (Denial of Service)</h2>
                   <p><span class="bold">Affected versions:</span>
                     &lt; 5.33.24 (version 6 not affected)<br>

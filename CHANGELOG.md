@@ -91,6 +91,7 @@ For major (breaking) changes - **version 4, 3 and 2** - see end of page.
 
 | Version | Date       | Comment                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| 5.33.26 | 2026-11-24 | `processes()`, `services()`, `processLoad()` fixed crash (E2BIG) on many processes (linux)          |
 | 5.33.25 | 2026-11-24 | `cpu()` fixed AMD base frequency matching, added new AMD CPUs, fixed exec options (pkg)             |
 | 5.33.24 | 2026-11-23 | `networkStats()` fixed uncaught TypeError on NUL byte in iface (macOS, bsd)                         |
 | 5.33.23 | 2026-11-15 | fixed command search path hijacking via current working directory (windows)                         |

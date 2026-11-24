@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.28</div>
+          <div class="title-version float-left">v6.0.0-beta.29</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -1014,7 +1014,7 @@ si.inetPublicIp().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>internet speed test: download / upload throughput (4 parallel connections, max. 8 s each, max. 250 MB download / 50 MB upload). Default server: speed.cloudflare.com (sees your IP). Own URLs optional, e.g. a server in your local network to measure the real WiFi / LAN throughput. Not part of <span class="code">get()</span> / <span class="code">getAllData()</span></td>
+                        <td>internet speed test: download / upload throughput (4 parallel connections, max. 8 s each, max. 250 MB download / 50 MB upload). Default server: speed.cloudflare.com (sees your IP). Own URLs optional, e.g. a server in your local network to measure the real WiFi / LAN throughput. Not part of <span class="code">get()</span> / <span class="code">getAllData()</span>. <strong>Security:</strong> URLs are not restricted (local network addresses are allowed on purpose) - only pass URLs your application controls, never unchecked user input (SSRF)</td>
                       </tr>
                       <tr>
                         <td></td>

@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.28</div>
+          <div class="title-version float-left">v6.0.0-beta.29</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -758,7 +758,7 @@ setInterval(function() {
                         <td>X</td>
                         <td>X</td>
                         <td></td>
-                        <td>disk speed test: sequential write / read throughput. Writes a temporary test file (default 1 GB, max. 10 s per phase) into <span class="code">path</span> (default: temp directory) and deletes it afterwards</td>
+                        <td>disk speed test: sequential write / read throughput. Writes a temporary test file (default 1 GB, max. 10 s per phase) into <span class="code">path</span> (default: temp directory) and deletes it afterwards. Returns <span class="code">null</span> if there is not enough free space, for RAM based file systems (tmpfs / ramfs, e.g. <span class="code">/tmp</span> on many Linux distributions - pass a <span class="code">path</span> on a real disk), for UNC paths on Windows and if the test does not finish within 60 s</td>
                       </tr>
                       <tr>
                         <td></td>
