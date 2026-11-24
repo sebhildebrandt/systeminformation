@@ -3,7 +3,8 @@ import { promisify } from 'node:util';
 import { MAX_BUFFER_SIZE, WIN_CWD } from './const';
 
 // Windows: default cwd to system32 so bare command names never resolve from the caller's cwd (CWE-427)
-const withWinCwd = (options?: any) => (WIN_CWD && !options?.cwd ? { ...options, cwd: WIN_CWD } : options);
+// never pass an explicit undefined: bundlers (e.g. pkg) shift exec() arguments by position
+const withWinCwd = (options?: any) => (WIN_CWD && !options?.cwd ? { ...options, cwd: WIN_CWD } : options || {});
 
 const _exec = promisify(execFunction);
 const _execFile = promisify(execFileFunction);
