@@ -2,7 +2,7 @@ import { randomBytes } from 'node:crypto';
 import { constants, mkdtemp, open, realpath, rm, stat, statfs } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
-import { WINDOWS } from './const';
+import { LINUX, WINDOWS } from './const';
 import { execFile } from './exec';
 import type { DiskSpeedData } from './types';
 
@@ -64,18 +64,28 @@ export const readFileTimed = async (file: string, bytes: number, onOpen?: (fd: n
   }
 };
 
-// df only touches the file system of dir - a hung network mount elsewhere cannot block it
-const fileSystemOf = async (dir: string) => {
+// df only touches the file system of dir - a hung network mount elsewhere cannot block it.
+// -Pk: POSIX format in 1 KiB blocks - statfs bavail / bsize units differ between file systems (ZFS, NFS)
+const dfInfo = async (dir: string): Promise<{ fs: string; availBytes: number | null }> => {
   if (WINDOWS) {
-    return /^[a-z]:/i.test(dir) ? dir.slice(0, 2).toUpperCase() : '';
+    return { fs: /^[a-z]:/i.test(dir) ? dir.slice(0, 2).toUpperCase() : '', availBytes: null };
   }
   try {
-    const { stdout } = await execFile('df', ['-P', dir], { timeout: 5000 });
-    return stdout.toString().trim().split('\n').pop()?.split(/\s+/)[0] || '';
+    const { stdout } = await execFile('df', ['-P', '-k', dir], { timeout: 5000 });
+    const line = stdout.toString().trim().split('\n').pop() || '';
+    // file system and mount point may contain spaces - anchor on the numeric columns
+    const match = /^(.*?)\s+\d+\s+\d+\s+(\d+)\s+\d+%\s/.exec(line);
+    return match ? { fs: match[1] || '', availBytes: Number(match[2]) * 1024 } : { fs: '', availBytes: null };
   } catch {
-    return '';
+    return { fs: '', availBytes: null };
   }
 };
+
+// file systems held in RAM - the test would measure memory and count against the memory limit
+const RAM_FS_TYPES = [0x01021994 /* tmpfs */, 0x858458f6 /* ramfs */];
+
+// write + sync + read budget plus setup - a hung (network / FUSE) mount must not block the queue forever
+const MEASURE_TIMEOUT_MS = 60000;
 
 const measure = async (path: unknown, sizeMB: unknown, platform: DiskSpeedPlatform): Promise<DiskSpeedData | null> => {
   if (path !== undefined && path !== null && path !== '' && (typeof path !== 'string' || path.includes('\0'))) {
@@ -87,15 +97,27 @@ const measure = async (path: unknown, sizeMB: unknown, platform: DiskSpeedPlatfo
   const size = Math.min(DISK_SPEED.maxMB, Math.max(DISK_SPEED.minMB, Math.round((sizeMB as number | undefined) ?? DISK_SPEED.defaultMB)));
   const total = size * MB;
 
+  // Windows: a UNC path would already authenticate against a foreign host in realpath (NTLM)
+  if (WINDOWS && /^[\\/]{2}/.test((path as string) || '')) {
+    return null;
+  }
+
   let dir = '';
+  let fs = '';
   try {
     dir = await realpath(resolve((path as string) || tmpdir()));
     if (!(await stat(dir)).isDirectory()) {
       return null;
     }
-    // bavail counts f_frsize units, NFS / FUSE report a much larger f_bsize - stay conservative
     const space = await statfs(dir);
-    if (space.bavail * Math.min(space.bsize, 4096) < total + DISK_SPEED.reserveBytes) {
+    if (LINUX && RAM_FS_TYPES.includes(space.type)) {
+      return null;
+    }
+    const df = await dfInfo(dir);
+    fs = df.fs;
+    // Windows (no df): statfs bavail and bsize are consistent there
+    const available = df.availBytes ?? space.bavail * space.bsize;
+    if (available < total + DISK_SPEED.reserveBytes) {
       return null;
     }
   } catch {
@@ -133,7 +155,7 @@ const measure = async (path: unknown, sizeMB: unknown, platform: DiskSpeedPlatfo
     const ms = Math.round(elapsedMs(start));
     return {
       path: dir,
-      fs: await fileSystemOf(dir),
+      fs,
       sizeMB: Math.round(write.bytes / MB),
       writeSpeed: mbPerSec(write.bytes, write.ms),
       readSpeed: read ? mbPerSec(read.bytes, read.ms) : null,
@@ -151,8 +173,17 @@ const measure = async (path: unknown, sizeMB: unknown, platform: DiskSpeedPlatfo
 // one test at a time - parallel runs would share the free space check and measure each other
 let _queue: Promise<unknown> = Promise.resolve();
 
+const withTimeout = <T>(promise: Promise<T>, ms: number): Promise<T | null> => {
+  let timer: NodeJS.Timeout | undefined;
+  const timeout = new Promise<null>((resolve) => {
+    timer = setTimeout(() => resolve(null), ms);
+    timer.unref();
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+};
+
 export const runDiskSpeed = (path: unknown, sizeMB: unknown, platform: DiskSpeedPlatform): Promise<DiskSpeedData | null> => {
-  const run = _queue.then(() => measure(path, sizeMB, platform));
+  const run = _queue.then(() => withTimeout(measure(path, sizeMB, platform), MEASURE_TIMEOUT_MS));
   _queue = run.catch(() => null);
   return run;
 };

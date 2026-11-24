@@ -6,7 +6,8 @@ import { ps } from '../common/windows';
 // matched on the label - localized (EN / DE / FR) and umlauts may arrive garbled from netsh
 export const rateValue = (lines: string[], label: RegExp) => {
   const line = lines.find((l) => label.test(l.split(':')[0] || ''));
-  return (line && toInt(line.split(':').slice(1).join(':'))) || null;
+  // decimal rates (866.7, localized 866,7) like on linux
+  return (line && parseFloat(line.split(':').slice(1).join(':').trim().replace(',', '.'))) || null;
 };
 
 export const wifiConnections = async () => {

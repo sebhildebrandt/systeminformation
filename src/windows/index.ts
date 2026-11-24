@@ -4,6 +4,7 @@ export { fullLoad } from '../cpu-full-load';
 export { dockerAll, dockerContainerProcesses, dockerContainers, dockerContainerStats, dockerImages, dockerInfo, dockerVolumes } from '../docker';
 export { inetChecksite } from '../inet-checksite';
 export { inetSpeed } from '../inet-speed';
+export { powerShellRelease, powerShellStart } from '../powershell';
 export { time } from '../time';
 export { version } from '../version';
 export { versions } from '../versions';
