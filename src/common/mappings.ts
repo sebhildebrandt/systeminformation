@@ -1394,24 +1394,45 @@ export const cpuManufacturer = (str: string) => {
   }
 };
 
+// true if token occurs in str as a whole word, i.e. not glued to other letters or digits
+// ('340' is not found in 'PRO 3400G', '7850K' is found in 'A10-7850K')
+const containsToken = (str: string, token: string): boolean => {
+  let pos = str.indexOf(token);
+  while (pos > -1) {
+    const before = str.charAt(pos - 1);
+    const after = str.charAt(pos + token.length);
+    if (!/[a-z0-9]/i.test(before) && !/[a-z0-9]/i.test(after)) {
+      return true;
+    }
+    pos = str.indexOf(token, pos + 1);
+  }
+  return false;
+};
+
 export const getAMDSpeed = (brand: string): number => {
+  const brandLower = brand.toLowerCase();
   let result = '0';
+  let tokenResult = '';
+  let tokenLength = 0;
   let key: keyof typeof AMDBaseFrequencies;
   for (key in AMDBaseFrequencies) {
     if (Object.keys(AMDBaseFrequencies).includes(key)) {
       const parts = key.split('|');
-      let found = 0;
-      parts.forEach((item) => {
-        if (brand.indexOf(item) > -1) {
-          found++;
+      // whole-word match (case-insensitive), the longest (most specific) key wins
+      if (parts.every((item) => containsToken(brandLower, item.toLowerCase()))) {
+        const length = parts.join('').length;
+        if (length >= tokenLength) {
+          tokenLength = length;
+          tokenResult = AMDBaseFrequencies[key];
         }
-      });
-      if (found === parts.length) {
+      }
+      // substring match: only used if no key matches as whole words (e.g. '5600' for '5600G')
+      if (parts.every((item) => brand.indexOf(item) > -1)) {
         result = AMDBaseFrequencies[key];
       }
     }
   }
-  return parseFloat(result);
+  return parseFloat(tokenResult || result);
 };
 
 export const cpuBrandManufacturer = (brand: string): CpuBrandObject => {
