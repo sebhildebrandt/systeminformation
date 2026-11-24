@@ -27,7 +27,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-beta.27</div>
+          <div class="title-version float-left">v6.0.0-beta.28</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -45,6 +45,19 @@
               <div class="col-12 sectionheader">
                 <div class="title">Known Issues</div>
                 <div class="text">
+                  <h4>Bundlers and Single Executables (e.g. pkg)</h4>
+
+                  <p>
+                    The main entry point <span class="code">require('systeminformation')</span> and the single function entry points (e.g. <span class="code">require('systeminformation/cpu')</span>) detect the platform at runtime and load the matching implementation with a dynamic
+                    <span class="code">import()</span>. Bundlers and single executable tools that do not support dynamic <span class="code">import()</span> in CommonJS code (e.g. <span class="code">@yao-pkg/pkg</span>) will make these functions reject with
+                    <span class="code">A dynamic import callback was not specified</span>.
+                  </p>
+
+                  <p>
+                    Such tools are currently not supported by version 6. The operating system entry points (e.g. <span class="code">systeminformation/linux</span>) load their functions statically, but depend on the <span class="code">exports</span> map in
+                    <span class="code">package.json</span>, which <span class="code">pkg</span> does not resolve. If you need to build a single executable with <span class="code">pkg</span>, please stay on version 5 (&gt;= 5.33.25).
+                  </p>
+
                   <h4>macOS - Temperature</h4>
 
                   <p>
