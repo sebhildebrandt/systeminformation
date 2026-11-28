@@ -252,7 +252,7 @@ You can find all changes here: [detailed changelog][changelog-url]
 
 ## Activity
 
-![Metrics](https://raw.githubusercontent.com/sebhildebrandt/systeminformation/metrics/metrics.repository.svg)
+<img src="https://raw.githubusercontent.com/sebhildebrandt/systeminformation/metrics/metrics.repository.svg" alt="Metrics" width="100%" />
 
 ## Core concept
 
