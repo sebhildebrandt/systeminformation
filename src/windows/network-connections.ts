@@ -1,11 +1,11 @@
 import { nextTick, toInt } from '../common';
 import { execOptsWin } from '../common/const';
 import { execSave } from '../common/exec';
-import type { NetworkConnectionsData } from '../common/types';
+import type { NetworkConnectionData } from '../common/types';
 
-export const networkConnections = async (): Promise<NetworkConnectionsData[]> => {
+export const networkConnections = async (): Promise<NetworkConnectionData[]> => {
   await nextTick();
-  const result: NetworkConnectionsData[] = [];
+  const result: NetworkConnectionData[] = [];
 
   const { stdout, stderr } = await execSave('netstat -nao', execOptsWin);
   if (!stderr) {

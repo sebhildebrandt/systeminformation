@@ -4,7 +4,7 @@ import { VBOXMANAGE } from './common/const';
 import { exec } from './common/exec';
 import type { VboxInfoData } from './common/types';
 
-export const vboxInfo = async () => {
+export const vboxInfo = async (): Promise<VboxInfoData[]> => {
   await nextTick();
   const result: VboxInfoData[] = [];
   try {

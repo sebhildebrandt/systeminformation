@@ -1,10 +1,10 @@
 import { plistParser } from '../common/darwin';
 import { nextTick } from '../common';
 import { exec } from '../common/exec';
-import { Software } from '../common/types';
+import { SoftwareData } from '../common/types';
 
-const parseSoftware = (data: string): Software[] => {
-  const result: Software[] = [];
+const parseSoftware = (data: string): SoftwareData[] => {
+  const result: SoftwareData[] = [];
   const outObj = plistParser(data);
   outObj.forEach((element: any) => {
     let installDate: Date | null = null;
@@ -25,7 +25,7 @@ const parseSoftware = (data: string): Software[] => {
   return result;
 };
 
-export const software = async (): Promise<Software[]> => {
+export const software = async (): Promise<SoftwareData[]> => {
   await nextTick();
 
   try {

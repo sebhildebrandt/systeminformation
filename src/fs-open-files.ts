@@ -1,5 +1,6 @@
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
-export const fsOpenFiles = async () => {
+import type { FsOpenFilesData } from './common/types';
+export const fsOpenFiles = async (): Promise<FsOpenFilesData | null> => {
   switch (true) {
     case FREEBSD || NETBSD || OPENBSD || DARWIN:
       return (await import('./darwin/fs-open-files.js')).fsOpenFiles();

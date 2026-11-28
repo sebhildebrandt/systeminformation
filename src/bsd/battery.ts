@@ -1,9 +1,9 @@
 import { execSave } from '../common/exec';
 import { cloneObj, getValue, nextTick, toInt } from '../common';
 import { initBatteryResult } from '../common/defaults';
-import { BatteryObject } from '../common/types';
+import { BatteryData } from '../common/types';
 
-export const battery = async (): Promise<BatteryObject[]> => {
+export const battery = async (): Promise<BatteryData[]> => {
   await nextTick();
   const defaults = cloneObj(initBatteryResult);
   const { stdout } = await execSave('/sbin/sysctl -i hw.acpi.battery hw.acpi.acline');

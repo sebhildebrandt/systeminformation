@@ -2,7 +2,7 @@ import { nextTick } from './common';
 import { WINDOWS } from './common/const';
 import { exec } from './common/exec';
 
-export const shell = async () => {
+export const shell = async (): Promise<string> => {
   await nextTick();
   if (WINDOWS) {
     // dynamischer Import hält windows/shell aus Nicht-Windows-Bundles (systeminformation/linux etc.)

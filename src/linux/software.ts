@@ -1,6 +1,6 @@
 import { exec } from '../common/exec';
 import { getValue, nextTick } from '../common';
-import { Software } from '../common/types';
+import { SoftwareData } from '../common/types';
 import { execOptsLinux } from '../common/const';
 
 const run = async (cmd: string): Promise<string> => {
@@ -12,7 +12,7 @@ const run = async (cmd: string): Promise<string> => {
   }
 };
 
-const initSoftware = (source: string): Software => ({
+const initSoftware = (source: string): SoftwareData => ({
   name: '',
   description: '',
   version: '',
@@ -24,7 +24,7 @@ const initSoftware = (source: string): Software => ({
 });
 
 // Debian/Ubuntu — status field keeps only fully installed packages (state "ii")
-const parseDpkg = (stdout: string): Software[] =>
+const parseDpkg = (stdout: string): SoftwareData[] =>
   stdout
     .split('\n')
     .filter(Boolean)
@@ -39,7 +39,7 @@ const parseDpkg = (stdout: string): Software[] =>
     }));
 
 // RHEL/Fedora/SUSE
-const parseRpm = (stdout: string): Software[] =>
+const parseRpm = (stdout: string): SoftwareData[] =>
   stdout
     .split('\n')
     .filter(Boolean)
@@ -57,8 +57,8 @@ const parseRpm = (stdout: string): Software[] =>
     });
 
 // Arch — `pacman -Qi` emits blank-line separated blocks
-const parsePacman = (stdout: string): Software[] => {
-  const result: Software[] = [];
+const parsePacman = (stdout: string): SoftwareData[] => {
+  const result: SoftwareData[] = [];
   stdout.split(/\n\s*\n/).forEach((block) => {
     const lines = block.split('\n');
     const name = getValue(lines, 'Name', ':', true);
@@ -80,7 +80,7 @@ const parsePacman = (stdout: string): Software[] => {
 };
 
 // universal app formats — first line is a header
-const parseSnap = (stdout: string): Software[] =>
+const parseSnap = (stdout: string): SoftwareData[] =>
   stdout
     .split('\n')
     .slice(1)
@@ -94,7 +94,7 @@ const parseSnap = (stdout: string): Software[] =>
       };
     });
 
-const parseFlatpak = (stdout: string): Software[] =>
+const parseFlatpak = (stdout: string): SoftwareData[] =>
   stdout
     .split('\n')
     .filter(Boolean)
@@ -109,7 +109,7 @@ const parseFlatpak = (stdout: string): Software[] =>
       };
     });
 
-export const software = async (): Promise<Software[]> => {
+export const software = async (): Promise<SoftwareData[]> => {
   await nextTick();
 
   const [dpkg, rpm, pacman, snap, flatpak] = await Promise.all([

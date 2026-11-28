@@ -1,7 +1,7 @@
 import { totalmem } from 'node:os';
 import { cloneObj, nextTick } from '../common';
 import { initProcesses } from '../common/defaults';
-import type { CpuData, ProcessesData, ProcessesProcessData, ProcStatData } from '../common/types';
+import type { ProcessCpuStatData, ProcessesData, ProcessesProcessData, ProcStatData } from '../common/types';
 import { ps, psArray } from '../common/windows';
 import { clampCpuPair } from '../common/parse';
 
@@ -46,7 +46,7 @@ const getWindowsProcessStates = async () => {
   return result;
 };
 
-export const calcProcStatWin = (procStat: ProcStatData, all: number, _cpu_old: CpuData) => {
+export const calcProcStatWin = (procStat: ProcStatData, all: number, _cpu_old: ProcessCpuStatData) => {
   // calc
   let cpuu = 0;
   let cpus = 0;

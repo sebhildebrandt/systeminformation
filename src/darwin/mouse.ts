@@ -1,12 +1,12 @@
 import { plistParser, spItems, USB_DATA_TYPES } from '../common/darwin';
 import { nextTick } from '../common';
 import { exec } from '../common/exec';
-import { BluetoothObject, Mouse } from '../common/types';
+import { BluetoothDeviceData, MouseData } from '../common/types';
 import { usbDarwinType } from '../common/mappings';
-import { parseBluetooth } from './bluetooth';
+import { parseBluetooth } from './bluetooth-devices';
 
 const parseKeyboard = (data: any[]) => {
-  const result: Mouse[] = [];
+  const result: MouseData[] = [];
   data.forEach((element) => {
     const usbType = usbDarwinType(element._name);
     result.push({
@@ -21,8 +21,8 @@ const parseKeyboard = (data: any[]) => {
   return result;
 };
 
-const parseUsb = (data: any): Mouse[] => {
-  const result: Mouse[] = [];
+const parseUsb = (data: any): MouseData[] => {
+  const result: MouseData[] = [];
   data.forEach((part: any) => {
     if (part._items) {
       part._items.forEach((usb: any) => {
@@ -43,8 +43,8 @@ const parseUsb = (data: any): Mouse[] => {
   return result;
 };
 
-const filterBluetooth = (data: BluetoothObject[]): Mouse[] => {
-  const result: Mouse[] = [];
+const filterBluetooth = (data: BluetoothDeviceData[]): MouseData[] => {
+  const result: MouseData[] = [];
   data.forEach((part: any) => {
     if ((part.type.toLowerCase().includes('mouse') || part.type.toLowerCase().includes('trackpad')) && part.connected) {
       result.push({
@@ -60,7 +60,7 @@ const filterBluetooth = (data: BluetoothObject[]): Mouse[] => {
   return result;
 };
 
-export const mouse = async (): Promise<Mouse[]> => {
+export const mouse = async (): Promise<MouseData[]> => {
   await nextTick();
 
   try {

@@ -1,11 +1,11 @@
-import type { CpuCurrentSpeedObject } from '../common/types';
+import type { CpuCurrentSpeedData } from '../common/types';
 
 const round2 = (value: number) => Math.round(value * 100) / 100;
 
 // Apple Silicon reports a fixed speed in os.cpus() - the real frequency comes from the optional
 // macos-smc dependency (IOReport residency since the previous call). Cores are in cluster order,
 // which is not guaranteed to match the os.cpus() index.
-export const appleSiliconSpeed = async (): Promise<CpuCurrentSpeedObject | null> => {
+export const appleSiliconSpeed = async (): Promise<CpuCurrentSpeedData | null> => {
   try {
     const smc = require('macos-smc');
     if (typeof smc.frequencies !== 'function') {

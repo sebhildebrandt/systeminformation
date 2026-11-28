@@ -1,5 +1,5 @@
 import { nextTick } from '../common';
-import { Thunderbolt } from '../common/types';
+import { ThunderboltData } from '../common/types';
 import { ps, psArray } from '../common/windows';
 
 const parseType = (name: string): string => {
@@ -12,7 +12,7 @@ const parseType = (name: string): string => {
   return '';
 };
 
-export const thunderbolt = async (): Promise<Thunderbolt[]> => {
+export const thunderbolt = async (): Promise<ThunderboltData[]> => {
   await nextTick();
   try {
     // TB3 controllers appear as PCI devices named "Thunderbolt(TM) ...",

@@ -194,6 +194,15 @@ export const sanitizeUrl = (url: string): string => {
   return urlSanitized;
 };
 
+// hostname, IPv4 or IPv6 only - empty input falls back to the default target, '' means invalid
+export const sanitizeHost = (host?: string): string => {
+  if (host === undefined || host === '') {
+    return '8.8.8.8';
+  }
+  const hostSanitized = sanitizeUrl(host);
+  return /^[A-Za-z0-9][A-Za-z0-9.:-]*$/.test(hostSanitized) ? hostSanitized : '';
+};
+
 export const sanitizeServiceString = (str: string) => {
   if (str) {
     let srvString: any = '';

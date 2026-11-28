@@ -1,9 +1,9 @@
 import { nextTick } from '../common';
 import { bluetoothTypeLabel } from '../common/mappings';
-import type { BluetoothObject } from '../common/types';
+import type { BluetoothDeviceData } from '../common/types';
 import { ps, psArray } from '../common/windows';
 
-const parseBluetoothDevices = (device: any): BluetoothObject => {
+const parseBluetoothDevices = (device: any): BluetoothDeviceData => {
   const name = device.Name || '';
 
   return {
@@ -20,7 +20,7 @@ const parseBluetoothDevices = (device: any): BluetoothObject => {
 
 export const bluetoothDevices = async () => {
   await nextTick();
-  const result: BluetoothObject[] = [];
+  const result: BluetoothDeviceData[] = [];
   const pnpDevices = psArray(
     await ps.exec('Get-CimInstance Win32_PNPEntity | select PNPClass, Name, Manufacturer, Status, Service, ConfigManagerErrorCode, Present | ConvertTo-Json -Depth 5 -Compress')
   );

@@ -1,6 +1,6 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { nextTick, toInt } from '../common';
-import { Thunderbolt } from '../common/types';
+import { ThunderboltData } from '../common/types';
 
 const TB_PATH = '/sys/bus/thunderbolt/devices';
 
@@ -27,9 +27,9 @@ const generationToSpeed = (generation: number): number => {
   }
 };
 
-export const thunderbolt = async (): Promise<Thunderbolt[]> => {
+export const thunderbolt = async (): Promise<ThunderboltData[]> => {
   await nextTick();
-  const result: Thunderbolt[] = [];
+  const result: ThunderboltData[] = [];
   try {
     // routers are named "<domain>-<route>"; skip domains ("domainN") and retimers ("...:port.n")
     const entries = (await readdir(TB_PATH)).filter((entry) => /^\d+-\d+$/.test(entry)).sort();

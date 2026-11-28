@@ -1,6 +1,7 @@
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
+import type { UuidData } from './common/types';
 
-export const uuid = async () => {
+export const uuid = async (): Promise<UuidData | null> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/uuid.js')).uuid();

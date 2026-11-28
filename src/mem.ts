@@ -1,6 +1,7 @@
 import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
+import type { MemData } from './common/types';
 
-export const mem = async () => {
+export const mem = async (): Promise<MemData | null> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/mem.js')).mem();

@@ -5,20 +5,20 @@ import { getFQDN, getUniqueMacAddresses } from './host';
 import type {
   AudioData,
   BaseboardData,
-  BatteryObject,
+  BatteryData,
   BiosData,
   ChassisData,
   CpuCacheData,
-  CpuObject,
-  CpuTemperatureObject,
-  DisksIoData,
+  CpuData,
+  CpuTemperatureData,
+  DisksIOData,
   DisplayData,
   FsBlockDevicesData,
   FsOpenFilesData,
   FsStatsData,
   InetChecksiteData,
   MemData,
-  NetworkInterfacesData,
+  NetworkInterfaceData,
   NetworkStatsData,
   NpuData,
   OsData,
@@ -30,7 +30,7 @@ import type {
   UuidData
 } from './types';
 
-export const initBatteryResult: BatteryObject = {
+export const initBatteryResult: BatteryData = {
   cycleCount: null,
   isCharging: false,
   designedCapacity: null,
@@ -85,7 +85,7 @@ export const initUsbResult: UsbData = {
   serialNumber: null
 };
 
-export const initCpuResult: CpuObject = {
+export const initCpuResult: CpuData = {
   manufacturer: UNKNOWN,
   brand: UNKNOWN,
   vendor: '',
@@ -116,7 +116,7 @@ export const initCpuCacheResult: CpuCacheData = {
   l3: null
 };
 
-export const initCpuTemperature: CpuTemperatureObject = {
+export const initCpuTemperature: CpuTemperatureData = {
   main: null,
   cores: [],
   max: null,
@@ -266,7 +266,7 @@ export const initFsStats: FsStatsData = {
   ms: 0
 };
 
-export const initDiskIo: DisksIoData = {
+export const initDiskIo: DisksIOData = {
   rIO: 0,
   wIO: 0,
   tIO: 0,
@@ -325,7 +325,7 @@ export const initProcesses: ProcessesData = {
   list: []
 };
 
-export const initNetworkInterface: NetworkInterfacesData = {
+export const initNetworkInterface: NetworkInterfaceData = {
   iface: '',
   ifaceName: '',
   vendor: '',

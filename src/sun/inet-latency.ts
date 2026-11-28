@@ -1,11 +1,13 @@
 import { nextTick } from '../common';
 import { execSecure } from '../common/exec';
-import { sanitizeUrl } from '../common/security';
+import { sanitizeHost } from '../common/security';
 
-export const inetLatency = async (host: string) => {
+export const inetLatency = async (host?: string) => {
   await nextTick();
-  let hostSanitized = sanitizeUrl(host);
-  hostSanitized = hostSanitized || '8.8.8.8';
+  const hostSanitized = sanitizeHost(host);
+  if (!hostSanitized) {
+    return null;
+  }
   const params = ['-s', '-a', hostSanitized, '56', '2'];
   const filt = 'avg';
   const stdout = await execSecure('ping', params, { timeout: 3000 });

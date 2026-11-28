@@ -6,12 +6,12 @@ import { exec, execFile } from '../common/exec';
 import { cloneObj } from '../common/index';
 import { filterDefaultInterface, testVirtualNic } from '../common/network';
 import { sanitizeString } from '../common/security';
-import type { NetworkInterfacesData } from '../common/types';
+import type { NetworkInterfaceData } from '../common/types';
 import { ps } from '../common/windows';
 import { networkInterfaceDefault } from './network-interface-default';
 
 let _interfaces: any = {}; // nodejs structure
-let _networkInterfaces: NetworkInterfacesData[] = []; // si structure
+let _networkInterfaces: NetworkInterfaceData[] = []; // si structure
 
 const parseLinesWindowsNics = (sections: any[], nconfigsections: any[]) => {
   const nics = [];
@@ -238,15 +238,15 @@ const getWindowsIEEE8021x = async (connectionType: string, iface: string, interf
   return i8021x;
 };
 
-export const networkInterfaces = async (defaultString = '', rescan = true): Promise<NetworkInterfacesData[]> => {
+export const networkInterfaces = async (filter = '', rescan = true): Promise<NetworkInterfaceData[]> => {
   await nextTick();
   const interfaces: any = osNetworkInterfaces();
   if (JSON.stringify(interfaces) === JSON.stringify(_interfaces) && !rescan) {
-    return filterDefaultInterface(_networkInterfaces, defaultString);
+    return filterDefaultInterface(_networkInterfaces, filter);
   }
   _interfaces = cloneObj(interfaces);
 
-  const result: NetworkInterfacesData[] = [];
+  const result: NetworkInterfaceData[] = [];
 
   try {
     const defaultInterface = await networkInterfaceDefault();
@@ -363,5 +363,5 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
     }
   } catch {}
   _networkInterfaces = result;
-  return filterDefaultInterface(result, defaultString);
+  return filterDefaultInterface(result, filter);
 };

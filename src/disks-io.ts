@@ -1,6 +1,7 @@
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
+import type { DisksIOData } from './common/types';
 
-export const disksIO = async () => {
+export const disksIO = async (): Promise<DisksIOData | null> => {
   switch (true) {
     case LINUX || FREEBSD || NETBSD || OPENBSD:
       return (await import('./linux/disks-io.js')).disksIO();

@@ -1,11 +1,11 @@
 import { readFile } from 'fs/promises';
 import { fileExists } from '../common/files';
-import { BatteryObject } from '../common/types';
+import { BatteryData } from '../common/types';
 
 import { cloneObj, getValue, nextTick, toInt } from '../common';
 import { initBatteryResult } from '../common/defaults';
 
-export const battery = async (): Promise<BatteryObject[]> => {
+export const battery = async (): Promise<BatteryData[]> => {
   await nextTick();
   const defaults = cloneObj(initBatteryResult);
   let acConnected = false;

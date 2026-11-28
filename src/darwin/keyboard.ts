@@ -1,12 +1,12 @@
 import { plistParser, spItems, USB_DATA_TYPES } from '../common/darwin';
 import { nextTick } from '../common';
 import { exec } from '../common/exec';
-import { BluetoothObject, Keyboard } from '../common/types';
+import { BluetoothDeviceData, KeyboardData } from '../common/types';
 import { usbDarwinType } from '../common/mappings';
-import { parseBluetooth } from './bluetooth';
+import { parseBluetooth } from './bluetooth-devices';
 
 const parseKeyboard = (data: any[]) => {
-  const result: Keyboard[] = [];
+  const result: KeyboardData[] = [];
   data.forEach((element) => {
     result.push({
       name: element._name || '',
@@ -19,8 +19,8 @@ const parseKeyboard = (data: any[]) => {
   return result;
 };
 
-const parseUsb = (data: any): Keyboard[] => {
-  const result: Keyboard[] = [];
+const parseUsb = (data: any): KeyboardData[] => {
+  const result: KeyboardData[] = [];
   data.forEach((part: any) => {
     if (part._items) {
       part._items.forEach((usb: any) => {
@@ -39,8 +39,8 @@ const parseUsb = (data: any): Keyboard[] => {
   return result;
 };
 
-const filterBluetooth = (data: BluetoothObject[]): Keyboard[] => {
-  const result: Keyboard[] = [];
+const filterBluetooth = (data: BluetoothDeviceData[]): KeyboardData[] => {
+  const result: KeyboardData[] = [];
   data.forEach((part: any) => {
     if (part.type.toLowerCase().includes('keyboard') && part.connected) {
       result.push({
@@ -55,7 +55,7 @@ const filterBluetooth = (data: BluetoothObject[]): Keyboard[] => {
   return result;
 };
 
-export const keyboard = async (): Promise<Keyboard[]> => {
+export const keyboard = async (): Promise<KeyboardData[]> => {
   await nextTick();
 
   try {

@@ -1,6 +1,7 @@
 import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
+import type { BiosData } from './common/types';
 
-export const bios = async () => {
+export const bios = async (): Promise<BiosData | null> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/bios.js')).bios();

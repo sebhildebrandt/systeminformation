@@ -1,6 +1,7 @@
 import { DARWIN, LINUX, WINDOWS } from './common/const';
+import type { KeyboardData } from './common/types';
 
-export const keyboard = async () => {
+export const keyboard = async (): Promise<KeyboardData[] | null> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/keyboard.js')).keyboard();

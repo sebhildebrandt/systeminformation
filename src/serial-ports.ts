@@ -1,6 +1,7 @@
 import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
+import type { SerialPortData } from './common/types';
 
-export const serialPorts = async () => {
+export const serialPorts = async (): Promise<SerialPortData[] | null> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/serial-ports.js')).serialPorts();

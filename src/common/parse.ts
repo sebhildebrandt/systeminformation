@@ -1,5 +1,5 @@
 import { toInt } from './index';
-import type { CpuData, ProcStatData } from './types';
+import type { ProcessCpuStatData, ProcStatData } from './types';
 
 export const parseProcStat = (line: string) => {
   const parts = line.replace(/ +/g, ' ').split(' ');
@@ -33,7 +33,7 @@ export const clampCpuPair = (cpuu: number, cpus: number) => {
   return { cpuu, cpus };
 };
 
-export const calcProcStatLinux = (line: string, all: number, _cpu_old: CpuData): ProcStatData => {
+export const calcProcStatLinux = (line: string, all: number, _cpu_old: ProcessCpuStatData): ProcStatData => {
   const statparts = line.replace(/ +/g, ' ').split(')');
   if (statparts.length >= 2) {
     const parts = statparts[1].split(' ');

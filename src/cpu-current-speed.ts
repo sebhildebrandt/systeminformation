@@ -3,9 +3,9 @@ import { nextTick } from './common';
 import { DARWIN, LINUX } from './common/const';
 import { getCpuSpeed } from './common/cpu';
 import { readFileLines } from './common/files';
-import type { CpuCurrentSpeedObject } from './common/types';
+import type { CpuCurrentSpeedData } from './common/types';
 
-export const getCpuCurrentSpeed = async (): Promise<CpuCurrentSpeedObject> => {
+export const getCpuCurrentSpeed = async (): Promise<CpuCurrentSpeedData> => {
   const oscpus = cpus();
   let minFreq = 999999999;
   let maxFreq = 0;
@@ -65,7 +65,7 @@ export const getCpuCurrentSpeed = async (): Promise<CpuCurrentSpeedObject> => {
   }
 };
 
-export const cpuCurrentSpeed = async () => {
+export const cpuCurrentSpeed = async (): Promise<CpuCurrentSpeedData> => {
   await nextTick();
   if (DARWIN && arch() === 'arm64') {
     const appleSilicon = await (await import('./darwin/cpu-current-speed.js')).appleSiliconSpeed();

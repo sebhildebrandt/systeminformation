@@ -1,6 +1,7 @@
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
+import type { CpuTemperatureData } from './common/types';
 
-export const cpuTemperature = async () => {
+export const cpuTemperature = async (): Promise<CpuTemperatureData | null> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/cpu-temperature.js')).cpuTemperature();

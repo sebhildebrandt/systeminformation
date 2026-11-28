@@ -1,6 +1,7 @@
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
+import type { CpuCacheData } from './common/types';
 
-export const cpuCache = async () => {
+export const cpuCache = async (): Promise<CpuCacheData | null> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/cpu-cache.js')).cpuCache();

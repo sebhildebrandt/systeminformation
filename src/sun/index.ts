@@ -20,7 +20,7 @@ export { shell } from '../shell';
 export { time } from '../time';
 export { version } from '../version';
 export { versions } from '../versions';
-export { vboxInfo } from '../virtualbox';
+export { vboxInfo } from '../vbox-info';
 export { inetLatency } from './inet-latency';
 export { osInfo } from './os-info';
 export { users } from './users';

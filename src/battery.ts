@@ -1,6 +1,7 @@
 import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
+import type { BatteryData } from './common/types';
 
-export const battery = async () => {
+export const battery = async (): Promise<BatteryData[] | null> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/battery.js')).battery();

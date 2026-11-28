@@ -1,6 +1,6 @@
 import { getValue, nextTick, toInt } from '../common';
 import { isPrototypePolluted, sanitizeServiceString } from '../common/security';
-import type { ServicesData } from '../common/types';
+import type { ServiceData } from '../common/types';
 import { ps } from '../common/windows';
 
 // whitelist via char compare - no String/RegExp prototype methods involved
@@ -16,11 +16,11 @@ const psServiceName = (srv: unknown): string => {
   return name;
 };
 
-export const services = async (srv: string): Promise<ServicesData[]> => {
+export const services = async (serviceNames: string): Promise<ServiceData[]> => {
   await nextTick();
-  const result: ServicesData[] = [];
+  const result: ServiceData[] = [];
   if (!isPrototypePolluted()) {
-    const srvs = sanitizeServiceString(srv);
+    const srvs = sanitizeServiceString(serviceNames);
     const dataSrv: any[] = [];
 
     try {

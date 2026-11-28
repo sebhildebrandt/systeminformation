@@ -1,10 +1,10 @@
 import { initDiskIo } from '../common/defaults';
 import { cloneObj, nextTick, toInt } from '../common';
-import { DisksIoData } from '../common/types';
+import { DisksIOData } from '../common/types';
 import { calcDiskIO, _disk_io } from '../common/filesys';
 import { ps } from '../common/windows';
 
-export const disksIO = async (): Promise<DisksIoData> => {
+export const disksIO = async (): Promise<DisksIOData> => {
   await nextTick();
   if ((_disk_io && !_disk_io.ms) || (_disk_io && _disk_io.ms && Date.now() - _disk_io.ms >= 500)) {
     const defaults = cloneObj(initDiskIo);

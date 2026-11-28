@@ -1,6 +1,6 @@
 import { LINUX, WINDOWS, DARWIN, FREEBSD, NETBSD, SUNOS, OPENBSD, ANDROID } from './common/const';
 
-export const networkInterfaceDefault = async () => {
+export const networkInterfaceDefault = async (): Promise<string | null> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/network-interface-default.js')).networkInterfaceDefault();

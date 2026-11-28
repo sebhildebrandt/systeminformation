@@ -95,9 +95,9 @@ export const getStaticData = async () => {
 };
 
 // all dynamic data — e.g. for monitoring agents
-// - srv:   comma separated list of services to monitor e.g. "mysql, apache, postgresql" ('*' = all)
-// - iface: network interface for which to monitor network speed (default: first external interface)
-export const getDynamicData = async (srv = '', iface = '') => {
+// - serviceNames: services to monitor, comma separated or array e.g. "mysql, apache, postgresql" ('*' = all)
+// - interfaces:   network interfaces to monitor (default: first external interface)
+export const getDynamicData = async (serviceNames: string | string[] = '', interfaces: string | string[] = '') => {
   await nextTick();
   const [
     time,
@@ -128,11 +128,11 @@ export const getDynamicData = async (srv = '', iface = '') => {
     si.currentLoad(),
     si.cpuTemperature(),
     si.fans(),
-    (async () => si.networkStats(iface || (await si.networkInterfaceDefault()) || '*'))(),
+    (async () => si.networkStats(interfaces || (await si.networkInterfaceDefault()) || '*'))(),
     si.networkConnections(),
     si.mem(),
     si.battery(),
-    si.services(srv || '*'),
+    si.services(serviceNames || '*'),
     si.fsSize(),
     si.fsStats(),
     si.disksIO(),
@@ -169,6 +169,6 @@ export const getDynamicData = async (srv = '', iface = '') => {
 };
 
 // all data at once (static + dynamic)
-export const getAllData = async (srv = '', iface = '') => {
-  return { ...(await getStaticData()), ...(await getDynamicData(srv, iface)) };
+export const getAllData = async (serviceNames: string | string[] = '', interfaces: string | string[] = '') => {
+  return { ...(await getStaticData()), ...(await getDynamicData(serviceNames, interfaces)) };
 };

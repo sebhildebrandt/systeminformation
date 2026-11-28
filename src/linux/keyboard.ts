@@ -1,9 +1,9 @@
 import { readFile } from 'node:fs/promises';
 import { nextTick } from '../common';
-import { Keyboard } from '../common/types';
+import { KeyboardData } from '../common/types';
 
-const parseKeyboard = (stdout: string): Keyboard[] => {
-  const result: Keyboard[] = [];
+const parseKeyboard = (stdout: string): KeyboardData[] => {
+  const result: KeyboardData[] = [];
   const blocks = stdout.split(/\n\s*\n/);
   blocks.forEach((block) => {
     let bus = '';
@@ -46,7 +46,7 @@ const parseKeyboard = (stdout: string): Keyboard[] => {
   return result;
 };
 
-export const keyboard = async (): Promise<Keyboard[]> => {
+export const keyboard = async (): Promise<KeyboardData[]> => {
   await nextTick();
   try {
     const stdout = (await readFile('/proc/bus/input/devices')).toString();

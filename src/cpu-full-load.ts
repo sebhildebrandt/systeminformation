@@ -2,7 +2,7 @@ import { cpus } from 'node:os';
 import { nextTick } from './common';
 import { WINDOWS } from './common/const';
 
-export const fullLoad = async () => {
+export const fullLoad = async (): Promise<number> => {
   await nextTick();
 
   const oscpus = cpus();

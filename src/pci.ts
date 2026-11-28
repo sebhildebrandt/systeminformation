@@ -1,6 +1,7 @@
 import { DARWIN, LINUX, WINDOWS } from './common/const';
+import type { PciData } from './common/types';
 
-export const pci = async () => {
+export const pci = async (): Promise<PciData[] | null> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/pci.js')).pci();

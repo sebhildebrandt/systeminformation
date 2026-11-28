@@ -7,7 +7,7 @@ import { fileExists } from './common/files';
 import type { VersionData } from './common/types';
 import { ps } from './common/windows';
 
-export const versions = async (apps?: string | string[]) => {
+export const versions = async (apps?: string | string[]): Promise<VersionData> => {
   const versionObject: { [index: string]: any } = {
     kernel: release(),
     openssl: '',
@@ -103,7 +103,7 @@ export const versions = async (apps?: string | string[]) => {
     return result;
   };
 
-  return new Promise<VersionData[]>((resolve) => {
+  return new Promise<VersionData>((resolve) => {
     process.nextTick(async () => {
       apps = apps || '*';
       const appsObj = checkVersionParam(apps);

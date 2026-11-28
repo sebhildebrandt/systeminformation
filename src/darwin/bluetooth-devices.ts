@@ -2,13 +2,13 @@ import { nextTick } from '../common';
 import { plistParser } from './../common/darwin';
 import { exec } from '../common/exec';
 import { bluetoothManufacturer, bluetoothTypeLabel, parseBluetoothVendor } from '../common/mappings';
-import type { BluetoothObject } from '../common/types';
+import type { BluetoothDeviceData } from '../common/types';
 
 const deviceId = (id: string) => {
   return id.split(' < ')[0];
 };
 
-const parseBluetoothObjects = (bluetoothObject: any, macAddr2: string | null): BluetoothObject => {
+const parseBluetoothObjects = (bluetoothObject: any, macAddr2: string | null): BluetoothDeviceData => {
   const typeStr = (
     (bluetoothObject.device_minorClassOfDevice_string || bluetoothObject.device_majorClassOfDevice_string || bluetoothObject.device_minorType || '') + (bluetoothObject.device_name || '')
   ).toLowerCase();
@@ -24,8 +24,8 @@ const parseBluetoothObjects = (bluetoothObject: any, macAddr2: string | null): B
   };
 };
 
-export const parseBluetooth = (outObj: any): BluetoothObject[] => {
-  const result: BluetoothObject[] = [];
+export const parseBluetooth = (outObj: any): BluetoothDeviceData[] => {
+  const result: BluetoothDeviceData[] = [];
   if (outObj.length && outObj[0] && outObj[0]['device_title'] && outObj[0]['device_title'].length) {
     // missing: host BT Adapter macAddr ()
     let macAddr2: string | null = null;
@@ -75,7 +75,7 @@ export const parseBluetooth = (outObj: any): BluetoothObject[] => {
   return result;
 };
 
-export const bluetoothDevices = async (): Promise<BluetoothObject[]> => {
+export const bluetoothDevices = async (): Promise<BluetoothDeviceData[]> => {
   await nextTick();
 
   try {

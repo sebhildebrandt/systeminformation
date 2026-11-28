@@ -1,6 +1,7 @@
 import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
+import type { DisplayData } from './common/types';
 
-export const displays = async () => {
+export const displays = async (): Promise<DisplayData[] | null> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/displays.js')).displays();

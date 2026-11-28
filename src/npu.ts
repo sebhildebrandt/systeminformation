@@ -1,6 +1,7 @@
 import { DARWIN, LINUX, WINDOWS } from './common/const';
+import type { NpuData } from './common/types';
 
-export const npu = async () => {
+export const npu = async (): Promise<NpuData[] | null> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/npu.js')).npu();

@@ -1,6 +1,7 @@
 import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
+import type { SystemData } from './common/types';
 
-export const system = async () => {
+export const system = async (): Promise<SystemData | null> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/system.js')).system();

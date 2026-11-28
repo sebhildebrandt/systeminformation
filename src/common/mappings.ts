@@ -1,5 +1,5 @@
 import { PLATFORM, WINDOWS } from './const';
-import type { CpuBrandObject } from './types';
+import type { CpuBrandData } from './types';
 
 const speaker = 'Speaker';
 const microphone = 'Microphone';
@@ -1470,7 +1470,7 @@ export const getAMDSpeed = (brand: string): number => {
   return parseFloat(result);
 };
 
-export const cpuBrandManufacturer = (brand: string): CpuBrandObject => {
+export const cpuBrandManufacturer = (brand: string): CpuBrandData => {
   brand = brand
     .replace(/\(R\)+/g, '®')
     .replace(/\s+/g, ' ')

@@ -1,5 +1,5 @@
 import { nextTick } from '../common';
-import type { Camera } from '../common/types';
+import type { CameraData } from '../common/types';
 import { ps, psArray } from '../common/windows';
 
 const matchId = (deviceId: string, key: string): string => {
@@ -26,7 +26,7 @@ const parseConnection = (deviceId: string): string => {
   return '';
 };
 
-const parseCamera = (devices: any[]): Camera[] =>
+const parseCamera = (devices: any[]): CameraData[] =>
   devices.map((data: any) => {
     const deviceId = data.DeviceID || '';
     return {
@@ -38,7 +38,7 @@ const parseCamera = (devices: any[]): Camera[] =>
     };
   });
 
-export const camera = async (): Promise<Camera[]> => {
+export const camera = async (): Promise<CameraData[]> => {
   await nextTick();
   try {
     const result = await ps.exec(

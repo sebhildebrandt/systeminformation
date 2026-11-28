@@ -1,12 +1,14 @@
 import { execSecure } from '../common/exec';
-import { sanitizeUrl } from '../common/security';
+import { sanitizeHost } from '../common/security';
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD } from '../common/const';
 import { nextTick } from '../common';
 
-export const inetLatency = async (host: string) => {
+export const inetLatency = async (host?: string) => {
   await nextTick();
-  let hostSanitized = sanitizeUrl(host);
-  hostSanitized = hostSanitized || '8.8.8.8';
+  const hostSanitized = sanitizeHost(host);
+  if (!hostSanitized) {
+    return null;
+  }
   let params: string[] = [];
   if (LINUX) {
     params = ['-c', '2', '-w', '3', hostSanitized];

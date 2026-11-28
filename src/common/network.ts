@@ -1,6 +1,6 @@
 import { toInt } from './index';
 import { wifiFrequencies } from './mappings';
-import type { NetworkInterfacesData, NetworkStatsData } from './types';
+import type { NetworkInterfaceData, NetworkStatsData } from './types';
 
 export const wifiDBFromQuality = (quality: string) => {
   const qual = parseFloat(quality);
@@ -176,5 +176,5 @@ export const calcNetworkSpeed = (counters: NetworkCounters, _network: any): Netw
 };
 
 // copy, so callers can not mutate the cached list
-export const filterDefaultInterface = (interfaces: NetworkInterfacesData[], defaultString: string) =>
-  defaultString.toLowerCase().indexOf('default') >= 0 ? interfaces.filter((item) => item.default).slice(0, 1) : interfaces.slice();
+export const filterDefaultInterface = (interfaces: NetworkInterfaceData[], filter: string) =>
+  filter.toLowerCase().indexOf('default') >= 0 ? interfaces.filter((item) => item.default).slice(0, 1) : interfaces.slice();

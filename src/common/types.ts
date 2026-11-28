@@ -38,7 +38,7 @@ export type AudioData = {
   status: string;
 };
 
-export type BatteryObject = {
+export type BatteryData = {
   cycleCount: number | null;
   isCharging: boolean;
   designedCapacity: number | null;
@@ -55,7 +55,7 @@ export type BatteryObject = {
   serial: string;
 };
 
-export type BluetoothObject = {
+export type BluetoothDeviceData = {
   device: string | null;
   name: string;
   manufacturer: string | null;
@@ -290,7 +290,7 @@ export type VboxInfoData = {
   rtc: string;
 };
 
-export type CpuObject = {
+export type CpuData = {
   manufacturer: string;
   brand: string;
   vendor: string;
@@ -314,7 +314,7 @@ export type CpuObject = {
   cache: CpuCacheData | null;
 };
 
-export type CpuBrandObject = {
+export type CpuBrandData = {
   manufacturer: string;
   brand: string;
 };
@@ -326,14 +326,14 @@ export type CpuCacheData = {
   l3: number | null;
 };
 
-export type CpuCurrentSpeedObject = {
+export type CpuCurrentSpeedData = {
   min: number;
   max: number;
   avg: number;
   cores: number[];
 };
 
-export type CpuTemperatureObject = {
+export type CpuTemperatureData = {
   main: number | null;
   cores: number[];
   max: number | null;
@@ -531,7 +531,7 @@ export type OsData = {
   serial: string;
   build: string;
   servicepack: string;
-  uefi: boolean;
+  uefi: boolean | null;
   installDate: Date | null;
   lastUpdate: Date | null;
   displayServer: string;
@@ -734,7 +734,7 @@ export type FsStatsData = {
   ms: number;
 };
 
-export type DisksIoData = {
+export type DisksIOData = {
   rIO: number;
   wIO: number;
   tIO: number;
@@ -979,7 +979,7 @@ export type ProcStatData = {
   mem?: number;
 };
 
-export type CpuData = {
+export type ProcessCpuStatData = {
   all: number;
   all_utime: number;
   all_stime: number;
@@ -988,7 +988,7 @@ export type CpuData = {
   result: any;
 };
 
-export type ServicesData = {
+export type ServiceData = {
   name: string;
   running: boolean;
   startmode: string;
@@ -1051,7 +1051,7 @@ export type ProcessLoadData = {
   mem: number;
 };
 
-export type NetworkInterfacesData = {
+export type NetworkInterfaceData = {
   iface: string;
   ifaceName: string;
   vendor: string;
@@ -1102,7 +1102,7 @@ export type NetworkStatsData = {
   ms: number;
 };
 
-export type NetworkConnectionsData = {
+export type NetworkConnectionData = {
   protocol: string;
   localAddress: string;
   localPort: string;
@@ -1113,7 +1113,7 @@ export type NetworkConnectionsData = {
   process: string;
 };
 
-export type Camera = {
+export type CameraData = {
   name: string;
   model: string;
   vendor: string;
@@ -1121,7 +1121,7 @@ export type Camera = {
   connection: string;
 };
 
-export type Keyboard = {
+export type KeyboardData = {
   name: string;
   model: string;
   vendor: string;
@@ -1129,7 +1129,7 @@ export type Keyboard = {
   connection: string;
 };
 
-export type Mouse = {
+export type MouseData = {
   name: string;
   type: string;
   model: string;
@@ -1138,12 +1138,12 @@ export type Mouse = {
   connection: string;
 };
 
-export type Npm = {
+export type NpmData = {
   name: string;
   version: string;
 };
 
-export type Software = {
+export type SoftwareData = {
   name: string;
   description: string;
   version: string;
@@ -1179,7 +1179,7 @@ export type NpuData = {
   driver: string;
 };
 
-export type Thunderbolt = {
+export type ThunderboltData = {
   name: string;
   uuid: string;
   bus: number | null;

@@ -29,7 +29,7 @@ export { shell } from '../shell';
 export { time } from '../time';
 export { version } from '../version';
 export { versions } from '../versions';
-export { vboxInfo } from '../virtualbox';
+export { vboxInfo } from '../vbox-info';
 export { battery } from './battery';
 export { cpu } from './cpu';
 export { cpuCache } from './cpu-cache';

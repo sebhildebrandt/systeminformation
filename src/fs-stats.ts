@@ -1,6 +1,7 @@
 import { DARWIN, LINUX, WINDOWS } from './common/const';
+import type { FsStatsData } from './common/types';
 
-export const fsStats = async () => {
+export const fsStats = async (): Promise<FsStatsData | null> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/fs-stats.js')).fsStats();

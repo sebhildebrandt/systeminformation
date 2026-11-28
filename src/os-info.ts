@@ -1,6 +1,7 @@
 import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, SUNOS, WINDOWS } from './common/const';
+import type { OsData } from './common/types';
 
-export const osInfo = async () => {
+export const osInfo = async (): Promise<OsData | null> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/os-info.js')).osInfo();

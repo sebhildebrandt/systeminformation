@@ -1,6 +1,7 @@
 import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
+import type { WifiNetworkData } from './common/types';
 
-export const wifiNetworks = async () => {
+export const wifiNetworks = async (): Promise<WifiNetworkData[] | null> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/wifi-networks.js')).wifiNetworks();

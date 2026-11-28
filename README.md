@@ -183,7 +183,7 @@ You can find all changes here: [detailed changelog][changelog-url]
 
 ## Activity
 
-![Metrics](https://raw.githubusercontent.com/sebhildebrandt/systeminformation/metrics/metrics.repository.svg)
+<img src="https://raw.githubusercontent.com/sebhildebrandt/systeminformation/metrics/metrics.repository.svg" alt="Metrics" width="100%" />
 
 ## Core concept
 
@@ -530,14 +530,14 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 |                                  | pids              | X     | X   | X   | X   |     | additional pids                                                                         |
 |                                  | cpu               | X     | X   | X   | X   |     | process % CPU                                                                           |
 |                                  | mem               | X     | X   | X   | X   |     | process % MEM                                                                           |
-| si.services('mysql, apache2')    | [{...}]           | X     | X   | X   | X   |     | pass comma separated string of services<br>pass "*" for ALL services (linux/win only)   |
+| si.services('mysql, apache2')    | [{...}]           | X     | X   | X   | X   |     | pass comma separated string or array of services<br>pass "*" for ALL services (linux/win only)   |
 |                                  | [0].name          | X     | X   | X   | X   |     | name of service                                                                         |
 |                                  | [0].running       | X     | X   | X   | X   |     | true / false                                                                            |
 |                                  | [0].startmode     |       |     |     | X   |     | manual, automatic, ...                                                                  |
 |                                  | [0].pids          | X     | X   | X   | X   |     | pids                                                                                    |
 |                                  | [0].cpu           | X     | X   | X   |     |     | process % CPU                                                                           |
 |                                  | [0].mem           | X     | X   | X   |     |     | process % MEM                                                                           |
-| si.processLoad('mysql, apache2') | [{...}]           | X     | X   | X   | X   |     | pass comma separated string of processes<br>pass "*" for ALL processes (linux/win only) |
+| si.processLoad('mysql, apache2') | [{...}]           | X     | X   | X   | X   |     | pass comma separated string or array of processes<br>pass "*" for ALL processes (linux/win only) |
 |                                  | [0].proc          | X     | X   | X   | X   |     | name of process                                                                         |
 |                                  | [0].pids          | X     | X   | X   | X   |     | pids                                                                                    |
 |                                  | [0].cpu           | X     | X   | X   |     |     | process % CPU                                                                           |
@@ -613,7 +613,7 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 |                   | writeSpeed            | X     | X   | X   | X   |     | write throughput in MB/s (incl. fsync)                                   |
 |                   | readSpeed             | X     | X   | X   | X   |     | read throughput in MB/s past the file cache, null if not possible (*)    |
 |                   | ms                    | X     | X   | X   | X   |     | total duration in ms                                                     |
-| si.fsSize(drive)  | [{...}]               | X     | X   | X   | X   |     | returns array of mounted file systems<br>drive param is optional         |
+| si.fsSize(drive)  | [{...}]               | X     | X   | X   | X   |     | returns array of mounted file systems<br>drive param is optional (string or array)<br>pass '*' for all file systems |
 |                   | [0].fs                | X     | X   | X   | X   |     | name of file system                                                      |
 |                   | [0].type              | X     | X   | X   | X   |     | type of file system                                                      |
 |                   | [0].size              | X     | X   | X   | X   |     | sizes in bytes                                                           |
@@ -763,7 +763,7 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 |                              | [0].iface          | X     | X   | X   | X   |     | interface                                                                                                                                                                                          |
 |                              | [0].metric         | X     |     |     | X   |     | metric (Windows: route + interface metric), null if unknown                                                                                                                                        |
 |                              | [0].family         | X     | X   | X   | X   |     | IPv4 or IPv6                                                                                                                                                                                       |
-| si.networkStats(ifaces)      | [{...}]            | X     | X   | X   | X   |     | current network stats of given interfaces<br>iface list: space or comma separated<br>iface parameter is optional<br>defaults to first external network interface,<br />Pass '*' for all interfaces |
+| si.networkStats(interfaces)  | [{...}]            | X     | X   | X   | X   |     | current network stats of given interfaces<br>interfaces: comma separated string or array<br>interfaces parameter is optional<br>defaults to first external network interface,<br />Pass '*' for all interfaces |
 |                              | [0].iface          | X     | X   | X   | X   |     | interface                                                                                                                                                                                          |
 |                              | [0].operstate      | X     | X   | X   | X   |     | up / down                                                                                                                                                                                          |
 |                              | [0].rx_bytes       | X     | X   | X   | X   |     | received bytes overall                                                                                                                                                                             |
@@ -937,7 +937,7 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 |                                 | [0].labels          | X                                   | X   | X   | X   | X   | object of labels (key-value pairs)                                                                            |
 |                                 | [0].ports           | X                                   | X   | X   | X   | X   | array of ports                                                                                                |
 |                                 | [0].mounts          | X                                   | X   | X   | X   | X   | array of mounts                                                                                               |
-| si.dockerContainerStats(ids)    | [{...}]             | X                                   | X   | X   | X   | X   | statistics for specific containers<br>container IDs: space or comma separated,<br>pass '*' for all containers |
+| si.dockerContainerStats(ids)    | [{...}]             | X                                   | X   | X   | X   | X   | statistics for specific containers<br>container IDs: comma separated string or array,<br>pass '*' for all containers |
 |                                 | [0].id              | X                                   | X   | X   | X   | X   | Container ID                                                                                                  |
 |                                 | [0].memUsage        | X                                   | X   | X   | X   | X   | memory usage in bytes                                                                                         |
 |                                 | [0].memLimit        | X                                   | X   | X   | X   | X   | memory limit (max mem) in bytes                                                                               |
@@ -1024,8 +1024,8 @@ On Linux, `si.gpu()` also covers the integrated GPU of NVIDIA Tegra / Jetson boa
 | Function                         | Result object | Linux | BSD | Mac | Win | Sun | Comments                                                                                                                                                                                                    |
 | -------------------------------- | ------------- | ----- | --- | --- | --- | --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | si.getStaticData()               | {...}         | X     | X   | X   | X   | X   | all static data at once                                                                                                                                                                                     |
-| si.getDynamicData(srv,iface)     | {...}         | X     | X   | X   | X   | X   | all dynamic data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "_" for ALL services (linux/win only)<br>Pass "_" for ALL network interfaces |
-| si.getAllData(srv,iface)         | {...}         | X     | X   | X   | X   | X   | all data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "_" for ALL services (linux/win only)<br>Pass "_" for ALL network interfaces         |
+| si.getDynamicData(srv,iface)     | {...}         | X     | X   | X   | X   | X   | all dynamic data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "*" for ALL services (linux/win only)<br>Pass "*" for ALL network interfaces |
+| si.getAllData(srv,iface)         | {...}         | X     | X   | X   | X   | X   | all data at once<br>Specify services and interfaces to monitor<br>Defaults to first external network interface<br>Pass "*" for ALL services (linux/win only)<br>Pass "*" for ALL network interfaces         |
 | si.get(valueObject)              | {...}         | X     | X   | X   | X   | X   | get partial system info data at once<br>In valueObject you can define<br>all values, you want to get back <br>(see documentation for details)                                                               |
 | si.observe(valueObject,interval) | -             | X     | X   | X   | X   | X   | Observe a defined value object<br>call callback on changes<br>polling interval in milliseconds                                                                                                              |
 

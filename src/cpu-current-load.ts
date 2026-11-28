@@ -106,7 +106,7 @@ const cpuTopology = async (count: number): Promise<CpuTopologyData[]> => {
   return _topology.length === count ? _topology : [];
 };
 
-export const currentLoad = async () => {
+export const currentLoad = async (): Promise<CurrentLoadData> => {
   await nextTick();
 
   const loads = loadavg().map((x) => x / oscpu().length);

@@ -5,11 +5,11 @@ import { readSysfs } from '../common/files';
 import { _disk_io, calcDiskIO } from '../common/filesys';
 import { cloneObj } from '../common/index';
 import { isSafePathSegment } from '../common/security';
-import type { DisksIoData } from '../common/types';
+import type { DisksIOData } from '../common/types';
 
 let _diskCount = -1;
 
-export const disksIO = async (): Promise<DisksIoData> => {
+export const disksIO = async (): Promise<DisksIOData> => {
   await nextTick();
   if ((_disk_io && !_disk_io.ms) || (_disk_io && _disk_io.ms && Date.now() - _disk_io.ms >= 500)) {
     const defaults = cloneObj(initDiskIo);

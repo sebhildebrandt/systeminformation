@@ -1,6 +1,7 @@
 import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
+import type { UsbData } from './common/types';
 
-export const usb = async () => {
+export const usb = async (): Promise<UsbData[] | null> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/usb.js')).usb();

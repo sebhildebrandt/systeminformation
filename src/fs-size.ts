@@ -1,11 +1,9 @@
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
+import type { FsSizeData } from './common/types';
 
-export const fsSize = async (drives?: string | string[]) => {
-  if (drives) {
-    if (!Array.isArray(drives)) {
-      drives = [drives];
-    }
-  } else {
+export const fsSize = async (drives?: string | string[]): Promise<FsSizeData[] | null> => {
+  drives = Array.isArray(drives) ? drives : drives ? [drives] : [];
+  if (drives.includes('*')) {
     drives = [];
   }
   switch (true) {

@@ -9,7 +9,7 @@ import { fileExists, readFileLines, readSysfs, readSysfsMany } from '../common/f
 import { cloneObj } from '../common/index';
 import { filterDefaultInterface, testVirtualNic } from '../common/network';
 import { isSafePathSegment, sanitizeString } from '../common/security';
-import type { NetworkInterfacesData, PciData } from '../common/types';
+import type { NetworkInterfaceData, PciData } from '../common/types';
 import { networkInterfaceDefault } from './network-interface-default';
 import { pci } from './pci';
 
@@ -23,7 +23,7 @@ const EXEC_OPTS_NMCLI = { ...EXEC_OPTS_LINUX, env: { ...process.env, LC_ALL: 'C.
 const SCAN_CONCURRENCY = 8;
 
 let _interfaces: any = {}; // nodejs structure
-let _networkInterfaces: NetworkInterfacesData[] = []; // si structure
+let _networkInterfaces: NetworkInterfaceData[] = []; // si structure
 
 const splitSectionsNics = (lines: string[]) => {
   const result = [];
@@ -267,15 +267,15 @@ const getLinuxNicHardware = async (devices: string[]) => {
   return _nicHardware;
 };
 
-export const networkInterfaces = async (defaultString = '', rescan = true): Promise<NetworkInterfacesData[]> => {
+export const networkInterfaces = async (filter = '', rescan = true): Promise<NetworkInterfaceData[]> => {
   await nextTick();
   const interfaces = osNetworkInterfaces();
   if (JSON.stringify(interfaces) === JSON.stringify(_interfaces) && !rescan) {
-    return filterDefaultInterface(_networkInterfaces, defaultString);
+    return filterDefaultInterface(_networkInterfaces, filter);
   }
   _interfaces = cloneObj(interfaces);
 
-  const result: NetworkInterfacesData[] = [];
+  const result: NetworkInterfaceData[] = [];
 
   try {
     const [_dhcpNics, defaultInterface, deviceStatus, gateways, sysfsDevices, wirelessLines] = await Promise.all([
@@ -294,7 +294,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
       }
     }
     const hardware = await getLinuxNicHardware(devices);
-    const scanInterface = async (dev: string): Promise<NetworkInterfacesData> => {
+    const scanInterface = async (dev: string): Promise<NetworkInterfaceData> => {
       const iface = dev;
       let ip4 = '';
       let ip4subnet = '';
@@ -446,5 +446,5 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
     }
   } catch {}
   _networkInterfaces = result;
-  return filterDefaultInterface(result, defaultString);
+  return filterDefaultInterface(result, filter);
 };

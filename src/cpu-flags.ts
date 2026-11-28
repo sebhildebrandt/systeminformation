@@ -1,6 +1,6 @@
 import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 
-export const cpuFlags = async () => {
+export const cpuFlags = async (): Promise<string | null> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/cpu-flags.js')).cpuFlags();

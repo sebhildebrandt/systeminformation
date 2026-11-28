@@ -1,6 +1,7 @@
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
+import type { NetworkRouteData } from './common/types';
 
-export const networkRoutes = async () => {
+export const networkRoutes = async (): Promise<NetworkRouteData[] | null> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/network-routes.js')).networkRoutes();

@@ -1,7 +1,7 @@
 import { nextTick } from '../common';
 import { MAX_BUFFER_SIZE } from '../common/const';
 import { execSave } from '../common/exec';
-import type { NetworkConnectionsData } from '../common/types';
+import type { NetworkConnectionData } from '../common/types';
 
 const getProcessName = (processes: string[], pid: number) => {
   let cmd = '';
@@ -20,9 +20,9 @@ const getProcessName = (processes: string[], pid: number) => {
   // return cmdParts[cmdParts.length - 1];
 };
 
-export const networkConnections = async (): Promise<NetworkConnectionsData[]> => {
+export const networkConnections = async (): Promise<NetworkConnectionData[]> => {
   await nextTick();
-  const result: NetworkConnectionsData[] = [];
+  const result: NetworkConnectionData[] = [];
 
   const cmd = 'netstat -natvln | head -n2; netstat -natvln | grep "tcp4\\|tcp6\\|udp4\\|udp6"';
   const states = 'ESTABLISHED|SYN_SENT|SYN_RECV|FIN_WAIT1|FIN_WAIT_1|FIN_WAIT2|FIN_WAIT_2|TIME_WAIT|CLOSE|CLOSE_WAIT|LAST_ACK|LISTEN|CLOSING|UNKNOWN'.split('|');

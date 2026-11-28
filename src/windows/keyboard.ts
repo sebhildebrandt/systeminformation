@@ -1,5 +1,5 @@
 import { nextTick } from '../common';
-import type { Keyboard } from '../common/types';
+import type { KeyboardData } from '../common/types';
 import { ps, psArray } from '../common/windows';
 
 const matchId = (deviceId: string, key: string): string => {
@@ -27,7 +27,7 @@ const parseConnection = (deviceId: string): string => {
   return '';
 };
 
-const parseKeyboard = (devices: any[]): Keyboard[] =>
+const parseKeyboard = (devices: any[]): KeyboardData[] =>
   devices.map((data: any) => {
     const deviceId = data.PNPDeviceID || data.DeviceID || '';
     return {
@@ -39,7 +39,7 @@ const parseKeyboard = (devices: any[]): Keyboard[] =>
     };
   });
 
-export const keyboard = async (): Promise<Keyboard[]> => {
+export const keyboard = async (): Promise<KeyboardData[]> => {
   await nextTick();
   try {
     const result = await ps.exec('@(Get-CimInstance Win32_Keyboard | Select-Object Name,Description,DeviceID,PNPDeviceID) | ConvertTo-Json -Depth 3');

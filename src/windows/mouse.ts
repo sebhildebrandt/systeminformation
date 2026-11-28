@@ -1,5 +1,5 @@
 import { nextTick } from '../common';
-import type { Mouse } from '../common/types';
+import type { MouseData } from '../common/types';
 import { ps, psArray } from '../common/windows';
 
 const matchId = (deviceId: string, key: string): string => {
@@ -44,7 +44,7 @@ const parseType = (pointingType: number, name: string): string => {
   return 'Mouse';
 };
 
-const parseMouse = (devices: any[]): Mouse[] =>
+const parseMouse = (devices: any[]): MouseData[] =>
   devices.map((data: any) => {
     const deviceId = data.PNPDeviceID || data.DeviceID || '';
     const name = (data.Name || data.Description || '').trim();
@@ -58,7 +58,7 @@ const parseMouse = (devices: any[]): Mouse[] =>
     };
   });
 
-export const mouse = async (): Promise<Mouse[]> => {
+export const mouse = async (): Promise<MouseData[]> => {
   await nextTick();
   try {
     const result = await ps.exec('@(Get-CimInstance Win32_PointingDevice | Select-Object Name,Description,Manufacturer,DeviceID,PNPDeviceID,PointingType) | ConvertTo-Json -Depth 3');

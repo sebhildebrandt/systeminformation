@@ -1,9 +1,9 @@
 import { cloneObj, getValue, nextTick, toInt } from '../common';
 import { initBatteryResult } from '../common/defaults';
 import { execSave } from '../common/exec';
-import type { BatteryObject } from '../common/types';
+import type { BatteryData } from '../common/types';
 
-const parseBatteryObject = (data: string): BatteryObject[] => {
+const parseBatteryObject = (data: string): BatteryData[] => {
   const defaults = cloneObj(initBatteryResult);
   data = data || '';
   const lines = data

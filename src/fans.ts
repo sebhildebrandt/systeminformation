@@ -1,6 +1,7 @@
 import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
+import type { FanData } from './common/types';
 
-export const fans = async () => {
+export const fans = async (): Promise<FanData[] | null> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/fans.js')).fans();

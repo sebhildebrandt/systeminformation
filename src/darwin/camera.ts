@@ -1,11 +1,11 @@
-import { Camera } from './../common/types';
+import { CameraData } from './../common/types';
 import { plistParser, spItems, USB_DATA_TYPES } from '../common/darwin';
 import { nextTick } from '../common';
 import { exec } from '../common/exec';
 import { manufacturedApple, usbDarwinType } from '../common/mappings';
 
-const parseCamera = (data: any[]): Camera[] => {
-  const result: Camera[] = [];
+const parseCamera = (data: any[]): CameraData[] => {
+  const result: CameraData[] = [];
   data.forEach((element) => {
     result.push({
       name: element._name || '',
@@ -18,8 +18,8 @@ const parseCamera = (data: any[]): Camera[] => {
   return result;
 };
 
-const parseUsb = (data: any): Camera[] => {
-  const result: Camera[] = [];
+const parseUsb = (data: any): CameraData[] => {
+  const result: CameraData[] = [];
   data.forEach((part: any) => {
     if (part._items) {
       part._items.forEach((usb: any) => {
@@ -38,7 +38,7 @@ const parseUsb = (data: any): Camera[] => {
   return result;
 };
 
-export const camera = async (): Promise<Camera[]> => {
+export const camera = async (): Promise<CameraData[]> => {
   await nextTick();
 
   try {

@@ -1,9 +1,9 @@
 import { readFile } from 'node:fs/promises';
 import { nextTick } from '../common';
-import { Mouse } from '../common/types';
+import { MouseData } from '../common/types';
 
-const parseMouse = (stdout: string): Mouse[] => {
-  const result: Mouse[] = [];
+const parseMouse = (stdout: string): MouseData[] => {
+  const result: MouseData[] = [];
   const blocks = stdout.split(/\n\s*\n/);
   blocks.forEach((block) => {
     let bus = '';
@@ -58,7 +58,7 @@ const parseMouse = (stdout: string): Mouse[] => {
   return result;
 };
 
-export const mouse = async (): Promise<Mouse[]> => {
+export const mouse = async (): Promise<MouseData[]> => {
   await nextTick();
   try {
     const stdout = (await readFile('/proc/bus/input/devices')).toString();

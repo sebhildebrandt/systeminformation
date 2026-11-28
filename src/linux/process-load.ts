@@ -19,12 +19,12 @@ const _process_cpu = {
   result: {}
 };
 
-export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
+export const processLoad = async (processNames: string): Promise<ProcessLoadData[]> => {
   await nextTick();
   const result: ProcessLoadData[] = [];
   if (!isPrototypePolluted()) {
     let stdout = '';
-    const processes = sanitizeServiceString(proc);
+    const processes = sanitizeServiceString(processNames);
 
     if (processes.length) {
       const args = ['-axo', 'pid,ppid,pcpu,pmem,comm'];

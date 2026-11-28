@@ -5,11 +5,11 @@ import { exec } from '../common/exec';
 import { cloneObj } from '../common/index';
 import { filterDefaultInterface, testVirtualNic } from '../common/network';
 import { isPrototypePolluted, mathMin, sanitizeShellString } from '../common/security';
-import type { NetworkInterfacesData } from '../common/types';
+import type { NetworkInterfaceData } from '../common/types';
 import { networkInterfaceDefault } from './network-interface-default';
 
 let _interfaces: any = {}; // nodejs structure
-let _networkInterfaces: NetworkInterfacesData[] = []; // si structure
+let _networkInterfaces: NetworkInterfaceData[] = []; // si structure
 
 const splitSectionsNics = (lines: string[]) => {
   const result = [];
@@ -200,14 +200,14 @@ const getBsdIfaceDHCPstatus = async (iface: string) => {
   return result;
 };
 
-export const networkInterfaces = async (defaultString = '', rescan = true): Promise<NetworkInterfacesData[]> => {
+export const networkInterfaces = async (filter = '', rescan = true): Promise<NetworkInterfaceData[]> => {
   await nextTick();
   const interfaces = osNetworkInterfaces();
   if (JSON.stringify(interfaces) === JSON.stringify(_interfaces) && !rescan) {
-    return filterDefaultInterface(_networkInterfaces, defaultString);
+    return filterDefaultInterface(_networkInterfaces, filter);
   }
   _interfaces = cloneObj(interfaces);
-  const result: NetworkInterfacesData[] = [];
+  const result: NetworkInterfaceData[] = [];
 
   try {
     const [nics, defaultInterface, gateways, vendors] = await Promise.all([getBsdNics(), networkInterfaceDefault(), getBsdGateways(), getBsdNicVendors()]);
@@ -288,7 +288,7 @@ export const networkInterfaces = async (defaultString = '', rescan = true): Prom
     }
     _networkInterfaces = result;
     // filtering has to happen after all interfaces are collected - otherwise the result depends on the position of the default interface
-    return filterDefaultInterface(result, defaultString);
+    return filterDefaultInterface(result, filter);
   } catch {}
   return result;
 };

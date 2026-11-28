@@ -1,15 +1,14 @@
 import { nextTick } from '../common';
-import { sanitizeUrl } from '../common/security';
+import { sanitizeHost } from '../common/security';
 import { ps } from '../common/windows';
 
-export const inetLatency = async (host: string) => {
+export const inetLatency = async (host?: string) => {
   await nextTick();
-  let hostSanitized = sanitizeUrl(host);
-  if (!/^[A-Za-z0-9][A-Za-z0-9.:-]*$/.test(hostSanitized)) {
-    hostSanitized = '';
-  }
-  hostSanitized = hostSanitized || '8.8.8.8';
+  const hostSanitized = sanitizeHost(host);
   let result: number | null = null;
+  if (!hostSanitized) {
+    return result;
+  }
   try {
     const stdout = await ps.exec(`ping ${hostSanitized} -n 1`);
     if (stdout) {

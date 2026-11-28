@@ -1,8 +1,8 @@
 import { execSave } from './common/exec';
-import { Npm } from './common/types';
+import { NpmData } from './common/types';
 
-export const npm = async (): Promise<Npm[]> => {
-  const result: Npm[] = [];
+export const npm = async (): Promise<NpmData[]> => {
+  const result: NpmData[] = [];
   const { stdout } = await execSave('npm list -g --depth=0');
   const lines = (stdout || '').split('\n');
   lines.forEach((element) => {

@@ -1,12 +1,12 @@
 import { initDiskIo } from '../common/defaults';
 import { cloneObj } from '../common/index';
 import { exec } from '../common/exec';
-import { DisksIoData } from '../common/types';
+import { DisksIOData } from '../common/types';
 import { nextTick, toInt } from '../common';
 import { calcDiskIO, _disk_io } from '../common/filesys';
 import { MAX_BUFFER_SIZE } from '../common/const';
 
-export const disksIO = async (): Promise<DisksIoData> => {
+export const disksIO = async (): Promise<DisksIOData> => {
   await nextTick();
   if ((_disk_io && !_disk_io.ms) || (_disk_io && _disk_io.ms && Date.now() - _disk_io.ms >= 500)) {
     const defaults = cloneObj(initDiskIo);

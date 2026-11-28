@@ -4,7 +4,7 @@ import { exec, execSecure } from '../common/exec';
 import { readProcStats } from '../common/files';
 import { calcProcStatLinux, parseProcStat } from '../common/parse';
 import { isPrototypePolluted, sanitizeServiceString, stringReplace, stringSplit, stringStartWith, stringSubstr, stringSubstring, stringToLower, stringToString, stringTrim } from '../common/security';
-import { ServicesData } from '../common/types';
+import { ServiceData } from '../common/types';
 
 // execSecure only settles on close - systemd and processes stuck in uninterruptible sleep
 // would otherwise leave services() pending forever
@@ -85,7 +85,7 @@ const darwinGetServices = async () => {
   return srvs;
 };
 
-const calcServicesCpuLinux = async (result: ServicesData[]) => {
+const calcServicesCpuLinux = async (result: ServiceData[]) => {
   // the ps pcpu seed is a lifetime average per core, the /proc value an interval share across
   // all cores - adding them would double count, so drop the seed first (processes() assigns,
   // processLoad() resets the same way)
@@ -221,7 +221,7 @@ const psProcessesLinux = async () => {
   return procs;
 };
 
-const servicesFromSystemd = async (srvs: string[], units: SystemdUnit[]): Promise<ServicesData[]> => {
+const servicesFromSystemd = async (srvs: string[], units: SystemdUnit[]): Promise<ServiceData[]> => {
   const all = srvs.length === 1 && srvs[0] === '*';
   const matches = (unit: SystemdUnit) => {
     const name = unit.name.toLowerCase();
@@ -237,7 +237,7 @@ const servicesFromSystemd = async (srvs: string[], units: SystemdUnit[]): Promis
     children[proc.ppid] = (children[proc.ppid] || []).concat(proc.pid);
   });
 
-  const result: ServicesData[] = [];
+  const result: ServiceData[] = [];
   selected.forEach((unit) => {
     const pids: number[] = [];
     // main process plus its children - e.g. php-fpm workers, which carry a different process name
@@ -270,11 +270,11 @@ const servicesFromSystemd = async (srvs: string[], units: SystemdUnit[]): Promis
   return result;
 };
 
-export const services = async (srv: string): Promise<ServicesData[]> => {
+export const services = async (serviceNames: string): Promise<ServiceData[]> => {
   await nextTick();
-  const result: ServicesData[] = [];
+  const result: ServiceData[] = [];
   if (!isPrototypePolluted()) {
-    let srvs = sanitizeServiceString(srv);
+    let srvs = sanitizeServiceString(serviceNames);
 
     if (LINUX) {
       try {

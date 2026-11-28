@@ -1,7 +1,7 @@
 import { plistParser } from '../common/darwin';
 import { nextTick, toInt } from '../common';
 import { exec } from '../common/exec';
-import { Thunderbolt } from '../common/types';
+import { ThunderboltData } from '../common/types';
 
 const niceThunderboltName = (name: string): string => {
   name = name.replace('thunderbolt', 'Thunderbolt ');
@@ -10,15 +10,15 @@ const niceThunderboltName = (name: string): string => {
   return name;
 };
 
-const parseThunderboltDevices = (data: any): Thunderbolt[] => {
-  const result: Thunderbolt[] = [];
+const parseThunderboltDevices = (data: any): ThunderboltData[] => {
+  const result: ThunderboltData[] = [];
   data.forEach((element: any) => {
     console.log(element);
   });
   return result;
 };
-const parseThunderbolt = (data: any): Thunderbolt[] => {
-  let result: Thunderbolt[] = [];
+const parseThunderbolt = (data: any): ThunderboltData[] => {
+  let result: ThunderboltData[] = [];
   // Thunderbolt BUS
   data.forEach((element: any) => {
     if (element._name) {

@@ -1,6 +1,7 @@
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS, ANDROID } from './common/const';
+import type { AudioData } from './common/types';
 
-export const audio = async () => {
+export const audio = async (): Promise<AudioData[] | null> => {
   const newLocal = LINUX || FREEBSD || NETBSD || OPENBSD || ANDROID;
   switch (true) {
     case newLocal:

@@ -1,6 +1,7 @@
 import { DARWIN, LINUX, WINDOWS } from './common/const';
+import type { SoftwareData } from './common/types';
 
-export const software = async () => {
+export const software = async (): Promise<SoftwareData[] | null> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/software.js')).software();

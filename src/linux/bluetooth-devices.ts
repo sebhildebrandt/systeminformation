@@ -4,11 +4,11 @@ import { readFile } from 'fs/promises';
 import { getValue, nextTick } from '../common';
 import { getFilesInPath } from '../common/files';
 import { bluetoothTypeLabel } from '../common/mappings';
-import { BluetoothObject } from '../common/types';
+import { BluetoothDeviceData } from '../common/types';
 import { exec } from '../common/exec';
 import { execOptsLinux } from '../common/const';
 
-const parseBluetoothInfo = (lines: string[], macAddr1: string | null, macAddr2: string | null): BluetoothObject => {
+const parseBluetoothInfo = (lines: string[], macAddr1: string | null, macAddr2: string | null): BluetoothDeviceData => {
   const name = getValue(lines, 'name', '=');
 
   return {
@@ -25,7 +25,7 @@ const parseBluetoothInfo = (lines: string[], macAddr1: string | null, macAddr2: 
 
 export const bluetoothDevices = async () => {
   await nextTick();
-  const result: BluetoothObject[] = [];
+  const result: BluetoothDeviceData[] = [];
   const btFiles = await getFilesInPath('/var/lib/bluetooth/');
   for (const element of btFiles) {
     const filename = path.basename(element);

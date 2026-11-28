@@ -1,5 +1,5 @@
 import { nextTick } from '../common';
-import type { Software } from '../common/types';
+import type { SoftwareData } from '../common/types';
 import { ps, psArray } from '../common/windows';
 
 const parseInstallDate = (value: string): Date | null => {
@@ -11,8 +11,8 @@ const parseInstallDate = (value: string): Date | null => {
   return Number.isNaN(parsed.getTime()) ? null : parsed;
 };
 
-const parseSoftware = (entries: any[]): Software[] => {
-  const result: Software[] = [];
+const parseSoftware = (entries: any[]): SoftwareData[] => {
+  const result: SoftwareData[] = [];
   const seen = new Set<string>();
   entries.forEach((data: any) => {
     const name = ('' + (data.DisplayName || '')).trim();
@@ -42,7 +42,7 @@ const parseSoftware = (entries: any[]): Software[] => {
   return result;
 };
 
-export const software = async (): Promise<Software[]> => {
+export const software = async (): Promise<SoftwareData[]> => {
   await nextTick();
   try {
     const result = await ps.exec(

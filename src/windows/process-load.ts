@@ -17,11 +17,11 @@ const _process_cpu = {
 // --- processes ------------
 // --------------------------
 
-export const processLoad = async (proc: string): Promise<ProcessLoadData[]> => {
+export const processLoad = async (processNames: string): Promise<ProcessLoadData[]> => {
   await nextTick();
   const result: ProcessLoadData[] = [];
   if (!isPrototypePolluted()) {
-    const processes = sanitizeServiceString(proc);
+    const processes = sanitizeServiceString(processNames);
 
     if (processes.length) {
       // freeze the baseline before awaiting - see #1007

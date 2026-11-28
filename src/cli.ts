@@ -42,7 +42,8 @@ const info = () => {
   );
   console.log('└─────────────────────────────────────────────────────────────────────────────────────────┘');
 
-  si.osInfo().then((res) => {
+  si.osInfo().then((data) => {
+    const res: Record<string, unknown> = { ...data };
     console.log();
     console.log('Operating System:');
     console.log('──────────────────────────────────────────────────────────────────────────────────────────');
@@ -52,7 +53,8 @@ const info = () => {
     delete res.fqdn;
     delete res.uefi;
     printLines(res);
-    si.system().then((res) => {
+    si.system().then((data) => {
+      const res: Record<string, unknown> = { ...data };
       console.log('System:');
       console.log('──────────────────────────────────────────────────────────────────────────────────────────');
       delete res.serial;
@@ -60,7 +62,8 @@ const info = () => {
       delete res.sku;
       delete res.uuid;
       printLines(res);
-      si.cpu().then((res) => {
+      si.cpu().then((data) => {
+        const res: Record<string, unknown> = { ...data };
         console.log('CPU:');
         console.log('──────────────────────────────────────────────────────────────────────────────────────────');
         delete res.cache;
@@ -86,8 +89,7 @@ const info = () => {
 
   if (args.length === 0 || args[0] !== 'info') {
     si.cpu().then(async (data) => {
-      data.time = await si.time();
-      console.log(JSON.stringify(data, null, 2));
+      console.log(JSON.stringify({ ...data, time: await si.time() }, null, 2));
     });
   } else {
     info();

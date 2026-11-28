@@ -33,6 +33,9 @@ export const getValue = (lines: string[], property: string, separator = ':', tri
 
 export const countLines = (lines: string[], startingWith = '') => lines.filter((line) => line.startsWith(startingWith)).length;
 
+// array params are joined to the comma separated form the string sanitizers expect
+export const joinList = (value: string | string[]): string => (Array.isArray(value) ? value.filter((item) => typeof item === 'string').join(',') : value);
+
 export const nextTick = () =>
   new Promise<void>((resolve) => {
     process.nextTick(() => {

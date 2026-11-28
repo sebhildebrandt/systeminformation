@@ -1,6 +1,7 @@
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
+import type { DiskSpeedData } from './common/types';
 
-export const diskSpeed = async (path?: string, sizeMB?: number) => {
+export const diskSpeed = async (path?: string, sizeMB?: number): Promise<DiskSpeedData | null> => {
   switch (true) {
     case LINUX || FREEBSD || NETBSD || OPENBSD:
       return (await import('./linux/disk-speed.js')).diskSpeed(path, sizeMB);

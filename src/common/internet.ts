@@ -6,7 +6,7 @@ import { isIPv4, isIPv6 } from 'net';
 export const checkWebsite = (url: string, timeout = 5000) => {
   const client = url.startsWith('https:') || url.indexOf(':443/') > 0 || url.indexOf(':8443/') > 0 ? https : http;
   const t = Date.now();
-  return new Promise((resolve) => {
+  return new Promise<{ url: string; statusCode: number; ok: boolean; message: string; ms: number }>((resolve) => {
     try {
       const request = client
         .get(url, (res: any) => {

@@ -1,6 +1,7 @@
 import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
+import type { MemLayoutData } from './common/types';
 
-export const memLayout = async () => {
+export const memLayout = async (): Promise<MemLayoutData[] | null> => {
   switch (true) {
     case LINUX || NETBSD || FREEBSD || OPENBSD || ANDROID:
       return (await import('./linux/mem-layout.js')).memLayout();

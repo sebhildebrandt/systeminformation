@@ -1,6 +1,6 @@
 import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, SUNOS, WINDOWS } from './common/const';
 
-export const inetLatency = async (host: string) => {
+export const inetLatency = async (host?: string): Promise<number | null> => {
   switch (true) {
     case LINUX || DARWIN || NETBSD || FREEBSD || OPENBSD || ANDROID:
       return (await import('./linux/inet-latency.js')).inetLatency(host);

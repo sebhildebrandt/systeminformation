@@ -1,4 +1,4 @@
-import { nextTick } from './common';
+import { joinList, nextTick } from './common';
 import { WINDOWS } from './common/const';
 import { nanoSeconds } from './common/datetime';
 import { isPrototypePolluted, sanitizeContainerID, sanitizeImageID } from './common/security';
@@ -200,13 +200,13 @@ export const dockerContainers = async (all = true): Promise<DockerContainerData[
 // --------------------------
 // container inspect (for one container)
 
-const dockerContainerInspect = async (containerID: string, payload: any) => {
+const dockerContainerInspect = async (containerId: string, payload: any) => {
   await nextTick();
-  containerID = containerID || '';
-  if (typeof containerID !== 'string') {
+  containerId = containerId || '';
+  if (typeof containerId !== 'string') {
     return null;
   }
-  const containerIdSanitized = isPrototypePolluted() ? '' : sanitizeContainerID(containerID);
+  const containerIdSanitized = isPrototypePolluted() ? '' : sanitizeContainerID(containerId);
   if (containerIdSanitized) {
     if (!_docker_socket) {
       _docker_socket = new DockerSocket();
@@ -343,26 +343,27 @@ const docker_calcBlockIO = (blkio_stats: any) => {
   return result;
 };
 
-export const dockerContainerStats = async (containerIDs = '*') => {
+export const dockerContainerStats = async (containerIds: string | string[] = '*') => {
   let containerArray: string[] = [];
   await nextTick();
 
-  // fallback - if only callback is given
-  if (typeof containerIDs !== 'string') {
+  containerIds = joinList(containerIds);
+  if (typeof containerIds !== 'string') {
     return [];
   }
+  containerIds = containerIds || '*';
 
-  let containerIDsSanitized = containerIDs.trim();
-  if (containerIDsSanitized !== '*') {
-    containerIDsSanitized = isPrototypePolluted() ? '' : sanitizeContainerID(containerIDs);
+  let containerIdsSanitized = containerIds.trim();
+  if (containerIdsSanitized !== '*') {
+    containerIdsSanitized = isPrototypePolluted() ? '' : sanitizeContainerID(containerIds);
   }
-  containerArray = containerIDsSanitized
+  containerArray = containerIdsSanitized
     .trim()
     .toLowerCase()
     .replace(/,+/g, '|')
     .split('|')
     .filter((item) => item.trim());
-  if (containerArray.length && containerIDsSanitized.trim() === '*') {
+  if (containerArray.length && containerIdsSanitized.trim() === '*') {
     containerArray = [];
     const allContainers = await dockerContainers();
     for (const container of (allContainers || []).filter(Boolean)) {
@@ -374,8 +375,8 @@ export const dockerContainerStats = async (containerIDs = '*') => {
   const result: DockerContainerStatsData[] = [];
   // console.log(containerArray);
   const workload = [];
-  for (const containerID of containerArray) {
-    workload.push(dockerContainerStatsSingle(containerID.trim()));
+  for (const containerId of containerArray) {
+    workload.push(dockerContainerStatsSingle(containerId.trim()));
   }
   if (workload.length) {
     const data: any = (await Promise.all(workload)).filter((data: any) => {
@@ -390,10 +391,10 @@ export const dockerContainerStats = async (containerIDs = '*') => {
 // --------------------------
 // container stats (for one container)
 
-const dockerContainerStatsSingle = async (containerID: string) => {
-  containerID = containerID || '';
+const dockerContainerStatsSingle = async (containerId: string) => {
+  containerId = containerId || '';
   const result: DockerContainerStatsData = {
-    id: containerID,
+    id: containerId,
     memUsage: 0,
     memLimit: 0,
     memPercent: 0,
@@ -414,24 +415,24 @@ const dockerContainerStatsSingle = async (containerID: string) => {
     networks: {}
   };
   await nextTick();
-  if (containerID) {
+  if (containerId) {
     if (!_docker_socket) {
       _docker_socket = new DockerSocket();
     }
 
-    const dataInspect: any = await _docker_socket.getInspect(containerID);
+    const dataInspect: any = await _docker_socket.getInspect(containerId);
     try {
-      const data: any = await _docker_socket.getStats(containerID);
+      const data: any = await _docker_socket.getStats(containerId);
       try {
         const stats = data;
         if (!stats.message) {
           return {
             ...result,
-            id: data.id ? data.id : containerID,
+            id: data.id ? data.id : containerId,
             memUsage: stats.memory_stats && stats.memory_stats.usage ? stats.memory_stats.usage : 0,
             memLimit: stats.memory_stats && stats.memory_stats.limit ? stats.memory_stats.limit : 0,
             memPercent: stats.memory_stats && stats.memory_stats.usage && stats.memory_stats.limit ? (stats.memory_stats.usage / stats.memory_stats.limit) * 100.0 : 0,
-            cpuPercent: stats.cpu_stats && stats.precpu_stats ? docker_calcCPUPercent(stats.cpu_stats, stats.precpu_stats, containerID) : 0,
+            cpuPercent: stats.cpu_stats && stats.precpu_stats ? docker_calcCPUPercent(stats.cpu_stats, stats.precpu_stats, containerId) : 0,
             pids: stats.pids_stats && stats.pids_stats.current ? stats.pids_stats.current : 0,
             restartCount: dataInspect.RestartCount ? dataInspect.RestartCount : 0,
             netIO: stats.networks ? docker_calcNetworkIO(stats.networks) : result.netIO,
@@ -453,14 +454,14 @@ const dockerContainerStatsSingle = async (containerID: string) => {
 // --------------------------
 // container processes (for one container)
 
-export const dockerContainerProcesses = async (containerID: string) => {
+export const dockerContainerProcesses = async (containerId: string) => {
   const result: DockerContainerProcessData[] = [];
   await nextTick();
-  containerID = containerID || '';
-  if (typeof containerID !== 'string') {
+  containerId = containerId || '';
+  if (typeof containerId !== 'string') {
     return result;
   }
-  const containerIdSanitized = isPrototypePolluted() ? '' : sanitizeContainerID(containerID);
+  const containerIdSanitized = isPrototypePolluted() ? '' : sanitizeContainerID(containerId);
 
   if (containerIdSanitized) {
     if (!_docker_socket) {

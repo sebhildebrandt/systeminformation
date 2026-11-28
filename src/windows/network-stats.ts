@@ -4,7 +4,7 @@ import { calcNetworkSpeed } from '../common/network';
 import { sanitizeInterfacesString } from '../common/security';
 import type { NetworkStatsData } from '../common/types';
 import { ps } from '../common/windows';
-import { networkInterfaces } from './index';
+import { networkInterfaceDefault, networkInterfaces } from './index';
 
 const _network: any = Object.create(null);
 
@@ -137,14 +137,15 @@ const networkStatsSingle = async (iface: string): Promise<NetworkStatsData> => {
   }
 };
 
-export const networkStats = async (interfaces: string): Promise<NetworkStatsData[]> => {
+export const networkStats = async (interfaces = ''): Promise<NetworkStatsData[]> => {
   const result: NetworkStatsData[] = [];
   let interfacesArray: string[] = [];
   const interfacesSanitized = sanitizeInterfacesString(interfaces);
-  if (interfacesSanitized === '-') {
+  if (interfaces === '') {
+    interfacesArray = [await networkInterfaceDefault()];
+  } else if (interfacesSanitized === '-') {
     return result;
-  }
-  if (interfacesSanitized === '*') {
+  } else if (interfacesSanitized === '*') {
     const allIFaces = await networkInterfaces('', false);
     for (const iface of allIFaces || []) {
       interfacesArray.push(iface.iface);

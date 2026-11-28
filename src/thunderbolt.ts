@@ -1,6 +1,7 @@
 import { DARWIN, LINUX, WINDOWS } from './common/const';
+import type { ThunderboltData } from './common/types';
 
-export const thunderbolt = async () => {
+export const thunderbolt = async (): Promise<ThunderboltData[] | null> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/thunderbolt.js')).thunderbolt();

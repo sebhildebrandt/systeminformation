@@ -1,6 +1,7 @@
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
+import type { CpuData } from './common/types';
 
-export const cpu = async () => {
+export const cpu = async (): Promise<CpuData | null> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/cpu.js')).cpu();

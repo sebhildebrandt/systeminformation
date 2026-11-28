@@ -1,6 +1,7 @@
 import { DARWIN, LINUX, WINDOWS } from './common/const';
+import type { ProcessFocusedData } from './common/types';
 
-export const processFocused = async () => {
+export const processFocused = async (): Promise<ProcessFocusedData | null> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/process-focused.js')).processFocused();

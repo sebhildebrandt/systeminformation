@@ -1,5 +1,6 @@
 import { DARWIN, LINUX, WINDOWS } from './common/const';
-export const blockDevices = async () => {
+import type { FsBlockDevicesData } from './common/types';
+export const blockDevices = async (): Promise<FsBlockDevicesData[] | null> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/block-devices.js')).blockDevices();
