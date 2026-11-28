@@ -1,0 +1,24 @@
+name: Metrics
+
+on:
+  schedule: [{ cron: '0 3 * * *' }]
+  workflow_dispatch:
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: lowlighter/metrics@v3.34
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          template: repository
+          user: sebhildebrandt
+          repo: systeminformation
+          filename: metrics.repository.svg
+          # own branch, keeps master clean
+          committer_branch: metrics
+          plugin_contributors: yes
+          plugin_followup: yes
+          plugin_lines: yes

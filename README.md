@@ -35,44 +35,36 @@ lines of code, > 800 versions published, up to 90 mio downloads per month, > 900
 mio downloads overall. Top 5 NPM ranking for backend packages. Thank you to all
 who contributed to this project!
 
-> ### **Version 6** beta just released ⭐️⭐️⭐️
+> ### **Version 6** release candidate just released ⭐️⭐️⭐️
 >
-> 🏆🏆🏆 We're proud to have just released the first beta of the new version 6 of systeminformation.
+> 🏆🏆🏆 We're proud to have just released the first release candidate of the new version 6 of systeminformation.
 > Version 6 of this package (written completely in TypeScript) is
 > comming with a lot of new features and improvements. We also cleaned up the API so
 > there will also be some breaking changes.
 >
 > **Thanks to everyone testing this new version!**
 
-## Please support this project ... ☕️
+## Version 6.0 release candidate
 
-Over the past few years I spent **more than 3.000 hours** working 💻 😓 ☕️ on
-this project and invested in hardware to be able to test on different platforms.
-Currently I am working very hard on the next **new version 6.0** completely
-rewritten in TypeScript and with a lot of new features. Any support is highly
-appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)... ☕️
-
-**Your contribution** make it possible for me to keep working on this project,
-add new features and support more platforms. Thank you in advance!
-
-## Node.js ✅, Bun ✅ and Deno ✅
-
-I tested this library with Node.js, Bun and Deno (V2.x) with no issues. There
-was only one problem on Denos side in version <= 2.1.4: os.freemem() pollyfill
-was not correct but this is now fixed with Deno >= 2.1.5.
-
-**Attention**: This library is supposed to be used as a backend/server-side
-library and **will definitely not work within a browser**.
-
-## Version 6.0 beta
-
-If you want to test the new version 6.0 (currently in beta), you can eather install it this way:
+If you want to test the new version 6.0 (currently release candidate), you can install it this way:
 
 ```bash
-npm i systeminformation@beta
+npm i systeminformation@6.0.0-rc.0
 ```
 
-Then just test it with your existing code - be sure to check all breaking changes. Docs can be found here:
+### Breaking changes
+
+Test it with your existing code - be sure to check all **breaking changes**. The most important ones:
+
+| Topic        | Old (V5)                    | New (V6)              | Comments                                                                          |
+| ------------ | --------------------------- | --------------------- | --------------------------------------------------------------------------------- |
+| `time()`     | synchronous                 | `await si.time()`     | time() is now **asynchronous** and returns a promise                              |
+| `version()`  | synchronous                 | `await si.version()`  | version() is now **asynchronous** too - **all** functions are now async           |
+| callbacks    | `si.cpu(data => { ...})`    | removed               | **callbacks are no longer available** - use async / await (preferred) or promises |
+| `graphics()` | `{ controllers, displays }` | `gpu()`, `displays()` | graphics() was removed and split into two functions, each returning a plain array |
+| Node.js      | older versions              | **>= 20.0**           | minimum Node.js version is now 20.0                                               |
+
+Docs and the full list of changes can be found here:
 
 - [V6 Docs][v6-docs-url]
 - [V6 major changes][v6-changes-url]
@@ -93,7 +85,27 @@ npm run ci      # for the whole test run
 npm run test    # for testing individual functions
 ```
 
-Thank you for testing and reporting! Please report any issue with the prefix "v6.beta.0: "
+Thank you for testing and reporting! Please report any issue with the prefix "v6.rc.0: "
+
+## Please support this project ... ☕️
+
+Over the past few years I spent **more than 3.000 hours** working 💻 😓 ☕️ on
+this project and invested in hardware to be able to test on different platforms.
+Currently I am working very hard on the next **new version 6.0** completely
+rewritten in TypeScript and with a lot of new features. Any support is highly
+appreciated - [Buy me a coffee](https://www.buymeacoffee.com/systeminfo)... ☕️
+
+**Your contribution** make it possible for me to keep working on this project,
+add new features and support more platforms. Thank you in advance!
+
+## Node.js ✅, Bun ✅ and Deno ✅
+
+I tested this library with Node.js, Bun and Deno (V2.x) with no issues. There
+was only one problem on Denos side in version <= 2.1.4: os.freemem() pollyfill
+was not correct but this is now fixed with Deno >= 2.1.5.
+
+**Attention**: This library is supposed to be used as a backend/server-side
+library and **will definitely not work within a browser**.
 
 ## Current Version 5.0
 
@@ -240,7 +252,7 @@ You can find all changes here: [detailed changelog][changelog-url]
 
 ## Activity
 
-![Alt](https://repobeats.axiom.co/api/embed/60a4334f5dc5502fd04eba46892fa009d157fc5e.svg "Repobeats analytics image")
+![Metrics](https://raw.githubusercontent.com/sebhildebrandt/systeminformation/metrics/metrics.repository.svg)
 
 ## Core concept
 
