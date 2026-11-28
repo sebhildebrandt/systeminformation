@@ -2,7 +2,7 @@ import { cloneObj, joinList, nextTick } from './common';
 import { WINDOWS } from './common/const';
 import { nanoSeconds } from './common/datetime';
 import { isPrototypePolluted, sanitizeContainerID, sanitizeImageID } from './common/security';
-import type { DockerContainerData, DockerInfoData, DockerContainerProcessData, DockerContainerStatsData, DockerVolumeData } from './common/types';
+import type { DockerContainerData, DockerImageData, DockerInfoData, DockerContainerProcessData, DockerContainerStatsData, DockerVolumeData } from './common/types';
 import { DockerSocket } from './docker-socket';
 
 const _docker_cpu_last_read: { [index: string]: number } = {};
@@ -71,12 +71,12 @@ export const dockerInfo = async (): Promise<DockerInfoData> => {
   }
 };
 
-export const dockerImages = async (all = false) => {
+export const dockerImages = async (all = false): Promise<DockerImageData[]> => {
   await nextTick();
   if (!_docker_socket) {
     _docker_socket = new DockerSocket();
   }
-  const workload: any[] = [];
+  const workload: Promise<DockerImageData | null>[] = [];
 
   const data: any = await _docker_socket.listImages(String(all).trim() === 'true');
   let dockerImages: any = {};
@@ -84,16 +84,12 @@ export const dockerImages = async (all = false) => {
     dockerImages = data;
     if (dockerImages && Object.prototype.toString.call(dockerImages) === '[object Array]' && dockerImages.length > 0) {
       dockerImages.forEach((element: any) => {
-        if (element.Names && Object.prototype.toString.call(element.Names) === '[object Array]' && element.Names.length > 0) {
-          element.Name = element.Names[0].replace(/^\/|\/$/g, '');
-        }
         if (element.Id && typeof element.Id === 'string') {
           workload.push(dockerImagesInspect(element.Id.trim(), element));
         }
       });
       if (workload.length) {
-        const res = await Promise.all(workload);
-        return res;
+        return (await Promise.all(workload)).filter((image): image is DockerImageData => image !== null);
       } else {
         return [];
       }
@@ -108,7 +104,7 @@ export const dockerImages = async (all = false) => {
 // --------------------------
 // container inspect (for one container)
 
-const dockerImagesInspect = async (imageID: string, payload: any) => {
+const dockerImagesInspect = async (imageID: string, payload: any): Promise<DockerImageData | null> => {
   await nextTick();
   imageID = imageID || '';
   if (typeof imageID !== 'string') {
@@ -122,6 +118,9 @@ const dockerImagesInspect = async (imageID: string, payload: any) => {
 
     try {
       const data: any = await _docker_socket.inspectImage(imageIDSanitized);
+      if (!data || typeof data !== 'object') {
+        return null;
+      }
       return {
         id: payload.Id,
         container: data.Container,
@@ -214,6 +213,9 @@ const dockerContainerInspect = async (containerId: string, payload: any) => {
 
     try {
       const data: any = await _docker_socket.getInspect(containerIdSanitized);
+      if (!data || typeof data !== 'object') {
+        return null;
+      }
       return {
         id: payload.Id,
         name: payload.Name,
@@ -300,8 +302,11 @@ const docker_calcNetworkIO = (networks: any) => {
      * @property {number}  tx_bytes
      */
     const obj = networks[key];
-    rx = +obj.rx_bytes;
-    wx = +obj.tx_bytes;
+    if (!obj) {
+      continue;
+    }
+    rx += +obj.rx_bytes || 0;
+    wx += +obj.tx_bytes || 0;
   }
   return {
     rx,
@@ -425,7 +430,7 @@ const dockerContainerStatsSingle = async (containerId: string) => {
       const data: any = await _docker_socket.getStats(containerId);
       try {
         const stats = data;
-        if (!stats.message) {
+        if (stats && typeof stats === 'object' && !stats.message) {
           return {
             ...result,
             id: data.id ? data.id : containerId,
