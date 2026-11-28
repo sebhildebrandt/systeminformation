@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-rc.0</div>
+          <div class="title-version float-left">v6.0.0-rc.1</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -863,7 +863,7 @@ si.diskSpeed('/data', 1024).then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td></td>
-                        <td>returns array of mounted file systems<br />drive parameter is optional</td>
+                        <td>returns array of mounted file systems<br />drive parameter is optional (string or array),<br />pass '*' for all file systems</td>
                       </tr>
                       <tr>
                         <td></td>

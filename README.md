@@ -35,8 +35,8 @@ lines of code, > 800 versions published, up to 90 mio downloads per month, > 900
 mio downloads overall. Top 5 NPM ranking for backend packages. Thank you to all
 who contributed to this project!
 
-> ### **Version 6** release candidate just released ⭐️⭐️⭐️
->
+## Version 6.0 release candidate
+
 > 🏆🏆🏆 We're proud to have just released the first release candidate of the new version 6 of systeminformation.
 > Version 6 of this package (written completely in TypeScript) is
 > comming with a lot of new features and improvements. We also cleaned up the API so
@@ -44,12 +44,10 @@ who contributed to this project!
 >
 > **Thanks to everyone testing this new version!**
 
-## Version 6.0 release candidate
-
 If you want to test the new version 6.0 (currently release candidate), you can install it this way:
 
 ```bash
-npm i systeminformation@6.0.0-rc.0
+npm i systeminformation@6.0.0-rc.1
 ```
 
 ### Breaking changes
@@ -85,7 +83,7 @@ npm run ci      # for the whole test run
 npm run test    # for testing individual functions
 ```
 
-Thank you for testing and reporting! Please report any issue with the prefix "v6.rc.0: "
+Thank you for testing and reporting! Please report any issue with the prefix "v6.rc.1: "
 
 ## Please support this project ... ☕️
 

@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-rc.0</div>
+          <div class="title-version float-left">v6.0.0-rc.1</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -54,7 +54,7 @@
                   <h2>Getting correct stats values</h2>
 
                   <p>
-                    In <span class="code">fsStats()</span>, <span class="code">disksIO()</span>, <span class="code">currentLoad()</span> and <span class="code">networkStats()</span> the results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning with the <strong>second</strong> call
+                    In <span class="code">fsStats()</span>, <span class="code">disksIO()</span>, <span class="code">cpuCurrentLoad()</span> and <span class="code">networkStats()</span> the results / sec. values (rx_sec, IOPS, ...) are calculated correctly beginning with the <strong>second</strong> call
                     of the function. It is determined by calculating the difference of transferred bytes / IOs divided by the time between two calls of the function.
                   </p>
 

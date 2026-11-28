@@ -27,7 +27,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-rc.0</div>
+          <div class="title-version float-left">v6.0.0-rc.1</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -328,8 +328,28 @@
                         <td><span class="bold">&gt;= 20.0</span></td>
                         <td>minimum Node.js version is now 20.0</td>
                       </tr>
+                      <tr>
+                        <td>unsupported platforms</td>
+                        <td><span class="code">null</span></td>
+                        <td><span class="code">[]</span>, default object or <span class="code">''</span></td>
+                        <td>array results return <span class="code">[]</span>, object results the default object (all fields present),<br />string results <span class="code">''</span>.
+                          <span class="code">inetLatency()</span>, <span class="code">diskSpeed()</span>, <span class="code">inetSpeed()</span><br />and <span class="code">processFocused()</span> still return <span class="code">null</span> when there is no result.<br /><span class="code">dockerInfo()</span> returns the default object instead of <span class="code">{}</span> when Docker is not available</td>
+                      </tr>
+                      <tr>
+                        <td><span class="code">dockerContainerProcesses()</span></td>
+                        <td>strings</td>
+                        <td>numbers</td>
+                        <td><span class="code">pidHost</span>, <span class="code">ppid</span>, <span class="code">pgid</span>, <span class="code">nice</span>, <span class="code">rss</span>, <span class="code">vsz</span><br />are now numbers (<span class="code">null</span> if not available)</td>
+                      </tr>
                     </tbody>
                   </table>
+                  <h4>Deprecated</h4>
+                  <p>The following functions were renamed for naming consistency. The old names still work as aliases but will be removed in a future major version:</p>
+                  <ul>
+                    <li><span class="code">currentLoad()</span> - use <span class="code">cpuCurrentLoad()</span></li>
+                    <li><span class="code">fullLoad()</span> - use <span class="code">cpuFullLoad()</span></li>
+                    <li><span class="code">inetChecksite()</span> - use <span class="code">inetCheckSite()</span></li>
+                  </ul>
                   <h4>Modular Imports (new)</h4>
                   <p>The whole library, a single operating system, or a single function can now be imported individually:</p>
                   <ul>

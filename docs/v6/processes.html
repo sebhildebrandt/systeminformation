@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-rc.0</div>
+          <div class="title-version float-left">v6.0.0-rc.1</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -71,14 +71,14 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td>si.currentLoad(cb)</td>
+                        <td>si.cpuCurrentLoad(cb)</td>
                         <td>{ ...}</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>CPU-Load</td>
+                        <td>CPU-Load<br /><span class="code">currentLoad()</span> is deprecated (alias)</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -226,11 +226,11 @@
                           <h5>avgLoad on Windows</h5>
                           <p>
                             Windows has no kernel load average. <span class="code">avgLoad</span> is therefore approximated the way the unix kernel calculates it: an exponentially weighted moving average (1 / 5 / 15 minutes) over the number of busy cores. This average is only updated while
-                            <span class="code">currentLoad()</span> is being called, so it starts from the average load since boot and converges towards the real value the longer your application polls the function. A single call cannot deliver a meaningful average.
+                            <span class="code">cpuCurrentLoad()</span> is being called, so it starts from the average load since boot and converges towards the real value the longer your application polls the function. A single call cannot deliver a meaningful average.
                           </p>
                           <h5>Example</h5>
                           <pre><code class="js">const si = require('systeminformation');
-si.currentLoad().then(data => console.log(data));</code></pre>
+si.cpuCurrentLoad().then(data => console.log(data));</code></pre>
                           <pre class="example">
 {
   avgLoad: 0.23,
@@ -276,21 +276,21 @@ si.currentLoad().then(data => console.log(data));</code></pre>
                         </td>
                       </tr>
                       <tr>
-                        <td>si.fullLoad(cb)</td>
+                        <td>si.cpuFullLoad(cb)</td>
                         <td>: integer</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>CPU full load since bootup in %</td>
+                        <td>CPU full load since bootup in %<br /><span class="code">fullLoad()</span> is deprecated (alias)</td>
                       </tr>
                       <tr class="example">
                         <td></td>
                         <td colspan="7">
                           <h5>Example</h5>
                           <pre><code class="js">const si = require('systeminformation');
-si.fullLoad().then(data => console.log(data));</code></pre>
+si.cpuFullLoad().then(data => console.log(data));</code></pre>
                           <pre class="example">4.2087723705022335</pre>
                         </td>
                       </tr>
@@ -608,7 +608,7 @@ si.processes().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>detailed information about given processes<br />pass comma separated list or<br />'*' for all processes</td>
+                        <td>detailed information about given processes<br />pass comma separated string, array or<br />'*' for all processes</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -758,7 +758,7 @@ si.processFocused().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td></td>
-                        <td>pass comma separated string of services<br />pass &quot;*&quot; for ALL services (linux/win only)<br />Linux: state, start mode and PIDs come from systemd, service names are matched exactly (case insensitive)</td>
+                        <td>pass comma separated string or array of services<br />pass &quot;*&quot; for ALL services (linux/win only)<br />Linux: state, start mode and PIDs come from systemd, service names are matched exactly (case insensitive)</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -863,7 +863,7 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre>
                   </table>
                   <h4>Getting correct stats values</h4>
 
-                  <p>In <span class="code">currentLoad()</span> the results are calculated correctly beginning with the <strong>second</strong> call of the function. It is determined by calculating the difference of cpu ticks between two calls of the function.</p>
+                  <p>In <span class="code">cpuCurrentLoad()</span> the results are calculated correctly beginning with the <strong>second</strong> call of the function. It is determined by calculating the difference of cpu ticks between two calls of the function.</p>
 
                   <p>The first time you are calling one of this functions, you will get the load since cpu uptime. The second time, you should then get statistics based on cpu ticks between the two calls ...</p>
 
@@ -872,7 +872,7 @@ si.services('mysql, postgres').then(data => console.log(data));</code></pre>
                   <pre><code class="js">const si = require('systeminformation');
 
               setInterval(function() {
-                  si.currentLoad().then(data => {
+                  si.cpuCurrentLoad().then(data => {
                       console.log(data);
                   })
               }, 1000)</code></pre>

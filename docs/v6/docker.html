@@ -33,7 +33,7 @@
         <a href="."
           ><img class="logo float-left" src="../assets/logo.png" alt="logo" />
           <div class="title float-left">systeminformation</div>
-          <div class="title-version float-left">v6.0.0-rc.0</div>
+          <div class="title-version float-left">v6.0.0-rc.1</div>
         </a>
         <div class="text float-right github">
           <a href="https://github.com/sebhildebrandt/systeminformation">View on Github <i class="fab fa-github"></i></a>
@@ -576,7 +576,7 @@ si.dockerInfo().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>returns array of top level/all docker images</td>
+                        <td>returns array of top level/all docker images<br />all = false (default): top level images only (like <span class="code">docker images</span>)</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -795,7 +795,7 @@ si.dockerImages().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>returns array of active/all docker containers</td>
+                        <td>returns array of active/all docker containers<br />all = false (default): running containers only (like <span class="code">docker ps</span>)</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -1027,7 +1027,7 @@ si.dockerContainers().then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>statistics for specific containers<br />container IDs: space or comma separated,<br />pass '*' for all containers</td>
+                        <td>statistics for specific containers<br />container IDs: comma separated string or array,<br />pass '*' for all containers</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -1332,7 +1332,7 @@ si.dockerContainerStats('*').then(data => console.log(data));</code></pre>
                         <td>X</td>
                         <td>X</td>
                         <td>X</td>
-                        <td>resident set size</td>
+                        <td>resident set size in Kbytes</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -1363,15 +1363,15 @@ si.dockerContainerProcesses('8b9ee343f5').then(data => console.log(data));</code
                           <pre class="example">
 [
   {
-    pidHost: '2415',
-    ppid: '2394',
-    pgid: '2415',
+    pidHost: 2415,
+    ppid: 2394,
+    pgid: 2415,
     user: 'root',
     time: '00:00:00',
     elapsed: '2:05:11',
-    nice: '0',
-    rss: '11264',
-    vsz: '11132',
+    nice: 0,
+    rss: 11264,
+    vsz: 11132,
     command: 'nginx: master process nginx -g daemon off;'
   },
   ...
