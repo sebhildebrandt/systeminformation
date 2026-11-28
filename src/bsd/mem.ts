@@ -1,10 +1,10 @@
-import { cloneObj, getValue, nextTick } from '../common';
+import { getValue, nextTick } from '../common';
 import { initMemData } from '../common/defaults';
 import { execSave } from '../common/exec';
 
 export const mem = async () => {
   await nextTick();
-  const defaults = cloneObj(initMemData);
+  const defaults = initMemData();
   try {
     const { stdout } = await execSave(
       '/sbin/sysctl -i hw.realmem hw.physmem vm.stats.vm.v_page_count vm.stats.vm.v_wire_count vm.stats.vm.v_active_count vm.stats.vm.v_inactive_count vm.stats.vm.v_cache_count vm.stats.vm.v_free_count vm.stats.vm.v_page_size kstat.zfs.misc.arcstats.size kstat.zfs.misc.arcstats.c_min'
@@ -30,7 +30,6 @@ export const mem = async () => {
       ...defaults,
       total,
       free,
-      // defaults.used is evaluated once at import - always derive it from this measurement
       used: total - free,
       buffcache,
       available,

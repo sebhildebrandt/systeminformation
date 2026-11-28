@@ -132,25 +132,29 @@ export const initCheckSite: InetChecksiteData = {
   ms: 0
 };
 
-export const initMemData: MemData = {
-  total: totalmem(),
-  free: freemem(),
-  used: totalmem() - freemem(),
+export const initMemData = (): MemData => {
+  const total = totalmem();
+  const free = freemem();
+  return {
+    total,
+    free,
+    used: total - free,
 
-  active: totalmem() - freemem(), // temporarily (fallback)
-  available: freemem(), // temporarily (fallback)
-  buffers: 0,
-  cached: 0,
-  slab: 0,
-  buffcache: 0,
-  reclaimable: 0,
-  swaptotal: 0,
-  swapused: 0,
-  swapfree: 0,
-  writeback: 0,
-  dirty: 0,
-  swapin_sec: null,
-  swapout_sec: null
+    active: total - free, // temporarily (fallback)
+    available: free, // temporarily (fallback)
+    buffers: 0,
+    cached: 0,
+    slab: 0,
+    buffcache: 0,
+    reclaimable: 0,
+    swaptotal: 0,
+    swapused: 0,
+    swapfree: 0,
+    writeback: 0,
+    dirty: 0,
+    swapin_sec: null,
+    swapout_sec: null
+  };
 };
 
 export const initOsInfo = async (): Promise<OsData> => {

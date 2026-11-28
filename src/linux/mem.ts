@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { freemem, totalmem } from 'node:os';
-import { cloneObj, getValue, nextTick, toInt } from '../common';
+import { getValue, nextTick, toInt } from '../common';
 import { initMemData } from '../common/defaults';
 import { readFileLines } from '../common/files';
 import type { MemData } from '../common/types';
@@ -49,7 +49,7 @@ const swapActivity = async () => {
 
 export const mem = async (): Promise<MemData> => {
   await nextTick();
-  const defaults = cloneObj(initMemData);
+  const defaults = initMemData();
   try {
     const stdout = await readFile('/proc/meminfo');
     const lines = stdout.toString().split('\n');

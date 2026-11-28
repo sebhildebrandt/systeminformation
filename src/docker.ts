@@ -162,7 +162,6 @@ export const dockerContainers = async (all = false): Promise<DockerContainerData
   }
   const workload: any[] = [];
 
-  // get() passes params as strings
   const data: any = await _docker_socket.listContainers(String(all).trim() === 'true');
   let docker_containers: any[] = [];
   try {
@@ -186,7 +185,7 @@ export const dockerContainers = async (all = false): Promise<DockerContainerData
         }
       });
       if (workload.length) {
-        const data = await Promise.all(workload);
+        const data = (await Promise.all(workload)).filter(Boolean);
         return data;
       } else {
         return result;

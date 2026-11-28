@@ -1,11 +1,11 @@
 import type { MemData } from '../common/types';
-import { cloneObj, nextTick } from '../common';
+import { nextTick } from '../common';
 import { initMemData } from '../common/defaults';
 import { ps } from '../common/windows';
 
 export const mem = async (): Promise<MemData> => {
   await nextTick();
-  const result = cloneObj(initMemData);
+  const result = initMemData();
   try {
     let swaptotal = 0;
     let swapused = 0;

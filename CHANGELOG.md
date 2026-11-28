@@ -135,6 +135,14 @@ We modernized the library with a full TypeScript rewrite and made a few interfac
 | module resolution | deep `require('.../dist/...')` | `exports` map (both `require` and `import`) | only documented entry points are importable; deep `dist/...` paths gone                 |
 | Node.js           | >= 4.0                         | **>= 20.0**                                 | minimum Node.js version is now 20.0                                                     |
 
+#### Deprecated
+
+The following functions were renamed for naming consistency. The old names still work as aliases but will be removed in a future major version:
+
+- `currentLoad()` - use `cpuCurrentLoad()`
+- `fullLoad()` - use `cpuFullLoad()`
+- `inetChecksite()` - use `inetCheckSite()`
+
 #### Modular Imports (new)
 
 The whole library, a single operating system, or a single function can now be imported individually:
@@ -937,6 +945,9 @@ For major (breaking) changes - **version 6, 5, 4, 3 and 2** - see end of page.
 - `async / await` is the preferred calling style, promises as an alternative
 - **callbacks are no longer available** (the former `si.cpu(data => ...)` style has been removed)
 - minimum **Node.js** version is now **20.0**
+- unsupported platforms: array results return `[]`, object results the default object and string results `''` instead of `null`
+- `dockerContainerProcesses()` `pidHost`, `ppid`, `pgid`, `nice`, `rss` and `vsz` are now numbers instead of strings
+- `currentLoad()`, `fullLoad()` and `inetChecksite()` are deprecated - use `cpuCurrentLoad()`, `cpuFullLoad()` and `inetCheckSite()`
 - new `exports` map: only documented entry points are importable (deep `dist/...` paths are no longer part of the public API). The whole library, a single operating system (`systeminformation/linux`, `/darwin`, `/windows`, `/bsd`, `/sun`) or a single function (`systeminformation/cpu`) can now be imported individually
 
 **Be aware**, that version 6.x is **NOT fully backward compatible** to version 5.x

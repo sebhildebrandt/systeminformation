@@ -1,4 +1,3 @@
-import { cloneObj } from './common';
 import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 import type { MemData } from './common/types';
 
@@ -13,6 +12,6 @@ export const mem = async (): Promise<MemData> => {
     case WINDOWS:
       return (await import('./windows/mem.js')).mem();
     default:
-      return cloneObj((await import('./common/defaults.js')).initMemData);
+      return (await import('./common/defaults.js')).initMemData();
   }
 };

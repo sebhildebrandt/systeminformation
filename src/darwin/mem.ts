@@ -1,12 +1,12 @@
 import { MemData } from '../common/types';
-import { cloneObj, getValue, nextTick, toInt } from '../common';
+import { getValue, nextTick, toInt } from '../common';
 import { initMemData } from '../common/defaults';
 import { exec } from '../common/exec';
 import { execSave } from './../common/exec';
 
 export const mem = async (): Promise<MemData> => {
   await nextTick();
-  const result = cloneObj(initMemData);
+  const result = initMemData();
   try {
     let pageSize = 4096;
     try {

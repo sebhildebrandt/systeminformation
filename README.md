@@ -79,6 +79,15 @@ imported individually - see [Installation](#installation) and [Usage](#usage).
   `Ubuntu`, `Raspberry Pi OS` instead of `Debian GNU/Linux`) - adapt checks on the distro name.
 - **macOS (Apple Silicon): `macos-smc` replaces `macos-temperature-sensor`** as optional
   package for temperatures, fans and the current CPU frequency - see [Known Issues](#known-issues).
+- **Unsupported platforms return empty results instead of `null`**: `[]` for array results, the
+  default object for object results and `''` for string results. `inetLatency()`, `diskSpeed()`,
+  `inetSpeed()` and `processFocused()` still return `null` when there is no result.
+- **`dockerContainerProcesses()`**: `pidHost`, `ppid`, `pgid`, `nice`, `rss` and `vsz` are now numbers.
+
+### Deprecated
+
+`currentLoad()`, `fullLoad()` and `inetChecksite()` were renamed to `cpuCurrentLoad()`, `cpuFullLoad()`
+and `inetCheckSite()`. The old names still work as aliases but will be removed in a future major version.
 
 ## Quick Start
 
