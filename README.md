@@ -181,6 +181,10 @@ implementations can be tree-shaken away.
 
 You can find all changes here: [detailed changelog][changelog-url]
 
+## Activity
+
+![Metrics](https://raw.githubusercontent.com/sebhildebrandt/systeminformation/metrics/metrics.repository.svg)
+
 ## Core concept
 
 [Node.js][nodejs-url] comes with some basic OS information, but I always wanted a little more. So I came up to write this little library. This library is still a work in progress. It is supposed to be used as a backend/server-side library (it will definitely not work within a browser). It requires Node.js version 20.0 and above.
