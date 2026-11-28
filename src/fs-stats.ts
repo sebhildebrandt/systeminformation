@@ -1,7 +1,8 @@
+import { cloneObj } from './common';
 import { DARWIN, LINUX, WINDOWS } from './common/const';
 import type { FsStatsData } from './common/types';
 
-export const fsStats = async (): Promise<FsStatsData | null> => {
+export const fsStats = async (): Promise<FsStatsData> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/fs-stats.js')).fsStats();
@@ -10,6 +11,6 @@ export const fsStats = async (): Promise<FsStatsData | null> => {
     case WINDOWS:
       return (await import('./windows/fs-stats.js')).fsStats();
     default:
-      return null;
+      return cloneObj((await import('./common/defaults.js')).initFsStats);
   }
 };

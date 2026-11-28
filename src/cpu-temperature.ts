@@ -1,7 +1,8 @@
+import { cloneObj } from './common';
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 import type { CpuTemperatureData } from './common/types';
 
-export const cpuTemperature = async (): Promise<CpuTemperatureData | null> => {
+export const cpuTemperature = async (): Promise<CpuTemperatureData> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/cpu-temperature.js')).cpuTemperature();
@@ -12,6 +13,6 @@ export const cpuTemperature = async (): Promise<CpuTemperatureData | null> => {
     case WINDOWS:
       return (await import('./windows/cpu-temperature.js')).cpuTemperature();
     default:
-      return null;
+      return cloneObj((await import('./common/defaults.js')).initCpuTemperature);
   }
 };

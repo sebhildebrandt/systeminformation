@@ -1,7 +1,7 @@
 import { LINUX, WINDOWS, DARWIN, FREEBSD, NETBSD, OPENBSD, ANDROID } from './common/const';
 import type { NetworkConnectionData } from './common/types';
 
-export const networkConnections = async (): Promise<NetworkConnectionData[] | null> => {
+export const networkConnections = async (): Promise<NetworkConnectionData[]> => {
   switch (true) {
     case LINUX || FREEBSD || NETBSD || OPENBSD || ANDROID:
       return (await import('./linux/network-connections.js')).networkConnections();
@@ -10,6 +10,6 @@ export const networkConnections = async (): Promise<NetworkConnectionData[] | nu
     case WINDOWS:
       return (await import('./windows/network-connections.js')).networkConnections();
     default:
-      return null;
+      return [];
   }
 };

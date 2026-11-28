@@ -1,6 +1,6 @@
 import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 
-export const cpuFlags = async (): Promise<string | null> => {
+export const cpuFlags = async (): Promise<string> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/cpu-flags.js')).cpuFlags();
@@ -11,6 +11,6 @@ export const cpuFlags = async (): Promise<string | null> => {
     case WINDOWS:
       return (await import('./windows/cpu-flags.js')).cpuFlags();
     default:
-      return null;
+      return '';
   }
 };

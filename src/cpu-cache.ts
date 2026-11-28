@@ -1,7 +1,8 @@
+import { cloneObj } from './common';
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 import type { CpuCacheData } from './common/types';
 
-export const cpuCache = async (): Promise<CpuCacheData | null> => {
+export const cpuCache = async (): Promise<CpuCacheData> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/cpu-cache.js')).cpuCache();
@@ -12,6 +13,6 @@ export const cpuCache = async (): Promise<CpuCacheData | null> => {
     case WINDOWS:
       return (await import('./windows/cpu-cache.js')).cpuCache();
     default:
-      return null;
+      return cloneObj((await import('./common/defaults.js')).initCpuCacheResult);
   }
 };

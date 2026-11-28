@@ -125,7 +125,7 @@ export const getDynamicData = async (serviceNames: string | string[] = '', inter
     si.cpuCurrentSpeed(),
     si.users(),
     si.processes(),
-    si.currentLoad(),
+    si.cpuCurrentLoad(),
     si.cpuTemperature(),
     si.fans(),
     (async () => si.networkStats(interfaces || (await si.networkInterfaceDefault()) || '*'))(),

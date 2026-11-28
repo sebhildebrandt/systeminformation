@@ -1,7 +1,8 @@
+import { cloneObj } from './common';
 import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 import type { MemData } from './common/types';
 
-export const mem = async (): Promise<MemData | null> => {
+export const mem = async (): Promise<MemData> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/mem.js')).mem();
@@ -12,6 +13,6 @@ export const mem = async (): Promise<MemData | null> => {
     case WINDOWS:
       return (await import('./windows/mem.js')).mem();
     default:
-      return null;
+      return cloneObj((await import('./common/defaults.js')).initMemData);
   }
 };

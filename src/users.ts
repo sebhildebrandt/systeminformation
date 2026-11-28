@@ -1,7 +1,7 @@
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, SUNOS, WINDOWS } from './common/const';
 import type { UserData } from './common/types';
 
-export const users = async (): Promise<UserData[] | null> => {
+export const users = async (): Promise<UserData[]> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/users.js')).users();
@@ -14,6 +14,6 @@ export const users = async (): Promise<UserData[] | null> => {
     case WINDOWS:
       return (await import('./windows/users.js')).users();
     default:
-      return null;
+      return [];
   }
 };

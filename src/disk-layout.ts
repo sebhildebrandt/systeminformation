@@ -1,6 +1,6 @@
 import { DARWIN, LINUX, WINDOWS } from './common/const';
 import type { DiskLayoutData } from './common/types';
-export const diskLayout = async (): Promise<DiskLayoutData[] | null> => {
+export const diskLayout = async (): Promise<DiskLayoutData[]> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/disk-layout.js')).diskLayout();
@@ -9,6 +9,6 @@ export const diskLayout = async (): Promise<DiskLayoutData[] | null> => {
     case WINDOWS:
       return (await import('./windows/disk-layout.js')).diskLayout();
     default:
-      return null;
+      return [];
   }
 };

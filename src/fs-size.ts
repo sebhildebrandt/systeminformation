@@ -1,7 +1,7 @@
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 import type { FsSizeData } from './common/types';
 
-export const fsSize = async (drives?: string | string[]): Promise<FsSizeData[] | null> => {
+export const fsSize = async (drives?: string | string[]): Promise<FsSizeData[]> => {
   drives = Array.isArray(drives) ? drives : drives ? [drives] : [];
   if (drives.includes('*')) {
     drives = [];
@@ -12,6 +12,6 @@ export const fsSize = async (drives?: string | string[]): Promise<FsSizeData[] |
     case WINDOWS:
       return (await import('./windows/fs-size.js')).fsSize(drives);
     default:
-      return null;
+      return [];
   }
 };

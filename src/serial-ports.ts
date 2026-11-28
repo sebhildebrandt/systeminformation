@@ -1,7 +1,7 @@
 import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
 import type { SerialPortData } from './common/types';
 
-export const serialPorts = async (): Promise<SerialPortData[] | null> => {
+export const serialPorts = async (): Promise<SerialPortData[]> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/serial-ports.js')).serialPorts();
@@ -10,6 +10,6 @@ export const serialPorts = async (): Promise<SerialPortData[] | null> => {
     case WINDOWS:
       return (await import('./windows/serial-ports.js')).serialPorts();
     default:
-      return null;
+      return [];
   }
 };

@@ -1,7 +1,7 @@
 import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
 import type { GpuData } from './common/types';
 
-export const gpu = async (): Promise<GpuData[] | null> => {
+export const gpu = async (): Promise<GpuData[]> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/gpu.js')).gpu();
@@ -10,6 +10,6 @@ export const gpu = async (): Promise<GpuData[] | null> => {
     case WINDOWS:
       return (await import('./windows/gpu.js')).gpu();
     default:
-      return null;
+      return [];
   }
 };

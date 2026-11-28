@@ -1,7 +1,7 @@
 import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
 import type { BluetoothDeviceData } from './common/types';
 
-export const bluetoothDevices = async (): Promise<BluetoothDeviceData[] | null> => {
+export const bluetoothDevices = async (): Promise<BluetoothDeviceData[]> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/bluetooth-devices.js')).bluetoothDevices();
@@ -10,6 +10,6 @@ export const bluetoothDevices = async (): Promise<BluetoothDeviceData[] | null> 
     case WINDOWS:
       return (await import('./windows/bluetooth-devices.js')).bluetoothDevices();
     default:
-      return null;
+      return [];
   }
 };

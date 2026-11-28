@@ -1,7 +1,7 @@
 import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
 import type { WifiInterfaceData } from './common/types';
 
-export const wifiInterfaces = async (): Promise<WifiInterfaceData[] | null> => {
+export const wifiInterfaces = async (): Promise<WifiInterfaceData[]> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/wifi-interfaces.js')).wifiInterfaces();
@@ -10,6 +10,6 @@ export const wifiInterfaces = async (): Promise<WifiInterfaceData[] | null> => {
     case WINDOWS:
       return (await import('./windows/wifi-interfaces.js')).wifiInterfaces();
     default:
-      return null;
+      return [];
   }
 };

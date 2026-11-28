@@ -1,7 +1,8 @@
+import { cloneObj } from './common';
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 import type { UuidData } from './common/types';
 
-export const uuid = async (): Promise<UuidData | null> => {
+export const uuid = async (): Promise<UuidData> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/uuid.js')).uuid();
@@ -12,6 +13,6 @@ export const uuid = async (): Promise<UuidData | null> => {
     case WINDOWS:
       return (await import('./windows/uuid.js')).uuid();
     default:
-      return null;
+      return cloneObj((await import('./common/defaults.js')).initUUID);
   }
 };

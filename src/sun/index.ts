@@ -1,6 +1,6 @@
-export { currentLoad } from '../cpu-current-load';
+export { cpuCurrentLoad, currentLoad } from '../cpu-current-load';
 export { cpuCurrentSpeed } from '../cpu-current-speed';
-export { fullLoad } from '../cpu-full-load';
+export { cpuFullLoad, fullLoad } from '../cpu-full-load';
 export { networkInterfaceDefault } from '../darwin/network-interface-default';
 export {
   dockerAll,
@@ -11,7 +11,7 @@ export {
   dockerInfo,
   dockerVolumes
 } from '../docker';
-export { inetChecksite } from '../inet-checksite';
+export { inetCheckSite, inetChecksite } from '../inet-checksite';
 export { inetSpeed } from '../inet-speed';
 export { processLoad } from '../linux/process-load';
 export { processes } from '../linux/processes';

@@ -1,5 +1,5 @@
 import { LINUX, WINDOWS, DARWIN, FREEBSD, NETBSD, OPENBSD, ANDROID } from './common/const';
-export const networkGatewayDefault = async (): Promise<string | null> => {
+export const networkGatewayDefault = async (): Promise<string> => {
   switch (true) {
     case LINUX || FREEBSD || NETBSD || OPENBSD || ANDROID:
       return (await import('./linux/network-gateway-default.js')).networkGatewayDefault();
@@ -8,6 +8,6 @@ export const networkGatewayDefault = async (): Promise<string | null> => {
     case WINDOWS:
       return (await import('./windows/network-gateway-default.js')).networkGatewayDefault();
     default:
-      return null;
+      return '';
   }
 };

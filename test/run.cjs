@@ -20,13 +20,13 @@ function run(si, f) {
       else if (f === 'h') { si.bluetoothDevices().then(data => { if (data !== null) { resolve({ data, title: 'Bluetooth' }); } else { resolve('not_supported'); } }); }
       else if (f === 'H') { si.thunderbolt().then(data => { if (data !== null) { resolve({ data, title: 'Thunderbolt' }); } else { resolve('not_supported'); } }); }
       else if (f === 'i') { si.inetLatency().then(data => { if (data !== null) { resolve({ data, title: 'Internet Latency' }); } else { resolve('not_supported'); } }); }
-      else if (f === 'I') { si.inetChecksite('https://systeminformation.io').then(data => { if (data !== null) { resolve({ data, title: 'Internet Check Site' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'I') { si.inetCheckSite('https://systeminformation.io').then(data => { if (data !== null) { resolve({ data, title: 'Internet Check Site' }); } else { resolve('not_supported'); } }); }
       else if (f === 'j') { si.inetPublicIp().then(data => { if (data !== null) { resolve({ data, title: 'Internet Public IP' }); } else { resolve('not_supported'); } }); }
       else if (f === 'J') { si.cpuCurrentSpeed().then(data => { if (data !== null) { resolve({ data, title: 'CPU Current Speed' }); } else { resolve('not_supported'); } }); }
       else if (f === 'k') { si.camera().then(data => { if (data !== null) { resolve({ data, title: 'Camera' }); } else { resolve('not_supported'); } }); }
       else if (f === 'K') { si.keyboard().then(data => { if (data !== null) { resolve({ data, title: 'Keyboard' }); } else { resolve('not_supported'); } }); }
-      else if (f === 'l') { si.currentLoad().then(data => { if (data !== null) { resolve({ data, title: 'CPU Current Load' }); } else { resolve('not_supported'); } }); }
-      else if (f === 'L') { si.fullLoad().then(data => { if (data !== null) { resolve({ data, title: 'CPU Full Load' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'l') { si.cpuCurrentLoad().then(data => { if (data !== null) { resolve({ data, title: 'CPU Current Load' }); } else { resolve('not_supported'); } }); }
+      else if (f === 'L') { si.cpuFullLoad().then(data => { if (data !== null) { resolve({ data, title: 'CPU Full Load' }); } else { resolve('not_supported'); } }); }
       else if (f === 'm') { si.mem().then(data => { if (data !== null) { resolve({ data, title: 'Memory' }); } else { resolve('not_supported'); } }); }
       else if (f === 'M') { si.memLayout().then(data => { if (data !== null) { resolve({ data, title: 'Memory Layout' }); } else { resolve('not_supported'); } }); }
       else if (f === 'n') { si.npu().then(data => { if (data !== null) { resolve({ data, title: 'NPU' }); } else { resolve('not_supported'); } }); }

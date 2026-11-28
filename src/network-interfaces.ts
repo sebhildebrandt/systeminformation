@@ -1,7 +1,7 @@
 import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 import type { NetworkInterfaceData } from './common/types';
 
-export const networkInterfaces = async (filter = '', rescan = true): Promise<NetworkInterfaceData[] | null> => {
+export const networkInterfaces = async (filter = '', rescan = true): Promise<NetworkInterfaceData[]> => {
   // objects without string conversion would throw here
   filter = typeof filter === 'string' ? filter : '';
   switch (true) {
@@ -12,6 +12,6 @@ export const networkInterfaces = async (filter = '', rescan = true): Promise<Net
     case WINDOWS:
       return (await import('./windows/network-interfaces.js')).networkInterfaces(filter, rescan);
     default:
-      return null;
+      return [];
   }
 };

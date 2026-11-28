@@ -2,7 +2,7 @@ import { joinList } from './common';
 import { LINUX, WINDOWS, DARWIN, FREEBSD, NETBSD, OPENBSD, ANDROID } from './common/const';
 import type { NetworkStatsData } from './common/types';
 
-export const networkStats = async (interfaces: string | string[] = ''): Promise<NetworkStatsData[] | null> => {
+export const networkStats = async (interfaces: string | string[] = ''): Promise<NetworkStatsData[]> => {
   const names = joinList(interfaces);
   switch (true) {
     case LINUX || ANDROID:
@@ -14,6 +14,6 @@ export const networkStats = async (interfaces: string | string[] = ''): Promise<
     case WINDOWS:
       return (await import('./windows/network-stats.js')).networkStats(names);
     default:
-      return null;
+      return [];
   }
 };

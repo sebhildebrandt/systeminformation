@@ -189,9 +189,9 @@ export type DockerContainerStatsData = {
 };
 
 export type DockerContainerProcessData = {
-  pidHost: string;
-  ppid: string;
-  pgid: string;
+  pidHost: number | null;
+  ppid: number | null;
+  pgid: number | null;
   user: string;
   ruser: string;
   group: string;
@@ -199,9 +199,9 @@ export type DockerContainerProcessData = {
   stat: string;
   time: string;
   elapsed: string;
-  nice: string;
-  rss: string;
-  vsz: string;
+  nice: number | null;
+  rss: number | null;
+  vsz: number | null;
   command: string;
 };
 

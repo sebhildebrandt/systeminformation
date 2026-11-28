@@ -1,7 +1,8 @@
+import { cloneObj } from './common';
 import { ANDROID, DARWIN, LINUX, WINDOWS } from './common/const';
 import type { SystemData } from './common/types';
 
-export const system = async (): Promise<SystemData | null> => {
+export const system = async (): Promise<SystemData> => {
   switch (true) {
     case LINUX || ANDROID:
       return (await import('./linux/system.js')).system();
@@ -10,6 +11,6 @@ export const system = async (): Promise<SystemData | null> => {
     case WINDOWS:
       return (await import('./windows/system.js')).system();
     default:
-      return null;
+      return cloneObj((await import('./common/defaults.js')).initSystem);
   }
 };

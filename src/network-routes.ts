@@ -1,7 +1,7 @@
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 import type { NetworkRouteData } from './common/types';
 
-export const networkRoutes = async (): Promise<NetworkRouteData[] | null> => {
+export const networkRoutes = async (): Promise<NetworkRouteData[]> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/network-routes.js')).networkRoutes();
@@ -10,6 +10,6 @@ export const networkRoutes = async (): Promise<NetworkRouteData[] | null> => {
     case WINDOWS:
       return (await import('./windows/network-routes.js')).networkRoutes();
     default:
-      return null;
+      return [];
   }
 };

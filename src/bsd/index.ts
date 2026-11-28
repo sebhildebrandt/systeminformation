@@ -1,13 +1,13 @@
-export { currentLoad } from '../cpu-current-load';
+export { cpuCurrentLoad, currentLoad } from '../cpu-current-load';
 export { cpuCurrentSpeed } from '../cpu-current-speed';
-export { fullLoad } from '../cpu-full-load';
+export { cpuFullLoad, fullLoad } from '../cpu-full-load';
 export { fsOpenFiles } from '../darwin/fs-open-files';
 export { networkInterfaceDefault } from '../darwin/network-interface-default';
 export { networkInterfaces } from '../darwin/network-interfaces';
 export { networkRoutes } from '../darwin/network-routes';
 export { users } from '../darwin/users';
 export { dockerAll, dockerContainerProcesses, dockerContainers, dockerContainerStats, dockerImages, dockerInfo, dockerVolumes } from '../docker';
-export { inetChecksite } from '../inet-checksite';
+export { inetCheckSite, inetChecksite } from '../inet-checksite';
 export { inetSpeed } from '../inet-speed';
 export { audio } from '../linux/audio';
 export { baseboard } from '../linux/baseboard';

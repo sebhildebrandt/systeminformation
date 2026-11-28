@@ -1,6 +1,7 @@
+import { cloneObj } from './common';
 import { DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 import type { FsOpenFilesData } from './common/types';
-export const fsOpenFiles = async (): Promise<FsOpenFilesData | null> => {
+export const fsOpenFiles = async (): Promise<FsOpenFilesData> => {
   switch (true) {
     case FREEBSD || NETBSD || OPENBSD || DARWIN:
       return (await import('./darwin/fs-open-files.js')).fsOpenFiles();
@@ -9,6 +10,6 @@ export const fsOpenFiles = async (): Promise<FsOpenFilesData | null> => {
     case WINDOWS:
       return (await import('./windows/fs-open-files.js')).fsOpenFiles();
     default:
-      return null;
+      return cloneObj((await import('./common/defaults.js')).initFsOpenFiles);
   }
 };

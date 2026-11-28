@@ -1,7 +1,7 @@
 import { DARWIN, LINUX, WINDOWS } from './common/const';
 import type { MouseData } from './common/types';
 
-export const mouse = async (): Promise<MouseData[] | null> => {
+export const mouse = async (): Promise<MouseData[]> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/mouse.js')).mouse();
@@ -10,6 +10,6 @@ export const mouse = async (): Promise<MouseData[] | null> => {
     case WINDOWS:
       return (await import('./windows/mouse.js')).mouse();
     default:
-      return null;
+      return [];
   }
 };

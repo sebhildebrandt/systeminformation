@@ -1,8 +1,8 @@
-import { joinList, nextTick } from './common';
+import { cloneObj, joinList, nextTick } from './common';
 import { WINDOWS } from './common/const';
 import { nanoSeconds } from './common/datetime';
 import { isPrototypePolluted, sanitizeContainerID, sanitizeImageID } from './common/security';
-import type { DockerContainerData, DockerContainerProcessData, DockerContainerStatsData, DockerVolumeData } from './common/types';
+import type { DockerContainerData, DockerInfoData, DockerContainerProcessData, DockerContainerStatsData, DockerVolumeData } from './common/types';
 import { DockerSocket } from './docker-socket';
 
 const _docker_cpu_last_read: { [index: string]: number } = {};
@@ -11,7 +11,7 @@ let _docker_socket: DockerSocket;
 // --------------------------
 // get docker info
 
-export const dockerInfo = async () => {
+export const dockerInfo = async (): Promise<DockerInfoData> => {
   await nextTick();
   if (!_docker_socket) {
     _docker_socket = new DockerSocket();
@@ -67,7 +67,7 @@ export const dockerInfo = async () => {
       productLicense: data.ProductLicense
     };
   } else {
-    return {};
+    return cloneObj((await import('./common/defaults.js')).initDockerInfo);
   }
 };
 
@@ -78,7 +78,7 @@ export const dockerImages = async (all = false) => {
   }
   const workload: any[] = [];
 
-  const data: any = await _docker_socket.listImages(all);
+  const data: any = await _docker_socket.listImages(String(all).trim() === 'true');
   let dockerImages: any = {};
   try {
     dockerImages = data;
@@ -150,7 +150,7 @@ const dockerImagesInspect = async (imageID: string, payload: any) => {
   }
 };
 
-export const dockerContainers = async (all = true): Promise<DockerContainerData[]> => {
+export const dockerContainers = async (all = false): Promise<DockerContainerData[]> => {
   const inContainers = (containers: any, id: string) => {
     return containers.some((obj: any) => obj.Id && obj.Id.indexOf(id) === 0);
   };
@@ -162,7 +162,8 @@ export const dockerContainers = async (all = true): Promise<DockerContainerData[
   }
   const workload: any[] = [];
 
-  const data: any = await _docker_socket.listContainers(all);
+  // get() passes params as strings
+  const data: any = await _docker_socket.listContainers(String(all).trim() === 'true');
   let docker_containers: any[] = [];
   try {
     docker_containers = data;
@@ -490,10 +491,14 @@ export const dockerContainerProcesses = async (containerId: string) => {
         const pos_command = titles.indexOf('COMMAND');
 
         data.Processes.forEach((process: any) => {
+          const num = (pos: number) => {
+            const value = pos >= 0 ? parseInt(process[pos], 10) : NaN;
+            return Number.isNaN(value) ? null : value;
+          };
           result.push({
-            pidHost: pos_pid >= 0 ? process[pos_pid] : '',
-            ppid: pos_ppid >= 0 ? process[pos_ppid] : '',
-            pgid: pos_pgid >= 0 ? process[pos_pgid] : '',
+            pidHost: num(pos_pid),
+            ppid: num(pos_ppid),
+            pgid: num(pos_pgid),
             user: pos_user >= 0 ? process[pos_user] : '',
             ruser: pos_ruser >= 0 ? process[pos_ruser] : '',
             group: pos_group >= 0 ? process[pos_group] : '',
@@ -501,9 +506,9 @@ export const dockerContainerProcesses = async (containerId: string) => {
             stat: pos_stat >= 0 ? process[pos_stat] : '',
             time: pos_time >= 0 ? process[pos_time] : '',
             elapsed: pos_elapsed >= 0 ? process[pos_elapsed] : '',
-            nice: pos_ni >= 0 ? process[pos_ni] : '',
-            rss: pos_rss >= 0 ? process[pos_rss] : '',
-            vsz: pos_vsz >= 0 ? process[pos_vsz] : '',
+            nice: num(pos_ni),
+            rss: num(pos_rss),
+            vsz: num(pos_vsz),
             command: pos_command >= 0 ? process[pos_command] : ''
           });
         });

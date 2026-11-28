@@ -1,7 +1,7 @@
 import { DARWIN, LINUX, WINDOWS } from './common/const';
 import type { CameraData } from './common/types';
 
-export const camera = async (): Promise<CameraData[] | null> => {
+export const camera = async (): Promise<CameraData[]> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/camera.js')).camera();
@@ -10,6 +10,6 @@ export const camera = async (): Promise<CameraData[] | null> => {
     case WINDOWS:
       return (await import('./windows/camera.js')).camera();
     default:
-      return null;
+      return [];
   }
 };

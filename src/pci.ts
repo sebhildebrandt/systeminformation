@@ -1,7 +1,7 @@
 import { DARWIN, LINUX, WINDOWS } from './common/const';
 import type { PciData } from './common/types';
 
-export const pci = async (): Promise<PciData[] | null> => {
+export const pci = async (): Promise<PciData[]> => {
   switch (true) {
     case LINUX:
       return (await import('./linux/pci.js')).pci();
@@ -10,6 +10,6 @@ export const pci = async (): Promise<PciData[] | null> => {
     case WINDOWS:
       return (await import('./windows/pci.js')).pci();
     default:
-      return null;
+      return [];
   }
 };

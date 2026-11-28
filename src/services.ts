@@ -2,7 +2,7 @@ import { joinList } from './common';
 import { ANDROID, DARWIN, FREEBSD, LINUX, NETBSD, OPENBSD, WINDOWS } from './common/const';
 import type { ServiceData } from './common/types';
 
-export const services = async (serviceNames: string | string[] = ''): Promise<ServiceData[] | null> => {
+export const services = async (serviceNames: string | string[] = ''): Promise<ServiceData[]> => {
   const names = joinList(serviceNames);
   switch (true) {
     case LINUX || FREEBSD || NETBSD || OPENBSD || DARWIN || ANDROID:
@@ -10,6 +10,6 @@ export const services = async (serviceNames: string | string[] = ''): Promise<Se
     case WINDOWS:
       return (await import('./windows/services.js')).services(names);
     default:
-      return null;
+      return [];
   }
 };
