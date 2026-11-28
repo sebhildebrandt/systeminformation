@@ -14,11 +14,11 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           template: repository
+          config_display: large
           user: sebhildebrandt
           repo: systeminformation
           filename: metrics.repository.svg
           # own branch, keeps master clean
           committer_branch: metrics
-          plugin_contributors: yes
           plugin_followup: yes
           plugin_lines: yes
